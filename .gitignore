@@ -4,3 +4,7 @@ source/
 .DS_Store
 .vite
 *.local
+assets/bioicons/
+assets/incoming/
+build/
+.playwright-mcp/

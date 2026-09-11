@@ -15,6 +15,18 @@
   color: var(--c-accent);
 }
 
+.site-credits {
+  margin-top: var(--sp-8);
+  padding-top: var(--sp-4);
+  border-top: 1px solid var(--c-border);
+  font-size: var(--fs-sm);
+  color: var(--c-text-muted);
+}
+
+.site-credits a {
+  color: var(--c-accent);
+}
+
 /* Page header */
 .page-header {
   margin-bottom: var(--sp-7);

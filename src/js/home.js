@@ -5,7 +5,7 @@ import { el, formatDate, daysUntil } from './dom.js';
 import { registry, exampleLecture } from '../content/registry.js';
 import { getLectureSummary, storageAvailable } from './progress.js';
 import { renderReview } from './review.js';
-import { renderSiteNav } from './render.js';
+import { renderSiteNav, renderCredits } from './render.js';
 
 const BASE = import.meta.env.BASE_URL || '/';
 const lectures = import.meta.env.DEV ? [...registry, exampleLecture] : registry;
@@ -67,6 +67,7 @@ function render() {
       el('h2', { id: 'course-map-title' }, 'Course map'),
       el('ol', { class: 'course-map', 'aria-labelledby': 'course-map-title' }, lectures.map(courseCard)),
       review,
+      renderCredits(),
     ])
   );
 }

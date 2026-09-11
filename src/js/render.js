@@ -8,6 +8,7 @@ import { renderLectureQuiz } from './lectureQuiz.js';
 import { storageAvailable } from './progress.js';
 
 const BASE = import.meta.env.BASE_URL || '/';
+const CREDITS_URL = 'https://github.com/Hernfe/Study_Environment/blob/main/CREDITS.md';
 
 export function renderSiteNav(current) {
   return el('nav', { class: 'site-nav', 'aria-label': 'Site' }, [
@@ -44,6 +45,18 @@ export function markKeyTerms(root, keyTerms = []) {
     }
   }
   return root;
+}
+
+// Small credits line at the bottom of every page. CREDITS.md lists each
+// figure asset with its source and licence.
+export function renderCredits() {
+  return el('footer', { class: 'site-credits' }, [
+    el('p', {}, [
+      'Figures are drawn for this site or adapted from open sources. See ',
+      el('a', { href: CREDITS_URL, rel: 'noopener' }, 'figure credits'),
+      ' for sources and licences.',
+    ]),
+  ]);
 }
 
 function escapeRegExp(text) {
@@ -172,6 +185,7 @@ export function renderLecture(content, root) {
     ...content.sections.map((section) => renderSection(section, lectureId)),
     renderRecap(content.recap),
     renderLectureQuiz(content.lectureQuiz || [], { lectureId }),
+    renderCredits(),
   ]);
 
   root.className = 'page has-toc';

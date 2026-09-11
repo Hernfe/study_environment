@@ -415,3 +415,22 @@ no lecture text, only scheduling and status.
 
 All storage access is wrapped in try/catch; when storage is unavailable
 the site works but shows a notice and remembers nothing.
+
+## Figure assets and credits
+
+Every page ends with a fixed credits line (`renderCredits()` in
+`render.js`) linking to `CREDITS.md`. Content files do not add credits
+themselves; when a lecture starts using an external or extracted asset,
+add a row to the "Assets in use" table in `CREDITS.md`.
+
+Asset pipeline (see each script's docstring):
+
+- `scripts/find_asset.py <keyword>`: search the local Bioicons clone
+  (`assets/bioicons/`, ignored by git) and print paths with licence.
+- `scripts/bioart_fetch.py`, `scripts/servier_fetch.py`: download from
+  NIH BioArt and Servier Medical Art into `assets/incoming/` (ignored).
+- `scripts/extract_figures.py`: list embedded images in a slide PDF and
+  crop any rectangle at 300 DPI to `src/assets/figures/L0X/<name>.webp`
+  (under 200 KB) with a sidecar JSON naming page and crop box.
+- `d3` is available for quantitative plots (`import * as d3 from 'd3'`
+  or named imports; import only the modules a figure needs).
