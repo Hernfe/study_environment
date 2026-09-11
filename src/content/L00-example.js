@@ -1,0 +1,254 @@
+// Dummy lecture that exercises every section and question type so the
+// renderer can be tested. Not course content. Shown only in dev.
+
+export default {
+  meta: {
+    id: 'L00',
+    number: 0,
+    title: 'Renderer test lecture',
+    chapters: [],
+    pages: [{ chapter: 0, from: 1, to: 2 }],
+    lectureDate: '2026-09-01',
+    examDate: '2026-12-31',
+  },
+
+  objectives: [
+    'See every section type render: paragraph array, HTML string, static SVG, interactive widget.',
+    'See every question type render: multiple choice, essay, label, order, calculation.',
+    'Confirm progress is stored and that review pulls missed questions first.',
+  ],
+
+  prerequisites: [
+    { text: 'Nothing. This is a test page.' },
+    { text: 'A link to another lecture section renders like this.', lectureId: 'L01', sectionId: 'intro' },
+  ],
+
+  sections: [
+    {
+      id: 'toy-cell',
+      title: 'A toy cell (static figure, paragraph array)',
+      body: [
+        'This block tests a body given as an array of plain paragraphs. The toy cell has a membrane, a channel and a pump. The channel lets one kind of particle move down its gradient.',
+        'The pump moves particles against their gradient and uses energy to do it. Key terms in this text are marked automatically from the keyTerms list, first occurrence only.',
+        'A third paragraph checks spacing between paragraphs and that a term like pump is not marked twice.',
+      ],
+      keyTerms: ['membrane', 'channel', 'pump', 'gradient'],
+      visual: {
+        type: 'svg',
+        name: 'example-cell',
+        props: { labels: true },
+        caption: 'The toy cell. The channel (top) lets particles flow in; the pump (right) moves them out.',
+        fallbackAlt: 'Schematic cell: a rounded rectangle with a nucleus, a channel in the top membrane with an arrow pointing in, and a pump in the right membrane with arrows both ways.',
+      },
+      conceptQuiz: [
+        {
+          id: 'toy-cell-1',
+          prompt: 'Which structure moves particles against their gradient?',
+          options: [
+            { text: 'The channel', feedback: 'Channels only allow movement down a gradient.' },
+            { text: 'The pump', feedback: 'Correct. Pumps use energy to move particles uphill.' },
+            { text: 'The membrane', feedback: 'The membrane is the barrier, not the transporter.' },
+          ],
+          correct: 1,
+        },
+        {
+          id: 'toy-cell-2',
+          prompt: 'What does the channel need in order to move particles?',
+          options: [
+            { text: 'A concentration gradient', feedback: 'Correct. Flow through a channel is passive.' },
+            { text: 'Energy from the cell', feedback: 'That is the pump. Channels are passive.' },
+            { text: 'A nucleus', feedback: 'The nucleus has nothing to do with transport across the membrane.' },
+          ],
+          correct: 0,
+        },
+      ],
+    },
+    {
+      id: 'toy-curve',
+      title: 'A toy curve (widget, HTML string body)',
+      body:
+        '<p>This block tests a body given as one HTML string, and an interactive widget. Move the slider to change the <dfn>gain</dfn> and watch the curve change. A hand-written dfn like the one just used is left alone by the auto-marker.</p><p>The equation plotted is y = gain * x * exp(-x / tau). It has no meaning here; it just shows a peak that moves.</p>',
+      keyTerms: ['gain', 'tau'],
+      visual: {
+        type: 'widget',
+        name: 'slider-plot',
+        props: {
+          xLabel: 'x (ms)',
+          yLabel: 'y',
+          xMin: 0,
+          xMax: 20,
+          yMin: -2,
+          yMax: 10,
+          params: [
+            { key: 'gain', label: 'gain', min: 0, max: 5, step: 0.1, value: 2, unit: '' },
+            { key: 'tau', label: 'tau', min: 1, max: 10, step: 0.5, value: 3, unit: 'ms' },
+          ],
+          compute: (x, p) => p.gain * x * Math.exp(-x / p.tau),
+          readout: (p) => `Peak at x = ${p.tau} ms, height ${(p.gain * p.tau * Math.exp(-1)).toFixed(2)}.`,
+        },
+        caption: 'y = gain * x * exp(-x / tau). The peak sits at x = tau.',
+        fallbackAlt: 'A curve that rises quickly from zero to a peak and then decays slowly back toward zero.',
+      },
+      conceptQuiz: [
+        {
+          id: 'toy-curve-1',
+          prompt: 'If tau doubles, where does the peak move?',
+          options: [
+            { text: 'To twice the x value', feedback: 'Correct. The peak is at x = tau.' },
+            { text: 'It does not move, only the height changes', feedback: 'Height changes too, but the position is set by tau.' },
+            { text: 'To half the x value', feedback: 'Larger tau means a slower decay, so the peak moves right, not left.' },
+          ],
+          correct: 0,
+        },
+      ],
+    },
+    {
+      id: 'no-visual',
+      title: 'A block with no visual',
+      body: ['This block has visual set to null and no concept quiz. It checks that both are optional in the renderer.'],
+      keyTerms: [],
+      visual: null,
+      conceptQuiz: [],
+    },
+  ],
+
+  recap: {
+    terms: [
+      { term: 'Membrane', definition: 'The barrier around the toy cell.' },
+      { term: 'Channel', definition: 'Passive pore. Particles move down their gradient.' },
+      { term: 'Pump', definition: 'Active transporter. Uses energy to move particles up their gradient.' },
+      { term: 'Gain', definition: 'Scales the height of the toy curve.' },
+      { term: 'Tau', definition: 'Sets the position of the peak of the toy curve.' },
+    ],
+    equations: [
+      {
+        name: 'Toy curve',
+        expression: 'y = gain * x * exp(-x / tau)',
+        note: 'Peak at x = tau with height gain * tau / e.',
+      },
+    ],
+  },
+
+  lectureQuiz: [
+    {
+      id: 'q01',
+      difficulty: 'easy',
+      type: 'mc',
+      prompt: 'Which structure lets particles move passively down their gradient?',
+      options: [
+        { text: 'Pump', feedback: 'Pumps are active and move particles uphill.' },
+        { text: 'Channel', feedback: 'Correct. Channels are passive pores.' },
+        { text: 'Nucleus', feedback: 'The nucleus is inside the cell and does not transport particles.' },
+        { text: 'Membrane', feedback: 'The membrane is the barrier itself.' },
+      ],
+      correct: 1,
+      modelAnswer: [
+        'The channel is a pore through the membrane.',
+        'Particles move through it from high to low concentration with no energy input.',
+      ],
+    },
+    {
+      id: 'q02',
+      difficulty: 'easy',
+      type: 'label',
+      prompt: 'Label the numbered parts of the toy cell.',
+      figure: {
+        type: 'svg',
+        name: 'example-cell',
+        props: { labels: false },
+        fallbackAlt: 'The toy cell with three numbered markers on the channel, the nucleus and the pump.',
+      },
+      regions: [
+        { id: 'r1', x: 34, y: 13, label: 'Channel', explanation: 'The two bars in the top membrane with an arrow through them.' },
+        { id: 'r2', x: 50, y: 50, label: 'Nucleus', explanation: 'The circle in the middle of the cell.' },
+        { id: 'r3', x: 85, y: 50, label: 'Pump', explanation: 'The box in the right membrane with arrows both ways.' },
+      ],
+      labels: ['Channel', 'Nucleus', 'Pump', 'Ribosome', 'Vesicle'],
+      modelAnswer: [
+        '1 is the channel in the top membrane.',
+        '2 is the nucleus.',
+        '3 is the pump in the right membrane.',
+      ],
+    },
+    {
+      id: 'q03',
+      difficulty: 'medium',
+      type: 'order',
+      prompt: 'Put the steps of filling the toy cell in order.',
+      items: [
+        'Particles move in through the channel',
+        'The pump removes particles again',
+        'A gradient exists across the membrane',
+        'The inside concentration rises',
+      ],
+      correctOrder: [2, 0, 3, 1],
+      modelAnswer: [
+        'A gradient must exist first, otherwise nothing moves.',
+        'The channel lets particles move in down that gradient.',
+        'The inside concentration therefore rises.',
+        'The pump then moves particles back out, using energy.',
+      ],
+    },
+    {
+      id: 'q04',
+      difficulty: 'medium',
+      type: 'essay',
+      prompt: 'Compare the channel and the pump in two or three sentences.',
+      points: 3,
+      markScheme: [
+        { points: 1, text: 'States that the channel is passive and the pump is active.' },
+        { points: 1, text: 'States the direction: channel down the gradient, pump against it.' },
+        { points: 1, text: 'Mentions that the pump needs energy and the channel does not.' },
+      ],
+      modelAnswer: [
+        'The channel is a passive pore: particles move through it down their concentration gradient without energy.',
+        'The pump is active: it moves particles against their gradient.',
+        'Because it works uphill, the pump needs energy, which the channel does not.',
+      ],
+    },
+    {
+      id: 'q05',
+      difficulty: 'hard',
+      type: 'calc',
+      prompt: 'For the toy curve with gain = 2 and tau = 3 ms, calculate the height of the peak. Give the answer to two decimals.',
+      given: [
+        { symbol: 'gain', value: 2, unit: '' },
+        { symbol: 'tau', value: 3, unit: 'ms' },
+        { symbol: 'e', value: 2.718, unit: '', note: 'base of the natural logarithm' },
+      ],
+      answer: { value: 2.21, tolerance: 0.02, unit: '' },
+      steps: [
+        { text: 'The peak of y = gain * x * exp(-x / tau) is at x = tau.', math: 'x_peak = tau = 3 ms' },
+        { text: 'Substitute x = tau into the curve.', math: 'y_peak = gain * tau * exp(-1)' },
+        { text: 'Evaluate.', math: 'y_peak = 2 * 3 * 0.3679 = 2.21' },
+      ],
+      modelAnswer: [
+        'Set x = tau because that is where the derivative is zero.',
+        'y_peak = gain * tau / e = 2 * 3 / 2.718 = 2.21.',
+      ],
+    },
+    {
+      id: 'q06',
+      difficulty: 'hard',
+      type: 'essay',
+      prompt: 'The pump in the toy cell stops working. Explain what happens to the inside concentration over time and why.',
+      points: 6,
+      markScheme: [
+        { points: 1, text: 'Names the pump as the only structure that moves particles out.' },
+        { points: 1, text: 'States that the channel keeps letting particles in as long as a gradient exists.' },
+        { points: 1, text: 'Explains that without the pump, inflow is no longer balanced by outflow.' },
+        { points: 1, text: 'Predicts that the inside concentration rises.' },
+        { points: 1, text: 'Explains that the rise slows as the gradient shrinks.' },
+        { points: 1, text: 'Applies to the scenario: the inside ends at the same concentration as the outside, so the gradient is gone.' },
+      ],
+      modelAnswer: [
+        'The pump is the only thing moving particles out against the gradient.',
+        'The channel is passive, so particles keep entering as long as the outside concentration is higher.',
+        'With the pump stopped, inflow through the channel is no longer matched by outflow.',
+        'So the inside concentration rises.',
+        'As it rises, the gradient shrinks and inflow slows down.',
+        'Eventually inside equals outside, the gradient is zero, and net flow stops.',
+      ],
+    },
+  ],
+};

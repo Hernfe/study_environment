@@ -1,0 +1,89 @@
+/* Design tokens. See docs/DESIGN.md for the reasoning behind each value. */
+
+:root {
+  color-scheme: light dark;
+
+  /* Colour, light theme */
+  --c-bg: #f7f6f2;
+  --c-surface: #ffffff;
+  --c-text: #1a1a1a;
+  --c-text-muted: #5b5a55;
+  --c-border: #dddbd4;
+  --c-accent: #2856c9;
+  --c-accent-soft: #e4ebfb;
+  --c-focus: #2856c9;
+
+  --c-easy: #1f6f3d;
+  --c-easy-bg: #e1f1e5;
+  --c-medium: #7a5a00;
+  --c-medium-bg: #fbf0c2;
+  --c-hard: #a8261e;
+  --c-hard-bg: #fbe3e0;
+
+  --c-correct: #0c6b4e;
+  --c-correct-bg: #d9f2e8;
+  --c-incorrect: #a03c05;
+  --c-incorrect-bg: #fce6d8;
+
+  /* Typography */
+  --font-body: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    "Helvetica Neue", Arial, sans-serif;
+  --font-mono: ui-monospace, "Cascadia Mono", Consolas, Menlo, monospace;
+
+  --fs-sm: 0.875rem;
+  --fs-base: 1.125rem;
+  --fs-md: 1.25rem;
+  --fs-lg: 1.5rem;
+  --fs-xl: 1.875rem;
+  --fs-2xl: 2.25rem;
+
+  --lh-body: 1.6;
+  --lh-heading: 1.2;
+  --measure: 64ch;
+
+  /* Spacing */
+  --sp-1: 0.25rem;
+  --sp-2: 0.5rem;
+  --sp-3: 0.75rem;
+  --sp-4: 1rem;
+  --sp-5: 1.5rem;
+  --sp-6: 2rem;
+  --sp-7: 3rem;
+  --sp-8: 4rem;
+
+  --radius: 8px;
+  --radius-sm: 4px;
+
+  --transition: 120ms ease-out;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --c-bg: #16171a;
+    --c-surface: #202126;
+    --c-text: #ecebe6;
+    --c-text-muted: #a6a59f;
+    --c-border: #34363c;
+    --c-accent: #8fb0ff;
+    --c-accent-soft: #232b44;
+    --c-focus: #8fb0ff;
+
+    --c-easy: #7fd59a;
+    --c-easy-bg: #1b3324;
+    --c-medium: #f2c94c;
+    --c-medium-bg: #3a2f0e;
+    --c-hard: #f4918a;
+    --c-hard-bg: #3d1e1c;
+
+    --c-correct: #5fd3a6;
+    --c-correct-bg: #123528;
+    --c-incorrect: #ffa36b;
+    --c-incorrect-bg: #40231a;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --transition: 0ms;
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "name": "nbe-e4210-study",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Interactive exam-prep site for Aalto NBE-E4210 Structure and Operation of the Human Brain",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "devDependencies": {
+    "vite": "^7.1.0"
+  }
+}
