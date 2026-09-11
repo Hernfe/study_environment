@@ -1,5 +1,6 @@
 // Course map. Scheduling and status only; no lecture text.
-// Lecture dates and chapters come from the schedule slide in L01.
+// Lecture dates and chapters come from the schedule slide in the most
+// recent deck (L03). It moved L3 to 11.9; the L01 deck had 16.9.
 // Mini-exam dates: L1 on 18.9 and L2 on 25.9 are on the slides; the
 // rest are assumed weekly on Fridays. Check MyCourses and correct here.
 // Titles are the textbook chapter titles, shortened.
@@ -28,7 +29,7 @@ export const registry = [
     number: 3,
     title: 'Synaptic transmission and neurotransmitter systems',
     chapters: [5, 6],
-    lectureDate: '2026-09-16',
+    lectureDate: '2026-09-11',
     examDate: '2026-10-02',
     built: false,
   },

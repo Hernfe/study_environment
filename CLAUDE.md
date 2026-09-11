@@ -14,6 +14,8 @@ Interactive exam-prep site for the Aalto course NBE-E4210 Structure and Operatio
 
 5. `source/homework/` HW1 shows the expected answer style: 3-5 sentence reasoning, equations with intermediate steps for numerical problems.
 
+When two slide decks disagree on schedule, scope or emphasis, the most recent deck wins.
+
 ## Reading the material
 
 - Read slide PDFs and notes PDFs directly with the Read tool.
