@@ -47,6 +47,8 @@ const PLANE_REGIONS = [
   { id: 'coronal', label: 'Coronal plane', body: 'A vertical cut from side to side. Separates anterior from posterior. Seen edge-on in the lateral view.', shape: 'line', x: 27, y: 63, x2: 27, y2: 95, mx: 27, my: 61 },
   { id: 'horizontal', label: 'Horizontal plane', body: 'A cut parallel to the ground. Separates superior from inferior. Seen edge-on in the lateral view.', shape: 'line', x: 3, y: 80, x2: 47, y2: 80, mx: 10, my: 80 },
   { id: 'sagittal', label: 'Sagittal plane', body: 'A vertical cut from front to back. Separates left from right. The midsagittal cut runs down the midline of the dorsal view and gives the medial view.', shape: 'line', x: 23, y: 5, x2: 23, y2: 50, mx: 23, my: 10 },
+  { id: 'rostral', label: 'Rostral', body: 'Toward the nose. In the forebrain this is the anterior end (the frontal pole here); in the brainstem and spinal cord it means toward the head, so superior.', x: 6, y: 79, w: 8, h: 14, mx: 6, my: 72 },
+  { id: 'caudal', label: 'Caudal', body: 'Toward the tail. In the forebrain this is the posterior end (the occipital pole); in the brainstem and spinal cord it means toward the feet, so inferior.', x: 46, y: 80, w: 8, h: 14, mx: 47, my: 72 },
 ];
 
 const DIRECTION_REGIONS = [
@@ -397,7 +399,7 @@ export default {
     {
       id: 'directions',
       title: 'Anatomical directions and planes',
-      keyTerms: ['anterior', 'posterior', 'medial', 'lateral', 'superior', 'inferior', 'dorsal', 'ventral', 'coronal', 'sagittal', 'horizontal'],
+      keyTerms: ['anterior', 'posterior', 'medial', 'lateral', 'superior', 'inferior', 'dorsal', 'ventral', 'rostral', 'caudal', 'coronal', 'sagittal', 'horizontal'],
       blocks: [
         { type: 'whyItMatters', body: 'Direction terms give a shared coordinate system for specimens, drawings, scans and surgery. A precise description names the side, the view or section plane, the structure, and its relation to a landmark.' },
         {
@@ -409,6 +411,7 @@ export default {
             { label: 'Medial / lateral', cells: ['The midline', 'Away from the midline'] },
             { label: 'Superior / inferior', cells: ['The top of the head', 'The feet'] },
             { label: 'Dorsal / ventral', cells: ['The back of the animal', 'The belly'] },
+            { label: 'Rostral / caudal', cells: ['The nose', 'The tail'] },
           ],
         },
         figureBlock(
@@ -416,7 +419,7 @@ export default {
           'Directions placed on the slide figure. Anterior is to the left in the lateral view.',
           'A lateral view with anterior, posterior, dorsal and ventral marked, and a dorsal view with medial and lateral marked.'
         ),
-        { type: 'example', title: 'Why the slide lists both dorsal and superior', body: 'The human neuraxis bends near the midbrain. In the forebrain dorsal equals superior and ventral equals inferior. In the brainstem and spinal cord dorsal equals posterior and ventral equals anterior.' },
+        { type: 'example', title: 'Why the slide lists both dorsal and superior', body: 'The human neuraxis bends near the midbrain. In the forebrain dorsal equals superior and ventral equals inferior. In the brainstem and spinal cord dorsal equals posterior and ventral equals anterior. Rostral and caudal bend the same way: anterior and posterior in the forebrain, superior and inferior in the brainstem and cord. HW1 exercise 1 asks for both pairs.' },
         { type: 'definition', term: 'View', body: 'What you see from one side. Dorsal from above, ventral from below, lateral from the side, medial the inner surface after a cut down the midline.' },
         figureBlock(
           hotspots('four-views', 1001 / 1047, 'Four views of the brain: dorsal and ventral above, lateral and medial below.', VIEW_REGIONS),
@@ -434,8 +437,8 @@ export default {
         },
         figureBlock(
           hotspots('four-views', 1001 / 1047, 'Four views of the brain with three section planes marked.', PLANE_REGIONS, { showShapes: true, intro: 'Each plane is drawn where you look along it: coronal and horizontal on the lateral view, sagittal on the dorsal view.' }),
-          'Planes drawn edge-on. The Nissl-stained whole-brain slice later in this lecture is a coronal section.',
-          'Coronal plane as a vertical line and horizontal plane as a horizontal line on the lateral view; sagittal plane as the midline on the dorsal view.'
+          'Planes drawn edge-on, with the rostral and caudal ends of the forebrain marked. The Nissl-stained whole-brain slice later in this lecture is a coronal section.',
+          'Coronal plane as a vertical line and horizontal plane as a horizontal line on the lateral view; sagittal plane as the midline on the dorsal view; rostral at the frontal pole and caudal at the occipital pole.'
         ),
       ],
       conceptQuiz: [
@@ -468,6 +471,17 @@ export default {
             { text: 'Anterior', feedback: 'In the brainstem and spinal cord, dorsal equals posterior, not anterior.' },
             { text: 'Medial', feedback: 'Medial is about distance from the midline, not up and down.' },
             { text: 'Posterior', feedback: 'That holds in the spinal cord, not in the forebrain.' },
+          ],
+          correct: 0,
+        },
+        {
+          id: 'directions-4',
+          prompt: 'Rostral means toward the nose. In the human forebrain, which everyday direction is that?',
+          options: [
+            { text: 'Anterior', feedback: 'Correct. The nose is at the front, so rostral equals anterior in the forebrain and caudal equals posterior.' },
+            { text: 'Superior', feedback: 'That holds in the brainstem and spinal cord, where the neuraxis runs vertically.' },
+            { text: 'Medial', feedback: 'Medial is about distance from the midline, not front and back.' },
+            { text: 'Ventral', feedback: 'Ventral means toward the belly, the underside of the forebrain.' },
           ],
           correct: 0,
         },
@@ -1144,6 +1158,7 @@ export default {
       { term: 'Medial / lateral', definition: 'Toward / away from the midline.' },
       { term: 'Superior / inferior', definition: 'Top of head / feet.' },
       { term: 'Dorsal / ventral', definition: 'Back / belly. Forebrain: superior / inferior. Brainstem and cord: posterior / anterior.' },
+      { term: 'Rostral / caudal', definition: 'Nose / tail. Forebrain: anterior / posterior. Brainstem and cord: superior / inferior.' },
       { term: 'Coronal, sagittal, horizontal', definition: 'Cuts separating anterior-posterior, left-right, superior-inferior.' },
       { term: 'Gross features', definition: 'Cerebrum, cerebellum, brain stem (midbrain, pons, medulla), olfactory bulb.' },
       { term: 'Gyrus, sulcus, fissure', definition: 'Fold, groove, deep groove.' },

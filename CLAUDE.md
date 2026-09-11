@@ -12,7 +12,7 @@ Interactive exam-prep site for the Aalto course NBE-E4210 Structure and Operatio
 
 4. `source/exams/` two old open-book essay exams from an earlier teacher. Use only for question style and depth of the hard tier. Never for scope.
 
-5. `source/homework/` HW1 shows the expected answer style: 3-5 sentence reasoning, equations with intermediate steps for numerical problems.
+5. `source/homework/` HW1 shows the expected answer style: 3-5 sentence reasoning, equations with intermediate steps for numerical problems. Homework is course material: a concept that a homework exercise asks for is in scope even if the slides omit it (rostral and caudal in L01, from HW1 exercise 1). Note the source in the scope file.
 
 When two slide decks disagree on schedule, scope or emphasis, the most recent deck wins.
 
@@ -24,11 +24,27 @@ When two slide decks disagree on schedule, scope or emphasis, the most recent de
 
 - Before writing a lecture content file, produce a scope list: every concept on the slides for that lecture, mapped to the notes section and textbook pages. Save it to `docs/scope/L0X.md` and use it as the checklist. Everything in the content file must trace to that list.
 
+## Lecture build workflow
+
+1. Scope file: `docs/scope/L0X.md` as above.
+2. Figures: run `python scripts/extract_figures.py list "source/slides/<deck>.pdf" --preview` as the first step after the scope file, pick every structural figure, and write `scripts/figures_L0X.py` (crop, paint out printed labels, compose panels, rasterise library SVGs with `scripts/retouch_figure.py`) so the asset set in `src/assets/figures/L0X/` is reproducible. Fall back to `scripts/bioart_fetch.py`, `scripts/servier_fetch.py` and `scripts/find_asset.py` for what the slides do not provide.
+3. Content: `src/content/L0X.js` in blocks, with hotspot regions in percent of each image.
+4. Visual loop: before committing, use Playwright MCP to screenshot every section at 380 px and 1280 px in both light and dark themes, look at every figure, and revise until each meets the style spec. Never present a figure you have not looked at.
+5. `npm run build`, update `CREDITS.md`, commit.
+
 ## Content rules
 
 - Lecture pages follow the notes' table-of-contents order unless the slides order differs, in which case follow the slides.
 
-- Each concept block: 5-10 lines of plain explanation in simple English, key terms marked, one visual (interactive where a variable changes an outcome, static SVG where the point is structure), then a concept quiz of 1-4 multiple choice questions with one-line feedback per option. Concept quizzes are always easy.
+- Each section is written with the block vocabulary in `docs/CONTENT_SCHEMA.md` (text, definition, steps, compare, example, keyNumber, misconception, whyItMatters, detail, figure), key terms marked, then a concept quiz of 1-4 multiple choice questions with one-line feedback per option. Concept quizzes are always easy.
+
+- No prose run longer than five lines. Mechanisms are steps blocks, contrasts are compare blocks, secondary in-scope detail goes in collapsed detail blocks. The scan path down a section must be the heading and short cards.
+
+- Structural figures are sourced in this order: extraction from the slide deck, then NIH BioArt or Servier Medical Art, then Bioicons, then hand-drawn SVG as the last resort. Overlay the imageHotspots widget on every structural figure (at most seven regions, quiz mode off only when labels are burned into the picture). Reuse the same regions for the label-the-figure question.
+
+- Hand-drawn SVG only for variable-driven demos. Build them with d3 for scales, axes and ticks, and check them against the figure style spec in `docs/DESIGN.md` section 6 and the Tufte skill.
+
+- Record every new asset in `CREDITS.md` (file, where used, source, original URL, licence, attribution) before the lecture is committed.
 
 - End of theory: a recap card listing the key terms with one-line definitions, formatted to copy onto a cheat sheet. Include any equations.
 
