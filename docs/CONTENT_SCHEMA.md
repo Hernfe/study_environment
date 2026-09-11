@@ -114,9 +114,62 @@ Rules for `visual`:
   as an object `{ mount(container, props), fallback?(props) }`.
   `fallback` returns a static SVG string used before mount and if mount
   throws. Widgets must be operable by keyboard: use native inputs.
+  Widgets hold no lecture text; everything they show comes from `props`.
+  The registered engines and their props are listed under "Widgets".
 - `fallbackAlt` is required. It becomes the `aria-label` of the figure.
 - `visual` may be `null` for a section that has no sensible picture,
   but the content rules say every block should have one.
+
+### Widgets
+
+| Name | Engine | What it does |
+|---|---|---|
+| `slider-plot` | `sliderPlot.js` | Range inputs change parameters of a plotted curve. See L00. |
+| `cortical-map`, `neuron-parts` | `regionMap.js` | Hover, tap, focus or pick from a select to read about a region of a figure. |
+| `glia-compare`, `stain-compare` | `compareCards.js` | Radio buttons choose one item; shows its drawing and a definition list, plus an optional summary table. |
+| `section-planes` | `sectionPlanes.js` | Radio buttons choose coronal, sagittal or horizontal; the plane is drawn on a lateral and a dorsal view with direction terms. |
+
+`regionMap` props:
+
+```js
+{
+  figure: ({ layer, labels, uid }) => svgString,   // every region element has data-region="<key>"
+  layers: [{ key, label, regions: [{ key, name, info }] }],
+  defaultLayer: 'lobes',      // optional
+  labels: true,               // draw text labels on the figure
+  intro: 'Hover or tap...',   // panel text before a choice
+  layerLabel: 'Show',         // legend for the layer radios (only if > 1 layer)
+  selectLabel: 'Region',      // label of the select
+  placeholder: 'Choose a region',
+}
+```
+
+Region elements in the figure must carry `data-region="<key>"` and the
+class `map-region`. Figures in `src/content/figures/` export their
+region key lists (for example `REGIONS` in `brain-lateral.js`) so the
+content file can attach explanations without repeating geometry.
+
+`compareCards` props:
+
+```js
+{
+  chooseLabel: 'Cell type',
+  fallback: () => svgString,   // optional static overview used before mount
+  items: [{ key, label, figure: svgString, rows: [{ term, text }] }],
+  table: { caption, columns: ['Cell', 'Where', 'Main job'], rows: [['Astrocyte', 'CNS', '...']] },  // optional
+}
+```
+
+`sectionPlanes` props:
+
+```js
+{
+  chooseLabel: 'Plane',
+  defaultPlane: 'coronal',
+  planes: [{ key: 'coronal' | 'sagittal' | 'horizontal', label, info }],
+  directions: { anterior, posterior, dorsal, ventral, lateral, medial },  // optional label text
+}
+```
 
 ### ConceptQuestion
 
@@ -231,6 +284,8 @@ to `points`. See PEDAGOGY.md section 4 for the format.
 `figure` has the same shape as a section visual of type `svg` (no
 caption needed). `regions` place numbered markers on the figure using
 percentages of its width and height, so they work on any figure size.
+The figure is stretched to the width of its wrapper (up to 30 rem), so
+compute the percentages from the SVG viewBox: `x = 100 * vx / viewBoxWidth`.
 `labels` is the pool the student picks from and must contain every
 region label plus 1 to 3 distractors. Each region has an `explanation`
 shown after checking.

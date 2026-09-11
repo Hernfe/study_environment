@@ -18,9 +18,9 @@ When two slide decks disagree on schedule, scope or emphasis, the most recent de
 
 ## Reading the material
 
-- Read slide PDFs and notes PDFs directly with the Read tool.
+- Read slide PDFs and notes PDFs directly with the Read tool. If the Read tool cannot render PDF pages (no pdftoppm), render pages to PNG with PyMuPDF (`python -m pip install pymupdf`) into the scratchpad and Read the images; the slides carry most content in figures, so text extraction alone is not enough.
 
-- Never read a whole textbook file. Extract only cited page ranges: `pdftotext -f <first> -l <last> "source/textbook/<file>.pdf" -` (page numbers in the notes are book page numbers; file 1 page N is PDF page N, file 2 page N is PDF page N minus 509). If pdftotext is missing, install poppler (`brew install poppler` or `apt install poppler-utils`).
+- Never read a whole textbook file. Extract only cited page ranges: `pdftotext -f <first> -l <last> "source/textbook/<file>.pdf" -` (page numbers in the notes are book page numbers; the PDFs have front matter, so book page N is PDF page N + 44 in file 1 and PDF page N - 465 in file 2; file 1 ends at book page 465). If pdftotext is missing, install poppler (`brew install poppler` or `apt install poppler-utils`).
 
 - Before writing a lecture content file, produce a scope list: every concept on the slides for that lecture, mapped to the notes section and textbook pages. Save it to `docs/scope/L0X.md` and use it as the checklist. Everything in the content file must trace to that list.
 

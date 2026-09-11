@@ -149,6 +149,162 @@
   font-family: var(--font-mono);
 }
 
+/* Widget option groups (radios) and selects */
+.widget-radios {
+  border: 0;
+  padding: 0;
+  margin: 0;
+  min-width: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--sp-2) var(--sp-4);
+  align-items: center;
+  flex: 1 1 100%;
+}
+
+.widget-legend {
+  color: var(--c-text-muted);
+  margin-right: var(--sp-2);
+}
+
+.widget-controls .widget-radio {
+  display: inline-flex;
+  flex-direction: row;
+  align-items: center;
+  gap: var(--sp-2);
+  min-width: 0;
+  flex: 0 0 auto;
+  cursor: pointer;
+}
+
+.widget-radio input {
+  accent-color: var(--c-accent);
+  margin: 0;
+}
+
+.widget-select select {
+  font: inherit;
+  font-size: var(--fs-sm);
+  padding: var(--sp-2) var(--sp-3);
+  border: 1px solid var(--c-border);
+  border-radius: var(--radius-sm);
+  background: var(--c-surface);
+  color: var(--c-text);
+  max-width: 100%;
+}
+
+/* Info panel under an interactive figure */
+.widget-info {
+  margin-top: var(--sp-4);
+  padding: var(--sp-3) var(--sp-4);
+  border-left: 3px solid var(--c-accent);
+  background: var(--c-bg);
+  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+  min-height: 3.5rem;
+}
+
+.widget-info p {
+  margin: 0;
+}
+
+.widget-info-title {
+  font-weight: 600;
+}
+
+.widget-info-title:empty {
+  display: none;
+}
+
+.widget-info-body {
+  font-size: var(--fs-sm);
+  color: var(--c-text-muted);
+}
+
+.widget-info-title + .widget-info-body:not(:empty) {
+  margin-top: var(--sp-1);
+  color: var(--c-text);
+}
+
+.compare-rows {
+  margin: 0;
+  font-size: var(--fs-sm);
+}
+
+.compare-rows dt {
+  font-weight: 600;
+  margin-top: var(--sp-2);
+}
+
+.compare-rows dd {
+  margin: 0;
+}
+
+/* Clickable regions in figures */
+.region-map svg {
+  display: block;
+}
+
+.map-region {
+  cursor: pointer;
+  transition: stroke var(--transition), fill var(--transition);
+}
+
+.map-region:hover,
+.map-region.is-active,
+.map-region:focus-visible {
+  stroke: var(--c-accent);
+  stroke-width: 3.5;
+  outline: none;
+}
+
+.map-region:hover :not(text),
+.map-region.is-active :not(text),
+.map-region:focus-visible :not(text) {
+  stroke: var(--c-accent);
+}
+
+.map-region.map-dot:hover circle,
+.map-region.map-dot.is-active circle,
+.map-region.map-dot:focus-visible circle {
+  fill: var(--c-accent-soft);
+}
+
+/* Comparison table (cheat-sheet summary) */
+.table-wrap {
+  overflow-x: auto;
+  margin-top: var(--sp-4);
+}
+
+.compare-table {
+  border-collapse: collapse;
+  width: 100%;
+  font-size: var(--fs-sm);
+}
+
+.compare-table caption {
+  text-align: left;
+  color: var(--c-text-muted);
+  padding-bottom: var(--sp-2);
+}
+
+.compare-table th,
+.compare-table td {
+  text-align: left;
+  vertical-align: top;
+  padding: var(--sp-2) var(--sp-3);
+  border-top: 1px solid var(--c-border);
+}
+
+.compare-table thead th {
+  border-top: 0;
+  border-bottom: 2px solid var(--c-border);
+}
+
+.compare-table tbody th {
+  font-weight: 600;
+  white-space: nowrap;
+}
+
 /* Buttons */
 .btn {
   display: inline-block;
@@ -460,9 +616,17 @@
 /* Label the figure */
 .label-figure {
   position: relative;
-  width: fit-content;
-  max-width: 100%;
+  width: 100%;
+  max-width: 30rem;
   margin: 0 auto var(--sp-4);
+}
+
+/* The SVG must fill the wrapper exactly, since markers are placed as
+   percentages of the wrapper. */
+.label-figure svg {
+  display: block;
+  width: 100%;
+  max-width: none !important;
 }
 
 .label-marker {
