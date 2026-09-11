@@ -92,6 +92,7 @@ def write_preview(doc, pages, rows, preview_dir):
 
 
 def resolve_rect(page, args):
+    """Return (rect, native_px_width or None)."""
     if args.image:
         infos = page.get_images(full=True)
         if args.image > len(infos):
@@ -99,14 +100,14 @@ def resolve_rect(page, args):
         rects = page.get_image_rects(infos[args.image - 1][0])
         if not rects:
             sys.exit("that image is not drawn on the page")
-        return rects[0]
+        return rects[0], infos[args.image - 1][2]
     if args.frac:
         fx0, fy0, fx1, fy1 = args.frac
         w, h = page.rect.width, page.rect.height
-        return pymupdf.Rect(fx0 * w, fy0 * h, fx1 * w, fy1 * h)
+        return pymupdf.Rect(fx0 * w, fy0 * h, fx1 * w, fy1 * h), None
     if args.rect:
-        return pymupdf.Rect(*args.rect)
-    return page.rect
+        return pymupdf.Rect(*args.rect), None
+    return page.rect, None
 
 
 def encode_webp_under(img, max_bytes):
@@ -127,10 +128,16 @@ def encode_webp_under(img, max_bytes):
 
 def crop(doc, pdf_path, args):
     page = doc[page_index(args.page)]
-    rect = resolve_rect(page, args) & page.rect
+    rect, native_w = resolve_rect(page, args)
+    rect = rect & page.rect
     if rect.is_empty:
         sys.exit("crop rectangle is empty or outside the page")
+    # Render at 300 DPI, but never wider than the embedded image's own
+    # pixels (upscaling only adds bytes) or --max-px.
     zoom = DPI / 72
+    limit = min(args.max_px, native_w or args.max_px)
+    if rect.width * zoom > limit:
+        zoom = limit / rect.width
     pix = page.get_pixmap(matrix=pymupdf.Matrix(zoom, zoom), clip=rect, alpha=False)
     img = Image.frombytes("RGB", (pix.width, pix.height), pix.samples)
     data, quality, scale = encode_webp_under(img, MAX_BYTES)
@@ -148,7 +155,7 @@ def crop(doc, pdf_path, args):
         "page": args.page,
         "crop_box_pt": [round(rect.x0, 2), round(rect.y0, 2), round(rect.x1, 2), round(rect.y1, 2)],
         "page_size_pt": [round(page.rect.width, 2), round(page.rect.height, 2)],
-        "dpi": DPI,
+        "dpi": round(zoom * 72),
         "rendered_px": [pix.width, pix.height],
         "saved_px": [int(pix.width * scale), int(pix.height * scale)],
         "webp_quality": quality,
@@ -190,6 +197,7 @@ def main():
     cp.add_argument("--lecture", required=True, help="output folder name, e.g. L01")
     cp.add_argument("--page", type=int, required=True)
     cp.add_argument("--name", help="output file stem (default from page and box)")
+    cp.add_argument("--max-px", type=int, default=1600, help="cap on output width in pixels (default 1600)")
     g = cp.add_mutually_exclusive_group()
     g.add_argument("--rect", type=float, nargs=4, metavar=("X0", "Y0", "X1", "Y1"), help="crop box in PDF points")
     g.add_argument("--frac", type=float, nargs=4, metavar=("FX0", "FY0", "FX1", "FY1"), help="crop box as page fractions")

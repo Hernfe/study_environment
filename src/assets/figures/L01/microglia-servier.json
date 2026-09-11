@@ -1,0 +1,21 @@
+{
+ "file": "src/assets/figures/L01/microglia-servier.webp",
+ "saved_px": [
+  1119,
+  889
+ ],
+ "webp_quality": 90,
+ "bytes": 53582,
+ "retouch": [
+  {
+   "op": "crop",
+   "box_pct": [
+    0.0,
+    0.0,
+    100.0,
+    100.0
+   ],
+   "at": "2026-09-11T15:45:17+00:00"
+  }
+ ]
+}

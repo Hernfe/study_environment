@@ -7,10 +7,10 @@ add a row to "Assets in use". Assets that are downloaded but not yet
 used are listed under "Downloaded, not yet in use" so their provenance
 is not lost.
 
-Lecture slides, TA notes and textbook figures are course material and
-are never reproduced on the site as-is. Where a diagram is redrawn from
-a slide, the row says "redrawn after slide" and names the deck and
-page; the redrawing is original work.
+Figures cropped from the lecture slides are course material (many are
+textbook figures under the publisher's copyright). They are used here
+for the student's own study of the course and are listed with deck and
+page so they can be replaced if the site is ever shared more widely.
 
 ## Sources and licences
 
@@ -23,13 +23,40 @@ page; the redrawing is original work.
 
 ## Assets in use
 
-| File | Where used | Source | Original URL | Licence | Attribution required |
+All raster files are in `src/assets/figures/L01/`, built by
+`scripts/figures_L01.py`; each has a sidecar JSON with the source page
+or file and the crop and paint boxes. The slide crops are the figures
+the lecturer showed, reproduced here for the student's own study of
+that course; most of them are textbook figures (Bear, Connors and
+Paradiso, Neuroscience: Exploring the Brain) and stay under the
+publisher's copyright, so this site should not be redistributed beyond
+the course context. Printed labels were painted out so the quiz mode
+works.
+
+| File | Where used | Source | Original | Licence | Attribution required |
 | --- | --- | --- | --- | --- | --- |
-| `src/content/figures/brain-lateral.js` | L01 | In-house SVG, redrawn after slide | n/a | Repository licence | No |
-| `src/content/figures/neuron.js` | L01 | In-house SVG | n/a | Repository licence | No |
-| `src/content/figures/cells.js` (cortical-layers, synapse-steps, axonal-transport, glia-overview, stain-triptych) | L01 | In-house SVG | n/a | Repository licence | No |
-| `src/content/figures/charts.js` (scales-ladder, disorder-burden, neuron-counts) | L01 | In-house SVG, data from slides | n/a | Repository licence | No |
+| `scales.webp` | L01 Scales | L01 slide deck, page 11 | Course slides | Course material | Cite the course |
+| `four-views.webp` | L01 Directions (three figures) | L01 slide deck, page 17 (textbook Ch 7 figure) | Course slides | Course material | Cite the course |
+| `gross-features.webp` | L01 Gross anatomy | L01 slide deck, page 18 | Course slides | Course material | Cite the course |
+| `gyri-sulci.webp` | L01 Gross anatomy | L01 slide deck, page 19 | Course slides | Course material | Cite the course |
+| `lobes.webp` | L01 Gross anatomy, lecture quiz q06 | L01 slide deck, page 20 | Course slides | Course material | Cite the course |
+| `functional-areas.webp` | L01 Functional localization (two figures) | L01 slide deck, page 21 | Course slides | Course material | Cite the course |
+| `brodmann-map.webp` | L01 Cytoarchitecture | L01 slide deck, page 25 | Course slides | Course material | Cite the course |
+| `cortical-layers.webp` | L01 Cytoarchitecture | L01 slide deck, page 24 | Course slides | Course material | Cite the course |
+| `neuron-internal.webp` | L01 Prototypical neuron | L01 slide deck, page 34 (textbook Figure 2.8) | Course slides | Course material | Cite the course |
+| `stains.webp` (nissl-photo, golgi-photo, em-synapse) | L01 Neuron doctrine | L01 slide deck, pages 27 and 36 (textbook Figures 2.1, 2.3, 2.25) | Course slides | Course material | Cite the course |
+| `glia-types.webp`, left panel (astrocyte-slide) | L01 Glia | L01 slide deck, page 35 (textbook Figure 2.24) | Course slides | Course material | Cite the course |
+| `glia-types.webp`, middle panel (oligodendrocyte-bioart) | L01 Glia | NIH BioArt Source, Oligodendrocyte, NIAID Visual & Medical Arts | https://bioart.niaid.nih.gov/bioart/397 | Public Domain | No; credit "Courtesy of NIAID" |
+| `glia-types.webp`, right panel (microglia-servier) | L01 Glia | Servier Medical Art, Microglia | https://smart.servier.com/smart_image/microglia/ | CC BY 4.0 | Yes: Servier Medical Art, https://smart.servier.com |
+| `neuron.webp` | L01 Prototypical neuron | NIH BioArt Source, Healthy neuron, NIAID Visual & Medical Arts | https://bioart.niaid.nih.gov/bioart/197 | Public Domain | No; credit "Courtesy of NIAID" |
+| `synapse.webp` | L01 Synaptic transmission | Servier Medical Art, Synapse | https://smart.servier.com/smart_image/synapse-overview/ | CC BY 4.0 | Yes: Servier Medical Art, https://smart.servier.com |
+| `src/content/figures/charts.js` (neuron-counts, disorder-burden) | L01 | d3 charts drawn for this site; data read off slides 16 and 13 (Herculano-Houzel; DiLuca and Olesen 2014) | n/a | Repository licence | No |
+| `src/content/figures/cells.js` (axonal-transport) | L01 Axonal transport | In-house SVG (no slide figure or library asset exists for this) | n/a | Repository licence | No |
 | `src/content/figures/example-cell.js` | L00 (dev example) | In-house SVG | n/a | Repository licence | No |
+
+Credit lines shown on the site: the footer of every page links here.
+When a page is exported or shared, add "Illustrations: NIH BioArt
+(courtesy of NIAID); Servier Medical Art (CC BY 4.0); course slides".
 
 ## Downloaded, not yet in use
 
@@ -42,8 +69,8 @@ folder has `servier-index.json`.
 | File | Title | Creator | Original URL |
 | --- | --- | --- | --- |
 | `assets/incoming/bioart/bioart-000060-brain-lateral.svg` | Brain Lateral | Ryan Kissinger | https://bioart.niaid.nih.gov/bioart/60 |
-| `assets/incoming/bioart/bioart-000197-healthy-neuron.svg` | Healthy neuron (myelinated axon) | NIAID Visual & Medical Arts | https://bioart.niaid.nih.gov/bioart/197 |
-| `assets/incoming/bioart/bioart-000397-oligodendrocyte.svg` | Oligodendrocyte | NIAID Visual & Medical Arts | https://bioart.niaid.nih.gov/bioart/397 |
+| `assets/incoming/bioart/bioart-000197-healthy-neuron.svg` | Healthy neuron (myelinated axon), now in use as `neuron.webp` | NIAID Visual & Medical Arts | https://bioart.niaid.nih.gov/bioart/197 |
+| `assets/incoming/bioart/bioart-000397-oligodendrocyte.svg` | Oligodendrocyte, now in use in `glia-types.webp` | NIAID Visual & Medical Arts | https://bioart.niaid.nih.gov/bioart/397 |
 | `assets/incoming/bioart/bioart-000424-pyramidal-neuron-beige.svg` | Pyramidal Neuron | Ryan Kissinger | https://bioart.niaid.nih.gov/bioart/424 |
 | `assets/incoming/bioart/bioart-000040-astrocyte.svg` | Astrocyte | NIAID Visual & Medical Arts | https://bioart.niaid.nih.gov/bioart/40 |
 | `assets/incoming/bioart/bioart-000670-astrocyte-blue.svg` | Astrocyte | NIAID Visual & Medical Arts | https://bioart.niaid.nih.gov/bioart/670 |

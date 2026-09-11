@@ -26,7 +26,7 @@ export function markKeyTerms(root, keyTerms = []) {
     if ([...root.querySelectorAll('dfn')].some((d) => d.textContent.trim().toLowerCase() === term.toLowerCase())) continue;
     const pattern = new RegExp(`(^|[^A-Za-z0-9])(${escapeRegExp(term)})(?=$|[^A-Za-z0-9])`, 'i');
     const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
-      acceptNode: (node) => (node.parentElement.closest('dfn, code, pre, a') ? NodeFilter.FILTER_REJECT : NodeFilter.FILTER_ACCEPT),
+      acceptNode: (node) => (node.parentElement.closest('dfn, code, pre, a, button, select, .hotspots, .figure') ? NodeFilter.FILTER_REJECT : NodeFilter.FILTER_ACCEPT),
     });
     let node = walker.nextNode();
     while (node) {
@@ -52,7 +52,7 @@ export function markKeyTerms(root, keyTerms = []) {
 export function renderCredits() {
   return el('footer', { class: 'site-credits' }, [
     el('p', {}, [
-      'Figures are drawn for this site or adapted from open sources. See ',
+      'Figures come from the course slides, NIH BioArt (courtesy of NIAID), Servier Medical Art (CC BY 4.0) and drawings made for this site. See ',
       el('a', { href: CREDITS_URL, rel: 'noopener' }, 'figure credits'),
       ' for sources and licences.',
     ]),
@@ -135,13 +135,79 @@ function renderPrerequisites(prerequisites) {
   ]);
 }
 
+// Block vocabulary. Each block is a quiet card with a small heading
+// (the kicker) so a reader can scan a section by kickers alone. See
+// docs/CONTENT_SCHEMA.md, "Blocks".
+const KICKERS = {
+  definition: 'Definition',
+  steps: 'Steps',
+  compare: 'Compare',
+  example: 'Example',
+  keyNumber: 'Key number',
+  misconception: 'Misconception',
+  whyItMatters: 'Why it matters',
+  detail: 'Detail',
+};
+
+function card(type, title, children, extraClass = '') {
+  return el('div', { class: `block block-${type} ${extraClass}`.trim() }, [
+    el('p', { class: 'block-kicker' }, [KICKERS[type], title ? el('span', { class: 'block-title' }, title) : null]),
+    ...children,
+  ]);
+}
+
+const BLOCKS = {
+  text: (b) => el('div', { class: 'block-text' }, paragraphs(b.body)),
+  figure: (b) => renderVisual(b.visual),
+  definition: (b) => card('definition', b.term, [el('div', { class: 'block-body' }, paragraphs(b.body))]),
+  example: (b) => card('example', b.title, [el('div', { class: 'block-body' }, paragraphs(b.body))]),
+  whyItMatters: (b) => card('whyItMatters', b.title, [el('div', { class: 'block-body' }, paragraphs(b.body))]),
+  steps: (b) => card('steps', b.title, [
+    el('ol', { class: 'block-steps' }, b.steps.map((step) => el('li', {}, typeof step === 'string' ? step : [el('span', { class: 'step-title' }, step.title), ' ', step.body]))),
+  ]),
+  compare: (b) => card('compare', b.title, [
+    el('div', { class: 'table-wrap' }, [
+      el('table', { class: 'compare-table block-compare-table' }, [
+        el('thead', {}, el('tr', {}, [el('th', { scope: 'col' }, b.rowLabel || ''), ...b.columns.map((c) => el('th', { scope: 'col' }, c))])),
+        el('tbody', {}, b.rows.map((row) => el('tr', {}, [el('th', { scope: 'row' }, row.label), ...row.cells.map((c) => el('td', {}, c))]))),
+      ]),
+    ]),
+  ]),
+  keyNumber: (b) => card('keyNumber', b.title, [
+    el('dl', { class: 'block-numbers' }, (b.items || [b]).flatMap((item) => [
+      el('dt', {}, item.value),
+      el('dd', {}, item.label),
+    ])),
+    b.note ? el('p', { class: 'block-note' }, b.note) : null,
+  ]),
+  misconception: (b) => card('misconception', b.title, [
+    el('p', { class: 'block-wrong' }, [el('span', { class: 'block-tag' }, 'Not this: '), b.wrong]),
+    el('p', { class: 'block-right' }, [el('span', { class: 'block-tag' }, 'But this: '), b.right]),
+  ]),
+  detail: (b) => el('details', { class: 'block block-detail' }, [
+    el('summary', {}, [el('span', { class: 'block-kicker' }, KICKERS.detail), el('span', { class: 'block-title' }, b.title || 'More')]),
+    el('div', { class: 'block-body' }, b.blocks ? renderBlocks(b.blocks) : paragraphs(b.body)),
+  ]),
+};
+
+export function renderBlocks(blocks = []) {
+  return blocks.map((block) => {
+    const render = BLOCKS[block.type];
+    if (!render) return el('p', { class: 'notice' }, `Unknown block type "${block.type}".`);
+    return render(block);
+  });
+}
+
 function renderSection(section, lectureId) {
-  const body = el('div', { class: 'concept-body' }, paragraphs(section.body));
+  const body = el('div', { class: 'concept-body' }, [
+    section.body ? paragraphs(section.body) : null,
+    ...renderBlocks(section.blocks),
+  ]);
   markKeyTerms(body, section.keyTerms);
   return el('section', { class: 'section', id: section.id, 'aria-labelledby': `${section.id}-title` }, [
     el('h2', { id: `${section.id}-title` }, section.title),
     body,
-    renderVisual(section.visual),
+    section.visual ? renderVisual(section.visual) : null,
     renderConceptQuiz(section.conceptQuiz, { lectureId, sectionTitle: section.title }),
   ]);
 }

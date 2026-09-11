@@ -1,0 +1,21 @@
+{
+ "file": "src/assets/figures/L01/synapse.webp",
+ "saved_px": [
+  702,
+  1204
+ ],
+ "webp_quality": 90,
+ "bytes": 87970,
+ "retouch": [
+  {
+   "op": "crop",
+   "box_pct": [
+    0.0,
+    0.0,
+    100.0,
+    100.0
+   ],
+   "at": "2026-09-11T15:45:18+00:00"
+  }
+ ]
+}

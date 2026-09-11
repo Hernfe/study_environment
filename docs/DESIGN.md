@@ -126,6 +126,78 @@ Class names are the contract between `render.js` and `components.css`.
 | Review | `.review` | Cumulative review mode on the home page. |
 | Button | `.btn`, `.btn-primary`, `.btn-secondary` | Primary uses `--c-accent`; secondary is outlined. |
 | Notice | `.notice` | Inline information such as "not yet built" or storage unavailable. |
+| Block | `.block`, `.block-<type>`, `.block-kicker` | Quiet card with a small kicker heading: definition, steps, compare, example, keyNumber, misconception, whyItMatters, detail (`<details>`). |
+| Hotspots | `.hotspots`, `.hotspots-figure`, `.hotspot-marker`, `.hotspots-list` | Picture with numbered markers and a region list; `.is-quiz` in quiz mode, `.is-stack` for list-below layout. |
+
+## 6. Figures
+
+One visual grammar for every figure on the site, whether it is a slide
+crop, an asset-library illustration, a d3 chart or a hand-drawn SVG.
+
+### 6.1 Rules
+
+1. One idea per figure. A figure answers one question (where are the
+   lobes, what does each stain show). If a second idea needs the same
+   picture, make a second figure with its own region set; the picture
+   may be reused, the regions may not.
+2. At most seven labelled elements. Split anything larger: the cortical
+   surface became gross features (4), gyri and sulci (5), lobes (7); the
+   functional areas became sensory and motor (7) and association (3).
+3. Labels live outside the artwork. Numbered markers sit on the
+   picture; the names sit in a list beside it (below it on narrow
+   screens). Where a slide figure carried printed labels, they are
+   painted out and the marker is placed on the end of the leader-line
+   stub, so the stub becomes the leader. Hand-drawn SVGs place text
+   outside the drawing with a 1 px muted leader line.
+4. Colour only on the element under discussion. Regions are invisible
+   until hovered, focused or pinned, then outlined in the accent. Charts
+   draw every row in muted grey and one focal row in the accent
+   (`Human`, `Dementia`). Planes and bands that are the content itself
+   may be shown at rest (`showShapes`), at reduced opacity.
+5. Consistent strokes and type. Hand-drawn SVG: 1.5 px `currentColor`
+   strokes, 1 px muted leaders, labels at 11 px. Charts: 12 px labels,
+   11 px units and ticks, 1.5 px value lines, 4 px dots. Markers: 1.6 rem
+   circles, 0.8 rem numerals, fixed blue with a white ring on pictures
+   (pictures keep a white ground in dark mode), theme accent on charts.
+6. Generous whitespace. Figures sit in a surface card with `--sp-4`
+   padding; pictures keep their aspect ratio; tall pictures are capped
+   at 28 rem so a portrait synapse does not push the text off screen.
+   On screens of 72 rem and wider a figure may hang 8 rem into the empty
+   right margin so the picture stays readable without widening the text
+   measure.
+7. Quantitative plots follow Tufte: sorted dot plots as small multiples,
+   one panel per measure, range-framed axes with two ticks, values
+   written next to the dots, no gridlines, no legend, no second axis.
+   Categories are sorted by value, or by one shared order when the point
+   is that measures rank items differently.
+8. Every figure has a caption (one or two sentences, muted) and a
+   `fallbackAlt` that describes what is drawn, in reading order.
+
+### 6.2 Source order for structural figures
+
+1. A real figure cropped from the lecture slides (`scripts/extract_figures.py`),
+   with printed labels painted out (`scripts/retouch_figure.py`) so the
+   quiz mode is not given away. If the labels cannot be painted out,
+   the figure is still used but its quiz mode is off (`quiz: false`).
+2. NIH BioArt or Servier Medical Art.
+3. Bioicons.
+4. Hand-drawn SVG, only when nothing above exists or when a variable
+   changes an outcome (then d3 for scales, axes and ticks).
+
+Every raster figure in `src/assets/figures/L0X/` has a sidecar JSON
+naming its source, page and crop, and `scripts/figures_L0X.py` rebuilds
+the whole set. Provenance and licences are in `CREDITS.md`.
+
+### 6.3 Hotspot widget
+
+`image-hotspots` (see `docs/CONTENT_SCHEMA.md`) takes a `src` (or `svg`
+markup), the image `aspect`, and `regions` in percent of the image.
+Shapes: `ellipse` (default), `rect`, `line`. `mx, my` place the marker
+off-centre. Interaction: hover, tap, focus; arrow keys and Home/End
+move between markers; Enter or Space pins one and expands its text in
+the list. Quiz mode hides the names and asks for them through selects,
+then colours markers and outlines correct or incorrect. The same
+regions drive label-the-figure questions in the lecture quiz.
 
 ## References
 

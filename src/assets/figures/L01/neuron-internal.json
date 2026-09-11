@@ -1,0 +1,40 @@
+{
+ "file": "src/assets/figures/L01/neuron-internal.webp",
+ "source": "source/slides/NBE-E4210 LECTURE 01 - 2026.pdf",
+ "page": 34,
+ "crop_box_pt": [
+  0.0,
+  0.0,
+  399.0,
+  540.0
+ ],
+ "page_size_pt": [
+  960.0,
+  540.0
+ ],
+ "dpi": 123,
+ "rendered_px": [
+  680,
+  921
+ ],
+ "saved_px": [
+  680,
+  847
+ ],
+ "webp_quality": 90,
+ "bytes": 102330,
+ "extracted": "2026-09-11T15:45:12+00:00",
+ "note": "Course slide material. Redraw or replace before publishing; see CREDITS.md.",
+ "retouch": [
+  {
+   "op": "crop",
+   "box_pct": [
+    0.0,
+    0.0,
+    100.0,
+    92.0
+   ],
+   "at": "2026-09-11T15:51:56+00:00"
+  }
+ ]
+}

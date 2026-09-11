@@ -5,6 +5,7 @@
 import { el, paragraphs, shuffle, escapeHtml } from './dom.js';
 import { createMcBody } from './conceptQuiz.js';
 import { renderVisualBody } from './visuals.js';
+import { quizView } from './widgets/imageHotspots.js';
 import { recordQuestionResult } from './progress.js';
 
 const DIFFICULTY_LABEL = { easy: 'Easy', medium: 'Medium', hard: 'Hard' };
@@ -118,6 +119,21 @@ function essayBody(question, report) {
 }
 
 function labelBody(question, report) {
+  // New style: the same hotspot regions as the study figure, in quiz mode.
+  if (question.hotspots) {
+    const stage = el('div', { class: 'hotspots is-quiz' });
+    let done = false;
+    quizView(stage, question.hotspots, {
+      checkLabel: 'Check',
+      onResult: ({ right, total }) => {
+        if (done) return;
+        done = true;
+        stage.querySelectorAll('select, button').forEach((n) => { n.disabled = true; });
+        report({ correct: right === total, score: right, max: total });
+      },
+    });
+    return el('div', { class: 'label' }, [stage]);
+  }
   const figureWrap = el('div', { class: 'label-figure', role: 'img', 'aria-label': question.figure?.fallbackAlt || '' }, [
     renderVisualBody(question.figure),
   ]);

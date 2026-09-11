@@ -1,0 +1,17 @@
+{
+ "source": "assets/incoming/bioart/bioart-000397-oligodendrocyte.svg",
+ "file": "src/assets/figures/L01/oligodendrocyte-bioart.webp",
+ "saved_px": [
+  1200,
+  714
+ ],
+ "webp_quality": 90,
+ "bytes": 56364,
+ "retouch": [
+  {
+   "op": "svg2png",
+   "width": 1200,
+   "at": "2026-09-11T15:45:16+00:00"
+  }
+ ]
+}

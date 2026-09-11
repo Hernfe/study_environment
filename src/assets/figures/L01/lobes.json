@@ -1,0 +1,73 @@
+{
+ "file": "src/assets/figures/L01/lobes.webp",
+ "source": "source/slides/NBE-E4210 LECTURE 01 - 2026.pdf",
+ "page": 20,
+ "crop_box_pt": [
+  8.25,
+  182.25,
+  710.25,
+  522.75
+ ],
+ "page_size_pt": [
+  960.0,
+  540.0
+ ],
+ "dpi": 96,
+ "rendered_px": [
+  936,
+  454
+ ],
+ "saved_px": [
+  936,
+  454
+ ],
+ "webp_quality": 90,
+ "bytes": 50566,
+ "extracted": "2026-09-11T15:45:03+00:00",
+ "note": "Course slide material. Redraw or replace before publishing; see CREDITS.md.",
+ "retouch": [
+  {
+   "op": "paint",
+   "boxes_pct": [
+    [
+     0.0,
+     8.0,
+     13.0,
+     18.0
+    ],
+    [
+     54.0,
+     0.0,
+     66.0,
+     7.0
+    ],
+    [
+     12.0,
+     88.0,
+     25.0,
+     98.0
+    ],
+    [
+     68.0,
+     66.0,
+     81.0,
+     75.0
+    ],
+    [
+     66.0,
+     50.0,
+     74.0,
+     57.0
+    ],
+    [
+     54.0,
+     88.0,
+     61.0,
+     95.0
+    ]
+   ],
+   "color": "#ffffff",
+   "at": "2026-09-11T15:45:04+00:00"
+  }
+ ]
+}

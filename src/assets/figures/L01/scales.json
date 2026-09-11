@@ -1,0 +1,28 @@
+{
+ "file": "src/assets/figures/L01/scales.webp",
+ "source": "source/slides/NBE-E4210 LECTURE 01 - 2026.pdf",
+ "page": 11,
+ "crop_box_pt": [
+  0.0,
+  0.0,
+  537.75,
+  540.0
+ ],
+ "page_size_pt": [
+  960.0,
+  540.0
+ ],
+ "dpi": 114,
+ "rendered_px": [
+  850,
+  854
+ ],
+ "saved_px": [
+  850,
+  854
+ ],
+ "webp_quality": 90,
+ "bytes": 116030,
+ "extracted": "2026-09-11T15:45:11+00:00",
+ "note": "Course slide material. Redraw or replace before publishing; see CREDITS.md."
+}

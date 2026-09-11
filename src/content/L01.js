@@ -1,105 +1,172 @@
 // Lecture 1: neuroscience, neurons and glia, structure of the nervous
 // system. Scope: docs/scope/L01.md. Every section and question traces
-// to a line in that file.
+// to a line in that file. Sections are written as blocks (see
+// docs/CONTENT_SCHEMA.md, "Blocks"); figures are raster assets in
+// src/assets/figures/L01 (sources in CREDITS.md) shown through the
+// image-hotspots widget, plus two d3 charts.
 
-import { brainLateral, REGIONS } from './figures/brain-lateral.js';
-import { neuron, NEURON_REGIONS } from './figures/neuron.js';
-import {
-  astrocyteFigure,
-  oligodendrocyteFigure,
-  schwannFigure,
-  microgliaFigure,
-  gliaOverview,
-  stainPanel,
-  stainTriptych,
-} from './figures/cells.js';
+import { neuronCountsFigure, disorderBurdenFigure } from './figures/charts.js';
+import { axonalTransport } from './figures/cells.js';
 
-// Explanations for the cortical map, keyed by the region keys in
-// figures/brain-lateral.js. Wording follows the slides.
-const LOBE_INFO = {
-  frontal: 'Anterior to the central sulcus and above the lateral fissure. Holds the motor areas (precentral gyrus, premotor and supplementary motor areas) and the prefrontal association cortex.',
-  parietal: 'Behind the central sulcus. Holds the somatosensory cortex in the postcentral gyrus and the posterior parietal association cortex.',
-  occipital: 'The back of the cerebrum. Holds the visual cortex.',
-  temporal: 'Below the lateral fissure. Holds the auditory cortex on the superior temporal gyrus and the inferotemporal association cortex.',
-  insula: 'Cortex buried inside the lateral fissure. Seen only when the frontal, parietal and temporal edges of the fissure are pulled apart. The gustatory cortex is here.',
-  'central-sulcus': 'The groove between the frontal and parietal lobes. The precentral gyrus is just anterior, the postcentral gyrus just posterior.',
-  'lateral-fissure': 'The deep groove (Sylvian fissure) that separates the temporal lobe from the frontal and parietal lobes. The insula lies inside it.',
-  precentral: 'The gyrus immediately anterior to the central sulcus. Primary motor cortex, which controls voluntary movement.',
-  postcentral: 'The gyrus immediately posterior to the central sulcus. Primary somatosensory cortex, which handles touch.',
-  'superior-temporal': 'The gyrus just below the lateral fissure. The auditory cortex is on its upper surface.',
-  cerebellum: 'Sits below the posterior cerebrum, with fine parallel folds. Part of the gross anatomy list on the slide.',
-  brainstem: 'The stalk under the cerebrum. Contains the midbrain, pons and medulla, carries the main ascending and descending pathways, and continues into the spinal cord.',
-  'olfactory-bulb': 'Small structure on the ventral surface under the frontal lobe. Receives primary olfactory input.',
-};
+const fig = (name) => new URL(`../assets/figures/L01/${name}.webp`, import.meta.url).href;
 
-const FUNCTIONAL_INFO = {
-  motor: 'Primary motor cortex, Brodmann area 4, in the precentral gyrus. Controls voluntary movement.',
-  premotor: 'Premotor area, part of area 6, anterior to the primary motor cortex. A motor area involved in planning movement.',
-  sma: 'Supplementary motor area, also area 6, on the upper and medial part of the frontal lobe in front of area 4.',
-  somatosensory: 'Somatosensory cortex, areas 3, 1 and 2, in the postcentral gyrus. Touch and body sensation.',
-  'posterior-parietal': 'Posterior parietal cortex, areas 5 and 7. Association cortex behind the somatosensory area.',
-  visual: 'Visual cortex, areas 17, 18 and 19, in the occipital lobe. Area 17 is primary visual cortex (V1).',
-  auditory: 'Auditory cortex, areas 41 and 42, on the superior temporal gyrus, partly hidden in the lateral fissure.',
-  gustatory: 'Gustatory cortex, area 43, for taste. Buried in the insula and the parietal operculum.',
-  inferotemporal: 'Inferotemporal cortex, areas 20, 21 and 37. Association cortex on the lower temporal lobe.',
-  prefrontal: 'Prefrontal cortex, the association cortex of the frontal lobe in front of the motor areas.',
-};
-
-const BRODMANN_INFO = {
-  b4: 'Area 4: primary motor cortex, precentral gyrus.',
-  b6: 'Area 6: premotor area and supplementary motor area, anterior to area 4.',
-  b8: 'Area 8: frontal lobe, anterior to area 6. Prefrontal cortex on the slide map.',
-  b9: 'Area 9: lateral prefrontal cortex.',
-  b10: 'Area 10: the frontal pole, prefrontal cortex.',
-  b46: 'Area 46: lateral prefrontal cortex, below area 9.',
-  b45: 'Area 45: inferior frontal gyrus, prefrontal cortex.',
-  b11: 'Area 11: the lower (orbital) frontal surface.',
-  b312: 'Areas 3, 1 and 2: somatosensory cortex, postcentral gyrus.',
-  b5: 'Area 5: posterior parietal cortex, behind the postcentral gyrus.',
-  b7: 'Area 7: posterior parietal cortex, upper parietal lobe.',
-  b17: 'Area 17: primary visual cortex (V1), at the occipital pole and on the medial surface.',
-  b18: 'Area 18: secondary visual cortex (V2), surrounding area 17.',
-  b19: 'Area 19: visual cortex, surrounding area 18.',
-  b41: 'Areas 41 and 42: auditory cortex, on the superior temporal gyrus.',
-  b22: 'Area 22: superior temporal gyrus, around the auditory areas.',
-  b21: 'Area 21: middle temporal gyrus. Part of the inferotemporal cortex on the slide.',
-  b20: 'Area 20: inferior temporal gyrus. Part of the inferotemporal cortex.',
-  b37: 'Area 37: posterior temporal lobe, near the occipital lobe. Part of the inferotemporal cortex.',
-  b38: 'Area 38: the temporal pole.',
-  b43: 'Area 43: gustatory cortex, in the operculum near the insula.',
-};
-
-const withInfo = (list, info) => list.map((r) => ({ key: r.key, name: r.label, info: info[r.key] || '' }));
-
-const CORTEX_LAYERS = [
-  { key: 'lobes', label: 'Lobes and landmarks', regions: withInfo(REGIONS.lobes, LOBE_INFO) },
-  { key: 'functional', label: 'Functional areas', regions: withInfo(REGIONS.functional, FUNCTIONAL_INFO) },
-  { key: 'brodmann', label: 'Brodmann numbers', regions: withInfo(REGIONS.brodmann, BRODMANN_INFO) },
-];
-
-function cortexMap(defaultLayer) {
-  return {
-    figure: brainLateral,
-    layers: CORTEX_LAYERS,
-    defaultLayer,
-    labels: true,
-    intro: 'Hover, tap or pick a region to read what it is. Switch layers to see lobes, functional areas or Brodmann numbers.',
-    layerLabel: 'Show',
-    selectLabel: 'Region',
-    placeholder: 'Choose a region',
-  };
+function hotspots(name, aspect, alt, regions, extra = {}) {
+  return { src: fig(name), alt, aspect, regions, ...extra };
 }
 
-const NEURON_INFO = {
-  dendrites: 'Branching neurites that receive most of the synaptic input. Their membrane carries receptors for neurotransmitter. Rarely longer than 2 mm, they taper to a point.',
-  soma: 'The cell body, about 20 micrometres across. Holds the nucleus and the organelles that make proteins and energy. The Nissl stain shows this part.',
-  nucleus: 'Contains the chromosomes and DNA. Genes are read here (transcription) into mRNA, which leaves through pores to be translated into protein.',
-  'axon-hillock': 'Where the axon begins, tapering away from the soma into the initial segment of the axon.',
-  axon: 'The single output fibre. Uniform diameter, up to a metre long, no ribosomes, so all its proteins come from the soma. Carries action potentials.',
-  'axon-collateral': 'A branch of the axon, usually leaving at a right angle. Lets one neuron reach several targets.',
-  'axon-terminal': 'The end of the axon (terminal bouton), swollen and full of synaptic vesicles and mitochondria. Releases neurotransmitter onto the target cell.',
-  synapse: 'The point of contact between the terminal and a target cell. The gap between them is the synaptic cleft. Information flows from presynaptic terminal to postsynaptic membrane.',
-};
+function chart(figure, alt, extra = {}) {
+  return { svg: figure.svg, alt, aspect: figure.aspect, regions: figure.regions, quiz: false, layout: 'stack', ...extra };
+}
+
+function figureBlock(props, caption, fallbackAlt) {
+  return { type: 'figure', visual: { type: 'widget', name: 'image-hotspots', props, caption, fallbackAlt } };
+}
+
+// ---------------------------------------------------------------------
+// Region sets. Coordinates are percentages of each image. mx, my place
+// the numbered marker, usually on the end of a leader line stub left
+// from the original figure.
+
+const SCALES_REGIONS = [
+  { id: 'coarse', label: 'Metres to millimetres', body: 'Body, whole brain, brain regions. The scale of behaviour, imaging and anatomy.', shape: 'rect', x: 22, y: 27, w: 34, h: 36, mx: 8, my: 27 },
+  { id: 'cells', label: 'Micrometres', body: 'Microcircuits, cells and synapses. The scale of the microscope.', shape: 'rect', x: 22, y: 63, w: 34, h: 18, mx: 8, my: 63 },
+  { id: 'molecules', label: 'Nanometres', body: 'Chromosomes and proteins. The scale of molecular biology.', shape: 'rect', x: 22, y: 90, w: 34, h: 16, mx: 8, my: 90 },
+  { id: 'slow', label: 'Years to hours', body: 'Development and aging, behaviour, learning. Slow processes that change the brain.', shape: 'rect', x: 78, y: 20, w: 34, h: 30, mx: 94, my: 20 },
+  { id: 'medium', label: 'Minutes to seconds', body: 'Synaptic plasticity and metabolism.', shape: 'rect', x: 78, y: 50, w: 34, h: 16, mx: 94, my: 50 },
+  { id: 'fast', label: 'Milliseconds to picoseconds', body: 'The action potential, vesicle release and molecular dynamics. The fastest events in the brain.', shape: 'rect', x: 78, y: 80, w: 34, h: 38, mx: 94, my: 80 },
+];
+
+const VIEW_REGIONS = [
+  { id: 'dorsal', label: 'Dorsal view', body: 'Seen from above. Both hemispheres, the midline between them.', x: 23, y: 27, w: 38, h: 46, mx: 23, my: 6 },
+  { id: 'ventral', label: 'Ventral view', body: 'Seen from below. The brain stem and cerebellum are visible, and the olfactory bulbs at the front.', x: 72, y: 27, w: 40, h: 46, mx: 72, my: 6 },
+  { id: 'lateral', label: 'Lateral view', body: 'Seen from the side. Anterior is to the left. The view used for lobes and functional areas.', x: 24, y: 80, w: 46, h: 36, mx: 24, my: 63 },
+  { id: 'medial', label: 'Medial view', body: 'The inner surface after a cut down the midline (a midsagittal cut). Shows the corpus callosum, brain stem and cerebellum.', x: 74, y: 80, w: 46, h: 36, mx: 74, my: 63 },
+];
+
+const PLANE_REGIONS = [
+  { id: 'coronal', label: 'Coronal plane', body: 'A vertical cut from side to side. Separates anterior from posterior. Seen edge-on in the lateral view.', shape: 'line', x: 27, y: 63, x2: 27, y2: 95, mx: 27, my: 61 },
+  { id: 'horizontal', label: 'Horizontal plane', body: 'A cut parallel to the ground. Separates superior from inferior. Seen edge-on in the lateral view.', shape: 'line', x: 3, y: 80, x2: 47, y2: 80, mx: 10, my: 80 },
+  { id: 'sagittal', label: 'Sagittal plane', body: 'A vertical cut from front to back. Separates left from right. The midsagittal cut runs down the midline of the dorsal view and gives the medial view.', shape: 'line', x: 23, y: 5, x2: 23, y2: 50, mx: 23, my: 10 },
+];
+
+const DIRECTION_REGIONS = [
+  { id: 'anterior', label: 'Anterior', body: 'Toward the front. The frontal pole in the lateral view.', x: 6, y: 79, w: 8, h: 14 },
+  { id: 'posterior', label: 'Posterior', body: 'Toward the back. The occipital pole.', x: 46, y: 80, w: 8, h: 14 },
+  { id: 'dorsal', label: 'Dorsal (superior)', body: 'Toward the back of the animal. In the human forebrain this is the top of the head, so dorsal equals superior here.', shape: 'rect', x: 24, y: 64, w: 22, h: 5 },
+  { id: 'ventral', label: 'Ventral (inferior)', body: 'Toward the belly. In the forebrain this is the underside, so ventral equals inferior here.', shape: 'rect', x: 24, y: 95, w: 22, h: 5 },
+  { id: 'medial', label: 'Medial', body: 'Toward the midline, seen here as the groove between the hemispheres in the dorsal view.', shape: 'line', x: 23, y: 6, x2: 23, y2: 49, mx: 23, my: 27 },
+  { id: 'lateral', label: 'Lateral', body: 'Away from the midline, toward the outer edge of a hemisphere.', x: 6, y: 27, w: 6, h: 30 },
+];
+
+const GROSS_REGIONS = [
+  { id: 'cerebrum', label: 'Cerebrum', body: 'The largest part. Two hemispheres with a folded surface. Everything in the lateral view except the cerebellum and brain stem.', x: 48, y: 44, w: 84, h: 76, mx: 31, my: 23 },
+  { id: 'cerebellum', label: 'Cerebellum', body: 'Below and behind the cerebrum, with fine parallel folds.', x: 76, y: 82, w: 26, h: 30, mx: 78, my: 91 },
+  { id: 'brainstem', label: 'Brain stem', body: 'The stalk under the cerebrum: midbrain, pons and medulla. It continues into the spinal cord.', shape: 'rect', x: 60, y: 96, w: 16, h: 8, mx: 57, my: 96 },
+  { id: 'olfactory', label: 'Olfactory bulb', body: 'Small structure on the ventral surface under the frontal lobe. Receives primary olfactory input.', x: 16, y: 79, w: 9, h: 6, mx: 17, my: 80 },
+];
+
+const GYRI_REGIONS = [
+  { id: 'precentral', label: 'Precentral gyrus', body: 'Just anterior to the central sulcus (purple). Primary motor cortex.', shape: 'line', x: 44, y: 19, x2: 41, y2: 52, mx: 43, my: 28 },
+  { id: 'central-sulcus', label: 'Central sulcus', body: 'The groove from the top of the hemisphere down toward the lateral fissure. Frontal lobe in front, parietal lobe behind.', shape: 'line', x: 47, y: 17, x2: 43, y2: 52, mx: 47, my: 16 },
+  { id: 'postcentral', label: 'Postcentral gyrus', body: 'Just posterior to the central sulcus (yellow). Primary somatosensory cortex.', shape: 'line', x: 50, y: 17, x2: 45, y2: 52, mx: 55, my: 21 },
+  { id: 'lateral-fissure', label: 'Lateral (Sylvian) fissure', body: 'The deep groove that separates the temporal lobe from the frontal and parietal lobes. The insula is buried inside it.', shape: 'line', x: 24, y: 55, x2: 52, y2: 50, mx: 43, my: 55 },
+  { id: 'superior-temporal', label: 'Superior temporal gyrus', body: 'The gyrus just below the lateral fissure (red). Primary auditory cortex on its upper surface.', shape: 'line', x: 37, y: 58, x2: 60, y2: 52, mx: 58, my: 55 },
+];
+
+const LOBE_REGIONS = [
+  { id: 'frontal', label: 'Frontal lobe', body: 'Anterior to the central sulcus and above the lateral fissure. Motor areas at the back, prefrontal association cortex in front.', x: 25, y: 29, w: 26, h: 42, mx: 18, my: 24 },
+  { id: 'parietal', label: 'Parietal lobe', body: 'Behind the central sulcus. Somatosensory cortex in the postcentral gyrus, posterior parietal association cortex behind it.', x: 46, y: 23, w: 20, h: 34, mx: 48, my: 13 },
+  { id: 'temporal', label: 'Temporal lobe', body: 'Below the lateral fissure. Auditory cortex on the superior temporal gyrus, inferotemporal association cortex lower down.', x: 38, y: 62, w: 28, h: 32, mx: 29, my: 69 },
+  { id: 'occipital', label: 'Occipital lobe', body: 'The back of the cerebrum. Visual cortex.', x: 56, y: 48, w: 12, h: 32, mx: 60, my: 54 },
+  { id: 'central-sulcus', label: 'Central sulcus', body: 'Divides the frontal lobe from the parietal lobe.', shape: 'line', x: 36, y: 9, x2: 44, y2: 46, mx: 40, my: 27 },
+  { id: 'lateral-fissure', label: 'Lateral (Sylvian) fissure', body: 'Separates the temporal lobe from the frontal and parietal lobes.', shape: 'line', x: 22, y: 54, x2: 48, y2: 43, mx: 35, my: 49 },
+  { id: 'insula', label: 'Insula', body: 'Cortex buried inside the lateral fissure, seen on the right only because the edges of the fissure have been pulled apart. The gustatory cortex is here.', x: 82, y: 36, w: 8, h: 12, mx: 80, my: 40 },
+];
+
+const SENSORY_MOTOR_REGIONS = [
+  { id: 'motor', label: 'Primary motor cortex (area 4)', body: 'In the precentral gyrus, just anterior to the central sulcus. Controls voluntary movement.', shape: 'line', x: 46, y: 13, x2: 38, y2: 46, mx: 43, my: 18 },
+  { id: 'premotor', label: 'Premotor area (area 6)', body: 'Anterior to the primary motor cortex, on the lateral surface. Plans movement.', x: 33, y: 28, w: 10, h: 20, mx: 34, my: 26 },
+  { id: 'sma', label: 'Supplementary motor area (area 6)', body: 'Also area 6, on the upper and medial part of the frontal lobe in front of area 4.', x: 37, y: 14, w: 12, h: 8, mx: 35, my: 9 },
+  { id: 'somatosensory', label: 'Somatosensory cortex (areas 3, 1, 2)', body: 'In the postcentral gyrus, just behind the central sulcus. Touch and body sensation.', shape: 'line', x: 51, y: 13, x2: 43, y2: 47, mx: 51, my: 13 },
+  { id: 'visual', label: 'Visual cortex (areas 17, 18, 19)', body: 'The occipital lobe. Area 17 is primary visual cortex, V1.', x: 68, y: 42, w: 16, h: 30, mx: 75, my: 32 },
+  { id: 'auditory', label: 'Auditory cortex (areas 41, 42)', body: 'On the superior temporal gyrus, partly hidden in the lateral fissure.', x: 46, y: 53, w: 14, h: 8, mx: 47, my: 53 },
+  { id: 'gustatory', label: 'Gustatory cortex (area 43)', body: 'Taste. Buried in the insula and the parietal operculum, shown on the small brain with the fissure opened.', x: 84, y: 79, w: 5, h: 6, mx: 84, my: 80 },
+];
+
+const ASSOCIATION_REGIONS = [
+  { id: 'prefrontal', label: 'Prefrontal cortex', body: 'The association cortex of the frontal lobe, in front of the motor areas.', x: 24, y: 45, w: 30, h: 44, mx: 24, my: 60 },
+  { id: 'posterior-parietal', label: 'Posterior parietal cortex (areas 5, 7)', body: 'Association cortex behind the somatosensory area.', x: 58, y: 25, w: 22, h: 26, mx: 66, my: 17 },
+  { id: 'inferotemporal', label: 'Inferotemporal cortex (areas 20, 21, 37)', body: 'Association cortex on the lower temporal lobe.', x: 38, y: 70, w: 26, h: 14, mx: 37, my: 70 },
+];
+
+const BRODMANN_REGIONS = [
+  { id: 'b4', label: 'Area 4: primary motor cortex', body: 'The red strip in the precentral gyrus.', shape: 'line', x: 50.5, y: 16, x2: 43.3, y2: 49, mx: 47, my: 30 },
+  { id: 'b6', label: 'Area 6: premotor and supplementary motor areas', body: 'Anterior to area 4.', x: 41, y: 27, w: 8, h: 20 },
+  { id: 'b312', label: 'Areas 3, 1, 2: somatosensory cortex', body: 'The strip in the postcentral gyrus, behind the central sulcus.', shape: 'line', x: 54.6, y: 13, x2: 44.3, y2: 49, mx: 52, my: 28 },
+  { id: 'b57', label: 'Areas 5, 7: posterior parietal cortex', body: 'Behind the somatosensory strip.', x: 66, y: 35, w: 16, h: 20 },
+  { id: 'b17', label: 'Areas 17, 18, 19: visual cortex', body: 'Area 17 (V1) at the occipital pole, 18 and 19 around it.', x: 88.7, y: 56.5, w: 14, h: 24 },
+  { id: 'b41', label: 'Areas 41, 42: auditory cortex', body: 'On the superior temporal gyrus.', x: 51.5, y: 57.6, w: 12, h: 8 },
+  { id: 'b20', label: 'Areas 20, 21, 37: inferotemporal cortex', body: 'The lower temporal lobe.', x: 40.2, y: 76, w: 16, h: 12 },
+];
+
+const LAYER_REGIONS = [
+  { id: 'l4sub', label: 'Layer 4 of V1: 4A, 4B, 4C', body: 'In primary visual cortex layer 4 is thick and split into sublayers, because it receives the dense input from the thalamus.', shape: 'rect', x: 12, y: 19, w: 14, h: 14 },
+  { id: 'gennari', label: 'Line of Gennari', body: 'A pale stripe within layer 4 of V1, made of myelinated fibres. Visible to the naked eye.', x: 36, y: 34, w: 8, h: 7 },
+  { id: 'transition', label: 'V1 to V2 transition', body: 'Where the thick, subdivided layer 4 ends abruptly. A cytoarchitectonic border.', x: 72, y: 41, w: 8, h: 8 },
+  { id: 'l4v2', label: 'Layer 4 in V2', body: 'Thin and undivided. The same layer looks different across the border.', x: 78, y: 63, w: 8, h: 8 },
+];
+
+const STAIN_REGIONS = [
+  { id: 'nissl-body', label: 'Nissl: a neuron cell body', body: 'The basic dye binds RNA in the rough ER and the nucleus, so the soma is dark and the processes are invisible.', x: 10, y: 32, w: 8, h: 12 },
+  { id: 'nissl-glia', label: 'Nissl: small cells', body: 'Small stained nuclei with little cytoplasm are glia. Neurons and glia can be told apart by size and shape.', x: 25, y: 62, w: 6, h: 9 },
+  { id: 'golgi-neuron', label: 'Golgi: one whole neuron', body: 'Silver chromate fills a few neurons completely: soma, dendrites and axon stand out in black.', x: 48, y: 32, w: 10, h: 34 },
+  { id: 'golgi-background', label: 'Golgi: unstained tissue', body: 'Most cells take up no stain, which is why single neurons can be followed.', x: 67, y: 72, w: 8, h: 12 },
+  { id: 'em-terminal', label: 'Electron microscope: presynaptic terminal', body: 'Coloured green. Filled with synaptic vesicles.', x: 90, y: 22, w: 8, h: 12 },
+  { id: 'em-spine', label: 'Electron microscope: postsynaptic spine', body: 'Coloured yellow. Its membrane is separate from the terminal, with the synaptic cleft between.', x: 86, y: 56, w: 10, h: 30 },
+  { id: 'em-astrocyte', label: 'Electron microscope: astrocyte process', body: 'Coloured blue. Wraps the synapse and restricts the extracellular space.', x: 80, y: 16, w: 5, h: 12 },
+];
+
+const NEURON_REGIONS = [
+  { id: 'dendrites', label: 'Dendrites', body: 'Branching neurites that receive most of the synaptic input. They taper and are rarely longer than 2 mm.', x: 16, y: 35, w: 26, h: 40, mx: 16, my: 35 },
+  { id: 'soma', label: 'Soma (cell body)', body: 'About 20 micrometres across. Holds the nucleus and the organelles that make proteins and energy.', x: 35, y: 50, w: 20, h: 26, mx: 41, my: 58 },
+  { id: 'nucleus', label: 'Nucleus', body: 'Holds the chromosomes. Genes are read here into mRNA, which leaves through pores to be made into protein.', x: 34, y: 48, w: 8, h: 9, mx: 34, my: 48 },
+  { id: 'hillock', label: 'Axon hillock', body: 'Where the axon begins, tapering away from the soma.', x: 44, y: 58, w: 6, h: 7, mx: 47, my: 70 },
+  { id: 'axon', label: 'Axon', body: 'The single output fibre. Uniform diameter, up to a metre long, no ribosomes.', x: 68, y: 60, w: 30, h: 14, mx: 78, my: 60 },
+  { id: 'myelin', label: 'Myelin sheath', body: 'Wrapping made by glia, interrupted at the nodes of Ranvier. Speeds conduction.', x: 58, y: 62, w: 9, h: 9, mx: 57, my: 71 },
+  { id: 'terminals', label: 'Axon terminals', body: 'The branched end of the axon. Each terminal contacts a target cell at a synapse.', x: 90, y: 28, w: 18, h: 26, mx: 92, my: 18 },
+];
+
+const INTERNAL_REGIONS = [
+  { id: 'nucleus', label: 'Nucleus', body: 'DNA in chromosomes. Transcription makes mRNA, which leaves through nuclear pores.', x: 56, y: 60, w: 14, h: 16 },
+  { id: 'rough-er', label: 'Rough ER', body: 'Membrane stacks studded with ribosomes. Makes membrane proteins. This is the Nissl substance.', x: 47, y: 52, w: 10, h: 10 },
+  { id: 'mitochondrion', label: 'Mitochondrion', body: 'Cellular respiration; makes the ATP that fuels the membrane pumps.', x: 67, y: 45, w: 6, h: 7 },
+  { id: 'golgi', label: 'Golgi apparatus', body: 'Sorts finished proteins for delivery to the axon or the dendrites.', x: 72, y: 65, w: 7, h: 10 },
+  { id: 'smooth-er', label: 'Smooth ER', body: 'No ribosomes. Folds proteins and regulates substances such as calcium.', x: 73, y: 76, w: 6, h: 6 },
+  { id: 'hillock', label: 'Axon hillock', body: 'Where the soma narrows into the axon.', x: 62, y: 83, w: 8, h: 6 },
+  { id: 'microtubules', label: 'Microtubules', body: 'Cytoskeletal tracks running down the axon; the rails for axoplasmic transport.', x: 62, y: 91, w: 6, h: 6 },
+];
+
+const SYNAPSE_REGIONS = [
+  { id: 'terminal', label: 'Presynaptic axon terminal', body: 'The swollen end of the axon. No ribosomes, no microtubules, many mitochondria.', x: 48, y: 32, w: 80, h: 36, mx: 26, my: 34 },
+  { id: 'vesicle', label: 'Synaptic vesicle', body: 'About 50 nm across, filled with neurotransmitter.', x: 37, y: 41, w: 14, h: 9, mx: 37, my: 41 },
+  { id: 'active-zone', label: 'Active zone', body: 'The release face of the terminal, coated with protein, where vesicles fuse with the membrane.', x: 66, y: 50, w: 20, h: 6, mx: 66, my: 47 },
+  { id: 'cleft', label: 'Synaptic cleft', body: 'The 20 nm gap between the two cells. Transmitter diffuses across it.', shape: 'line', x: 10, y: 55, x2: 93, y2: 55, mx: 88, my: 56 },
+  { id: 'transmitter', label: 'Neurotransmitter', body: 'Released molecules crossing the cleft.', x: 55, y: 59, w: 40, h: 9, mx: 55, my: 60 },
+  { id: 'postsynaptic-membrane', label: 'Postsynaptic membrane (receptors)', body: 'Carries the receptors that bind transmitter; the postsynaptic density.', x: 50, y: 64, w: 78, h: 8, mx: 24, my: 65 },
+  { id: 'dendrite', label: 'Postsynaptic dendrite', body: 'The target cell, usually a dendrite or soma. Produces an electrical or biochemical response.', x: 50, y: 82, w: 70, h: 30, mx: 50, my: 84 },
+];
+
+const GLIA_REGIONS = [
+  { id: 'astrocyte', label: 'Astrocyte', body: 'The most numerous glia. Star-shaped, fills the space between neurons and vessels, wraps synapses, clears transmitter and potassium.', x: 15, y: 50, w: 26, h: 80, mx: 14, my: 47 },
+  { id: 'oligo', label: 'Oligodendroglial cell', body: 'Makes myelin in the central nervous system. One cell sends processes to several axons.', x: 44, y: 30, w: 10, h: 20, mx: 44, my: 30 },
+  { id: 'myelin', label: 'Myelin sheath', body: 'Many layers of glial membrane wrapped round a segment of axon.', x: 58, y: 50, w: 10, h: 10, mx: 58, my: 50 },
+  { id: 'node', label: 'Node of Ranvier', body: 'The gap between two myelin segments where the axon membrane is exposed.', x: 46.5, y: 50, w: 3, h: 9, mx: 46.5, my: 62 },
+  { id: 'axon', label: 'Axon', body: 'The fibre being insulated. Schwann cells do the same job in the peripheral nervous system, one segment of one axon each.', x: 66, y: 57, w: 6, h: 5, mx: 67, my: 62 },
+  { id: 'microglia', label: 'Microglial cell', body: 'The brain\'s phagocyte. Monitors tissue, removes debris and remodels synapses.', x: 86, y: 50, w: 26, h: 80, mx: 85, my: 50 },
+];
+
+const NEURON_COUNTS = neuronCountsFigure();
+const DISORDERS = disorderBurdenFigure();
 
 export default {
   meta: {
@@ -137,22 +204,39 @@ export default {
     {
       id: 'scales',
       title: 'Scales of the brain and the brain as a network',
-      body: [
-        'Brain research works across a huge range of spatial scales. At the small end are proteins and chromosomes, measured in nanometres. Then come synapses and cells in micrometres, microcircuits and brain regions in millimetres, the whole brain in centimetres, and the body in metres.',
-        'Function has its own ladder of time scales. Molecular dynamics take picoseconds. Vesicle release and the action potential take microseconds to milliseconds. Metabolism and synaptic plasticity run over seconds to minutes. Learning takes hours, behaviour days, and development and aging years.',
-        'A method sees only one part of these ladders. A result applies to the scale and time window that was measured, and a claim should say which.',
-        'The brain can be described as a network at any scale. A network is a set of nodes joined by edges. At the cellular scale a node is a neuron and an edge is a synapse or an axon. At the regional scale a node is a brain area and an edge is an anatomical pathway, or a statistical relationship between the activity of two areas.',
-        'Structural connectivity means anatomical connections. Functional connectivity means that the signals of two nodes vary together over time. Functional connectivity is a relationship between measurements. It does not by itself prove that an anatomical pathway exists.',
-        'The measured network also depends on analysis choices: how the brain is divided into nodes, what threshold counts as an edge, and which time window and resolution are used. The slide adds a topological axis (local, meso-scale, global) and a temporal axis (instantaneous, development and lifespan, evolutionary).',
-      ],
       keyTerms: ['spatial scale', 'time scale', 'network', 'node', 'edge', 'structural connectivity', 'functional connectivity'],
-      visual: {
-        type: 'svg',
-        name: 'scales-ladder',
-        props: {},
-        caption: 'The two ladders from the slide. Structure runs from body to proteins; function from development and aging to molecular dynamics.',
-        fallbackAlt: 'Two vertical ladders. Left, spatial scale from metres (body) down to nanometres (proteins). Right, time scale from years (development and aging) down to picoseconds (molecular dynamics).',
-      },
+      blocks: [
+        { type: 'text', body: 'Brain research spans a huge range of sizes and speeds. Any one method sees only a slice of each range.' },
+        { type: 'definition', term: 'Spatial scale', body: 'The size of what is measured. Proteins and chromosomes are nanometres; synapses and cells micrometres; microcircuits and regions millimetres; the whole brain centimetres; the body metres.' },
+        { type: 'definition', term: 'Time scale', body: 'The speed of what is measured. Molecular dynamics take picoseconds; vesicle release and the action potential microseconds to milliseconds; metabolism and synaptic plasticity seconds to minutes; learning hours; behaviour days; development and aging years.' },
+        figureBlock(
+          hotspots('scales', 850 / 854, 'The two ladders from the slide: spatial scales on the left from metres down to nanometres, time scales on the right from years down to picoseconds.', SCALES_REGIONS, { quiz: false }),
+          'The two ladders from the slide. Structure runs from body to proteins; function from development and aging to molecular dynamics.',
+          'Two ladders. Left: spatial scale from metres (body) down to nanometres (proteins). Right: time scale from years (development and aging) down to picoseconds (molecular dynamics).'
+        ),
+        { type: 'whyItMatters', body: 'A result applies to the scale and time window that was measured. A claim should say which.' },
+        { type: 'definition', term: 'Network', body: 'A set of nodes joined by edges. The brain can be described as a network at any scale.' },
+        {
+          type: 'compare',
+          title: 'Nodes and edges at two scales',
+          columns: ['Cellular scale', 'Regional scale'],
+          rows: [
+            { label: 'Node', cells: ['A neuron', 'A brain area'] },
+            { label: 'Edge', cells: ['A synapse or an axon', 'An anatomical pathway, or a statistical relationship between the activity of two areas'] },
+          ],
+        },
+        {
+          type: 'compare',
+          title: 'Structural versus functional connectivity',
+          columns: ['Structural', 'Functional'],
+          rows: [
+            { label: 'What it is', cells: ['Anatomical connections: axons, tracts', 'Signals of two nodes vary together over time'] },
+            { label: 'Kind of statement', cells: ['About anatomy', 'About measurements'] },
+            { label: 'Proves a pathway?', cells: ['Yes, by definition', 'No. Correlated activity does not prove a direct axonal link'] },
+          ],
+        },
+        { type: 'detail', title: 'The measured network depends on analysis choices', body: ['How the brain is divided into nodes, what threshold counts as an edge, and which time window and resolution are used all change the network you get.', 'The slide adds a topological axis (local, meso-scale, global) and a temporal axis (instantaneous, development and lifespan, evolutionary).'] },
+      ],
       conceptQuiz: [
         {
           id: 'scales-1',
@@ -192,23 +276,30 @@ export default {
     {
       id: 'disorders',
       title: 'Brain disorders',
-      body: [
-        'Brain disorders are common and expensive. A European study using 2010 data estimated a cost of about 800 billion euros per year across 30 countries, with about 179 million people affected.',
-        'The cost has three parts: health care, non-medical support such as care at home, and lost productivity.',
-        'The graph on the slide shows three numbers per disorder: how many people have it, what it costs per person per year, and the total cost. These do not rank the same way.',
-        'Anxiety disorders, migraine and mood disorders affect the most people but cost relatively little per person. Brain tumours, multiple sclerosis and stroke affect fewer people but cost the most per person. Mood disorders and dementia have the largest total cost.',
-        'The burden of a disorder on a population therefore depends on prevalence, on how much disability and care it causes, and on its wider economic effects. Severity and course still vary a lot between individual patients.',
-        'Brain disorders can affect movement, sensation, mood, cognition, communication and independence, because all of these arise from interacting processes across the nervous system. The textbook lists Alzheimer\'s disease, Parkinson\'s disease, depression, schizophrenia, stroke, epilepsy and multiple sclerosis among the major ones.',
-        'A mechanistic explanation of a disorder links changes in molecules or cells to altered circuit function and then to symptoms. It should also allow for distributed pathology, compensation by the rest of the system, and variation between patients.',
-      ],
       keyTerms: ['prevalence', 'burden', 'mechanistic explanation'],
-      visual: {
-        type: 'svg',
-        name: 'disorder-burden',
-        props: {},
-        caption: 'Brain disorders in Europe, 2010 data, from the slide. Each column has its own scale. Common disorders cost little per person; rare ones cost a lot per person.',
-        fallbackAlt: 'Table of bars for twelve disorders. Anxiety disorders, migraine and mood disorders affect the most people; multiple sclerosis, brain tumour and stroke cost the most per person; mood disorders and dementia have the largest total cost.',
-      },
+      blocks: [
+        { type: 'keyNumber', title: 'Europe, 2010 data, 30 countries', items: [
+          { value: '800 billion euro', label: 'per year, the total cost of brain disorders' },
+          { value: '179 million', label: 'people affected' },
+        ] },
+        { type: 'definition', term: 'Cost components', body: 'Health care, non-medical support such as care at home, and lost productivity.' },
+        figureBlock(
+          chart(DISORDERS, 'Three dot plots for twelve disorders: people affected, cost per person, and total cost.'),
+          'Twelve disorders from the slide, ordered by how many people they affect. The three measures rank them differently. Dementia is marked.',
+          'Three columns of dots. People affected: anxiety disorders, migraine and mood disorders lead. Cost per person: multiple sclerosis, brain tumour and stroke lead. Total cost: mood disorders and dementia lead.'
+        ),
+        {
+          type: 'compare',
+          title: 'Three ways to rank a disorder',
+          columns: ['Most people affected', 'Highest cost per person', 'Largest total cost'],
+          rows: [
+            { label: 'Disorders', cells: ['Anxiety, migraine, mood disorders', 'Brain tumour, multiple sclerosis, stroke', 'Mood disorders, dementia'] },
+            { label: 'Why', cells: ['Common, cheap per person', 'Rare, expensive per person', 'Prevalence times cost per person'] },
+          ],
+        },
+        { type: 'whyItMatters', body: 'The burden of a disorder on a population depends on prevalence, on the disability and care it causes, and on its wider economic effects. Severity still varies between patients.' },
+        { type: 'detail', title: 'What disorders affect, and what an explanation needs', body: ['Brain disorders can affect movement, sensation, mood, cognition, communication and independence, because all of these arise from interacting processes across the nervous system. The textbook names Alzheimer\'s disease, Parkinson\'s disease, depression, schizophrenia, stroke, epilepsy and multiple sclerosis.', 'A mechanistic explanation links changes in molecules or cells to altered circuit function and then to symptoms, and allows for distributed pathology, compensation, and variation between patients.'] },
+      ],
       conceptQuiz: [
         {
           id: 'disorders-1',
@@ -249,23 +340,23 @@ export default {
     {
       id: 'neuron-counts',
       title: 'Neuron counts and comparative scale',
-      body: [
-        'A neuron has three main regions. The soma, or cell body, keeps the cell alive and holds the nucleus. The dendrites receive and combine most of the input from other neurons. The axon carries the output toward other cells.',
-        'The axon ends in axon terminals that contact target cells at synapses. Collaterals and terminal branches let one axon reach many targets through separate contact sites.',
-        'A single neuron can receive input from thousands of nerve fibres. The slide shows one with about 5600 fibres connected to it. The number of synapses varies with cell type, brain region, developmental stage and the counting method.',
-        'The human brain has about 86 billion neurons, which form about 100 trillion connections. About 16.3 billion of the neurons are in the cerebral cortex. There are roughly as many glial cells as neurons.',
-        'Comparisons between species must use the same anatomical level. The elephant has more neurons than a human in total (the slide gives 251 billion; nearly all of them are in the cerebellum) but only about 5.6 billion cortical neurons, far fewer than the human 16.3 billion.',
-        'So whole-brain counts and cortex counts give different rankings. A large cerebellar population and a large cortical population have different functional implications.',
-        'Neuron number sets one limit on what a nervous system can do. Cognitive ability also depends on cell types, morphology, connectivity, synaptic strength and the timing of activity. Neuron counts alone do not rank species by intelligence.',
-      ],
       keyTerms: ['soma', 'dendrites', 'axon', 'axon terminal', 'synapse'],
-      visual: {
-        type: 'svg',
-        name: 'neuron-counts',
-        props: {},
-        caption: 'Neuron counts from the slide, in billions. The elephant leads on the whole brain, the human on the cerebral cortex.',
-        fallbackAlt: 'Two bar columns for six species. Whole brain: elephant 251, human 86, gorilla 33, chimpanzee 22, rhesus 6, marmoset 0.6 billion. Cerebral cortex: human 16.3, gorilla 9.1, chimpanzee 6, elephant 5.6, rhesus 1.7, marmoset 0.2 billion.',
-      },
+      blocks: [
+        { type: 'definition', term: 'Three regions of a neuron', body: 'The soma, or cell body, keeps the cell alive and holds the nucleus. The dendrites receive and combine most of the input. The axon carries the output to axon terminals, which contact other cells at synapses.' },
+        { type: 'keyNumber', title: 'The human brain', items: [
+          { value: '86 billion', label: 'neurons' },
+          { value: '100 trillion', label: 'connections between them' },
+          { value: '16.3 billion', label: 'of the neurons are in the cerebral cortex' },
+          { value: '5600', label: 'nerve fibres connected to the single neuron on the slide' },
+        ], note: 'There are roughly as many glial cells as neurons.' },
+        figureBlock(
+          chart(NEURON_COUNTS, 'Two dot plots of neuron counts for six species: whole brain and cerebral cortex.'),
+          'Neuron counts from the slide, in billions. The elephant leads on the whole brain, the human on the cerebral cortex. Human is marked.',
+          'Two columns of dots for six species. Whole brain: elephant 251, human 86, gorilla 33, chimpanzee 22, rhesus 6, marmoset 0.6 billion. Cerebral cortex: human 16.3, gorilla 9.1, chimpanzee 6, elephant 5.6, rhesus 1.7, marmoset 0.2 billion.'
+        ),
+        { type: 'example', title: 'Elephant versus human', body: 'The elephant has more neurons in total (251 billion on the slide, nearly all in the cerebellum) but only about 5.6 billion cortical neurons. The human cortex has 16.3 billion. Whole-brain counts and cortex counts give different rankings.' },
+        { type: 'misconception', wrong: 'More neurons means a smarter animal.', right: 'Counts must be compared at the same anatomical level, and even then cell types, morphology, connectivity, synaptic strength and timing all matter. Neuron number sets one limit, not a ranking.' },
+      ],
       conceptQuiz: [
         {
           id: 'neuron-counts-1',
@@ -306,37 +397,47 @@ export default {
     {
       id: 'directions',
       title: 'Anatomical directions and planes',
-      body: [
-        'Direction terms give a shared coordinate system for specimens, drawings, scans and surgery.',
-        'Anterior means toward the front and posterior toward the back. Medial means toward the midline and lateral away from it. Superior means toward the top of the head and inferior toward the feet.',
-        'Dorsal means toward the back of the animal and ventral toward the belly. The human neuraxis bends near the midbrain, so in the forebrain dorsal roughly equals superior and ventral equals inferior. In the brainstem and spinal cord, dorsal equals posterior and ventral equals anterior. That is why the slide lists both pairs.',
-        'A view is what you see from one side: the dorsal view from above, the ventral view from below, the lateral view from the side, and the medial view, the inner surface after a cut down the midline.',
-        'A section is a cut through the brain. A coronal section is a vertical cut that separates anterior from posterior. A sagittal section is a vertical cut that separates left from right; the midsagittal section runs down the midline. A horizontal section separates superior from inferior.',
-        'A precise anatomical description names the side, the view or section plane, the structure, and its spatial relationship to a landmark.',
-      ],
       keyTerms: ['anterior', 'posterior', 'medial', 'lateral', 'superior', 'inferior', 'dorsal', 'ventral', 'coronal', 'sagittal', 'horizontal'],
-      visual: {
-        type: 'widget',
-        name: 'section-planes',
-        props: {
-          chooseLabel: 'Plane',
-          planes: [
-            { key: 'coronal', label: 'Coronal', info: 'A vertical cut from side to side. It separates anterior from posterior. Seen edge-on in the lateral view and in the dorsal view. The Nissl-stained whole-brain slice on the slide is a coronal section.' },
-            { key: 'sagittal', label: 'Sagittal', info: 'A vertical cut from front to back. It separates left from right. In the lateral view the plane is parallel to the page, so it covers the whole view; the midsagittal cut down the midline gives the medial view.' },
-            { key: 'horizontal', label: 'Horizontal', info: 'A cut parallel to the ground. It separates superior from inferior. Seen edge-on in the lateral view; in the dorsal view it is parallel to the page and covers the whole view.' },
+      blocks: [
+        { type: 'whyItMatters', body: 'Direction terms give a shared coordinate system for specimens, drawings, scans and surgery. A precise description names the side, the view or section plane, the structure, and its relation to a landmark.' },
+        {
+          type: 'compare',
+          title: 'Direction pairs',
+          columns: ['Toward', 'Opposite'],
+          rows: [
+            { label: 'Anterior / posterior', cells: ['The front', 'The back'] },
+            { label: 'Medial / lateral', cells: ['The midline', 'Away from the midline'] },
+            { label: 'Superior / inferior', cells: ['The top of the head', 'The feet'] },
+            { label: 'Dorsal / ventral', cells: ['The back of the animal', 'The belly'] },
           ],
-          directions: {
-            anterior: 'Anterior',
-            posterior: 'Posterior',
-            dorsal: 'Dorsal (superior)',
-            ventral: 'Ventral (inferior)',
-            lateral: 'Lateral',
-            medial: 'Medial',
-          },
         },
-        caption: 'Pick a plane. It appears as a band where you look along it, and covers the whole view where it is parallel to the page.',
-        fallbackAlt: 'A lateral view and a dorsal view of the brain with direction labels: anterior, posterior, dorsal (superior), ventral (inferior), lateral, medial. A coloured band marks the chosen section plane.',
-      },
+        figureBlock(
+          hotspots('four-views', 1001 / 1047, 'Four views of the brain: dorsal and ventral above, lateral and medial below.', DIRECTION_REGIONS, { intro: 'Directions on the lateral view (bottom left) and the dorsal view (top left).' }),
+          'Directions placed on the slide figure. Anterior is to the left in the lateral view.',
+          'A lateral view with anterior, posterior, dorsal and ventral marked, and a dorsal view with medial and lateral marked.'
+        ),
+        { type: 'example', title: 'Why the slide lists both dorsal and superior', body: 'The human neuraxis bends near the midbrain. In the forebrain dorsal equals superior and ventral equals inferior. In the brainstem and spinal cord dorsal equals posterior and ventral equals anterior.' },
+        { type: 'definition', term: 'View', body: 'What you see from one side. Dorsal from above, ventral from below, lateral from the side, medial the inner surface after a cut down the midline.' },
+        figureBlock(
+          hotspots('four-views', 1001 / 1047, 'Four views of the brain: dorsal and ventral above, lateral and medial below.', VIEW_REGIONS),
+          'The four views from the slide. Quiz yourself on which is which.',
+          'Dorsal view top left, ventral view top right, lateral view bottom left, medial view bottom right.'
+        ),
+        {
+          type: 'steps',
+          title: 'Three section planes',
+          steps: [
+            { title: 'Coronal:', body: 'a vertical cut from side to side. Separates anterior from posterior.' },
+            { title: 'Sagittal:', body: 'a vertical cut from front to back. Separates left from right. The midsagittal cut runs down the midline.' },
+            { title: 'Horizontal:', body: 'a cut parallel to the ground. Separates superior from inferior.' },
+          ],
+        },
+        figureBlock(
+          hotspots('four-views', 1001 / 1047, 'Four views of the brain with three section planes marked.', PLANE_REGIONS, { showShapes: true, intro: 'Each plane is drawn where you look along it: coronal and horizontal on the lateral view, sagittal on the dorsal view.' }),
+          'Planes drawn edge-on. The Nissl-stained whole-brain slice later in this lecture is a coronal section.',
+          'Coronal plane as a vertical line and horizontal plane as a horizontal line on the lateral view; sagittal plane as the midline on the dorsal view.'
+        ),
+      ],
       conceptQuiz: [
         {
           id: 'directions-1',
@@ -377,23 +478,38 @@ export default {
     {
       id: 'gross-anatomy',
       title: 'Gross anatomy and cortical surface anatomy',
-      body: [
-        'Gross anatomy covers what you can see without a microscope. In a lateral view the largest part is the cerebrum. Below and behind it is the cerebellum, with fine parallel folds. The brain stem forms the stalk under the cerebrum and continues into the spinal cord. The small olfactory bulb sits on the ventral surface under the frontal lobe.',
-        'The brain stem contains the midbrain, pons and medulla. It carries the main ascending and descending pathways and regulates essential bodily functions.',
-        'The surface of the cerebrum is folded. The bumps are gyri, the grooves are sulci, and especially deep grooves are called fissures. Folding fits more cortical surface inside the skull.',
-        'Two landmarks matter most. The central sulcus runs from the top of the hemisphere down toward the lateral fissure. The precentral gyrus lies just anterior to it and the postcentral gyrus just posterior. The lateral (Sylvian) fissure is the deep groove that separates the temporal lobe from the frontal and parietal lobes. The superior temporal gyrus lies just below it.',
-        'The cerebrum is divided into four lobes, named after the skull bones over them. The central sulcus divides the frontal lobe from the parietal lobe. The temporal lobe lies below the lateral fissure. The occipital lobe is at the back.',
-        'The insula is cortex buried inside the lateral fissure. It appears when the frontal, parietal and temporal edges around the fissure are pulled apart.',
-        'Landmarks locate function. The precentral gyrus holds the primary motor cortex, the postcentral gyrus the primary somatosensory cortex, and the superior temporal gyrus the primary auditory cortex. Smaller folds vary between people, so exact localization needs an atlas or measurements from that brain.',
-      ],
       keyTerms: ['cerebrum', 'cerebellum', 'brain stem', 'olfactory bulb', 'gyri', 'sulci', 'fissures', 'central sulcus', 'precentral gyrus', 'postcentral gyrus', 'lateral (Sylvian) fissure', 'superior temporal gyrus', 'frontal lobe', 'parietal lobe', 'temporal lobe', 'occipital lobe', 'insula'],
-      visual: {
-        type: 'widget',
-        name: 'cortical-map',
-        props: cortexMap('lobes'),
-        caption: 'Lateral view of the left hemisphere, anterior to the left. Hover or tap a lobe, sulcus or gyrus. The other layers show the functional areas and the Brodmann numbers.',
-        fallbackAlt: 'Lateral view of the brain with the frontal, parietal, occipital and temporal lobes tinted, the central sulcus and lateral fissure drawn as thick lines, the precentral, postcentral and superior temporal gyri highlighted, and the cerebellum, brain stem and olfactory bulb below.',
-      },
+      blocks: [
+        { type: 'definition', term: 'Gross anatomy', body: 'What you can see without a microscope. In the lateral view: the cerebrum, the cerebellum below and behind it, the brain stem under it, and the small olfactory bulb on the ventral surface.' },
+        figureBlock(
+          hotspots('gross-features', 939 / 655, 'Lateral view of the brain with four gross features marked.', GROSS_REGIONS),
+          'The four gross features from the slide. The brain stem contains the midbrain, pons and medulla and continues into the spinal cord.',
+          'Lateral view of the brain. Markers on the cerebrum, the cerebellum, the brain stem and the olfactory bulb.'
+        ),
+        { type: 'definition', term: 'Gyri, sulci, fissures', body: 'The surface of the cerebrum is folded. The bumps are gyri, the grooves sulci, and especially deep grooves fissures. Folding fits more cortical surface inside the skull.' },
+        figureBlock(
+          hotspots('gyri-sulci', 658 / 426, 'Lateral view of the brain with the precentral gyrus, central sulcus, postcentral gyrus, lateral fissure and superior temporal gyrus marked.', GYRI_REGIONS),
+          'The two landmarks and the three gyri around them. Precentral is purple, postcentral yellow, superior temporal red on the slide figure.',
+          'Lateral view with the central sulcus running from the top down toward the lateral fissure, the precentral gyrus in front of it, the postcentral gyrus behind it, and the superior temporal gyrus under the lateral fissure.'
+        ),
+        {
+          type: 'steps',
+          title: 'From landmark to lobe',
+          steps: [
+            { title: 'Central sulcus:', body: 'frontal lobe in front, parietal lobe behind.' },
+            { title: 'Lateral (Sylvian) fissure:', body: 'temporal lobe below it, frontal and parietal lobes above it.' },
+            { title: 'The back:', body: 'the occipital lobe, with no sharp sulcus on the lateral surface.' },
+            { title: 'Inside the lateral fissure:', body: 'the insula, seen only when the edges of the fissure are pulled apart.' },
+          ],
+        },
+        figureBlock(
+          hotspots('lobes', 936 / 454, 'Lateral view of the brain with the four lobes coloured, and a small brain with the lateral fissure opened to show the insula.', LOBE_REGIONS, { labelPool: ['Cerebellum', 'Brain stem'] }),
+          'The four lobes, named after the skull bones over them, plus the two landmarks and the insula.',
+          'Lateral view with the frontal lobe blue, parietal green, occipital red and temporal beige, and an inset showing the insula inside the opened lateral fissure.'
+        ),
+        { type: 'whyItMatters', body: 'Landmarks locate function: primary motor cortex in the precentral gyrus, primary somatosensory cortex in the postcentral gyrus, primary auditory cortex on the superior temporal gyrus.' },
+        { type: 'detail', title: 'Folds vary between people', body: 'The main sulci are constant, but smaller folds differ between individuals. Exact localization needs an atlas or measurements from that brain.' },
+      ],
       conceptQuiz: [
         {
           id: 'gross-1',
@@ -446,22 +562,35 @@ export default {
     {
       id: 'functional-areas',
       title: 'Functional localization',
-      body: [
-        'The cortex is organized like a patchwork. Areas differ in their dominant inputs, outputs and measured responses, so they can be given functional names: primary sensory, motor, and association.',
-        'The sensory areas on the slide are the visual cortex in the occipital lobe (areas 17, 18, 19), the auditory cortex on the superior temporal gyrus (areas 41, 42), the somatosensory cortex in the postcentral gyrus (areas 3, 1, 2), and the gustatory cortex for taste, buried in the insula and the parietal operculum (area 43).',
-        'The motor areas lie in the frontal lobe, anterior to the central sulcus: the primary motor cortex in the precentral gyrus (area 4), and the premotor area and the supplementary motor area in front of it (both area 6).',
-        'Large parts of the human cortex cannot be called sensory or motor. These are the association areas. The slide names three: prefrontal cortex, posterior parietal cortex (areas 5, 7) and inferotemporal cortex (areas 20, 21, 37).',
-        'Association areas combine sensory evidence with memory, goals, attention, language and plans for action.',
-        'Localizing a function needs evidence, not just a label on a map: what is lost when an area is damaged, and what happens when it is stimulated. The first maps of motor cortex came from stimulating the cortex of animals, and Broca\'s patient, who lost speech after damage to the left frontal lobe, is the classic lesion case.',
-      ],
       keyTerms: ['visual cortex', 'auditory cortex', 'somatosensory cortex', 'gustatory cortex', 'primary motor cortex', 'premotor area', 'supplementary motor area', 'association areas', 'prefrontal cortex', 'posterior parietal cortex', 'inferotemporal cortex'],
-      visual: {
-        type: 'widget',
-        name: 'cortical-map',
-        props: cortexMap('functional'),
-        caption: 'The functional areas from the slide, with their Brodmann numbers. Red tints are motor, green sensory, purple association.',
-        fallbackAlt: 'Lateral view of the brain with the primary motor, premotor and supplementary motor areas in front of the central sulcus, the somatosensory cortex behind it, the visual cortex at the back, the auditory cortex on the superior temporal gyrus, and the prefrontal, posterior parietal and inferotemporal association areas.',
-      },
+      blocks: [
+        { type: 'text', body: 'The cortex is a patchwork. Areas differ in their inputs, outputs and responses, so they can be named as primary sensory, motor, or association.' },
+        {
+          type: 'compare',
+          title: 'Sensory and motor areas',
+          columns: ['Where', 'Brodmann areas'],
+          rows: [
+            { label: 'Visual cortex', cells: ['Occipital lobe', '17, 18, 19'] },
+            { label: 'Auditory cortex', cells: ['Superior temporal gyrus', '41, 42'] },
+            { label: 'Somatosensory cortex', cells: ['Postcentral gyrus', '3, 1, 2'] },
+            { label: 'Gustatory cortex', cells: ['Insula and parietal operculum', '43'] },
+            { label: 'Primary motor cortex', cells: ['Precentral gyrus', '4'] },
+            { label: 'Premotor and supplementary motor areas', cells: ['In front of area 4', '6'] },
+          ],
+        },
+        figureBlock(
+          hotspots('functional-areas', 886 / 641, 'Lateral view of the brain with motor areas red, sensory areas green and association areas purple.', SENSORY_MOTOR_REGIONS),
+          'Sensory (green) and motor (red) areas on the slide figure. The gustatory cortex is on the small brain with the fissure opened.',
+          'Lateral view: motor areas in front of the central sulcus, somatosensory behind it, visual at the back, auditory on the superior temporal gyrus, gustatory in the insula.'
+        ),
+        { type: 'definition', term: 'Association areas', body: 'The large parts of the human cortex that are neither sensory nor motor. They combine sensory evidence with memory, goals, attention, language and plans for action.' },
+        figureBlock(
+          hotspots('functional-areas', 886 / 641, 'Lateral view of the brain with the three association areas marked.', ASSOCIATION_REGIONS),
+          'The three association areas named on the slide (purple).',
+          'Lateral view with the prefrontal cortex at the front, the posterior parietal cortex behind the somatosensory area, and the inferotemporal cortex on the lower temporal lobe.'
+        ),
+        { type: 'detail', title: 'Localizing a function needs evidence', body: 'A label on a map is not enough. Evidence comes from what is lost when an area is damaged and what happens when it is stimulated. The first motor maps came from stimulating animal cortex; Broca\'s patient, who lost speech after left frontal damage, is the classic lesion case.' },
+      ],
       conceptQuiz: [
         {
           id: 'functional-1',
@@ -503,23 +632,26 @@ export default {
     {
       id: 'cytoarchitecture',
       title: 'Cytoarchitecture and Brodmann areas',
-      body: [
-        'Cytoarchitecture is the arrangement of cells in a tissue: their types, density, size, shape and how they are layered. Repeated differences in these features divide the cortex into areas.',
-        'The Nissl stain makes cytoarchitecture visible. Franz Nissl showed that basic dyes such as cresyl violet colour the nuclei of all cells and clumps of material around the nuclei of neurons. These clumps, the Nissl bodies, are rough endoplasmic reticulum rich in RNA. In short, the Nissl stain makes cell bodies visible.',
-        'In a Nissl section two classes of cell can be told apart: neurons and glia. Large and small neurons, astrocytes, oligodendrocytes, microglia and the endothelial cells of blood vessels are identified from the shape of the cell body, the nucleus, the cytoplasm and the surrounding tissue.',
-        'The Nissl stain shows little of fine axons, whole dendritic trees, spines or synapses. Those need Golgi staining, tracers or electron microscopy.',
-        'The cerebral cortex has six layers, numbered I at the surface to VI next to the white matter. Their thickness and cell types differ between areas. Primary visual cortex (V1) has a thick, subdivided layer 4 (4A, 4B, 4C) that receives the dense visual input, and a pale stripe called the line of Gennari. At the V1 to V2 transition this laminar pattern changes abruptly.',
-        'Korbinian Brodmann used such laminar differences to divide the cortex into 52 numbered areas. A Brodmann area is a cytoarchitectonic label, an anatomical statement. It is not by itself a statement about function, although many areas match functional areas, such as area 4 (motor) and area 17 (V1). Switch the map above to the Brodmann layer to see the numbers.',
-        'A cortical map can be based on folding, cytoarchitecture, myelin, connectivity, activity or behaviour. Maps based on different properties may put their boundaries in different places. Boundaries also run into sulci and vary between individuals, so fitting an atlas to one brain adds uncertainty.',
-      ],
       keyTerms: ['cytoarchitecture', 'Nissl stain', 'Nissl bodies', 'cortical layers', 'line of Gennari', 'Brodmann area', 'cortical map'],
-      visual: {
-        type: 'svg',
-        name: 'cortical-layers',
-        props: {},
-        caption: 'Laminar structure in Nissl-stained cortex. V1 has a thick layer 4 split into 4A, 4B (line of Gennari) and 4C; in V2 layer 4 is thin. This difference marks the V1 to V2 border.',
-        fallbackAlt: 'Two columns of six cortical layers drawn as dotted bands. In the left column, primary visual cortex, layer 4 is much thicker and split into three sublayers. In the right column, secondary visual cortex, all layers are of similar thickness.',
-      },
+      blocks: [
+        { type: 'definition', term: 'Cytoarchitecture', body: 'The arrangement of cells in a tissue: their types, density, size, shape and layering. Repeated differences in these features divide the cortex into areas.' },
+        { type: 'definition', term: 'Nissl stain', body: 'Basic dyes such as cresyl violet colour the nuclei of all cells and clumps around neuronal nuclei. The clumps, Nissl bodies, are rough endoplasmic reticulum rich in RNA. In short, the Nissl stain makes cell bodies visible.' },
+        { type: 'example', title: 'Two classes of cell in a Nissl section', body: 'Neurons and glia. Large and small neurons, astrocytes, oligodendrocytes, microglia and the endothelial cells of vessels are told apart by the shape of the cell body, the nucleus and the surrounding tissue.' },
+        { type: 'definition', term: 'Cortical layers', body: 'Six layers, I at the surface to VI next to the white matter. Their thickness and cell types differ between areas.' },
+        figureBlock(
+          hotspots('cortical-layers', 660 / 392, 'Nissl-stained section across the border between primary and secondary visual cortex.', LAYER_REGIONS, { quiz: false, intro: 'The slide photo, with its own labels. Hover a marker for what each feature means.' }),
+          'Laminar structure at the V1 to V2 border on the slide. V1 has a thick, subdivided layer 4 and the line of Gennari; in V2 layer 4 is thin.',
+          'Photomicrograph of Nissl-stained cortex. On the left, layer 4 is split into 4A, 4B and 4C with the pale line of Gennari; on the right, past the transition, layer 4 is thin.'
+        ),
+        { type: 'definition', term: 'Brodmann area', body: 'One of 52 numbered areas that Korbinian Brodmann defined from laminar differences. A cytoarchitectonic label, an anatomical statement.' },
+        figureBlock(
+          hotspots('brodmann-map', 733 / 594, 'Brodmann\'s map on the lateral surface with the areas numbered and coloured.', BRODMANN_REGIONS),
+          'Brodmann\'s map from the slide. The seven groups that match the functional areas named in this lecture.',
+          'Lateral view with numbered areas. Area 4 and areas 3, 1, 2 flank the central sulcus; 6 is in front of 4; 5 and 7 behind 3, 1, 2; 17, 18, 19 at the back; 41, 42 on the superior temporal gyrus; 20, 21, 37 on the lower temporal lobe.'
+        ),
+        { type: 'misconception', wrong: 'A Brodmann number tells you what that patch of cortex does.', right: 'It tells you how the cells are arranged. Many areas do match functional areas, such as 4 (motor) and 17 (V1), but function needs separate evidence.' },
+        { type: 'detail', title: 'Cortical maps and atlases', body: 'A map can be based on folding, cytoarchitecture, myelin, connectivity, activity or behaviour, and maps based on different properties put their boundaries in different places. Boundaries also run into sulci and vary between individuals, so fitting an atlas to one brain adds uncertainty.' },
+      ],
       conceptQuiz: [
         {
           id: 'cyto-1',
@@ -571,70 +703,65 @@ export default {
     {
       id: 'neuron-doctrine',
       title: 'The neuron doctrine and stains',
-      body: [
-        'Brain tissue is soft and looks uniform under a microscope. Before its cells could be studied it had to be fixed (hardened in formaldehyde), cut into thin slices with a microtome, and stained. The microscopic study of tissue is histology.',
-        'The Nissl stain showed where cell bodies are and how they are arranged, but a Nissl-stained neuron looks like little more than a lump around a nucleus.',
-        'In 1873 Camillo Golgi found that soaking tissue in silver chromate stains a small percentage of neurons completely, cell body and every process. The Golgi stain showed that the soma is only a small part of the neuron, and that the thin tubes radiating from it, the neurites, are of two kinds: many tapering dendrites and a single axon of uniform diameter.',
-        'From 1888 Santiago Ramon y Cajal used the Golgi stain to work out the circuitry of many brain regions. Golgi and Cajal shared the 1906 Nobel Prize but drew opposite conclusions. Golgi held the reticular theory: the neurites of different cells fuse into one continuous network. Cajal argued that neurons are separate cells that communicate by contact, not continuity. This is the neuron doctrine.',
-        'A light microscope cannot resolve anything closer than about 0.1 micrometre, and the space between neurons is about 20 nanometres, so the stains could not settle the question. The electron microscope, applied in the 1950s, showed the synaptic cleft and two separate membranes. That was the final proof.',
-        'The version on the slides has twelve points: neural units; neurons are cells; specialization by location and function; the nucleus is the trophic centre, so only the part with the nucleus survives division; nerve fibres are outgrowths of nerve cells; nerve cells arise by cell division; contact, not cytoplasmic continuity; the law of dynamic polarization, a preferred direction of transmission from cell to cell even though an axon can conduct both ways; the synapse as a barrier at the contact that may permit transmission; unity of transmission, a contact is always excitatory or always inhibitory; Dale\'s law, each nerve terminal releases a single type of transmitter; plus the modern additions of electrical transmission and cotransmission.',
-        'The story separates observation from interpretation. Both men looked at the same stained tissue. The question was settled by repeated observation, testable predictions and a better instrument. The modern doctrine describes neurons as separate cells with specialized compartments and regulated sites of communication, chemical synapses that release neurotransmitter and electrical synapses that pass current through gap junctions.',
-      ],
       keyTerms: ['histology', 'Golgi stain', 'neurites', 'reticular theory', 'neuron doctrine', 'electron microscope', 'law of dynamic polarization', 'Dale\'s law'],
-      visual: {
-        type: 'widget',
-        name: 'stain-compare',
-        props: {
-          chooseLabel: 'Method',
-          fallback: stainTriptych,
-          items: [
-            {
-              key: 'nissl',
-              label: 'Nissl stain',
-              figure: stainPanel('nissl'),
-              rows: [
-                { term: 'What it stains', text: 'Basic dyes bind RNA: the rough ER (Nissl bodies) of neurons and the nuclei of all cells.' },
-                { term: 'What you see', text: 'Every cell body in the slice. Neurons and glia can be told apart. Cortical layers and cell density are visible.' },
-                { term: 'What you miss', text: 'Dendritic trees, axons, spines and synapses. A neuron looks like a lump around a nucleus.' },
-                { term: 'Used for', text: 'Cytoarchitecture, Brodmann areas, counting and locating cells.' },
-              ],
-            },
-            {
-              key: 'golgi',
-              label: 'Golgi stain',
-              figure: stainPanel('golgi'),
-              rows: [
-                { term: 'What it stains', text: 'Silver chromate fills a small percentage of neurons completely, for reasons still not understood.' },
-                { term: 'What you see', text: 'A few whole neurons standing out against unstained tissue: soma, dendrites and axon that can be followed through the slice.' },
-                { term: 'What you miss', text: 'Most cells, which stay unstained, and whether two stained neurons touch or fuse.' },
-                { term: 'Used for', text: 'Cell shape and circuitry (Cajal), classifying neurons by dendrites and axon.' },
-              ],
-            },
-            {
-              key: 'em',
-              label: 'Electron microscope',
-              figure: stainPanel('em'),
-              rows: [
-                { term: 'How it works', text: 'An electron beam instead of light. Resolution about 0.1 nm, a thousand times better than the light microscope.' },
-                { term: 'What you see', text: 'Membranes, organelles, synaptic vesicles, and the synaptic cleft between two separate cells.' },
-                { term: 'What you miss', text: 'The big picture: only a tiny volume of fixed tissue at a time.' },
-                { term: 'Used for', text: 'Final proof of the neuron doctrine (1950s); ultrastructure of synapses.' },
-              ],
-            },
+      blocks: [
+        {
+          type: 'steps',
+          title: 'Making brain tissue visible (histology)',
+          steps: [
+            { title: 'Fix:', body: 'harden the soft tissue in formaldehyde.' },
+            { title: 'Slice:', body: 'cut thin sections with a microtome.' },
+            { title: 'Stain:', body: 'otherwise the tissue looks uniform under the microscope.' },
           ],
-          table: {
-            caption: 'Summary for the cheat sheet',
-            columns: ['Method', 'Shows', 'Does not show'],
-            rows: [
-              ['Nissl', 'All cell bodies, layers, neurons versus glia', 'Processes, synapses'],
-              ['Golgi', 'A few whole neurons with dendrites and axon', 'Most cells; contact versus fusion'],
-              ['Electron microscope', 'Membranes, vesicles, the 20 nm synaptic cleft', 'Large-scale organization'],
-            ],
-          },
         },
-        caption: 'The same patch of cortex seen with three methods. Choose one to read what it reveals and what it hides.',
-        fallbackAlt: 'Three panels of the same tissue. Nissl: many small cell bodies and nuclei, no processes. Golgi: two complete black neurons with dendrites and axon among unstained cells. Electron microscope: two membranes with a narrow cleft and vesicles on one side.',
-      },
+        figureBlock(
+          hotspots('stains', 2096 / 520, 'Three panels: Nissl-stained cortex, Golgi-stained neurons, and an electron micrograph of a synapse.', STAIN_REGIONS, { layout: 'stack' }),
+          'The three methods from the slides, left to right: Nissl (Figure 2.1), Golgi (Figure 2.3), electron microscope (Figure 2.25).',
+          'Left: many purple cell bodies, no processes. Middle: a few black neurons with dendrites and axon on a yellow ground. Right: an electron micrograph with a green presynaptic terminal, a yellow postsynaptic spine and a blue astrocyte process.'
+        ),
+        {
+          type: 'compare',
+          title: 'What each method shows',
+          columns: ['Shows', 'Does not show'],
+          rows: [
+            { label: 'Nissl stain', cells: ['All cell bodies, layers, neurons versus glia', 'Dendritic trees, axons, spines, synapses'] },
+            { label: 'Golgi stain', cells: ['A few neurons stained completely: soma, dendrites, axon', 'Most cells; whether two neurons touch or fuse'] },
+            { label: 'Electron microscope', cells: ['Membranes, vesicles, the 20 nm synaptic cleft', 'Large-scale organization; only a tiny volume at a time'] },
+          ],
+        },
+        { type: 'example', title: 'Golgi 1873, Cajal from 1888', body: 'Golgi found that silver chromate stains a small percentage of neurons completely. It showed that the soma is a small part of the neuron and that the neurites are of two kinds: many tapering dendrites and one axon of uniform diameter. Cajal used the stain to work out circuits.' },
+        {
+          type: 'compare',
+          title: 'Same stain, opposite conclusions',
+          columns: ['Golgi: reticular theory', 'Cajal: neuron doctrine'],
+          rows: [
+            { label: 'Claim', cells: ['Neurites of different cells fuse into one continuous network', 'Neurons are separate cells that communicate by contact, not continuity'] },
+            { label: 'Fate', cells: ['Rejected in the 1950s', 'Confirmed by the electron microscope'] },
+          ],
+        },
+        { type: 'keyNumber', title: 'Why the light microscope could not decide', items: [
+          { value: '0.1 micrometre', label: 'resolution limit of the light microscope' },
+          { value: '20 nanometres', label: 'the gap between neurons at a synapse' },
+          { value: '0.1 nanometre', label: 'resolution of the electron microscope, which showed the cleft in the 1950s' },
+        ] },
+        { type: 'whyItMatters', body: 'Both men looked at the same tissue. The stains were observations; the theories were interpretations. A better instrument, repeated observation and testable predictions settled it.' },
+        { type: 'detail', title: 'The neuron doctrine in twelve points (slides)', blocks: [
+          { type: 'steps', steps: [
+            'Neural units: the brain is made of individual units with dendrites, a cell body and an axon.',
+            'Neurons are cells, like the cells of other tissues.',
+            'Specialization: units differ in size, shape and structure by location and function.',
+            'The nucleus is the trophic centre: only the part containing the nucleus survives division of the cell.',
+            'Nerve fibres are outgrowths of nerve cells.',
+            'Nerve cells arise by cell division.',
+            'Contact, not cytoplasmic continuity, joins nerve cells.',
+            'Law of dynamic polarization: a preferred direction of transmission from cell to cell, although an axon can conduct both ways.',
+            'The synapse is a barrier at the contact that may permit transmission.',
+            'Unity of transmission: a contact is always excitatory or always inhibitory.',
+            'Dale\'s law: each nerve terminal releases a single type of transmitter.',
+            'Modern additions: electrical transmission and cotransmission.',
+          ] },
+        ] },
+      ],
       conceptQuiz: [
         {
           id: 'doctrine-1',
@@ -686,35 +813,45 @@ export default {
     {
       id: 'prototypical-neuron',
       title: 'The prototypical neuron',
-      body: [
-        'The neuron is bounded by the neuronal membrane, about 5 nm thick and studded with proteins. Inside is the cytosol, a salty potassium-rich fluid, and membrane-enclosed organelles. Everything inside the membrane except the nucleus is the cytoplasm.',
-        'The soma is about 20 micrometres across and holds the nucleus. Chromosomes in the nucleus carry the DNA. The segments of DNA used to build the cell are genes. Reading a gene is gene expression: transcription copies the gene into mRNA, the mRNA leaves the nucleus through pores, and ribosomes translate it into protein. A neuron differs from a liver cell because it expresses different genes.',
-        'Ribosomes attached to stacks of membrane form the rough endoplasmic reticulum (rough ER). Neurons have far more of it than other cells. This is the Nissl substance. Proteins destined for a membrane are made on the rough ER. Proteins for the cytosol are made on free ribosomes, often in groups along one mRNA called polyribosomes.',
-        'The smooth ER folds proteins and regulates substances such as calcium. The Golgi apparatus sorts proteins for delivery to the axon or the dendrites. The mitochondria carry out cellular respiration and make ATP, the energy currency that fuels the pumps in the membrane.',
-        'Dendrites branch like a tree, the dendritic tree, and are covered with synapses. The dendritic membrane holds receptors that detect neurotransmitter. On many neurons the input arrives on dendritic spines, small bags hanging off the dendrite. Polyribosomes sit under spines, so some protein synthesis happens locally.',
-        'The axon begins at the axon hillock, keeps a uniform diameter, and can be a metre long. It has no rough ER and almost no ribosomes, so all axonal proteins are made in the soma. Its membrane proteins differ from the soma\'s. It may branch into axon collaterals, and it ends in the axon terminal, or terminal bouton, where it contacts other cells. A neuron that contacts a cell is said to innervate it.',
-      ],
       keyTerms: ['neuronal membrane', 'cytosol', 'organelles', 'cytoplasm', 'nucleus', 'gene expression', 'mRNA', 'ribosomes', 'rough endoplasmic reticulum', 'polyribosomes', 'smooth ER', 'Golgi apparatus', 'mitochondria', 'ATP', 'dendritic tree', 'dendritic spines', 'axon hillock', 'axon collaterals', 'innervate'],
-      visual: {
-        type: 'widget',
-        name: 'neuron-parts',
-        props: {
-          figure: (opts) => neuron({ labels: opts.labels }),
-          layers: [
-            {
-              key: 'parts',
-              label: 'Parts',
-              regions: NEURON_REGIONS.map((r) => ({ key: r.key, name: r.label, info: NEURON_INFO[r.key] })),
-            },
+      blocks: [
+        figureBlock(
+          hotspots('neuron', 1168 / 695, 'A neuron with dendrites on the left, a cell body with a nucleus, and a myelinated axon ending in terminals on the right.', NEURON_REGIONS),
+          'The parts of a neuron and the direction of information flow: dendrites to soma to axon to terminals.',
+          'Drawing of a neuron. Branching dendrites at the left, a round soma with a dark nucleus, an axon leaving from the hillock, blue myelin segments along the axon, and branched terminals at the right.'
+        ),
+        { type: 'definition', term: 'Neuronal membrane, cytosol, cytoplasm', body: 'The membrane is about 5 nm thick and studded with proteins. Inside is the cytosol, a salty potassium-rich fluid, and membrane-enclosed organelles. Everything inside the membrane except the nucleus is the cytoplasm.' },
+        {
+          type: 'steps',
+          title: 'Gene expression: from DNA to protein',
+          steps: [
+            { title: 'Genes:', body: 'the segments of DNA in the chromosomes that the cell uses.' },
+            { title: 'Transcription:', body: 'a gene is copied into mRNA in the nucleus.' },
+            { title: 'Export:', body: 'the mRNA leaves through nuclear pores.' },
+            { title: 'Translation:', body: 'ribosomes read the mRNA and assemble the protein.' },
           ],
-          labels: true,
-          intro: 'Hover, tap or pick a part to read what it does.',
-          selectLabel: 'Part',
-          placeholder: 'Choose a part',
         },
-        caption: 'The basic parts of a neuron and the direction of information flow, dendrites to soma to axon to terminal.',
-        fallbackAlt: 'A neuron with branching dendrites at the upper left, a round soma with a nucleus, an axon hillock leading into a long axon to the right with one collateral branching downward, and axon terminals with vesicles contacting another cell.',
-      },
+        { type: 'whyItMatters', body: 'A neuron differs from a liver cell because it expresses different genes.' },
+        figureBlock(
+          hotspots('neuron-internal', 680 / 847, 'Cutaway drawing of a neuron cell body showing its organelles.', INTERNAL_REGIONS, { quiz: false, intro: 'The slide figure (Figure 2.8), with its own labels. Hover a marker for what each organelle does.' }),
+          'The internal structure of a typical neuron, from the slide. Seven organelles marked.',
+          'Cutaway soma with the nucleus in the middle, rough ER around it, mitochondria, the Golgi apparatus, smooth ER, and the axon hillock leading down into the axon with microtubules.'
+        ),
+        {
+          type: 'compare',
+          title: 'Where proteins are made and sorted',
+          columns: ['Structure', 'Job'],
+          rows: [
+            { label: 'Rough ER', cells: ['Membrane stacks with ribosomes. Neurons have far more than other cells. This is the Nissl substance.', 'Makes proteins destined for a membrane'] },
+            { label: 'Free ribosomes, polyribosomes', cells: ['Ribosomes in the cytosol, often several along one mRNA', 'Make proteins for the cytosol'] },
+            { label: 'Smooth ER', cells: ['Membrane without ribosomes', 'Folds proteins, regulates calcium'] },
+            { label: 'Golgi apparatus', cells: ['Membrane stacks near the nucleus', 'Sorts proteins for delivery to the axon or the dendrites'] },
+            { label: 'Mitochondria', cells: ['Throughout the cell', 'Cellular respiration, ATP for the membrane pumps'] },
+          ],
+        },
+        { type: 'definition', term: 'Dendrites', body: 'Branch like a tree (the dendritic tree) and are covered with synapses. The membrane holds receptors for neurotransmitter. On many neurons input arrives on dendritic spines, small bags on the dendrite, with polyribosomes underneath for local protein synthesis.' },
+        { type: 'definition', term: 'Axon', body: 'Begins at the axon hillock, keeps a uniform diameter, can be a metre long. No rough ER and almost no ribosomes, so all its proteins come from the soma. It may branch into axon collaterals and ends in the axon terminal, or terminal bouton. A neuron that contacts a cell innervates it.' },
+      ],
       conceptQuiz: [
         {
           id: 'neuron-1',
@@ -766,23 +903,40 @@ export default {
     {
       id: 'synaptic-transmission',
       title: 'Synaptic transmission overview',
-      body: [
-        'A synapse is the point of contact where an axon terminal passes information to another cell. It has a presynaptic side, usually the axon terminal, and a postsynaptic side, usually a dendrite or a soma. The gap between them is the synaptic cleft. Transfer of information across it is synaptic transmission.',
-        'The terminal cytoplasm differs from the axon. Microtubules stop before it. It holds many synaptic vesicles about 50 nm across, filled with neurotransmitter. It has many mitochondria, a sign of high energy use. The membrane facing the cleft carries a dense coat of proteins, the active zone, where release happens. There are no ribosomes.',
-        'The sequence has five steps. 1. An action potential arrives at the terminal. 2. The depolarization opens voltage-gated calcium channels and calcium enters. 3. Calcium triggers vesicles to fuse with the membrane at the active zone and release neurotransmitter. 4. The transmitter diffuses across the cleft. 5. It binds receptors in the postsynaptic membrane (the postsynaptic density), producing an electrical or biochemical response in the target cell.',
-        'So an electrical signal becomes a chemical one and then an electrical one again. This conversion makes many of the brain\'s computations possible. Changes in it underlie learning and memory, and the synapse is the site of action of most psychoactive drugs and many toxins.',
-        'Because the two sides are built differently, a chemical synapse works in one direction, from pre to post. This is the structural basis of the law of dynamic polarization. Two neurons can still communicate both ways through separate reciprocal synapses.',
-        'Electrical synapses are different. At a gap junction, channels made of connexin proteins join the cytoplasm of the two cells directly, current passes in both directions, and transmission is very fast. Most synapses in the mature human brain are chemical.',
-        'Synaptic strength can change. Activity alters release probability, the number of receptors and the structure of the synapse. This synaptic plasticity contributes to adaptation and learning, and it is a target for drugs and disease.',
-      ],
       keyTerms: ['presynaptic', 'postsynaptic', 'synaptic cleft', 'synaptic transmission', 'synaptic vesicles', 'neurotransmitter', 'active zone', 'voltage-gated calcium channels', 'receptors', 'electrical synapse', 'gap junction', 'synaptic plasticity'],
-      visual: {
-        type: 'svg',
-        name: 'synapse-steps',
-        props: {},
-        caption: 'The axon terminal and the synapse, with the five steps of chemical transmission numbered.',
-        fallbackAlt: 'An axon terminal containing a mitochondrion and synaptic vesicles sits above a postsynaptic dendrite with receptors. Numbered steps: 1 action potential arrives, 2 calcium channels open, 3 vesicles fuse and release transmitter, 4 transmitter crosses the cleft, 5 transmitter binds receptors.',
-      },
+      blocks: [
+        { type: 'definition', term: 'Synapse', body: 'The point of contact where an axon terminal passes information to another cell. Presynaptic side: usually the axon terminal. Postsynaptic side: usually a dendrite or soma. Between them the synaptic cleft. Transfer across it is synaptic transmission.' },
+        figureBlock(
+          hotspots('synapse', 702 / 1204, 'A presynaptic terminal with vesicles above a postsynaptic dendrite, with transmitter crossing the cleft.', SYNAPSE_REGIONS),
+          'A chemical synapse. Vesicles on one side, receptors on the other, so transmission runs one way.',
+          'Drawing of a synapse: an orange axon terminal containing vesicles, small transmitter molecules in the cleft, and a teal postsynaptic dendrite below.'
+        ),
+        { type: 'example', title: 'What makes the terminal different from the axon', body: 'Microtubules stop before it. It holds many synaptic vesicles about 50 nm across, filled with transmitter, and many mitochondria. The membrane facing the cleft carries the active zone, a dense coat of proteins where release happens. No ribosomes.' },
+        {
+          type: 'steps',
+          title: 'Chemical synaptic transmission',
+          steps: [
+            'An action potential arrives at the terminal.',
+            'The depolarization opens voltage-gated calcium channels and calcium enters.',
+            'Calcium triggers vesicles to fuse with the membrane at the active zone and release transmitter.',
+            'The transmitter diffuses across the cleft.',
+            'It binds receptors in the postsynaptic membrane (the postsynaptic density), producing an electrical or biochemical response.',
+          ],
+        },
+        { type: 'whyItMatters', body: 'An electrical signal becomes chemical and then electrical again. This conversion makes many computations possible, changes in it underlie learning and memory, and the synapse is where most psychoactive drugs and many toxins act.' },
+        {
+          type: 'compare',
+          title: 'Chemical versus electrical synapse',
+          columns: ['Chemical', 'Electrical'],
+          rows: [
+            { label: 'Link', cells: ['Transmitter across a 20 nm cleft', 'Gap junction: connexin channels join the two cytoplasms'] },
+            { label: 'Direction', cells: ['One way, pre to post, because the two sides are built differently', 'Both directions'] },
+            { label: 'Speed', cells: ['Slower', 'Very fast'] },
+            { label: 'How common', cells: ['Most synapses in the mature human brain', 'A minority'] },
+          ],
+        },
+        { type: 'detail', title: 'Directionality and plasticity', body: ['One-way transmission is the structural basis of the law of dynamic polarization. Two neurons can still talk both ways through separate reciprocal synapses.', 'Synaptic strength can change: activity alters release probability, the number of receptors and the structure of the synapse. This synaptic plasticity contributes to adaptation and learning and is a target for drugs and disease.'] },
+      ],
       conceptQuiz: [
         {
           id: 'synapse-1',
@@ -832,21 +986,43 @@ export default {
     {
       id: 'axonal-transport',
       title: 'Axonal transport and the cytoskeleton',
-      body: [
-        'The cytoskeleton is the scaffold that gives a neuron its shape. It has three kinds of fibre. Microtubules, 20 nm across and made of tubulin, run down the neurites. Neurofilaments, 10 nm, are the mechanically strong intermediate filaments. Microfilaments, 5 nm and made of actin, lie under the membrane and throughout the neurites. All three are constantly assembled and taken apart.',
-        'Because the axon has no ribosomes, everything the axon and its terminal need must be made in the soma and shipped down. This shipping is axoplasmic transport. In the nineteenth century Augustus Waller showed that an axon cut off from its soma degenerates. This Wallerian degeneration is the point of doctrine item 4: the nucleus is the trophic centre.',
-        'Anterograde transport moves material from the soma toward the terminal. Fast anterograde transport packs material in vesicles that walk along microtubules on the motor protein kinesin, using ATP, at up to 1000 mm per day. A slower transport, shown by Weiss, moves other material at a rate that would take months to reach the end of the longest axons.',
-        'Retrograde transport moves material from the terminal back to the soma on a different motor protein, dynein. It returns used material and carries signals about the state of the terminal. Both directions are used by neuroscientists to trace connections with injected tracers.',
-        'When transport fails, the distant terminals suffer first: the supply of vesicle proteins and membrane stops, and the synapse weakens. Continued failure can impair a whole circuit. Transport failure contributes to several neurological diseases; in Alzheimer\'s disease, for example, the microtubule-associated protein tau detaches from the microtubules and forms tangles.',
-      ],
       keyTerms: ['cytoskeleton', 'microtubules', 'neurofilaments', 'microfilaments', 'axoplasmic transport', 'Wallerian degeneration', 'anterograde transport', 'kinesin', 'retrograde transport', 'dynein'],
-      visual: {
-        type: 'svg',
-        name: 'axonal-transport',
-        props: {},
-        caption: 'Vesicles walk along microtubules. Kinesin carries them from the soma to the terminal (anterograde); dynein carries them back (retrograde).',
-        fallbackAlt: 'A soma on the left, an axon running right to a terminal, and a microtubule inside the axon. A vesicle above the microtubule moves right, labelled anterograde, kinesin. A vesicle below moves left, labelled retrograde, dynein.',
-      },
+      blocks: [
+        {
+          type: 'compare',
+          title: 'The cytoskeleton: three kinds of fibre',
+          columns: ['Diameter', 'Made of', 'Where'],
+          rows: [
+            { label: 'Microtubules', cells: ['20 nm', 'Tubulin', 'Run down the neurites; the tracks for transport'] },
+            { label: 'Neurofilaments', cells: ['10 nm', 'Intermediate filament proteins', 'Mechanically strong, throughout'] },
+            { label: 'Microfilaments', cells: ['5 nm', 'Actin', 'Under the membrane and in the neurites'] },
+          ],
+        },
+        { type: 'whyItMatters', body: 'The axon has no ribosomes, so everything it and its terminal need is made in the soma and shipped down. This is axoplasmic transport.' },
+        { type: 'example', title: 'Wallerian degeneration', body: 'Augustus Waller showed in the nineteenth century that an axon cut off from its soma degenerates. This is doctrine point 4: the nucleus is the trophic centre.' },
+        {
+          type: 'figure',
+          visual: {
+            type: 'svg',
+            name: 'axonal-transport',
+            props: {},
+            caption: 'Kinesin walks vesicles along microtubules from the soma to the terminal (anterograde); dynein carries material back (retrograde).',
+            fallbackAlt: 'A soma on the left, an axon to a terminal on the right, and a microtubule inside the axon. A vesicle above the microtubule moves right, labelled anterograde, kinesin. A vesicle below moves left, labelled retrograde, dynein.',
+          },
+        },
+        {
+          type: 'compare',
+          title: 'Two directions of transport',
+          columns: ['Anterograde', 'Retrograde'],
+          rows: [
+            { label: 'Direction', cells: ['Soma to terminal', 'Terminal to soma'] },
+            { label: 'Motor protein', cells: ['Kinesin, using ATP', 'Dynein'] },
+            { label: 'Speed', cells: ['Fast transport up to 1000 mm per day; a slow component (Weiss) takes months', 'Fast'] },
+            { label: 'Carries', cells: ['Vesicles, membrane and proteins for the terminal', 'Used material and signals about the state of the terminal'] },
+          ],
+        },
+        { type: 'detail', title: 'When transport fails', body: 'Distant terminals suffer first: the supply of vesicle proteins and membrane stops and the synapse weakens. Continued failure can impair a whole circuit. In Alzheimer\'s disease the microtubule-associated protein tau detaches from the microtubules and forms tangles. Both directions are also used by neuroscientists to trace connections with injected tracers.' },
+      ],
       conceptQuiz: [
         {
           id: 'transport-1',
@@ -885,78 +1061,30 @@ export default {
     {
       id: 'glia',
       title: 'Glia',
-      body: [
-        'Glia are the other class of cell in the brain, roughly as numerous as neurons. They do not carry the main signals, but neurons cannot work without them. Glia regulate the extracellular environment, support metabolism, insulate axons and respond to injury.',
-        'Astrocytes are the most numerous glia. They fill most of the space between neurons and blood vessels, leaving gaps of only about 20 nm. Their processes envelop synapses, restrict the spread of released transmitter and actively remove it from the cleft. They regulate extracellular potassium and other substances that would disturb signalling, and they help match blood supply to activity. They also carry transmitter receptors of their own.',
-        'Myelinating glia wrap axons in many layers of membrane. The wrapping, myelin, is interrupted at the nodes of Ranvier, where the axon membrane is exposed. Myelin speeds up conduction of the action potential.',
-        'Oligodendroglia make myelin in the central nervous system, the brain and spinal cord. One oligodendroglial cell myelinates segments of several axons. Schwann cells make myelin in the peripheral nervous system, the nerves outside the skull and vertebral column. Each Schwann cell myelinates one segment of one axon.',
-        'Microglia are the brain\'s phagocytes. They monitor the tissue, respond to damage and infection, remove debris left by dead cells, and remodel synapses by removing them. They can enter the brain from the blood.',
-        'Other non-neuronal cells: ependymal cells line the fluid-filled ventricles, and blood vessels deliver oxygen and nutrients.',
-        'A common misconception is that glia are only glue that fills space. They keep the chemical environment stable, supply energy, insulate, monitor and repair.',
-      ],
       keyTerms: ['glia', 'astrocytes', 'myelin', 'nodes of Ranvier', 'oligodendroglia', 'Schwann cells', 'microglia', 'ependymal cells'],
-      visual: {
-        type: 'widget',
-        name: 'glia-compare',
-        props: {
-          chooseLabel: 'Cell type',
-          fallback: gliaOverview,
-          items: [
-            {
-              key: 'astrocyte',
-              label: 'Astrocyte',
-              figure: astrocyteFigure(),
-              rows: [
-                { term: 'Where', text: 'Everywhere in the CNS, filling the space between neurons and around blood vessels. The most numerous glia.' },
-                { term: 'What it does', text: 'Envelops synapses, removes transmitter from the cleft, regulates extracellular potassium, supports metabolism, and can respond to transmitter with its own receptors.' },
-                { term: 'On the slide', text: 'Figure 2.24 (star-shaped cell) and Figure 2.25 (astrocyte process wrapped around a synapse).' },
-              ],
-            },
-            {
-              key: 'oligodendrocyte',
-              label: 'Oligodendroglia',
-              figure: oligodendrocyteFigure(),
-              rows: [
-                { term: 'Where', text: 'Central nervous system: brain and spinal cord.' },
-                { term: 'What it does', text: 'Wraps axons in myelin, which speeds conduction. One cell myelinates segments of several axons. Gaps between segments are the nodes of Ranvier.' },
-                { term: 'On the slide', text: 'Figure 2.27, an oligodendroglial cell with processes to several axons.' },
-              ],
-            },
-            {
-              key: 'schwann',
-              label: 'Schwann cell',
-              figure: schwannFigure(),
-              rows: [
-                { term: 'Where', text: 'Peripheral nervous system: nerves outside the skull and vertebral column.' },
-                { term: 'What it does', text: 'Wraps one segment of one axon in myelin. Same job as oligodendroglia, different location and one axon per cell.' },
-                { term: 'On the slide', text: 'Named in the Figure 2.27 caption as the peripheral counterpart of oligodendroglia.' },
-              ],
-            },
-            {
-              key: 'microglia',
-              label: 'Microglia',
-              figure: microgliaFigure(),
-              rows: [
-                { term: 'Where', text: 'Throughout the brain; can migrate in from the blood.' },
-                { term: 'What it does', text: 'Phagocyte: removes debris from dead or degenerating cells, responds to damage and infection, remodels synaptic connections by removing them.' },
-                { term: 'On the slide', text: 'Listed under Glia with astrocytes and the myelinating glia.' },
-              ],
-            },
+      blocks: [
+        { type: 'definition', term: 'Glia', body: 'The other class of cell in the brain, roughly as numerous as neurons. They do not carry the main signals, but neurons cannot work without them.' },
+        figureBlock(
+          hotspots('glia-types', 2289 / 520, 'Three glial cells: an astrocyte, an oligodendroglial cell wrapping three axons, and a microglial cell.', GLIA_REGIONS, { layout: 'stack' }),
+          'Left: astrocyte (slide, Figure 2.24). Middle: oligodendroglial cell with myelin segments and nodes of Ranvier. Right: microglial cell.',
+          'Three drawings side by side: a star-shaped orange astrocyte; a pink oligodendroglial cell whose processes wrap segments of three axons, with gaps between the segments; a blue microglial cell with fine branches.'
+        ),
+        {
+          type: 'compare',
+          title: 'Four glial cell types',
+          columns: ['Where', 'Main job'],
+          rows: [
+            { label: 'Astrocyte', cells: ['CNS, the most numerous; around synapses and vessels', 'Chemical environment: removes transmitter, regulates potassium, metabolic support'] },
+            { label: 'Oligodendroglia', cells: ['CNS: brain and spinal cord', 'Myelin, several axons per cell'] },
+            { label: 'Schwann cell', cells: ['PNS: nerves outside skull and vertebral column', 'Myelin, one segment of one axon per cell'] },
+            { label: 'Microglia', cells: ['CNS; can enter from the blood', 'Phagocyte: debris, damage, infection, synapse remodelling'] },
           ],
-          table: {
-            caption: 'Summary for the cheat sheet',
-            columns: ['Cell', 'Where', 'Main job'],
-            rows: [
-              ['Astrocyte', 'CNS, around synapses and vessels', 'Chemical environment: transmitter removal, potassium, metabolic support'],
-              ['Oligodendroglia', 'CNS', 'Myelin, several axons per cell'],
-              ['Schwann cell', 'PNS', 'Myelin, one axon per cell'],
-              ['Microglia', 'CNS', 'Phagocyte: debris, damage, synapse remodelling'],
-            ],
-          },
         },
-        caption: 'Four glial cell types. Choose one for its location and role; the table below summarizes all four.',
-        fallbackAlt: 'Four drawings: a star-shaped astrocyte with processes on a synapse and a blood vessel; an oligodendroglial cell sending processes to myelin segments on three axons; a single axon with one Schwann cell per myelin segment; a small microglial cell with fine branches engulfing debris.',
-      },
+        { type: 'example', title: 'Astrocytes at a synapse', body: 'Their processes envelop synapses, leaving gaps of only about 20 nm. They restrict the spread of released transmitter and actively remove it, keep extracellular potassium at working levels, help match blood supply to activity, and carry transmitter receptors of their own.' },
+        { type: 'definition', term: 'Myelin', body: 'Many layers of glial membrane wrapped round an axon, interrupted at the nodes of Ranvier where the axon membrane is exposed. Myelin speeds conduction of the action potential.' },
+        { type: 'misconception', wrong: 'Glia are just glue that fills the space between neurons.', right: 'They keep the chemical environment stable, supply energy, insulate axons, monitor the tissue and repair it.' },
+        { type: 'detail', title: 'Other non-neuronal cells', body: 'Ependymal cells line the fluid-filled ventricles. Blood vessels deliver oxygen and nutrients.' },
+      ],
       conceptQuiz: [
         {
           id: 'glia-1',
@@ -1153,31 +1281,16 @@ export default {
       id: 'q06',
       difficulty: 'medium',
       type: 'label',
-      prompt: 'Label the numbered landmarks on the lateral view of the brain (anterior is to the left), then read the explanation for each.',
-      figure: {
-        type: 'svg',
-        name: 'brain-lateral',
-        props: { layer: 'plain', labels: false, uid: 'q06' },
-        fallbackAlt: 'Lateral view of the brain without labels, with seven numbered markers on the central sulcus, the lateral fissure, the frontal lobe, the occipital lobe, the temporal lobe, the cerebellum and the brain stem.',
-      },
-      regions: [
-        { id: 'r1', x: 49, y: 28, label: 'Central sulcus', explanation: 'The groove running from the top of the hemisphere toward the lateral fissure. Frontal lobe in front, parietal lobe behind; precentral (motor) and postcentral (somatosensory) gyri on either side.' },
-        { id: 'r2', x: 30, y: 50, label: 'Lateral (Sylvian) fissure', explanation: 'The deep groove separating the temporal lobe from the frontal and parietal lobes. The insula is buried inside it.' },
-        { id: 'r3', x: 25, y: 28, label: 'Frontal lobe', explanation: 'Anterior to the central sulcus. Motor areas at the back of it, prefrontal association cortex in front.' },
-        { id: 'r4', x: 87, y: 44, label: 'Occipital lobe', explanation: 'The posterior pole of the cerebrum. Visual cortex, areas 17, 18, 19.' },
-        { id: 'r5', x: 42, y: 61, label: 'Temporal lobe', explanation: 'Below the lateral fissure. Auditory cortex on the superior temporal gyrus, inferotemporal association cortex lower down.' },
-        { id: 'r6', x: 76, y: 79, label: 'Cerebellum', explanation: 'Behind and below the cerebrum, with fine parallel folds. One of the four gross features on the slide.' },
-        { id: 'r7', x: 63, y: 92, label: 'Brain stem', explanation: 'The stalk under the cerebrum: midbrain, pons and medulla. Continues into the spinal cord.' },
-      ],
-      labels: ['Central sulcus', 'Lateral (Sylvian) fissure', 'Frontal lobe', 'Occipital lobe', 'Temporal lobe', 'Cerebellum', 'Brain stem', 'Parietal lobe', 'Insula', 'Olfactory bulb'],
+      prompt: 'Label the numbered markers on the lateral view of the brain (anterior is to the left), then read the explanation for each.',
+      hotspots: hotspots('lobes', 936 / 454, 'Lateral view of the brain with the lobes coloured and an inset showing the insula.', LOBE_REGIONS, { labelPool: ['Cerebellum', 'Brain stem', 'Olfactory bulb'] }),
       modelAnswer: [
-        '1 is the central sulcus, between the precentral and postcentral gyri.',
-        '2 is the lateral fissure, with the temporal lobe below it.',
-        '3 is the frontal lobe, anterior to the central sulcus.',
+        '1 is the frontal lobe, anterior to the central sulcus.',
+        '2 is the parietal lobe, behind the central sulcus.',
+        '3 is the temporal lobe, below the lateral fissure.',
         '4 is the occipital lobe at the back.',
-        '5 is the temporal lobe, ventral to the lateral fissure.',
-        '6 is the cerebellum, under the posterior cerebrum.',
-        '7 is the brain stem, continuing down into the spinal cord.',
+        '5 is the central sulcus, between the precentral and postcentral gyri.',
+        '6 is the lateral fissure, with the temporal lobe below it.',
+        '7 is the insula, buried inside the lateral fissure and seen only when it is opened.',
       ],
     },
     {

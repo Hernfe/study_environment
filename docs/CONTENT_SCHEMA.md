@@ -73,18 +73,19 @@ prerequisites: [
 
 ## sections
 
-One concept block each, in teaching order.
+One concept block each, in teaching order. A section is a sequence of
+`blocks` (preferred) or a plain `body` of paragraphs (legacy, still
+supported for L00). Figures are blocks too, so they sit where the
+text needs them. Every section ends with its `conceptQuiz`.
 
 ```js
 {
   id: 'neuron-parts',                 // unique in the lecture, used for anchors
   title: 'The parts of a neuron',
-  body: [                             // string[] of paragraphs, or one HTML string
-    'A neuron has four parts: the soma, the dendrites, the axon and the axon terminal.',
-    'The soma holds the nucleus. ...',
-  ],
   keyTerms: ['soma', 'dendrite', 'axon', 'axon terminal'],
-  visual: {
+  blocks: [ /* Block[], see "Blocks" below */ ],
+  body: [ /* legacy alternative: string[] of paragraphs, or one HTML string */ ],
+  visual: {                           // optional; a figure placed after the blocks
     type: 'svg',                      // 'svg' for a static figure, 'widget' for interactive
     name: 'neuron-parts',             // key in figures/index.js (svg) or widgets/index.js (widget)
     props: {},                        // passed to the figure or widget function
@@ -94,6 +95,44 @@ One concept block each, in teaching order.
   conceptQuiz: [ /* ConceptQuestion[] , 1 to 4 items */ ],
 }
 ```
+
+### Blocks
+
+Each block renders as its own quiet card with a small kicker heading,
+so the scan path down a section is the h2, then kickers, then short
+bodies. No prose body should run longer than five lines (about 350
+characters at the site measure). Mechanisms are `steps`, contrasts are
+`compare`, secondary in-scope detail goes in `detail` (collapsed).
+
+| type | fields | Renders as |
+|---|---|---|
+| `text` | `body` (string or string[]) | Plain paragraph(s), no card. One or two sentences to open a section. |
+| `definition` | `term`, `body` | Card, kicker "Definition · term". |
+| `steps` | `title?`, `steps: (string \| { title, body })[]` | Card with a numbered list. Use for any mechanism or procedure. |
+| `compare` | `title?`, `columns: string[]`, `rows: [{ label, cells: string[] }]`, `rowLabel?` | Card with a small table, one row per feature. |
+| `example` | `title?`, `body` | Card, kicker "Example". A concrete case or worked instance. |
+| `keyNumber` | `title?`, `items: [{ value, label }]` (or `value`, `label` directly), `note?` | Card with large tabular numbers and their meaning. |
+| `misconception` | `title?`, `wrong`, `right` | Card with "Not this:" and "But this:" lines. |
+| `whyItMatters` | `title?`, `body` | Card, kicker "Why it matters". One or two sentences. |
+| `detail` | `title`, `body` or `blocks` | `<details>` collapsed by default. Optional depth within slide scope. |
+| `figure` | `visual` | A figure, same shape as a section `visual`. |
+
+```js
+blocks: [
+  { type: 'text', body: 'A neuron has three main regions.' },
+  { type: 'definition', term: 'Soma', body: 'The cell body. Holds the nucleus.' },
+  { type: 'steps', title: 'Chemical transmission', steps: ['An action potential arrives.', { title: 'Calcium enters:', body: 'voltage-gated channels open.' }] },
+  { type: 'compare', title: 'Two kinds of glia', columns: ['Where', 'Job'], rows: [{ label: 'Astrocyte', cells: ['CNS', 'Environment'] }] },
+  { type: 'keyNumber', items: [{ value: '86 billion', label: 'neurons in the human brain' }] },
+  { type: 'misconception', wrong: 'More neurons means smarter.', right: 'Compare at the same anatomical level.' },
+  { type: 'whyItMatters', body: 'A result applies to the scale that was measured.' },
+  { type: 'detail', title: 'Cortical maps and atlases', body: ['...', '...'] },
+  { type: 'figure', visual: { type: 'widget', name: 'image-hotspots', props: { /* see Widgets */ }, caption: '...', fallbackAlt: '...' } },
+]
+```
+
+Key terms are marked with `<dfn>` in block text but never inside
+figures, buttons or selects.
 
 Rules for `body`:
 
@@ -123,6 +162,7 @@ Rules for `visual`:
 ### Widgets
 
 | Name | Engine | What it does |
+| `image-hotspots` | `imageHotspots.js` | Picture (or SVG markup) with numbered hotspot regions, a region list, arrow-key navigation and a quiz mode. See below. |
 |---|---|---|
 | `slider-plot` | `sliderPlot.js` | Range inputs change parameters of a plotted curve. See L00. |
 | `cortical-map`, `neuron-parts` | `regionMap.js` | Hover, tap, focus or pick from a select to read about a region of a figure. |
@@ -170,6 +210,33 @@ content file can attach explanations without repeating geometry.
   directions: { anterior, posterior, dorsal, ventral, lateral, medial },  // optional label text
 }
 ```
+
+#### image-hotspots
+
+```js
+props: {
+  src: figUrl,                    // URL of the picture (webp); or svg: '<svg ...>' markup
+  alt: 'Lateral view of the brain ...',
+  aspect: 936 / 454,              // width / height of the picture
+  regions: [
+    { id: 'frontal', label: 'Frontal lobe', body: 'Anterior to the central sulcus ...',
+      shape: 'ellipse',           // 'ellipse' (default) | 'rect' | 'line'
+      x: 25, y: 29, w: 26, h: 42, // centre and size, percent of the picture
+      mx: 18, my: 24 },           // optional marker position (default: centre, or line start)
+    { id: 'cs', label: 'Central sulcus', body: '...', shape: 'line', x: 36, y: 9, x2: 44, y2: 46 },
+  ],
+  quiz: true,                     // false for pictures with printed labels
+  layout: 'side',                 // 'stack' puts the list under the picture (wide strips, charts)
+  showShapes: false,              // true draws every outline at rest (planes, bands)
+  intro: 'Hover, tap or use the arrow keys ...',
+  labelPool: ['Cerebellum'],      // extra distractor labels for quiz mode
+}
+```
+
+At most seven regions per figure (docs/DESIGN.md, Figures). Reuse the
+same `regions` array for the lecture-quiz label question. Picture
+files live in `src/assets/figures/L0X/` and are referenced with
+`new URL('../assets/figures/L0X/name.webp', import.meta.url).href`.
 
 ### ConceptQuestion
 
@@ -281,7 +348,24 @@ to `points`. See PEDAGOGY.md section 4 for the format.
 
 ### Label the figure (`label`)
 
-`figure` has the same shape as a section visual of type `svg` (no
+Preferred form: give `hotspots`, the same props object as an
+`image-hotspots` figure (reuse the region array from the study figure).
+The question renders the widget's quiz mode: numbered markers, one
+select per marker, check button, per-marker explanation from each
+region's `body`. `labelPool` adds distractors.
+
+```js
+{
+  id: 'q06',
+  difficulty: 'medium',
+  type: 'label',
+  prompt: 'Label the numbered markers on the lateral view of the brain.',
+  hotspots: { src, alt, aspect, regions: LOBE_REGIONS, labelPool: ['Cerebellum', 'Brain stem'] },
+  modelAnswer: ['1 is the frontal lobe ...'],
+}
+```
+
+Legacy form (used by L00): `figure` has the same shape as a section visual of type `svg` (no
 caption needed). `regions` place numbered markers on the figure using
 percentages of its width and height, so they work on any figure size.
 The figure is stretched to the width of its wrapper (up to 30 rem), so

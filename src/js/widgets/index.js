@@ -7,6 +7,7 @@ import { sliderPlot } from './sliderPlot.js';
 import { regionMap } from './regionMap.js';
 import { compareCards } from './compareCards.js';
 import { sectionPlanes } from './sectionPlanes.js';
+import { imageHotspots } from './imageHotspots.js';
 
 export const widgets = {
   'slider-plot': sliderPlot,
@@ -18,4 +19,6 @@ export const widgets = {
   'stain-compare': compareCards,
   // Coronal, sagittal, horizontal on two views with direction terms.
   'section-planes': sectionPlanes,
+  // Image (or SVG markup) with numbered hotspot regions and a quiz mode.
+  'image-hotspots': imageHotspots,
 };

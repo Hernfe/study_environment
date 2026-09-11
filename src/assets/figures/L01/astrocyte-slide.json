@@ -1,0 +1,40 @@
+{
+ "file": "src/assets/figures/L01/astrocyte-slide.webp",
+ "source": "source/slides/NBE-E4210 LECTURE 01 - 2026.pdf",
+ "page": 35,
+ "crop_box_pt": [
+  19.5,
+  130.5,
+  254.25,
+  367.5
+ ],
+ "page_size_pt": [
+  960.0,
+  540.0
+ ],
+ "dpi": 114,
+ "rendered_px": [
+  374,
+  377
+ ],
+ "saved_px": [
+  374,
+  286
+ ],
+ "webp_quality": 90,
+ "bytes": 9768,
+ "extracted": "2026-09-11T15:45:15+00:00",
+ "note": "Course slide material. Redraw or replace before publishing; see CREDITS.md.",
+ "retouch": [
+  {
+   "op": "crop",
+   "box_pct": [
+    0.0,
+    0.0,
+    100.0,
+    76.0
+   ],
+   "at": "2026-09-11T15:45:16+00:00"
+  }
+ ]
+}

@@ -987,3 +987,399 @@
   font-size: var(--fs-sm);
   color: var(--c-text-muted);
 }
+
+/* Image hotspots: picture with numbered markers, region list beside it
+   on wide screens and below it on narrow ones. Markers and shapes use
+   percentages of the picture, so the picture must fill its box. */
+.hotspots {
+  display: grid;
+  gap: var(--sp-4);
+}
+
+@media (min-width: 40rem) {
+  .hotspots:not(.is-stack) {
+    grid-template-columns: minmax(0, 2fr) minmax(11rem, 1fr);
+    align-items: start;
+  }
+}
+
+.hotspots.is-stack .hotspots-list {
+  columns: 2;
+  column-gap: var(--sp-5);
+}
+
+.hotspots.is-stack .hotspots-list li {
+  break-inside: avoid;
+}
+
+/* On wide screens a figure may hang into the empty right margin so the
+   picture is large enough to read; the text column keeps its measure. */
+@media (min-width: 72rem) {
+  .page.has-toc .figure {
+    width: calc(100% + 8rem);
+  }
+}
+
+.hotspots-figure {
+  position: relative;
+  width: 100%;
+  margin-inline: auto;
+  background: #fff;
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+}
+
+.hotspots-figure img,
+.hotspots-figure > svg:not(.hotspots-overlay) {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  max-width: none !important;
+}
+
+.hotspots-figure.is-svg {
+  background: transparent;
+}
+
+.hotspots-overlay {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+.hotspot-shape {
+  fill: none;
+  stroke: var(--c-accent);
+  stroke-width: 2px;
+  opacity: 0;
+  transition: opacity var(--transition);
+}
+
+.hotspots-overlay.is-shown .hotspot-shape {
+  opacity: 0.55;
+}
+
+.hotspot-shape.is-active {
+  opacity: 0.9;
+}
+
+.hotspot-shape.is-correct {
+  stroke: var(--c-correct);
+  opacity: 0.9;
+}
+
+.hotspot-shape.is-incorrect {
+  stroke: var(--c-incorrect);
+  opacity: 0.9;
+}
+
+.hotspot-marker {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  width: 1.6rem;
+  height: 1.6rem;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  border: 2px solid #fff;
+  background: #2856c9;
+  color: #fff;
+  font: 600 0.8rem var(--font-body);
+  cursor: pointer;
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.25);
+}
+
+.hotspot-marker:hover,
+.hotspot-marker.is-active {
+  background: #1a3a8f;
+}
+
+.hotspot-marker:focus-visible {
+  outline: 3px solid var(--c-focus);
+  outline-offset: 2px;
+}
+
+.hotspot-marker.is-correct {
+  background: #0c6b4e;
+}
+
+.hotspot-marker.is-incorrect {
+  background: #a03c05;
+}
+
+.hotspots-intro {
+  margin: 0 0 var(--sp-2);
+  font-size: var(--fs-sm);
+  color: var(--c-text-muted);
+}
+
+.hotspots-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  font-size: var(--fs-sm);
+}
+
+.hotspots-list li {
+  border-top: 1px solid var(--c-border);
+}
+
+.hotspots-list li:last-child {
+  border-bottom: 1px solid var(--c-border);
+}
+
+.hotspots-item {
+  display: flex;
+  align-items: baseline;
+  gap: var(--sp-3);
+  width: 100%;
+  padding: var(--sp-2) var(--sp-1);
+  border: 0;
+  background: none;
+  color: inherit;
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+  border-radius: var(--radius-sm);
+}
+
+.hotspots-item:hover,
+.hotspots-item.is-active {
+  background: var(--c-accent-soft);
+}
+
+.hotspots-item:focus-visible {
+  outline: 3px solid var(--c-focus);
+  outline-offset: -3px;
+}
+
+.hotspots-num {
+  flex: 0 0 1.4rem;
+  height: 1.4rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: var(--c-accent);
+  color: var(--c-bg);
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+.hotspots-body {
+  margin: 0 var(--sp-1) var(--sp-3) calc(1.4rem + var(--sp-3) + var(--sp-1));
+  color: var(--c-text);
+}
+
+.hotspots-quiz-row {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-3);
+  padding: var(--sp-2) var(--sp-1);
+}
+
+.hotspots-quiz-row select {
+  flex: 1 1 auto;
+  min-width: 0;
+  font: inherit;
+  padding: var(--sp-1) var(--sp-2);
+  border: 1px solid var(--c-border);
+  border-radius: var(--radius-sm);
+  background: var(--c-surface);
+  color: var(--c-text);
+}
+
+.hotspots-quiz-row select.is-correct {
+  border-color: var(--c-correct);
+}
+
+.hotspots-quiz-row select.is-incorrect {
+  border-color: var(--c-incorrect);
+}
+
+.hotspots-side .feedback {
+  margin-top: var(--sp-3);
+}
+
+.hotspots-controls {
+  margin-top: var(--sp-3);
+}
+
+/* Blocks: quiet cards with a small kicker heading. The scan path down a
+   section is h2, then kickers, then short bodies. */
+.block {
+  margin: 0 0 var(--sp-4);
+  padding: var(--sp-4) var(--sp-5);
+  background: var(--c-surface);
+  border: 1px solid var(--c-border);
+  border-radius: var(--radius);
+}
+
+.block-text {
+  margin-bottom: var(--sp-4);
+}
+
+.block-text p,
+.block-body p {
+  margin: 0 0 var(--sp-3);
+}
+
+.block-text p:last-child,
+.block-body p:last-child {
+  margin-bottom: 0;
+}
+
+.block-kicker {
+  margin: 0 0 var(--sp-2);
+  font-size: var(--fs-sm);
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  color: var(--c-text-muted);
+}
+
+.block-kicker .block-title {
+  color: var(--c-text);
+}
+
+.block-kicker .block-title::before {
+  content: ' \00b7  ';
+  color: var(--c-text-muted);
+}
+
+.block-steps {
+  margin: 0;
+  padding-left: 1.4em;
+}
+
+.block-steps li {
+  margin-bottom: var(--sp-2);
+  padding-left: var(--sp-1);
+}
+
+.block-steps li:last-child {
+  margin-bottom: 0;
+}
+
+.block-steps .step-title {
+  font-weight: 600;
+}
+
+.block-compare-table th[scope="row"] {
+  text-align: left;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.block-compare-table th,
+.block-compare-table td {
+  vertical-align: top;
+}
+
+.block-numbers {
+  display: grid;
+  grid-template-columns: max-content 1fr;
+  gap: var(--sp-2) var(--sp-4);
+  margin: 0;
+  align-items: baseline;
+}
+
+.block-numbers dt {
+  font-size: var(--fs-lg);
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  line-height: 1.2;
+}
+
+.block-numbers dd {
+  margin: 0;
+}
+
+.block-note {
+  margin: var(--sp-3) 0 0;
+  font-size: var(--fs-sm);
+  color: var(--c-text-muted);
+}
+
+.block-misconception p {
+  margin: 0 0 var(--sp-2);
+}
+
+.block-misconception p:last-child {
+  margin-bottom: 0;
+}
+
+.block-tag {
+  font-weight: 600;
+}
+
+.block-detail {
+  padding: 0;
+}
+
+.block-detail > summary {
+  cursor: pointer;
+  padding: var(--sp-3) var(--sp-5);
+  list-style: none;
+  display: flex;
+  gap: var(--sp-2);
+  align-items: baseline;
+}
+
+.block-detail > summary::-webkit-details-marker {
+  display: none;
+}
+
+.block-detail > summary::before {
+  content: '+';
+  font-weight: 600;
+  color: var(--c-accent);
+  width: 1em;
+}
+
+.block-detail[open] > summary::before {
+  content: '\2212';
+}
+
+.block-detail > summary .block-kicker {
+  margin: 0;
+}
+
+.block-detail > summary .block-title {
+  font-weight: 600;
+}
+
+.block-detail > summary:focus-visible {
+  outline: 3px solid var(--c-focus);
+  outline-offset: -3px;
+  border-radius: var(--radius);
+}
+
+.block-detail > .block-body {
+  padding: 0 var(--sp-5) var(--sp-4);
+}
+
+.block-detail .block {
+  background: var(--c-bg);
+}
+
+/* Markers over theme-coloured SVG charts follow the theme; markers over
+   photographs and drawings keep a fixed blue on a white ground. */
+.hotspots-figure.is-svg .hotspot-marker {
+  background: var(--c-accent);
+  color: var(--c-bg);
+  border-color: var(--c-surface);
+  box-shadow: none;
+}
+
+.hotspots-figure.is-svg .hotspot-marker.is-correct {
+  background: var(--c-correct);
+}
+
+.hotspots-figure.is-svg .hotspot-marker.is-incorrect {
+  background: var(--c-incorrect);
+}

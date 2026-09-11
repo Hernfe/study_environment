@@ -1,0 +1,58 @@
+{
+ "sources": [
+  {
+   "file": "src/assets/figures/L01/astrocyte-slide.webp",
+   "source": "source/slides/NBE-E4210 LECTURE 01 - 2026.pdf",
+   "page": 35,
+   "crop_box_pt": [
+    19.5,
+    130.5,
+    254.25,
+    367.5
+   ]
+  },
+  {
+   "file": "src/assets/figures/L01/oligodendrocyte-bioart.webp",
+   "source": "assets/incoming/bioart/bioart-000397-oligodendrocyte.svg"
+  },
+  {
+   "file": "src/assets/figures/L01/microglia-servier.webp"
+  }
+ ],
+ "panels_pct": [
+  {
+   "x_pct": 0.0,
+   "y_pct": 0.0,
+   "w_pct": 29.71,
+   "h_pct": 100.0
+  },
+  {
+   "x_pct": 31.45,
+   "y_pct": 0.0,
+   "w_pct": 38.18,
+   "h_pct": 100.0
+  },
+  {
+   "x_pct": 71.38,
+   "y_pct": 0.0,
+   "w_pct": 28.62,
+   "h_pct": 100.0
+  }
+ ],
+ "file": "src/assets/figures/L01/glia-types.webp",
+ "saved_px": [
+  2289,
+  520
+ ],
+ "webp_quality": 90,
+ "bytes": 88286,
+ "retouch": [
+  {
+   "op": "compose",
+   "cols": 3,
+   "gap": 40,
+   "height": 520,
+   "at": "2026-09-11T15:45:17+00:00"
+  }
+ ]
+}
