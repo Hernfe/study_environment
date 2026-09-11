@@ -39,7 +39,11 @@
 
   --lh-body: 1.6;
   --lh-heading: 1.2;
-  --measure: 64ch;
+  --measure: 68ch;
+
+  /* Page grid (see docs/DESIGN.md, Layout) */
+  --toc-w: 14rem;   /* sticky contents column, 80rem and up */
+  --bleed: 12rem;   /* how far a figure may run past the prose column */
 
   /* Spacing */
   --sp-1: 0.25rem;

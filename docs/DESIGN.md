@@ -58,7 +58,7 @@ All dark-mode badge and feedback text tokens are between 6.6:1 and 8.3:1 on thei
 | `--font-mono` | `ui-monospace, "Cascadia Mono", Consolas, Menlo, monospace` | Equations and calculation steps line up. |
 | `--fs-base` | `1.125rem` (18 px) | Comfortable reading size for continuous text sits in the 0.2 to 0.4 degree x-height range, which on a desktop at normal distance is 16 to 20 px [9]. |
 | `--lh-body` | `1.6` | Line spacing around 1.5 improves reading of long measures on screen [10]. |
-| `--measure` | `64ch` | Text column of 60 to 75 characters: long enough to reduce return sweeps, short enough that the eye finds the next line reliably [11][12]. |
+| `--measure` | `68ch` | Text column capped at about 68 characters, inside the 60 to 75 range: long enough to reduce return sweeps, short enough that the eye finds the next line reliably [11][12]. |
 | Scale (ratio 1.25) | `--fs-sm 0.875rem`, `--fs-base 1.125rem`, `--fs-md 1.25rem`, `--fs-lg 1.5rem`, `--fs-xl 1.875rem`, `--fs-2xl 2.25rem` | A single modular ratio gives an obvious hierarchy with few distinct sizes, so the reader can tell heading levels apart at a glance [3]. |
 | Headings | h1 `--fs-2xl`, h2 `--fs-xl`, h3 `--fs-lg`, h4 `--fs-md`, weight 600, line-height 1.2 | Tight leading and weight, not colour, carry heading emphasis, keeping colour free for meaning [4]. |
 | Key terms | `font-weight: 600` in body text via `<dfn>` | Bold in running text is the least disruptive way to mark a term; italics reduce reading speed and colour would collide with the accent [4][10]. |
@@ -86,11 +86,53 @@ Page gutter is `--sp-4` at every width, `--sp-6` from 48 rem upwards.
 
 ## 4. Layout
 
-- One column, `max-width: var(--measure)`, centred. A single reading
-  path removes the decision of where to look next [3][11].
-- Sticky in-page table of contents in the left margin from 72 rem width.
-  It never overlaps the column and uses `--c-text-muted` with the accent
-  only on the current section.
+### 4.1 Page grid
+
+One prose column at every width. From 80 rem (1280 px) the page is a
+named CSS grid with fixed tracks, so every element starts on the same
+left edge and the page reads as an aligned grid, not as boxes filling
+gaps (`src/styles/base.css`, `.page.has-toc`):
+
+| Track | Width | Holds |
+|---|---|---|
+| margin | `minmax(--sp-6, 1fr)` | Nothing. Equal on both sides, so the grid is centred. |
+| `toc` | `--toc-w` = 14 rem | The sticky section contents. `--c-text-muted`, accent only on the current section. `top: --sp-6`, scrolls inside itself if taller than the viewport. |
+| gap | `--sp-7` | |
+| `prose` | `minmax(0, --measure)` = up to 68 ch | Headings, text, blocks, quizzes, recap. |
+| bleed | `--bleed` = 12 rem | Figures only. A `.figure` is `calc(100% + var(--bleed))` wide, so its left edge stays on the prose edge and its right edge lands on one shared line. |
+| margin | `minmax(--sp-6, 1fr)` | |
+
+Below 80 rem the prose column is centred with `--sp-6` side padding
+(`--sp-4` below 48 rem), the contents list is inline after the header,
+and figures are as wide as the prose.
+
+Breakpoints, all in rem: 48 (768 px) gutters widen, hotspot gutters
+appear, blocks may go two-up; 80 (1280 px) page grid with sticky
+contents and figure bleed. Nothing changes between 80 rem and any wider
+screen except the margins, so 1280 and 1920 show the same composition.
+
+### 4.2 Two-up blocks
+
+Blocks are full width by default. Two neighbouring blocks share one
+row (`.block-pair`, two equal columns from 48 rem) only when all of
+these hold, decided by `renderBlocks` in `render.js`:
+
+1. Same block type, and one of definition, example, whyItMatters,
+   misconception, keyNumber. Steps, compare, figures, text and detail
+   never pair.
+2. Both short: at most 340 characters of text each.
+3. Similar length: the shorter is at least 55 percent of the longer,
+   so the two cards come out about the same height. The grid stretches
+   them to equal height, which keeps the row's bottom edge straight.
+4. A run of three leaves the third full width. A half-width block is
+   never left on its own.
+
+A content file can stop a pairing with `pair: false` on either block.
+
+### 4.3 General
+
+- A single reading path removes the decision of where to look next
+  [3][11].
 - No decorative imagery. Every figure is the one visual for its block.
 - Motion: only `transition: background-color 120ms, border-color 120ms`
   on quiz feedback. `prefers-reduced-motion` turns it off. Motion in the
@@ -127,7 +169,8 @@ Class names are the contract between `render.js` and `components.css`.
 | Button | `.btn`, `.btn-primary`, `.btn-secondary` | Primary uses `--c-accent`; secondary is outlined. |
 | Notice | `.notice` | Inline information such as "not yet built" or storage unavailable. |
 | Block | `.block`, `.block-<type>`, `.block-kicker` | Quiet card with a small kicker heading: definition, steps, compare, example, keyNumber, misconception, whyItMatters, detail (`<details>`). |
-| Hotspots | `.hotspots`, `.hotspots-figure`, `.hotspot-marker`, `.hotspots-list` | Picture with numbered markers and a region list; `.is-quiz` in quiz mode, `.is-stack` for list-below layout. |
+| Hotspots | `.hotspots`, `.hotspots-stage`, `.hotspots-figure`, `.hotspot-anchor`, `.hotspot-leader`, `.hotspot-marker`, `.hotspots-list` | Picture in a stage with gutters; anchor dots, leaders and numbered badges; a region list. `.is-quiz` in quiz mode, `.is-stack` for list-below layout, `.gutter-sides` or `.gutter-ends` on the stage, `.is-inline` on a badge sitting on the picture. |
+| Block pair | `.block-pair` | Two same-type blocks side by side from 48 rem (see Layout). |
 
 ## 6. Figures
 
@@ -143,12 +186,15 @@ crop, an asset-library illustration, a d3 chart or a hand-drawn SVG.
 2. At most seven labelled elements. Split anything larger: the cortical
    surface became gross features (4), gyri and sulci (5), lobes (7); the
    functional areas became sensory and motor (7) and association (3).
-3. Labels live outside the artwork. Numbered markers sit on the
-   picture; the names sit in a list beside it (below it on narrow
-   screens). Where a slide figure carried printed labels, they are
-   painted out and the marker is placed on the end of the leader-line
-   stub, so the stub becomes the leader. Hand-drawn SVGs place text
-   outside the drawing with a 1 px muted leader line.
+3. Labels live outside the artwork, and so do the numbers. A region is
+   marked by a 5 px anchor dot on the structure, a 1 px leader, and an
+   18 px numbered badge in a gutter outside the picture edge, so no
+   badge ever covers the thing it labels. The names sit in a list
+   beside the picture (below it on narrow screens). Where a slide
+   figure carried printed labels, the labels are painted out and their
+   leader-line stubs inpainted (`retouch_figure.py erase`), so the
+   widget draws the only leaders. Hand-drawn SVGs place text outside
+   the drawing with a 1 px muted leader line.
 4. Colour only on the element under discussion. Regions are invisible
    until hovered, focused or pinned, then outlined in the accent. Charts
    draw every row in muted grey and one focal row in the accent
@@ -156,9 +202,8 @@ crop, an asset-library illustration, a d3 chart or a hand-drawn SVG.
    may be shown at rest (`showShapes`), at reduced opacity.
 5. Consistent strokes and type. Hand-drawn SVG: 1.5 px `currentColor`
    strokes, 1 px muted leaders, labels at 11 px. Charts: 12 px labels,
-   11 px units and ticks, 1.5 px value lines, 4 px dots. Markers: 1.6 rem
-   circles, 0.8 rem numerals, fixed blue with a white ring on pictures
-   (pictures keep a white ground in dark mode), theme accent on charts.
+   11 px units and ticks, 10 px muted rank numbers, 1.5 px value lines,
+   4 px dots. Hotspot marks: see 6.3.
 6. Generous whitespace. Figures sit in a surface card with `--sp-4`
    padding; pictures keep their aspect ratio; tall pictures are capped
    at 28 rem so a portrait synapse does not push the text off screen.
@@ -168,8 +213,13 @@ crop, an asset-library illustration, a d3 chart or a hand-drawn SVG.
 7. Quantitative plots follow Tufte: sorted dot plots as small multiples,
    one panel per measure, range-framed axes with two ticks, values
    written next to the dots, no gridlines, no legend, no second axis.
-   Categories are sorted by value, or by one shared order when the point
-   is that measures rank items differently.
+   Categories are sorted by value. When the point is that measures rank
+   items differently, every panel keeps one shared order, sorted by the
+   headline measure, and each panel prints a small muted rank number in
+   front of its rows (the row's position under that panel's own
+   measure), so the reordering between measures is readable without
+   redrawing the rows. The caption says plainly that the measures rank
+   the items differently.
 8. Every figure has a caption (one or two sentences, muted) and a
    `fallbackAlt` that describes what is drawn, in reading order.
 
@@ -192,12 +242,50 @@ the whole set. Provenance and licences are in `CREDITS.md`.
 
 `image-hotspots` (see `docs/CONTENT_SCHEMA.md`) takes a `src` (or `svg`
 markup), the image `aspect`, and `regions` in percent of the image.
-Shapes: `ellipse` (default), `rect`, `line`. `mx, my` place the marker
-off-centre. Interaction: hover, tap, focus; arrow keys and Home/End
-move between markers; Enter or Space pins one and expands its text in
-the list. Quiz mode hides the names and asks for them through selects,
-then colours markers and outlines correct or incorrect. The same
+Shapes: `ellipse` (default), `rect`, `line`.
+
+Marks, from 48 rem up (the default):
+
+- Anchor dot: 5 px, on the structure, at the region centre (or line
+  start) unless `mx, my` say otherwise. Fixed picture blue with a
+  1.5 px white ring so it reads on any photograph; on SVG charts a 9 px
+  hollow ring in the theme accent around the data point, so the chart
+  keeps its muted-versus-accent colouring.
+- Leader: 1 px, theme accent, from the anchor to the edge of the badge.
+- Badge: 18 px circle, 0.7 rem numeral, theme accent on the card
+  surface, in a gutter outside the picture edge. The stage adds 2 rem
+  of gutter on the left and right (`gutter: 'sides'`) or on the top and
+  bottom (`gutter: 'ends'`; the default for strips wider than 2.2:1).
+  Each badge goes to the gutter nearest its anchor unless the region
+  sets `side`; badges in one gutter are spread apart so none overlap.
+- Hover or focus on a badge or a list item highlights that region:
+  its badge fills with `--c-text`, its leader turns `--c-text` and
+  1.5 px, its outline appears, and every other anchor, leader and badge
+  dims to 35 percent.
+- Inline badge (`side: 'inline'`), only where the picture has clear
+  empty space: no leader; the 16 px badge sits with its edge touching
+  the anchor dot on the side given by `dir` (default up-right), or at
+  `bx, by` when the space is further away (charts put it after the
+  printed value). Never centred on the anchor.
+
+Below 48 rem the gutters collapse: every badge becomes an inline 16 px
+badge, fixed blue with a white ring, offset so its edge touches the
+anchor on the side its gutter would have been. It is never centred on
+the anchor, so the structure stays visible.
+
+Interaction: hover, tap, focus; arrow keys and Home/End move between
+badges; Enter or Space pins one and expands its text in the list. Quiz
+mode hides the names and asks for them through selects, then colours
+badge, leader, anchor and outline correct or incorrect. The same
 regions drive label-the-figure questions in the lecture quiz.
+
+Where the gutter does not suit: a busy map with printed numbers
+(Brodmann) gets end gutters and anchors moved to the edge of each area
+nearest the gutter, so leaders stay short; one interior region there
+uses an inline badge. Charts use inline badges after the printed
+value, since a leader across the value text would be worse than no
+leader. A region whose leader would cross another sub-picture (the
+caudal pole on the four-views figure) uses an inline badge.
 
 ## References
 

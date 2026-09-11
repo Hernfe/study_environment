@@ -31,7 +31,10 @@ that course; most of them are textbook figures (Bear, Connors and
 Paradiso, Neuroscience: Exploring the Brain) and stay under the
 publisher's copyright, so this site should not be redistributed beyond
 the course context. Printed labels were painted out so the quiz mode
-works.
+works, and their leader-line stubs were inpainted
+(`scripts/retouch_figure.py erase`, OpenCV Telea) so the hotspot widget
+draws the only leaders; `gyri-sulci.webp` is also cropped to the brain.
+`scripts/figures_L01.py` records every step.
 
 | File | Where used | Source | Original | Licence | Attribution required |
 | --- | --- | --- | --- | --- | --- |

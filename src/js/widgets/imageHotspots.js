@@ -1,7 +1,9 @@
-// Image with hotspot regions. Hover, tap or arrow through numbered
-// markers to read about each region; a list beside the image (below it
-// on narrow screens) offers the same regions as buttons. Quiz mode
-// hides the labels and asks the learner to assign them.
+// Image with hotspot regions. Each region has a small anchor dot on the
+// structure, a 1 px leader and a numbered badge in a gutter outside the
+// picture, so the badge never covers what it labels. Hover, tap or arrow
+// through the badges to read about each region; a list beside the image
+// (below it on narrow screens) offers the same regions as buttons. Quiz
+// mode hides the labels and asks the learner to assign them.
 //
 // Coordinates are percentages of the image, so one set of regions works
 // at every size and can be reused by label-the-figure questions.
@@ -15,8 +17,17 @@
 //     shape: 'rect' | 'ellipse' | 'line',     // default 'ellipse'
 //     x, y, w, h,                             // rect/ellipse: centre and size in %
 //     x2, y2,                                 // line: end point (x, y is the start)
-//     mx, my,                                 // optional marker position (default: centre or line start)
+//     mx, my,                                 // optional anchor point (default: centre or line start)
+//     side: 'left' | 'right' | 'top' | 'bottom' | 'inline',
+//                                             // which gutter takes the badge (default: the
+//                                             // nearest); 'inline' keeps the badge on the
+//                                             // picture, its edge touching the anchor
+//     bx, by,                                 // inline only: badge centre in %, for a picture
+//                                             // with clear space near the anchor
+//     dir: 'up-right',                        // inline only: side of the anchor the badge sits on
 //   }],
+//   gutter: 'sides' | 'ends' | 'all' | 'auto', // left/right gutters, top/bottom, all four,
+//                                             // or auto: ends for strips wider than 2.2:1
 //   quiz: true,                               // offer quiz mode (default true)
 //   layout: 'side' | 'stack',                 // list beside (default) or below the picture
 //   showShapes: false,                        // draw every region outline at rest (planes, bands)
@@ -28,9 +39,13 @@ import { el } from '../dom.js';
 
 let counter = 0;
 
-function markerPos(region) {
+const BADGE = 18;        // badge diameter in the gutter, px
+const BADGE_NARROW = 16; // inline badge diameter, px
+const DOT = 5;           // anchor dot diameter, px
+const GAP = 4;           // minimum space between neighbouring badges, px
+
+function anchorPos(region) {
   if (region.mx !== undefined) return [region.mx, region.my];
-  if (region.shape === 'line') return [region.x, region.y];
   return [region.x, region.y];
 }
 
@@ -51,13 +66,52 @@ function svgEl(tag, attrs) {
   return node;
 }
 
+const DIRS = {
+  up: [0, -1], down: [0, 1], left: [-1, 0], right: [1, 0],
+  'up-left': [-0.7071, -0.7071], 'up-right': [0.7071, -0.7071],
+  'down-left': [-0.7071, 0.7071], 'down-right': [0.7071, 0.7071],
+};
+
+function usesEnds(aspect, gutter) {
+  return gutter === 'ends' || (gutter !== 'sides' && aspect > 2.2);
+}
+
+// Which gutter a region's badge goes to when the content does not say.
+function autoSide(region, aspect, gutter) {
+  const [ax, ay] = anchorPos(region);
+  if (usesEnds(aspect, gutter)) return ay <= 50 ? 'top' : 'bottom';
+  return ax <= 50 ? 'left' : 'right';
+}
+
+// Spread badge centres along one gutter so none overlap, staying inside
+// [min, max]. Values are px along the gutter axis.
+function spread(items, min, max, size) {
+  items.sort((a, b) => a.want - b.want);
+  const step = size + GAP;
+  let pos = items.map((it) => it.want);
+  for (let i = 1; i < pos.length; i += 1) pos[i] = Math.max(pos[i], pos[i - 1] + step);
+  const over = pos.length ? pos[pos.length - 1] - max : 0;
+  if (over > 0) {
+    pos = pos.map((p) => p - over);
+    for (let i = pos.length - 2; i >= 0; i -= 1) pos[i] = Math.min(pos[i], pos[i + 1] - step);
+  }
+  const under = pos.length ? min - pos[0] : 0;
+  if (under > 0) pos = pos.map((p) => p + under);
+  items.forEach((it, i) => { it.pos = pos[i]; });
+}
+
 // The picture plus overlay. Returns { figure, markers, setState } where
-// setState(id, 'active' | 'correct' | 'incorrect' | null) restyles one marker.
+// figure is the stage (picture plus gutters) and
+// setState(id, 'active' | 'correct' | 'incorrect' | null) restyles one region.
 export function buildFigure(props, { numbered = true, onEnter, onLeave, onPick, onKey } = {}) {
   const uid = `hs${(counter += 1)}`;
+  const aspect = props.aspect || 1;
+  const gutter = props.gutter || 'auto';
+  const gutterClass = gutter === 'all' ? 'gutter-all' : usesEnds(aspect, gutter) ? 'gutter-ends' : 'gutter-sides';
   // Tall pictures are capped at 28rem high; the width follows so the
-  // percentage overlay stays aligned.
-  const figure = el('div', { class: 'hotspots-figure', style: props.aspect ? `aspect-ratio: ${props.aspect}; max-width: calc(28rem * ${props.aspect})` : '' });
+  // percentage overlay stays aligned. The stage adds the gutters.
+  const stage = el('div', { class: `hotspots-stage ${gutterClass}${props.svg ? ' is-svg' : ''}`, style: `max-width: calc(28rem * ${aspect} + 2 * var(--gx))` });
+  const figure = el('div', { class: 'hotspots-figure', style: `aspect-ratio: ${aspect}` });
   if (props.svg) {
     figure.classList.add('is-svg');
     figure.innerHTML = props.svg;
@@ -68,13 +122,27 @@ export function buildFigure(props, { numbered = true, onEnter, onLeave, onPick, 
   for (const region of props.regions) overlay.appendChild(shapeNode(region));
   figure.appendChild(overlay);
 
+  const anchors = new Map();
+  for (const region of props.regions) {
+    const [ax, ay] = anchorPos(region);
+    const anchor = el('span', { class: 'hotspot-anchor', 'data-region': region.id, style: `left:${ax}%; top:${ay}%`, 'aria-hidden': 'true' });
+    anchors.set(region.id, anchor);
+    figure.appendChild(anchor);
+  }
+
+  const leaders = svgEl('svg', { class: 'hotspots-leaders', 'aria-hidden': 'true' });
+  const leaderOf = new Map();
+  for (const region of props.regions) {
+    const line = svgEl('line', { class: 'hotspot-leader', 'data-region': region.id });
+    leaderOf.set(region.id, line);
+    leaders.appendChild(line);
+  }
+
   const markers = new Map();
   props.regions.forEach((region, i) => {
-    const [mx, my] = markerPos(region);
     const marker = el('button', {
       type: 'button',
       class: 'hotspot-marker',
-      style: `left:${mx}%; top:${my}%`,
       'data-region': region.id,
       'aria-label': numbered ? `Marker ${i + 1}` : region.label,
       tabindex: i === 0 ? '0' : '-1',
@@ -86,20 +154,135 @@ export function buildFigure(props, { numbered = true, onEnter, onLeave, onPick, 
       onKeydown: (event) => onKey?.(event, i),
     }, numbered ? String(i + 1) : '');
     markers.set(region.id, marker);
-    figure.appendChild(marker);
   });
 
+  stage.append(figure, leaders, ...markers.values());
+
+  // Place badges and leaders in px. Runs whenever the stage is resized.
+  function layout() {
+    const sr = stage.getBoundingClientRect();
+    const fr = figure.getBoundingClientRect();
+    if (!sr.width || !fr.width) return;
+    const fx = fr.left - sr.left;
+    const fy = fr.top - sr.top;
+    const cs = getComputedStyle(stage);
+    const wide = parseFloat(cs.paddingLeft) > 0 || parseFloat(cs.paddingTop) > 0;
+    stage.classList.toggle('is-inline', !wide);
+    leaders.setAttribute('viewBox', `0 0 ${sr.width} ${sr.height}`);
+    leaders.setAttribute('width', String(sr.width));
+    leaders.setAttribute('height', String(sr.height));
+
+    const size = wide ? BADGE : BADGE_NARROW;
+    const r = size / 2;
+    const touch = r + DOT / 2 + 1; // badge centre to anchor when the edge touches the dot
+    const groups = { left: [], right: [], top: [], bottom: [] };
+    const placed = [];
+
+    for (const region of props.regions) {
+      const [apx, apy] = anchorPos(region);
+      const ax = fx + (apx / 100) * fr.width;
+      const ay = fy + (apy / 100) * fr.height;
+      let side = region.side || autoSide(region, aspect, gutter);
+      const item = { region, ax, ay, bx: ax, by: ay, leader: true };
+      if (side === 'inline' && region.bx !== undefined) {
+        item.bx = fx + (region.bx / 100) * fr.width;
+        item.by = fy + (region.by / 100) * fr.height;
+        item.leader = false;
+      } else if (side === 'inline' || !wide) {
+        // Inline, or the gutter has collapsed: the badge sits on the
+        // picture with its edge touching the anchor dot, never on it.
+        const dirName = side === 'inline' ? region.dir || 'up-right' : { left: 'left', right: 'right', top: 'up', bottom: 'down' }[side];
+        const [dx, dy] = DIRS[dirName];
+        item.bx = ax + dx * touch;
+        item.by = ay + dy * touch;
+        item.leader = false;
+        side = 'inline';
+      }
+      if (side === 'inline') {
+        item.dx = item.bx - ax;
+        item.dy = item.by - ay;
+        placed.push(item);
+      } else {
+        item.want = side === 'left' || side === 'right' ? ay : ax;
+        groups[side].push(item);
+      }
+    }
+
+    for (const side of ['left', 'right']) {
+      const g = groups[side];
+      spread(g, fy + r, fy + fr.height - r, size);
+      const cx = side === 'left' ? fx / 2 : fx + fr.width + (sr.width - fx - fr.width) / 2;
+      for (const it of g) { it.bx = cx; it.by = it.pos; placed.push(it); }
+    }
+    for (const side of ['top', 'bottom']) {
+      const g = groups[side];
+      spread(g, fx + r, fx + fr.width - r, size);
+      const cy = side === 'top' ? fy / 2 : fy + fr.height + (sr.height - fy - fr.height) / 2;
+      for (const it of g) { it.bx = it.pos; it.by = cy; placed.push(it); }
+    }
+
+    // Inline badges: push overlapping neighbours further out along their
+    // own offset direction, then keep every badge inside the picture.
+    const inline = placed.filter((it) => !it.leader);
+    for (let pass = 0; pass < 4; pass += 1) {
+      for (let i = 0; i < inline.length; i += 1) {
+        for (let j = i + 1; j < inline.length; j += 1) {
+          const a = inline[i];
+          const b = inline[j];
+          const d = Math.hypot(a.bx - b.bx, a.by - b.by);
+          const need = size + 2 - d;
+          if (need <= 0) continue;
+          const len = Math.hypot(b.dx, b.dy) || 1;
+          b.bx += (b.dx / len) * need;
+          b.by += (b.dy / len) * need;
+        }
+      }
+    }
+    for (const it of inline) {
+      it.bx = Math.min(Math.max(it.bx, fx + r), fx + fr.width - r);
+      it.by = Math.min(Math.max(it.by, fy + r), fy + fr.height - r);
+    }
+
+    for (const it of placed) {
+      const marker = markers.get(it.region.id);
+      marker.style.left = `${it.bx}px`;
+      marker.style.top = `${it.by}px`;
+      marker.classList.toggle('is-inline', !it.leader);
+      const line = leaderOf.get(it.region.id);
+      if (it.leader) {
+        // The leader runs from the anchor to the badge edge.
+        const dx = it.bx - it.ax;
+        const dy = it.by - it.ay;
+        const len = Math.hypot(dx, dy) || 1;
+        line.setAttribute('x1', it.ax.toFixed(1));
+        line.setAttribute('y1', it.ay.toFixed(1));
+        line.setAttribute('x2', (it.bx - (dx / len) * (r + 1)).toFixed(1));
+        line.setAttribute('y2', (it.by - (dy / len) * (r + 1)).toFixed(1));
+        line.style.display = '';
+      } else {
+        line.style.display = 'none';
+      }
+    }
+  }
+
+  if ('ResizeObserver' in window) {
+    new ResizeObserver(() => layout()).observe(stage);
+  } else {
+    window.addEventListener('resize', layout);
+    queueMicrotask(layout);
+  }
+
   function setState(id, state) {
-    const marker = markers.get(id);
-    const shape = overlay.querySelector(`[data-region="${id}"]`);
-    for (const node of [marker, shape]) {
+    const nodes = [markers.get(id), overlay.querySelector(`[data-region="${id}"]`), anchors.get(id), leaderOf.get(id)];
+    for (const node of nodes) {
       if (!node) continue;
       node.classList.remove('is-active', 'is-correct', 'is-incorrect');
       if (state) node.classList.add(`is-${state}`);
     }
+    stage.classList.toggle('has-active', Boolean(stage.querySelector('.hotspot-marker.is-active')));
   }
 
-  return { figure, markers, setState, uid };
+  return { figure: stage, markers, setState, uid, layout };
 }
 
 // Roving tabindex across the markers: arrows move, Home/End jump.

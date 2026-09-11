@@ -11,6 +11,10 @@ Commands:
   paint  IN OUT --box x0 y0 x1 y1 [--box ...] [--color auto|#rrggbb]
          Fill boxes with a flat colour (default: sampled from the box's
          top-left corner) to remove printed labels or leader lines.
+  erase  IN OUT --line x0 y0 x1 y1 [--line ...] [--width PX]
+         Inpaint thin leader-line stubs that cross the artwork (OpenCV
+         Telea inpainting under a mask of the given segments), so the
+         hotspot widget can draw its own leaders.
   crop   IN OUT --box x0 y0 x1 y1
          Keep only the box.
   compose OUT --panel IN [--panel ...] [--cols N] [--gap PX] [--height PX]
@@ -125,6 +129,21 @@ def cmd_paint(args):
     save(img, args.output, meta, {"op": "paint", "boxes_pct": args.box, "color": args.color})
 
 
+def cmd_erase(args):
+    import cv2
+    import numpy as np
+    img = load(args.input)
+    meta = read_sidecar(args.input)
+    arr = np.array(img.convert("RGB"))
+    mask = np.zeros(arr.shape[:2], dtype=np.uint8)
+    for x0, y0, x1, y1 in args.line:
+        p0 = (int(img.width * x0 / 100), int(img.height * y0 / 100))
+        p1 = (int(img.width * x1 / 100), int(img.height * y1 / 100))
+        cv2.line(mask, p0, p1, 255, args.width)
+    out = cv2.inpaint(arr, mask, args.radius, cv2.INPAINT_TELEA)
+    save(Image.fromarray(out), args.output, meta, {"op": "erase", "lines_pct": args.line, "width_px": args.width})
+
+
 def cmd_crop(args):
     img = load(args.input)
     meta = read_sidecar(args.input)
@@ -198,6 +217,13 @@ def main():
     p.add_argument("--box", type=float, nargs=4, action="append", required=True, metavar=("X0", "Y0", "X1", "Y1"))
     p.add_argument("--color", default="auto")
     p.set_defaults(fn=cmd_paint)
+
+    e = sub.add_parser("erase")
+    e.add_argument("input"); e.add_argument("output")
+    e.add_argument("--line", type=float, nargs=4, action="append", required=True, metavar=("X0", "Y0", "X1", "Y1"))
+    e.add_argument("--width", type=int, default=7, help="mask thickness in px")
+    e.add_argument("--radius", type=int, default=5, help="inpaint radius in px")
+    e.set_defaults(fn=cmd_erase)
 
     c = sub.add_parser("crop")
     c.add_argument("input"); c.add_argument("output")

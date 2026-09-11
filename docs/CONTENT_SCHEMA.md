@@ -134,6 +134,13 @@ blocks: [
 Key terms are marked with `<dfn>` in block text but never inside
 figures, buttons or selects.
 
+Two-up rows: the renderer puts two neighbouring blocks side by side
+(from 48 rem) when they are the same type (definition, example,
+whyItMatters, misconception or keyNumber), both at most 340 characters,
+and within 55 percent of each other in length. A run of three leaves
+the third full width. Add `pair: false` to a block to keep it full
+width. See docs/DESIGN.md, Layout.
+
 Rules for `body`:
 
 - If it is an array, each element that does not start with `<` is
@@ -222,9 +229,15 @@ props: {
     { id: 'frontal', label: 'Frontal lobe', body: 'Anterior to the central sulcus ...',
       shape: 'ellipse',           // 'ellipse' (default) | 'rect' | 'line'
       x: 25, y: 29, w: 26, h: 42, // centre and size, percent of the picture
-      mx: 18, my: 24 },           // optional marker position (default: centre, or line start)
-    { id: 'cs', label: 'Central sulcus', body: '...', shape: 'line', x: 36, y: 9, x2: 44, y2: 46 },
+      mx: 18, my: 24,             // optional anchor dot position (default: centre, or line start)
+      side: 'left' },             // optional: 'left' | 'right' | 'top' | 'bottom' | 'inline'
+    { id: 'cs', label: 'Central sulcus', body: '...', shape: 'line', x: 36, y: 9, x2: 44, y2: 46, side: 'top' },
+    { id: 'aud', label: 'Auditory cortex', body: '...', x: 46, y: 53, w: 14, h: 8,
+      side: 'inline', dir: 'down-right' },  // badge on the picture, edge touching the anchor
+    { id: 'pt', label: 'Human, cortex', body: '...', x: 62, y: 20, w: 5, h: 8,
+      side: 'inline', bx: 70, by: 20 },     // badge at a given spot (charts: after the value)
   ],
+  gutter: 'auto',                 // 'sides' | 'ends' | 'all' | 'auto' (ends for strips wider than 2.2:1)
   quiz: true,                     // false for pictures with printed labels
   layout: 'side',                 // 'stack' puts the list under the picture (wide strips, charts)
   showShapes: false,              // true draws every outline at rest (planes, bands)
@@ -233,10 +246,22 @@ props: {
 }
 ```
 
+How a region is marked (docs/DESIGN.md, 6.3): a 5 px anchor dot on the
+structure at `mx, my` (or the region centre), a 1 px leader, and an
+18 px numbered badge in a gutter outside the picture. `side` picks the
+gutter (default: the nearest one); `gutter` says which gutters the
+stage has. `side: 'inline'` keeps the badge on the picture, touching
+the anchor on the `dir` side (default `up-right`), or centred at
+`bx, by`. Use inline only where the picture has clear empty space.
+Below 48 rem every badge becomes inline and offset from its anchor.
+
 At most seven regions per figure (docs/DESIGN.md, Figures). Reuse the
 same `regions` array for the lecture-quiz label question. Picture
 files live in `src/assets/figures/L0X/` and are referenced with
 `new URL('../assets/figures/L0X/name.webp', import.meta.url).href`.
+Slide crops with printed labels: paint the labels out and inpaint their
+leader-line stubs (`scripts/retouch_figure.py paint` and `erase`), so
+the widget draws the only leaders.
 
 ### ConceptQuestion
 

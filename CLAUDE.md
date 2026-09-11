@@ -27,9 +27,9 @@ When two slide decks disagree on schedule, scope or emphasis, the most recent de
 ## Lecture build workflow
 
 1. Scope file: `docs/scope/L0X.md` as above.
-2. Figures: run `python scripts/extract_figures.py list "source/slides/<deck>.pdf" --preview` as the first step after the scope file, pick every structural figure, and write `scripts/figures_L0X.py` (crop, paint out printed labels, compose panels, rasterise library SVGs with `scripts/retouch_figure.py`) so the asset set in `src/assets/figures/L0X/` is reproducible. Fall back to `scripts/bioart_fetch.py`, `scripts/servier_fetch.py` and `scripts/find_asset.py` for what the slides do not provide.
+2. Figures: run `python scripts/extract_figures.py list "source/slides/<deck>.pdf" --preview` as the first step after the scope file, pick every structural figure, and write `scripts/figures_L0X.py` (crop, paint out printed labels, inpaint their leader-line stubs with `retouch_figure.py erase` (needs `pip install opencv-python-headless`), compose panels, rasterise library SVGs with `scripts/retouch_figure.py`) so the asset set in `src/assets/figures/L0X/` is reproducible. Fall back to `scripts/bioart_fetch.py`, `scripts/servier_fetch.py` and `scripts/find_asset.py` for what the slides do not provide.
 3. Content: `src/content/L0X.js` in blocks, with hotspot regions in percent of each image.
-4. Visual loop: before committing, use Playwright MCP to screenshot every section at 380 px and 1280 px in both light and dark themes, look at every figure, and revise until each meets the style spec. Never present a figure you have not looked at.
+4. Visual loop: before committing, use Playwright MCP to screenshot every section at 380, 768, 1280 and 1920 px in both light and dark themes, look at every figure, and revise until each meets the style spec. Never present a figure you have not looked at.
 5. `npm run build`, update `CREDITS.md`, commit.
 
 ## Content rules

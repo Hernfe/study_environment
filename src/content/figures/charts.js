@@ -15,8 +15,11 @@ const FONT = 12;
 const ROW = 22;
 
 function panel(root, spec) {
-  // spec: { x, y, width, title, unit, rows: [{ label, value, accent }], fmt, showLabels }
-  const labelW = spec.showLabels ? spec.labelWidth : 0;
+  // spec: { x, y, width, title, unit, rows: [{ label, value, accent, rank }], fmt, showLabels, rankWidth }
+  // rank: a small muted number before the row, the row's position when
+  // the panel's own measure sorts the list. rankWidth reserves room for it.
+  const rankW = spec.rankWidth || 0;
+  const labelW = (spec.showLabels ? spec.labelWidth : 0) + rankW;
   const inner = spec.width - labelW - 44;
   const x = scaleLinear().domain([0, max(spec.rows, (r) => r.value)]).nice().range([0, inner]);
   const g = root.append('g').attr('transform', `translate(${spec.x + labelW},${spec.y})`);
@@ -27,6 +30,9 @@ function panel(root, spec) {
   const rows = g.selectAll('g.row').data(spec.rows).join('g').attr('class', 'row').attr('transform', (d, i) => `translate(0,${i * ROW + ROW / 2})`);
   if (spec.showLabels) {
     rows.append('text').attr('x', -8).attr('dy', '0.35em').attr('text-anchor', 'end').attr('fill', (d) => (d.accent ? 'currentColor' : 'var(--c-text-muted)')).attr('font-weight', (d) => (d.accent ? 600 : 400)).text((d) => d.label);
+  }
+  if (rankW) {
+    rows.append('text').attr('x', -labelW).attr('dy', '0.35em').attr('fill', 'var(--c-text-muted)').attr('font-size', FONT - 2).attr('font-variant-numeric', 'tabular-nums').text((d) => (d.rank === undefined ? '' : String(d.rank)));
   }
   rows.append('line').attr('x1', 0).attr('x2', (d) => x(d.value)).attr('stroke', (d) => (d.accent ? 'var(--c-accent)' : 'var(--c-border)')).attr('stroke-width', 1.5);
   rows.append('circle').attr('cx', (d) => x(d.value)).attr('r', 4).attr('fill', (d) => (d.accent ? 'var(--c-accent)' : 'var(--c-text-muted)'));
@@ -80,7 +86,7 @@ export function neuronCountsFigure() {
     const i = rows.findIndex((r) => r.label === label);
     const cx = p.gx + p.x(rows[i].value);
     const cy = p.gy + i * ROW + ROW / 2;
-    return { id, label: rows[i].label + (p === left ? ', whole brain' : ', cortex'), body, shape: 'ellipse', x: (cx / W) * 100, y: (cy / H) * 100, w: 5, h: (ROW / H) * 100 + 2, mx: ((cx + 52) / W) * 100, my: (cy / H) * 100 };
+    return { id, label: rows[i].label + (p === left ? ', whole brain' : ', cortex'), body, shape: 'ellipse', x: (cx / W) * 100, y: (cy / H) * 100, w: 5, h: (ROW / H) * 100 + 2, side: 'inline', bx: ((cx + 46) / W) * 100, by: (cy / H) * 100 };
   };
   const regions = [
     region(left, byBrain, 'Elephant', 'elephant-brain', 'About 251 billion neurons on the slide. Nearly all of them are in the cerebellum.'),
@@ -108,28 +114,34 @@ const DISORDERS = [
 ];
 
 export function disorderBurdenFigure() {
-  const W = 672;
+  const W = 700;
   const H = 40 + DISORDERS.length * ROW + 30;
   const svg = create('svg');
   const k = (v) => (v >= 1000 ? `${format('.0f')(v / 1000)}k` : format('.0f')(v));
-  const rows = (key) => DISORDERS.map((d) => ({ label: d.label, value: d[key], accent: d.accent }));
-  // One row order (by people affected) across all three panels, so the
-  // reader sees that the three measures rank the disorders differently.
-  const p1 = panel(svg, { x: 8, y: 40, width: 290, labelWidth: 150, showLabels: true, title: 'People affected', unit: 'million', rows: rows('people'), fmt: (v) => (v === 0 ? '0' : v >= 10 ? format('.0f')(v) : format('.1f')(v)) });
-  const p2 = panel(svg, { x: 310, y: 40, width: 160, labelWidth: 0, showLabels: false, title: 'Cost per person', unit: 'euro per year', rows: rows('perPerson'), fmt: k });
-  const p3 = panel(svg, { x: 480, y: 40, width: 160, labelWidth: 0, showLabels: false, title: 'Total cost', unit: 'million euro per year', rows: rows('total'), fmt: k });
+  // One shared row order, by total cost, across all three panels. Each
+  // panel prints a small rank for its own measure, so the reader can
+  // see that the three measures rank the disorders differently.
+  const order = [...DISORDERS].sort((a, b) => b.total - a.total);
+  const rankBy = (key) => new Map([...DISORDERS].sort((a, b) => b[key] - a[key]).map((d, i) => [d.label, i + 1]));
+  const rows = (key) => {
+    const ranks = rankBy(key);
+    return order.map((d) => ({ label: d.label, value: d[key], accent: d.accent, rank: ranks.get(d.label) }));
+  };
+  const p1 = panel(svg, { x: 8, y: 40, width: 300, labelWidth: 134, rankWidth: 18, showLabels: true, title: 'People affected', unit: 'million', rows: rows('people'), fmt: (v) => (v === 0 ? '0' : v >= 10 ? format('.0f')(v) : format('.1f')(v)) });
+  const p2 = panel(svg, { x: 320, y: 40, width: 180, labelWidth: 0, rankWidth: 18, showLabels: false, title: 'Cost per person', unit: 'euro per year', rows: rows('perPerson'), fmt: k });
+  const p3 = panel(svg, { x: 510, y: 40, width: 180, labelWidth: 0, rankWidth: 18, showLabels: false, title: 'Total cost', unit: 'million euro per year', rows: rows('total'), fmt: k });
 
   const region = (p, key, label, id, body) => {
-    const i = DISORDERS.findIndex((d) => d.label === label);
-    const cx = p.gx + p.x(DISORDERS[i][key]);
+    const i = order.findIndex((d) => d.label === label);
+    const cx = p.gx + p.x(order[i][key]);
     const cy = p.gy + i * ROW + ROW / 2;
-    return { id, label: `${label}: ${{ people: 'people affected', perPerson: 'cost per person', total: 'total cost' }[key]}`, body, shape: 'ellipse', x: (cx / W) * 100, y: (cy / H) * 100, w: 4, h: (ROW / H) * 100 + 2, mx: ((cx + 44) / W) * 100, my: (cy / H) * 100 };
+    return { id, label: `${label}: ${{ people: 'people affected', perPerson: 'cost per person', total: 'total cost' }[key]}`, body, shape: 'ellipse', x: (cx / W) * 100, y: (cy / H) * 100, w: 4, h: (ROW / H) * 100 + 2, side: 'inline', bx: ((cx + 48) / W) * 100, by: (cy / H) * 100 };
   };
   const regions = [
-    region(p1, 'people', 'Anxiety disorders', 'anxiety-people', 'About 61 million people, the most common group. Cost per person is low, about 1000 euro a year.'),
-    region(p2, 'perPerson', 'Multiple sclerosis', 'ms-cost', 'About 27 000 euro per person per year, the highest on the slide, but only about half a million people.'),
     region(p3, 'total', 'Mood disorders', 'mood-total', 'The largest total cost, about 113 billion euro a year: many people times a moderate cost each.'),
-    region(p3, 'total', 'Dementia', 'dementia-total', 'Second largest total, about 105 billion euro: about 6 million people times a high cost per person.'),
+    region(p3, 'total', 'Dementia', 'dementia-total', 'Second largest total, about 105 billion euro: about 6 million people times a high cost per person. Fifth by people affected.'),
+    region(p1, 'people', 'Anxiety disorders', 'anxiety-people', 'About 61 million people, the most common group, but only third by total cost because the cost per person is low, about 1000 euro a year.'),
+    region(p2, 'perPerson', 'Multiple sclerosis', 'ms-cost', 'About 27 000 euro per person per year, the highest on the slide, but only about half a million people, so it ranks eighth by total cost.'),
   ];
   return { svg: toMarkup(svg, W, H), aspect: W / H, regions };
 }

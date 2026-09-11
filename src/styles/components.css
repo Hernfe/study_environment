@@ -1003,27 +1003,64 @@
   }
 }
 
-.hotspots.is-stack .hotspots-list {
-  columns: 2;
-  column-gap: var(--sp-5);
+@media (min-width: 40rem) {
+  .hotspots.is-stack .hotspots-list {
+    columns: 2;
+    column-gap: var(--sp-5);
+  }
 }
 
 .hotspots.is-stack .hotspots-list li {
   break-inside: avoid;
 }
 
-/* On wide screens a figure may hang into the empty right margin so the
+/* On the page grid a figure may run into the bleed track so the
    picture is large enough to read; the text column keeps its measure. */
-@media (min-width: 72rem) {
+@media (min-width: 80rem) {
   .page.has-toc .figure {
-    width: calc(100% + 8rem);
+    width: calc(100% + var(--bleed));
+  }
+}
+
+/* Stage: the picture plus a gutter on two sides where the numbered
+   badges live. --gx / --gy are the gutter widths; both collapse below
+   48rem, where the badges move onto the picture beside their anchors. */
+.hotspots-stage {
+  --gx: 0px;
+  --gy: 0px;
+  position: relative;
+  width: 100%;
+  margin-inline: auto;
+  padding: var(--gy) var(--gx);
+}
+
+@media (min-width: 48rem) {
+  .hotspots-stage.gutter-sides {
+    --gx: 2rem;
+  }
+  .hotspots-stage.gutter-ends {
+    --gy: 2rem;
+  }
+  .hotspots-stage.gutter-all {
+    --gx: 2rem;
+    --gy: 2rem;
+  }
+}
+
+/* Charts stay legible on narrow screens by scrolling sideways rather
+   than shrinking; badges are positioned inside the scrolling content. */
+@media (max-width: 47.99rem) {
+  .hotspots-stage.is-svg {
+    overflow-x: auto;
+  }
+  .hotspots-stage.is-svg .hotspots-figure {
+    min-width: 34rem;
   }
 }
 
 .hotspots-figure {
   position: relative;
   width: 100%;
-  margin-inline: auto;
   background: #fff;
   border-radius: var(--radius-sm);
   overflow: hidden;
@@ -1076,27 +1113,88 @@
   opacity: 0.9;
 }
 
+/* Anchor dot: 5px on the structure, white ring so it reads on any
+   photograph. Fixed picture blue; theme accent on SVG charts. */
+.hotspot-anchor {
+  position: absolute;
+  width: 5px;
+  height: 5px;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  background: #2856c9;
+  box-shadow: 0 0 0 1.5px #fff, 0 0 0 2.5px rgba(0, 0, 0, 0.2);
+  pointer-events: none;
+  transition: opacity var(--transition);
+}
+
+.hotspots-figure.is-svg .hotspot-anchor {
+  width: 9px;
+  height: 9px;
+  background: transparent;
+  box-shadow: none;
+  border: 1px solid var(--c-accent);
+}
+
+.hotspot-anchor.is-correct { background: #0c6b4e; }
+.hotspot-anchor.is-incorrect { background: #a03c05; }
+.hotspots-figure.is-svg .hotspot-anchor.is-correct { border-color: var(--c-correct); }
+.hotspots-figure.is-svg .hotspot-anchor.is-incorrect { border-color: var(--c-incorrect); }
+
+/* Leaders: 1px from the anchor to the badge edge, drawn over the stage. */
+.hotspots-leaders {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  pointer-events: none;
+}
+
+.hotspot-leader {
+  stroke: var(--c-accent);
+  stroke-width: 1px;
+  shape-rendering: geometricPrecision;
+  transition: opacity var(--transition);
+}
+
+.hotspot-leader.is-correct { stroke: var(--c-correct); }
+.hotspot-leader.is-incorrect { stroke: var(--c-incorrect); }
+
+/* Badges: 18px in the gutter, 16px when inline on the picture. */
 .hotspot-marker {
   position: absolute;
   transform: translate(-50%, -50%);
-  width: 1.6rem;
-  height: 1.6rem;
+  width: 18px;
+  height: 18px;
   padding: 0;
   display: flex;
   align-items: center;
   justify-content: center;
   border-radius: 50%;
-  border: 2px solid #fff;
+  border: 0;
+  background: var(--c-accent);
+  color: var(--c-bg);
+  font: 600 0.7rem/1 var(--font-body);
+  cursor: pointer;
+  transition: opacity var(--transition), background-color var(--transition);
+}
+
+.hotspot-marker.is-inline {
+  width: 16px;
+  height: 16px;
+  font-size: 0.65rem;
+}
+
+/* Inline badges sit on a photograph: fixed blue with a white ring. */
+.hotspots-stage:not(.is-svg) .hotspot-marker.is-inline {
   background: #2856c9;
   color: #fff;
-  font: 600 0.8rem var(--font-body);
-  cursor: pointer;
-  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.25);
+  box-shadow: 0 0 0 1.5px #fff;
 }
 
 .hotspot-marker:hover,
 .hotspot-marker.is-active {
-  background: #1a3a8f;
+  background: var(--c-text);
 }
 
 .hotspot-marker:focus-visible {
@@ -1104,12 +1202,26 @@
   outline-offset: 2px;
 }
 
-.hotspot-marker.is-correct {
-  background: #0c6b4e;
+.hotspot-marker.is-correct,
+.hotspots-stage:not(.is-svg) .hotspot-marker.is-inline.is-correct {
+  background: var(--c-correct);
 }
 
-.hotspot-marker.is-incorrect {
-  background: #a03c05;
+.hotspot-marker.is-incorrect,
+.hotspots-stage:not(.is-svg) .hotspot-marker.is-inline.is-incorrect {
+  background: var(--c-incorrect);
+}
+
+/* While one region is active, the others step back. */
+.hotspots-stage.has-active .hotspot-marker:not(.is-active):not(.is-correct):not(.is-incorrect),
+.hotspots-stage.has-active .hotspot-leader:not(.is-active):not(.is-correct):not(.is-incorrect),
+.hotspots-stage.has-active .hotspot-anchor:not(.is-active):not(.is-correct):not(.is-incorrect) {
+  opacity: 0.35;
+}
+
+.hotspots-stage.has-active .hotspot-leader.is-active {
+  stroke: var(--c-text);
+  stroke-width: 1.5px;
 }
 
 .hotspots-intro {
@@ -1222,6 +1334,28 @@
 
 .block-text {
   margin-bottom: var(--sp-4);
+}
+
+/* Two-up: two blocks of the same type and similar length share a row
+   from 48rem. The renderer decides the pairing (render.js, pairBlocks). */
+.block-pair {
+  margin: 0 0 var(--sp-4);
+}
+
+.block-pair > .block {
+  margin: 0 0 var(--sp-4);
+}
+
+@media (min-width: 48rem) {
+  .block-pair {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--sp-4);
+  }
+  .block-pair > .block {
+    margin: 0;
+    min-width: 0;
+  }
 }
 
 .block-text p,
@@ -1367,19 +1501,3 @@
   background: var(--c-bg);
 }
 
-/* Markers over theme-coloured SVG charts follow the theme; markers over
-   photographs and drawings keep a fixed blue on a white ground. */
-.hotspots-figure.is-svg .hotspot-marker {
-  background: var(--c-accent);
-  color: var(--c-bg);
-  border-color: var(--c-surface);
-  box-shadow: none;
-}
-
-.hotspots-figure.is-svg .hotspot-marker.is-correct {
-  background: var(--c-correct);
-}
-
-.hotspots-figure.is-svg .hotspot-marker.is-incorrect {
-  background: var(--c-incorrect);
-}

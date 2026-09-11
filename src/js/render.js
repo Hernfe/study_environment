@@ -190,12 +190,48 @@ const BLOCKS = {
   ]),
 };
 
+// Two-up rule (docs/DESIGN.md, Layout): two neighbouring blocks share a
+// row only when they are the same type, both short, and of similar
+// length, so the cards come out about the same height. Anything else
+// is full width, and a run of three leaves the third full width rather
+// than half-width on its own. A block can opt out with `pair: false`.
+const PAIRABLE = new Set(['definition', 'example', 'whyItMatters', 'misconception', 'keyNumber']);
+const PAIR_MAX_CHARS = 340;
+const PAIR_MIN_RATIO = 0.55;
+
+function textLength(block) {
+  const text = (v) => (Array.isArray(v) ? v.join(' ') : v || '');
+  if (block.type === 'misconception') return text(block.wrong).length + text(block.right).length;
+  if (block.type === 'keyNumber') return (block.items || [block]).reduce((n, item) => n + text(item.value).length + text(item.label).length, 0) + text(block.note).length;
+  return text(block.body).length + text(block.term || block.title).length;
+}
+
+function canPair(a, b) {
+  if (!a || !b || a.type !== b.type || !PAIRABLE.has(a.type)) return false;
+  if (a.pair === false || b.pair === false) return false;
+  const la = textLength(a);
+  const lb = textLength(b);
+  if (la > PAIR_MAX_CHARS || lb > PAIR_MAX_CHARS) return false;
+  return Math.min(la, lb) / Math.max(la, lb) >= PAIR_MIN_RATIO;
+}
+
+function renderBlock(block) {
+  const render = BLOCKS[block.type];
+  if (!render) return el('p', { class: 'notice' }, `Unknown block type "${block.type}".`);
+  return render(block);
+}
+
 export function renderBlocks(blocks = []) {
-  return blocks.map((block) => {
-    const render = BLOCKS[block.type];
-    if (!render) return el('p', { class: 'notice' }, `Unknown block type "${block.type}".`);
-    return render(block);
-  });
+  const out = [];
+  for (let i = 0; i < blocks.length; i += 1) {
+    if (canPair(blocks[i], blocks[i + 1])) {
+      out.push(el('div', { class: 'block-pair' }, [renderBlock(blocks[i]), renderBlock(blocks[i + 1])]));
+      i += 1;
+    } else {
+      out.push(renderBlock(blocks[i]));
+    }
+  }
+  return out;
 }
 
 function renderSection(section, lectureId) {

@@ -23,7 +23,7 @@
  ],
  "webp_quality": 90,
  "bytes": 50760,
- "extracted": "2026-09-11T15:45:06+00:00",
+ "extracted": "2026-09-11T17:31:11+00:00",
  "note": "Course slide material. Redraw or replace before publishing; see CREDITS.md.",
  "retouch": [
   {
@@ -34,7 +34,7 @@
     100.0,
     92.0
    ],
-   "at": "2026-09-11T15:45:07+00:00"
+   "at": "2026-09-11T17:31:11+00:00"
   },
   {
    "op": "paint",
@@ -47,7 +47,7 @@
     ]
    ],
    "color": "#ffffff",
-   "at": "2026-09-11T15:45:08+00:00"
+   "at": "2026-09-11T17:31:12+00:00"
   }
  ]
 }

@@ -28,7 +28,10 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
-/* Layout: one reading column, optional sticky TOC in the left margin. */
+/* Layout. One prose column at every width. From 80rem the page is a
+   named grid: margin | contents | gap | prose | bleed | margin. Prose
+   and blocks fill the prose track; figures may run into the bleed track
+   (components.css). Everything starts on the same left edge. */
 .page {
   padding-block: var(--sp-6) var(--sp-8);
   padding-inline: var(--sp-4);
@@ -45,24 +48,28 @@ body {
   }
 }
 
-@media (min-width: 72rem) {
+@media (min-width: 80rem) {
   .page.has-toc {
     display: grid;
-    grid-template-columns: 1fr minmax(0, var(--measure)) 1fr;
-    column-gap: var(--sp-6);
+    grid-template-columns:
+      [full-start] minmax(var(--sp-6), 1fr)
+      [toc-start] var(--toc-w) [toc-end]
+      var(--sp-7)
+      [prose-start] minmax(0, var(--measure)) [prose-end]
+      var(--bleed) [wide-end]
+      minmax(var(--sp-6), 1fr) [full-end];
+    padding-inline: 0;
   }
   .page.has-toc > .toc {
-    grid-column: 1;
-    justify-self: end;
+    grid-column: toc;
     position: sticky;
     top: var(--sp-6);
     align-self: start;
     max-height: calc(100vh - var(--sp-8));
     overflow-y: auto;
-    width: 16rem;
   }
   .page.has-toc > .page-inner {
-    grid-column: 2;
+    grid-column: prose;
     margin-inline: 0;
   }
 }
@@ -227,7 +234,7 @@ button {
   display: none;
 }
 
-@media (min-width: 72rem) {
+@media (min-width: 80rem) {
   .page.has-toc > .toc {
     display: block;
   }

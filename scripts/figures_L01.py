@@ -37,6 +37,15 @@ def paint(name, boxes, out=None):
     run(*args)
 
 
+def erase(name, lines, width=9, out=None):
+    """Inpaint leader-line stubs left after the labels were painted out,
+    so the hotspot widget draws the only leaders on the picture."""
+    args = ["scripts/retouch_figure.py", "erase", F / f"{name}.webp", F / f"{out or name}.webp", "--width", width]
+    for line in lines:
+        args += ["--line", *line]
+    run(*args)
+
+
 def crop(name, box, out=None):
     run("scripts/retouch_figure.py", "crop", F / f"{name}.webp", F / f"{out or name}.webp", "--box", *box)
 
@@ -53,20 +62,25 @@ def main():
 
     # Cortical surface: gross features (slide 18), gyri and sulci (19),
     # lobes (20), functional areas (21), Brodmann's map (25). Printed
-    # labels are painted out; leader-line stubs stay and the hotspot
+    # labels are painted out and their leader-line stubs inpainted; the
     # markers sit on their ends.
     extract(18, 2, "gross-features")
     crop("gross-features", [0, 0, 100, 87])
-    paint("gross-features", [[0, 5, 20, 14], [0, 71, 14, 93], [45, 87, 49.6, 100], [88, 92, 100, 100]])
+    paint("gross-features", [[0, 5, 20, 14], [1, 82, 12, 90.5], [88, 92, 100, 100]])
+    erase("gross-features", [[14.4, 13.8, 30.8, 23.7], [46.5, 84, 48.5, 89], [47, 85, 49.5, 93], [49.5, 93.3, 54.1, 99.8], [11, 87.5, 15, 83], [11, 86.5, 17.8, 79.9], [78.5, 91.4, 87.9, 97.6]], width=9)
 
     extract(19, 2, "gyri-sulci")
     paint("gyri-sulci", [[17, 6, 37, 14], [38, 1, 56, 9], [60, 7, 80, 15], [0, 77, 22, 90], [77, 70, 100, 84], [67, 90, 78, 98]])
+    erase("gyri-sulci", [[20, 78, 44, 53], [47.3, 29.6, 47.3, 8.9], [51.6, 26.5, 59.7, 13.8], [34.6, 13.5, 43.8, 28.1], [54.4, 55.9, 76.7, 73.0]], width=11)
+    crop("gyri-sulci", [11, 4, 83, 100])
 
     extract(20, 2, "lobes")
     paint("lobes", [[0, 8, 13, 18], [54, 0, 66, 7], [12, 88, 25, 98], [68, 66, 81, 75], [66, 50, 74, 57], [54, 88, 61, 95]])
+    erase("lobes", [[12.9, 17.4, 19, 25], [54.5, 6, 47.5, 18.5], [58, 52, 68, 68], [29, 70, 23.4, 87.7], [74, 51, 81.5, 38]])
 
     extract(21, 2, "functional-areas")
     paint("functional-areas", [[44, 0, 63, 5.5], [25, 4, 46, 11.5], [53, 4, 71, 11.5], [66, 8.5, 86, 16.5], [14, 11, 26, 19.5], [77, 27, 91, 35.5], [4, 69, 18, 75], [15, 79, 32, 88], [37, 82, 50, 90], [66, 61, 74, 68], [10, 87, 30, 100], [66, 90, 79.5, 98]])
+    erase("functional-areas", [[32, 11, 37.5, 17.5], [26, 19.3, 39, 29], [47.5, 5, 45, 15.5], [54.2, 10.8, 50.6, 18.8], [66.2, 15.2, 60, 21.5], [77.2, 31.3, 70.5, 36.5], [16.5, 69, 23.5, 59.5], [30.5, 79.5, 37, 68.5], [42, 82, 47, 55], [47.3, 49.5, 46.5, 54.5], [78.5, 90.5, 84, 80.5], [34, 13.5, 39, 17], [34, 24.5, 40, 29], [44.5, 13, 45.8, 18], [49, 18.5, 51, 22.5]])
 
     extract(25, 2, "brodmann-map")
     crop("brodmann-map", [3, 0, 100, 92])

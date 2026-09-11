@@ -24,8 +24,9 @@ function figureBlock(props, caption, fallbackAlt) {
 
 // ---------------------------------------------------------------------
 // Region sets. Coordinates are percentages of each image. mx, my place
-// the numbered marker, usually on the end of a leader line stub left
-// from the original figure.
+// the anchor dot on the structure when the region centre is not the
+// best spot; the badge itself sits in a gutter outside the picture, or
+// inline (side: 'inline') where the picture has clear space.
 
 const SCALES_REGIONS = [
   { id: 'coarse', label: 'Metres to millimetres', body: 'Body, whole brain, brain regions. The scale of behaviour, imaging and anatomy.', shape: 'rect', x: 22, y: 27, w: 34, h: 36, mx: 8, my: 27 },
@@ -37,10 +38,10 @@ const SCALES_REGIONS = [
 ];
 
 const VIEW_REGIONS = [
-  { id: 'dorsal', label: 'Dorsal view', body: 'Seen from above. Both hemispheres, the midline between them.', x: 23, y: 27, w: 38, h: 46, mx: 23, my: 6 },
-  { id: 'ventral', label: 'Ventral view', body: 'Seen from below. The brain stem and cerebellum are visible, and the olfactory bulbs at the front.', x: 72, y: 27, w: 40, h: 46, mx: 72, my: 6 },
-  { id: 'lateral', label: 'Lateral view', body: 'Seen from the side. Anterior is to the left. The view used for lobes and functional areas.', x: 24, y: 80, w: 46, h: 36, mx: 24, my: 63 },
-  { id: 'medial', label: 'Medial view', body: 'The inner surface after a cut down the midline (a midsagittal cut). Shows the corpus callosum, brain stem and cerebellum.', x: 74, y: 80, w: 46, h: 36, mx: 74, my: 63 },
+  { id: 'dorsal', label: 'Dorsal view', body: 'Seen from above. Both hemispheres, the midline between them.', x: 23, y: 27, w: 38, h: 46, mx: 12, my: 27 },
+  { id: 'ventral', label: 'Ventral view', body: 'Seen from below. The brain stem and cerebellum are visible, and the olfactory bulbs at the front.', x: 72, y: 27, w: 40, h: 46, mx: 86, my: 27 },
+  { id: 'lateral', label: 'Lateral view', body: 'Seen from the side. Anterior is to the left. The view used for lobes and functional areas.', x: 24, y: 80, w: 46, h: 36, mx: 12, my: 80 },
+  { id: 'medial', label: 'Medial view', body: 'The inner surface after a cut down the midline (a midsagittal cut). Shows the corpus callosum, brain stem and cerebellum.', x: 74, y: 80, w: 46, h: 36, mx: 86, my: 80 },
 ];
 
 const PLANE_REGIONS = [
@@ -48,15 +49,15 @@ const PLANE_REGIONS = [
   { id: 'horizontal', label: 'Horizontal plane', body: 'A cut parallel to the ground. Separates superior from inferior. Seen edge-on in the lateral view.', shape: 'line', x: 3, y: 80, x2: 47, y2: 80, mx: 10, my: 80 },
   { id: 'sagittal', label: 'Sagittal plane', body: 'A vertical cut from front to back. Separates left from right. The midsagittal cut runs down the midline of the dorsal view and gives the medial view.', shape: 'line', x: 23, y: 5, x2: 23, y2: 50, mx: 23, my: 10 },
   { id: 'rostral', label: 'Rostral', body: 'Toward the nose. In the forebrain this is the anterior end (the frontal pole here); in the brainstem and spinal cord it means toward the head, so superior.', x: 6, y: 79, w: 8, h: 14, mx: 6, my: 72 },
-  { id: 'caudal', label: 'Caudal', body: 'Toward the tail. In the forebrain this is the posterior end (the occipital pole); in the brainstem and spinal cord it means toward the feet, so inferior.', x: 46, y: 80, w: 8, h: 14, mx: 47, my: 72 },
+  { id: 'caudal', label: 'Caudal', body: 'Toward the tail. In the forebrain this is the posterior end (the occipital pole); in the brainstem and spinal cord it means toward the feet, so inferior.', x: 46, y: 80, w: 8, h: 14, mx: 47, my: 72, side: 'inline', dir: 'up-right' },
 ];
 
 const DIRECTION_REGIONS = [
   { id: 'anterior', label: 'Anterior', body: 'Toward the front. The frontal pole in the lateral view.', x: 6, y: 79, w: 8, h: 14 },
-  { id: 'posterior', label: 'Posterior', body: 'Toward the back. The occipital pole.', x: 46, y: 80, w: 8, h: 14 },
+  { id: 'posterior', label: 'Posterior', body: 'Toward the back. The occipital pole.', x: 46, y: 80, w: 8, h: 14, mx: 47, my: 72, side: 'inline', dir: 'up-right' },
   { id: 'dorsal', label: 'Dorsal (superior)', body: 'Toward the back of the animal. In the human forebrain this is the top of the head, so dorsal equals superior here.', shape: 'rect', x: 24, y: 64, w: 22, h: 5 },
   { id: 'ventral', label: 'Ventral (inferior)', body: 'Toward the belly. In the forebrain this is the underside, so ventral equals inferior here.', shape: 'rect', x: 24, y: 95, w: 22, h: 5 },
-  { id: 'medial', label: 'Medial', body: 'Toward the midline, seen here as the groove between the hemispheres in the dorsal view.', shape: 'line', x: 23, y: 6, x2: 23, y2: 49, mx: 23, my: 27 },
+  { id: 'medial', label: 'Medial', body: 'Toward the midline, seen here as the groove between the hemispheres in the dorsal view.', shape: 'line', x: 23, y: 6, x2: 23, y2: 49, mx: 23, my: 7, side: 'inline', dir: 'up' },
   { id: 'lateral', label: 'Lateral', body: 'Away from the midline, toward the outer edge of a hemisphere.', x: 6, y: 27, w: 6, h: 30 },
 ];
 
@@ -68,47 +69,47 @@ const GROSS_REGIONS = [
 ];
 
 const GYRI_REGIONS = [
-  { id: 'precentral', label: 'Precentral gyrus', body: 'Just anterior to the central sulcus (purple). Primary motor cortex.', shape: 'line', x: 44, y: 19, x2: 41, y2: 52, mx: 43, my: 28 },
-  { id: 'central-sulcus', label: 'Central sulcus', body: 'The groove from the top of the hemisphere down toward the lateral fissure. Frontal lobe in front, parietal lobe behind.', shape: 'line', x: 47, y: 17, x2: 43, y2: 52, mx: 47, my: 16 },
-  { id: 'postcentral', label: 'Postcentral gyrus', body: 'Just posterior to the central sulcus (yellow). Primary somatosensory cortex.', shape: 'line', x: 50, y: 17, x2: 45, y2: 52, mx: 55, my: 21 },
-  { id: 'lateral-fissure', label: 'Lateral (Sylvian) fissure', body: 'The deep groove that separates the temporal lobe from the frontal and parietal lobes. The insula is buried inside it.', shape: 'line', x: 24, y: 55, x2: 52, y2: 50, mx: 43, my: 55 },
-  { id: 'superior-temporal', label: 'Superior temporal gyrus', body: 'The gyrus just below the lateral fissure (red). Primary auditory cortex on its upper surface.', shape: 'line', x: 37, y: 58, x2: 60, y2: 52, mx: 58, my: 55 },
+  { id: 'precentral', label: 'Precentral gyrus', body: 'Just anterior to the central sulcus (purple). Primary motor cortex.', shape: 'line', x: 45.8, y: 15.6, x2: 41.7, y2: 50.0, mx: 40.3, my: 35.4, side: 'top' },
+  { id: 'central-sulcus', label: 'Central sulcus', body: 'The groove from the top of the hemisphere down toward the lateral fissure. Frontal lobe in front, parietal lobe behind.', shape: 'line', x: 50.0, y: 13.5, x2: 44.4, y2: 50.0, mx: 47.9, my: 27.1, side: 'top' },
+  { id: 'postcentral', label: 'Postcentral gyrus', body: 'Just posterior to the central sulcus (yellow). Primary somatosensory cortex.', shape: 'line', x: 54.2, y: 13.5, x2: 47.2, y2: 50.0, mx: 52.1, my: 24.0, side: 'top' },
+  { id: 'lateral-fissure', label: 'Lateral (Sylvian) fissure', body: 'The deep groove that separates the temporal lobe from the frontal and parietal lobes. The insula is buried inside it.', shape: 'line', x: 18.1, y: 53.1, x2: 56.9, y2: 47.9, mx: 34.7, my: 53.1 },
+  { id: 'superior-temporal', label: 'Superior temporal gyrus', body: 'The gyrus just below the lateral fissure (red). Primary auditory cortex on its upper surface.', shape: 'line', x: 36.1, y: 56.2, x2: 68.1, y2: 50.0, mx: 61.1, my: 52.1 },
 ];
 
 const LOBE_REGIONS = [
   { id: 'frontal', label: 'Frontal lobe', body: 'Anterior to the central sulcus and above the lateral fissure. Motor areas at the back, prefrontal association cortex in front.', x: 25, y: 29, w: 26, h: 42, mx: 18, my: 24 },
-  { id: 'parietal', label: 'Parietal lobe', body: 'Behind the central sulcus. Somatosensory cortex in the postcentral gyrus, posterior parietal association cortex behind it.', x: 46, y: 23, w: 20, h: 34, mx: 48, my: 13 },
+  { id: 'parietal', label: 'Parietal lobe', body: 'Behind the central sulcus. Somatosensory cortex in the postcentral gyrus, posterior parietal association cortex behind it.', x: 46, y: 23, w: 20, h: 34, mx: 48, my: 13, side: 'top' },
   { id: 'temporal', label: 'Temporal lobe', body: 'Below the lateral fissure. Auditory cortex on the superior temporal gyrus, inferotemporal association cortex lower down.', x: 38, y: 62, w: 28, h: 32, mx: 29, my: 69 },
-  { id: 'occipital', label: 'Occipital lobe', body: 'The back of the cerebrum. Visual cortex.', x: 56, y: 48, w: 12, h: 32, mx: 60, my: 54 },
-  { id: 'central-sulcus', label: 'Central sulcus', body: 'Divides the frontal lobe from the parietal lobe.', shape: 'line', x: 36, y: 9, x2: 44, y2: 46, mx: 40, my: 27 },
-  { id: 'lateral-fissure', label: 'Lateral (Sylvian) fissure', body: 'Separates the temporal lobe from the frontal and parietal lobes.', shape: 'line', x: 22, y: 54, x2: 48, y2: 43, mx: 35, my: 49 },
+  { id: 'occipital', label: 'Occipital lobe', body: 'The back of the cerebrum. Visual cortex.', x: 56, y: 48, w: 12, h: 32, mx: 58, my: 30, side: 'top' },
+  { id: 'central-sulcus', label: 'Central sulcus', body: 'Divides the frontal lobe from the parietal lobe.', shape: 'line', x: 36, y: 9, x2: 44, y2: 46, mx: 37, my: 13, side: 'top' },
+  { id: 'lateral-fissure', label: 'Lateral (Sylvian) fissure', body: 'Separates the temporal lobe from the frontal and parietal lobes.', shape: 'line', x: 22, y: 54, x2: 48, y2: 43, mx: 25, my: 53 },
   { id: 'insula', label: 'Insula', body: 'Cortex buried inside the lateral fissure, seen on the right only because the edges of the fissure have been pulled apart. The gustatory cortex is here.', x: 82, y: 36, w: 8, h: 12, mx: 80, my: 40 },
 ];
 
 const SENSORY_MOTOR_REGIONS = [
-  { id: 'motor', label: 'Primary motor cortex (area 4)', body: 'In the precentral gyrus, just anterior to the central sulcus. Controls voluntary movement.', shape: 'line', x: 46, y: 13, x2: 38, y2: 46, mx: 43, my: 18 },
+  { id: 'motor', label: 'Primary motor cortex (area 4)', body: 'In the precentral gyrus, just anterior to the central sulcus. Controls voluntary movement.', shape: 'line', x: 46, y: 13, x2: 38, y2: 46, mx: 43.5, my: 17, side: 'top' },
   { id: 'premotor', label: 'Premotor area (area 6)', body: 'Anterior to the primary motor cortex, on the lateral surface. Plans movement.', x: 33, y: 28, w: 10, h: 20, mx: 34, my: 26 },
-  { id: 'sma', label: 'Supplementary motor area (area 6)', body: 'Also area 6, on the upper and medial part of the frontal lobe in front of area 4.', x: 37, y: 14, w: 12, h: 8, mx: 35, my: 9 },
-  { id: 'somatosensory', label: 'Somatosensory cortex (areas 3, 1, 2)', body: 'In the postcentral gyrus, just behind the central sulcus. Touch and body sensation.', shape: 'line', x: 51, y: 13, x2: 43, y2: 47, mx: 51, my: 13 },
+  { id: 'sma', label: 'Supplementary motor area (area 6)', body: 'Also area 6, on the upper and medial part of the frontal lobe in front of area 4.', x: 37, y: 14, w: 12, h: 8, mx: 39, my: 12, side: 'top' },
+  { id: 'somatosensory', label: 'Somatosensory cortex (areas 3, 1, 2)', body: 'In the postcentral gyrus, just behind the central sulcus. Touch and body sensation.', shape: 'line', x: 51, y: 13, x2: 43, y2: 47, mx: 49, my: 19, side: 'top' },
   { id: 'visual', label: 'Visual cortex (areas 17, 18, 19)', body: 'The occipital lobe. Area 17 is primary visual cortex, V1.', x: 68, y: 42, w: 16, h: 30, mx: 75, my: 32 },
-  { id: 'auditory', label: 'Auditory cortex (areas 41, 42)', body: 'On the superior temporal gyrus, partly hidden in the lateral fissure.', x: 46, y: 53, w: 14, h: 8, mx: 47, my: 53 },
+  { id: 'auditory', label: 'Auditory cortex (areas 41, 42)', body: 'On the superior temporal gyrus, partly hidden in the lateral fissure.', x: 46, y: 53, w: 14, h: 8, mx: 47, my: 53, side: 'inline', dir: 'down-right' },
   { id: 'gustatory', label: 'Gustatory cortex (area 43)', body: 'Taste. Buried in the insula and the parietal operculum, shown on the small brain with the fissure opened.', x: 84, y: 79, w: 5, h: 6, mx: 84, my: 80 },
 ];
 
 const ASSOCIATION_REGIONS = [
   { id: 'prefrontal', label: 'Prefrontal cortex', body: 'The association cortex of the frontal lobe, in front of the motor areas.', x: 24, y: 45, w: 30, h: 44, mx: 24, my: 60 },
-  { id: 'posterior-parietal', label: 'Posterior parietal cortex (areas 5, 7)', body: 'Association cortex behind the somatosensory area.', x: 58, y: 25, w: 22, h: 26, mx: 66, my: 17 },
+  { id: 'posterior-parietal', label: 'Posterior parietal cortex (areas 5, 7)', body: 'Association cortex behind the somatosensory area.', x: 58, y: 25, w: 22, h: 26, mx: 66, my: 22 },
   { id: 'inferotemporal', label: 'Inferotemporal cortex (areas 20, 21, 37)', body: 'Association cortex on the lower temporal lobe.', x: 38, y: 70, w: 26, h: 14, mx: 37, my: 70 },
 ];
 
 const BRODMANN_REGIONS = [
-  { id: 'b4', label: 'Area 4: primary motor cortex', body: 'The red strip in the precentral gyrus.', shape: 'line', x: 50.5, y: 16, x2: 43.3, y2: 49, mx: 47, my: 30 },
-  { id: 'b6', label: 'Area 6: premotor and supplementary motor areas', body: 'Anterior to area 4.', x: 41, y: 27, w: 8, h: 20 },
-  { id: 'b312', label: 'Areas 3, 1, 2: somatosensory cortex', body: 'The strip in the postcentral gyrus, behind the central sulcus.', shape: 'line', x: 54.6, y: 13, x2: 44.3, y2: 49, mx: 52, my: 28 },
-  { id: 'b57', label: 'Areas 5, 7: posterior parietal cortex', body: 'Behind the somatosensory strip.', x: 66, y: 35, w: 16, h: 20 },
-  { id: 'b17', label: 'Areas 17, 18, 19: visual cortex', body: 'Area 17 (V1) at the occipital pole, 18 and 19 around it.', x: 88.7, y: 56.5, w: 14, h: 24 },
-  { id: 'b41', label: 'Areas 41, 42: auditory cortex', body: 'On the superior temporal gyrus.', x: 51.5, y: 57.6, w: 12, h: 8 },
-  { id: 'b20', label: 'Areas 20, 21, 37: inferotemporal cortex', body: 'The lower temporal lobe.', x: 40.2, y: 76, w: 16, h: 12 },
+  { id: 'b4', label: 'Area 4: primary motor cortex', body: 'The red strip in the precentral gyrus.', shape: 'line', x: 50.5, y: 16, x2: 43.3, y2: 49, mx: 51.3, my: 20 },
+  { id: 'b6', label: 'Area 6: premotor and supplementary motor areas', body: 'Anterior to area 4.', x: 41, y: 27, w: 8, h: 20, mx: 41, my: 20 },
+  { id: 'b312', label: 'Areas 3, 1, 2: somatosensory cortex', body: 'The strip in the postcentral gyrus, behind the central sulcus.', shape: 'line', x: 54.6, y: 13, x2: 44.3, y2: 49, mx: 54, my: 17 },
+  { id: 'b57', label: 'Areas 5, 7: posterior parietal cortex', body: 'Behind the somatosensory strip.', x: 66, y: 35, w: 16, h: 20, mx: 68, my: 26 },
+  { id: 'b17', label: 'Areas 17, 18, 19: visual cortex', body: 'Area 17 (V1) at the occipital pole, 18 and 19 around it.', x: 88.7, y: 56.5, w: 14, h: 24, mx: 84, my: 66 },
+  { id: 'b41', label: 'Areas 41, 42: auditory cortex', body: 'On the superior temporal gyrus.', x: 51.5, y: 57.6, w: 12, h: 8, mx: 60, my: 60, side: 'inline', dir: 'right' },
+  { id: 'b20', label: 'Areas 20, 21, 37: inferotemporal cortex', body: 'The lower temporal lobe.', x: 40.2, y: 76, w: 16, h: 12, mx: 44, my: 84 },
 ];
 
 const LAYER_REGIONS = [
@@ -130,17 +131,17 @@ const STAIN_REGIONS = [
 
 const NEURON_REGIONS = [
   { id: 'dendrites', label: 'Dendrites', body: 'Branching neurites that receive most of the synaptic input. They taper and are rarely longer than 2 mm.', x: 16, y: 35, w: 26, h: 40, mx: 16, my: 35 },
-  { id: 'soma', label: 'Soma (cell body)', body: 'About 20 micrometres across. Holds the nucleus and the organelles that make proteins and energy.', x: 35, y: 50, w: 20, h: 26, mx: 41, my: 58 },
-  { id: 'nucleus', label: 'Nucleus', body: 'Holds the chromosomes. Genes are read here into mRNA, which leaves through pores to be made into protein.', x: 34, y: 48, w: 8, h: 9, mx: 34, my: 48 },
-  { id: 'hillock', label: 'Axon hillock', body: 'Where the axon begins, tapering away from the soma.', x: 44, y: 58, w: 6, h: 7, mx: 47, my: 70 },
+  { id: 'soma', label: 'Soma (cell body)', body: 'About 20 micrometres across. Holds the nucleus and the organelles that make proteins and energy.', x: 35, y: 50, w: 20, h: 26, mx: 41, my: 63, side: 'bottom' },
+  { id: 'nucleus', label: 'Nucleus', body: 'Holds the chromosomes. Genes are read here into mRNA, which leaves through pores to be made into protein.', x: 34, y: 48, w: 8, h: 9, mx: 34, my: 48, side: 'top' },
+  { id: 'hillock', label: 'Axon hillock', body: 'Where the axon begins, tapering away from the soma.', x: 44, y: 58, w: 6, h: 7, mx: 47, my: 70, side: 'bottom' },
   { id: 'axon', label: 'Axon', body: 'The single output fibre. Uniform diameter, up to a metre long, no ribosomes.', x: 68, y: 60, w: 30, h: 14, mx: 78, my: 60 },
-  { id: 'myelin', label: 'Myelin sheath', body: 'Wrapping made by glia, interrupted at the nodes of Ranvier. Speeds conduction.', x: 58, y: 62, w: 9, h: 9, mx: 57, my: 71 },
+  { id: 'myelin', label: 'Myelin sheath', body: 'Wrapping made by glia, interrupted at the nodes of Ranvier. Speeds conduction.', x: 58, y: 62, w: 9, h: 9, mx: 57, my: 71, side: 'bottom' },
   { id: 'terminals', label: 'Axon terminals', body: 'The branched end of the axon. Each terminal contacts a target cell at a synapse.', x: 90, y: 28, w: 18, h: 26, mx: 92, my: 18 },
 ];
 
 const INTERNAL_REGIONS = [
   { id: 'nucleus', label: 'Nucleus', body: 'DNA in chromosomes. Transcription makes mRNA, which leaves through nuclear pores.', x: 56, y: 60, w: 14, h: 16 },
-  { id: 'rough-er', label: 'Rough ER', body: 'Membrane stacks studded with ribosomes. Makes membrane proteins. This is the Nissl substance.', x: 47, y: 52, w: 10, h: 10 },
+  { id: 'rough-er', label: 'Rough ER', body: 'Membrane stacks studded with ribosomes. Makes membrane proteins. This is the Nissl substance.', x: 47, y: 52, w: 10, h: 10, side: 'right' },
   { id: 'mitochondrion', label: 'Mitochondrion', body: 'Cellular respiration; makes the ATP that fuels the membrane pumps.', x: 67, y: 45, w: 6, h: 7 },
   { id: 'golgi', label: 'Golgi apparatus', body: 'Sorts finished proteins for delivery to the axon or the dendrites.', x: 72, y: 65, w: 7, h: 10 },
   { id: 'smooth-er', label: 'Smooth ER', body: 'No ribosomes. Folds proteins and regulates substances such as calcium.', x: 73, y: 76, w: 6, h: 6 },
@@ -153,7 +154,7 @@ const SYNAPSE_REGIONS = [
   { id: 'vesicle', label: 'Synaptic vesicle', body: 'About 50 nm across, filled with neurotransmitter.', x: 37, y: 41, w: 14, h: 9, mx: 37, my: 41 },
   { id: 'active-zone', label: 'Active zone', body: 'The release face of the terminal, coated with protein, where vesicles fuse with the membrane.', x: 66, y: 50, w: 20, h: 6, mx: 66, my: 47 },
   { id: 'cleft', label: 'Synaptic cleft', body: 'The 20 nm gap between the two cells. Transmitter diffuses across it.', shape: 'line', x: 10, y: 55, x2: 93, y2: 55, mx: 88, my: 56 },
-  { id: 'transmitter', label: 'Neurotransmitter', body: 'Released molecules crossing the cleft.', x: 55, y: 59, w: 40, h: 9, mx: 55, my: 60 },
+  { id: 'transmitter', label: 'Neurotransmitter', body: 'Released molecules crossing the cleft.', x: 55, y: 59, w: 40, h: 9, mx: 33, my: 59 },
   { id: 'postsynaptic-membrane', label: 'Postsynaptic membrane (receptors)', body: 'Carries the receptors that bind transmitter; the postsynaptic density.', x: 50, y: 64, w: 78, h: 8, mx: 24, my: 65 },
   { id: 'dendrite', label: 'Postsynaptic dendrite', body: 'The target cell, usually a dendrite or soma. Produces an electrical or biochemical response.', x: 50, y: 82, w: 70, h: 30, mx: 50, my: 84 },
 ];
@@ -287,8 +288,8 @@ export default {
         { type: 'definition', term: 'Cost components', body: 'Health care, non-medical support such as care at home, and lost productivity.' },
         figureBlock(
           chart(DISORDERS, 'Three dot plots for twelve disorders: people affected, cost per person, and total cost.'),
-          'Twelve disorders from the slide, ordered by how many people they affect. The three measures rank them differently. Dementia is marked.',
-          'Three columns of dots. People affected: anxiety disorders, migraine and mood disorders lead. Cost per person: multiple sclerosis, brain tumour and stroke lead. Total cost: mood disorders and dementia lead.'
+          'Twelve disorders from the slide, ordered by total cost. The small grey number in each column is the rank by that column alone: the three measures rank the disorders differently. Dementia is marked.',
+          'Three columns of dots, rows ordered by total cost: mood disorders, dementia and anxiety disorders lead. By people affected the order is anxiety disorders, migraine, mood disorders. By cost per person it is multiple sclerosis, brain tumour, stroke.'
         ),
         {
           type: 'compare',
@@ -502,7 +503,7 @@ export default {
         ),
         { type: 'definition', term: 'Gyri, sulci, fissures', body: 'The surface of the cerebrum is folded. The bumps are gyri, the grooves sulci, and especially deep grooves fissures. Folding fits more cortical surface inside the skull.' },
         figureBlock(
-          hotspots('gyri-sulci', 658 / 426, 'Lateral view of the brain with the precentral gyrus, central sulcus, postcentral gyrus, lateral fissure and superior temporal gyrus marked.', GYRI_REGIONS),
+          hotspots('gyri-sulci', 474 / 409, 'Lateral view of the brain with the precentral gyrus, central sulcus, postcentral gyrus, lateral fissure and superior temporal gyrus marked.', GYRI_REGIONS, { gutter: 'all' }),
           'The two landmarks and the three gyri around them. Precentral is purple, postcentral yellow, superior temporal red on the slide figure.',
           'Lateral view with the central sulcus running from the top down toward the lateral fissure, the precentral gyrus in front of it, the postcentral gyrus behind it, and the superior temporal gyrus under the lateral fissure.'
         ),
@@ -517,7 +518,7 @@ export default {
           ],
         },
         figureBlock(
-          hotspots('lobes', 936 / 454, 'Lateral view of the brain with the four lobes coloured, and a small brain with the lateral fissure opened to show the insula.', LOBE_REGIONS, { labelPool: ['Cerebellum', 'Brain stem'] }),
+          hotspots('lobes', 936 / 454, 'Lateral view of the brain with the four lobes coloured, and a small brain with the lateral fissure opened to show the insula.', LOBE_REGIONS, { gutter: 'all', labelPool: ['Cerebellum', 'Brain stem'] }),
           'The four lobes, named after the skull bones over them, plus the two landmarks and the insula.',
           'Lateral view with the frontal lobe blue, parietal green, occipital red and temporal beige, and an inset showing the insula inside the opened lateral fissure.'
         ),
@@ -593,7 +594,7 @@ export default {
           ],
         },
         figureBlock(
-          hotspots('functional-areas', 886 / 641, 'Lateral view of the brain with motor areas red, sensory areas green and association areas purple.', SENSORY_MOTOR_REGIONS),
+          hotspots('functional-areas', 886 / 641, 'Lateral view of the brain with motor areas red, sensory areas green and association areas purple.', SENSORY_MOTOR_REGIONS, { gutter: 'all' }),
           'Sensory (green) and motor (red) areas on the slide figure. The gustatory cortex is on the small brain with the fissure opened.',
           'Lateral view: motor areas in front of the central sulcus, somatosensory behind it, visual at the back, auditory on the superior temporal gyrus, gustatory in the insula.'
         ),
@@ -659,7 +660,7 @@ export default {
         ),
         { type: 'definition', term: 'Brodmann area', body: 'One of 52 numbered areas that Korbinian Brodmann defined from laminar differences. A cytoarchitectonic label, an anatomical statement.' },
         figureBlock(
-          hotspots('brodmann-map', 733 / 594, 'Brodmann\'s map on the lateral surface with the areas numbered and coloured.', BRODMANN_REGIONS),
+          hotspots('brodmann-map', 733 / 594, 'Brodmann\'s map on the lateral surface with the areas numbered and coloured.', BRODMANN_REGIONS, { gutter: 'ends' }),
           'Brodmann\'s map from the slide. The seven groups that match the functional areas named in this lecture.',
           'Lateral view with numbered areas. Area 4 and areas 3, 1, 2 flank the central sulcus; 6 is in front of 4; 5 and 7 behind 3, 1, 2; 17, 18, 19 at the back; 41, 42 on the superior temporal gyrus; 20, 21, 37 on the lower temporal lobe.'
         ),
@@ -830,7 +831,7 @@ export default {
       keyTerms: ['neuronal membrane', 'cytosol', 'organelles', 'cytoplasm', 'nucleus', 'gene expression', 'mRNA', 'ribosomes', 'rough endoplasmic reticulum', 'polyribosomes', 'smooth ER', 'Golgi apparatus', 'mitochondria', 'ATP', 'dendritic tree', 'dendritic spines', 'axon hillock', 'axon collaterals', 'innervate'],
       blocks: [
         figureBlock(
-          hotspots('neuron', 1168 / 695, 'A neuron with dendrites on the left, a cell body with a nucleus, and a myelinated axon ending in terminals on the right.', NEURON_REGIONS),
+          hotspots('neuron', 1168 / 695, 'A neuron with dendrites on the left, a cell body with a nucleus, and a myelinated axon ending in terminals on the right.', NEURON_REGIONS, { gutter: 'all' }),
           'The parts of a neuron and the direction of information flow: dendrites to soma to axon to terminals.',
           'Drawing of a neuron. Branching dendrites at the left, a round soma with a dark nucleus, an axon leaving from the hillock, blue myelin segments along the axon, and branched terminals at the right.'
         ),
@@ -1297,7 +1298,7 @@ export default {
       difficulty: 'medium',
       type: 'label',
       prompt: 'Label the numbered markers on the lateral view of the brain (anterior is to the left), then read the explanation for each.',
-      hotspots: hotspots('lobes', 936 / 454, 'Lateral view of the brain with the lobes coloured and an inset showing the insula.', LOBE_REGIONS, { labelPool: ['Cerebellum', 'Brain stem', 'Olfactory bulb'] }),
+      hotspots: hotspots('lobes', 936 / 454, 'Lateral view of the brain with the lobes coloured and an inset showing the insula.', LOBE_REGIONS, { gutter: 'all', labelPool: ['Cerebellum', 'Brain stem', 'Olfactory bulb'] }),
       modelAnswer: [
         '1 is the frontal lobe, anterior to the central sulcus.',
         '2 is the parietal lobe, behind the central sulcus.',
