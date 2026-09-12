@@ -11,6 +11,10 @@ Commands:
   paint  IN OUT --box x0 y0 x1 y1 [--box ...] [--color auto|#rrggbb]
          Fill boxes with a flat colour (default: sampled from the box's
          top-left corner) to remove printed labels or leader lines.
+  smear  IN OUT --box x0 y0 x1 y1 [--box ...] [--dir left|right|up|down]
+         Fill each box by extending the pixels just outside its left
+         (right, top, bottom) edge across it, so a label on a gradient
+         background disappears without a flat patch.
   erase  IN OUT --line x0 y0 x1 y1 [--line ...] [--width PX]
          Inpaint thin leader-line stubs that cross the artwork (OpenCV
          Telea inpainting under a mask of the given segments), so the
@@ -129,6 +133,24 @@ def cmd_paint(args):
     save(img, args.output, meta, {"op": "paint", "boxes_pct": args.box, "color": args.color})
 
 
+def cmd_smear(args):
+    import numpy as np
+    img = load(args.input)
+    meta = read_sidecar(args.input)
+    arr = np.array(img.convert("RGB"))
+    for box in args.box:
+        x0, y0, x1, y1 = pct_box(img, box)
+        if args.dir == "left":
+            arr[y0:y1, x0:x1] = arr[y0:y1, max(x0 - 1, 0):max(x0, 1)]
+        elif args.dir == "right":
+            arr[y0:y1, x0:x1] = arr[y0:y1, min(x1, img.width - 1):min(x1 + 1, img.width)]
+        elif args.dir == "up":
+            arr[y0:y1, x0:x1] = arr[max(y0 - 1, 0):max(y0, 1), x0:x1]
+        else:
+            arr[y0:y1, x0:x1] = arr[min(y1, img.height - 1):min(y1 + 1, img.height), x0:x1]
+    save(Image.fromarray(arr), args.output, meta, {"op": "smear", "boxes_pct": args.box, "dir": args.dir})
+
+
 def cmd_erase(args):
     import cv2
     import numpy as np
@@ -217,6 +239,13 @@ def main():
     p.add_argument("--box", type=float, nargs=4, action="append", required=True, metavar=("X0", "Y0", "X1", "Y1"))
     p.add_argument("--color", default="auto")
     p.set_defaults(fn=cmd_paint)
+
+    sm = sub.add_parser("smear")
+    sm.add_argument("input")
+    sm.add_argument("output")
+    sm.add_argument("--box", type=float, nargs=4, action="append", required=True, metavar=("X0", "Y0", "X1", "Y1"))
+    sm.add_argument("--dir", default="left", choices=["left", "right", "up", "down"])
+    sm.set_defaults(fn=cmd_smear)
 
     e = sub.add_parser("erase")
     e.add_argument("input"); e.add_argument("output")

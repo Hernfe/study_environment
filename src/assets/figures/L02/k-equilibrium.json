@@ -1,0 +1,40 @@
+{
+ "file": "src/assets/figures/L02/k-equilibrium.webp",
+ "source": "source/slides/NBE-E4210 LECTURE 02 - 2026-1.pdf",
+ "page": 14,
+ "crop_box_pt": [
+  475.5,
+  201.0,
+  900.75,
+  534.0
+ ],
+ "page_size_pt": [
+  960.0,
+  540.0
+ ],
+ "dpi": 171,
+ "rendered_px": [
+  1010,
+  792
+ ],
+ "saved_px": [
+  979,
+  426
+ ],
+ "webp_quality": 90,
+ "bytes": 35522,
+ "extracted": "2026-09-12T07:50:17+00:00",
+ "note": "Course slide material. Redraw or replace before publishing; see CREDITS.md.",
+ "retouch": [
+  {
+   "op": "crop",
+   "box_pct": [
+    2.0,
+    1.5,
+    99.0,
+    55.3
+   ],
+   "at": "2026-09-12T07:50:18+00:00"
+  }
+ ]
+}

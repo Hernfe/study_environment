@@ -8,6 +8,11 @@ import { regionMap } from './regionMap.js';
 import { compareCards } from './compareCards.js';
 import { sectionPlanes } from './sectionPlanes.js';
 import { imageHotspots } from './imageHotspots.js';
+import { nernstCalc } from './nernstCalc.js';
+import { ghkExplorer } from './ghkExplorer.js';
+import { apScrubber } from './apScrubber.js';
+import { voltageClamp } from './voltageClamp.js';
+import { conductionDemo } from './conductionDemo.js';
 
 export const widgets = {
   'slider-plot': sliderPlot,
@@ -21,4 +26,10 @@ export const widgets = {
   'section-planes': sectionPlanes,
   // Image (or SVG markup) with numbered hotspot regions and a quiz mode.
   'image-hotspots': imageHotspots,
+  // Quantitative demos for the membrane and the action potential (d3).
+  'nernst-calc': nernstCalc,
+  'ghk-explorer': ghkExplorer,
+  'ap-scrubber': apScrubber,
+  'voltage-clamp': voltageClamp,
+  'conduction-demo': conductionDemo,
 };

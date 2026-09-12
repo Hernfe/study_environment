@@ -22,7 +22,7 @@ export const registry = [
     chapters: [3, 4],
     lectureDate: '2026-09-09',
     examDate: '2026-09-25',
-    built: false,
+    built: true,
   },
   {
     id: 'L03',

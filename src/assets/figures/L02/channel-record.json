@@ -1,0 +1,40 @@
+{
+ "file": "src/assets/figures/L02/channel-record.webp",
+ "source": "source/slides/NBE-E4210 LECTURE 02 - 2026-1.pdf",
+ "page": 36,
+ "crop_box_pt": [
+  18.0,
+  118.5,
+  597.75,
+  540.0
+ ],
+ "page_size_pt": [
+  960.0,
+  540.0
+ ],
+ "dpi": 177,
+ "rendered_px": [
+  1429,
+  1040
+ ],
+ "saved_px": [
+  864,
+  593
+ ],
+ "webp_quality": 90,
+ "bytes": 31546,
+ "extracted": "2026-09-12T07:50:34+00:00",
+ "note": "Course slide material. Redraw or replace before publishing; see CREDITS.md.",
+ "retouch": [
+  {
+   "op": "crop",
+   "box_pct": [
+    39.0,
+    1.0,
+    99.5,
+    58.0
+   ],
+   "at": "2026-09-12T07:50:34+00:00"
+  }
+ ]
+}

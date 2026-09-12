@@ -1,0 +1,56 @@
+{
+ "sources": [
+  {
+   "file": "src/assets/figures/L02/bilayer-section.webp",
+   "source": "source/slides/NBE-E4210 LECTURE 02 - 2026-1.pdf",
+   "page": 6,
+   "crop_box_pt": [
+    390.0,
+    127.5,
+    948.0,
+    540.0
+   ]
+  },
+  {
+   "file": "src/assets/figures/L02/bilayer-zoom.webp",
+   "source": "source/slides/NBE-E4210 LECTURE 02 - 2026-1.pdf",
+   "page": 6,
+   "crop_box_pt": [
+    390.0,
+    127.5,
+    948.0,
+    540.0
+   ]
+  }
+ ],
+ "panels_pct": [
+  {
+   "x_pct": 0.0,
+   "y_pct": 0.0,
+   "w_pct": 57.84,
+   "h_pct": 100.0
+  },
+  {
+   "x_pct": 61.24,
+   "y_pct": 0.0,
+   "w_pct": 38.76,
+   "h_pct": 100.0
+  }
+ ],
+ "file": "src/assets/figures/L02/bilayer.webp",
+ "saved_px": [
+  1174,
+  600
+ ],
+ "webp_quality": 90,
+ "bytes": 121148,
+ "retouch": [
+  {
+   "op": "compose",
+   "cols": 2,
+   "gap": 40,
+   "height": 600,
+   "at": "2026-09-12T07:50:10+00:00"
+  }
+ ]
+}

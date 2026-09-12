@@ -8,10 +8,12 @@
 import { exampleCell } from './example-cell.js';
 import { disorderBurden, neuronCounts } from './charts.js';
 import { axonalTransport } from './cells.js';
+import { apWaveformFigure } from './membrane.js';
 
 export const figures = {
   'example-cell': exampleCell,
   'disorder-burden': disorderBurden,
   'neuron-counts': neuronCounts,
   'axonal-transport': axonalTransport,
+  'ap-waveform': (props) => apWaveformFigure(props.regionText).svg,
 };

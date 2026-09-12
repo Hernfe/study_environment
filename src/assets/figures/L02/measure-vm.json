@@ -1,0 +1,90 @@
+{
+ "file": "src/assets/figures/L02/measure-vm.webp",
+ "source": "source/slides/NBE-E4210 LECTURE 02 - 2026-1.pdf",
+ "page": 14,
+ "crop_box_pt": [
+  9.75,
+  120.0,
+  439.5,
+  534.0
+ ],
+ "page_size_pt": [
+  960.0,
+  540.0
+ ],
+ "dpi": 117,
+ "rendered_px": [
+  702,
+  677
+ ],
+ "saved_px": [
+  484,
+  509
+ ],
+ "webp_quality": 90,
+ "bytes": 25192,
+ "extracted": "2026-09-12T07:50:15+00:00",
+ "note": "Course slide material. Redraw or replace before publishing; see CREDITS.md.",
+ "retouch": [
+  {
+   "op": "paint",
+   "boxes_pct": [
+    [
+     56.0,
+     9.0,
+     68.5,
+     13.0
+    ],
+    [
+     63.5,
+     29.5,
+     72.5,
+     33.5
+    ],
+    [
+     53.0,
+     35.0,
+     69.5,
+     39.0
+    ]
+   ],
+   "color": "#ffffff",
+   "at": "2026-09-12T07:50:15+00:00"
+  },
+  {
+   "op": "erase",
+   "lines_pct": [
+    [
+     67.5,
+     12.8,
+     69.6,
+     17.6
+    ],
+    [
+     63.6,
+     30.6,
+     60.2,
+     27.4
+    ],
+    [
+     53.2,
+     36.6,
+     49.3,
+     31.8
+    ]
+   ],
+   "width_px": 7,
+   "at": "2026-09-12T07:50:16+00:00"
+  },
+  {
+   "op": "crop",
+   "box_pct": [
+    15.0,
+    1.8,
+    84.0,
+    77.0
+   ],
+   "at": "2026-09-12T07:50:16+00:00"
+  }
+ ]
+}

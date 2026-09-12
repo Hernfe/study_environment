@@ -146,6 +146,7 @@ const KICKERS = {
   keyNumber: 'Key number',
   misconception: 'Misconception',
   whyItMatters: 'Why it matters',
+  equation: 'Equation',
   detail: 'Detail',
 };
 
@@ -177,6 +178,13 @@ const BLOCKS = {
     el('dl', { class: 'block-numbers' }, (b.items || [b]).flatMap((item) => [
       el('dt', {}, item.value),
       el('dd', {}, item.label),
+    ])),
+    b.note ? el('p', { class: 'block-note' }, b.note) : null,
+  ]),
+  equation: (b) => card('equation', b.title, [
+    ...(b.items || [b]).map((item) => el('div', { class: 'block-equation-item' }, [
+      el('pre', { class: 'block-expression' }, item.expression),
+      item.label ? el('p', { class: 'block-note' }, item.label) : null,
     ])),
     b.note ? el('p', { class: 'block-note' }, b.note) : null,
   ]),

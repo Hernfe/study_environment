@@ -1,0 +1,27 @@
+{
+ "source": "assets/incoming/bioart/bioart-000197-healthy-neuron.svg",
+ "file": "src/assets/figures/L02/myelinated-axon.webp",
+ "saved_px": [
+  678,
+  417
+ ],
+ "webp_quality": 90,
+ "bytes": 21460,
+ "retouch": [
+  {
+   "op": "svg2png",
+   "width": 1400,
+   "at": "2026-09-12T07:50:41+00:00"
+  },
+  {
+   "op": "crop",
+   "box_pct": [
+    42.0,
+    18.0,
+    100.0,
+    78.0
+   ],
+   "at": "2026-09-12T07:50:42+00:00"
+  }
+ ]
+}

@@ -57,6 +57,27 @@ draws the only leaders; `gyri-sulci.webp` is also cropped to the brain.
 | `src/content/figures/cells.js` (axonal-transport) | L01 Axonal transport | In-house SVG (no slide figure or library asset exists for this) | n/a | Repository licence | No |
 | `src/content/figures/example-cell.js` | L00 (dev example) | In-house SVG | n/a | Repository licence | No |
 
+Lecture 2 raster files are in `src/assets/figures/L02/`, built by
+`scripts/figures_L02.py` (slide crops with labels painted out, smeared
+over gradients or inpainted; each sidecar JSON records the steps).
+
+| File | Where used | Source | Original | Licence | Attribution required |
+| --- | --- | --- | --- | --- | --- |
+| `bilayer.webp` | L02 Membrane | L02 slide deck, page 6 (textbook Figure 3.3) | Course slides | Course material | Cite the course |
+| `ion-channel.webp` | L02 Ion channels | L02 slide deck, page 11 (textbook Figure 3.7) | Course slides | Course material | Cite the course |
+| `measure-vm.webp` | L02 Resting potential | L02 slide deck, page 14 (textbook Figure 3.11) | Course slides | Course material | Cite the course |
+| `k-equilibrium.webp` | L02 Resting potential | L02 slide deck, page 14 (textbook Figure 3.12) | Course slides | Course material | Cite the course |
+| `pump.webp` | L02 Ions and pumps | L02 slide deck, page 20 (textbook Figure 3.16) | Course slides | Course material | Cite the course |
+| `recording.webp` | L02 Waveform | L02 slide deck, page 26 (textbook Box 4.1 Figure A) | Course slides | Course material | Cite the course |
+| `inject-current.webp` | L02 Threshold | L02 slide deck, page 29 (textbook Figure 4.2) | Course slides | Course material | Cite the course |
+| `sodium-channel.webp` | L02 Channel structure | L02 slide deck, page 33 (textbook Figure 4.7 b, c) | Course slides | Course material | Cite the course |
+| `channel-gating.webp` | L02 Channel structure | L02 slide deck, page 34 (textbook Figure 4.8) | Course slides | Course material | Cite the course |
+| `patch-clamp.webp` | L02 Patch clamp | L02 slide deck, page 35 (textbook Box 4.3 Figure A) | Course slides | Course material | Cite the course |
+| `channel-record.webp`, `channel-model.webp` | L02 Patch clamp, Channel states | L02 slide deck, page 36 (textbook Figure 4.10) | Course slides | Course material | Cite the course |
+| `spike-initiation.webp` | L02 Spike initiation | L02 slide deck, page 38 (textbook Figure 4.16) | Course slides | Course material | Cite the course |
+| `myelinated-axon.webp` | L02 Myelin | NIH BioArt Source, Healthy neuron (axon crop), NIAID Visual & Medical Arts | https://bioart.niaid.nih.gov/bioart/197 | Public Domain | No; credit "Courtesy of NIAID" |
+| `src/content/figures/membrane.js` (ap-waveform) and the widgets `nernst-calc`, `ghk-explorer`, `ap-scrubber`, `voltage-clamp`, `conduction-demo` | L02 | d3 figures and demos drawn for this site from a Hodgkin-Huxley model (`src/js/widgets/hhModel.js`) and textbook constants | n/a | Repository licence | No |
+
 Credit lines shown on the site: the footer of every page links here.
 When a page is exported or shared, add "Illustrations: NIH BioArt
 (courtesy of NIAID); Servier Medical Art (CC BY 4.0); course slides".

@@ -1,0 +1,91 @@
+{
+ "file": "src/assets/figures/L02/ion-channel.webp",
+ "source": "source/slides/NBE-E4210 LECTURE 02 - 2026-1.pdf",
+ "page": 11,
+ "crop_box_pt": [
+  438.75,
+  73.5,
+  891.75,
+  540.0
+ ],
+ "page_size_pt": [
+  960.0,
+  540.0
+ ],
+ "dpi": 146,
+ "rendered_px": [
+  921,
+  948
+ ],
+ "saved_px": [
+  663,
+  752
+ ],
+ "webp_quality": 90,
+ "bytes": 79196,
+ "extracted": "2026-09-12T07:50:11+00:00",
+ "note": "Course slide material. Redraw or replace before publishing; see CREDITS.md.",
+ "retouch": [
+  {
+   "op": "erase",
+   "lines_pct": [
+    [
+     59.0,
+     19.8,
+     50.5,
+     21.2
+    ]
+   ],
+   "width_px": 12,
+   "at": "2026-09-12T07:50:12+00:00"
+  },
+  {
+   "op": "smear",
+   "boxes_pct": [
+    [
+     32.0,
+     5.0,
+     53.0,
+     10.5
+    ],
+    [
+     59.0,
+     2.2,
+     78.6,
+     11.5
+    ]
+   ],
+   "dir": "down",
+   "at": "2026-09-12T07:50:13+00:00"
+  },
+  {
+   "op": "smear",
+   "boxes_pct": [
+    [
+     58.5,
+     15.5,
+     72.5,
+     22.5
+    ],
+    [
+     37.5,
+     73.0,
+     47.5,
+     77.5
+    ]
+   ],
+   "dir": "up",
+   "at": "2026-09-12T07:50:13+00:00"
+  },
+  {
+   "op": "crop",
+   "box_pct": [
+    6.5,
+    2.2,
+    78.5,
+    81.5
+   ],
+   "at": "2026-09-12T07:50:14+00:00"
+  }
+ ]
+}

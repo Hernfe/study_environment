@@ -113,6 +113,7 @@ characters at the site measure). Mechanisms are `steps`, contrasts are
 | `example` | `title?`, `body` | Card, kicker "Example". A concrete case or worked instance. |
 | `keyNumber` | `title?`, `items: [{ value, label }]` (or `value`, `label` directly), `note?` | Card with large tabular numbers and their meaning. |
 | `misconception` | `title?`, `wrong`, `right` | Card with "Not this:" and "But this:" lines. |
+| `equation` | `title?`, `items: [{ expression, label }]` (or `expression`, `label` directly), `note?` | Card with each expression in a monospace block that wraps, and its meaning under it. Use for any formula; `keyNumber` is for short numbers only. |
 | `whyItMatters` | `title?`, `body` | Card, kicker "Why it matters". One or two sentences. |
 | `detail` | `title`, `body` or `blocks` | `<details>` collapsed by default. Optional depth within slide scope. |
 | `figure` | `visual` | A figure, same shape as a section `visual`. |
@@ -175,6 +176,16 @@ Rules for `visual`:
 | `cortical-map`, `neuron-parts` | `regionMap.js` | Hover, tap, focus or pick from a select to read about a region of a figure. |
 | `glia-compare`, `stain-compare` | `compareCards.js` | Radio buttons choose one item; shows its drawing and a definition list, plus an optional summary table. |
 | `section-planes` | `sectionPlanes.js` | Radio buttons choose coronal, sagittal or horizontal; the plane is drawn on a lateral and a dorsal view with direction terms. |
+| `nernst-calc` | `nernstCalc.js` | Nernst calculator: ion presets, log-spaced concentration sliders, charge, temperature; live E, worked equation, E-versus-ratio plot. Props: `{ ions: [{ key, label, z, inside, outside }], defaultIon, temperature, labels }`. |
+| `ghk-explorer` | `ghkExplorer.js` | Permeability sliders move Vm along a voltage axis between the equilibrium potentials, worked GHK equation below. Props: `{ ions: [{ key, label, z, inside, outside, perm, max, step }], temperature, presets: [{ key, label, perms }], labels }`. |
+| `ap-scrubber` | `apScrubber.js` | Hodgkin-Huxley spike with a time slider; read-out of phase, Na+ and K+ channel state, conductances and refractory period. Props: `{ phases, naStates, kStates, refractory: { key: { label, body } }, labels }`. |
+| `voltage-clamp` | `voltageClamp.js` | Command step from -65 mV; total current with early inward and late outward components; checkboxes remove the Na+ or K+ current. Props: `{ labels }`. |
+| `conduction-demo` | `conductionDemo.js` | Three axons with a time slider; active and refractory membrane; myelinated axon jumps node to node; stimulate at one end or in the middle. Props: `{ length, maxTime, axons: [{ key, label, sub, thickness, velocity, internode? }], labels }`. |
+
+The five quantitative demos share `hhModel.js` (the membrane model)
+and `d3util.js` (range-frame axes, sliders, radios, read-outs, worked
+equation lines). Below 48 rem a demo plot scrolls sideways inside
+`.plot` rather than shrinking, like chart hotspots.
 
 `regionMap` props:
 
