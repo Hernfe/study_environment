@@ -15,10 +15,12 @@ Commands:
          Fill each box by extending the pixels just outside its left
          (right, top, bottom) edge across it, so a label on a gradient
          background disappears without a flat patch.
-  erase  IN OUT --line x0 y0 x1 y1 [--line ...] [--width PX]
+  erase  IN OUT [--line x0 y0 x1 y1 ...] [--box x0 y0 x1 y1 ...] [--width PX]
          Inpaint thin leader-line stubs that cross the artwork (OpenCV
          Telea inpainting under a mask of the given segments), so the
-         hotspot widget can draw its own leaders.
+         hotspot widget can draw its own leaders. --box inpaints a whole
+         rectangle: use it for a label printed over shaded artwork,
+         where a flat paint would show.
   crop   IN OUT --box x0 y0 x1 y1
          Keep only the box.
   compose OUT --panel IN [--panel ...] [--cols N] [--gap PX] [--height PX]
@@ -158,12 +160,25 @@ def cmd_erase(args):
     meta = read_sidecar(args.input)
     arr = np.array(img.convert("RGB"))
     mask = np.zeros(arr.shape[:2], dtype=np.uint8)
-    for x0, y0, x1, y1 in args.line:
+    for x0, y0, x1, y1 in args.line or []:
         p0 = (int(img.width * x0 / 100), int(img.height * y0 / 100))
         p1 = (int(img.width * x1 / 100), int(img.height * y1 / 100))
         cv2.line(mask, p0, p1, 255, args.width)
+    for box in args.box or []:
+        x0, y0, x1, y1 = pct_box(img, box)
+        mask[y0:y1, x0:x1] = 255
+    for box in args.text or []:
+        # Only the dark, thick strokes inside the box (printed text), so
+        # that thin outlines of the artwork under the text survive.
+        x0, y0, x1, y1 = pct_box(img, box)
+        gray = cv2.cvtColor(arr[y0:y1, x0:x1], cv2.COLOR_RGB2GRAY)
+        dark = (gray < args.threshold).astype(np.uint8) * 255
+        k = np.ones((args.open_px, args.open_px), np.uint8)
+        thick = cv2.morphologyEx(dark, cv2.MORPH_OPEN, k)
+        thick = cv2.dilate(thick, np.ones((args.grow_px, args.grow_px), np.uint8))
+        mask[y0:y1, x0:x1] = np.maximum(mask[y0:y1, x0:x1], thick)
     out = cv2.inpaint(arr, mask, args.radius, cv2.INPAINT_TELEA)
-    save(Image.fromarray(out), args.output, meta, {"op": "erase", "lines_pct": args.line, "width_px": args.width})
+    save(Image.fromarray(out), args.output, meta, {"op": "erase", "lines_pct": args.line, "boxes_pct": args.box, "text_pct": args.text, "width_px": args.width})
 
 
 def cmd_crop(args):
@@ -249,7 +264,12 @@ def main():
 
     e = sub.add_parser("erase")
     e.add_argument("input"); e.add_argument("output")
-    e.add_argument("--line", type=float, nargs=4, action="append", required=True, metavar=("X0", "Y0", "X1", "Y1"))
+    e.add_argument("--line", type=float, nargs=4, action="append", required=False, metavar=("X0", "Y0", "X1", "Y1"))
+    e.add_argument("--box", type=float, nargs=4, action="append", required=False, metavar=("X0", "Y0", "X1", "Y1"))
+    e.add_argument("--text", type=float, nargs=4, action="append", required=False, metavar=("X0", "Y0", "X1", "Y1"), help="inpaint only thick dark strokes (printed text) inside the box")
+    e.add_argument("--threshold", type=int, default=110, help="--text: grey level below which a pixel counts as ink")
+    e.add_argument("--open-px", dest="open_px", type=int, default=4, help="--text: strokes thinner than this survive")
+    e.add_argument("--grow-px", dest="grow_px", type=int, default=5, help="--text: dilate the text mask by this much")
     e.add_argument("--width", type=int, default=7, help="mask thickness in px")
     e.add_argument("--radius", type=int, default=5, help="inpaint radius in px")
     e.set_defaults(fn=cmd_erase)

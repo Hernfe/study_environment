@@ -13,6 +13,12 @@ import { ghkExplorer } from './ghkExplorer.js';
 import { apScrubber } from './apScrubber.js';
 import { voltageClamp } from './voltageClamp.js';
 import { conductionDemo } from './conductionDemo.js';
+import { synapseTimeline } from './synapseTimeline.js';
+import { synapseCompare } from './synapseCompare.js';
+import { drivingForce } from './drivingForce.js';
+import { summationShunt } from './summationShunt.js';
+import { circuitMotifs } from './circuitMotifs.js';
+import { ampaNmda } from './ampaNmda.js';
 
 export const widgets = {
   'slider-plot': sliderPlot,
@@ -32,4 +38,11 @@ export const widgets = {
   'ap-scrubber': apScrubber,
   'voltage-clamp': voltageClamp,
   'conduction-demo': conductionDemo,
+  // Synaptic transmission demos (d3).
+  'synapse-timeline': synapseTimeline,
+  'synapse-compare': synapseCompare,
+  'driving-force': drivingForce,
+  'summation-shunt': summationShunt,
+  'circuit-motifs': circuitMotifs,
+  'ampa-nmda': ampaNmda,
 };

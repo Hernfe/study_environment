@@ -78,6 +78,40 @@ over gradients or inpainted; each sidecar JSON records the steps).
 | `myelinated-axon.webp` | L02 Myelin | NIH BioArt Source, Healthy neuron (axon crop), NIAID Visual & Medical Arts | https://bioart.niaid.nih.gov/bioart/197 | Public Domain | No; credit "Courtesy of NIAID" |
 | `src/content/figures/membrane.js` (ap-waveform) and the widgets `nernst-calc`, `ghk-explorer`, `ap-scrubber`, `voltage-clamp`, `conduction-demo` | L02 | d3 figures and demos drawn for this site from a Hodgkin-Huxley model (`src/js/widgets/hhModel.js`) and textbook constants | n/a | Repository licence | No |
 
+Lecture 3 raster files are in `src/assets/figures/L03/`, built by
+`scripts/figures_L03.py`. Two slide figures reproduce published
+review figures (Sultan and Shi 2018, Wiley Interdisciplinary Reviews:
+Developmental Biology, CC BY; Rudy et al. 2011, Developmental
+Neurobiology) as shown on the slides.
+
+| File | Where used | Source | Original | Licence | Attribution required |
+| --- | --- | --- | --- | --- | --- |
+| `synapse-types.webp` | L03 Synapse anatomy | L03 slide deck, page 9 | Course slides | Course material | Cite the course |
+| `chemical-synapse.webp` | L03 Synapse anatomy, lecture quiz q07 | L03 slide deck, page 14 (textbook Figure 5.4) | Course slides | Course material | Cite the course |
+| `synapse-em.webp` | L03 Synapse anatomy | L03 slide deck, page 15 (textbook Figure 5.5 a) | Course slides | Course material | Cite the course |
+| `gap-junction.webp` | L03 Electrical synapses | L03 slide deck, page 10 (textbook Figure 5.1) | Course slides | Course material | Cite the course |
+| `electrical-psp.webp` | L03 Electrical synapses | L03 slide deck, page 11 (textbook Figure 5.2) | Course slides | Course material | Cite the course |
+| `synchrony.webp` | L03 Electrical synapses | L03 slide deck, page 12 (textbook Figure 5.3) | Course slides | Course material | Cite the course |
+| `targeting.webp` | L03 Targeting | L03 slide deck, page 17 (textbook Figure 5.7) | Course slides | Course material | Cite the course |
+| `spine-em.webp` | L03 Spines | L03 slide deck, page 19 (Harris) | Course slides | Course material | Cite the course |
+| `em-3d.webp` | L03 Spines | L03 slide deck, page 20 | Course slides | Course material | Cite the course |
+| `synthesis.webp`, `synthesis-inset.webp` | L03 Transmitters | L03 slide deck, page 22 (textbook Figure 5.11) | Course slides | Course material | Cite the course |
+| `vesicle-cycle.webp` | L03 Release | L03 slide deck, page 24 (textbook Figure 5.12) | Course slides | Course material | Cite the course |
+| `snare.webp` | L03 Release | L03 slide deck, page 25 (textbook Box 5.3) | Course slides | Course material | Cite the course |
+| `ionotropic.webp` | L03 Receptors | L03 slide deck, page 26 (textbook Figure 5.14) | Course slides | Course material | Cite the course |
+| `gpcr-types.webp` | L03 Receptors | L03 slide deck, page 52 (textbook Figure 5.17) | Course slides | Course material | Cite the course |
+| `psp-generation.webp` | L03 EPSPs and IPSPs | L03 slide deck, page 35 (textbook Figures 5.15 and 5.16) | Course slides | Course material | Cite the course |
+| `patch-transmitter.webp` | L03 Recording | L03 slide deck, page 29 (textbook Figure 5.18) | Course slides | Course material | Cite the course |
+| `summation.webp` | L03 Summation | L03 slide deck, page 30 (textbook Figure 5.19) | Course slides | Course material | Cite the course |
+| `cable.webp`, `shunting.webp` | L03 Dendrites | L03 slide deck, pages 31 and 32 (textbook Figures 5.20 and 5.21) | Course slides | Course material | Cite the course |
+| `glutamate-receptors.webp` | L03 Transmitter systems | L03 slide deck, page 35 | Course slides | Course material | Cite the course |
+| `gabaa.webp` | L03 Transmitter systems | L03 slide deck, page 36 (textbook Figure 6.22) | Course slides | Course material | Cite the course |
+| `nmda.webp` | L03 NMDA | L03 slide deck, page 39 (textbook Figure 6.21) | Course slides | Course material | Cite the course |
+| `interneuron-types.webp`, `interneuron-targets.webp`, `interneuron-markers.webp`, `circuit-motifs.webp` | L03 Interneurons, Coupling | L03 slide deck, pages 44, 46 and 48 (Sultan and Shi 2018, Figure 1) | https://doi.org/10.1002/wdev.306 | CC BY 4.0 (WIREs Dev Biol open access) | Yes: Sultan and Shi 2018 |
+| `interneuron-groups.webp` | L03 Interneurons | L03 slide deck, page 45 (Rudy et al. 2011) | https://doi.org/10.1002/dneu.20853 | Publisher copyright, course material | Cite the course and the paper |
+| `ne-cascade.webp` | L03 Pharmacology | L03 slide deck, page 53 (textbook Figure 5.22) | Course slides | Course material | Cite the course |
+| Widgets `synapse-timeline`, `synapse-compare`, `driving-force`, `summation-shunt`, `circuit-motifs`, `ampa-nmda` | L03 | d3 demos drawn for this site; the NMDA block uses the Jahr and Stevens 1990 form | n/a | Repository licence | No |
+
 Credit lines shown on the site: the footer of every page links here.
 When a page is exported or shared, add "Illustrations: NIH BioArt
 (courtesy of NIAID); Servier Medical Art (CC BY 4.0); course slides".

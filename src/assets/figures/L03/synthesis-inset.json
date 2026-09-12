@@ -1,0 +1,40 @@
+{
+ "file": "src/assets/figures/L03/synthesis-inset.webp",
+ "source": "source/slides/NBE-E4210 LECTURE 03 - 2026-1.pdf",
+ "page": 22,
+ "crop_box_pt": [
+  0.0,
+  0.0,
+  769.5,
+  536.25
+ ],
+ "page_size_pt": [
+  960.0,
+  540.0
+ ],
+ "dpi": 129,
+ "rendered_px": [
+  1382,
+  964
+ ],
+ "saved_px": [
+  325,
+  356
+ ],
+ "webp_quality": 90,
+ "bytes": 14398,
+ "extracted": "2026-09-12T14:11:39+00:00",
+ "note": "Course slide material. Redraw or replace before publishing; see CREDITS.md.",
+ "retouch": [
+  {
+   "op": "crop",
+   "box_pct": [
+    76.5,
+    58.0,
+    100.0,
+    95.0
+   ],
+   "at": "2026-09-12T14:11:40+00:00"
+  }
+ ]
+}

@@ -1,0 +1,28 @@
+{
+ "file": "src/assets/figures/L03/em-3d.webp",
+ "source": "source/slides/NBE-E4210 LECTURE 03 - 2026-1.pdf",
+ "page": 20,
+ "crop_box_pt": [
+  129.0,
+  101.25,
+  846.75,
+  528.0
+ ],
+ "page_size_pt": [
+  960.0,
+  540.0
+ ],
+ "dpi": 83,
+ "rendered_px": [
+  832,
+  495
+ ],
+ "saved_px": [
+  832,
+  495
+ ],
+ "webp_quality": 90,
+ "bytes": 76984,
+ "extracted": "2026-09-12T14:11:38+00:00",
+ "note": "Course slide material. Redraw or replace before publishing; see CREDITS.md."
+}

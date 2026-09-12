@@ -1581,6 +1581,20 @@
   color: var(--c-text-muted);
 }
 
+.demo-legend {
+  margin: var(--sp-2) 0 0;
+  font-size: var(--fs-sm);
+}
+
+.demo-steps {
+  margin: 0;
+  padding-left: 1.2em;
+}
+
+.demo-steps li + li {
+  margin-top: var(--sp-1);
+}
+
 @media (max-width: 30rem) {
   .demo-readout {
     grid-template-columns: 1fr;

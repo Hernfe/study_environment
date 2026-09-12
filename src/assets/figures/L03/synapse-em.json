@@ -1,0 +1,85 @@
+{
+ "file": "src/assets/figures/L03/synapse-em.webp",
+ "source": "source/slides/NBE-E4210 LECTURE 03 - 2026-1.pdf",
+ "page": 15,
+ "crop_box_pt": [
+  451.5,
+  264.0,
+  956.25,
+  539.25
+ ],
+ "page_size_pt": [
+  960.0,
+  540.0
+ ],
+ "dpi": 130,
+ "rendered_px": [
+  915,
+  499
+ ],
+ "saved_px": [
+  573,
+  389
+ ],
+ "webp_quality": 90,
+ "bytes": 63024,
+ "extracted": "2026-09-12T14:11:33+00:00",
+ "note": "Course slide material. Redraw or replace before publishing; see CREDITS.md.",
+ "retouch": [
+  {
+   "op": "erase",
+   "lines_pct": [
+    [
+     82.0,
+     30.2,
+     62.6,
+     31.6
+    ],
+    [
+     82.0,
+     30.2,
+     73.6,
+     23.0
+    ],
+    [
+     17.0,
+     52.6,
+     24.6,
+     60.2
+    ],
+    [
+     17.0,
+     70.6,
+     31.0,
+     68.2
+    ],
+    [
+     82.0,
+     75.6,
+     60.4,
+     63.4
+    ],
+    [
+     40.0,
+     90.5,
+     54.4,
+     59.0
+    ]
+   ],
+   "boxes_pct": null,
+   "text_pct": null,
+   "width_px": 11,
+   "at": "2026-09-12T14:11:34+00:00"
+  },
+  {
+   "op": "crop",
+   "box_pct": [
+    18.2,
+    0.5,
+    80.8,
+    78.5
+   ],
+   "at": "2026-09-12T14:11:34+00:00"
+  }
+ ]
+}

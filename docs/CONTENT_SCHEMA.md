@@ -181,6 +181,12 @@ Rules for `visual`:
 | `ap-scrubber` | `apScrubber.js` | Hodgkin-Huxley spike with a time slider; read-out of phase, Na+ and K+ channel state, conductances and refractory period. Props: `{ phases, naStates, kStates, refractory: { key: { label, body } }, labels }`. |
 | `voltage-clamp` | `voltageClamp.js` | Command step from -65 mV; total current with early inward and late outward components; checkboxes remove the Na+ or K+ current. Props: `{ labels }`. |
 | `conduction-demo` | `conductionDemo.js` | Three axons with a time slider; active and refractory membrane; myelinated axon jumps node to node; stimulate at one end or in the middle. Props: `{ length, maxTime, axons: [{ key, label, sub, thickness, velocity, internode? }], labels }`. |
+| `synapse-timeline` | `synapseTimeline.js` | Step slider through transmission at a schematic synapse with a delay counter. Props: `{ steps: [{ key, label, body, time, timeNote }], labels }`. |
+| `synapse-compare` | `synapseCompare.js` | Chemical versus electrical synapse: spike in one cell, response in the other, delay marked; radios for type and which cell fires. Props: `{ types: { chemical, electrical: { label, delay, amplitude, bidirectional, ... } }, labels }`. |
+| `driving-force` | `drivingForce.js` | Channel selectivity radios and a Vm slider; I-V line with the current at Vm, and the resulting PSP. Props: `{ channels: [{ key, label, erev, body }], threshold, labels }`. |
+| `summation-shunt` | `summationShunt.js` | Passive RC membrane with spatial and temporal EPSP summation and a Cl- shunt toggle. Props: `{ threshold, labels }`. |
+| `circuit-motifs` | `circuitMotifs.js` | Radios pick a wiring motif; cells and synapses are drawn from props. Props: `{ motifs: [{ key, label, body, steps, cells, links }], labels }`. |
+| `ampa-nmda` | `ampaNmda.js` | Vm slider and glutamate toggle; AMPA and NMDA I-V curves with the Mg2+ block, a pore cartoon and the two time courses. Props: `{ labels }`. |
 
 The five quantitative demos share `hhModel.js` (the membrane model)
 and `d3util.js` (range-frame axes, sliders, radios, read-outs, worked

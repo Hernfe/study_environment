@@ -1,0 +1,28 @@
+{
+ "file": "src/assets/figures/L03/synapse-types.webp",
+ "source": "source/slides/NBE-E4210 LECTURE 03 - 2026-1.pdf",
+ "page": 9,
+ "crop_box_pt": [
+  411.75,
+  294.75,
+  949.5,
+  534.0
+ ],
+ "page_size_pt": [
+  960.0,
+  540.0
+ ],
+ "dpi": 109,
+ "rendered_px": [
+  813,
+  362
+ ],
+ "saved_px": [
+  813,
+  362
+ ],
+ "webp_quality": 90,
+ "bytes": 33068,
+ "extracted": "2026-09-12T14:11:24+00:00",
+ "note": "Course slide material. Redraw or replace before publishing; see CREDITS.md."
+}

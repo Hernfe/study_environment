@@ -1,0 +1,73 @@
+{
+ "sources": [
+  {
+   "file": "src/assets/figures/L03/snare-1.webp",
+   "source": "source/slides/NBE-E4210 LECTURE 03 - 2026-1.pdf",
+   "page": 25,
+   "crop_box_pt": [
+    28.5,
+    214.5,
+    174.75,
+    361.5
+   ]
+  },
+  {
+   "file": "src/assets/figures/L03/snare-2.webp",
+   "source": "source/slides/NBE-E4210 LECTURE 03 - 2026-1.pdf",
+   "page": 25,
+   "crop_box_pt": [
+    195.0,
+    228.0,
+    341.25,
+    347.25
+   ]
+  },
+  {
+   "file": "src/assets/figures/L03/snare-3.webp",
+   "source": "source/slides/NBE-E4210 LECTURE 03 - 2026-1.pdf",
+   "page": 25,
+   "crop_box_pt": [
+    360.75,
+    228.0,
+    507.75,
+    347.25
+   ]
+  }
+ ],
+ "panels_pct": [
+  {
+   "x_pct": 0.0,
+   "y_pct": 0.0,
+   "w_pct": 31.25,
+   "h_pct": 100.0
+  },
+  {
+   "x_pct": 33.01,
+   "y_pct": 0.0,
+   "w_pct": 32.5,
+   "h_pct": 100.0
+  },
+  {
+   "x_pct": 67.28,
+   "y_pct": 0.0,
+   "w_pct": 32.72,
+   "h_pct": 100.0
+  }
+ ],
+ "file": "src/assets/figures/L03/snare.webp",
+ "saved_px": [
+  1357,
+  360
+ ],
+ "webp_quality": 90,
+ "bytes": 92234,
+ "retouch": [
+  {
+   "op": "compose",
+   "cols": 3,
+   "gap": 24,
+   "height": 360,
+   "at": "2026-09-12T14:11:53+00:00"
+  }
+ ]
+}

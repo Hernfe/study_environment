@@ -1,0 +1,28 @@
+{
+ "file": "src/assets/figures/L03/spine-em.webp",
+ "source": "source/slides/NBE-E4210 LECTURE 03 - 2026-1.pdf",
+ "page": 19,
+ "crop_box_pt": [
+  292.5,
+  222.75,
+  960.0,
+  540.0
+ ],
+ "page_size_pt": [
+  960.0,
+  540.0
+ ],
+ "dpi": 96,
+ "rendered_px": [
+  890,
+  423
+ ],
+ "saved_px": [
+  890,
+  423
+ ],
+ "webp_quality": 90,
+ "bytes": 98188,
+ "extracted": "2026-09-12T14:11:38+00:00",
+ "note": "Course slide material. Redraw or replace before publishing; see CREDITS.md."
+}
