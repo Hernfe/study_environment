@@ -6,7 +6,7 @@
 // image-hotspots widget, plus two d3 charts.
 
 import { neuronCountsFigure, disorderBurdenFigure } from './figures/charts.js';
-import { axonalTransport } from './figures/cells.js';
+import { axonalTransportFigure } from './figures/cells.js';
 
 const fig = (name) => new URL(`../assets/figures/L01/${name}.webp`, import.meta.url).href;
 
@@ -16,6 +16,11 @@ function hotspots(name, aspect, alt, regions, extra = {}) {
 
 function chart(figure, alt, extra = {}) {
   return { svg: figure.svg, alt, aspect: figure.aspect, regions: figure.regions, quiz: false, layout: 'stack', ...extra };
+}
+
+function transportFigure() {
+  const figure = axonalTransportFigure(TRANSPORT_REGIONS);
+  return { svg: figure.svg, alt: 'Axonal transport along a microtubule.', aspect: figure.aspect, regions: figure.regions, gutter: 'ends' };
 }
 
 function figureBlock(props, caption, fallbackAlt) {
@@ -148,6 +153,14 @@ const INTERNAL_REGIONS = [
   { id: 'hillock', label: 'Axon hillock', body: 'Where the soma narrows into the axon.', x: 62, y: 83, w: 8, h: 6 },
   { id: 'microtubules', label: 'Microtubules', body: 'Cytoskeletal tracks running down the axon; the rails for axoplasmic transport.', x: 62, y: 91, w: 6, h: 6 },
 ];
+
+const TRANSPORT_REGIONS = {
+  soma: { label: 'Soma', body: 'The only part of the neuron with rough ER and ribosomes, so every protein the axon and terminal need starts here.' },
+  microtubule: { label: 'Microtubule', body: 'A 20 nm tube of tubulin running the length of the axon. The track that both motor proteins walk along.' },
+  anterograde: { label: 'Anterograde transport: kinesin', body: 'Kinesin walks a vesicle from the soma toward the terminal, using ATP. Fast transport moves up to 1000 mm per day.' },
+  retrograde: { label: 'Retrograde transport: dynein', body: 'Dynein carries material the other way, from the terminal back to the soma, including signals about what the terminal has met.' },
+  terminal: { label: 'Axon terminal', body: 'The destination. It has no ribosomes of its own, so it depends entirely on what arrives down the axon.' },
+};
 
 const SYNAPSE_REGIONS = [
   { id: 'terminal', label: 'Presynaptic axon terminal', body: 'The swollen end of the axon. No ribosomes, no microtubules, many mitochondria.', x: 48, y: 32, w: 80, h: 36, mx: 26, my: 34 },
@@ -660,7 +673,7 @@ export default {
         ),
         { type: 'definition', term: 'Brodmann area', body: 'One of 52 numbered areas that Korbinian Brodmann defined from laminar differences. A cytoarchitectonic label, an anatomical statement.' },
         figureBlock(
-          hotspots('brodmann-map', 733 / 594, 'Brodmann\'s map on the lateral surface with the areas numbered and coloured.', BRODMANN_REGIONS, { gutter: 'ends' }),
+          hotspots('brodmann-map', 733 / 594, 'Brodmann\'s map on the lateral surface with the areas numbered and coloured.', BRODMANN_REGIONS, { gutter: 'ends', quiz: false, intro: 'The map keeps its own printed area numbers, so there is no quiz mode here. Hover a marker for what each numbered area does.' }),
           'Brodmann\'s map from the slide. The seven groups that match the functional areas named in this lecture.',
           'Lateral view with numbered areas. Area 4 and areas 3, 1, 2 flank the central sulcus; 6 is in front of 4; 5 and 7 behind 3, 1, 2; 17, 18, 19 at the back; 41, 42 on the superior temporal gyrus; 20, 21, 37 on the lower temporal lobe.'
         ),
@@ -1015,16 +1028,11 @@ export default {
         },
         { type: 'whyItMatters', body: 'The axon has no ribosomes, so everything it and its terminal need is made in the soma and shipped down. This is axoplasmic transport.' },
         { type: 'example', title: 'Wallerian degeneration', body: 'Augustus Waller showed in the nineteenth century that an axon cut off from its soma degenerates. This is doctrine point 4: the nucleus is the trophic centre.' },
-        {
-          type: 'figure',
-          visual: {
-            type: 'svg',
-            name: 'axonal-transport',
-            props: {},
-            caption: 'Kinesin walks vesicles along microtubules from the soma to the terminal (anterograde); dynein carries material back (retrograde).',
-            fallbackAlt: 'A soma on the left, an axon to a terminal on the right, and a microtubule inside the axon. A vesicle above the microtubule moves right, labelled anterograde, kinesin. A vesicle below moves left, labelled retrograde, dynein.',
-          },
-        },
+        figureBlock(
+          transportFigure(),
+          'Kinesin walks vesicles along microtubules from the soma to the terminal (anterograde); dynein carries material back (retrograde).',
+          'A soma on the left, an axon running right to a terminal, and a microtubule inside the axon. A vesicle above the microtubule moves right; a vesicle below it moves left.'
+        ),
         {
           type: 'compare',
           title: 'Two directions of transport',

@@ -15,10 +15,13 @@ export function text(x, y, content, opts = {}) {
   return `<text x="${x}" y="${y}" text-anchor="${anchor}" font-size="${size}" fill="${fill}"${weight}${halo} ${extra}>${esc(content)}</text>`;
 }
 
+// opts.viewBox crops to part of the drawing coordinate space; without it
+// the box is the full w by h.
 export function wrap(w, h, inner, opts = {}) {
   const max = opts.maxWidth || w;
+  const box = opts.viewBox || `0 0 ${w} ${h}`;
   return `
-<svg viewBox="0 0 ${w} ${h}" width="100%" style="max-width:${max}px" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" font-family="inherit">
+<svg viewBox="${box}" width="100%" style="max-width:${max}px" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" font-family="inherit">
   ${inner}
 </svg>`;
 }
