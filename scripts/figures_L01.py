@@ -37,10 +37,10 @@ def paint(name, boxes, out=None):
     run(*args)
 
 
-def erase(name, lines, width=9, out=None):
+def erase(name, lines, width=9, radius=5, out=None):
     """Inpaint leader-line stubs left after the labels were painted out,
     so the hotspot widget draws the only leaders on the picture."""
-    args = ["scripts/retouch_figure.py", "erase", F / f"{name}.webp", F / f"{out or name}.webp", "--width", width]
+    args = ["scripts/retouch_figure.py", "erase", F / f"{name}.webp", F / f"{out or name}.webp", "--width", width, "--radius", radius]
     for line in lines:
         args += ["--line", *line]
     run(*args)
@@ -107,6 +107,11 @@ def main():
     crop("golgi-photo", [0, 0, 100, 82])
     extract(36, 2, "em-synapse")
     crop("em-synapse", [15, 10, 63, 48])
+    # Leader stubs into the three tinted profiles and the synaptic
+    # cleft. The panel is only 179 px wide, so masks are thin and the
+    # inpaint radius small to keep the smear under the mask width.
+    erase("em-synapse", [[31, 0, 49.5, 49], [65.5, 0, 65.5, 15.5], [100, 19.5, 75.5, 32]], width=4, radius=3)
+    erase("em-synapse", [[71.5, 45.5, 100, 67.5]], width=5, radius=2)
     compose("stains", [F / "nissl-photo.webp", F / "golgi-photo.webp", F / "em-synapse.webp"], height=520, gap=30)
 
     # Glia: astrocyte (slide 35, Figure 2.24), oligodendrocyte (BioArt

@@ -1,6 +1,6 @@
 // Cumulative review: questions from every built lecture, missed ones
-// first, then never seen, then interleaved retrieval of the rest.
-// See docs/PEDAGOGY.md section 5.
+// first, then never seen, then the rest. Every bucket is interleaved
+// across lectures. See docs/PEDAGOGY.md section 5.
 
 import { el, shuffle } from './dom.js';
 import { getLectureProgress } from './progress.js';
@@ -27,21 +27,30 @@ export function buildReviewQueue(lectures, getProgress = getLectureProgress) {
     }
   }
 
-  // Missed: most recently missed first, so the freshest gap is closed first.
-  missed.sort((a, b) => (b.record.lastAt || 0) - (a.record.lastAt || 0));
+  // Missed: interleaved across lectures like the other buckets, so a
+  // block of misses from one sitting does not arrive as a block. Within
+  // a lecture the most recent miss comes first, and the lecture holding
+  // the freshest miss deals first.
+  const byRecency = (a, b) => (b.record.lastAt || 0) - (a.record.lastAt || 0);
+  const missedQueue = interleave(missed, {
+    within: (stack) => stack.slice().sort(byRecency),
+    across: (stacks) => stacks.slice().sort((a, b) => byRecency(a[0], b[0])),
+  });
 
-  return [...missed, ...interleave(unseen), ...interleave(seen)];
+  return [...missedQueue, ...interleave(unseen), ...interleave(seen)];
 }
 
-// Shuffle within each lecture, then deal round-robin across lectures so
-// consecutive questions come from different lectures whenever possible.
-export function interleave(entries) {
+// Group by lecture, order each lecture's stack with `within` and the
+// stacks with `across` (both shuffle by default), then deal round-robin
+// so consecutive questions come from different lectures whenever
+// another lecture still has questions left.
+export function interleave(entries, { within = shuffle, across = shuffle } = {}) {
   const byLecture = new Map();
-  for (const entry of shuffle(entries)) {
+  for (const entry of entries) {
     if (!byLecture.has(entry.lectureId)) byLecture.set(entry.lectureId, []);
     byLecture.get(entry.lectureId).push(entry);
   }
-  const stacks = shuffle([...byLecture.values()]);
+  const stacks = across([...byLecture.values()].map(within));
   const out = [];
   while (stacks.some((s) => s.length)) {
     for (const stack of stacks) {
@@ -120,7 +129,7 @@ export function renderReview(container, registry) {
 
   container.replaceChildren(
     el('h2', { id: 'review-title' }, 'Cumulative review'),
-    el('p', {}, 'Questions from every built lecture. Ones you missed come first, then ones you have not seen, then the rest mixed across lectures.'),
+    el('p', {}, 'Questions from every built lecture, mixed across lectures. Ones you missed come first, then ones you have not seen, then the rest.'),
     controls,
     list,
     el('div', { class: 'btn-row' }, [moreButton])

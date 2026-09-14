@@ -44,7 +44,12 @@ Rules that follow from the tiers:
 
 - Concept quizzes are always easy.
 - The lecture quiz has 12 to 15 questions ordered easy, then medium,
-  then hard. A reasonable split is 5 easy, 5 medium, 3 to 5 hard.
+  then hard. A reasonable split is 5 easy, 5 medium, 3 to 5 hard, but
+  the split is advisory. The tier of a question describes its cognitive
+  demand as defined in the table above, and it is never adjusted to hit
+  a target count. If a lecture's questions come out 5, 4, 6 (as L02
+  does), that is the correct labelling for those questions; relabel
+  only when the demand of the question itself changes.
 - Every question is answerable from the slides plus the textbook within
   slide scope. No textbook trivia the slides never touch.
 - Rewrite the notes' self-check questions into these formats and include
@@ -142,16 +147,22 @@ Queue construction, in this order:
 
 1. Missed first. Every question whose last recorded result is missed
    (wrong on first attempt, or self-scored below full marks), across all
-   built lectures, sorted by most recently missed first. These always
-   come before anything else.
+   built lectures. These always come before anything else.
 2. Never seen. Questions with no record, so the student meets every
    question at least once.
-3. Interleaved retrieval. The remaining questions (previously correct)
-   are shuffled and interleaved across lectures: the queue never shows
-   two questions from the same lecture back to back when another lecture
-   has questions left. Interleaving forces the student to identify which
-   concept applies rather than riding the context of one chapter.
-4. Within each bucket, tiers are mixed rather than sorted, so the student
+3. Previously correct. The remaining questions, for retrieval practice.
+4. Every bucket is interleaved across lectures: questions are grouped by
+   lecture and dealt round-robin, so the queue never shows two questions
+   from the same lecture back to back when another lecture still has
+   questions left in that bucket. Interleaving forces the student to
+   identify which concept applies rather than riding the context of one
+   chapter. It applies to the missed bucket too: a block of misses from
+   one sitting of one lecture quiz must not arrive as a block.
+5. Order within a lecture's stack: in the missed bucket, most recently
+   missed first, so recency is only the tiebreak within a lecture, and
+   the lecture holding the freshest miss deals first. In the other two
+   buckets the stack is shuffled and the lecture order is shuffled.
+6. Within each bucket, tiers are mixed rather than sorted, so the student
    cannot coast on easy ones at the start.
 
 Session rules:
