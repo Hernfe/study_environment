@@ -1365,7 +1365,7 @@ export default {
         { text: 'A rise in cytosolic Ca2+ through voltage-gated Ca2+ channels at the active zone', feedback: 'Correct.' },
         { text: 'Na+ entry during the action potential', feedback: 'Na+ carries the spike, but Ca2+ is the release signal.' },
         { text: 'Binding of transmitter to autoreceptors', feedback: 'Autoreceptors reduce release; they do not trigger it.' },
-        { text: 'Kinesin pushing the vesicle into the membrane', feedback: 'Kinesin transports vesicles down the axon; fusion needs Ca2+ and SNAREs.' },
+        { text: 'Depolarization of the terminal membrane itself, whether or not Ca2+ enters', feedback: 'Depolarization is necessary but not sufficient. In a Ca2+-free bath a spike reaches the terminal and nothing is released.' },
       ],
       correct: 0,
       modelAnswer: [
@@ -1498,8 +1498,33 @@ export default {
       ],
     },
     {
-      id: 'q10',
+      id: 'q14',
       difficulty: 'medium',
+      type: 'order',
+      prompt: 'Put the steps of the norepinephrine beta-receptor cascade in order, ending with the effect on excitability.',
+      items: [
+        'Protein kinase A phosphorylates a dendritic K+ channel, which closes',
+        'NE binds the beta receptor and activates the G-protein Gs',
+        'cAMP activates protein kinase A',
+        'Membrane resistance and the length constant rise, so distant EPSPs reach the spike-initiation zone',
+        'Gs activates adenylyl cyclase',
+        'Adenylyl cyclase converts ATP into cAMP',
+      ],
+      correctOrder: [1, 4, 5, 2, 0, 3],
+      modelAnswer: [
+        'Norepinephrine binds the beta-adrenergic receptor, which activates the stimulatory G-protein Gs.',
+        'Gs activates the membrane enzyme adenylyl cyclase.',
+        'Adenylyl cyclase converts ATP into the second messenger cAMP.',
+        'cAMP activates protein kinase A.',
+        'PKA transfers phosphate from ATP to a type of dendritic K+ channel, which closes and lowers gK.',
+        'Lower K+ conductance means higher membrane resistance and a longer length constant, so weak or distant excitatory inputs now depolarize the spike-initiation zone: the cell is more excitable although NE alone barely changed Vm. Phosphatases later reverse the phosphorylation.',
+      ],
+    },
+
+    // Hard ---------------------------------------------------------------
+    {
+      id: 'q10',
+      difficulty: 'hard',
       type: 'mc',
       prompt: 'GABA opens Cl- channels (g = 2 nS) while the postsynaptic membrane is depolarized to -40 mV. ECl = -65 mV. Predict the current.',
       options: [
@@ -1515,8 +1540,6 @@ export default {
         'Had Vm been at -65 mV the current would be zero and the inhibition purely shunting.',
       ],
     },
-
-    // Hard ---------------------------------------------------------------
     {
       id: 'q11',
       difficulty: 'hard',
@@ -1570,7 +1593,7 @@ export default {
       prompt: 'Bicuculline, a GABA-A antagonist, is applied to a cortical slice. A distal excitatory synapse that previously produced only a small somatic EPSP now produces a much larger one, and the slice starts to fire synchronised bursts. What explains both observations?',
       options: [
         { text: 'Loss of shunting inhibition near the soma lets the dendritic EPSP reach the hillock, and loss of feedforward and feedback inhibition unbalances excitation and inhibition', feedback: 'Correct. Both effects follow from removing Cl- conductance.' },
-        { text: 'Bicuculline opens extra Na+ channels', feedback: 'Bicuculline acts on GABA-A receptors, not Na+ channels.' },
+        { text: 'Bicuculline blocks the GABA-A receptors on the interneurons, so the interneurons themselves fire much harder', feedback: 'The block is everywhere, but what changes the pyramidal cell is the loss of GABA-A conductance on the pyramidal cell, not a change in interneuron firing.' },
         { text: 'Bicuculline blocks GABA-B receptors, removing slow inhibition', feedback: 'Bicuculline is the GABA-A antagonist; phaclofen blocks GABA-B.' },
         { text: 'The EPSP grows because glutamate release increases', feedback: 'Release is unchanged; the postsynaptic shunt is what is lost.' },
       ],
@@ -1578,29 +1601,6 @@ export default {
       modelAnswer: [
         'GABA-A receptors are Cl- channels. Blocking them removes the conductance that shunts dendritic EPSPs on their way to the soma, so the same distal input now produces a larger somatic EPSP (a longer effective length constant).',
         'Interneurons normally limit pyramidal cell firing through feedforward and feedback inhibition. Without GABA-A transmission the balance tips to excitation and the network fires synchronised, seizure-like bursts, the textbook example of too little inhibition.',
-      ],
-    },
-    {
-      id: 'q14',
-      difficulty: 'hard',
-      type: 'order',
-      prompt: 'Put the steps of the norepinephrine beta-receptor cascade in order, ending with the effect on excitability.',
-      items: [
-        'Protein kinase A phosphorylates a dendritic K+ channel, which closes',
-        'NE binds the beta receptor and activates the G-protein Gs',
-        'cAMP activates protein kinase A',
-        'Membrane resistance and the length constant rise, so distant EPSPs reach the spike-initiation zone',
-        'Gs activates adenylyl cyclase',
-        'Adenylyl cyclase converts ATP into cAMP',
-      ],
-      correctOrder: [1, 4, 5, 2, 0, 3],
-      modelAnswer: [
-        'Norepinephrine binds the beta-adrenergic receptor, which activates the stimulatory G-protein Gs.',
-        'Gs activates the membrane enzyme adenylyl cyclase.',
-        'Adenylyl cyclase converts ATP into the second messenger cAMP.',
-        'cAMP activates protein kinase A.',
-        'PKA transfers phosphate from ATP to a type of dendritic K+ channel, which closes and lowers gK.',
-        'Lower K+ conductance means higher membrane resistance and a longer length constant, so weak or distant excitatory inputs now depolarize the spike-initiation zone: the cell is more excitable although NE alone barely changed Vm. Phosphatases later reverse the phosphorylation.',
       ],
     },
     {

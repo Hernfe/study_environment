@@ -376,7 +376,7 @@ export default {
           id: 'neuron-counts-2',
           prompt: 'The elephant has more neurons than a human in total but fewer in the cortex. Where are most elephant neurons?',
           options: [
-            { text: 'In the cerebellum', feedback: 'Correct. About 251 billion of the roughly 257 billion.' },
+            { text: 'In the cerebellum', feedback: 'Correct. About 251 billion in the whole brain on the slide, but only 5.6 billion of them in the cortex.' },
             { text: 'In the cerebral cortex', feedback: 'No. The elephant cortex has about 5.6 billion, a third of the human count.' },
             { text: 'In the brain stem', feedback: 'The brain stem holds relatively few neurons in any species.' },
           ],
@@ -795,7 +795,7 @@ export default {
           options: [
             { text: 'The gap between neurons, about 20 nm, is below its resolution limit of about 0.1 micrometre', feedback: 'Correct. The electron microscope was needed.' },
             { text: 'Stains did not colour neurons', feedback: 'Golgi and Nissl stains coloured them well; the limit was resolution.' },
-            { text: 'Neurons were too large to fit in the field of view', feedback: 'Size was not the problem; the gap was too small.' },
+            { text: 'The Golgi stain never filled two neighbouring neurons at once, so a contact was never in one picture', feedback: 'Cajal did see stained neurons meeting. The problem was that a 20 nm gap and a fusion look identical at that resolution.' },
           ],
           correct: 0,
         },
@@ -1055,7 +1055,7 @@ export default {
           options: [
             { text: 'It degenerates, because it cannot make its own proteins', feedback: 'Correct. Wallerian degeneration.' },
             { text: 'It keeps working indefinitely on stored proteins', feedback: 'Stored material runs out; the axon dies.' },
-            { text: 'It grows a new soma at the cut end', feedback: 'The nucleus is the trophic centre; only the part with it survives.' },
+            { text: 'It survives but can no longer conduct action potentials', feedback: 'The opposite: a cut axon conducts for a while and then breaks down, because the soma is the only source of new protein.' },
           ],
           correct: 0,
         },
@@ -1210,8 +1210,8 @@ export default {
       options: [
         { text: 'Nissl stain', feedback: 'Correct. Basic dyes bind the RNA of the rough ER and the nuclei.' },
         { text: 'Golgi stain', feedback: 'Golgi stains a few neurons completely, not all cell bodies.' },
-        { text: 'Electron microscopy', feedback: 'Not a stain; it resolves membranes and synapses.' },
-        { text: 'Myelin stain', feedback: 'Not covered on the slides; myelin staining shows fibres, not cell bodies.' },
+        { text: 'Electron microscopy', feedback: 'Not a stain, and it shows a tiny field: membranes, vesicles and the cleft.' },
+        { text: 'Silver chromate applied to a thick block of cortex', feedback: 'That is the Golgi method by another name; it still fills only a small percentage of the neurons.' },
       ],
       correct: 0,
       modelAnswer: [
@@ -1229,7 +1229,7 @@ export default {
         { text: 'The axon', feedback: 'Correct. One axon per neuron, ending in terminals.' },
         { text: 'The dendrites', feedback: 'Dendrites receive input.' },
         { text: 'The soma', feedback: 'The soma maintains the cell and holds the nucleus.' },
-        { text: 'The nucleus', feedback: 'The nucleus holds the DNA.' },
+        { text: 'The axon terminal', feedback: 'The terminal is the far end of the axon, where it contacts the next cell. The axon is what carries the output there.' },
       ],
       correct: 0,
       modelAnswer: [
@@ -1246,7 +1246,7 @@ export default {
         { text: 'Temporal lobe', feedback: 'Correct. It lies below the fissure.' },
         { text: 'Occipital lobe', feedback: 'The occipital lobe is at the back, not below the lateral fissure.' },
         { text: 'The insula', feedback: 'The insula is inside the fissure, not a lobe separated by it.' },
-        { text: 'The cerebellum', feedback: 'The cerebellum is not part of the cerebrum.' },
+        { text: 'The superior temporal gyrus', feedback: 'That is the gyrus just below the fissure, one gyrus of the temporal lobe, not the lobe itself.' },
       ],
       correct: 0,
       modelAnswer: [
@@ -1417,7 +1417,7 @@ export default {
         { points: 1, text: 'States the two interpretations: Golgi\'s reticular theory (neurites fuse into a continuous network) versus Cajal\'s neuron doctrine (separate cells, contact not continuity).' },
         { points: 1, text: 'Explains why light microscopy could not decide: its resolution limit (about 0.1 micrometre) is larger than the 20 nm gap between neurons.' },
         { points: 1, text: 'Electron microscopy in the 1950s resolved the synaptic cleft and two separate membranes, the final proof.' },
-        { points: 1, text: 'Applies the lesson: distinguishes observation from interpretation, and states that neurons communicate at specialized contacts, chemical synapses with a preferred direction (dynamic polarization) or electrical synapses.' },
+        { points: 1, text: 'States the modern doctrine: neurons communicate at specialized contacts, chemical synapses with a preferred direction (the law of dynamic polarization) or electrical synapses.' },
       ],
       modelAnswer: [
         'The Nissl stain showed that brain tissue is made of cell bodies arranged in patterns, but a stained neuron looked like a lump around a nucleus.',
@@ -1474,23 +1474,23 @@ export default {
       id: 'q15',
       difficulty: 'hard',
       type: 'calc',
-      prompt: 'Using the lecture numbers, calculate the percentage of neurons that lie in the cerebral cortex for the human (86 billion total, 16.3 billion cortical) and for the elephant (257 billion total according to the counting study, 5.6 billion cortical). Enter the human percentage. Then compare the two.',
+      prompt: 'Using the slide numbers, calculate the percentage of neurons that lie in the cerebral cortex for the human (86 billion total, 16.3 billion cortical) and for the elephant (251 billion total, 5.6 billion cortical). Enter the human percentage. Then compare the two.',
       given: [
         { symbol: 'N_human', value: 86, unit: 'billion neurons' },
         { symbol: 'N_human,cortex', value: 16.3, unit: 'billion neurons' },
-        { symbol: 'N_elephant', value: 257, unit: 'billion neurons' },
+        { symbol: 'N_elephant', value: 251, unit: 'billion neurons' },
         { symbol: 'N_elephant,cortex', value: 5.6, unit: 'billion neurons' },
       ],
       answer: { value: 19.0, tolerance: 0.5, unit: '%' },
       steps: [
         { text: 'Write the fraction of neurons in the cortex as a percentage.', math: 'fraction = N_cortex / N_total * 100 %' },
         { text: 'Substitute the human values.', math: 'human = 16.3 / 86 * 100 % = 0.1895 * 100 % = 19.0 %' },
-        { text: 'Substitute the elephant values.', math: 'elephant = 5.6 / 257 * 100 % = 0.0218 * 100 % = 2.2 %' },
-        { text: 'Compare the two fractions.', math: '19.0 % / 2.2 % = 8.7' },
+        { text: 'Substitute the elephant values.', math: 'elephant = 5.6 / 251 * 100 % = 0.0223 * 100 % = 2.2 %' },
+        { text: 'Compare the two fractions.', math: '19.0 % / 2.2 % = 8.5' },
       ],
       modelAnswer: [
-        'About 19 % of human neurons are in the cerebral cortex, against about 2 % of elephant neurons, a difference of almost nine times.',
-        'The elephant has three times more neurons overall, but nearly all of them are in the cerebellum, so the two species look very different depending on which anatomical level is compared.',
+        'About 19 % of human neurons are in the cerebral cortex, against about 2 % of elephant neurons, a difference of about eight and a half times.',
+        'The elephant has about three times more neurons overall, but nearly all of them are in the cerebellum, so the two species look very different depending on which anatomical level is compared.',
         'This is why a whole-brain count and a cortical count answer different questions, and why neuron number alone does not rank cognitive ability.',
       ],
     },

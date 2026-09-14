@@ -400,7 +400,7 @@ export default {
           options: [
             { text: 'The inside is 65 mV more negative than the extracellular reference', feedback: 'Correct. Ground outside is 0 mV by convention.' },
             { text: 'The outside is 65 mV more negative than the inside', feedback: 'The sign refers to the inside relative to the outside.' },
-            { text: 'The membrane has a resistance of 65 ohms', feedback: 'mV is a voltage, not a resistance.' },
+            { text: 'The cytosol as a whole carries 65 mV worth of excess negative charge', feedback: 'The bulk cytosol stays electrically neutral. The charge that makes Vm is a thin layer pressed against the membrane.' },
           ],
           correct: 0,
         },
@@ -1213,7 +1213,7 @@ export default {
         { text: 'The inside of the cell is 65 mV more negative than the extracellular reference', feedback: 'Correct. Ground in the bath is defined as 0 mV.' },
         { text: 'The outside is 65 mV more negative than the inside', feedback: 'The sign is for the inside relative to the outside.' },
         { text: 'The potassium equilibrium potential is -65 mV', feedback: 'EK is about -80 mV; -65 mV is the resting Vm, which is close to EK but not equal.' },
-        { text: 'The membrane resistance is 65 ohms', feedback: 'Millivolts measure voltage.' },
+        { text: 'The cytosol as a whole holds 65 mV worth of extra negative charge', feedback: 'The bulk cytosol is electrically neutral. Only a thin layer of charge at the membrane surfaces makes the voltage.' },
       ],
       correct: 0,
       modelAnswer: [
@@ -1367,7 +1367,7 @@ export default {
     },
     {
       id: 'q10',
-      difficulty: 'medium',
+      difficulty: 'hard',
       type: 'calc',
       prompt: 'A neuron has [K+]in = 100 mM and [K+]out = 5 mM at 37 C. A researcher raises extracellular K+ to 20 mM; the inside does not change during the short experiment. Calculate EK after the change (the value before is -80 mV).',
       given: [
@@ -1444,8 +1444,8 @@ export default {
         { points: 1, text: 'Explains the gap: a small resting Na+ permeability (a steady Na+ leak) pulls Vm from EK (-80 mV) up toward ENa, giving about -65 mV.' },
         { points: 1, text: 'Nernst: calculates the equilibrium potential of one ion from its concentration ratio, charge and temperature; contains no permeability term.' },
         { points: 1, text: 'Shows the Nernst calculation for K+: 61.54 mV x log10(5 / 100) = -80 mV.' },
-        { points: 1, text: 'GHK: estimates Vm from the concentrations and relative permeabilities of several ions, each weighted by its permeability, cations out over in and anions reversed.' },
-        { points: 1, text: 'Shows the GHK calculation with PK : PNa = 40 : 1: 61.54 x log10(350 / 4015) = -65 mV, and notes that raising PNa moves Vm toward ENa.' },
+        { points: 1, text: 'GHK: estimates Vm from the concentrations and relative permeabilities of several ions, each weighted by its permeability, cations out over in and anions reversed. Shows the calculation with PK : PNa = 40 : 1: 61.54 x log10(350 / 4015) = -65 mV.' },
+        { points: 1, text: 'Predicts the consequence: raising PNa moves Vm toward ENa (the rising phase), raising PK moves it back toward EK.' },
       ],
       modelAnswer: [
         'At rest the membrane has many open K+ channels and very few open Na+ channels, so its permeability to K+ is about 40 times its permeability to Na+. The most permeant ion has the strongest hold on Vm, so Vm lies close to EK.',
