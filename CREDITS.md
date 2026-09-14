@@ -54,7 +54,7 @@ draws the only leaders; `gyri-sulci.webp` is also cropped to the brain.
 | `neuron.webp` | L01 Prototypical neuron | NIH BioArt Source, Healthy neuron, NIAID Visual & Medical Arts | https://bioart.niaid.nih.gov/bioart/197 | Public Domain | No; credit "Courtesy of NIAID" |
 | `synapse.webp` | L01 Synaptic transmission | Servier Medical Art, Synapse | https://smart.servier.com/smart_image/synapse-overview/ | CC BY 4.0 | Yes: Servier Medical Art, https://smart.servier.com |
 | `src/content/figures/charts.js` (neuron-counts, disorder-burden) | L01 | d3 charts drawn for this site; data read off slides 16 and 13 (Herculano-Houzel; DiLuca and Olesen 2014) | n/a | Repository licence | No |
-| `src/content/figures/cells.js` (axonal-transport) | L01 Axonal transport | In-house SVG (no slide figure or library asset exists for this) | n/a | Repository licence | No |
+| `src/content/figures/cells.js` (axonal-transport) | L01 Axonal transport | In-house SVG (no slide figure or library asset exists for this), shown through the image-hotspots widget | n/a | Repository licence | No |
 | `src/content/figures/example-cell.js` | L00 (dev example) | In-house SVG | n/a | Repository licence | No |
 
 Lecture 2 raster files are in `src/assets/figures/L02/`, built by
@@ -108,13 +108,14 @@ Neurobiology) as shown on the slides.
 | `gabaa.webp` | L03 Transmitter systems | L03 slide deck, page 36 (textbook Figure 6.22) | Course slides | Course material | Cite the course |
 | `nmda.webp` | L03 NMDA | L03 slide deck, page 39 (textbook Figure 6.21) | Course slides | Course material | Cite the course |
 | `interneuron-types.webp`, `interneuron-targets.webp`, `interneuron-markers.webp`, `circuit-motifs.webp` | L03 Interneurons, Coupling | L03 slide deck, pages 44, 46 and 48 (Sultan and Shi 2018, Figure 1) | https://doi.org/10.1002/wdev.306 | CC BY 4.0 (WIREs Dev Biol open access) | Yes: Sultan and Shi 2018 |
-| `interneuron-groups.webp` | L03 Interneurons | L03 slide deck, page 45 (Rudy et al. 2011) | https://doi.org/10.1002/dneu.20853 | Publisher copyright, course material | Cite the course and the paper |
 | `ne-cascade.webp` | L03 Pharmacology | L03 slide deck, page 53 (textbook Figure 5.22) | Course slides | Course material | Cite the course |
 | Widgets `synapse-timeline`, `synapse-compare`, `driving-force`, `summation-shunt`, `circuit-motifs`, `ampa-nmda` | L03 | d3 demos drawn for this site; the NMDA block uses the Jahr and Stevens 1990 form | n/a | Repository licence | No |
 
-Credit lines shown on the site: the footer of every page links here.
-When a page is exported or shared, add "Illustrations: NIH BioArt
-(courtesy of NIAID); Servier Medical Art (CC BY 4.0); course slides".
+Credit lines shown on the site: the footer of every page names the
+sources whose licence asks for attribution and links here. When a page is
+exported or shared, add "Illustrations: NIH BioArt (courtesy of NIAID);
+Servier Medical Art (CC BY 4.0); Sultan and Shi 2018, WIREs Dev Biol,
+CC BY 4.0; course slides".
 
 ## Downloaded, not yet in use
 
@@ -148,6 +149,12 @@ https://smart.servier.com/wp-content/uploads/2016/10/). Slides exported
 with `scripts/pptx_export.ps1` to `assets/incoming/servier/kits/` as
 3000 px PNG and vector EMF. Slides carry the Servier template
 background, so crop before use.
+
+### Slide crops built but not used
+
+| File | Why it is kept | Source | Original | Licence |
+| --- | --- | --- | --- | --- |
+| `src/assets/figures/L03/interneuron-groups.webp` | Built by `scripts/figures_L03.py`; the three Rudy groups are taught as a compare table instead, so no page shows the picture. Delete it or use it, but do not lose the provenance. | L03 slide deck, page 45 (Rudy et al. 2011) | https://doi.org/10.1002/dneu.20853 | Publisher copyright, course material |
 
 ### Bioicons
 

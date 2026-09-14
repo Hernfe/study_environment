@@ -52,7 +52,7 @@ export function markKeyTerms(root, keyTerms = []) {
 export function renderCredits() {
   return el('footer', { class: 'site-credits' }, [
     el('p', {}, [
-      'Figures come from the course slides, NIH BioArt (courtesy of NIAID), Servier Medical Art (CC BY 4.0) and drawings made for this site. See ',
+      'Figures come from the course slides, NIH BioArt (courtesy of NIAID), Servier Medical Art (CC BY 4.0), open-access journal figures reused under CC BY (Sultan and Shi 2018) and drawings made for this site. See ',
       el('a', { href: CREDITS_URL, rel: 'noopener' }, 'figure credits'),
       ' for sources and licences.',
     ]),
