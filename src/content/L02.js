@@ -185,6 +185,7 @@ export default {
 
   prerequisites: [
     { text: 'The main parts of a neuron: soma, dendrites, axon, axon hillock, axon terminal.', lectureId: 'L01', sectionId: 'prototypical-neuron' },
+    { text: 'Where proteins are made: free ribosomes for cytosolic proteins, rough ER for membrane proteins, and axonal transport from the soma.', lectureId: 'L01', sectionId: 'prototypical-neuron' },
     { text: 'The difference between intracellular fluid (cytosol) and extracellular fluid.' },
     { text: 'The sign of an ion\'s charge: Na+, K+ and Ca2+ are cations, Cl- is an anion.' },
     { text: 'Myelin, oligodendroglia, Schwann cells and nodes of Ranvier from the glia section.', lectureId: 'L01', sectionId: 'glia' },

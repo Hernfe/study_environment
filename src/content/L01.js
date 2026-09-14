@@ -153,7 +153,7 @@ const SYNAPSE_REGIONS = [
   { id: 'terminal', label: 'Presynaptic axon terminal', body: 'The swollen end of the axon. No ribosomes, no microtubules, many mitochondria.', x: 48, y: 32, w: 80, h: 36, mx: 26, my: 34 },
   { id: 'vesicle', label: 'Synaptic vesicle', body: 'About 50 nm across, filled with neurotransmitter.', x: 37, y: 41, w: 14, h: 9, mx: 37, my: 41 },
   { id: 'active-zone', label: 'Active zone', body: 'The release face of the terminal, coated with protein, where vesicles fuse with the membrane.', x: 66, y: 50, w: 20, h: 6, mx: 66, my: 47 },
-  { id: 'cleft', label: 'Synaptic cleft', body: 'The 20 nm gap between the two cells. Transmitter diffuses across it.', shape: 'line', x: 10, y: 55, x2: 93, y2: 55, mx: 88, my: 56 },
+  { id: 'cleft', label: 'Synaptic cleft', body: 'The gap between the two cells, 20 to 50 nm wide. Transmitter diffuses across it.', shape: 'line', x: 10, y: 55, x2: 93, y2: 55, mx: 88, my: 56 },
   { id: 'transmitter', label: 'Neurotransmitter', body: 'Released molecules crossing the cleft.', x: 55, y: 59, w: 40, h: 9, mx: 33, my: 59 },
   { id: 'postsynaptic-membrane', label: 'Postsynaptic membrane (receptors)', body: 'Carries the receptors that bind transmitter; the postsynaptic density.', x: 50, y: 64, w: 78, h: 8, mx: 24, my: 65 },
   { id: 'dendrite', label: 'Postsynaptic dendrite', body: 'The target cell, usually a dendrite or soma. Produces an electrical or biochemical response.', x: 50, y: 82, w: 70, h: 30, mx: 50, my: 84 },
@@ -741,7 +741,7 @@ export default {
           rows: [
             { label: 'Nissl stain', cells: ['All cell bodies, layers, neurons versus glia', 'Dendritic trees, axons, spines, synapses'] },
             { label: 'Golgi stain', cells: ['A few neurons stained completely: soma, dendrites, axon', 'Most cells; whether two neurons touch or fuse'] },
-            { label: 'Electron microscope', cells: ['Membranes, vesicles, the 20 nm synaptic cleft', 'Large-scale organization; only a tiny volume at a time'] },
+            { label: 'Electron microscope', cells: ['Membranes, vesicles, the synaptic cleft itself', 'Large-scale organization; only a tiny volume at a time'] },
           ],
         },
         { type: 'example', title: 'Golgi 1873, Cajal from 1888', body: 'Golgi found that silver chromate stains a small percentage of neurons completely. It showed that the soma is a small part of the neuron and that the neurites are of two kinds: many tapering dendrites and one axon of uniform diameter. Cajal used the stain to work out circuits.' },
@@ -944,7 +944,7 @@ export default {
           title: 'Chemical versus electrical synapse',
           columns: ['Chemical', 'Electrical'],
           rows: [
-            { label: 'Link', cells: ['Transmitter across a 20 nm cleft', 'Gap junction: connexin channels join the two cytoplasms'] },
+            { label: 'Link', cells: ['Transmitter across a 20 to 50 nm cleft', 'Gap junction: connexin channels join the two cytoplasms'] },
             { label: 'Direction', cells: ['One way, pre to post, because the two sides are built differently', 'Both directions'] },
             { label: 'Speed', cells: ['Slower', 'Very fast'] },
             { label: 'How common', cells: ['Most synapses in the mature human brain', 'A minority'] },
@@ -1174,7 +1174,7 @@ export default {
       { term: 'Cortical layers', definition: 'I to VI. V1 has thick layer 4 (4A, 4B, 4C, line of Gennari); V2 does not.' },
       { term: 'Brodmann area', definition: 'Numbered cytoarchitectonic label. Anatomical, not a function statement by itself.' },
       { term: 'Golgi stain', definition: 'Silver chromate. Few neurons, stained completely: soma, dendrites, axon.' },
-      { term: 'Reticular theory vs neuron doctrine', definition: 'Golgi: continuous network. Cajal: separate cells, contact not continuity. EM (1950s) showed the 20 nm cleft; light microscope limit 0.1 um.' },
+      { term: 'Reticular theory vs neuron doctrine', definition: 'Golgi: continuous network. Cajal: separate cells, contact not continuity. EM (1950s) resolved the cleft; gap 20 nm, light microscope limit 0.1 um.' },
       { term: 'Neuron doctrine points', definition: 'Units; cells; specialization; nucleus is trophic centre; fibres are processes; cell division; contact; dynamic polarization; synapse barrier; unity of transmission; Dale\'s law; electrical transmission and cotransmission.' },
       { term: 'Law of dynamic polarization', definition: 'Preferred direction of transmission cell to cell (dendrite, soma to axon to terminal), although an axon can conduct both ways.' },
       { term: 'Dale\'s law', definition: 'Each nerve terminal releases a single type of transmitter.' },
@@ -1359,7 +1359,7 @@ export default {
       modelAnswer: [
         'Nissl staining colours the RNA-rich rough ER and the nuclei, so it shows every cell body, the layering of the cortex, and lets neurons and glia be told apart. It does not show axons, dendritic trees or synapses.',
         'Golgi staining fills a few neurons entirely, so it shows the shape of whole neurons, their dendritic trees and axons, against unstained tissue.',
-        'Electron microscopy resolves membranes and organelles at about 0.1 nm, showing synaptic vesicles and the 20 nm synaptic cleft, which proved that neurons are separate cells.',
+        'Electron microscopy resolves membranes and organelles at about 0.1 nm, showing synaptic vesicles and the synaptic cleft, which proved that neurons are separate cells.',
       ],
     },
     {

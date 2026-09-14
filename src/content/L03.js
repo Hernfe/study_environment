@@ -46,7 +46,7 @@ const GAP_REGIONS = [
   { id: 'cell1', label: 'Cell 1 cytoplasm', body: 'The upper cell. Its membrane is the top bilayer.', shape: 'rect', x: 45, y: 12, w: 40, h: 10, mx: 45, my: 12, side: 'top' },
   { id: 'cluster', label: 'Gap junction (many channels)', body: 'The green cluster: a gap junction is a plaque of many channels.', x: 28, y: 29, w: 28, h: 26, mx: 20, my: 28, side: 'left' },
   { id: 'channel', label: 'Gap junction channel', body: 'One channel in side view: two connexons meeting end to end. Its pore is 1 to 2 nm wide, enough for ions and small molecules.', shape: 'rect', x: 33, y: 70, w: 16, h: 40, mx: 33, my: 88, side: 'bottom' },
-  { id: 'gap', label: '3.5 nm gap', body: 'The two membranes are only about 3 nm apart, ten times closer than at a chemical synapse.', x: 9, y: 64, w: 8, h: 12, mx: 9, my: 64, side: 'left' },
+  { id: 'gap', label: '3.5 nm gap', body: 'The two membranes are only about 3.5 nm apart, ten times closer than at a chemical synapse.', x: 9, y: 64, w: 8, h: 12, mx: 9, my: 64, side: 'left' },
   { id: 'connexon', label: 'Connexon (six connexins)', body: 'A half-channel made of six connexin subunits. Each cell contributes one connexon.', x: 75, y: 70, w: 10, h: 26, mx: 75, my: 70, side: 'right' },
   { id: 'full', label: 'Two connexons make one channel', body: 'The connexon of cell 1 meets the connexon of cell 2 across the gap.', x: 84, y: 50, w: 12, h: 60, mx: 84, my: 35, side: 'right' },
   { id: 'ions', label: 'Ions and small molecules pass', body: 'Current flows directly from cytoplasm to cytoplasm, in both directions.', x: 26, y: 94, w: 6, h: 10, mx: 26, my: 96, side: 'bottom' },
@@ -161,7 +161,8 @@ export default {
 
   prerequisites: [
     { text: 'Membrane potential, equilibrium potential, driving force and conductance.', lectureId: 'L02', sectionId: 'gradients' },
-    { text: 'How action potentials begin and propagate, and the refractory membrane behind them.', lectureId: 'L02', sectionId: 'conduction' },
+    { text: 'The action potential waveform and what the Na+ and K+ channels do in each phase.', lectureId: 'L02', sectionId: 'waveform' },
+    { text: 'Where the spike starts, and how it propagates one way with a refractory membrane behind it.', lectureId: 'L02', sectionId: 'conduction' },
     { text: 'Soma, dendrites, dendritic spines, axon and axon terminal.', lectureId: 'L01', sectionId: 'prototypical-neuron' },
     { text: 'Axonal transport by kinesin along microtubules.', lectureId: 'L01', sectionId: 'axonal-transport' },
   ],
@@ -285,7 +286,7 @@ export default {
       title: 'Electrical synapses and gap junctions',
       keyTerms: ['electrical synapse', 'gap junction', 'connexin', 'connexon', 'electrically coupled', 'electrical PSP', 'synchronization'],
       blocks: [
-        { type: 'definition', term: 'Gap junction', body: 'A cluster of channels that join the cytoplasm of two cells directly. Six connexin proteins make a connexon; two connexons, one from each cell, make a gap junction channel; many channels make a gap junction. The membranes are only about 3 nm apart.' },
+        { type: 'definition', term: 'Gap junction', body: 'A cluster of channels that join the cytoplasm of two cells directly. Six connexin proteins make a connexon; two connexons, one from each cell, make a gap junction channel; many channels make a gap junction. The membranes are only about 3.5 nm apart.' },
         figureBlock(
           hotspots('gap-junction', 1091 / 412, 'Two membranes joined by a plaque of gap junction channels, with one channel in side view and, on the right, one connexon and one full channel.', GAP_REGIONS, { gutter: 'all', layout: 'stack' }),
           'A gap junction (textbook Figure 5.1 b and c). Ions and small molecules pass through the 1 to 2 nm pore in both directions.',
@@ -329,7 +330,7 @@ export default {
           title: 'Electrical versus chemical synapse',
           columns: ['Electrical', 'Chemical'],
           rows: [
-            { label: 'Structure', cells: ['Gap junction channels, 3 nm gap', 'Vesicles, active zone, 20 to 50 nm cleft, receptors'] },
+            { label: 'Structure', cells: ['Gap junction channels, 3.5 nm gap', 'Vesicles, active zone, 20 to 50 nm cleft, receptors'] },
             { label: 'Signal route', cells: ['Ionic current straight through', 'Transmitter released, diffuses, binds receptors'] },
             { label: 'Delay', cells: ['Almost none', 'About 0.5 to 1 ms or more'] },
             { label: 'Direction', cells: ['Usually both ways', 'One way'] },
@@ -1289,7 +1290,7 @@ export default {
     terms: [
       { term: 'Synapse', definition: 'Junction from presynaptic to postsynaptic cell. Axodendritic (stereotype), axosomatic, axoaxonic, dendrodendritic; axospinous on a spine.' },
       { term: 'Chemical synapse parts', definition: 'Terminal with vesicles (50 nm) and secretory granules (100 nm, peptides), mitochondria, active zone; cleft 20 to 50 nm; postsynaptic density with receptors.' },
-      { term: 'Gap junction', definition: '6 connexins = connexon; 2 connexons = channel; many channels = gap junction. 3 nm gap, pore 1 to 2 nm. Ions and small molecules both ways.' },
+      { term: 'Gap junction', definition: '6 connexins = connexon; 2 connexons = channel; many channels = gap junction. 3.5 nm gap, pore 1 to 2 nm. Ions and small molecules both ways.' },
       { term: 'Electrical synapse', definition: 'Direct current, almost no delay, usually bidirectional, electrical PSP about 1 mV. Synchronizes (inferior olive, connexin36). Fast, fail-safe if large.' },
       { term: 'Chemical synapse', definition: 'Release, diffusion, binding: delay 0.5 to 1 ms, one way, EPSP or IPSP, modulated at every step.' },
       { term: 'Targeting', definition: 'One terminal on a spine; two on a soma; one wrapping a soma; one on many spines. More active zones in bigger synapses. Asymmetric (type I) usually excitatory, symmetric (type II) usually inhibitory.' },
@@ -1353,7 +1354,7 @@ export default {
       correct: 0,
       modelAnswer: [
         'Six connexin subunits assemble into a connexon, a half-channel in one cell\'s membrane.',
-        'A connexon from each cell meets across the 3 nm gap to form one gap junction channel, and many channels make a gap junction.',
+        'A connexon from each cell meets across the 3.5 nm gap to form one gap junction channel, and many channels make a gap junction.',
       ],
     },
     {
@@ -1547,7 +1548,7 @@ export default {
       prompt: 'Compare chemical and electrical synapses in structure, signal route, delay and direction, and explain why chemical transmission, unlike electrical, can be modulated. Give two points in the chemical pathway where modulation acts.',
       points: 6,
       markScheme: [
-        { points: 1, text: 'Structure: electrical synapse = gap junction channels (connexons of six connexins, 3 nm gap) joining the cytoplasms; chemical synapse = vesicles, active zone, 20 to 50 nm cleft, postsynaptic receptors.' },
+        { points: 1, text: 'Structure: electrical synapse = gap junction channels (connexons of six connexins, 3.5 nm gap) joining the cytoplasms; chemical synapse = vesicles, active zone, 20 to 50 nm cleft, postsynaptic receptors.' },
         { points: 1, text: 'Signal route: electrical passes ionic current directly; chemical converts the spike into Ca2+ entry, transmitter release, diffusion, receptor binding and back into an electrical response.' },
         { points: 1, text: 'Delay: electrical almost none; chemical about 0.5 to 1 ms because of the intervening steps.' },
         { points: 1, text: 'Direction: most electrical synapses are bidirectional (cells electrically coupled); chemical synapses transmit only from presynaptic to postsynaptic cell.' },
@@ -1555,7 +1556,7 @@ export default {
         { points: 1, text: 'Two concrete modulation points, for example autoreceptors reducing release, drugs at GABA-A modulatory sites, or the NE beta-receptor cascade closing K+ channels and lengthening the dendritic length constant.' },
       ],
       modelAnswer: [
-        'An electrical synapse is a gap junction: plaques of channels, each made of two connexons of six connexins, spanning a 3 nm gap and joining the two cytoplasms. A chemical synapse has a presynaptic terminal with vesicles and active zones, a 20 to 50 nm cleft, and a postsynaptic density with receptors.',
+        'An electrical synapse is a gap junction: plaques of channels, each made of two connexons of six connexins, spanning a 3.5 nm gap and joining the two cytoplasms. A chemical synapse has a presynaptic terminal with vesicles and active zones, a 20 to 50 nm cleft, and a postsynaptic density with receptors.',
         'At the electrical synapse ionic current from the spike in cell 1 flows straight into cell 2 and produces a small electrical PSP of about 1 mV. At the chemical synapse the spike opens Ca2+ channels, Ca2+ triggers SNARE-mediated exocytosis, transmitter diffuses across the cleft and binds receptors, which open channels or activate G-proteins.',
         'Those steps cost time: chemical transmission has a synaptic delay of roughly 0.5 to 1 ms, the electrical synapse almost none.',
         'Most gap junctions pass current equally both ways, so coupled cells influence each other. Chemical transmission is one-way, from the terminal with vesicles to the cell with receptors.',
