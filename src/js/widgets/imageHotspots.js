@@ -265,12 +265,18 @@ export function buildFigure(props, { numbered = true, onEnter, onLeave, onPick, 
     }
   }
 
+  // Observe the border box, not the content box: the stage's max-width is
+  // calc(28rem * aspect + 2 * var(--gx)), so for a picture tall enough to hit
+  // the 28rem cap the content box is the same width with and without gutters.
+  // A content-box observer never fires when the gutters collapse at 48rem, and
+  // the badges keep the wide-screen gutter positions, which on a tall figure
+  // land outside the page. The window listener covers the same media-query
+  // flip when the observed box happens not to change at all.
   if ('ResizeObserver' in window) {
-    new ResizeObserver(() => layout()).observe(stage);
-  } else {
-    window.addEventListener('resize', layout);
-    queueMicrotask(layout);
+    new ResizeObserver(() => layout()).observe(stage, { box: 'border-box' });
   }
+  window.addEventListener('resize', layout);
+  queueMicrotask(layout);
 
   function setState(id, state) {
     const nodes = [markers.get(id), overlay.querySelector(`[data-region="${id}"]`), anchors.get(id), leaderOf.get(id)];
