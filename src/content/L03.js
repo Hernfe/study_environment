@@ -925,7 +925,7 @@ export default {
           'The GABA-A receptor (textbook Figure 6.22). GABA opens it; benzodiazepines, barbiturates, ethanol and neurosteroids bind their own sites and change how it responds to GABA.',
           'A green two-lobed channel spanning a membrane, with a Cl- pore down its middle. A green ball drops onto its top; a red block, a yellow wedge, a brown diamond and a purple oval each point an arrow at a different notch on the channel.'
         ),
-        { type: 'example', title: 'Why the modulatory sites matter', body: 'Too much inhibition and consciousness is lost; too little and seizures follow. With GABA present, benzodiazepines (diazepam) increase the frequency of channel openings and barbiturates (phenobarbital) their duration: more Cl- current, stronger IPSPs. Ethanol acts on GABA-A receptors of particular subunit make-up, which is why it enhances inhibition in some regions but not others.' },
+        { type: 'example', title: 'Why the modulatory sites matter', body: ['Too much inhibition and consciousness is lost; too little and seizures follow. With GABA present, benzodiazepines (diazepam) increase the frequency of channel openings and barbiturates (phenobarbital) their duration: more Cl- current, stronger IPSPs.', 'Ethanol acts on GABA-A receptors of particular subunit make-up, which is why it enhances inhibition in some regions but not others.'] },
       ],
       conceptQuiz: [
         {
@@ -1218,7 +1218,7 @@ export default {
             { label: 'Adenosine', cells: ['A type', 'Adenosine', 'Caffeine'] },
           ],
         },
-        { type: 'detail', title: 'G-protein-coupled receptor families (Table 6.2, slide 51)', body: 'Muscarinic M1 to M5, metabotropic glutamate receptors mGluR1 to 8, GABA-B1 and B2, many serotonin subtypes, dopamine D1 to D5, alpha-1, alpha-2 and beta-1 to 3 adrenergic, opioid mu, delta and kappa, cannabinoid CB1 and CB2, P2Y and adenosine A1 to A3. About 800 genes in all. Adenosine is not packaged in vesicles, so the book does not count it as a classical transmitter.' },
+        { type: 'detail', title: 'G-protein-coupled receptor families (Table 6.2, slide 51)', body: ['Muscarinic M1 to M5, metabotropic glutamate receptors mGluR1 to 8, GABA-B1 and B2, many serotonin subtypes, dopamine D1 to D5, alpha-1, alpha-2 and beta-1 to 3 adrenergic, opioid mu, delta and kappa, cannabinoid CB1 and CB2, P2Y and adenosine A1 to A3.', 'About 800 genes in all. Adenosine is not packaged in vesicles, so the book does not count it as a classical transmitter.'] },
         { type: 'steps', title: 'How a G-protein-coupled receptor works', steps: [
           'The receptor is one polypeptide with seven membrane-spanning helices: transmitter site outside, G-protein site inside.',
           'The G-protein has alpha, beta and gamma subunits and holds GDP at rest. When a receptor with transmitter bound bumps into it, the alpha subunit swaps GDP for GTP.',

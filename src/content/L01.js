@@ -433,7 +433,19 @@ export default {
           'Directions placed on the slide figure. Anterior is to the left in the lateral view.',
           'A lateral view with anterior, posterior, dorsal and ventral marked, and a dorsal view with medial and lateral marked.'
         ),
-        { type: 'example', title: 'Why the slide lists both dorsal and superior', body: 'The human neuraxis bends near the midbrain. In the forebrain dorsal equals superior and ventral equals inferior. In the brainstem and spinal cord dorsal equals posterior and ventral equals anterior. Rostral and caudal bend the same way: anterior and posterior in the forebrain, superior and inferior in the brainstem and cord. HW1 exercise 1 asks for both pairs.' },
+        {
+          type: 'compare',
+          title: 'Why the slide lists both dorsal and superior',
+          rowLabel: 'Term',
+          columns: ['In the forebrain', 'In the brainstem and spinal cord'],
+          rows: [
+            { label: 'Dorsal', cells: ['Superior, the top of the head', 'Posterior, the back of the animal'] },
+            { label: 'Ventral', cells: ['Inferior, the underside', 'Anterior, the belly side'] },
+            { label: 'Rostral', cells: ['Anterior, toward the frontal pole', 'Superior, toward the head'] },
+            { label: 'Caudal', cells: ['Posterior, toward the occipital pole', 'Inferior, toward the feet'] },
+          ],
+        },
+        { type: 'example', title: 'One axis, bent', body: 'The neuraxis bends near the midbrain, so the same word lands on a different everyday direction above and below the bend. HW1 exercise 1 asks for both pairs.' },
         { type: 'definition', term: 'View', body: 'What you see from one side. Dorsal from above, ventral from below, lateral from the side, medial the inner surface after a cut down the midline.' },
         figureBlock(
           hotspots('four-views', 1001 / 1047, 'Four views of the brain: dorsal and ventral above, lateral and medial below.', VIEW_REGIONS),
@@ -1044,7 +1056,7 @@ export default {
             { label: 'Carries', cells: ['Vesicles, membrane and proteins for the terminal', 'Used material and signals about the state of the terminal'] },
           ],
         },
-        { type: 'detail', title: 'When transport fails', body: 'Distant terminals suffer first: the supply of vesicle proteins and membrane stops and the synapse weakens. Continued failure can impair a whole circuit. In Alzheimer\'s disease the microtubule-associated protein tau detaches from the microtubules and forms tangles. Both directions are also used by neuroscientists to trace connections with injected tracers.' },
+        { type: 'detail', title: 'When transport fails', body: ['Distant terminals suffer first: the supply of vesicle proteins and membrane stops and the synapse weakens. Continued failure can impair a whole circuit.', 'In Alzheimer\'s disease the microtubule-associated protein tau detaches from the microtubules and forms tangles. Both directions are also used by neuroscientists to trace connections with injected tracers.'] },
       ],
       conceptQuiz: [
         {

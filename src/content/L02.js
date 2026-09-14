@@ -457,8 +457,10 @@ export default {
         { type: 'definition', term: 'Calcium pump', body: 'Actively moves Ca2+ out of the cytosol. Together with calcium-binding proteins and organelles that sequester Ca2+, it keeps free cytosolic Ca2+ at only 0.0002 mM.' },
         { type: 'misconception', wrong: 'The sodium-potassium pump makes the action potential.', right: 'The fast voltage changes come from Na+ and K+ moving through channels down their gradients. The pump works slowly in the background, like a bilge pump, to restore the gradients over time.' },
         { type: 'detail', title: 'Assigned reading (pp. 73-78): potassium channels and external K+', body: [
-          'Most potassium channels have four subunits arranged like the staves of a barrel. A pore loop in each subunit lines the selectivity filter. The Shaker fly and scorpion toxin led to the filter\'s sequence; MacKinnon solved the channel\'s atomic structure (Nobel Prize 2003). In Weaver mice one amino acid in a pore loop is mutated, Na+ leaks through and the cerebellar neurons lose their negative potential.',
-          'Because the resting membrane is mostly permeable to K+, Vm is very sensitive to [K+]o: raising it tenfold, from 5 to 50 mM, moves Vm from -65 to -17 mV, a depolarization (Vm going less negative). The blood-brain barrier and astrocytes (potassium spatial buffering) keep [K+]o low in the brain; muscle and heart are not protected, which is why intravenous KCl stops the heart.',
+          'Most potassium channels have four subunits arranged like the staves of a barrel. A pore loop in each subunit lines the selectivity filter. The Shaker fly and scorpion toxin led to the filter\'s sequence; MacKinnon solved the channel\'s atomic structure (Nobel Prize 2003).',
+          'In Weaver mice one amino acid in a pore loop is mutated, Na+ leaks through and the cerebellar neurons lose their negative potential.',
+          'Because the resting membrane is mostly permeable to K+, Vm is very sensitive to [K+]o: raising it tenfold, from 5 to 50 mM, moves Vm from -65 to -17 mV, a depolarization (Vm going less negative).',
+          'The blood-brain barrier and astrocytes (potassium spatial buffering) keep [K+]o low in the brain; muscle and heart are not protected, which is why intravenous KCl stops the heart.',
         ] },
       ],
       conceptQuiz: [
@@ -943,7 +945,15 @@ export default {
             { label: 'Relative refractory period', cells: ['Vm stays hyperpolarized until the K+ channels close, so more depolarizing current is needed to reach threshold.'] },
           ],
         },
-        { type: 'example', title: 'Homework scenario (HW1 exercise 3 and 4F)', body: 'Neuron A: voltage-gated Na+ channels cannot open. Resting Vm is normal (it depends on the K+ leak and the pumps), but no action potential can be generated; the defect shows immediately. Neuron B: high [K+]o depolarizes the resting potential at once and can inactivate Na+ channels. Neuron C: pumps blocked, gradients fade slowly, so rest and spiking fail progressively over time.' },
+        {
+          type: 'steps',
+          title: 'Homework scenario (HW1 exercise 3 and 4F)',
+          steps: [
+            { title: 'Neuron A, Na+ channels cannot open:', body: 'resting Vm is normal, because rest depends on the K+ leak and the pumps, but no action potential can be generated. The defect shows immediately.' },
+            { title: 'Neuron B, high [K+]o:', body: 'the resting potential depolarizes at once, and the sustained depolarization can inactivate Na+ channels.' },
+            { title: 'Neuron C, pumps blocked:', body: 'the gradients fade slowly, so rest and spiking are normal at first and then fail progressively.' },
+          ],
+        },
         { type: 'detail', title: 'Channelopathy', body: 'A single amino acid change in one sodium channel gene slows inactivation, prolongs the spike and causes generalized epilepsy with febrile seizures in infants. Local anaesthetics such as lidocaine block spikes by binding inside the open Na+ pore.' },
       ],
       conceptQuiz: [
