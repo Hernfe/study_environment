@@ -17,7 +17,7 @@ when it differs from what is written here.
   the student writes is a one-line correction of a false statement.
 - Every answer is a tick, a term picked from a given list, a number
   in a ranking, or a short label. Most sub-items give their options.
-- Total 11.5 points: two 1-point questions and 38 sub-items at 0.25.
+- Total 10 points: two 1-point questions and 32 sub-items at 0.25.
 
 | # | Type | Items | Points | Site type |
 |---|---|---|---|---|
