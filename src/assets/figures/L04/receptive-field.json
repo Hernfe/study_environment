@@ -1,0 +1,28 @@
+{
+ "file": "src/assets/figures/L04/receptive-field.webp",
+ "source": "source/slides/NBE-E4210 LECTURE 04 - 2026.pdf",
+ "page": 15,
+ "crop_box_pt": [
+  0.0,
+  0.0,
+  582.75,
+  540.0
+ ],
+ "page_size_pt": [
+  960.0,
+  540.0
+ ],
+ "dpi": 109,
+ "rendered_px": [
+  882,
+  818
+ ],
+ "saved_px": [
+  882,
+  818
+ ],
+ "webp_quality": 90,
+ "bytes": 60134,
+ "extracted": "2026-09-24T10:12:36+00:00",
+ "note": "Course slide material. Redraw or replace before publishing; see CREDITS.md."
+}

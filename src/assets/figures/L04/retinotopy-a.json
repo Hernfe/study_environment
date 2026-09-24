@@ -1,0 +1,59 @@
+{
+ "file": "src/assets/figures/L04/retinotopy-a.webp",
+ "source": "source/slides/NBE-E4210 LECTURE 04 - 2026.pdf",
+ "page": 28,
+ "crop_box_pt": [
+  258.75,
+  68.25,
+  875.25,
+  540.0
+ ],
+ "page_size_pt": [
+  960.0,
+  540.0
+ ],
+ "dpi": 149,
+ "rendered_px": [
+  1277,
+  977
+ ],
+ "saved_px": [
+  472,
+  508
+ ],
+ "webp_quality": 90,
+ "bytes": 11524,
+ "extracted": "2026-09-24T10:12:55+00:00",
+ "note": "Course slide material. Redraw or replace before publishing; see CREDITS.md.",
+ "retouch": [
+  {
+   "op": "paint",
+   "boxes_pct": [
+    [
+     40.0,
+     0.0,
+     100.0,
+     2.5
+    ],
+    [
+     79.0,
+     8.0,
+     100.0,
+     21.0
+    ]
+   ],
+   "color": "#ffffff",
+   "at": "2026-09-24T10:12:56+00:00"
+  },
+  {
+   "op": "crop",
+   "box_pct": [
+    0.0,
+    8.0,
+    37.0,
+    60.0
+   ],
+   "at": "2026-09-24T10:12:56+00:00"
+  }
+ ]
+}

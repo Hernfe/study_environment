@@ -1,0 +1,40 @@
+{
+ "file": "src/assets/figures/L04/accommodation.webp",
+ "source": "source/slides/NBE-E4210 LECTURE 04 - 2026.pdf",
+ "page": 7,
+ "crop_box_pt": [
+  159.75,
+  195.75,
+  960.0,
+  486.0
+ ],
+ "page_size_pt": [
+  960.0,
+  540.0
+ ],
+ "dpi": 128,
+ "rendered_px": [
+  1420,
+  515
+ ],
+ "saved_px": [
+  1050,
+  515
+ ],
+ "webp_quality": 90,
+ "bytes": 33154,
+ "extracted": "2026-09-24T10:12:27+00:00",
+ "note": "Course slide material. Redraw or replace before publishing; see CREDITS.md.",
+ "retouch": [
+  {
+   "op": "crop",
+   "box_pct": [
+    0.0,
+    0.0,
+    74.0,
+    100.0
+   ],
+   "at": "2026-09-24T10:12:28+00:00"
+  }
+ ]
+}

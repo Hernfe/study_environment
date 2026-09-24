@@ -253,9 +253,13 @@ Rules for `visual`:
 | `summation-shunt` | `summationShunt.js` | Passive RC membrane with spatial and temporal EPSP summation and a Cl- shunt toggle. Props: `{ threshold, labels }`. |
 | `circuit-motifs` | `circuitMotifs.js` | Radios pick a wiring motif; cells and synapses are drawn from props. Props: `{ motifs: [{ key, label, body, steps, cells, links }], labels }`. |
 | `ampa-nmda` | `ampaNmda.js` | Vm slider and glutamate toggle; AMPA and NMDA I-V curves with the Mg2+ block, a pore cartoon and the two time courses. Props: `{ labels }`. |
+| `center-surround` | `centerSurround.js` | Light spot, dark spot or light-dark edge dragged and resized over an ON-center or OFF-center field; spike trains for the ground alone and with the stimulus, center and surround coverage read-out, preset buttons. Props: `{ base, gain, max, surroundWeight, initial, presets: [{ label, state }], labels }`. |
+| `hemifield-tracer` | `hemifieldTracer.js` | Click a point in either eye's field chart; the path lights up through hemiretina, nerve, chiasm, tract, LGN layers and V1. Lesion radios (`none`, `nerve-L`, `chiasm`, `tract-L`, `v1-L`, `v1-L-spare`) shade the lost field per eye. Props: `{ lesions: [{ key, label }], initial, labels }` (labels include `{placeholder}` templates). |
+| `simple-cell` | `simpleCell.js` | Light bar rotated and shifted over three LGN ON-center fields, aligned or scattered; LGN and simple cell spike trains and an orientation tuning curve. Props: `{ axis, threshold, gain, initial, labels }`. |
 
 The five quantitative demos share `hhModel.js` (the membrane model)
-and `d3util.js` (range-frame axes, sliders, radios, read-outs, worked
+and `d3util.js` (which also holds `spikeTrain` and `ringSamples` for the
+L04 receptive-field demos) (range-frame axes, sliders, radios, read-outs, worked
 equation lines). Below 48 rem a demo plot scrolls sideways inside
 `.plot` rather than shrinking, like chart hotspots.
 
@@ -909,6 +913,13 @@ report, or on its own with lecture ids) loads every content file through
 
 Lengths are measured on what the student reads (tags stripped, TeX
 commands counted as one symbol). L00 to L02 predate these rules and are
-summarised as legacy; `--verbose` lists every finding, `--strict` (or
-`LINT_STRICT=1 npm run build`) exits non-zero on findings in any other
-lecture. A new lecture is not done until its report is clean.
+marked legacy (`LEGACY` in the script): their findings are summarised
+and never fail anything; `--verbose` lists every one.
+
+The lint is a build gate. `npm run build` runs it with `--strict`
+(`scripts/build_report.mjs`), and any finding in a lecture not marked
+legacy, plain-text maths included, fails the build. Advisory notes
+(`tiers`, `wordbank-note`) never fail it. `LINT_GATE=0 npm run build`
+reports without failing, for a work-in-progress build only. Without
+Python the lint is skipped with a warning. A new lecture is never added
+to `LEGACY`.

@@ -1,0 +1,28 @@
+{
+ "file": "src/assets/figures/L04/wiring.webp",
+ "source": "source/slides/NBE-E4210 LECTURE 04 - 2026.pdf",
+ "page": 37,
+ "crop_box_pt": [
+  578.25,
+  0.0,
+  960.0,
+  539.25
+ ],
+ "page_size_pt": [
+  960.0,
+  540.0
+ ],
+ "dpi": 160,
+ "rendered_px": [
+  851,
+  1201
+ ],
+ "saved_px": [
+  851,
+  1201
+ ],
+ "webp_quality": 90,
+ "bytes": 103292,
+ "extracted": "2026-09-24T10:13:09+00:00",
+ "note": "Course slide material. Redraw or replace before publishing; see CREDITS.md."
+}

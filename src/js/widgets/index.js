@@ -19,6 +19,9 @@ import { drivingForce } from './drivingForce.js';
 import { summationShunt } from './summationShunt.js';
 import { circuitMotifs } from './circuitMotifs.js';
 import { ampaNmda } from './ampaNmda.js';
+import { centerSurround } from './centerSurround.js';
+import { hemifieldTracer } from './hemifieldTracer.js';
+import { simpleCell } from './simpleCell.js';
 
 export const widgets = {
   'slider-plot': sliderPlot,
@@ -45,4 +48,8 @@ export const widgets = {
   'summation-shunt': summationShunt,
   'circuit-motifs': circuitMotifs,
   'ampa-nmda': ampaNmda,
+  // Visual system demos (d3).
+  'center-surround': centerSurround,
+  'hemifield-tracer': hemifieldTracer,
+  'simple-cell': simpleCell,
 };

@@ -111,6 +111,54 @@ Neurobiology) as shown on the slides.
 | `ne-cascade.webp` | L03 Pharmacology | L03 slide deck, page 53 (textbook Figure 5.22) | Course slides | Course material | Cite the course |
 | Widgets `synapse-timeline`, `synapse-compare`, `driving-force`, `summation-shunt`, `circuit-motifs`, `ampa-nmda` | L03 | d3 demos drawn for this site; the NMDA block uses the Jahr and Stevens 1990 form | n/a | Repository licence | No |
 
+Lecture 4 raster files are in `src/assets/figures/L04/`, built by
+`scripts/figures_L04.py`. Nearly all are Bear, Connors and Paradiso
+figures as shown on the slides. The prey and predator field schematics
+(`prey-field.webp`, `predator-field.webp`) are extracted but not used.
+The slide 34 video ("Cortical neurons V1") is not on the site yet.
+
+| File | Where used | Source | Original | Licence | Attribution required |
+| --- | --- | --- | --- | --- | --- |
+| `eye-gross.webp` | L04 Eye structure | L04 slide deck, page 6 (textbook Figure 9.4) | Course slides | Course material | Cite the course |
+| `eye-section.webp` | L04 Eye structure | L04 slide deck, page 6 (textbook Figure 9.6) | Course slides | Course material | Cite the course |
+| `accommodation.webp` | L04 Accommodation | L04 slide deck, page 7 (textbook Figure 9.8) | Course slides | Course material | Cite the course |
+| `visual-field.webp` | L04 Visual field | L04 slide deck, page 9 (textbook Figure 9.9) | Course slides | Course material | Cite the course |
+| `visual-angle.webp` | L04 Visual field | L04 slide deck, page 9 (textbook Figure 9.10) | Course slides | Course material | Cite the course |
+| `retina-layers.webp` | L04 Retinal layers, lecture quiz q02 | L04 slide deck, page 10 (textbook Figure 9.12) | Course slides | Course material | Cite the course |
+| `fovea.webp` | L04 Retinal layers | L04 slide deck, page 11 (textbook Figure 9.16) | Course slides | Course material | Cite the course |
+| `convergence.webp` | L04 Rods and cones | L04 slide deck, page 12 (textbook Figure 9.15 b) | Course slides | Course material | Cite the course |
+| `microcircuit.webp` | L04 Microcircuit | L04 slide deck, page 13 (textbook Figure 9.11) | Course slides | Course material | Cite the course |
+| `receptive-field.webp` | L04 Receptive fields | L04 slide deck, page 15 (textbook Figure 9.25) | Course slides | Course material | Cite the course |
+| `cnn-field.webp` | L04 Receptive fields | L04 slide deck, page 16 (convolutional network diagram) | Course slides | Course material | Cite the course |
+| `bipolar.webp` | L04 Bipolar cells | L04 slide deck, page 17 (textbook Figure 9.26) | Course slides | Course material | Cite the course |
+| `cs-spot.webp` | L04 Center-surround | L04 slide deck, page 20 (textbook Figure 9.27) | Course slides | Course material | Cite the course |
+| `cs-edge.webp` | L04 Center-surround, lecture quiz q08 | L04 slide deck, page 21 (textbook Figure 9.28) | Course slides | Course material | Cite the course |
+| `retinofugal.webp` | L04 Retinofugal projection, lecture quiz q03 | L04 slide deck, page 22 (textbook Figure 10.2) | Course slides | Course material | Cite the course |
+| `hemifields.webp` | L04 Retinofugal projection | L04 slide deck, page 23 (textbook Figure 10.3) | Course slides | Course material | Cite the course |
+| `visual-pathway.webp` | L04 LGN | L04 slide deck, page 24 (textbook Figure 10.4) | Course slides | Course material | Cite the course |
+| `lgn-nissl.webp` | L04 LGN | L04 slide deck, page 25 (textbook Figure 10.7) | Course slides | Course material | Cite the course |
+| `lgn-inputs.webp` | L04 LGN | L04 slide deck, page 25 (textbook Figure 10.8) | Course slides | Course material | Cite the course |
+| `mp-cells.webp` | L04 LGN | L04 slide deck, page 26 (textbook Figure 9.30) | Course slides | Course material | Cite the course |
+| `lgn-organization.webp` | L04 LGN | L04 slide deck, page 26 (textbook Figure 10.9) | Course slides | Course material | Cite the course |
+| `v1-location.webp` | L04 Retinotopy | L04 slide deck, page 28 (textbook Figure 10.10) | Course slides | Course material | Cite the course |
+| `retinotopy-a.webp` | L04 Retinotopy | L04 slide deck, page 28 (textbook Figure 10.11 a) | Course slides | Course material | Cite the course |
+| `retinotopy.webp` | L04 Retinotopy | L04 slide deck, page 28 (textbook Figure 10.11 b) | Course slides | Course material | Cite the course |
+| `autoradiography.webp` | L04 Ocular dominance | L04 slide deck, page 29 (textbook Figure 10.15) | Course slides | Course material | Cite the course |
+| `od-stripes.webp` | L04 Ocular dominance | L04 slide deck, page 30 (textbook Figure 10.16) | Course slides | Course material | Cite the course |
+| `od-human.webp` | L04 Ocular dominance | L04 slide deck, page 30 (human ocular dominance stripes) | Course slides | Course material | Cite the course |
+| `od-mixing.webp` | L04 Ocular dominance | L04 slide deck, page 31 (textbook Figure 10.17) | Course slides | Course material | Cite the course |
+| `cortex-layers.webp` | L04 Cortical layers | L04 slide deck, page 32 (textbook Figures 10.13 and 10.18, composed) | Course slides | Course material | Cite the course |
+| `orientation.webp` | L04 Orientation | L04 slide deck, page 33 (textbook Figure 10.20) | Course slides | Course material | Cite the course |
+| `simple-cell.webp` | L04 Orientation | L04 slide deck, page 35 (textbook Figure 10.23) | Course slides | Course material | Cite the course |
+| `streams.webp` | L04 Streams | L04 slide deck, page 36 (textbook Figure 10.27 a) | Course slides | Course material | Cite the course |
+| `extrastriate.webp` | L04 Streams | L04 slide deck, page 36 (textbook Figure 10.27 b) | Course slides | Course material | Cite the course |
+| `stream-flow.webp` | L04 Streams | L04 slide deck, page 36 (textbook Figure 10.27 c) | Course slides | Course material | Cite the course |
+| `wiring.webp` | L04 Streams | L04 slide deck, page 37 (Felleman and Van Essen style wiring diagram) | Course slides | Course material | Cite the course |
+| `human-areas.webp` | L04 Streams | L04 slide deck, page 38 (textbook Figure 10.28) | Course slides | Course material | Cite the course |
+| `hierarchy.webp` | L04 Organizational principles | L04 slide deck, page 39 (organizational principles diagram) | Course slides | Course material | Cite the course |
+| `faces.webp` | L04 fMRI | L04 slide deck, page 40 (textbook Figure 10.29) | Course slides | Course material | Cite the course |
+| `src/content/figures/vision.js` (rod and cone density, hierarchy chart) and the widgets `center-surround`, `hemifield-tracer`, `simple-cell` | L04 | d3 figures and demos drawn for this site; density curves traced from the slide, latencies and field sizes read off slide 39 | n/a | Repository licence | No |
+
 Credit lines shown on the site: the footer of every page names the
 sources whose licence asks for attribution and links here. When a page is
 exported or shared, add "Illustrations: NIH BioArt (courtesy of NIAID);

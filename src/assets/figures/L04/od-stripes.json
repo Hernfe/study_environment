@@ -1,0 +1,28 @@
+{
+ "file": "src/assets/figures/L04/od-stripes.webp",
+ "source": "source/slides/NBE-E4210 LECTURE 04 - 2026.pdf",
+ "page": 30,
+ "crop_box_pt": [
+  588.75,
+  132.75,
+  875.25,
+  520.5
+ ],
+ "page_size_pt": [
+  960.0,
+  540.0
+ ],
+ "dpi": 96,
+ "rendered_px": [
+  382,
+  517
+ ],
+ "saved_px": [
+  382,
+  517
+ ],
+ "webp_quality": 90,
+ "bytes": 51470,
+ "extracted": "2026-09-24T10:13:00+00:00",
+ "note": "Course slide material. Redraw or replace before publishing; see CREDITS.md."
+}

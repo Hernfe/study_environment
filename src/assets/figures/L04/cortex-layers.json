@@ -1,0 +1,56 @@
+{
+ "sources": [
+  {
+   "file": "src/assets/figures/L04/cortex-cells.webp",
+   "source": "source/slides/NBE-E4210 LECTURE 04 - 2026.pdf",
+   "page": 32,
+   "crop_box_pt": [
+    82.5,
+    169.5,
+    308.25,
+    414.75
+   ]
+  },
+  {
+   "file": "src/assets/figures/L04/cortex-outputs.webp",
+   "source": "source/slides/NBE-E4210 LECTURE 04 - 2026.pdf",
+   "page": 32,
+   "crop_box_pt": [
+    325.5,
+    171.0,
+    543.75,
+    501.0
+   ]
+  }
+ ],
+ "panels_pct": [
+  {
+   "x_pct": 0.0,
+   "y_pct": 0.0,
+   "w_pct": 56.48,
+   "h_pct": 100.0
+  },
+  {
+   "x_pct": 59.45,
+   "y_pct": 0.0,
+   "w_pct": 40.55,
+   "h_pct": 100.0
+  }
+ ],
+ "file": "src/assets/figures/L04/cortex-layers.webp",
+ "saved_px": [
+  1011,
+  620
+ ],
+ "webp_quality": 90,
+ "bytes": 24200,
+ "retouch": [
+  {
+   "op": "compose",
+   "cols": 2,
+   "gap": 30,
+   "height": 620,
+   "at": "2026-09-24T10:13:03+00:00"
+  }
+ ]
+}

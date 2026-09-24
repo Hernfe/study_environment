@@ -1,8 +1,11 @@
 // Course map. Scheduling and status only; no lecture text.
 // Lecture dates and chapters come from the schedule slide in the most
-// recent deck (L03). It moved L3 to 11.9; the L01 deck had 16.9.
-// Mini-exam dates: L1 on 18.9 and L2 on 25.9 are on the slides; the
-// rest are assumed weekly on Fridays. Check MyCourses and correct here.
+// recent deck (L04, same schedule as L03). L03 moved L3 to 11.9; the L01
+// deck had 16.9.
+// Mini-exam dates: L1 on 18.9 and L2 on 25.9 are on the slides (the L04
+// deck repeats "Exam on Sep 25th on Lecture 2"); the rest are assumed
+// weekly on Fridays with the same two-week lag. Check MyCourses and
+// correct here.
 // Titles are the textbook chapter titles, shortened.
 
 export const registry = [
@@ -40,7 +43,7 @@ export const registry = [
     chapters: [9, 10],
     lectureDate: '2026-09-23',
     examDate: '2026-10-09',
-    built: false,
+    built: true,
   },
   {
     id: 'L05',

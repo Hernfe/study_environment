@@ -1,0 +1,40 @@
+{
+ "file": "src/assets/figures/L04/lgn-nissl.webp",
+ "source": "source/slides/NBE-E4210 LECTURE 04 - 2026.pdf",
+ "page": 25,
+ "crop_box_pt": [
+  0.0,
+  131.25,
+  480.0,
+  538.5
+ ],
+ "page_size_pt": [
+  960.0,
+  540.0
+ ],
+ "dpi": 104,
+ "rendered_px": [
+  694,
+  590
+ ],
+ "saved_px": [
+  313,
+  372
+ ],
+ "webp_quality": 90,
+ "bytes": 32262,
+ "extracted": "2026-09-24T10:12:49+00:00",
+ "note": "Course slide material. Redraw or replace before publishing; see CREDITS.md.",
+ "retouch": [
+  {
+   "op": "crop",
+   "box_pct": [
+    54.0,
+    17.0,
+    99.0,
+    80.0
+   ],
+   "at": "2026-09-24T10:12:50+00:00"
+  }
+ ]
+}

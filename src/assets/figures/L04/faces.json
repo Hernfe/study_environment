@@ -1,0 +1,40 @@
+{
+ "file": "src/assets/figures/L04/faces.webp",
+ "source": "source/slides/NBE-E4210 LECTURE 04 - 2026.pdf",
+ "page": 40,
+ "crop_box_pt": [
+  5.25,
+  119.25,
+  657.0,
+  523.5
+ ],
+ "page_size_pt": [
+  960.0,
+  540.0
+ ],
+ "dpi": 107,
+ "rendered_px": [
+  970,
+  602
+ ],
+ "saved_px": [
+  970,
+  373
+ ],
+ "webp_quality": 90,
+ "bytes": 52306,
+ "extracted": "2026-09-24T12:04:55+00:00",
+ "note": "Course slide material. Redraw or replace before publishing; see CREDITS.md.",
+ "retouch": [
+  {
+   "op": "crop",
+   "box_pct": [
+    0.0,
+    0.0,
+    100.0,
+    62.0
+   ],
+   "at": "2026-09-24T12:04:56+00:00"
+  }
+ ]
+}

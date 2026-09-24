@@ -122,3 +122,38 @@ export function nextId(prefix = 'w') {
 export const fmt1 = format('.1f');
 export const fmt0 = format('.0f');
 export const fmt2 = format('.2f');
+
+// Deterministic spike train for a steady rate (spikes/s) over `duration`
+// seconds: a fixed sequence of unit intervals (gamma, order 3) scaled by
+// the rate, so the train compresses smoothly as the rate rises and the
+// same state always draws the same raster.
+const UNIT_INTERVALS = (() => {
+  let seed = 7;
+  const rnd = () => { seed = (seed * 16807) % 2147483647; return seed / 2147483647; };
+  return Array.from({ length: 400 }, () => (-Math.log(rnd()) - Math.log(rnd()) - Math.log(rnd())) / 3);
+})();
+
+export function spikeTrain(rate, duration = 1) {
+  if (rate <= 0.5) return [];
+  const out = [];
+  let t = UNIT_INTERVALS[0] / rate / 2;
+  for (let i = 1; t < duration && i < UNIT_INTERVALS.length; i += 1) {
+    out.push(t);
+    t += UNIT_INTERVALS[i] / rate;
+  }
+  return out;
+}
+
+// Mean of f over fixed sample points of a disk or ring (radii in the
+// caller's units), for coverage of receptive-field zones.
+export function ringSamples(r0, r1, rings, perRing) {
+  const pts = [];
+  for (let i = 0; i < rings; i += 1) {
+    const r = Math.sqrt(r0 * r0 + ((i + 0.5) / rings) * (r1 * r1 - r0 * r0));
+    for (let j = 0; j < perRing; j += 1) {
+      const a = ((j + (i % 2) * 0.5) / perRing) * Math.PI * 2;
+      pts.push([r * Math.cos(a), r * Math.sin(a)]);
+    }
+  }
+  return pts;
+}

@@ -1,0 +1,53 @@
+{
+ "file": "src/assets/figures/L04/lgn-organization.webp",
+ "source": "source/slides/NBE-E4210 LECTURE 04 - 2026.pdf",
+ "page": 26,
+ "crop_box_pt": [
+  255.75,
+  126.0,
+  960.0,
+  540.0
+ ],
+ "page_size_pt": [
+  960.0,
+  540.0
+ ],
+ "dpi": 103,
+ "rendered_px": [
+  1010,
+  594
+ ],
+ "saved_px": [
+  1010,
+  487
+ ],
+ "webp_quality": 90,
+ "bytes": 46200,
+ "extracted": "2026-09-24T10:12:53+00:00",
+ "note": "Course slide material. Redraw or replace before publishing; see CREDITS.md.",
+ "retouch": [
+  {
+   "op": "paint",
+   "boxes_pct": [
+    [
+     62.0,
+     0.0,
+     100.0,
+     5.5
+    ]
+   ],
+   "color": "#ffffff",
+   "at": "2026-09-24T10:12:54+00:00"
+  },
+  {
+   "op": "crop",
+   "box_pct": [
+    0.0,
+    0.0,
+    100.0,
+    82.0
+   ],
+   "at": "2026-09-24T10:12:54+00:00"
+  }
+ ]
+}

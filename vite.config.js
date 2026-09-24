@@ -12,6 +12,7 @@ const pages = {
   L01: 'lectures/L01/index.html',
   L02: 'lectures/L02/index.html',
   L03: 'lectures/L03/index.html',
+  L04: 'lectures/L04/index.html',
 };
 
 export default defineConfig({

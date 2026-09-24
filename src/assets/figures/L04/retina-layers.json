@@ -1,0 +1,40 @@
+{
+ "file": "src/assets/figures/L04/retina-layers.webp",
+ "source": "source/slides/NBE-E4210 LECTURE 04 - 2026.pdf",
+ "page": 10,
+ "crop_box_pt": [
+  178.5,
+  107.25,
+  781.5,
+  532.5
+ ],
+ "page_size_pt": [
+  960.0,
+  540.0
+ ],
+ "dpi": 129,
+ "rendered_px": [
+  1078,
+  761
+ ],
+ "saved_px": [
+  396,
+  623
+ ],
+ "webp_quality": 90,
+ "bytes": 34994,
+ "extracted": "2026-09-24T10:12:30+00:00",
+ "note": "Course slide material. Redraw or replace before publishing; see CREDITS.md.",
+ "retouch": [
+  {
+   "op": "crop",
+   "box_pct": [
+    47.6,
+    15.7,
+    84.4,
+    97.6
+   ],
+   "at": "2026-09-24T10:12:31+00:00"
+  }
+ ]
+}

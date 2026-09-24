@@ -1,0 +1,28 @@
+{
+ "file": "src/assets/figures/L04/human-areas.webp",
+ "source": "source/slides/NBE-E4210 LECTURE 04 - 2026.pdf",
+ "page": 38,
+ "crop_box_pt": [
+  0.0,
+  0.0,
+  427.5,
+  540.0
+ ],
+ "page_size_pt": [
+  960.0,
+  540.0
+ ],
+ "dpi": 129,
+ "rendered_px": [
+  767,
+  969
+ ],
+ "saved_px": [
+  767,
+  969
+ ],
+ "webp_quality": 90,
+ "bytes": 79190,
+ "extracted": "2026-09-24T10:13:10+00:00",
+ "note": "Course slide material. Redraw or replace before publishing; see CREDITS.md."
+}

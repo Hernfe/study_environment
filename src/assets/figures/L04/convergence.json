@@ -1,0 +1,28 @@
+{
+ "file": "src/assets/figures/L04/convergence.webp",
+ "source": "source/slides/NBE-E4210 LECTURE 04 - 2026.pdf",
+ "page": 12,
+ "crop_box_pt": [
+  543.75,
+  129.75,
+  954.0,
+  531.0
+ ],
+ "page_size_pt": [
+  960.0,
+  540.0
+ ],
+ "dpi": 94,
+ "rendered_px": [
+  539,
+  527
+ ],
+ "saved_px": [
+  539,
+  527
+ ],
+ "webp_quality": 90,
+ "bytes": 40330,
+ "extracted": "2026-09-24T10:12:33+00:00",
+ "note": "Course slide material. Redraw or replace before publishing; see CREDITS.md."
+}
