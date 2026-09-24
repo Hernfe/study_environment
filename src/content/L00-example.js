@@ -1,6 +1,8 @@
 // Dummy lecture that exercises every section and question type so the
 // renderer can be tested. Not course content. Shown only in dev.
 
+import { exampleCell } from './figures/example-cell.js';
+
 export default {
   meta: {
     id: 'L00',
@@ -14,7 +16,7 @@ export default {
 
   objectives: [
     'See every section type render: paragraph array, HTML string, static SVG, interactive widget.',
-    'See every question type render: multiple choice, true or false, fill in the blank, clinical case, interpret, essay, label, order, calculation.',
+    'See every question type render: multiple choice, true or false (single and several statements), fill in the blank (typed and word bank), classify, clinical case, interpret, essay, label (with and without a word bank), order, calculation.',
     'See maths render through KaTeX, inline and as a block.',
     'Confirm progress is stored and that review pulls missed questions first.',
   ],
@@ -189,6 +191,7 @@ export default {
         { id: 'r3', x: 85, y: 50, label: 'Pump', explanation: 'The box in the right membrane with arrows both ways.' },
       ],
       labels: ['Channel', 'Nucleus', 'Pump', 'Ribosome', 'Vesicle'],
+      wordBank: ['Channel', 'Pump', 'Membrane', 'Nucleus'],
       modelAnswer: [
         '1 is the channel in the top membrane.',
         '2 is the nucleus.',
@@ -217,6 +220,45 @@ export default {
       modelAnswer: ['The pump moves particles uphill.', 'It uses energy from ATP hydrolysis.'],
     },
     {
+      id: 'q12',
+      difficulty: 'easy',
+      type: 'classify',
+      prompt: 'For each statement, classify it as describing primarily the Channel / Pump / Nucleus / Membrane.',
+      categories: ['Channel', 'Pump', 'Nucleus', 'Membrane'],
+      items: [
+        { text: 'A structure lets particles cross passively, always down their gradient.', answer: 'Channel', explanation: 'Passive crossing is the job of the channel.' },
+        { text: 'Blocking a structure leaves the membrane intact, but the gradient slowly runs down to zero.', answer: 'Pump', explanation: 'Only the pump rebuilds the gradient.' },
+        { text: 'A structure uses energy to move particles against their gradient.', answer: 'Pump', explanation: 'Uphill transport needs the pump and ATP.' },
+        { text: 'A structure separates inside from outside and holds the other transport structures.', answer: 'Membrane', explanation: 'The channel and pump sit in the membrane.' },
+      ],
+      modelAnswer: ['a) Channel, passive.', 'b) Pump, since without it nothing restores the gradient.', 'c) Pump, active transport.', 'd) Membrane, the barrier.'],
+    },
+    {
+      id: 'q13',
+      difficulty: 'easy',
+      type: 'classify',
+      prompt: 'Complete each statement with the correct direction in the toy cell figure.',
+      categories: ['above', 'below', 'left of', 'right of'],
+      categoriesTitle: 'Choices',
+      items: [
+        { text: 'The channel is ___ the nucleus.', answer: 'above' },
+        { text: 'The pump is ___ the nucleus.', answer: 'right of' },
+        { text: 'The nucleus is ___ the channel.', answer: 'below' },
+        { text: 'The channel is ___ the pump.', answer: 'left of' },
+      ],
+      modelAnswer: ['The channel sits in the top membrane, the pump in the right membrane, the nucleus in the middle.'],
+    },
+    {
+      id: 'q14',
+      difficulty: 'easy',
+      type: 'fillBlank',
+      prompt: 'Complete the sentence from the word bank.',
+      text: 'Particles move through the ___ without energy; the ___ moves them back using ___.',
+      blanks: [{ accept: ['channel'] }, { accept: ['pump'] }, { accept: ['ATP'] }],
+      wordBank: ['channel', 'pump', 'nucleus', { text: 'ATP', reusable: true }],
+      modelAnswer: ['Channel, passive. Pump, active, powered by ATP.'],
+    },
+    {
       id: 'q03',
       difficulty: 'medium',
       type: 'order',
@@ -236,21 +278,35 @@ export default {
       ],
     },
     {
-      id: 'q04',
+      id: 'q15',
       difficulty: 'medium',
-      type: 'essay',
-      prompt: 'Compare the channel and the pump in two or three sentences.',
-      points: 3,
-      markScheme: [
-        { points: 1, text: 'States that the channel is passive and the pump is active.' },
-        { points: 1, text: 'States the direction: channel down the gradient, pump against it.' },
-        { points: 1, text: 'Mentions that the pump needs energy and the channel does not.' },
+      type: 'label',
+      prompt: 'Identify the three structures indicated in the figure.',
+      hotspots: {
+        svg: exampleCell({ labels: false }),
+        alt: 'The toy cell with three numbered markers.',
+        aspect: 400 / 240,
+        gutter: 'sides',
+        regions: [
+          { id: 'ch', label: 'Channel', body: 'Two bars in the top membrane with an arrow through them.', x: 34, y: 13, w: 10, h: 14 },
+          { id: 'nu', label: 'Nucleus', body: 'The circle in the middle of the cell.', x: 50, y: 50, w: 18, h: 28 },
+          { id: 'pu', label: 'Pump', body: 'The box in the right membrane with arrows both ways.', x: 85, y: 50, w: 10, h: 18 },
+        ],
+      },
+      wordBank: ['Nucleus', 'Channel', 'Membrane', 'Pump'],
+      modelAnswer: ['1 channel, 2 nucleus, 3 pump. Membrane is the distractor.'],
+    },
+    {
+      id: 'q16',
+      difficulty: 'medium',
+      type: 'trueFalse',
+      prompt: 'Determine whether each statement is true or false. Correct every false statement in one line.',
+      statements: [
+        { text: 'The channel moves particles down their gradient because it is a passive pore.', answer: true, justification: 'Passive pores only allow downhill flow.' },
+        { text: 'The pump and the channel both need ATP to move particles.', answer: false, correction: 'Only the pump needs ATP; the channel is passive.' },
+        { text: 'With the pump blocked, the gradient stays constant because the membrane is intact.', answer: false, correction: 'The gradient runs down, because the channel keeps letting particles through.' },
       ],
-      modelAnswer: [
-        'The channel is a passive pore: particles move through it down their concentration gradient without energy.',
-        'The pump is active: it moves particles against their gradient.',
-        'Because it works uphill, the pump needs energy, which the channel does not.',
-      ],
+      modelAnswer: ['a) True.', 'b) False: only the pump uses ATP.', 'c) False: without the pump the gradient runs down.'],
     },
     {
       id: 'q05',
@@ -277,6 +333,7 @@ export default {
       id: 'q06',
       difficulty: 'hard',
       type: 'essay',
+      beyondExam: true,
       prompt: 'The pump in the toy cell stops working. Explain what happens to the inside concentration over time and why.',
       points: 6,
       markScheme: [

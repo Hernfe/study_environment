@@ -4,11 +4,17 @@ How every lecture page teaches and tests. These rules are what the
 content files must follow and what `render.js`, `conceptQuiz.js`,
 `lectureQuiz.js` and `review.js` assume.
 
-The student's target is a weekly one-hour paper mini-exam: multiple
-choice plus short essays, one handwritten A4 cheat sheet allowed. So the
-page must (a) teach the mechanism clearly enough to explain in writing,
-(b) give a recap the student can copy onto the cheat sheet, and (c) make
-the student retrieve, not reread.
+The student's target is a weekly one-hour paper mini-exam, one
+handwritten A4 cheat sheet allowed. The real format is in
+docs/exam-format.md (from Mini Exam 1 with solutions): single-answer
+multiple choice, scenario multiple choice, classification of described
+statements, ranking, matching and completion from a word bank, figure
+labelling from a word bank, and true or false with a one-line
+correction of each false statement. 1 point per single answer, 0.25 per
+sub-item. No essays. So the page must (a) teach each mechanism well
+enough to recognise it from a description and spot the one wrong link
+in it, (b) give a recap the student can copy onto the cheat sheet, and
+(c) make the student retrieve, not reread.
 
 ## 1. Concept blocks
 
@@ -36,9 +42,19 @@ in which case the slides win.
 
 | Tier | Colour | Cognitive demand | Typical forms |
 |---|---|---|---|
-| Easy | green | Recall or identify. One fact, one term, one structure. | Multiple choice, true or false with justification, fill in the blank, label a figure with the term only. |
-| Medium | yellow | Explain a mechanism, compare two things, or put a sequence in order. | Order the events, label the figure with a one-line explanation per label, interpret a figure or clip, multiple choice where the distractors are near misses, true or false where the justification carries the mechanism, a 2 to 3 point essay (if it is the lecture's one essay). |
-| Hard | red | Apply to a new scenario, predict an outcome, compute, or write a 6-point essay. | Clinical case, calculation with steps, interpret a recording and predict, scenario multiple choice ("what happens if"), 6-point essay (if it is the lecture's one essay). |
+| Easy | green | Recall or identify. One fact, one term, one structure. | Multiple choice, true or false, fill in the blank, label a figure from a word bank, match an area to a lobe. |
+| Medium | yellow | The mini-exam's level: map a described function, lesion or finding to a structure or cell type in one step, spot the one wrong link in a mechanism, order a sequence, compare two things. | Classify described statements, true or false with corrections, scenario multiple choice, order the events, label the figure with a one-line explanation per label, interpret a figure, multiple choice where the distractors are near misses. |
+| Hard | red | Above the exam, on purpose: apply to a new scenario over several steps, predict an outcome, compute. | Clinical case with a multi-step reveal, calculation with steps, interpret a recording and predict, scenario multiple choice ("what happens if"), a 6-point essay only if kept and labelled beyond the exam. |
+
+The medium tier is anchored to the mini-exam's difficulty ceiling
+(docs/exam-format.md, Difficulty ceiling): its hardest items are
+one-step applications, a described lesion or finding mapped to a cell
+type or structure. A student who gets the medium tier right is ready
+for the paper. The hard tier sits deliberately above that ceiling:
+multi-step scenarios, predictions and calculations the paper does not
+ask for. It gives a margin of safety and builds the understanding that
+makes the one-step items easy. Say so to the student: missing a hard
+question does not mean missing the exam level.
 
 Rules that follow from the tiers:
 
@@ -49,12 +65,25 @@ Rules that follow from the tiers:
   defined in the table above, and it is never adjusted to hit a target
   count. To move the split, write different questions; relabel only
   when the demand of the question itself changes.
-- Question-bank mix (from lecture L04 on, and L03 since its retrofit; L01 and L02 predate it):
-  at most 1 essay per lecture; at least 2 clinical cases; at least 1
-  label-the-figure. Fill the rest with true or false, fill in the
-  blank, interpret, order, calculation and multiple choice. The paper
-  exam's short essays are practised through the clinical-case reasoning
-  reveals, the true-or-false justifications and the one essay.
+- Question-bank mix, matched to the real paper (docs/exam-format.md),
+  per lecture:
+  - at least 2 `classify` (described statements into shared
+    categories; area-to-lobe matching; directional-term completion);
+  - at least 1 `label` with a word bank;
+  - at least 2 `trueFalse` where a false statement needs a one-line
+    correction (a single false statement, or a `statements` set with
+    at least one false one);
+  - at least 2 `clinicalCase`;
+  - at least one each of `mc`, `order`, `fillBlank` and `interpret`;
+  - `calc` where the lecture has a quantity to compute.
+  Essays: zero by default, since the paper has none. An essay may be
+  kept (at most one) only when it teaches something no other format
+  can; it is labelled `beyondExam: true` and shown as beyond the exam
+  format, for understanding only. The lint checks the mix. L01 and L02
+  predate these rules, L03 and L04 were built before the mini-exam was
+  available.
+- Points follow the paper: 1 per single-answer question, 0.25 per
+  sub-item of a multi-part question, shown on every question.
 - Every question is answerable from the slides plus the textbook within
   slide scope. No textbook trivia the slides never touch.
 - Rewrite the notes' self-check questions into these formats and include
@@ -72,13 +101,13 @@ Rules that follow from the tiers:
   shuffled order seeded by the question id, so the correct answer is
   not usually first. The lint also checks that positions come out
   near uniform across the lecture.
-- Videos from the lecture are examinable course material. Every clip
-  embedded in a section gets at least one question that depends on
-  watching it: what changes across the clip, what the recording shows,
-  which structure or cell type is imaged, what the experiment
-  demonstrates. The question carries the clip so it also works in
-  review.
-- Old exam papers set the depth and style of hard essays, never scope.
+- Lectures are distributed as PDF only, so the student sees no clips
+  and a clip does not need its own question. When a clip is available
+  and a question depends on it, the question carries the clip so it
+  also works in review.
+- The most recent mini-exam in `source/exams/` sets format, wording,
+  difficulty and points (docs/exam-format.md). The pre-2020 open-book
+  papers only inform very hard stretch questions. Neither sets scope.
 
 ## 3. Question types
 
@@ -101,7 +130,29 @@ are recorded per question by `progress.js`.
   the authored `justification` (one line) is then shown. Scored on the
   choice; the justification is for self-comparison, as on paper.
 - Good false statements swap one term for its near neighbour (Schwann
-  for oligodendrocyte, anterograde for retrograde), not an absurdity.
+  for oligodendrocyte, anterograde for retrograde), break one link in
+  an otherwise correct chain ("calcium ... directly crosses the
+  synaptic cleft"), or over-generalise ("two neurons cannot
+  communicate in both directions"), never an absurdity. Good true
+  statements carry a "because" clause that must also be right.
+- The paper's form is a set of statements (`statements`), about half
+  false, each false one corrected in one line; the correction is what
+  a false statement is for. Each set is worth 0.25 per statement.
+
+### Classify (`classify`)
+
+- Two to four categories named in the stem ("Neuron / Astrocyte /
+  Myelinating glial cell / Microglia"), four to six items.
+- Items describe a function, a lesion, a mutation or an experimental
+  finding in one or two sentences, never the category's name. The
+  student maps the description to the category; that mapping is the
+  exam's main applied item and sits in the medium tier.
+- Categories may be used more than once or not at all, so the last
+  item cannot be solved by elimination.
+- The same type covers matching (areas to lobes) and completion with a
+  shared list (directional terms, with the blank inline); these are
+  easy.
+- Auto-scored per item, 0.25 each.
 
 ### Fill in the blank (`fillBlank`)
 
@@ -111,6 +162,8 @@ are recorded per question by `progress.js`.
   British and American spelling). Matching ignores only case, spacing,
   dash forms and trailing punctuation.
 - Auto-scored per blank; correct only if all match.
+- With a `wordBank` the blanks become pickers over a closed list, as on
+  the paper's completion problems. See Word banks below.
 
 ### Clinical case (`clinicalCase`)
 
@@ -134,7 +187,10 @@ are recorded per question by `progress.js`.
 
 ### Short essay (`essay`)
 
-- At most one per lecture.
+- Not part of the mini-exam. None by default; at most one per lecture,
+  kept only when it teaches something no other format can, and always
+  labelled `beyondExam: true` ("Beyond the exam, for understanding
+  only").
 - `points` is 2 or 3 for medium, 6 for hard.
 - `markScheme` lists what earns each point (see section 4).
 - Student writes in a textarea (optional, never stored), reveals the
@@ -143,11 +199,14 @@ are recorded per question by `progress.js`.
 
 ### Label the figure (`label`)
 
-- At least one per lecture.
+- At least one per lecture, and at least one with a `wordBank`, the
+  paper's form ("Identify the six brain structures indicated in the
+  figure below. Word bank: ...").
 - An image-hotspots figure in quiz mode (or a legacy SVG with numbered
   markers at `regions`).
-- `labels` is the pool the student picks from, including 1 to 3
-  distractor labels.
+- Without a word bank the student picks from the region labels plus
+  `labelPool` (1 to 3 distractor labels). With one, the bank is shown
+  beside the figure and is the only pool.
 - Each region has a `label` (the correct pick) and an `explanation`
   (one line, shown after checking). Medium-tier labelling requires the
   explanation to be read; the reveal shows all of them.
@@ -171,7 +230,24 @@ are recorded per question by `progress.js`.
   give intermediate values, give the final value with units.
 - Auto-scored on the final value within tolerance.
 
+### Word banks
+
+- A closed list shown with a `fillBlank` or `label` question; the
+  answer is then a picker, not free text. Each entry is usable once
+  unless marked reusable.
+- Distractors are course terms of the same kind and form as the
+  answers, a term a half-prepared student would pick: another lobe,
+  another layer, the neighbouring directional term. Never an invented
+  or unrelated word. The lint checks form and that every distractor
+  occurs in some lecture's text.
+- The paper's banks often hold exactly the answers, once each, so the
+  last pick is given by elimination. Accept that on easy items; on
+  medium and hard ones add a distractor or make entries reusable.
+
 ## 4. Mark scheme format for 6-point essays
+
+Only for an essay kept beyond the exam format (section 3), and for
+`interpret` questions in mark-scheme mode.
 
 Hard essays are worth 6 points. The mark scheme is a list of six
 independent, checkable statements. Each line starts with the point value

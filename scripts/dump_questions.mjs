@@ -24,10 +24,17 @@ const files = readdirSync(dir)
   .sort();
 
 // Figure props hold SVG markup and region geometry the lint never reads.
+// Label questions keep only their region labels and label pool, which
+// the word-bank check compares against the bank.
 function replacer(key, value) {
   if (typeof value === 'function') return undefined;
   if (typeof value === 'string' && value.trimStart().startsWith('<svg')) return '[svg]';
-  if ((key === 'props' || key === 'hotspots' || key === 'regions') && value && typeof value === 'object') return { dropped: true };
+  if (key === 'props' && value && typeof value === 'object') return { dropped: true };
+  if (key === 'hotspots' && value && typeof value === 'object') {
+    return { regions: value.regions, labelPool: value.labelPool };
+  }
+  if (key === 'regions' && Array.isArray(value)) return value.map((r) => ({ label: r?.label }));
+  if (key === 'regions' && value && typeof value === 'object') return { dropped: true };
   return value;
 }
 

@@ -16,7 +16,8 @@ To add a lecture:
 5. `npm run build`.
 
 `src/content/L00-example.js` is a complete dummy lecture that uses every
-section and question type. Use it as a template.
+section and question type. Use it as a template. The question format
+follows the real mini-exam, described in `docs/exam-format.md`.
 
 After `vite build`, npm runs the build report (`scripts/build_report.mjs`,
 which runs `scripts/lint_questions.py`). Read it for the new lecture and
@@ -202,9 +203,10 @@ blocks: [ ..., { type: 'video', video: v1Clip }, ... ]
 
 The player has native controls (keyboard operable), `preload="none"`,
 and shows the poster until played, so the figure degrades to the still.
-Videos are examinable: every `video` block needs at least one lecture
-question that carries the same object as `video` (the lint checks the
-`src`), so the clip plays inside the question card in review too.
+Lectures are distributed as PDF only, so clips usually are not
+available and a clip needs no question of its own. When a question does
+depend on a clip, give it the same object as `video` so the clip plays
+inside the question card in review too.
 
 Rules for `body`:
 
@@ -388,19 +390,73 @@ instead; new lectures use `tex`.
 
 ## lectureQuiz
 
-12 to 15 questions ordered easy, medium, hard. Target mix per lecture
-(docs/PEDAGOGY.md section 2): about 3 easy, 5 medium, 5 hard; at most 1
-`essay`; at least 2 `clinicalCase`; at least 1 `label`. Fields shared by
-every type:
+12 to 15 questions ordered easy, medium, hard. The format follows the
+real mini-exam (docs/exam-format.md). Target mix per lecture
+(docs/PEDAGOGY.md section 2): about 3 easy, 5 medium, 5 hard; at least
+2 `classify`, 1 `label` with a `wordBank`, 2 `trueFalse` with a false
+statement to correct, 2 `clinicalCase`, and at least one each of `mc`,
+`order`, `fillBlank` and `interpret`. No `essay` by default; a kept
+essay (at most 1) carries `beyondExam: true`. Fields shared by every
+type:
 
 | Field | Type | Notes |
 |---|---|---|
 | `id` | string | Unique in the lecture. Progress and review key on `meta.id + ':' + id`, so never rename an id after the lecture is published. |
 | `difficulty` | `'easy' \| 'medium' \| 'hard'` | Rendered as a badge. |
-| `type` | `'mc' \| 'trueFalse' \| 'fillBlank' \| 'clinicalCase' \| 'interpret' \| 'label' \| 'order' \| 'calc' \| 'essay'` | |
+| `type` | `'mc' \| 'trueFalse' \| 'fillBlank' \| 'classify' \| 'clinicalCase' \| 'interpret' \| 'label' \| 'order' \| 'calc' \| 'essay'` | |
 | `prompt` | string | Plain text or HTML, may hold inline maths. |
 | `modelAnswer` | string[] | Step-by-step model answer for the reveal button. Optional for `calc` (steps are used). For `clinicalCase` it is the reasoning, shown under "Show the reasoning". |
+| `points` | number | Optional. Total points. Default 1 for a single-answer question; for a multi-part question it is split evenly over the sub-items. See "Points". |
+| `itemPoints` | number | Optional. Points per sub-item of a multi-part question. Default 0.25. |
+| `beyondExam` | boolean | Marks a question as beyond the mini-exam format, for understanding only. Required on every `essay`. Shows a badge and a note. |
 | `video` | Video | Optional. The clip the question depends on, shown above the answer area. See "Videos". |
+
+### Points
+
+The mini-exam prints a point value with every problem: 1 point for a
+question with one answer, 0.25 for each sub-item of a multi-part
+problem. The site uses the same convention and shows the value in each
+question's head ("1 point", "1.5 points, 6 × 0.25").
+
+| Type | Sub-items | Default |
+|---|---|---|
+| `mc`, `clinicalCase`, `interpret` (pick), `calc`, `trueFalse` (one statement) | none | 1 point |
+| `classify` | `items` | 0.25 each |
+| `label` | regions | 0.25 each |
+| `fillBlank` | `blanks` | 0.25 each |
+| `order` | `items` (scored per position) | 0.25 each |
+| `trueFalse` with `statements` | `statements` | 0.25 each |
+| `essay`, `interpret` (mark scheme) | mark-scheme lines | sum of the mark scheme |
+
+Override with `points` (a total) or `itemPoints` (per sub-item) only
+when the mini-exam weights a comparable problem differently. The score
+card and the home page add points up; review records them per question.
+
+### Word banks
+
+`fillBlank` and `label` take an optional `wordBank`: the closed list
+of terms the student picks from, shown with the question as on the
+paper ("Word bank: Thalamus • Cerebellum • ..."). With a word bank the
+answer is a picker (a select per blank or marker), never free text.
+
+```js
+wordBank: ['Thalamus', 'Cerebellum', 'Olfactory bulb', { text: 'Medial', reusable: true }]
+```
+
+- Each entry is usable once unless it is `{ text, reusable: true }`.
+  A once-only entry picked for one sub-item is disabled for the others
+  and struck through in the bank.
+- The bank must contain every answer: for `fillBlank`, one of each
+  blank's `accept` variants; for `label`, every region `label`,
+  spelled exactly as the region label.
+- Distractors (entries that answer nothing) must be plausible: course
+  terms of the same kind and form as the answers. The lint checks form
+  (length, capitalisation) and that each distractor occurs somewhere in
+  a lecture's text. A bank with no distractors and no reusable entries
+  gives the last pick away by elimination, as on the paper; fine for
+  easy items, avoid it on medium and hard ones.
+- Entries are shown in authored order, so do not list them in answer
+  order.
 
 Options of every question that has `options` (`mc`, concept questions,
 `clinicalCase` and `interpret` in pick mode) are shown in a stable
@@ -458,7 +514,29 @@ under theirs. Auto-scored on the choice.
 
 `justification` is required and one line (under 200 characters). Write
 the statement so that it is false for one specific, examinable reason,
-or true for a reason the student has to name.
+or true for a reason the student has to name. For a false statement the
+justification is the correction and is shown as "Correction:".
+
+Several statements, as on the mini-exam (Problem 8): give `statements`
+instead of `answer` and `justification`. The student picks True or
+False for each; picking False opens a one-line correction box that must
+be filled before Check. Scored per statement (0.25 each by default).
+`correction` is required on every false statement, `justification`
+optional on true ones.
+
+```js
+{
+  id: 'q05',
+  difficulty: 'medium',
+  type: 'trueFalse',
+  prompt: 'Determine whether each statement is true or false. Correct every false statement in one line.',
+  statements: [
+    { text: 'Nissl staining mainly reveals neuronal cell bodies.', answer: true, justification: 'The Nissl stain marks rough ER around the nucleus, so cell bodies show.' },
+    { text: 'Axon terminals contain ribosomes for local protein synthesis.', answer: false, correction: 'Axon terminals do not contain ribosomes.' },
+  ],
+  modelAnswer: ['a) True.', 'b) False: no ribosomes in the terminal.'],
+}
+```
 
 ### Fill in the blank (`fillBlank`)
 
@@ -481,6 +559,57 @@ and plural) explicitly. Scored per blank; correct only when all match.
   ],
   modelAnswer: ['Oligodendrocytes myelinate central axons.', 'Schwann cells myelinate peripheral axons.'],
 }
+```
+
+With `wordBank` (see "Word banks") every blank is a select holding the
+bank; `accept` still says which entry is right.
+
+```js
+{
+  id: 'q04',
+  difficulty: 'easy',
+  type: 'fillBlank',
+  prompt: 'Complete the statement with terms from the word bank.',
+  text: 'The frontal lobe is ___ to the parietal lobe, and the cerebellum is ___ to the cerebrum.',
+  blanks: [{ accept: ['anterior'] }, { accept: ['inferior'] }],
+  wordBank: ['posterior', 'anterior', 'superior', 'inferior'],
+  modelAnswer: ['...'],
+}
+```
+
+### Classify (`classify`)
+
+Several items share one set of `categories`; the student assigns each
+item one category. Scored per item (0.25 each by default). This covers
+the mini-exam's cell-type classification (Problem 3), area-to-lobe
+matching (Problem 5) and directional-term completion (Problem 6).
+
+- `categories`: 2 or more strings, shown as a bank titled
+  `categoriesTitle` (default "Categories"). Always reusable; a category
+  may answer several items or none.
+- `items`: `{ text, answer, explanation? }`. `answer` is one of the
+  categories, spelled exactly. `explanation` (one line) is shown after
+  checking.
+- An item whose `text` holds one `___` gets its picker inline at the
+  blank (completion); otherwise the picker sits under the text.
+- Write statements the way the paper does: describe a function, a
+  lesion or a finding, never name the answer.
+
+```js
+{
+  id: 'q06',
+  difficulty: 'medium',
+  type: 'classify',
+  prompt: 'For each statement, classify it as describing primarily a Neuron / Astrocyte / Myelinating glial cell / Microglia.',
+  categories: ['Neuron', 'Astrocyte', 'Myelinating glial cell', 'Microglia'],
+  items: [
+    { text: 'Damage to a cell population leaves axons present, but signals propagate more slowly.', answer: 'Myelinating glial cell', explanation: 'Myelin speeds conduction; the axon itself is intact.' },
+    { text: 'After injury, resident cells migrate to the damage and remove debris.', answer: 'Microglia', explanation: 'Microglia are the resident immune cells.' },
+  ],
+  modelAnswer: ['...'],
+}
+// Completion form: categoriesTitle: 'Choices',
+//   items: [{ text: 'The thalamus is ___ to the temporal lobe.', answer: 'Medial' }]
 ```
 
 ### Clinical case (`clinicalCase`)
@@ -535,7 +664,9 @@ as for `essay` (this does not count as an essay).
 
 ### Short essay (`essay`)
 
-At most one per lecture.
+The mini-exam has no essays, so none by default. A kept essay (at most
+one per lecture) sets `beyondExam: true`, which shows a "Beyond the
+exam" badge and a note that it is for understanding only.
 
 `points` is 2 or 3 for medium, 6 for hard. `markScheme` points must sum
 to `points`. See PEDAGOGY.md section 4 for the format.
@@ -545,6 +676,7 @@ to `points`. See PEDAGOGY.md section 4 for the format.
   id: 'q13',
   difficulty: 'hard',
   type: 'essay',
+  beyondExam: true,
   prompt: 'A drug blocks axonal transport in both directions. Explain, step by step, what happens to synaptic transmission at the terminal over the next days and why.',
   points: 6,
   markScheme: [
@@ -574,13 +706,20 @@ The question renders the widget's quiz mode: numbered markers, one
 select per marker, check button, per-marker explanation from each
 region's `body`. `labelPool` adds distractors.
 
+With `wordBank` (the exam's form, Problem 7) the bank replaces the
+shuffled pool: it is shown beside the figure, listed in authored order,
+and once-only entries are enforced. It must hold every region label;
+`labelPool` is then ignored. At least one label question per lecture
+has a word bank. Works with the legacy form too (it replaces `labels`).
+
 ```js
 {
   id: 'q06',
   difficulty: 'medium',
   type: 'label',
-  prompt: 'Label the numbered markers on the lateral view of the brain.',
-  hotspots: { src, alt, aspect, regions: LOBE_REGIONS, labelPool: ['Cerebellum', 'Brain stem'] },
+  prompt: 'Identify the four structures indicated in the figure.',
+  hotspots: { src, alt, aspect, regions: LOBE_REGIONS },
+  wordBank: ['Parietal lobe', 'Cerebellum', 'Frontal lobe', 'Temporal lobe', 'Occipital lobe'],
   modelAnswer: ['1 is the frontal lobe ...'],
 }
 ```
@@ -752,12 +891,20 @@ report, or on its own with lecture ids) loads every content file through
 - `positions`: correct-answer positions across the lecture far from
   uniform (chi-square, p < 0.05), both as authored and as shown after
   the seeded shuffle.
-- `mix`, `tiers`: 12 to 15 questions, easy to hard order, at most 1
-  essay, at least 2 clinicalCase, at least 1 label; tier split against
-  about 3, 5, 5 (advisory).
-- `error`: a missing required field (justification, accepted answers,
-  scenario, model answer, figure for interpret, and so on).
-- `video`: a section video with no question that embeds it.
+- `mix`, `tiers`: 12 to 15 questions, easy to hard order; no essay
+  unless it has `beyondExam: true`, at most 1; at least 2 classify, 1
+  label with a word bank, 2 trueFalse with a false statement to
+  correct, 2 clinicalCase, and one each of mc, order, fillBlank and
+  interpret; tier split against about 3, 5, 5 (advisory).
+- `error`: a missing required field (justification, correction of a
+  false statement, accepted answers, a classify answer that is not a
+  category, scenario, model answer, figure for interpret, and so on).
+- `wordbank`: an answer missing from the bank, a duplicate entry, a
+  once-only entry needed twice, or an implausible distractor (length
+  under half or over twice the mean answer, capitalised unlike every
+  answer, or found in no lecture text outside word banks and the
+  question itself). `wordbank-note` (advisory): no distractors and no
+  reusable entries.
 - `maths`: plain-text symbols and units outside `$...$`.
 
 Lengths are measured on what the student reads (tags stripped, TeX

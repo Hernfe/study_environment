@@ -16,11 +16,24 @@ reports, per lecture:
                far from uniform (chi-square p < 0.05), both as authored
                and as shown after the seeded shuffle in conceptQuiz.js
 
-  Question-bank mix (docs/PEDAGOGY.md section 2)
+  Question-bank mix (docs/PEDAGOGY.md section 2, docs/exam-format.md)
     12 to 15 questions ordered easy, medium, hard; target about 3 easy,
-    5 medium, 5 hard; at most 1 essay; at least 2 clinicalCase; at least
-    1 label; required fields of each type; every section video has a
-    question that embeds it.
+    5 medium, 5 hard; no essay unless labelled beyondExam, at most 1;
+    at least 2 classify, 1 label with a word bank, 2 trueFalse with a
+    false statement to correct, 2 clinicalCase; at least one mc, order,
+    fillBlank and interpret; required fields of each type.
+
+  Word banks (fillBlank, label, classify categories)
+    wordbank   an answer missing from the bank, a duplicate entry, a
+               once-only entry needed twice, or a distractor that is not
+               plausible: its length is under half or over twice the
+               mean answer length, its capitalisation differs from every
+               answer, or it appears nowhere in any lecture's text (a
+               distractor must be a course term).
+    wordbank-note (advisory)
+               no distractors and no reusable entries, so the last pick
+               follows by elimination. The mini-exam does this; fine
+               for easy items, avoid it on medium and hard.
 
   Maths
     plain-text symbols and units outside $...$ (E_K, g_Na, 65 mV, Na+),
@@ -61,7 +74,19 @@ LEGACY = {
 
 TARGET = {"easy": 3, "medium": 5, "hard": 5}
 TIERS = ["easy", "medium", "hard"]
-TYPES = {"mc", "essay", "label", "order", "calc", "trueFalse", "fillBlank", "clinicalCase", "interpret"}
+TYPES = {"mc", "essay", "label", "order", "calc", "trueFalse", "fillBlank", "clinicalCase", "interpret", "classify"}
+# Minimum count per type, or per question feature (docs/PEDAGOGY.md section 2).
+MIN_MIX = [
+    ("classify", 2, lambda q: q.get("type") == "classify"),
+    ("label with a word bank", 1, lambda q: q.get("type") == "label" and q.get("wordBank")),
+    ("trueFalse with a false statement to correct", 2, lambda q: q.get("type") == "trueFalse" and has_false(q)),
+    ("clinicalCase", 2, lambda q: q.get("type") == "clinicalCase"),
+    ("mc", 1, lambda q: q.get("type") == "mc"),
+    ("order", 1, lambda q: q.get("type") == "order"),
+    ("fillBlank", 1, lambda q: q.get("type") == "fillBlank"),
+    ("interpret", 1, lambda q: q.get("type") == "interpret"),
+]
+BANK_LENGTH = (0.5, 2.0)
 LENGTH_GAP = 0.20
 SHORT_RATIO = 0.5
 P_LIMIT = 0.05
@@ -249,14 +274,23 @@ def check_mix(content):
     off = [f"{t} {counts[t]} (target {TARGET[t]})" for t in TIERS if abs(counts[t] - TARGET[t]) > 1]
     if off:
         out.append(("tiers", "quiz", "tier split " + ", ".join(off) + "; advisory, never relabel to hit it"))
-    types = [q.get("type") for q in quiz]
-    if types.count("essay") > 1:
-        out.append(("mix", "quiz", f"{types.count('essay')} essays; at most 1"))
-    if types.count("clinicalCase") < 2:
-        out.append(("mix", "quiz", f"{types.count('clinicalCase')} clinicalCase; at least 2"))
-    if types.count("label") < 1:
-        out.append(("mix", "quiz", "no label question; at least 1"))
+    essays = [q for q in quiz if q.get("type") == "essay"]
+    if len(essays) > 1:
+        out.append(("mix", "quiz", f"{len(essays)} essays; the mini-exam has none, keep at most 1"))
+    for q in essays:
+        if not q.get("beyondExam"):
+            out.append(("mix", f"quiz {q.get('id')}", "essay not labelled beyondExam: true; the mini-exam has no essays"))
+    for name, least, test in MIN_MIX:
+        count = sum(1 for q in quiz if test(q))
+        if count < least:
+            out.append(("mix", "quiz", f"{count} {name}; at least {least}"))
     return out
+
+
+def has_false(q):
+    if q.get("statements"):
+        return any(s.get("answer") is False for s in q["statements"])
+    return q.get("answer") is False
 
 
 def check_fields(q):
@@ -267,7 +301,21 @@ def check_fields(q):
         return [("error", where, f"unknown type {t!r}")]
     if not q.get("modelAnswer") and not (t == "calc" and q.get("steps")):
         out.append(("error", where, "no modelAnswer"))
-    if t == "trueFalse":
+    if t == "trueFalse" and q.get("statements") is not None:
+        statements = q.get("statements") or []
+        if len(statements) < 2:
+            out.append(("error", where, "statements needs at least 2 entries; use answer and justification for one"))
+        for i, s in enumerate(statements):
+            tag = f"statement {chr(97 + i)}"
+            if not isinstance(s.get("answer"), bool):
+                out.append(("error", where, f"{tag} needs answer: true or false"))
+            elif s["answer"] is False:
+                fix = plain(s.get("correction"))
+                if not fix:
+                    out.append(("error", where, f"{tag} is false and needs a one-line correction"))
+                elif len(fix) > 200:
+                    out.append(("error", where, f"{tag} correction is {len(fix)} chars; keep it to one line (200)"))
+    elif t == "trueFalse":
         if not isinstance(q.get("answer"), bool):
             out.append(("error", where, "trueFalse needs answer: true or false"))
         just = plain(q.get("justification"))
@@ -298,29 +346,137 @@ def check_fields(q):
         scheme = q.get("markScheme") or []
         if sum(m.get("points", 0) for m in scheme) != q.get("points", sum(m.get("points", 0) for m in scheme)):
             out.append(("error", where, "markScheme points do not sum to points"))
+    elif t == "classify":
+        categories = [bank_text(c) for c in q.get("categories") or []]
+        items = q.get("items") or []
+        if len(categories) < 2:
+            out.append(("error", where, "classify needs at least 2 categories"))
+        if len(items) < 2:
+            out.append(("error", where, "classify needs at least 2 items"))
+        for i, item in enumerate(items):
+            if not plain(item.get("text")):
+                out.append(("error", where, f"item {chr(97 + i)} has no text"))
+            if item.get("answer") not in categories:
+                out.append(("error", where, f"item {chr(97 + i)} answer {item.get('answer')!r} is not a category"))
+            if str(item.get("text") or "").count("___") > 1:
+                out.append(("error", where, f"item {chr(97 + i)} has more than one ___"))
+    for key in ("points", "itemPoints"):
+        value = q.get(key)
+        if value is not None and not (isinstance(value, (int, float)) and value > 0):
+            out.append(("error", where, f"{key} must be a positive number"))
     return out
 
 
-def walk_blocks(blocks):
-    for b in blocks or []:
-        yield b
-        if b.get("type") == "detail":
-            yield from walk_blocks(b.get("blocks"))
+# ---------------------------------------------------------------------
+# Word banks
+
+def bank_text(entry):
+    return entry.get("text") if isinstance(entry, dict) else entry
 
 
-def check_videos(content):
+def norm(text):
+    text = plain(text).lower()
+    text = re.sub(r"[‐-―−]", "-", text)
+    return re.sub(r"[.,;:!?]+$", "", re.sub(r"\s+", " ", text)).strip()
+
+
+def bank_of(q):
+    """(entries, answers needed) for a question with a closed list, or
+    None. entries: [(text, reusable)]; answers: list of bank texts, one
+    per sub-item, in order (None where no entry matches)."""
+    t = q.get("type")
+    if t == "classify":
+        entries = [(bank_text(c), True if not isinstance(c, dict) else c.get("reusable", True)) for c in q.get("categories") or []]
+        return entries, [i.get("answer") for i in q.get("items") or []]
+    if not q.get("wordBank"):
+        return None
+    entries = [(bank_text(e), bool(e.get("reusable")) if isinstance(e, dict) else False) for e in q["wordBank"]]
+    by_norm = {norm(text): text for text, _ in entries}
+    if t == "fillBlank":
+        answers = []
+        for blank in q.get("blanks") or []:
+            hit = next((by_norm[norm(a)] for a in blank.get("accept") or [] if norm(a) in by_norm), None)
+            answers.append(hit)
+        return entries, answers
+    if t == "label":
+        regions = (q.get("hotspots") or {}).get("regions") or q.get("regions") or []
+        labels = [r.get("label") for r in regions]
+        return entries, [lab if lab in dict(entries) else None for lab in labels]
+    return None
+
+
+def check_bank(q, corpus, owner):
+    found = bank_of(q)
+    if not found:
+        return []
+    entries, answers = found
+    where = f"quiz {q.get('id')}"
     out = []
-    clips = []
-    for section in content.get("sections", []):
-        for b in walk_blocks(section.get("blocks")):
-            if b.get("type") == "video":
-                v = b.get("video") or b
-                clips.append((section.get("id"), v.get("src") or (v.get("sources") or [{}])[0].get("src")))
-    asked = {(q.get("video") or {}).get("src") or ((q.get("video") or {}).get("sources") or [{}])[0].get("src") for q in content.get("lectureQuiz", []) if q.get("video")}
-    for section_id, src in clips:
-        if src not in asked:
-            out.append(("video", f"section {section_id}", "video has no lecture-quiz question that embeds it"))
+    texts_ = [text for text, _ in entries]
+    reusable = dict(entries)
+    seen = set()
+    for text in texts_:
+        key = norm(text)
+        if key in seen:
+            out.append(("wordbank", where, f"duplicate entry {text!r}"))
+        seen.add(key)
+    if q.get("type") != "classify":
+        for i, a in enumerate(answers):
+            if a is None:
+                out.append(("wordbank", where, f"sub-item {i + 1}: its answer is not in the word bank"))
+        for text in set(a for a in answers if a):
+            if answers.count(text) > 1 and not reusable.get(text):
+                out.append(("wordbank", where, f"{text!r} answers {answers.count(text)} sub-items but is not marked reusable"))
+    used = [a for a in answers if a]
+    distractors = [text for text in texts_ if text not in used]
+    if not used:
+        return out
+    mean = sum(len(plain(a)) for a in used) / len(used)
+    caps = {plain(a)[:1].isupper() for a in used}
+    for d in distractors:
+        length = len(plain(d))
+        if not BANK_LENGTH[0] * mean <= length <= BANK_LENGTH[1] * mean:
+            out.append(("wordbank", where, f"distractor {d!r} is {length} chars against a mean answer of {mean:.0f}; match the answers in form"))
+        if len(caps) == 1 and plain(d)[:1].isupper() not in caps:
+            out.append(("wordbank", where, f"distractor {d!r} is capitalised differently from every answer"))
+        if not in_corpus(d, corpus, owner):
+            out.append(("wordbank", where, f"distractor {d!r} appears in no lecture text; use a course term a half-prepared student might pick"))
+    if not distractors and not any(reusable.get(t) for t in texts_) and q.get("type") != "classify":
+        out.append(("wordbank-note", where, "no distractors and every entry once-only, so the last pick follows by elimination"))
     return out
+
+
+def in_corpus(term, corpus, exclude):
+    """True if the term (or its plural or singular) appears in the text of
+    any lecture, not counting the question `exclude` itself."""
+    key = norm(term)
+    variants = {key, key.rstrip("s"), key + "s", re.sub(r"y$", "ies", key)}
+    pattern = re.compile("|".join(r"(?<![a-z])" + re.escape(v) + r"(?![a-z])" for v in variants if v))
+    return any(owner != exclude and pattern.search(text) for owner, text in corpus)
+
+
+BANK_KEYS = {"wordBank", "categories", "labels", "labelPool"}
+
+
+def corpus_of(data):
+    """Every lecture's student-facing text as (owner, lower-cased text),
+    owner being (lecture, question id) for quiz text and None otherwise.
+    Word banks and label pools are left out: a distractor must occur in
+    teaching text or another question, not only in a list of options."""
+    corpus = []
+    for lecture_id, entry in data.items():
+        content = entry.get("content")
+        if not content:
+            continue
+        rest = {k: v for k, v in content.items() if k not in {"meta", "lectureQuiz"}}
+        corpus.extend((None, plain(t).lower()) for t in texts(rest))
+        for q in content.get("lectureQuiz", []):
+            owner = (lecture_id, q.get("id"))
+            kept = {k: v for k, v in q.items() if k not in BANK_KEYS}
+            corpus.extend((owner, plain(t).lower()) for t in texts({"q": kept}))
+            regions = (q.get("hotspots") or {}).get("regions") or q.get("regions") or []
+            corpus.extend((owner, str(r.get("label") or "").lower()) for r in regions if isinstance(r, dict))
+    return corpus
 
 
 def texts(content):
@@ -340,7 +496,7 @@ def texts(content):
     yield from collect({k: v for k, v in content.items() if k != "meta"})
 
 
-def lint(lecture_id, content):
+def lint(lecture_id, content, corpus):
     findings = []
     positions_authored = []
     positions_shown = []
@@ -360,7 +516,7 @@ def lint(lecture_id, content):
     findings += check_mix(content)
     for q in content.get("lectureQuiz", []):
         findings += check_fields(q)
-    findings += check_videos(content)
+        findings += check_bank(q, corpus, (lecture_id, q.get("id")))
 
     hits = []
     for text in texts(content):
@@ -379,7 +535,7 @@ def dump(lectures):
     return json.loads(result.stdout)
 
 
-SEVERE = {"error", "longest", "shortest", "short-distractor", "positions", "mix", "video"}
+SEVERE = {"error", "longest", "shortest", "short-distractor", "positions", "mix", "wordbank"}
 
 
 def main():
@@ -391,15 +547,21 @@ def main():
     ap.add_argument("--verbose", action="store_true", help="list every finding for legacy lectures too")
     args = ap.parse_args()
 
-    data = dump(args.lectures)
+    # Every lecture is loaded for the word-bank corpus; only the requested
+    # ones are reported.
+    data = dump([])
+    corpus = corpus_of(data)
+    wanted = set(args.lectures)
     report = {}
     severe = 0
     for lecture_id, entry in sorted(data.items()):
+        if wanted and lecture_id not in wanted and not any(lecture_id.startswith(w) for w in wanted):
+            continue
         if entry.get("error"):
             report[lecture_id] = {"error": entry["error"]}
             severe += 1
             continue
-        findings, hits, authored, shown = lint(lecture_id, entry["content"])
+        findings, hits, authored, shown = lint(lecture_id, entry["content"], corpus)
         report[lecture_id] = {"file": entry["file"], "findings": findings, "symbols": hits, "mc": len(authored)}
         if lecture_id not in LEGACY:
             severe += sum(1 for f in findings if f[0] in SEVERE)

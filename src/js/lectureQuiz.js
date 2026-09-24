@@ -8,12 +8,58 @@ import { renderVisual, renderVisualBody, renderVideo } from './visuals.js';
 import { renderTex, stripMath } from './math.js';
 import { quizView } from './widgets/imageHotspots.js';
 import { recordQuestionResult } from './progress.js';
+import { normaliseBank, renderBank, bankSelect, linkPickers } from './wordBank.js';
 
 const DIFFICULTY_LABEL = { easy: 'Easy', medium: 'Medium', hard: 'Hard' };
 
 function badge(difficulty) {
   const key = DIFFICULTY_LABEL[difficulty] ? difficulty : 'easy';
   return el('span', { class: `badge badge-${key}` }, DIFFICULTY_LABEL[key]);
+}
+
+// Points, as on the mini-exam (docs/exam-format.md): a question with one
+// answer is worth 1 point, each sub-item of a multi-part question 0.25.
+// `points` overrides a single-answer total; `itemPoints` overrides the
+// value of each sub-item. Essays and self-scored interprets are worth
+// their mark scheme.
+const DEFAULT_POINTS = 1;
+const DEFAULT_ITEM_POINTS = 0.25;
+
+function subItems(question) {
+  switch (question.type) {
+    case 'classify': return (question.items || []).length;
+    case 'order': return (question.items || []).length;
+    case 'fillBlank': return (question.blanks || []).length;
+    case 'label': return (question.hotspots?.regions || question.regions || []).length;
+    case 'trueFalse': return question.statements ? question.statements.length : 0;
+    default: return 0;
+  }
+}
+
+export function questionPoints(question) {
+  const scheme = question.markScheme || [];
+  if (question.type === 'essay' || (question.type === 'interpret' && !question.options && scheme.length)) {
+    return { total: question.points || scheme.reduce((sum, m) => sum + m.points, 0), per: null, items: 0 };
+  }
+  const items = subItems(question);
+  if (items > 0) {
+    const per = question.itemPoints ?? (question.points ? question.points / items : DEFAULT_ITEM_POINTS);
+    return { total: per * items, per, items };
+  }
+  return { total: question.points ?? DEFAULT_POINTS, per: null, items: 0 };
+}
+
+export function formatPoints(value) {
+  return String(Math.round(value * 100) / 100);
+}
+
+function pointsBadge(question) {
+  const { total, per, items } = questionPoints(question);
+  const unit = total === 1 ? 'point' : 'points';
+  const text = per === null
+    ? `${formatPoints(total)} ${unit}`
+    : `${formatPoints(total)} ${unit}, ${items} × ${formatPoints(per)}`;
+  return el('span', { class: 'badge badge-points' }, text);
 }
 
 function feedbackBanner() {
@@ -125,11 +171,13 @@ function essayBody(question, report) {
 }
 
 function labelBody(question, report) {
+  const bank = question.wordBank ? normaliseBank(question.wordBank) : null;
   // New style: the same hotspot regions as the study figure, in quiz mode.
   if (question.hotspots) {
     const stage = el('div', { class: 'hotspots is-quiz' });
     let done = false;
     quizView(stage, question.hotspots, {
+      wordBank: bank,
       checkLabel: 'Check',
       onResult: ({ right, total }) => {
         if (done) return;
@@ -148,16 +196,14 @@ function labelBody(question, report) {
   );
   markers.forEach((m) => figureWrap.appendChild(m));
 
-  const pool = question.labels || question.regions.map((r) => r.label);
+  const pool = bank || normaliseBank(question.labels || question.regions.map((r) => r.label));
+  const bankNode = bank ? renderBank(bank) : null;
   const selects = [];
   const picker = el(
     'ol',
     { class: 'label-picker' },
     question.regions.map((region, i) => {
-      const select = el('select', { 'aria-label': `Label for marker ${i + 1}`, onChange: updateCheck }, [
-        el('option', { value: '' }, 'Choose a label'),
-        ...pool.map((label) => el('option', { value: label }, stripMath(label))),
-      ]);
+      const select = bankSelect(pool, { 'aria-label': `Label for marker ${i + 1}`, onChange: updateCheck }, 'Choose a label');
       selects.push(select);
       const explanation = el('p', { class: 'label-explanation', hidden: true });
       return el('li', {}, [el('span', { class: 'num' }, `${i + 1}.`), el('div', {}, [select, explanation])]);
@@ -192,7 +238,8 @@ function labelBody(question, report) {
     report({ correct, score: right, max: question.regions.length });
   }
 
-  return el('div', { class: 'label' }, [figureWrap, picker, feedback, el('div', { class: 'btn-row' }, [checkButton])]);
+  if (bank) linkPickers(selects, bank, bankNode);
+  return el('div', { class: 'label' }, [figureWrap, bankNode, picker, feedback, el('div', { class: 'btn-row' }, [checkButton])]);
 }
 
 function orderBody(question, report) {
@@ -306,6 +353,7 @@ function calcBody(question, report) {
 // justification before checking; the authored justification is then
 // shown under theirs.
 function trueFalseBody(question, report) {
+  if (question.statements) return trueFalseStatementsBody(question, report);
   let choice = null;
   let done = false;
   const buttons = [true, false].map((value) =>
@@ -346,7 +394,7 @@ function trueFalseBody(question, report) {
     input.disabled = true;
     checkButton.disabled = true;
     why.hidden = false;
-    why.replaceChildren(el('span', { class: 'block-tag' }, 'Why: '), question.justification || '');
+    why.replaceChildren(el('span', { class: 'block-tag' }, question.answer ? 'Why: ' : 'Correction: '), question.justification || '');
     setFeedback(feedback, correct, correct
       ? 'Compare your reason with the one below; the reason is what the exam marks.'
       : `The statement is ${question.answer ? 'true' : 'false'}. Read the reason below.`);
@@ -355,8 +403,93 @@ function trueFalseBody(question, report) {
 
   return el('div', { class: 'tf' }, [
     el('div', { class: 'tf-options', role: 'group', 'aria-label': 'True or false' }, buttons),
-    el('div', { class: 'tf-why-row' }, [el('label', { for: inputId }, 'Why, in one line:'), input]),
+    el('div', { class: 'tf-why-row' }, [el('label', { for: inputId }, 'Why, or the correction if false, in one line:'), input]),
     why,
+    feedback,
+    el('div', { class: 'btn-row' }, [checkButton]),
+  ]);
+}
+
+const LETTERS = 'abcdefghijklmnopqrstuvwxyz';
+
+// True or false, several statements, as on the mini-exam: pick True or
+// False for each; a statement marked False needs a one-line correction
+// before Check is enabled. Scored per statement. The authored
+// correction is then shown under every false statement, the authored
+// reason (if any) under true ones.
+function trueFalseStatementsBody(question, report) {
+  let done = false;
+  const rows = question.statements.map((statement, i) => {
+    const row = { choice: null };
+    row.buttons = [true, false].map((value) =>
+      el('button', { type: 'button', class: 'option tf-option', 'aria-pressed': 'false', onClick: () => pick(row, value) }, value ? 'True' : 'False')
+    );
+    const inputId = `${question.id}-fix-${i}`;
+    row.input = el('input', { type: 'text', class: 'tf-why', id: inputId, autocomplete: 'off', onInput: update });
+    row.fixRow = el('div', { class: 'tf-why-row', hidden: true }, [el('label', { for: inputId }, 'Correction, in one line:'), row.input]);
+    row.why = el('p', { class: 'tf-justification', hidden: true });
+    row.node = el('li', {}, [
+      el('span', { class: 'num' }, `${LETTERS[i]})`),
+      el('div', {}, [
+        el('div', { class: 'tf-text' }, paragraphs(statement.text)),
+        el('div', { class: 'tf-options', role: 'group', 'aria-label': `Statement ${LETTERS[i]}, true or false` }, row.buttons),
+        row.fixRow,
+        row.why,
+      ]),
+    ]);
+    return row;
+  });
+  const feedback = feedbackBanner();
+  const checkButton = el('button', { type: 'button', class: 'btn btn-primary', disabled: true, onClick: check }, 'Check');
+
+  function pick(row, value) {
+    if (done) return;
+    row.choice = value;
+    row.buttons.forEach((b, i) => {
+      const on = (i === 0) === value;
+      b.classList.toggle('is-selected', on);
+      b.setAttribute('aria-pressed', on ? 'true' : 'false');
+    });
+    row.fixRow.hidden = value !== false;
+    update();
+  }
+  function ready() {
+    return rows.every((r) => r.choice === true || (r.choice === false && r.input.value.trim()));
+  }
+  function update() {
+    checkButton.disabled = done || !ready();
+  }
+  function check() {
+    if (done || !ready()) return;
+    done = true;
+    let right = 0;
+    rows.forEach((row, i) => {
+      const statement = question.statements[i];
+      const ok = row.choice === statement.answer;
+      if (ok) right += 1;
+      row.buttons.forEach((b, k) => {
+        b.disabled = true;
+        const value = k === 0;
+        if (value === statement.answer) b.classList.add('is-correct');
+        else if (value === row.choice) b.classList.add('is-incorrect');
+      });
+      row.input.disabled = true;
+      const line = statement.answer ? statement.justification : statement.correction;
+      if (line) {
+        row.why.hidden = false;
+        row.why.replaceChildren(el('span', { class: 'block-tag' }, statement.answer ? 'Why: ' : 'Correction: '), line);
+      }
+    });
+    checkButton.disabled = true;
+    const correct = right === rows.length;
+    setFeedback(feedback, correct, correct
+      ? 'Every statement is right. Compare your corrections with the ones shown.'
+      : `${right} of ${rows.length} statements right. Read the correction under each false one.`);
+    report({ correct, score: right, max: rows.length });
+  }
+
+  return el('div', { class: 'tf tf-multi' }, [
+    el('ol', { class: 'item-list' }, rows.map((r) => r.node)),
     feedback,
     el('div', { class: 'btn-row' }, [checkButton]),
   ]);
@@ -382,13 +515,23 @@ function matches(value, accepted = []) {
 
 // Fill in the blank. `text` holds one ___ per entry in `blanks`; each
 // blank lists its accepted variants.
+// With `wordBank`, every blank is a select holding the bank instead of
+// a text input.
 function fillBlankBody(question, report) {
+  const bank = question.wordBank ? normaliseBank(question.wordBank) : null;
+  const bankNode = bank ? renderBank(bank) : null;
   const segments = String(question.text || '').split('___');
   const inputs = [];
   const sentence = el('p', { class: 'fill-text' });
   segments.forEach((segment, i) => {
     sentence.append(segment);
     if (i === segments.length - 1) return;
+    if (bank) {
+      const select = bankSelect(bank, { class: 'fill-input fill-select', 'aria-label': `Blank ${i + 1}`, onChange: update });
+      inputs.push(select);
+      sentence.append(select);
+      return;
+    }
     const accepted = question.blanks?.[i]?.accept || [''];
     const input = el('input', {
       type: 'text',
@@ -439,7 +582,66 @@ function fillBlankBody(question, report) {
     report({ correct, score: right, max: inputs.length });
   }
 
-  return el('div', { class: 'fill' }, [sentence, answers, feedback, el('div', { class: 'btn-row' }, [checkButton])]);
+  if (bank) linkPickers(inputs, bank, bankNode);
+  return el('div', { class: 'fill' }, [sentence, bankNode, answers, feedback, el('div', { class: 'btn-row' }, [checkButton])]);
+}
+
+// Classify: several items share one set of categories; each item gets
+// one category, scored per item. Covers the exam's cell-type
+// classification, area-to-lobe matching and directional-term
+// completion. An item whose text holds ___ gets its picker inline.
+// Categories may be used any number of times.
+function classifyBody(question, report) {
+  const bank = normaliseBank(question.categories, { reusable: true });
+  const bankNode = renderBank(bank, { title: question.categoriesTitle || 'Categories' });
+  const selects = [];
+  const explanations = [];
+  const list = el('ol', { class: 'item-list' }, question.items.map((item, i) => {
+    const select = bankSelect(bank, { class: 'classify-select', 'aria-label': `Category for item ${LETTERS[i]}`, onChange: update });
+    selects.push(select);
+    const explanation = el('p', { class: 'label-explanation', hidden: true });
+    explanations.push(explanation);
+    const parts = String(item.text).split('___');
+    const inline = parts.length > 1;
+    return el('li', {}, [
+      el('span', { class: 'num' }, `${LETTERS[i]})`),
+      el('div', {}, [
+        inline
+          ? el('p', { class: 'classify-text' }, [parts[0], select, parts.slice(1).join('___')])
+          : el('div', { class: 'classify-text' }, paragraphs(item.text)),
+        inline ? null : el('div', { class: 'classify-pick' }, [select]),
+        explanation,
+      ]),
+    ]);
+  }));
+  const feedback = feedbackBanner();
+  const checkButton = el('button', { type: 'button', class: 'btn btn-primary', disabled: true, onClick: check }, 'Check');
+  let done = false;
+
+  function update() {
+    checkButton.disabled = done || !selects.every((s) => s.value);
+  }
+  function check() {
+    if (done || !selects.every((s) => s.value)) return;
+    done = true;
+    let right = 0;
+    question.items.forEach((item, i) => {
+      const ok = selects[i].value === item.answer;
+      if (ok) right += 1;
+      selects[i].classList.add(ok ? 'is-correct' : 'is-incorrect');
+      selects[i].disabled = true;
+      explanations[i].hidden = false;
+      explanations[i].textContent = (ok ? '' : `Answer: ${item.answer}. `) + (item.explanation || '');
+    });
+    checkButton.disabled = true;
+    const correct = right === selects.length;
+    setFeedback(feedback, correct, correct
+      ? 'Every item is in the right category.'
+      : `${right} of ${selects.length} right. The answer and the reason are under each item.`);
+    report({ correct, score: right, max: selects.length });
+  }
+
+  return el('div', { class: 'classify' }, [bankNode, list, feedback, el('div', { class: 'btn-row' }, [checkButton])]);
 }
 
 // Clinical case: a scenario, then pick (options) or name (accept) the
@@ -495,6 +697,7 @@ const BODIES = {
   fillBlank: fillBlankBody,
   clinicalCase: clinicalCaseBody,
   interpret: interpretBody,
+  classify: classifyBody,
 };
 
 // Renders one question card. options: { lectureId, index, total, source, onResult }
@@ -503,6 +706,8 @@ export function renderQuestion(question, { lectureId, index, total, source, onRe
   const head = el('div', { class: 'question-head' }, [
     badge(question.difficulty),
     el('span', { class: 'badge badge-neutral' }, typeLabel(question.type)),
+    pointsBadge(question),
+    question.beyondExam ? el('span', { class: 'badge badge-neutral' }, 'Beyond the exam') : null,
     index !== undefined ? el('span', {}, `Question ${index + 1}${total ? ' of ' + total : ''}`) : null,
     source ? el('span', {}, source) : null,
   ]);
@@ -512,12 +717,20 @@ export function renderQuestion(question, { lectureId, index, total, source, onRe
       ? el('div', { class: 'case-scenario' }, [el('p', { class: 'block-kicker' }, 'Case'), el('div', {}, paragraphs(question.scenario))])
       : null,
     el('div', { class: 'question-prompt', id: `q-${lectureId}-${question.id}` }, paragraphs(question.prompt)),
+    question.beyondExam
+      ? el('p', { class: 'beyond-note muted' }, 'Beyond the mini-exam format, which has no essays. For understanding only.')
+      : null,
   ]);
 
+  // Bodies report in their own units (sub-items right, 1 or 0, or
+  // mark-scheme points); scale to the question's points.
+  const points = questionPoints(question);
   let reported = false;
-  function report(result) {
+  function report(raw) {
     if (reported) return;
     reported = true;
+    const scale = raw.max ? points.total / raw.max : 0;
+    const result = { correct: raw.correct, score: raw.score * scale, max: points.total };
     if (lectureId) recordQuestionResult(lectureId, question.id, result);
     if (onResult) onResult({ question, lectureId, ...result });
   }
@@ -547,6 +760,7 @@ function typeLabel(type) {
     fillBlank: 'Fill in the blank',
     clinicalCase: 'Clinical case',
     interpret: 'Interpret',
+    classify: 'Classify',
   }[type] || type;
 }
 
@@ -558,10 +772,13 @@ export function renderLectureQuiz(questions, { lectureId } = {}) {
   function updateScore() {
     const answered = results.size;
     const correct = [...results.values()].filter((r) => r.correct).length;
+    const score = [...results.values()].reduce((sum, r) => sum + r.score, 0);
+    const max = [...results.values()].reduce((sum, r) => sum + r.max, 0);
     scoreCard.hidden = false;
     scoreCard.replaceChildren(
       el('p', { class: 'muted' }, 'Lecture quiz'),
       el('p', { class: 'big' }, `${correct} of ${answered} right`),
+      el('p', {}, `${formatPoints(score)} of ${formatPoints(max)} points on the answered questions.`),
       el('div', { class: 'progress-bar', role: 'progressbar', 'aria-valuemin': 0, 'aria-valuemax': total, 'aria-valuenow': answered }, [
         el('span', { style: `width:${(answered / total) * 100}%` }),
       ]),
@@ -573,7 +790,7 @@ export function renderLectureQuiz(questions, { lectureId } = {}) {
 
   const container = el('section', { class: 'lecture-quiz', id: 'lecture-quiz', 'aria-labelledby': 'lecture-quiz-title' }, [
     el('h2', { id: 'lecture-quiz-title' }, 'Lecture quiz'),
-    el('p', { class: 'muted' }, `${total} questions, easy first, then medium, then hard. Answer before you reveal.`),
+    el('p', { class: 'muted' }, `${total} questions worth ${formatPoints(questions.reduce((sum, q) => sum + questionPoints(q).total, 0))} points, easy first, then medium, then hard. Points follow the mini-exam: 1 per single answer, 0.25 per sub-item. Answer before you reveal.`),
     ...questions.map((question, index) =>
       renderQuestion(question, {
         lectureId,

@@ -23,7 +23,7 @@ function courseCard(entry) {
   let statusText = 'Not yet built';
   if (entry.built) {
     statusText = summary && summary.answered
-      ? `Built. Quiz: ${summary.score} of ${summary.max} points on ${summary.answered} answered, ${summary.missed} to review.`
+      ? `Built. Quiz: ${Math.round(summary.score * 100) / 100} of ${Math.round(summary.max * 100) / 100} points on ${summary.answered} answered, ${summary.missed} to review.`
       : 'Built. Not attempted yet.';
   }
   return el('li', {}, [

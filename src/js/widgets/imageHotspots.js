@@ -36,6 +36,7 @@
 // }
 
 import { el } from '../dom.js';
+import { renderBank, linkPickers } from '../wordBank.js';
 
 let counter = 0;
 
@@ -371,7 +372,9 @@ function shuffle(list) {
 // Quiz mode: numbered markers, one select per number, check button.
 // Used by the widget's quiz toggle and by label-the-figure questions.
 // onResult({ right, total, results: [{ id, ok }] }) fires on check.
-export function quizView(container, props, { onResult, checkLabel = 'Check labels' } = {}) {
+// wordBank (optional, from normaliseBank): the closed list the student
+// picks from, shown beside the figure; once-only entries are enforced.
+export function quizView(container, props, { onResult, checkLabel = 'Check labels', wordBank = null } = {}) {
   const { figure, setState } = buildFigure(props, {
     onEnter: (id) => setState(id, results.has(id) ? (results.get(id) ? 'correct' : 'incorrect') : 'active'),
     onLeave: (id) => setState(id, results.has(id) ? (results.get(id) ? 'correct' : 'incorrect') : null),
@@ -381,7 +384,10 @@ export function quizView(container, props, { onResult, checkLabel = 'Check label
     },
   });
   const results = new Map();
-  const pool = shuffle([...new Set([...props.regions.map((r) => r.label), ...(props.labelPool || [])])]);
+  const pool = wordBank
+    ? wordBank.map((e) => e.text)
+    : shuffle([...new Set([...props.regions.map((r) => r.label), ...(props.labelPool || [])])]);
+  const bankNode = wordBank ? renderBank(wordBank) : null;
   const selects = [];
   const feedbacks = [];
 
@@ -419,7 +425,8 @@ export function quizView(container, props, { onResult, checkLabel = 'Check label
     onResult?.({ right, total: props.regions.length, results: out });
   });
 
-  container.replaceChildren(figure, el('div', { class: 'hotspots-side' }, [list, summary, el('div', { class: 'btn-row' }, [check])]));
+  container.replaceChildren(figure, el('div', { class: 'hotspots-side' }, [bankNode, list, summary, el('div', { class: 'btn-row' }, [check])]));
+  if (wordBank) linkPickers(selects, wordBank, bankNode);
 }
 
 function markersOf(figure) {
