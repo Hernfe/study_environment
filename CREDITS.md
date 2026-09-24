@@ -113,9 +113,7 @@ Neurobiology) as shown on the slides.
 
 Lecture 4 raster files are in `src/assets/figures/L04/`, built by
 `scripts/figures_L04.py`. Nearly all are Bear, Connors and Paradiso
-figures as shown on the slides. The prey and predator field schematics
-(`prey-field.webp`, `predator-field.webp`) are extracted but not used.
-The slide 34 video ("Cortical neurons V1") is not on the site yet.
+figures as shown on the slides. The slide 34 video ("Cortical neurons V1") is not on the site yet.
 
 | File | Where used | Source | Original | Licence | Attribution required |
 | --- | --- | --- | --- | --- | --- |
@@ -135,6 +133,7 @@ The slide 34 video ("Cortical neurons V1") is not on the site yet.
 | `cs-edge.webp` | L04 Center-surround, lecture quiz q08 | L04 slide deck, page 21 (textbook Figure 9.28) | Course slides | Course material | Cite the course |
 | `retinofugal.webp` | L04 Retinofugal projection, lecture quiz q03 | L04 slide deck, page 22 (textbook Figure 10.2) | Course slides | Course material | Cite the course |
 | `hemifields.webp` | L04 Retinofugal projection | L04 slide deck, page 23 (textbook Figure 10.3) | Course slides | Course material | Cite the course |
+| `binocular-fields.webp` | L04 Retinofugal projection | L04 slide deck, page 23 (the two binocular field schematics, composed) | Course slides | Course material | Cite the course |
 | `visual-pathway.webp` | L04 LGN | L04 slide deck, page 24 (textbook Figure 10.4) | Course slides | Course material | Cite the course |
 | `lgn-nissl.webp` | L04 LGN | L04 slide deck, page 25 (textbook Figure 10.7) | Course slides | Course material | Cite the course |
 | `lgn-inputs.webp` | L04 LGN | L04 slide deck, page 25 (textbook Figure 10.8) | Course slides | Course material | Cite the course |

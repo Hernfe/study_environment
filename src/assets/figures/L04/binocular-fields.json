@@ -1,0 +1,56 @@
+{
+ "sources": [
+  {
+   "file": "src/assets/figures/L04/human-field.webp",
+   "source": "source/slides/NBE-E4210 LECTURE 04 - 2026.pdf",
+   "page": 23,
+   "crop_box_pt": [
+    599.0,
+    312.0,
+    782.0,
+    474.0
+   ]
+  },
+  {
+   "file": "src/assets/figures/L04/rabbit-field.webp",
+   "source": "source/slides/NBE-E4210 LECTURE 04 - 2026.pdf",
+   "page": 23,
+   "crop_box_pt": [
+    780.0,
+    374.0,
+    934.0,
+    538.0
+   ]
+  }
+ ],
+ "panels_pct": [
+  {
+   "x_pct": 0.0,
+   "y_pct": 0.0,
+   "w_pct": 52.73,
+   "h_pct": 100.0
+  },
+  {
+   "x_pct": 56.31,
+   "y_pct": 0.0,
+   "w_pct": 43.69,
+   "h_pct": 100.0
+  }
+ ],
+ "file": "src/assets/figures/L04/binocular-fields.webp",
+ "saved_px": [
+  1117,
+  520
+ ],
+ "webp_quality": 90,
+ "bytes": 31718,
+ "retouch": [
+  {
+   "op": "compose",
+   "cols": 2,
+   "gap": 40,
+   "height": 520,
+   "at": "2026-09-24T15:23:25+00:00"
+  }
+ ]
+}

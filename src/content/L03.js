@@ -81,9 +81,9 @@ const CYCLE_REGIONS = [
 
 const SNARE_REGIONS = [
   { id: 'vesicle', label: 'Vesicle', body: 'Filled with transmitter (the small spheres).', x: 16, y: 12, w: 20, h: 22, mx: 16, my: 6, side: 'top' },
-  { id: 'vsnare', label: 'v-SNARE', body: 'The SNARE protein anchored in the vesicle membrane (green).', x: 10, y: 34, w: 6, h: 10, mx: 10, my: 34, side: 'left' },
+  { id: 'vsnare', label: 'v-SNARE', body: 'The SNARE protein anchored in the vesicle membrane (green).', x: 22.5, y: 29, w: 6, h: 16, mx: 24.5, my: 34, side: 'right' },
   { id: 'tsnare', label: 't-SNAREs', body: 'The SNARE proteins of the target membrane (red and purple). They bind the v-SNARE and dock the vesicle.', x: 11, y: 70, w: 10, h: 18, mx: 8, my: 72, side: 'left' },
-  { id: 'synaptotagmin', label: 'Synaptotagmin', body: 'The vesicle protein that senses $\\text{Ca}^{2+}$ (blue). $\\text{Ca}^{2+}$ binding triggers fusion.', x: 5, y: 26, w: 6, h: 8, mx: 4, my: 24, side: 'left' },
+  { id: 'synaptotagmin', label: 'Synaptotagmin', body: 'The vesicle protein that senses $\\text{Ca}^{2+}$ (blue). $\\text{Ca}^{2+}$ binding triggers fusion.', x: 6, y: 26, w: 8, h: 10, mx: 4, my: 28, side: 'left' },
   { id: 'channel', label: 'Calcium channel', body: 'Right next to the docked vesicle, so the local $\\text{Ca}^{2+}$ rise is fast and large.', x: 29, y: 82, w: 5, h: 12, mx: 29, my: 90, side: 'bottom' },
   { id: 'ca-entry', label: 'Ca²⁺ enters', body: 'The middle panel: $\\text{Ca}^{2+}$ (red dots) pours in and binds synaptotagmin; the SNAREs are zipped and the membranes are pulled together.', x: 60, y: 62, w: 10, h: 14, mx: 62, my: 66, side: 'bottom' },
   { id: 'pore', label: 'Fusion pore', body: 'The right panel: the membranes have merged and transmitter escapes through the pore into the cleft.', x: 85, y: 82, w: 10, h: 16, mx: 85, my: 92, side: 'bottom' },

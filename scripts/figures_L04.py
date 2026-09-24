@@ -136,8 +136,10 @@ def main():
     inpaint("hemifields", [[5, 15, 18, 22]])
     erase("hemifields", [[37, 11, 41.8, 29], [88.5, 48.5, 79, 52], [85, 57.5, 80, 58.5], [40, 63.5, 46, 60.5], [48, 70.5, 53, 67], [87.5, 67.5, 82, 71.5], [57, 80, 66, 77.5], [77.5, 77, 73.5, 72], [84.5, 47, 79.5, 50.5], [40.8, 20, 41.6, 27]], width=9)
     crop("hemifields", [0, 0, 100, 84])
-    extract(23, 4, "prey-field")            # binocular field schematics (S23), labels kept
-    extract(23, 3, "predator-field")
+    extract_rect(23, [599, 312, 782, 474], "human-field")   # binocular field schematics (S23), labels kept;
+    extract_rect(23, [780, 374, 934, 538], "rabbit-field")  # rects, not --image, for resolution and no overlap
+    compose("binocular-fields", [F / "human-field.webp", F / "rabbit-field.webp"], height=520, gap=40)
+    drop("human-field", "rabbit-field")
     extract(24, 2, "visual-pathway")        # Figure 10.4 (S24), labels kept
     crop("visual-pathway", [0, 0, 100, 84])
     extract(25, 2, "lgn-nissl")             # Figure 10.7 (S25): the stained inset, layer numbers kept

@@ -807,6 +807,17 @@ export default {
           { label: 'Left optic tract', cells: ['Right hemifield from both eyes', 'Right visual field lost in each eye'] },
         ] },
         { type: 'example', title: 'Predator versus prey (slide 23)', body: 'Forward-facing eyes, as in humans and predators, give a large binocular field (about $140^{\\circ}$ on the slide) for depth. Prey animals with eyes on the sides see almost all round, with only a small zone seen by both eyes.' },
+        figureBlock(
+          hotspots('binocular-fields', 1117 / 520, 'Two fields of view from above: a human with forward-facing eyes and a prey animal with eyes on the sides.', [
+            { id: 'human-binocular', label: 'Binocular zone, forward-facing eyes', body: 'Seen by both eyes at once: about $140^{\\circ}$ in front of a human. The overlap gives depth.', x: 28, y: 30, w: 24, h: 14, side: 'top' },
+            { id: 'human-monocular', label: 'Monocular crescent', body: 'Seen by one eye only, at the edge of each side of the field (about $30^{\\circ}$).', x: 15, y: 48, w: 10, h: 12, mx: 18, my: 50, side: 'left' },
+            { id: 'human-blind', label: 'Blind area', body: 'Behind the head, seen by neither eye. The cost of forward-facing eyes.', x: 27, y: 68, w: 26, h: 18, mx: 15, my: 68, side: 'bottom' },
+            { id: 'prey-binocular', label: 'Binocular zone, eyes on the sides', body: 'Only a narrow wedge in front is seen by both eyes.', x: 78, y: 22, w: 6, h: 18, mx: 78, my: 24, side: 'top' },
+            { id: 'prey-total', label: 'Total field, eyes on the sides', body: 'Almost all round the animal, so an approaching predator is seen from nearly any direction.', x: 92, y: 62, w: 6, h: 16, side: 'right' },
+          ], { quiz: false }),
+          'Binocular fields (slide 23). Left: forward-facing human eyes give a wide binocular zone and a blind area behind. Right: a prey animal with eyes on the sides sees almost all round, but only a narrow wedge with both eyes.',
+          'Two circles seen from above. Left: a human head with a large purple binocular zone in front, pale blue monocular crescents at the sides, and a dark blind area behind. Right: a long-eared animal in a large circle, with only a narrow purple wedge in front seen by both eyes.'
+        ),
         { type: 'detail', title: 'Other targets of the optic tract', body: 'Most tract axons go to the LGN. About 10 percent reach the superior colliculus, which turns the eyes and head toward a stimulus. Others reach the pretectum, which sets pupil size, and, from the ipRGCs, the suprachiasmatic nucleus of the hypothalamus, which keeps circadian rhythms in step with day and night.' },
       ],
       conceptQuiz: [
