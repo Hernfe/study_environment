@@ -170,7 +170,7 @@ export default {
   sections: [
     // 1 -----------------------------------------------------------------
     {
-      id: 'recap',
+      id: 'from-lecture-2',
       title: 'Recap: the action potential reaches the terminal',
       keyTerms: ['spike-initiation zone', 'saltatory conduction', 'voltage-gated calcium channel'],
       blocks: [
@@ -840,9 +840,9 @@ export default {
         figureBlock(
           hotspots('shunting', 780 / 803, 'Two drawings of a dendrite with an excitatory synapse far out and an inhibitory synapse near the soma; with the inhibitory synapse inactive the somatic EPSP is present, with it active the somatic EPSP is gone.', [
             { id: 'exc', label: 'Excitatory synapse (active)', body: 'Inward current enters the dendrite here and spreads toward the soma.', x: 18, y: 12, w: 10, h: 18, mx: 18, my: 8, side: 'top' },
-            { id: 'inh-off', label: 'Inhibitory synapse, inactive', body: 'Top: the current reaches the soma and an EPSP is recorded there.', x: 56, y: 12, w: 8, h: 16, mx: 56, my: 6, side: 'top' },
-            { id: 'inh-on', label: 'Inhibitory synapse, active', body: 'Bottom: its open $\\text{Cl}^-$ channels shunt the current out of the dendrite, so the dendritic EPSP is still there but the somatic EPSP is gone.', x: 56, y: 62, w: 8, h: 16, mx: 56, my: 58, side: 'right' },
-            { id: 'soma', label: 'Soma and axon hillock', body: 'The only potential that matters for firing.', x: 88, y: 22, w: 24, h: 30, mx: 96, my: 26, side: 'right' },
+            { id: 'inh-off', label: 'Inhibitory synapse, inactive', body: 'Top: the current reaches the soma and an EPSP is recorded there.', x: 56, y: 12, w: 8, h: 16, mx: 52, my: 13, side: 'inline', dir: 'up-left' },
+            { id: 'inh-on', label: 'Inhibitory synapse, active', body: 'Bottom: its open $\\text{Cl}^-$ channels shunt the current out of the dendrite, so the dendritic EPSP is still there but the somatic EPSP is gone.', x: 56, y: 62, w: 8, h: 16, mx: 52, my: 62, side: 'inline', dir: 'up-left' },
+            { id: 'soma', label: 'Soma and axon hillock', body: 'The only potential that matters for firing.', x: 88, y: 22, w: 24, h: 30, mx: 80, my: 19, side: 'right' },
           ], { quiz: false, gutter: 'all' }),
           'Shunting inhibition (textbook Figure 5.21). The inhibitory synapse sits between the excitatory input and the soma.',
           'Two versions of one drawing: a long dendrite with a glowing excitatory contact at its far end and an inhibitory contact near a blue soma. In the upper version both recording traces show an EPSP; in the lower one the inhibitory contact glows and the somatic trace is flat.'
@@ -1366,20 +1366,25 @@ export default {
   lectureQuiz: [
     // Easy ---------------------------------------------------------------
     {
-      id: 'q01',
+      id: 'q22',
       difficulty: 'easy',
-      type: 'mc',
-      prompt: 'What is a connexon?',
-      options: [
-        { text: 'A half-channel of six connexins, contributed by one cell', feedback: 'Correct. Two connexons, one from each cell, make a gap junction channel.' },
-        { text: 'A full channel of twelve connexins, shared by two cells', feedback: 'That is a gap junction channel: two connexons.' },
-        { text: 'A single connexin protein spanning both membranes', feedback: 'One connexin spans one membrane; six of them make a connexon.' },
-        { text: 'A plaque of many channels joining the two cells', feedback: 'That is the gap junction itself.' },
+      type: 'classify',
+      prompt: 'Match each antagonist to the receptor it blocks (Table 6.1).',
+      categoriesTitle: 'Receptors',
+      categories: ['Nicotinic receptor', 'Muscarinic receptor', 'Beta adrenergic receptor', 'AMPA receptor', 'NMDA receptor', 'GABA-A receptor', 'GABA-B receptor'],
+      items: [
+        { text: 'Curare → ___', answer: 'Nicotinic receptor', explanation: 'Curare paralyses skeletal muscle by blocking its nicotinic receptors.' },
+        { text: 'Atropine → ___', answer: 'Muscarinic receptor', explanation: 'Atropine is the muscarinic antagonist.' },
+        { text: 'Propranolol → ___', answer: 'Beta adrenergic receptor', explanation: 'Propranolol blocks beta receptors for norepinephrine.' },
+        { text: 'AP5 → ___', answer: 'NMDA receptor', explanation: 'AP5 blocks NMDA receptors; CNQX blocks AMPA receptors.' },
+        { text: 'Bicuculline → ___', answer: 'GABA-A receptor', explanation: 'Bicuculline blocks the GABA-gated chloride channel.' },
+        { text: 'Phaclofen → ___', answer: 'GABA-B receptor', explanation: 'Phaclofen blocks the G-protein-coupled GABA-B receptor.' },
       ],
-      correct: 0,
       modelAnswer: [
-        'Six connexin subunits assemble into a connexon, a half-channel in one cell\'s membrane.',
-        'A connexon from each cell meets across the $3.5\\,\\text{nm}$ gap to form one gap junction channel, and many channels make a gap junction.',
+        'Acetylcholine: curare blocks nicotinic, atropine blocks muscarinic receptors.',
+        'Norepinephrine: propranolol blocks beta receptors.',
+        'Glutamate: CNQX blocks AMPA, AP5 blocks NMDA receptors; AMPA is left over here.',
+        'GABA: bicuculline blocks GABA-A, phaclofen blocks GABA-B receptors.',
       ],
     },
     {
@@ -1439,8 +1444,9 @@ export default {
       id: 'q07',
       difficulty: 'medium',
       type: 'label',
-      prompt: 'Label the numbered parts of the chemical synapse.',
-      hotspots: { src: fig('chemical-synapse'), alt: 'A cut-open axon terminal on a dendrite.', aspect: 928 / 651, regions: SYNAPSE_REGIONS, gutter: 'all', layout: 'stack', labelPool: ['Gap junction', 'Axon hillock'] },
+      prompt: 'Identify the seven structures of the chemical synapse indicated in the figure.',
+      hotspots: { src: fig('chemical-synapse'), alt: 'A cut-open axon terminal on a dendrite.', aspect: 928 / 651, regions: SYNAPSE_REGIONS, gutter: 'all', layout: 'stack' },
+      wordBank: ['Synaptic cleft', 'Mitochondria', 'Gap junction', 'Postsynaptic density with receptors', 'Secretory granules', 'Axon terminal (presynaptic element)', 'Axon hillock', 'Active zone', 'Synaptic vesicles'],
       modelAnswer: [
         'The axon terminal is the presynaptic element, cut open here.',
         'Synaptic vesicles ($50\\,\\text{nm}$) hold amino acid and amine transmitters; secretory granules ($100\\,\\text{nm}$, dense core) hold peptides.',
@@ -1464,29 +1470,6 @@ export default {
         'Feedforward: an input excites E and an interneuron that inhibits E.',
         'Feedback: local E activity recruits interneurons that inhibit the local E network, as here.',
         'Disinhibition: one interneuron (VIP) inhibits another (SOM), releasing the SOM targets.',
-      ],
-    },
-    {
-      id: 'q14',
-      difficulty: 'medium',
-      type: 'order',
-      prompt: 'Put the steps of the norepinephrine beta-receptor cascade in order, ending with the effect on excitability.',
-      items: [
-        'Protein kinase A phosphorylates a dendritic $\\text{K}^+$ channel, which closes',
-        'NE binds the beta receptor and activates the G-protein Gs',
-        'cAMP activates protein kinase A',
-        'Membrane resistance and the length constant rise, so distant EPSPs reach the spike-initiation zone',
-        'Gs activates adenylyl cyclase',
-        'Adenylyl cyclase converts ATP into cAMP',
-      ],
-      correctOrder: [1, 4, 5, 2, 0, 3],
-      modelAnswer: [
-        'Norepinephrine binds the beta-adrenergic receptor, which activates the stimulatory G-protein Gs.',
-        'Gs activates the membrane enzyme adenylyl cyclase.',
-        'Adenylyl cyclase converts ATP into the second messenger cAMP.',
-        'cAMP activates protein kinase A.',
-        'PKA transfers phosphate from ATP to a type of dendritic $\\text{K}^+$ channel, which closes and lowers $g_{\\text{K}}$.',
-        'Lower $\\text{K}^+$ conductance means higher membrane resistance and a longer length constant, so weak or distant excitatory inputs now depolarize the spike-initiation zone: the cell is more excitable although NE alone barely changed $V_m$. Phosphatases later reverse the phosphorylation.',
       ],
     },
     {
@@ -1520,6 +1503,52 @@ export default {
         'Normally $\\text{Ca}^{2+}$ binds synaptotagmin, and the zipped v-SNARE and t-SNAREs pull the vesicle into the membrane so a fusion pore opens.',
         'Every step before and after fusion works, so the broken link is fusion itself.',
         'Answer: SNARE-mediated fusion. Botulinum toxins are enzymes that destroy specific SNARE proteins, so docked vesicles cannot fuse and release is blocked at the neuromuscular junction.',
+      ],
+    },
+    {
+      id: 'q23',
+      difficulty: 'medium',
+      type: 'interpret',
+      prompt: 'The figure shows norepinephrine acting on a beta receptor in a dendrite. NE alone barely changes $V_m$, yet afterwards distant EPSPs trigger spikes more easily. What in the figure explains this?',
+      figure: {
+        type: 'widget',
+        name: 'image-hotspots',
+        props: hotspots('ne-cascade', 960 / 539, 'The norepinephrine beta-receptor cascade with steps numbered 1 to 5.', [], { quiz: false }),
+        fallbackAlt: 'A membrane with a beta receptor binding norepinephrine, a G-protein, adenylyl cyclase, cAMP, protein kinase A and a potassium channel, steps numbered 1 to 5.',
+      },
+      options: [
+        { text: 'PKA closes a $\\text{K}^+$ channel, which raises membrane resistance and the length constant', feedback: 'Correct. Less leak, so distant EPSPs decay less on their way to the soma.' },
+        { text: 'Gs opens a $\\text{Na}^+$ channel directly, which depolarizes the dendrite close to threshold', feedback: 'The figure shows Gs acting on adenylyl cyclase, and NE barely changes $V_m$.' },
+        { text: 'cAMP closes a $\\text{Cl}^-$ channel, which removes shunting inhibition from the dendrite', feedback: 'The channel at the end of the cascade is a $\\text{K}^+$ channel.' },
+        { text: 'Adenylyl cyclase raises glutamate release, which enlarges every EPSP at its source', feedback: 'The cascade is postsynaptic; it changes the dendrite, not release.' },
+      ],
+      correct: 0,
+      modelAnswer: [
+        'Norepinephrine binds the beta receptor, which activates Gs; Gs activates adenylyl cyclase, which converts ATP into cAMP.',
+        'cAMP activates protein kinase A, which phosphorylates a dendritic $\\text{K}^+$ channel so that it closes.',
+        'Lower $g_{\\text{K}}$ changes $V_m$ little, but it raises the membrane resistance and the length constant.',
+        'Distant EPSPs now decay less before they reach the spike-initiation zone, so the cell is more excitable. Phosphatases later reverse the effect.',
+      ],
+    },
+    {
+      id: 'q21',
+      difficulty: 'medium',
+      type: 'classify',
+      prompt: 'For each statement, classify it as describing primarily an Electrical synapse / Chemical synapse.',
+      categories: ['Electrical synapse', 'Chemical synapse'],
+      items: [
+        { text: 'Two membranes about $3.5\\,\\text{nm}$ apart are joined by channels built from connexins.', answer: 'Electrical synapse', explanation: 'Gap junction channels: two connexons of six connexins each.' },
+        { text: 'A 20 to $50\\,\\text{nm}$ cleft separates the terminal from a membrane packed with receptors.', answer: 'Chemical synapse', explanation: 'The cleft and the postsynaptic density.' },
+        { text: 'The signal passes with almost no delay, as ionic current flowing from one cell into the next.', answer: 'Electrical synapse', explanation: 'Current flows straight through the channels.' },
+        { text: 'Transmission takes about 0.5 to $1\\,\\text{ms}$, because $\\text{Ca}^{2+}$ entry, fusion and diffusion come first.', answer: 'Chemical synapse', explanation: 'The synaptic delay.' },
+        { text: 'Current usually flows equally in both directions, so the two cells influence each other.', answer: 'Electrical synapse', explanation: 'Most gap junctions are bidirectional.' },
+        { text: 'Presynaptic autoreceptors can turn down release when transmitter builds up.', answer: 'Chemical synapse', explanation: 'Every chemical step can be modulated.' },
+      ],
+      modelAnswer: [
+        'Electrical synapse: a gap junction, channels of two connexons joining the cytoplasms across $3.5\\,\\text{nm}$. Ionic current passes directly, almost without delay, usually both ways.',
+        'Chemical synapse: vesicles, active zone, a 20 to $50\\,\\text{nm}$ cleft and receptors. The spike becomes $\\text{Ca}^{2+}$ entry, fusion, diffusion and receptor binding, which costs about 0.5 to $1\\,\\text{ms}$ and runs one way.',
+        'Each chemical step is a protein or reaction, so it can be modulated: autoreceptors, drugs at GABA-A sites, or the NE beta-receptor cascade. A gap junction just passes current.',
+        'a), c), e) electrical; b), d), f) chemical.',
       ],
     },
 
@@ -1618,29 +1647,6 @@ export default {
         'Two $4\\,\\text{mV}$ EPSPs summing spatially give at most $8\\,\\text{mV}$, below the $10\\,\\text{mV}$ threshold, and any tonic SOM inhibition on the dendrites shunts them further.',
         'VIP interneurons preferentially inhibit SOM interneurons. When VIP is active, SOM stops inhibiting the pyramidal dendrites: disinhibition. The membrane resistance and length constant of the dendrites rise, the EPSPs arrive at the hillock larger, and their sum now crosses threshold.',
         'The net effect of two inhibitory synapses in series is excitation of the pyramidal cell.',
-      ],
-    },
-    {
-      id: 'q11',
-      difficulty: 'hard',
-      type: 'essay',
-      prompt: 'Compare chemical and electrical synapses in structure, signal route, delay and direction, and explain why chemical transmission, unlike electrical, can be modulated. Give two points in the chemical pathway where modulation acts.',
-      points: 6,
-      markScheme: [
-        { points: 1, text: 'Structure: electrical synapse = gap junction channels (connexons of six connexins, $3.5\\,\\text{nm}$ gap) joining the cytoplasms; chemical synapse = vesicles, active zone, 20 to $50\\,\\text{nm}$ cleft, postsynaptic receptors.' },
-        { points: 1, text: 'Signal route: electrical passes ionic current directly; chemical converts the spike into $\\text{Ca}^{2+}$ entry, transmitter release, diffusion, receptor binding and back into an electrical response.' },
-        { points: 1, text: 'Delay: electrical almost none; chemical about 0.5 to $1\\,\\text{ms}$ because of the intervening steps.' },
-        { points: 1, text: 'Direction: most electrical synapses are bidirectional (cells electrically coupled); chemical synapses transmit only from presynaptic to postsynaptic cell.' },
-        { points: 1, text: 'Why modulation is possible: every chemical step is a protein or reaction that can be changed (release probability, receptor number and type, G-protein cascades), whereas a gap junction just passes current of fixed sign and small size.' },
-        { points: 1, text: 'Two concrete modulation points, for example autoreceptors reducing release, drugs at GABA-A modulatory sites, or the NE beta-receptor cascade closing $\\text{K}^+$ channels and lengthening the dendritic length constant.' },
-      ],
-      modelAnswer: [
-        'An electrical synapse is a gap junction: plaques of channels, each made of two connexons of six connexins, spanning a $3.5\\,\\text{nm}$ gap and joining the two cytoplasms. A chemical synapse has a presynaptic terminal with vesicles and active zones, a 20 to $50\\,\\text{nm}$ cleft, and a postsynaptic density with receptors.',
-        'At the electrical synapse ionic current from the spike in cell 1 flows straight into cell 2 and produces a small electrical PSP of about $1\\,\\text{mV}$. At the chemical synapse the spike opens $\\text{Ca}^{2+}$ channels, $\\text{Ca}^{2+}$ triggers SNARE-mediated exocytosis, transmitter diffuses across the cleft and binds receptors, which open channels or activate G-proteins.',
-        'Those steps cost time: chemical transmission has a synaptic delay of roughly 0.5 to $1\\,\\text{ms}$, the electrical synapse almost none.',
-        'Most gap junctions pass current equally both ways, so coupled cells influence each other. Chemical transmission is one-way, from the terminal with vesicles to the cell with receptors.',
-        'Because each chemical step is a molecular process, each can be regulated: how much transmitter is released, how it is removed, which receptor is present, and what the receptor does. A gap junction offers no such handle beyond how many channels are open.',
-        'Examples: presynaptic autoreceptors act through G-proteins to reduce release when transmitter builds up; benzodiazepines and barbiturates enhance the GABA-A response at their own sites; and norepinephrine at beta receptors raises cAMP, activates PKA, closes dendritic $\\text{K}^+$ channels and so makes distant EPSPs more effective, an effect that outlasts the transmitter.',
       ],
     },
   ],

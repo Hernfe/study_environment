@@ -45,12 +45,16 @@ $...$ maths counted by its TeX source without commands.
 Usage:
   python scripts/lint_questions.py            report on every lecture
   python scripts/lint_questions.py L04 L05    only these lectures
-  python scripts/lint_questions.py --strict   exit 1 if any fairness or
-                                              mix finding is reported
+  python scripts/lint_questions.py --strict   exit 1 if any fairness, mix,
+                                              field, word-bank or maths
+                                              finding is reported for a
+                                              lecture not in LEGACY
   python scripts/lint_questions.py --json     machine-readable output
 
-Runs after every `npm run build` (scripts/build_report.mjs) as the build
-report. It never fails the build unless --strict is given.
+Runs after every `npm run build` (scripts/build_report.mjs) with
+--strict, as the build gate: a finding in any lecture not in LEGACY
+fails the build. Legacy lectures and advisory notes (tiers,
+wordbank-note) are reported only.
 """
 
 import argparse
@@ -65,7 +69,8 @@ ROOT = Path(__file__).resolve().parent.parent
 DUMP = ROOT / "scripts" / "dump_questions.mjs"
 
 # Lectures written before the 2026-09-24 authoring rules. Findings are
-# still reported, marked legacy, so a retrofit pass has a checklist.
+# still reported, marked legacy, so a retrofit pass has a checklist, but
+# they never fail the build gate. Every other lecture must lint clean.
 LEGACY = {
     "L00": "renderer test page, shows every type",
     "L01": "legacy, written before the 2026-09-24 rules",
@@ -564,7 +569,7 @@ def main():
         findings, hits, authored, shown = lint(lecture_id, entry["content"], corpus)
         report[lecture_id] = {"file": entry["file"], "findings": findings, "symbols": hits, "mc": len(authored)}
         if lecture_id not in LEGACY:
-            severe += sum(1 for f in findings if f[0] in SEVERE)
+            severe += sum(1 for f in findings if f[0] in SEVERE) + len(hits)
 
     if args.json:
         print(json.dumps(report, indent=1, ensure_ascii=False))
@@ -590,6 +595,7 @@ def main():
                 sample = ", ".join(sorted({h[1] for h in r["symbols"]})[: args.examples])
                 print(f"  [maths] {len(r['symbols'])} symbols or units outside $...$, e.g. {sample}")
     if args.strict and severe:
+        print(f"\nlint: {severe} finding(s) in lectures not marked legacy")
         sys.exit(1)
 
 
