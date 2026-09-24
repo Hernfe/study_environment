@@ -48,7 +48,7 @@ When two slide decks disagree on schedule, scope or emphasis, the most recent de
 
 - Record every new asset in `CREDITS.md` (file, where used, source, original URL, licence, attribution) before the lecture is committed.
 
-- Maths: every formula, symbol and unit expression is rendered with KaTeX. Inline maths between `$...$` in any text, display maths in `math` blocks, recap `tex` and calc step `tex` (docs/CONTENT_SCHEMA.md, Maths). No plain-text symbols such as E_eq, g_Na, uV, Na+ or log10 in body text. L01 to L03 predate this; L03 is retrofitted in its own pass.
+- Maths: every formula, symbol and unit expression is rendered with KaTeX. Inline maths between `$...$` in any text, display maths in `math` blocks, recap `tex` and calc step `tex` (docs/CONTENT_SCHEMA.md, Maths). No plain-text symbols such as E_eq, g_Na, uV, Na+ or log10 in body text. L01 and L02 predate this; L03 was retrofitted on 2026-09-24.
 
 - End of theory: a recap card listing the key terms with one-line definitions, formatted to copy onto a cheat sheet. Include any equations, as `tex`.
 

@@ -96,8 +96,8 @@ export const drivingForce = {
       const r = c.update(state);
       const df = state.vm - r.erev;
       info.set(0, [el('strong', {}, state.channel.label), el('span', { class: 'demo-note' }, ` ${state.channel.body || ''}`)]);
-      info.set(1, [el('strong', {}, `Vm - E_rev = ${fmt0(state.vm)} - (${fmt0(r.erev)}) = ${fmt0(df)} mV`)]);
-      info.set(2, [el('strong', {}, `I = g (Vm - E_rev) = ${fmt1(r.i)} ${L.currentUnit || 'pA'}`), el('span', { class: 'demo-note' }, ` ${r.i < -0.5 ? L.inward || 'inward' : r.i > 0.5 ? L.outward || 'outward' : L.none || 'none'}`)]);
+      info.set(1, [el('strong', {}, `$V_m - E_{\\text{rev}} = ${fmt0(state.vm)} - (${fmt0(r.erev)}) = ${fmt0(df)}\\,\\text{mV}$`)]);
+      info.set(2, [el('strong', {}, `$I = g\\,(V_m - E_{\\text{rev}}) = ${fmt1(r.i)}\\,\\text{${L.currentUnit || 'pA'}}$`), el('span', { class: 'demo-note' }, ` ${r.i < -0.5 ? L.inward || 'inward' : r.i > 0.5 ? L.outward || 'outward' : L.none || 'none'}`)]);
       const eff = { epsp: L.epspNote, ipsp: L.ipspNote, none: L.noneNote, 'epsp-weak': L.epspWeakNote, 'ipsp-toward': L.ipspTowardNote }[r.effect];
       info.set(3, [el('strong', {}, r.erev > (props.threshold ?? -55) ? L.excitatory || 'excitatory synapse' : L.inhibitory || 'inhibitory synapse'), el('span', { class: 'demo-note' }, eff ? ` ${eff}` : '')]);
     }

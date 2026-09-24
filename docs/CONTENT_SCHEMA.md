@@ -118,7 +118,7 @@ characters at the site measure). Mechanisms are `steps`, contrasts are
 | `keyNumber` | `title?`, `items: [{ value, label }]` (or `value`, `label` directly), `note?` | Card with large tabular numbers and their meaning. |
 | `misconception` | `title?`, `wrong`, `right` | Card with "Not this:" and "But this:" lines. |
 | `math` | `title?`, `items: [{ tex, label }]` (or `tex`, `label` directly), `note?` | Card, kicker "Equation". Each `tex` is typeset by KaTeX in display mode, its meaning under it. Use for every formula. |
-| `equation` | `title?`, `items: [{ expression, label }]`, `note?` | Legacy (L02, L03): plain-text expression in monospace. Do not use in new lectures; use `math`. |
+| `equation` | `title?`, `items: [{ expression, label }]`, `note?` | Legacy (L02): plain-text expression in monospace. Do not use in new lectures; use `math`. |
 | `video` | `video: Video` (or the Video fields directly) | A lecture clip with a poster frame. See "Videos". |
 | `whyItMatters` | `title?`, `body` | Card, kicker "Why it matters". One or two sentences. |
 | `detail` | `title`, `body` or `blocks` | `<details>` collapsed by default. Optional depth within slide scope. |
@@ -761,7 +761,7 @@ report, or on its own with lecture ids) loads every content file through
 - `maths`: plain-text symbols and units outside `$...$`.
 
 Lengths are measured on what the student reads (tags stripped, TeX
-commands counted as one symbol). L00 to L03 predate these rules and are
+commands counted as one symbol). L00 to L02 predate these rules and are
 summarised as legacy; `--verbose` lists every finding, `--strict` (or
 `LINT_STRICT=1 npm run build`) exits non-zero on findings in any other
 lecture. A new lecture is not done until its report is clean.

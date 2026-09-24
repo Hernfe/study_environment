@@ -57,7 +57,6 @@ LEGACY = {
     "L00": "renderer test page, shows every type",
     "L01": "legacy, written before the 2026-09-24 rules",
     "L02": "legacy, written before the 2026-09-24 rules",
-    "L03": "legacy, retrofit due in the L03 pass",
 }
 
 TARGET = {"easy": 3, "medium": 5, "hard": 5}

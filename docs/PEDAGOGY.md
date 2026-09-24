@@ -49,7 +49,7 @@ Rules that follow from the tiers:
   defined in the table above, and it is never adjusted to hit a target
   count. To move the split, write different questions; relabel only
   when the demand of the question itself changes.
-- Question-bank mix (from lecture L04 on; L01 to L03 predate it):
+- Question-bank mix (from lecture L04 on, and L03 since its retrofit; L01 and L02 predate it):
   at most 1 essay per lecture; at least 2 clinical cases; at least 1
   label-the-figure. Fill the rest with true or false, fill in the
   blank, interpret, order, calculation and multiple choice. The paper
