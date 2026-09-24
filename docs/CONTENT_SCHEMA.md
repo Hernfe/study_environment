@@ -18,6 +18,10 @@ To add a lecture:
 `src/content/L00-example.js` is a complete dummy lecture that uses every
 section and question type. Use it as a template.
 
+After `vite build`, npm runs the build report (`scripts/build_report.mjs`,
+which runs `scripts/lint_questions.py`). Read it for the new lecture and
+fix every finding before committing. See "Question lint" at the end.
+
 ## Top level
 
 ```js
@@ -113,10 +117,14 @@ characters at the site measure). Mechanisms are `steps`, contrasts are
 | `example` | `title?`, `body` | Card, kicker "Example". A concrete case or worked instance. |
 | `keyNumber` | `title?`, `items: [{ value, label }]` (or `value`, `label` directly), `note?` | Card with large tabular numbers and their meaning. |
 | `misconception` | `title?`, `wrong`, `right` | Card with "Not this:" and "But this:" lines. |
-| `equation` | `title?`, `items: [{ expression, label }]` (or `expression`, `label` directly), `note?` | Card with each expression in a monospace block that wraps, and its meaning under it. Use for any formula; `keyNumber` is for short numbers only. |
+| `math` | `title?`, `items: [{ tex, label }]` (or `tex`, `label` directly), `note?` | Card, kicker "Equation". Each `tex` is typeset by KaTeX in display mode, its meaning under it. Use for every formula. |
+| `equation` | `title?`, `items: [{ expression, label }]`, `note?` | Legacy (L02, L03): plain-text expression in monospace. Do not use in new lectures; use `math`. |
+| `video` | `video: Video` (or the Video fields directly) | A lecture clip with a poster frame. See "Videos". |
 | `whyItMatters` | `title?`, `body` | Card, kicker "Why it matters". One or two sentences. |
 | `detail` | `title`, `body` or `blocks` | `<details>` collapsed by default. Optional depth within slide scope. |
 | `figure` | `visual` | A figure, same shape as a section `visual`. |
+
+`keyNumber` values may hold inline maths (`'$-65\\,\\text{mV}$'`).
 
 ```js
 blocks: [
@@ -125,6 +133,7 @@ blocks: [
   { type: 'steps', title: 'Chemical transmission', steps: ['An action potential arrives.', { title: 'Calcium enters:', body: 'voltage-gated channels open.' }] },
   { type: 'compare', title: 'Two kinds of glia', columns: ['Where', 'Job'], rows: [{ label: 'Astrocyte', cells: ['CNS', 'Environment'] }] },
   { type: 'keyNumber', items: [{ value: '86 billion', label: 'neurons in the human brain' }] },
+  { type: 'math', title: 'Nernst equation', items: [{ tex: 'E_{\\text{ion}} = \\frac{61.5\\,\\text{mV}}{z}\\log_{10}\\frac{[\\text{ion}]_{\\text{out}}}{[\\text{ion}]_{\\text{in}}}', label: 'At $37\\,^{\\circ}\\text{C}$. $z$ is the charge.' }] },
   { type: 'misconception', wrong: 'More neurons means smarter.', right: 'Compare at the same anatomical level.' },
   { type: 'whyItMatters', body: 'A result applies to the scale that was measured.' },
   { type: 'detail', title: 'Cortical maps and atlases', body: ['...', '...'] },
@@ -141,6 +150,61 @@ whyItMatters, misconception or keyNumber), both at most 340 characters,
 and within 55 percent of each other in length. A run of three leaves
 the third full width. Add `pair: false` to a block to keep it full
 width. See docs/DESIGN.md, Layout.
+
+### Maths
+
+Every formula, symbol and unit expression goes through KaTeX
+(`src/js/math.js`). No plain-text symbols such as E_eq, g_Na, uV, Na+ or
+log10 in any student-facing text. The build report counts leftovers.
+
+- Display maths: a `math` block, a recap equation's `tex`, or a calc
+  step's `tex`. Write the TeX without dollar signs.
+- Inline maths: anywhere in text (block bodies, titles, captions,
+  prompts, options, feedback, model answers, mark schemes, hotspot
+  region bodies, calc `given` symbols) between single dollar signs:
+  `'The equilibrium potential $E_{\\text{K}}$ is about $-80\\,\\text{mV}$.'`
+- Content files use single-quoted JS strings, so every TeX backslash is
+  doubled: `\\frac`, `\\text`, `\\,`. A literal dollar sign is `\\$`.
+- Units: upright with a thin space, `$50\\,\\mu\\text{V}$`,
+  `$2\\,\\text{ms}$`. Ions: `$\\text{Na}^+$`, `$\\text{Ca}^{2+}$`,
+  `$\\text{Cl}^-$`. Named quantities: `$E_{\\text{Na}}$`, `$g_{\\text{K}}$`,
+  `$V_m$`.
+- Not in places that cannot hold markup: `<select>` options (hotspot
+  `label`s used in a label question's picker and `labelPool`), widget
+  props drawn into SVG, and `meta.title`. There `stripMath` shows a
+  plain approximation, so prefer Unicode there (Na⁺, µV).
+- The renderer typesets after rendering and keeps watching the page, so
+  text added later (option feedback, check results, hotspot panels,
+  review cards) is typeset too. Key terms are never marked inside maths.
+
+### Videos
+
+Slide decks embed clips that the PDF export shows as a black box.
+`scripts/extract_figures.py videos <deck.pdf>` lists them by slide (the
+`list` command prints the same report); ask for the PPTX or the clip,
+then `scripts/video_asset.py pptx <deck.pptx>` extracts the media and
+`scripts/video_asset.py add <clip> --lecture L0X --name <name> --at <s>`
+copies or transcodes it to `src/assets/videos/L0X/` and writes a poster
+frame to `src/assets/figures/L0X/<name>-poster.webp`.
+
+```js
+const v1Clip = {
+  src: new URL('../assets/videos/L04/v1-neurons.mp4', import.meta.url).href,
+  poster: new URL('../assets/figures/L04/v1-neurons-poster.webp', import.meta.url).href,
+  width: 1280, height: 720,          // optional, avoids layout shift
+  sources: [{ src, type }],          // optional, instead of src, for several encodings
+  tracks: [{ src, srclang: 'en', label: 'English' }],   // optional captions (WebVTT)
+  caption: 'Two-photon recording of V1 neurons ...',
+  fallbackAlt: 'Still frame: a field of neurons, some brighter than others.',
+};
+blocks: [ ..., { type: 'video', video: v1Clip }, ... ]
+```
+
+The player has native controls (keyboard operable), `preload="none"`,
+and shows the poster until played, so the figure degrades to the still.
+Videos are examinable: every `video` block needs at least one lecture
+question that carries the same object as `video` (the lint checks the
+`src`), so the clip plays inside the question card in review too.
 
 Rules for `body`:
 
@@ -311,28 +375,45 @@ recap: {
   equations: [
     {
       name: 'Nernst equation',
-      expression: 'E_ion = (61.5 mV / z) * log10([ion]out / [ion]in)   at 37 C',
-      note: 'Equilibrium potential of one ion. z is the charge.',
+      tex: 'E_{\\text{ion}} = \\frac{61.5\\,\\text{mV}}{z}\\log_{10}\\frac{[\\text{ion}]_{\\text{out}}}{[\\text{ion}]_{\\text{in}}}',
+      note: 'Equilibrium potential of one ion at $37\\,^{\\circ}\\text{C}$. $z$ is the charge.',
     },
   ],
 }
 ```
 
-`expression` is plain text in a monospace block, so it can be copied
-onto a cheat sheet exactly.
+`tex` is typeset in display mode, exactly as it should be copied onto
+the cheat sheet. Legacy lectures use `expression` (plain monospace)
+instead; new lectures use `tex`.
 
 ## lectureQuiz
 
-12 to 15 questions ordered easy, medium, hard. Fields shared by every
-type:
+12 to 15 questions ordered easy, medium, hard. Target mix per lecture
+(docs/PEDAGOGY.md section 2): about 3 easy, 5 medium, 5 hard; at most 1
+`essay`; at least 2 `clinicalCase`; at least 1 `label`. Fields shared by
+every type:
 
 | Field | Type | Notes |
 |---|---|---|
 | `id` | string | Unique in the lecture. Progress and review key on `meta.id + ':' + id`, so never rename an id after the lecture is published. |
 | `difficulty` | `'easy' \| 'medium' \| 'hard'` | Rendered as a badge. |
-| `type` | `'mc' \| 'essay' \| 'label' \| 'order' \| 'calc'` | |
-| `prompt` | string | Plain text or HTML. |
-| `modelAnswer` | string[] | Step-by-step model answer for the reveal button. Optional for `calc` (steps are used). |
+| `type` | `'mc' \| 'trueFalse' \| 'fillBlank' \| 'clinicalCase' \| 'interpret' \| 'label' \| 'order' \| 'calc' \| 'essay'` | |
+| `prompt` | string | Plain text or HTML, may hold inline maths. |
+| `modelAnswer` | string[] | Step-by-step model answer for the reveal button. Optional for `calc` (steps are used). For `clinicalCase` it is the reasoning, shown under "Show the reasoning". |
+| `video` | Video | Optional. The clip the question depends on, shown above the answer area. See "Videos". |
+
+Options of every question that has `options` (`mc`, concept questions,
+`clinicalCase` and `interpret` in pick mode) are shown in a stable
+shuffled order seeded by lecture id plus question id
+(`seededOrder` in `src/js/dom.js`). Author them in any order; `correct`
+is the authored index. The shuffle is stable, so never reorder or
+rename after publishing.
+
+Distractors must match the correct option in length, grammatical form
+and specificity. If the correct answer needs a qualifier, give the
+distractors qualifiers too. The lint flags a correct option that is the
+longest or the shortest by more than 20 percent of the mean option
+length, and any distractor under half its length.
 
 ### Multiple choice (`mc`)
 
@@ -357,7 +438,104 @@ type:
 }
 ```
 
+### True or false (`trueFalse`)
+
+The student picks True or False and must type a one-line justification
+before Check is enabled. On check the authored `justification` is shown
+under theirs. Auto-scored on the choice.
+
+```js
+{
+  id: 'q02',
+  difficulty: 'easy',
+  type: 'trueFalse',
+  prompt: 'True or false: Schwann cells myelinate axons in the spinal cord.',
+  answer: false,
+  justification: 'The spinal cord is CNS, where oligodendrocytes make myelin; Schwann cells work in the PNS.',
+  modelAnswer: ['False. CNS myelin comes from oligodendrocytes.'],
+}
+```
+
+`justification` is required and one line (under 200 characters). Write
+the statement so that it is false for one specific, examinable reason,
+or true for a reason the student has to name.
+
+### Fill in the blank (`fillBlank`)
+
+`text` holds one `___` per entry of `blanks`. Each blank lists every
+accepted variant; the first is shown as the expected answer. Matching
+ignores case, spacing, dash forms and trailing punctuation, nothing
+else, so list synonyms and spellings (British and American, singular
+and plural) explicitly. Scored per blank; correct only when all match.
+
+```js
+{
+  id: 'q03',
+  difficulty: 'easy',
+  type: 'fillBlank',
+  prompt: 'Fill in the blanks.',
+  text: 'In the CNS, myelin is made by ___; in the PNS, by ___.',
+  blanks: [
+    { accept: ['oligodendrocytes', 'oligodendrocyte', 'oligodendroglia'] },
+    { accept: ['Schwann cells', 'Schwann cell'] },
+  ],
+  modelAnswer: ['Oligodendrocytes myelinate central axons.', 'Schwann cells myelinate peripheral axons.'],
+}
+```
+
+### Clinical case (`clinicalCase`)
+
+A short scenario (patient, experiment or preparation), then the student
+picks (`options` and `correct`, rendered like `mc`, shuffled) or names
+(`accept`, matched like a fill-in blank) the structure, mechanism or
+lesion that explains it. `scenario` is drawn in a "Case" box above the
+prompt. `modelAnswer` is the step-by-step reasoning, at least three
+steps: the key finding, what normally produces it, what must be broken,
+the answer.
+
+```js
+{
+  id: 'q11',
+  difficulty: 'hard',
+  type: 'clinicalCase',
+  scenario: 'After a stroke, a patient understands speech but produces slow, effortful, telegraphic sentences.',
+  prompt: 'Which area is most likely damaged?',
+  options: [
+    { text: 'Broca area in the left inferior frontal gyrus', feedback: 'Correct. Non-fluent speech with spared comprehension.' },
+    { text: 'Wernicke area in the left superior temporal gyrus', feedback: 'Wernicke damage gives fluent speech with poor comprehension.' },
+    { text: 'Primary auditory cortex in the left temporal lobe', feedback: 'Hearing loss would impair understanding, which is spared here.' },
+  ],
+  correct: 0,
+  modelAnswer: ['Key finding: comprehension spared, production impaired.', '...'],
+}
+// Name form: replace options/correct with
+//   accept: ['Broca area', "Broca's area", 'Broca'], answerLabel: 'Area:'
+```
+
+### Interpret (`interpret`)
+
+Read a figure, recording or clip, then answer. `figure` is a visual
+(same shape as a section `visual`, including `image-hotspots` with
+`quiz: false`) or give `video`. Pick mode: `options` and `correct`
+(auto-scored, shuffled). Self-scored mode: `points` and `markScheme`,
+as for `essay` (this does not count as an essay).
+
+```js
+{
+  id: 'q08',
+  difficulty: 'medium',
+  type: 'interpret',
+  prompt: 'The trace shows a neuron under current clamp. What happens to spike frequency as the step grows?',
+  figure: { type: 'svg', name: 'fi-steps', props: {}, caption: '...', fallbackAlt: '...' },
+  options: [ /* ... */ ],
+  correct: 2,
+  modelAnswer: ['...'],
+}
+```
+
 ### Short essay (`essay`)
+
+At most one per lecture.
 
 `points` is 2 or 3 for medium, 6 for hard. `markScheme` points must sum
 to `points`. See PEDAGOGY.md section 4 for the format.
@@ -476,7 +654,8 @@ the right sequence. The renderer shuffles the display order.
 `given` lists the data. `answer` is checked against the student's
 number within `tolerance` (absolute, same unit). `steps` follow the HW1
 style: equation, substitution, intermediate value, final value with
-unit. `math` is plain text shown in monospace.
+unit. Each step's `tex` is typeset in display mode (legacy lectures use
+`math`, plain monospace). `given` symbols may be inline maths.
 
 ```js
 {
@@ -485,20 +664,20 @@ unit. `math` is plain text shown in monospace.
   type: 'calc',
   prompt: 'Potassium is 100 mM inside and 5 mM outside a cell at 37 C. Calculate the potassium equilibrium potential.',
   given: [
-    { symbol: '[K+]in', value: 100, unit: 'mM' },
-    { symbol: '[K+]out', value: 5, unit: 'mM' },
-    { symbol: 'T', value: 37, unit: 'C' },
-    { symbol: 'z', value: 1, unit: '' },
+    { symbol: '$[\\text{K}^+]_{\\text{in}}$', value: 100, unit: 'mM' },
+    { symbol: '$[\\text{K}^+]_{\\text{out}}$', value: 5, unit: 'mM' },
+    { symbol: '$T$', value: 37, unit: '°C' },
+    { symbol: '$z$', value: 1, unit: '' },
   ],
   answer: { value: -80, tolerance: 1, unit: 'mV' },
   steps: [
-    { text: 'Write the Nernst equation at 37 C.', math: 'E_K = (61.5 mV / z) * log10([K+]out / [K+]in)' },
-    { text: 'Substitute the values.', math: 'E_K = 61.5 * log10(5 / 100)' },
-    { text: 'Evaluate the ratio and the logarithm.', math: 'log10(0.05) = -1.301' },
-    { text: 'Multiply.', math: 'E_K = 61.5 * (-1.301) = -80.0 mV' },
+    { text: 'Write the Nernst equation at $37\\,^{\\circ}\\text{C}$.', tex: 'E_{\\text{K}} = \\frac{61.5\\,\\text{mV}}{z}\\log_{10}\\frac{[\\text{K}^+]_{\\text{out}}}{[\\text{K}^+]_{\\text{in}}}' },
+    { text: 'Substitute the values.', tex: 'E_{\\text{K}} = 61.5\\,\\text{mV} \\times \\log_{10}(5/100)' },
+    { text: 'Evaluate the logarithm.', tex: '\\log_{10}(0.05) = -1.301' },
+    { text: 'Multiply.', tex: 'E_{\\text{K}} = 61.5 \\times (-1.301) = -80.0\\,\\text{mV}' },
   ],
   modelAnswer: [
-    'E_K is about -80 mV. It is negative because potassium is concentrated inside, so the inside must be negative to hold it in.',
+    '$E_{\\text{K}}$ is about $-80\\,\\text{mV}$. It is negative because potassium is concentrated inside, so the inside must be negative to hold it in.',
   ],
 }
 ```
@@ -560,3 +739,29 @@ Asset pipeline (see each script's docstring):
   (under 200 KB) with a sidecar JSON naming page and crop box.
 - `d3` is available for quantitative plots (`import * as d3 from 'd3'`
   or named imports; import only the modules a figure needs).
+
+## Question lint
+
+`scripts/lint_questions.py` (run by `npm run build` as the build
+report, or on its own with lecture ids) loads every content file through
+`scripts/dump_questions.mjs` and reports:
+
+- `longest`, `shortest`: the correct option is the longest or shortest
+  by more than 20 percent of the mean option length.
+- `short-distractor`: a distractor under half the correct option's length.
+- `positions`: correct-answer positions across the lecture far from
+  uniform (chi-square, p < 0.05), both as authored and as shown after
+  the seeded shuffle.
+- `mix`, `tiers`: 12 to 15 questions, easy to hard order, at most 1
+  essay, at least 2 clinicalCase, at least 1 label; tier split against
+  about 3, 5, 5 (advisory).
+- `error`: a missing required field (justification, accepted answers,
+  scenario, model answer, figure for interpret, and so on).
+- `video`: a section video with no question that embeds it.
+- `maths`: plain-text symbols and units outside `$...$`.
+
+Lengths are measured on what the student reads (tags stripped, TeX
+commands counted as one symbol). L00 to L03 predate these rules and are
+summarised as legacy; `--verbose` lists every finding, `--strict` (or
+`LINT_STRICT=1 npm run build`) exits non-zero on findings in any other
+lecture. A new lecture is not done until its report is clean.

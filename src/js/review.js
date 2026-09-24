@@ -6,6 +6,7 @@ import { el, shuffle } from './dom.js';
 import { getLectureProgress } from './progress.js';
 import { renderQuestion } from './lectureQuiz.js';
 import { loadLectureContent } from './content.js';
+import { watchMath } from './math.js';
 
 const SLICE = 15;
 
@@ -127,6 +128,7 @@ export function renderReview(container, registry) {
     if (slice.length) list.children[list.children.length - slice.length]?.scrollIntoView({ block: 'start' });
   }
 
+  watchMath(list);
   container.replaceChildren(
     el('h2', { id: 'review-title' }, 'Cumulative review'),
     el('p', {}, 'Questions from every built lecture, mixed across lectures. Ones you missed come first, then ones you have not seen, then the rest.'),

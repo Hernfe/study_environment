@@ -2,7 +2,8 @@
 // the shell. Contains no lecture-specific text.
 
 import { el, paragraphs, formatDate, daysUntil } from './dom.js';
-import { renderVisual } from './visuals.js';
+import { renderVisual, renderVideo } from './visuals.js';
+import { renderTex, typesetInline, watchMath } from './math.js';
 import { renderConceptQuiz } from './conceptQuiz.js';
 import { renderLectureQuiz } from './lectureQuiz.js';
 import { storageAvailable } from './progress.js';
@@ -26,7 +27,7 @@ export function markKeyTerms(root, keyTerms = []) {
     if ([...root.querySelectorAll('dfn')].some((d) => d.textContent.trim().toLowerCase() === term.toLowerCase())) continue;
     const pattern = new RegExp(`(^|[^A-Za-z0-9])(${escapeRegExp(term)})(?=$|[^A-Za-z0-9])`, 'i');
     const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
-      acceptNode: (node) => (node.parentElement.closest('dfn, code, pre, a, button, select, .hotspots, .figure') ? NodeFilter.FILTER_REJECT : NodeFilter.FILTER_ACCEPT),
+      acceptNode: (node) => (node.parentElement.closest('dfn, code, pre, a, button, select, .hotspots, .figure, .katex') ? NodeFilter.FILTER_REJECT : NodeFilter.FILTER_ACCEPT),
     });
     let node = walker.nextNode();
     while (node) {
@@ -147,6 +148,7 @@ const KICKERS = {
   misconception: 'Misconception',
   whyItMatters: 'Why it matters',
   equation: 'Equation',
+  math: 'Equation',
   detail: 'Detail',
 };
 
@@ -188,6 +190,14 @@ const BLOCKS = {
     ])),
     b.note ? el('p', { class: 'block-note' }, b.note) : null,
   ]),
+  math: (b) => card('math', b.title, [
+    ...(b.items || [b]).map((item) => el('div', { class: 'block-math-item' }, [
+      renderTex(item.tex, { display: true }),
+      item.label ? el('p', { class: 'block-note' }, item.label) : null,
+    ])),
+    b.note ? el('p', { class: 'block-note' }, b.note) : null,
+  ]),
+  video: (b) => renderVideo(b.video || b),
   misconception: (b) => card('misconception', b.title, [
     el('p', { class: 'block-wrong' }, [el('span', { class: 'block-tag' }, 'Not this: '), b.wrong]),
     el('p', { class: 'block-right' }, [el('span', { class: 'block-tag' }, 'But this: '), b.right]),
@@ -247,6 +257,7 @@ function renderSection(section, lectureId) {
     section.body ? paragraphs(section.body) : null,
     ...renderBlocks(section.blocks),
   ]);
+  typesetInline(body);
   markKeyTerms(body, section.keyTerms);
   return el('section', { class: 'section', id: section.id, 'aria-labelledby': `${section.id}-title` }, [
     el('h2', { id: `${section.id}-title` }, section.title),
@@ -270,7 +281,7 @@ function renderRecap(recap) {
           ...recap.equations.map((eq) =>
             el('div', { class: 'equation' }, [
               el('p', { class: 'name' }, eq.name),
-              el('pre', {}, eq.expression),
+              eq.tex ? renderTex(eq.tex, { display: true }) : el('pre', {}, eq.expression),
               eq.note ? el('p', { class: 'note' }, eq.note) : null,
             ])
           ),
@@ -300,6 +311,8 @@ export function renderLecture(content, root) {
 
   root.className = 'page has-toc';
   root.replaceChildren(toc, inner);
+  typesetInline(root);
+  watchMath(root);
   trackCurrentSection(toc);
 }
 

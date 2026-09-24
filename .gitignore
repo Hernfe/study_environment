@@ -9,3 +9,4 @@ assets/incoming/
 build/
 .playwright-mcp/
 shots/
+__pycache__/

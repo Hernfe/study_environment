@@ -1624,3 +1624,155 @@
 .block-equation .block-note {
   margin-top: var(--sp-2);
 }
+
+/* Maths (KaTeX). Inline maths takes the body size; display maths sits
+   in the same quiet well as the legacy equation block and scrolls
+   sideways rather than overflowing on a phone. */
+.katex {
+  font-size: 1.05em;
+}
+
+.math-display {
+  margin: var(--sp-2) 0;
+  padding: var(--sp-3) var(--sp-4);
+  background: var(--c-bg);
+  border-radius: var(--radius-sm);
+  overflow-x: auto;
+  overflow-y: hidden;
+}
+
+.math-display .katex-display {
+  margin: 0;
+}
+
+.math-error {
+  font-family: var(--font-mono);
+  color: var(--c-incorrect);
+}
+
+.block-math-item + .block-math-item {
+  margin-top: var(--sp-3);
+}
+
+.block-math .block-note {
+  margin-top: var(--sp-2);
+}
+
+.reveal .math-display {
+  background: var(--c-surface);
+}
+
+/* Video figure */
+.figure-video video {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: var(--radius-sm);
+  background: var(--c-bg);
+}
+
+.question > .figure-video {
+  margin: var(--sp-3) 0 var(--sp-4);
+}
+
+/* True or false */
+.tf-options {
+  display: flex;
+  gap: var(--sp-2);
+  margin-bottom: var(--sp-3);
+}
+
+.tf-options .option {
+  width: auto;
+  min-width: 7rem;
+  text-align: center;
+}
+
+.tf-why-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--sp-2);
+  align-items: center;
+  margin-bottom: var(--sp-4);
+}
+
+.tf-why-row label {
+  font-size: var(--fs-sm);
+  color: var(--c-text-muted);
+}
+
+.tf-why,
+.fill-input,
+.case-input {
+  padding: var(--sp-2) var(--sp-3);
+  border: 1px solid var(--c-border);
+  border-radius: var(--radius-sm);
+  background: var(--c-bg);
+  color: var(--c-text);
+  font: inherit;
+}
+
+.tf-why {
+  flex: 1 1 18rem;
+  min-width: 0;
+}
+
+.case-input {
+  flex: 1 1 14rem;
+  min-width: 0;
+}
+
+.tf-justification {
+  margin: 0 0 var(--sp-4);
+  padding: var(--sp-3) var(--sp-4);
+  border-left: 3px solid var(--c-border);
+  background: var(--c-bg);
+}
+
+/* Fill in the blank */
+.fill-text {
+  line-height: 2.2;
+}
+
+.fill-input {
+  margin: 0 var(--sp-1);
+  padding: 0 var(--sp-2);
+  max-width: 100%;
+  line-height: 1.5;
+  vertical-align: baseline;
+}
+
+.fill-input.is-correct,
+.case-input.is-correct {
+  border-color: var(--c-correct);
+  background: var(--c-correct-bg);
+}
+
+.fill-input.is-incorrect,
+.case-input.is-incorrect {
+  border-color: var(--c-incorrect);
+  background: var(--c-incorrect-bg);
+}
+
+.fill-answers {
+  margin: 0 0 var(--sp-4);
+  padding-left: var(--sp-5);
+  font-size: var(--fs-sm);
+}
+
+/* Clinical case */
+.case-scenario {
+  margin: var(--sp-3) 0;
+  padding: var(--sp-3) var(--sp-4);
+  border: 1px solid var(--c-border);
+  border-radius: var(--radius);
+  background: var(--c-bg);
+}
+
+.case-scenario .block-kicker {
+  margin-top: 0;
+}
+
+.case-scenario p:last-child {
+  margin-bottom: 0;
+}

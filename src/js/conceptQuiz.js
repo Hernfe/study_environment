@@ -2,23 +2,28 @@
 // concept block. One line of feedback per option, retry allowed.
 // The multiple-choice body is also used by lectureQuiz.js.
 
-import { el, paragraphs } from './dom.js';
+import { el, paragraphs, seededOrder } from './dom.js';
 import { recordConceptResult } from './progress.js';
 
 // Builds the options list plus check/feedback for one multiple-choice
 // question. Returns { root, reset } and calls onCheck({ correct, index })
-// once per check.
-export function createMcBody(question, { onCheck, allowRetry = false } = {}) {
+// once per check, index being the authored option index.
+// Options are shown in a stable shuffled order seeded by `seed`
+// (lecture id plus question id), so the authored position of the
+// correct option never shows through.
+export function createMcBody(question, { onCheck, allowRetry = false, seed } = {}) {
   let selected = null;
   let locked = false;
   const buttons = [];
+  const order = seededOrder(question.options.length, seed ?? question.id);
 
   const feedback = el('div', { class: 'feedback', role: 'status', 'aria-live': 'polite', hidden: true });
 
   const list = el(
     'ul',
     { class: 'options' },
-    question.options.map((option, index) => {
+    order.map((index) => {
+      const option = question.options[index];
       const button = el(
         'button',
         {
@@ -29,7 +34,7 @@ export function createMcBody(question, { onCheck, allowRetry = false } = {}) {
         },
         option.text
       );
-      buttons.push(button);
+      buttons[index] = button;
       return el('li', {}, button);
     })
   );
@@ -87,7 +92,7 @@ export function createMcBody(question, { onCheck, allowRetry = false } = {}) {
     checkButton.hidden = false;
     checkButton.disabled = true;
     retryButton.hidden = true;
-    buttons[0]?.focus();
+    buttons[order[0]]?.focus();
   }
 
   const root = el('div', { class: 'mc-body' }, [list, feedback, row]);
@@ -110,6 +115,7 @@ export function renderConceptQuiz(questions, { lectureId, sectionTitle } = {}) {
     ]);
     const body = createMcBody(question, {
       allowRetry: true,
+      seed: `${lectureId}:${question.id}`,
       onCheck: ({ correct }) => {
         if (lectureId) recordConceptResult(lectureId, question.id, correct);
       },

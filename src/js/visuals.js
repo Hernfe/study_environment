@@ -61,3 +61,37 @@ export function renderVisual(visual) {
   if (visual.caption) figure.appendChild(el('figcaption', { class: 'figure-caption' }, visual.caption));
   return figure;
 }
+
+// A lecture clip: native controls (keyboard operable), a poster frame
+// so the figure is a still picture until played and when JS or the
+// codec fails, and optional caption tracks. See docs/CONTENT_SCHEMA.md,
+// "Videos".
+export function renderVideo(video) {
+  if (!video) return null;
+  const sources = video.sources || [{ src: video.src, type: video.type || typeFor(video.src) }];
+  const player = el('video', {
+    class: 'video-player',
+    controls: true,
+    preload: 'none',
+    playsinline: true,
+    poster: video.poster,
+    width: video.width,
+    height: video.height,
+    'aria-label': video.fallbackAlt || video.caption || 'Lecture clip',
+  }, [
+    ...sources.map((s) => el('source', { src: s.src, type: s.type })),
+    ...(video.tracks || []).map((t) => el('track', { src: t.src, kind: t.kind || 'captions', srclang: t.srclang || 'en', label: t.label || 'English', default: t.default })),
+    video.poster
+      ? el('img', { src: video.poster, alt: video.fallbackAlt || '' })
+      : el('p', {}, video.fallbackAlt || ''),
+  ]);
+  const figure = el('figure', { class: 'figure figure-video' }, [el('div', { class: 'visual-body' }, [player])]);
+  if (video.caption) figure.appendChild(el('figcaption', { class: 'figure-caption' }, video.caption));
+  return figure;
+}
+
+function typeFor(src = '') {
+  if (/\.webm(\?|$)/i.test(src)) return 'video/webm';
+  if (/\.mp4(\?|$)|\.m4v(\?|$)/i.test(src)) return 'video/mp4';
+  return undefined;
+}

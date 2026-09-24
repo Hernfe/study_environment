@@ -4,7 +4,8 @@
 
 import { el, paragraphs, shuffle, escapeHtml } from './dom.js';
 import { createMcBody } from './conceptQuiz.js';
-import { renderVisualBody } from './visuals.js';
+import { renderVisual, renderVisualBody, renderVideo } from './visuals.js';
+import { renderTex, stripMath } from './math.js';
 import { quizView } from './widgets/imageHotspots.js';
 import { recordQuestionResult } from './progress.js';
 
@@ -29,11 +30,11 @@ function setFeedback(node, correct, text) {
 function renderReveal(question) {
   let steps = question.modelAnswer;
   if ((!steps || steps.length === 0) && question.type === 'calc') {
-    steps = (question.steps || []).map((s) => (s.math ? { text: s.text, math: s.math } : s.text));
+    steps = (question.steps || []).map((s) => (s.math || s.tex ? s : s.text));
   }
   if (!steps || steps.length === 0) return null;
   return el('details', { class: 'reveal' }, [
-    el('summary', {}, 'Show model answer'),
+    el('summary', {}, question.type === 'clinicalCase' ? 'Show the reasoning' : 'Show model answer'),
     el('div', { class: 'reveal-body' }, [
       el(
         'ol',
@@ -41,7 +42,11 @@ function renderReveal(question) {
         steps.map((step) =>
           typeof step === 'string'
             ? el('li', {}, paragraphs(step))
-            : el('li', {}, [step.text, step.math ? el('code', { class: 'math' }, step.math) : null])
+            : el('li', {}, [
+                step.text,
+                step.tex ? renderTex(step.tex, { display: true }) : null,
+                !step.tex && step.math ? el('code', { class: 'math' }, step.math) : null,
+              ])
         )
       ),
     ]),
@@ -50,9 +55,10 @@ function renderReveal(question) {
 
 /* Type bodies. Each returns a node and calls report({ correct, score, max }) once. */
 
-function mcBody(question, report) {
+function mcBody(question, report, { seed } = {}) {
   const body = createMcBody(question, {
     allowRetry: false,
+    seed,
     onCheck: ({ correct }) => report({ correct, score: correct ? 1 : 0, max: 1 }),
   });
   return body.root;
@@ -150,7 +156,7 @@ function labelBody(question, report) {
     question.regions.map((region, i) => {
       const select = el('select', { 'aria-label': `Label for marker ${i + 1}`, onChange: updateCheck }, [
         el('option', { value: '' }, 'Choose a label'),
-        ...pool.map((label) => el('option', { value: label }, label)),
+        ...pool.map((label) => el('option', { value: label }, stripMath(label))),
       ]);
       selects.push(select);
       const explanation = el('p', { class: 'label-explanation', hidden: true });
@@ -296,7 +302,200 @@ function calcBody(question, report) {
   ]);
 }
 
-const BODIES = { mc: mcBody, essay: essayBody, label: labelBody, order: orderBody, calc: calcBody };
+// True or false. The student picks a side and writes a one-line
+// justification before checking; the authored justification is then
+// shown under theirs.
+function trueFalseBody(question, report) {
+  let choice = null;
+  let done = false;
+  const buttons = [true, false].map((value) =>
+    el('button', { type: 'button', class: 'option tf-option', 'aria-pressed': 'false', onClick: () => pick(value) }, value ? 'True' : 'False')
+  );
+  const inputId = `${question.id}-why`;
+  const input = el('input', { type: 'text', class: 'tf-why', id: inputId, autocomplete: 'off', onInput: update });
+  const feedback = feedbackBanner();
+  const why = el('p', { class: 'tf-justification', hidden: true });
+  const checkButton = el('button', { type: 'button', class: 'btn btn-primary', disabled: true, onClick: check }, 'Check');
+  input.addEventListener('keydown', (event) => {
+    if (event.key === 'Enter') { event.preventDefault(); check(); }
+  });
+
+  function pick(value) {
+    if (done) return;
+    choice = value;
+    buttons.forEach((b, i) => {
+      const on = (i === 0) === value;
+      b.classList.toggle('is-selected', on);
+      b.setAttribute('aria-pressed', on ? 'true' : 'false');
+    });
+    update();
+  }
+  function update() {
+    checkButton.disabled = done || choice === null || !input.value.trim();
+  }
+  function check() {
+    if (done || choice === null || !input.value.trim()) return;
+    done = true;
+    const correct = choice === question.answer;
+    buttons.forEach((b, i) => {
+      b.disabled = true;
+      const value = i === 0;
+      if (value === question.answer) b.classList.add('is-correct');
+      else if (value === choice) b.classList.add('is-incorrect');
+    });
+    input.disabled = true;
+    checkButton.disabled = true;
+    why.hidden = false;
+    why.replaceChildren(el('span', { class: 'block-tag' }, 'Why: '), question.justification || '');
+    setFeedback(feedback, correct, correct
+      ? 'Compare your reason with the one below; the reason is what the exam marks.'
+      : `The statement is ${question.answer ? 'true' : 'false'}. Read the reason below.`);
+    report({ correct, score: correct ? 1 : 0, max: 1 });
+  }
+
+  return el('div', { class: 'tf' }, [
+    el('div', { class: 'tf-options', role: 'group', 'aria-label': 'True or false' }, buttons),
+    el('div', { class: 'tf-why-row' }, [el('label', { for: inputId }, 'Why, in one line:'), input]),
+    why,
+    feedback,
+    el('div', { class: 'btn-row' }, [checkButton]),
+  ]);
+}
+
+// Normalises a typed answer: case, spacing, dash forms and trailing
+// punctuation do not matter. Everything else must match a variant.
+function normaliseAnswer(text) {
+  return stripMath(String(text))
+    .normalize('NFKC')
+    .toLowerCase()
+    .replace(/[‐-―−]/g, '-')
+    .replace(/\s*-\s*/g, '-')
+    .replace(/[.,;:!?]+$/, '')
+    .replace(/\s+/g, ' ')
+    .trim();
+}
+
+function matches(value, accepted = []) {
+  const typed = normaliseAnswer(value);
+  return typed !== '' && accepted.some((a) => normaliseAnswer(a) === typed);
+}
+
+// Fill in the blank. `text` holds one ___ per entry in `blanks`; each
+// blank lists its accepted variants.
+function fillBlankBody(question, report) {
+  const segments = String(question.text || '').split('___');
+  const inputs = [];
+  const sentence = el('p', { class: 'fill-text' });
+  segments.forEach((segment, i) => {
+    sentence.append(segment);
+    if (i === segments.length - 1) return;
+    const accepted = question.blanks?.[i]?.accept || [''];
+    const input = el('input', {
+      type: 'text',
+      class: 'fill-input',
+      autocomplete: 'off',
+      spellcheck: 'false',
+      'aria-label': `Blank ${i + 1}`,
+      size: Math.max(8, Math.min(24, Math.max(...accepted.map((a) => stripMath(a).length)) + 2)),
+      onInput: update,
+    });
+    input.addEventListener('keydown', (event) => {
+      if (event.key === 'Enter') { event.preventDefault(); check(); }
+    });
+    inputs.push(input);
+    sentence.append(input);
+  });
+  const answers = el('ul', { class: 'fill-answers', hidden: true });
+  const feedback = feedbackBanner();
+  const checkButton = el('button', { type: 'button', class: 'btn btn-primary', disabled: true, onClick: check }, 'Check');
+  let done = false;
+
+  function update() {
+    checkButton.disabled = done || !inputs.every((i) => i.value.trim());
+  }
+  function check() {
+    if (done || !inputs.every((i) => i.value.trim())) return;
+    done = true;
+    let right = 0;
+    const lines = inputs.map((input, i) => {
+      const accepted = question.blanks?.[i]?.accept || [];
+      const ok = matches(input.value, accepted);
+      if (ok) right += 1;
+      input.classList.add(ok ? 'is-correct' : 'is-incorrect');
+      input.disabled = true;
+      return el('li', {}, [
+        inputs.length > 1 ? `Blank ${i + 1}: ` : 'Expected: ',
+        accepted[0] || '',
+        accepted.length > 1 ? el('span', { class: 'muted' }, ` (also accepted: ${accepted.slice(1).join(', ')})`) : null,
+      ]);
+    });
+    answers.replaceChildren(...lines);
+    answers.hidden = false;
+    checkButton.disabled = true;
+    const correct = right === inputs.length;
+    setFeedback(feedback, correct, correct
+      ? 'Every blank matches.'
+      : `${right} of ${inputs.length} blanks match. The expected answers are listed below.`);
+    report({ correct, score: right, max: inputs.length });
+  }
+
+  return el('div', { class: 'fill' }, [sentence, answers, feedback, el('div', { class: 'btn-row' }, [checkButton])]);
+}
+
+// Clinical case: a scenario, then pick (options) or name (accept) the
+// structure, mechanism or lesion. The reveal walks the reasoning.
+// The scenario itself is drawn above the prompt by renderQuestion.
+function clinicalCaseBody(question, report, ctx) {
+  if (question.options) {
+    return el('div', { class: 'case' }, [mcBody(question, report, ctx)]);
+  }
+  const inputId = `${question.id}-case`;
+  const input = el('input', { type: 'text', class: 'case-input', id: inputId, autocomplete: 'off', spellcheck: 'false', onInput: () => { checkButton.disabled = done || !input.value.trim(); } });
+  const feedback = feedbackBanner();
+  const checkButton = el('button', { type: 'button', class: 'btn btn-primary', disabled: true, onClick: check }, 'Check');
+  input.addEventListener('keydown', (event) => {
+    if (event.key === 'Enter') { event.preventDefault(); check(); }
+  });
+  let done = false;
+  function check() {
+    if (done || !input.value.trim()) return;
+    done = true;
+    const correct = matches(input.value, question.accept);
+    input.classList.add(correct ? 'is-correct' : 'is-incorrect');
+    input.disabled = true;
+    checkButton.disabled = true;
+    setFeedback(feedback, correct, correct
+      ? 'Now check the reasoning, not just the name.'
+      : `Expected: ${question.accept?.[0] || ''}. Open the reasoning and follow it step by step.`);
+    report({ correct, score: correct ? 1 : 0, max: 1 });
+  }
+  return el('div', { class: 'case' }, [
+    el('div', { class: 'calc-answer' }, [el('label', { for: inputId }, question.answerLabel || 'Your answer:'), input]),
+    feedback,
+    el('div', { class: 'btn-row' }, [checkButton]),
+  ]);
+}
+
+// Interpret: read a figure, recording or clip, then answer. Auto-scored
+// with `options`, self-scored with `markScheme`.
+function interpretBody(question, report, ctx) {
+  return el('div', { class: 'interpret' }, [
+    question.figure ? renderVisual(question.figure) : null,
+    question.options ? mcBody(question, report, ctx) : essayBody(question, report),
+  ]);
+}
+
+const BODIES = {
+  mc: mcBody,
+  essay: essayBody,
+  label: labelBody,
+  order: orderBody,
+  calc: calcBody,
+  trueFalse: trueFalseBody,
+  fillBlank: fillBlankBody,
+  clinicalCase: clinicalCaseBody,
+  interpret: interpretBody,
+};
 
 // Renders one question card. options: { lectureId, index, total, source, onResult }
 // source (optional) is shown in the head, used by review to name the lecture.
@@ -309,6 +508,9 @@ export function renderQuestion(question, { lectureId, index, total, source, onRe
   ]);
   const card = el('article', { class: 'question', 'aria-labelledby': `q-${lectureId}-${question.id}` }, [
     head,
+    question.scenario
+      ? el('div', { class: 'case-scenario' }, [el('p', { class: 'block-kicker' }, 'Case'), el('div', {}, paragraphs(question.scenario))])
+      : null,
     el('div', { class: 'question-prompt', id: `q-${lectureId}-${question.id}` }, paragraphs(question.prompt)),
   ]);
 
@@ -325,14 +527,27 @@ export function renderQuestion(question, { lectureId, index, total, source, onRe
     card.appendChild(el('p', { class: 'notice' }, `Unknown question type "${escapeHtml(question.type)}".`));
     return card;
   }
-  card.appendChild(build(question, report));
+  // Any question may carry a clip it depends on, so it still works in
+  // review, away from its section.
+  if (question.video) card.appendChild(renderVideo(question.video));
+  card.appendChild(build(question, report, { seed: `${lectureId}:${question.id}` }));
   const reveal = renderReveal(question);
   if (reveal) card.appendChild(reveal);
   return card;
 }
 
 function typeLabel(type) {
-  return { mc: 'Multiple choice', essay: 'Essay', label: 'Label the figure', order: 'Order the events', calc: 'Calculation' }[type] || type;
+  return {
+    mc: 'Multiple choice',
+    essay: 'Essay',
+    label: 'Label the figure',
+    order: 'Order the events',
+    calc: 'Calculation',
+    trueFalse: 'True or false',
+    fillBlank: 'Fill in the blank',
+    clinicalCase: 'Clinical case',
+    interpret: 'Interpret',
+  }[type] || type;
 }
 
 export function renderLectureQuiz(questions, { lectureId } = {}) {

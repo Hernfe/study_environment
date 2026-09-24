@@ -79,6 +79,32 @@ export function shuffle(items) {
   return out;
 }
 
+// Stable permutation of 0..n-1 for a seed string (FNV-1a hash into a
+// mulberry32 generator, then Fisher-Yates). The same seed always gives
+// the same order. scripts/lint_questions.py mirrors this exactly to
+// report the positions students see; change both together.
+export function seededOrder(n, seed) {
+  let h = 0x811c9dc5;
+  for (const ch of String(seed)) {
+    h ^= ch.codePointAt(0);
+    h = Math.imul(h, 0x01000193) >>> 0;
+  }
+  let state = h;
+  const random = () => {
+    state = (state + 0x6d2b79f5) >>> 0;
+    let t = state;
+    t = Math.imul(t ^ (t >>> 15), t | 1);
+    t ^= t + Math.imul(t ^ (t >>> 7), t | 61);
+    return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+  };
+  const out = Array.from({ length: n }, (_, i) => i);
+  for (let i = n - 1; i > 0; i -= 1) {
+    const j = Math.floor(random() * (i + 1));
+    [out[i], out[j]] = [out[j], out[i]];
+  }
+  return out;
+}
+
 // '2026-09-18' -> '18.9.2026' (Finnish short form used on the slides).
 export function formatDate(iso, { year = false } = {}) {
   if (!iso) return '';

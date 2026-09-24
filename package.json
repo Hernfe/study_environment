@@ -7,12 +7,16 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
+    "postbuild": "node scripts/build_report.mjs",
+    "lint:questions": "python scripts/lint_questions.py",
     "preview": "vite preview"
   },
   "devDependencies": {
+    "linkedom": "^0.18.13",
     "vite": "^7.1.0"
   },
   "dependencies": {
-    "d3": "^7.9.0"
+    "d3": "^7.9.0",
+    "katex": "^0.18.9"
   }
 }

@@ -14,7 +14,8 @@ export default {
 
   objectives: [
     'See every section type render: paragraph array, HTML string, static SVG, interactive widget.',
-    'See every question type render: multiple choice, essay, label, order, calculation.',
+    'See every question type render: multiple choice, true or false, fill in the blank, clinical case, interpret, essay, label, order, calculation.',
+    'See maths render through KaTeX, inline and as a block.',
     'Confirm progress is stored and that review pulls missed questions first.',
   ],
 
@@ -45,9 +46,9 @@ export default {
           id: 'toy-cell-1',
           prompt: 'Which structure moves particles against their gradient?',
           options: [
-            { text: 'The channel', feedback: 'Channels only allow movement down a gradient.' },
-            { text: 'The pump', feedback: 'Correct. Pumps use energy to move particles uphill.' },
-            { text: 'The membrane', feedback: 'The membrane is the barrier, not the transporter.' },
+            { text: 'The ion channel', feedback: 'Channels only allow movement down a gradient.' },
+            { text: 'The active pump', feedback: 'Correct. Pumps use energy to move particles uphill.' },
+            { text: 'The lipid bilayer', feedback: 'The membrane is the barrier, not the transporter.' },
           ],
           correct: 1,
         },
@@ -56,8 +57,8 @@ export default {
           prompt: 'What does the channel need in order to move particles?',
           options: [
             { text: 'A concentration gradient', feedback: 'Correct. Flow through a channel is passive.' },
-            { text: 'Energy from the cell', feedback: 'That is the pump. Channels are passive.' },
-            { text: 'A nucleus', feedback: 'The nucleus has nothing to do with transport across the membrane.' },
+            { text: 'Energy from ATP hydrolysis', feedback: 'That is the pump. Channels are passive.' },
+            { text: 'A signal from the nucleus', feedback: 'The nucleus has nothing to do with transport across the membrane.' },
           ],
           correct: 0,
         },
@@ -67,7 +68,7 @@ export default {
       id: 'toy-curve',
       title: 'A toy curve (widget, HTML string body)',
       body:
-        '<p>This block tests a body given as one HTML string, and an interactive widget. Move the slider to change the <dfn>gain</dfn> and watch the curve change. A hand-written dfn like the one just used is left alone by the auto-marker.</p><p>The equation plotted is y = gain * x * exp(-x / tau). It has no meaning here; it just shows a peak that moves.</p>',
+        '<p>This block tests a body given as one HTML string, and an interactive widget. Move the slider to change the <dfn>gain</dfn> and watch the curve change. A hand-written dfn like the one just used is left alone by the auto-marker.</p><p>The equation plotted is $y = g\\,x\\,e^{-x/\\tau}$. It has no meaning here; it just shows a peak that moves.</p>',
       keyTerms: ['gain', 'tau'],
       visual: {
         type: 'widget',
@@ -86,7 +87,7 @@ export default {
           compute: (x, p) => p.gain * x * Math.exp(-x / p.tau),
           readout: (p) => `Peak at x = ${p.tau} ms, height ${(p.gain * p.tau * Math.exp(-1)).toFixed(2)}.`,
         },
-        caption: 'y = gain * x * exp(-x / tau). The peak sits at x = tau.',
+        caption: '$y = g\\,x\\,e^{-x/\\tau}$. The peak sits at $x = \\tau$.',
         fallbackAlt: 'A curve that rises quickly from zero to a peak and then decays slowly back toward zero.',
       },
       conceptQuiz: [
@@ -97,6 +98,30 @@ export default {
             { text: 'To twice the x value', feedback: 'Correct. The peak is at x = tau.' },
             { text: 'It does not move, only the height changes', feedback: 'Height changes too, but the position is set by tau.' },
             { text: 'To half the x value', feedback: 'Larger tau means a slower decay, so the peak moves right, not left.' },
+          ],
+          correct: 0,
+        },
+      ],
+    },
+    {
+      id: 'toy-maths',
+      title: 'Maths (math block, inline maths)',
+      keyTerms: ['time constant'],
+      blocks: [
+        { type: 'text', body: 'Inline maths sits between dollar signs: the peak of the toy curve is at $x = \\tau$, and its height is $y_{\\text{peak}} = g\\,\\tau / e$. Units go through KaTeX too, so a potential is written $-65\\,\\text{mV}$ and a small one $50\\,\\mu\\text{V}$. A literal dollar sign is written \\$5.' },
+        { type: 'math', title: 'Toy curve', items: [
+          { tex: 'y = g\\,x\\,e^{-x/\\tau}', label: 'The toy curve. $g$ is the gain, $\\tau$ the time constant.' },
+          { tex: 'y_{\\text{peak}} = \\frac{g\\,\\tau}{e}', label: 'Height of the peak, reached at $x = \\tau$.' },
+        ] },
+      ],
+      conceptQuiz: [
+        {
+          id: 'toy-maths-1',
+          prompt: 'Where is the peak of $y = g\\,x\\,e^{-x/\\tau}$?',
+          options: [
+            { text: 'At $x = \\tau$', feedback: 'Correct. The derivative is zero there.' },
+            { text: 'At $x = g$', feedback: 'The gain scales the height, not the position.' },
+            { text: 'At $x = g\\,\\tau$', feedback: 'The gain does not enter the position of the peak.' },
           ],
           correct: 0,
         },
@@ -123,8 +148,8 @@ export default {
     equations: [
       {
         name: 'Toy curve',
-        expression: 'y = gain * x * exp(-x / tau)',
-        note: 'Peak at x = tau with height gain * tau / e.',
+        tex: 'y = g\\,x\\,e^{-x/\\tau}, \\qquad y_{\\text{peak}} = g\\,\\tau / e \\text{ at } x = \\tau',
+        note: 'Peak position is set by $\\tau$ alone; $g$ only scales the height.',
       },
     ],
   },
@@ -171,6 +196,27 @@ export default {
       ],
     },
     {
+      id: 'q07',
+      difficulty: 'easy',
+      type: 'trueFalse',
+      prompt: 'True or false: the channel in the toy cell needs energy to move particles.',
+      answer: false,
+      justification: 'A channel is passive; particles move through it down their gradient. Only the pump uses energy.',
+      modelAnswer: ['False. Channels are passive pores, so flow through them needs a gradient, not energy.'],
+    },
+    {
+      id: 'q08',
+      difficulty: 'easy',
+      type: 'fillBlank',
+      prompt: 'Fill in the blanks.',
+      text: 'The structure that moves particles against their gradient is the ___, and it takes its energy from ___.',
+      blanks: [
+        { accept: ['pump', 'the pump', 'ion pump'] },
+        { accept: ['ATP', 'ATP hydrolysis', 'adenosine triphosphate'] },
+      ],
+      modelAnswer: ['The pump moves particles uphill.', 'It uses energy from ATP hydrolysis.'],
+    },
+    {
       id: 'q03',
       difficulty: 'medium',
       type: 'order',
@@ -210,21 +256,21 @@ export default {
       id: 'q05',
       difficulty: 'hard',
       type: 'calc',
-      prompt: 'For the toy curve with gain = 2 and tau = 3 ms, calculate the height of the peak. Give the answer to two decimals.',
+      prompt: 'For the toy curve with $g = 2$ and $\\tau = 3\\,\\text{ms}$, calculate the height of the peak. Give the answer to two decimals.',
       given: [
         { symbol: 'gain', value: 2, unit: '' },
-        { symbol: 'tau', value: 3, unit: 'ms' },
+        { symbol: '$\tau$', value: 3, unit: 'ms' },
         { symbol: 'e', value: 2.718, unit: '', note: 'base of the natural logarithm' },
       ],
       answer: { value: 2.21, tolerance: 0.02, unit: '' },
       steps: [
-        { text: 'The peak of y = gain * x * exp(-x / tau) is at x = tau.', math: 'x_peak = tau = 3 ms' },
-        { text: 'Substitute x = tau into the curve.', math: 'y_peak = gain * tau * exp(-1)' },
-        { text: 'Evaluate.', math: 'y_peak = 2 * 3 * 0.3679 = 2.21' },
+        { text: 'The peak of the toy curve is at $x = \\tau$.', tex: 'x_{\\text{peak}} = \\tau = 3\\,\\text{ms}' },
+        { text: 'Substitute $x = \\tau$ into the curve.', tex: 'y_{\\text{peak}} = g\\,\\tau\\,e^{-1}' },
+        { text: 'Evaluate.', tex: 'y_{\\text{peak}} = 2 \\times 3 \\times 0.3679 = 2.21' },
       ],
       modelAnswer: [
         'Set x = tau because that is where the derivative is zero.',
-        'y_peak = gain * tau / e = 2 * 3 / 2.718 = 2.21.',
+        '$y_{\text{peak}} = g\,\tau / e = 2 \times 3 / 2.718 = 2.21$.',
       ],
     },
     {
@@ -249,6 +295,62 @@ export default {
         'As it rises, the gradient shrinks and inflow slows down.',
         'Eventually inside equals outside, the gradient is zero, and net flow stops.',
       ],
+    },
+    {
+      id: 'q09',
+      difficulty: 'hard',
+      type: 'clinicalCase',
+      scenario: 'A toy cell is placed in a solution with a poison. After an hour its inside concentration equals the outside concentration, although its membrane and channel look normal.',
+      prompt: 'Which structure did the poison most likely block?',
+      options: [
+        { text: 'The pump, so nothing moved particles back out against the gradient', feedback: 'Correct. Without the pump the channel runs the gradient down to zero.' },
+        { text: 'The channel, so particles could no longer cross the membrane at all', feedback: 'A blocked channel stops the inflow, so the gradient would stay, not vanish.' },
+        { text: 'The membrane, so particles leaked across it wherever they could', feedback: 'The case says the membrane looks normal, and a leak alone needs no poison.' },
+        { text: 'The nucleus, so the cell stopped making new copies of its channel', feedback: 'Fewer channels would slow the inflow, not equalise the two sides.' },
+      ],
+      correct: 0,
+      modelAnswer: [
+        'The finding is a lost gradient: inside equals outside.',
+        'A gradient is kept only by the pump, which moves particles back out using energy.',
+        'The channel keeps letting particles in as long as there is a gradient.',
+        'So if the pump stops, inflow is unopposed and the gradient runs down to zero.',
+        'The lesion is the pump.',
+      ],
+    },
+    {
+      id: 'q10',
+      difficulty: 'hard',
+      type: 'clinicalCase',
+      scenario: 'A second toy cell keeps a normal gradient, but when the outside concentration is raised no particles enter.',
+      prompt: 'Name the structure that is not working.',
+      accept: ['channel', 'the channel', 'ion channel'],
+      answerLabel: 'Structure:',
+      modelAnswer: [
+        'Raising the outside concentration steepens the gradient, so passive inflow should rise.',
+        'Passive inflow goes through the channel.',
+        'No inflow despite a steeper gradient means the channel is closed or blocked.',
+        'The pump still works, which is why the gradient is kept.',
+      ],
+    },
+    {
+      id: 'q11',
+      difficulty: 'hard',
+      type: 'interpret',
+      prompt: 'The figure shows the toy cell. If the arrow at the top pointed outward instead, which statement would be true?',
+      figure: {
+        type: 'svg',
+        name: 'example-cell',
+        props: { labels: true },
+        caption: 'The toy cell.',
+        fallbackAlt: 'Schematic cell with a channel at the top and a pump on the right.',
+      },
+      options: [
+        { text: 'The inside concentration would now be higher than the outside one', feedback: 'Correct. Passive flow runs down the gradient, so it points to the lower side.' },
+        { text: 'The pump would now be pushing the particles into the cell instead', feedback: 'The arrow at the top is the channel, not the pump.' },
+        { text: 'The channel would now be using energy to move the particles out', feedback: 'A channel never uses energy, whichever way the flow runs.' },
+      ],
+      correct: 0,
+      modelAnswer: ['Flow through a channel always runs down the gradient.', 'An outward arrow means the inside is now the higher concentration.'],
     },
   ],
 };

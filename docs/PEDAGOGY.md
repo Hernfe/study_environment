@@ -36,26 +36,48 @@ in which case the slides win.
 
 | Tier | Colour | Cognitive demand | Typical forms |
 |---|---|---|---|
-| Easy | green | Recall or identify. One fact, one term, one structure. | Multiple choice, label a figure with the term only. |
-| Medium | yellow | Explain a mechanism, compare two things, or put a sequence in order. | Short essay (2 to 3 points), order the events, label the figure with a one-line explanation per label, multiple choice where the distractors are near misses. |
-| Hard | red | Apply to a new scenario, predict an outcome, compute, or write a 6-point essay. | 6-point essay, calculation with steps, scenario multiple choice ("what happens if"). |
+| Easy | green | Recall or identify. One fact, one term, one structure. | Multiple choice, true or false with justification, fill in the blank, label a figure with the term only. |
+| Medium | yellow | Explain a mechanism, compare two things, or put a sequence in order. | Order the events, label the figure with a one-line explanation per label, interpret a figure or clip, multiple choice where the distractors are near misses, true or false where the justification carries the mechanism, a 2 to 3 point essay (if it is the lecture's one essay). |
+| Hard | red | Apply to a new scenario, predict an outcome, compute, or write a 6-point essay. | Clinical case, calculation with steps, interpret a recording and predict, scenario multiple choice ("what happens if"), 6-point essay (if it is the lecture's one essay). |
 
 Rules that follow from the tiers:
 
 - Concept quizzes are always easy.
 - The lecture quiz has 12 to 15 questions ordered easy, then medium,
-  then hard. A reasonable split is 5 easy, 5 medium, 3 to 5 hard, but
-  the split is advisory. The tier of a question describes its cognitive
-  demand as defined in the table above, and it is never adjusted to hit
-  a target count. If a lecture's questions come out 5, 4, 6 (as L02
-  does), that is the correct labelling for those questions; relabel
-  only when the demand of the question itself changes.
+  then hard. Target about 3 easy, 5 medium, 5 hard. The split is
+  advisory: the tier of a question describes its cognitive demand as
+  defined in the table above, and it is never adjusted to hit a target
+  count. To move the split, write different questions; relabel only
+  when the demand of the question itself changes.
+- Question-bank mix (from lecture L04 on; L01 to L03 predate it):
+  at most 1 essay per lecture; at least 2 clinical cases; at least 1
+  label-the-figure. Fill the rest with true or false, fill in the
+  blank, interpret, order, calculation and multiple choice. The paper
+  exam's short essays are practised through the clinical-case reasoning
+  reveals, the true-or-false justifications and the one essay.
 - Every question is answerable from the slides plus the textbook within
   slide scope. No textbook trivia the slides never touch.
 - Rewrite the notes' self-check questions into these formats and include
   them; they are the closest signal of what the teacher expects.
 - Multiple-choice distractors must be plausible misconceptions. A good
   distractor is something a student who half-understood would pick.
+- Distractors match the correct answer in length, grammatical form and
+  specificity. If the correct answer needs a qualifier ("mainly", "in
+  the CNS", "at rest"), give the distractors qualifiers too. A student
+  must not be able to pick the longest, most hedged or most specific
+  option and be right. `scripts/lint_questions.py` flags a correct
+  option that is the longest or shortest by more than 20 percent of the
+  mean, and any distractor under half its length.
+- Author options in any order; the renderer shows them in a stable
+  shuffled order seeded by the question id, so the correct answer is
+  not usually first. The lint also checks that positions come out
+  near uniform across the lecture.
+- Videos from the lecture are examinable course material. Every clip
+  embedded in a section gets at least one question that depends on
+  watching it: what changes across the clip, what the recording shows,
+  which structure or cell type is imaged, what the experiment
+  demonstrates. The question carries the clip so it also works in
+  review.
 - Old exam papers set the depth and style of hard essays, never scope.
 
 ## 3. Question types
@@ -66,13 +88,53 @@ are recorded per question by `progress.js`.
 
 ### Multiple choice (`mc`)
 
-- 3 to 5 options, exactly one correct.
+- 3 to 5 options, exactly one correct, matched in length and form.
 - Every option has `feedback`, one line.
+- Shown in a stable shuffled order (seed: lecture id and question id).
 - Auto-scored. Correct on first attempt counts as correct; a later
   correct attempt after a wrong one counts as missed for review purposes.
 
+### True or false (`trueFalse`)
+
+- One statement, true or false for one examinable reason.
+- The student must write a one-line justification before checking;
+  the authored `justification` (one line) is then shown. Scored on the
+  choice; the justification is for self-comparison, as on paper.
+- Good false statements swap one term for its near neighbour (Schwann
+  for oligodendrocyte, anterograde for retrograde), not an absurdity.
+
+### Fill in the blank (`fillBlank`)
+
+- A sentence in slide wording with one to three blanks, each a key
+  term or a number with its unit.
+- Every accepted variant is listed (synonyms, singular and plural,
+  British and American spelling). Matching ignores only case, spacing,
+  dash forms and trailing punctuation.
+- Auto-scored per blank; correct only if all match.
+
+### Clinical case (`clinicalCase`)
+
+- A scenario of two to four sentences: a patient, a lesion, a drug, a
+  toxin, a mutation or an experiment. The student picks (options) or
+  names (typed, matched against accepted variants) the structure,
+  mechanism or lesion that explains it.
+- The reveal is the reasoning, step by step: the key finding, what
+  normally produces it, what must be broken or changed, the answer, and
+  why the nearest alternative does not fit.
+- Usually hard (apply to a new scenario); medium when it is a direct
+  mapping taught on the slides.
+- The scenario uses only mechanisms and structures within slide scope.
+
+### Interpret (`interpret`)
+
+- A figure, recording, plot or video clip, then a question that can
+  only be answered by reading it (a trend, a phase, a structure).
+- Pick mode (options) is auto-scored; mark-scheme mode is self-scored
+  like an essay but does not count as the lecture's essay.
+
 ### Short essay (`essay`)
 
+- At most one per lecture.
 - `points` is 2 or 3 for medium, 6 for hard.
 - `markScheme` lists what earns each point (see section 4).
 - Student writes in a textarea (optional, never stored), reveals the
@@ -81,7 +143,9 @@ are recorded per question by `progress.js`.
 
 ### Label the figure (`label`)
 
-- An SVG figure with numbered markers at `regions`.
+- At least one per lecture.
+- An image-hotspots figure in quiz mode (or a legacy SVG with numbered
+  markers at `regions`).
 - `labels` is the pool the student picks from, including 1 to 3
   distractor labels.
 - Each region has a `label` (the correct pick) and an `explanation`
@@ -102,8 +166,8 @@ are recorded per question by `progress.js`.
 
 - `given` lists the quantities with units.
 - `answer` has `value`, `tolerance` (absolute) and `unit`.
-- `steps` is an ordered list of `{ text, math }`; the reveal shows them
-  one by one. Follows the HW1 style: state the equation, substitute,
+- `steps` is an ordered list of `{ text, tex }`; the reveal shows them
+  one by one, each `tex` typeset by KaTeX. Follows the HW1 style: state the equation, substitute,
   give intermediate values, give the final value with units.
 - Auto-scored on the final value within tolerance.
 
