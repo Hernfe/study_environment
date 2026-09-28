@@ -20,9 +20,13 @@ in it, (b) give a recap the student can copy onto the cheat sheet, and
 
 A section is one concept block. Each block has, in this order:
 
-1. Explanation. 5 to 10 lines of plain English. Short sentences. Key
-   terms wrapped in `<dfn>` on first use (the renderer styles them; no
-   bold or italic elsewhere). Terminology exactly as the slides use it.
+1. Explanation. Short cards in plain English, no prose run longer than
+   five lines. Mechanisms are `steps` blocks, contrasts are `compare`
+   blocks, secondary in-scope detail goes in a collapsed `detail` block
+   (docs/CONTENT_SCHEMA.md). The scan path down a section is the heading
+   and the short cards. Short sentences. Key terms wrapped in `<dfn>` on
+   first use (the renderer styles them; no bold or italic elsewhere).
+   Terminology exactly as the slides use it.
 2. One visual. Interactive widget when a variable changes an outcome
    (concentration and potential, stimulus and rate). Static SVG when the
    point is structure (a pathway, a cell, a layer diagram). Never both.

@@ -179,11 +179,13 @@ migration involves, in case another single-course site is folded in.
    material does not answer.
 3. Write the course's exam-format file (`docs/exam-format-<slug>.md`)
    from its most recent past paper, or from what the user confirms.
-4. Make the lint course-aware before the first lecture: the question
-   mix, tier targets and essay rule in `lint_questions.py` (`MIN_MIX`,
-   `TARGET`, the essay check) are NBE-E4210's mini-exam format. Key them
-   by course slug, keep NBE-E4210's values, and add the new course's.
-   Otherwise the build gate enforces the wrong exam.
+4. Give the lint the course's question mix before the first lecture:
+   add an entry keyed by the course slug to `COURSE_RULES` in
+   `lint_questions.py` (question count, tier order, tier targets, essay
+   rule, minimum count per type), from the exam-format file. Until then
+   the course gets `DEFAULT_RULES`, which gates only the universal
+   checks (option length balance, answer positions, word banks,
+   plain-text maths, required fields) and gates no mix.
 5. If the course needs question or block types the renderer lacks (a
    quantitative course needs the planned calculation features in
    `CALCULATIONS.md`), implement them in the renderer,

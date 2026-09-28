@@ -8,8 +8,10 @@ where this file and it disagree, the repo wins.
 ## Principles the structure encodes
 
 - Chunking. A concept is a set of short cards, each one idea, not a
-  paragraph. The scan path down a section is the heading and the card
-  kickers, never prose.
+  paragraph. No prose run longer than five lines: a mechanism is a
+  `steps` block, a contrast a `compare` block, secondary detail a
+  collapsed `detail` block. The scan path down a section is the heading
+  and the card kickers, never prose.
 - Retrieval right after input. A concept quiz follows every section
   (and, once implemented, a drill follows every formula). Recognition
   alone does not produce recall.

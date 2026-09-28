@@ -16,12 +16,18 @@ Reads src/content/<course>/L*.js through scripts/dump_questions.mjs
                far from uniform (chi-square p < 0.05), both as authored
                and as shown after the seeded shuffle in conceptQuiz.js
 
-  Question-bank mix (docs/PEDAGOGY.md section 2, docs/exam-format.md)
-    12 to 15 questions ordered easy, medium, hard; target about 3 easy,
+  Question-bank mix, per course (COURSE_RULES, keyed by course slug)
+    nbe-e4210 (docs/PEDAGOGY.md section 2, docs/exam-format.md): 12 to
+    15 questions ordered easy, medium, hard; target about 3 easy,
     5 medium, 5 hard; no essay unless labelled beyondExam, at most 1;
     at least 2 classify, 1 label with a word bank, 2 trueFalse with a
     false statement to correct, 2 clinicalCase; at least one mc, order,
-    fillBlank and interpret; required fields of each type.
+    fillBlank and interpret.
+    Any other course (DEFAULT_RULES): no mix is gated; the easy, medium,
+    hard order is advisory. Add the course's entry from its exam-format
+    file.
+
+  Required fields of each type (every course).
 
   Word banks (fillBlank, label, classify categories)
     wordbank   an answer missing from the bank, a duplicate entry, a
@@ -79,20 +85,44 @@ LEGACY = {
     "nbe-e4210/L02": "legacy, written before the 2026-09-24 rules",
 }
 
-TARGET = {"easy": 3, "medium": 5, "hard": 5}
 TIERS = ["easy", "medium", "hard"]
 TYPES = {"mc", "essay", "label", "order", "calc", "trueFalse", "fillBlank", "clinicalCase", "interpret", "classify"}
-# Minimum count per type, or per question feature (docs/PEDAGOGY.md section 2).
-MIN_MIX = [
-    ("classify", 2, lambda q: q.get("type") == "classify"),
-    ("label with a word bank", 1, lambda q: q.get("type") == "label" and q.get("wordBank")),
-    ("trueFalse with a false statement to correct", 2, lambda q: q.get("type") == "trueFalse" and has_false(q)),
-    ("clinicalCase", 2, lambda q: q.get("type") == "clinicalCase"),
-    ("mc", 1, lambda q: q.get("type") == "mc"),
-    ("order", 1, lambda q: q.get("type") == "order"),
-    ("fillBlank", 1, lambda q: q.get("type") == "fillBlank"),
-    ("interpret", 1, lambda q: q.get("type") == "interpret"),
-]
+
+# Question-bank mix per course, keyed by course slug. The mix is a
+# course's exam format, so it lives here; the universal checks (option
+# length balance, correct-answer positions, word-bank plausibility,
+# plain-text maths, required fields of each type) run for every course.
+# A course without an entry gets DEFAULT_RULES: no mix is gated, and the
+# easy-to-hard order is reported as advisory only.
+#   count     (least, most) questions per lecture quiz, or None
+#   order     "gate", "advisory" or None: easy, medium, hard order
+#   target    advisory tier split, or None
+#   essays    None, or (most, needs beyondExam: true)
+#   min_mix   [(name, least, test)]: minimum count per type or feature
+COURSE_RULES = {
+    # docs/exam-format.md and docs/PEDAGOGY.md section 2 (Mini Exam 1).
+    "nbe-e4210": {
+        "count": (12, 15),
+        "order": "gate",
+        "target": {"easy": 3, "medium": 5, "hard": 5},
+        "essays": (1, True),
+        "min_mix": [
+            ("classify", 2, lambda q: q.get("type") == "classify"),
+            ("label with a word bank", 1, lambda q: q.get("type") == "label" and q.get("wordBank")),
+            ("trueFalse with a false statement to correct", 2, lambda q: q.get("type") == "trueFalse" and has_false(q)),
+            ("clinicalCase", 2, lambda q: q.get("type") == "clinicalCase"),
+            ("mc", 1, lambda q: q.get("type") == "mc"),
+            ("order", 1, lambda q: q.get("type") == "order"),
+            ("fillBlank", 1, lambda q: q.get("type") == "fillBlank"),
+            ("interpret", 1, lambda q: q.get("type") == "interpret"),
+        ],
+    },
+}
+DEFAULT_RULES = {"count": None, "order": "advisory", "target": None, "essays": None, "min_mix": []}
+
+
+def rules_for(course):
+    return COURSE_RULES.get(course, DEFAULT_RULES)
 BANK_LENGTH = (0.5, 2.0)
 LENGTH_GAP = 0.20
 SHORT_RATIO = 0.5
@@ -264,30 +294,36 @@ def check_lengths(where, q):
     return out
 
 
-def check_mix(content):
+def check_mix(content, rules):
     out = []
     quiz = content.get("lectureQuiz", [])
     n = len(quiz)
-    if not 12 <= n <= 15:
-        out.append(("mix", "quiz", f"{n} questions; the rule is 12 to 15"))
+    if rules["count"]:
+        least, most = rules["count"]
+        if not least <= n <= most:
+            out.append(("mix", "quiz", f"{n} questions; the rule is {least} to {most}"))
     tiers = [q.get("difficulty") for q in quiz]
     counts = {t: tiers.count(t) for t in TIERS}
     ranks = [TIERS.index(t) if t in TIERS else -1 for t in tiers]
     if any(r < 0 for r in ranks):
         out.append(("error", "quiz", "a question has no easy, medium or hard label"))
-    elif ranks != sorted(ranks):
+    elif rules["order"] and ranks != sorted(ranks):
         first = next(i for i in range(1, len(ranks)) if ranks[i] < ranks[i - 1])
-        out.append(("mix", "quiz", f"not ordered easy, medium, hard (question {first + 1}, {quiz[first].get('id')})"))
-    off = [f"{t} {counts[t]} (target {TARGET[t]})" for t in TIERS if abs(counts[t] - TARGET[t]) > 1]
+        kind = "mix" if rules["order"] == "gate" else "tiers"
+        out.append((kind, "quiz", f"not ordered easy, medium, hard (question {first + 1}, {quiz[first].get('id')})"))
+    target = rules["target"]
+    off = [f"{t} {counts[t]} (target {target[t]})" for t in TIERS if target and abs(counts[t] - target[t]) > 1]
     if off:
         out.append(("tiers", "quiz", "tier split " + ", ".join(off) + "; advisory, never relabel to hit it"))
     essays = [q for q in quiz if q.get("type") == "essay"]
-    if len(essays) > 1:
-        out.append(("mix", "quiz", f"{len(essays)} essays; the mini-exam has none, keep at most 1"))
-    for q in essays:
-        if not q.get("beyondExam"):
-            out.append(("mix", f"quiz {q.get('id')}", "essay not labelled beyondExam: true; the mini-exam has no essays"))
-    for name, least, test in MIN_MIX:
+    if rules["essays"]:
+        most, needs_label = rules["essays"]
+        if len(essays) > most:
+            out.append(("mix", "quiz", f"{len(essays)} essays; the mini-exam has none, keep at most {most}"))
+        for q in essays if needs_label else []:
+            if not q.get("beyondExam"):
+                out.append(("mix", f"quiz {q.get('id')}", "essay not labelled beyondExam: true; the mini-exam has no essays"))
+    for name, least, test in rules["min_mix"]:
         count = sum(1 for q in quiz if test(q))
         if count < least:
             out.append(("mix", "quiz", f"{count} {name}; at least {least}"))
@@ -521,7 +557,7 @@ def lint(lecture_id, content, corpus):
         if p < P_LIMIT:
             dist = ", ".join(f"{k + 1}: {o} (exp {e:.1f})" for k, (o, e) in enumerate(zip(observed, expected)))
             findings.append(("positions", "all options", f"{label} correct positions far from uniform, p = {p:.3f}; {dist}"))
-    findings += check_mix(content)
+    findings += check_mix(content, rules_for(lecture_id.split("/")[0]))
     for q in content.get("lectureQuiz", []):
         findings += check_fields(q)
         findings += check_bank(q, corpus, (lecture_id, q.get("id")))

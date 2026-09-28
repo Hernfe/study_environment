@@ -904,7 +904,11 @@ Asset pipeline (see each script's docstring):
 report, or on its own with `L04`, `nbe-e4210` or `nbe-e4210/L04`) loads
 every content file through `scripts/dump_questions.mjs` and reports per
 lecture, keyed `<course>/<lecture>`. The word-bank corpus is per course.
-The mix rules below are NBE-E4210's mini-exam format:
+The `mix` rules are per course (`COURSE_RULES` in the script, keyed by
+course slug); the values below are NBE-E4210's mini-exam format. A
+course without an entry gets `DEFAULT_RULES`: no mix is gated and the
+easy-to-hard order is advisory. Every other check applies to every
+course:
 
 - `longest`, `shortest`: the correct option is the longest or shortest
   by more than 20 percent of the mean option length.
@@ -912,7 +916,7 @@ The mix rules below are NBE-E4210's mini-exam format:
 - `positions`: correct-answer positions across the lecture far from
   uniform (chi-square, p < 0.05), both as authored and as shown after
   the seeded shuffle.
-- `mix`, `tiers`: 12 to 15 questions, easy to hard order; no essay
+- `mix`, `tiers` (NBE-E4210): 12 to 15 questions, easy to hard order; no essay
   unless it has `beyondExam: true`, at most 1; at least 2 classify, 1
   label with a word bank, 2 trueFalse with a false statement to
   correct, 2 clinicalCase, and one each of mc, order, fillBlank and
