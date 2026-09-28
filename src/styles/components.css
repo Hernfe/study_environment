@@ -1904,6 +1904,189 @@ p.classify-text {
   background: var(--c-incorrect-bg);
 }
 
+/* Classify as a table (rows x columns, one category per cell) */
+.classify-table-wrap {
+  overflow-x: auto;
+  margin: 0 0 var(--sp-4);
+}
+
+.classify-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.classify-table th,
+.classify-table td {
+  padding: var(--sp-2);
+  border-bottom: 1px solid var(--c-border);
+  text-align: left;
+  vertical-align: top;
+}
+
+.classify-table thead th {
+  font-weight: 600;
+  border-bottom-width: 2px;
+}
+
+.classify-table tbody th {
+  font-weight: 400;
+}
+
+.classify-table .classify-select {
+  width: 100%;
+  min-width: 6.5rem;
+}
+
+.ct-answer {
+  display: block;
+  margin-top: var(--sp-1);
+  font-size: var(--fs-sm);
+  color: var(--c-text-muted);
+}
+
+.ct-explain td {
+  font-size: var(--fs-sm);
+  color: var(--c-text-muted);
+}
+
+.ct-col-label {
+  display: none;
+}
+
+/* Narrow screens: each row stacks, its label on top, one cell per column
+   below, each cell headed by its column. */
+@media (max-width: 560px) {
+  .classify-table,
+  .classify-table tbody,
+  .classify-table tr,
+  .ct-explain td {
+    display: block;
+  }
+
+  .classify-table thead {
+    display: none;
+  }
+
+  .classify-table tbody tr:not(.ct-explain) {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(7.5rem, 1fr));
+    gap: 0 var(--sp-3);
+    padding: var(--sp-2) 0;
+    border-bottom: 1px solid var(--c-border);
+  }
+
+  .classify-table tbody th {
+    grid-column: 1 / -1;
+    padding: 0 0 var(--sp-1);
+    border: 0;
+  }
+
+  .classify-table td {
+    padding: var(--sp-1) 0;
+    border: 0;
+  }
+
+  .classify-table .classify-select {
+    min-width: 0;
+  }
+
+  .ct-col-label {
+    display: block;
+    font-size: var(--fs-sm);
+    color: var(--c-text-muted);
+  }
+
+  .ct-explain td {
+    padding: var(--sp-1) 0 var(--sp-2);
+    border-bottom: 1px solid var(--c-border);
+  }
+}
+
+/* Inline choice: bracketed options inside a sentence */
+.ic-text {
+  margin: 0;
+  line-height: 2.2;
+}
+
+.ic-group {
+  white-space: normal;
+}
+
+.ic-option {
+  padding: 0 var(--sp-2);
+  border: 1px solid var(--c-border);
+  border-radius: var(--radius-sm);
+  background: var(--c-bg);
+  color: var(--c-text);
+  font: inherit;
+  line-height: 1.6;
+  transition: background-color var(--transition), border-color var(--transition);
+}
+
+.ic-option:hover:not(:disabled) {
+  border-color: var(--c-accent);
+  background: var(--c-accent-soft);
+}
+
+.ic-option.is-selected {
+  border-color: var(--c-accent);
+  box-shadow: inset 0 0 0 1px var(--c-accent);
+}
+
+.ic-option.is-correct {
+  border-color: var(--c-correct);
+  background: var(--c-correct-bg);
+  box-shadow: inset 0 0 0 1px var(--c-correct);
+}
+
+.ic-option.is-incorrect {
+  border-color: var(--c-incorrect);
+  background: var(--c-incorrect-bg);
+  text-decoration: line-through;
+}
+
+.ic-option:disabled {
+  cursor: default;
+}
+
+.ic-sep {
+  color: var(--c-text-muted);
+}
+
+.inline-choice .label-explanation {
+  margin: var(--sp-2) 0 0;
+}
+
+/* Multiple select: tick boxes, any number correct */
+.ms-hint {
+  margin: 0 0 var(--sp-2);
+  font-size: var(--fs-sm);
+}
+
+.ms-option {
+  display: flex;
+  gap: var(--sp-3);
+  align-items: flex-start;
+  cursor: pointer;
+}
+
+.ms-option input {
+  flex: none;
+  width: 1.1rem;
+  height: 1.1rem;
+  margin: 0.2rem 0 0;
+  accent-color: var(--c-accent);
+}
+
+.ms-option:has(input:focus-visible) {
+  outline: 2px solid var(--c-accent);
+  outline-offset: 2px;
+}
+
+.ms-option:has(input:disabled) {
+  cursor: default;
+}
+
 /* Clinical case */
 .case-scenario {
   margin: var(--sp-3) 0;

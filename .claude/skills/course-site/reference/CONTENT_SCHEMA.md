@@ -155,14 +155,17 @@ recap: {
 `difficulty`, `type`, `prompt`, `modelAnswer` (string[], the step-by-step
 reveal), and optional `points`, `itemPoints`, `beyondExam`, `video`.
 Points follow the course's exam: for NBE-E4210, 1 per single-answer
-question and 0.25 per sub-item, shown on every question.
+question, 0.25 per sub-item and 0.1 per inline choice, shown on every
+question.
 
 | type | own fields | scoring |
 |---|---|---|
 | `mc` | `options` (`text`, `feedback`), `correct` | 1 point |
+| `multiSelect` | `options: [{ text, correct, feedback }]`, any number correct (at least one), count hidden | 0.25 per option, judged ticked or not |
+| `inlineChoice` | `sentences: [{ text with ___, choices: [{ options, answer }], explanation? }]`, options in authored order | 0.1 per choice |
 | `trueFalse` | `answer`, `justification`; or `statements: [{ text, answer, correction (false ones), justification? }]` | 1, or 0.25 per statement; the student types a one-line correction for each False |
 | `fillBlank` | `text` with `___`, `blanks: [{ accept: [...] }]`, `wordBank?` | 0.25 per blank |
-| `classify` | `categories`, `categoriesTitle?`, `items: [{ text, answer, explanation? }]` | 0.25 per item; an item with `___` gets its picker inline |
+| `classify` | `categories`, `categoriesTitle?`, `items: [{ text, answer, explanation? }]` | 0.25 per item; an item with `___` gets its picker inline. Table form: `columns`, `rowHeader?`, items with `answers` (one per column), 0.25 per cell |
 | `clinicalCase` | `scenario`, then `options`/`correct` or `accept`/`answerLabel`; `modelAnswer` is the reasoning, at least three steps | 1 point |
 | `interpret` | `figure` or `video`, then `options`/`correct`, or `points` plus `markScheme` | 1, or the mark scheme |
 | `label` | `hotspots` (an image-hotspots props object, same regions), `wordBank?` or `labelPool?` | 0.25 per region |

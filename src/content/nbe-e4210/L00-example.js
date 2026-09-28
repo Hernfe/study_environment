@@ -259,6 +259,39 @@ export default {
       modelAnswer: ['Channel, passive. Pump, active, powered by ATP.'],
     },
     {
+      id: 'q17',
+      difficulty: 'easy',
+      type: 'inlineChoice',
+      prompt: 'Circle the right answer in each bracket.',
+      sentences: [
+        {
+          text: 'Particles cross the toy membrane passively through the ___, which moves them ___ their gradient.',
+          choices: [
+            { options: ['pump', 'channel', 'nucleus'], answer: 1 },
+            { options: ['down', 'up'], answer: 0 },
+          ],
+          explanation: 'A channel is a passive pore, so flow runs downhill.',
+        },
+        {
+          text: 'The pump takes its energy from ___ and moves particles ___ the cell.',
+          choices: [
+            { options: ['the gradient', 'ATP', 'the channel'], answer: 1 },
+            { options: ['into', 'out of'], answer: 1 },
+          ],
+          explanation: 'The pump uses ATP to push particles back out against the gradient.',
+        },
+        {
+          text: 'The pump moves ___ particles per cycle at a rate of about ___ per second.',
+          choices: [
+            { options: ['$2$', '$3$', '$4$'], answer: 2 },
+            { options: ['$10$', '$100$', '$1000$'], answer: 1 },
+          ],
+          explanation: 'Toy numbers: four particles per cycle, about a hundred cycles a second.',
+        },
+      ],
+      modelAnswer: ['a) channel, down.', 'b) ATP, out of.', 'c) $4$, $100$.'],
+    },
+    {
       id: 'q03',
       difficulty: 'medium',
       type: 'order',
@@ -307,6 +340,49 @@ export default {
         { text: 'With the pump blocked, the gradient stays constant because the membrane is intact.', answer: false, correction: 'The gradient runs down, because the channel keeps letting particles through.' },
       ],
       modelAnswer: ['a) True.', 'b) False: only the pump uses ATP.', 'c) False: without the pump the gradient runs down.'],
+    },
+    {
+      id: 'q18',
+      difficulty: 'medium',
+      type: 'multiSelect',
+      prompt: 'Which statements about the channel of the toy cell are correct?',
+      options: [
+        { text: 'It lets particles cross the membrane without using energy.', correct: true, feedback: 'A channel is a passive pore.' },
+        { text: 'It moves particles in the direction set by their gradient.', correct: true, feedback: 'Passive flow always runs downhill.' },
+        { text: 'It can move particles against their gradient when needed.', correct: false, feedback: 'Only the pump moves particles uphill.' },
+        { text: 'Its flow stops once both sides reach the same level.', correct: true, feedback: 'No gradient, no net passive flow.' },
+      ],
+      modelAnswer: ['a) Correct, passive.', 'b) Correct, downhill.', 'c) Incorrect, that is the pump.', 'd) Correct, net flow needs a gradient.'],
+    },
+    {
+      id: 'q19',
+      difficulty: 'medium',
+      type: 'multiSelect',
+      prompt: 'Suppose the outside concentration of the toy cell is raised four-fold, while the pump keeps working. Mark the correct statements.',
+      options: [
+        { text: 'Inflow through the channel becomes larger than before.', correct: true, feedback: 'A steeper gradient drives more passive inflow.' },
+        { text: 'Inflow through the channel becomes smaller than before.', correct: false, feedback: 'The gradient got steeper, not shallower.' },
+        { text: 'The pump now moves particles into the cell as well.', correct: false, feedback: 'The pump always moves particles out.' },
+        { text: 'The channel starts to use ATP to cope with the load.', correct: false, feedback: 'A channel never uses energy.' },
+      ],
+      modelAnswer: ['Raising the outside concentration steepens the gradient.', 'So passive inflow through the channel rises; the pump and channel keep their jobs.'],
+    },
+    {
+      id: 'q20',
+      difficulty: 'medium',
+      type: 'classify',
+      prompt: 'For each phase of filling and emptying the toy cell, give the direction of the dominant particle movement through each structure. Use None where there is little or no movement.',
+      categories: ['Into the cell', 'Out of the cell', 'None'],
+      categoriesTitle: 'Choices',
+      rowHeader: 'Phase',
+      columns: ['Channel', 'Pump'],
+      items: [
+        { text: 'Channel closed, pump off', answers: ['None', 'None'], explanation: 'Nothing is open or running, so nothing moves.' },
+        { text: 'Channel open, pump off', answers: ['Into the cell', 'None'], explanation: 'Only passive inflow down the gradient.' },
+        { text: 'Channel closed, pump on', answers: ['None', 'Out of the cell'], explanation: 'Only the pump works, pushing particles out.' },
+        { text: 'Channel open, pump on', answers: ['Into the cell', 'Out of the cell'], explanation: 'Inflow and pumped outflow run together.' },
+      ],
+      modelAnswer: ['The channel only ever carries particles in, down the gradient, and only when open.', 'The pump only ever moves them out, and only when running.'],
     },
     {
       id: 'q05',

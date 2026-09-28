@@ -2,7 +2,7 @@
 // step-by-step model answer, and the score card. renderQuestion is also
 // used by review.js, so each card is self-contained.
 
-import { el, paragraphs, shuffle, escapeHtml } from './dom.js';
+import { el, paragraphs, shuffle, escapeHtml, seededOrder } from './dom.js';
 import { createMcBody } from './conceptQuiz.js';
 import { renderVisual, renderVisualBody, renderVideo } from './visuals.js';
 import { renderTex, stripMath } from './math.js';
@@ -24,10 +24,14 @@ function badge(difficulty) {
 // their mark scheme.
 const DEFAULT_POINTS = 1;
 const DEFAULT_ITEM_POINTS = 0.25;
+// Mini Exam 2, Problem 1: each circled inline choice is worth 0.1.
+const TYPE_ITEM_POINTS = { inlineChoice: 0.1 };
 
 function subItems(question) {
   switch (question.type) {
-    case 'classify': return (question.items || []).length;
+    case 'classify': return (question.items || []).length * (question.columns ? question.columns.length : 1);
+    case 'inlineChoice': return (question.sentences || []).reduce((sum, s) => sum + (s.choices || []).length, 0);
+    case 'multiSelect': return (question.options || []).length;
     case 'order': return (question.items || []).length;
     case 'fillBlank': return (question.blanks || []).length;
     case 'label': return (question.hotspots?.regions || question.regions || []).length;
@@ -43,8 +47,8 @@ export function questionPoints(question) {
   }
   const items = subItems(question);
   if (items > 0) {
-    const per = question.itemPoints ?? (question.points ? question.points / items : DEFAULT_ITEM_POINTS);
-    return { total: per * items, per, items };
+    const per = question.itemPoints ?? (question.points ? question.points / items : TYPE_ITEM_POINTS[question.type] ?? DEFAULT_ITEM_POINTS);
+    return { total: Math.round(per * items * 1000) / 1000, per, items };
   }
   return { total: question.points ?? DEFAULT_POINTS, per: null, items: 0 };
 }
@@ -592,6 +596,7 @@ function fillBlankBody(question, report) {
 // completion. An item whose text holds ___ gets its picker inline.
 // Categories may be used any number of times.
 function classifyBody(question, report) {
+  if (question.columns) return classifyTableBody(question, report);
   const bank = normaliseBank(question.categories, { reusable: true });
   const bankNode = renderBank(bank, { title: question.categoriesTitle || 'Categories' });
   const selects = [];
@@ -642,6 +647,213 @@ function classifyBody(question, report) {
   }
 
   return el('div', { class: 'classify' }, [bankNode, list, feedback, el('div', { class: 'btn-row' }, [checkButton])]);
+}
+
+// Classify as a table, as on Mini Exam 2 (Problem 9, ion movement per
+// phase): each item is a row, each entry of `columns` a column, and
+// every cell takes one of the shared categories. Scored per cell.
+function classifyTableBody(question, report) {
+  const bank = normaliseBank(question.categories, { reusable: true });
+  const bankNode = renderBank(bank, { title: question.categoriesTitle || 'Categories' });
+  const columns = question.columns;
+  const cells = [];
+  const rows = question.items.map((item, r) => {
+    const row = { item, selects: [], notes: [] };
+    const tds = columns.map((column, c) => {
+      const select = bankSelect(bank, {
+        class: 'classify-select',
+        'aria-label': `${stripMath(item.text)}, ${stripMath(column)}`,
+        onChange: update,
+      });
+      const note = el('span', { class: 'ct-answer', hidden: true });
+      row.selects.push(select);
+      row.notes.push(note);
+      cells.push({ select, answer: item.answers?.[c], note });
+      // The column head repeated in the cell, shown only when the table
+      // stacks on narrow screens.
+      return el('td', {}, [el('span', { class: 'ct-col-label', 'aria-hidden': 'true' }, column), select, note]);
+    });
+    row.explain = el('tr', { class: 'ct-explain', hidden: true }, [
+      el('td', { colspan: columns.length + 1 }, [el('span', { class: 'num' }, `${LETTERS[r]}) `), item.explanation || '']),
+    ]);
+    row.node = el('tr', {}, [el('th', { scope: 'row' }, [el('span', { class: 'num' }, `${LETTERS[r]}) `), item.text]), ...tds]);
+    return row;
+  });
+  const table = el('div', { class: 'classify-table-wrap' }, [
+    el('table', { class: 'classify-table' }, [
+      el('thead', {}, [el('tr', {}, [
+        el('th', { scope: 'col' }, question.rowHeader || ''),
+        ...columns.map((column) => el('th', { scope: 'col' }, column)),
+      ])]),
+      el('tbody', {}, rows.flatMap((row) => [row.node, row.explain])),
+    ]),
+  ]);
+  const feedback = feedbackBanner();
+  const checkButton = el('button', { type: 'button', class: 'btn btn-primary', disabled: true, onClick: check }, 'Check');
+  let done = false;
+
+  function update() {
+    checkButton.disabled = done || !cells.every((c) => c.select.value);
+  }
+  function check() {
+    if (done || !cells.every((c) => c.select.value)) return;
+    done = true;
+    let right = 0;
+    cells.forEach((cell) => {
+      const ok = cell.select.value === cell.answer;
+      if (ok) right += 1;
+      cell.select.classList.add(ok ? 'is-correct' : 'is-incorrect');
+      cell.select.disabled = true;
+      if (!ok) {
+        cell.note.hidden = false;
+        cell.note.textContent = `Answer: ${cell.answer}`;
+      }
+    });
+    rows.forEach((row) => { if (row.item.explanation) row.explain.hidden = false; });
+    checkButton.disabled = true;
+    const correct = right === cells.length;
+    setFeedback(feedback, correct, correct
+      ? 'Every cell is right.'
+      : `${right} of ${cells.length} cells right. The answer is under each wrong cell, the reason under each row.`);
+    report({ correct, score: right, max: cells.length });
+  }
+
+  return el('div', { class: 'classify' }, [bankNode, table, feedback, el('div', { class: 'btn-row' }, [checkButton])]);
+}
+
+// Inline choice, as on Mini Exam 2 (Problem 1, "circle the right
+// answer"): sentences with two to four choices embedded where their
+// text holds ___. Options stay in authored order, as printed on the
+// paper. Scored per choice (0.1 each by default).
+function inlineChoiceBody(question, report) {
+  const groups = [];
+  const rows = question.sentences.map((sentence, s) => {
+    const parts = String(sentence.text).split('___');
+    const text = el('p', { class: 'ic-text' });
+    parts.forEach((part, k) => {
+      text.append(part);
+      if (k === parts.length - 1) return;
+      const choice = sentence.choices?.[k] || { options: [] };
+      const group = { choice, picked: null, buttons: [] };
+      group.buttons = choice.options.map((option, i) =>
+        el('button', { type: 'button', class: 'ic-option', 'aria-pressed': 'false', onClick: () => pick(group, i) }, option)
+      );
+      const inner = [];
+      group.buttons.forEach((b, i) => {
+        if (i) inner.push(el('span', { class: 'ic-sep', 'aria-hidden': 'true' }, ' / '));
+        inner.push(b);
+      });
+      text.append(el('span', { class: 'ic-group', role: 'group', 'aria-label': `Sentence ${LETTERS[s]}, choice ${k + 1}` }, [
+        el('span', { 'aria-hidden': 'true' }, '('), ...inner, el('span', { 'aria-hidden': 'true' }, ')'),
+      ]));
+      groups.push(group);
+    });
+    const explanation = el('p', { class: 'label-explanation', hidden: true });
+    return { sentence, explanation, node: el('li', {}, [el('span', { class: 'num' }, `${LETTERS[s]})`), el('div', {}, [text, explanation])]) };
+  });
+  const feedback = feedbackBanner();
+  const checkButton = el('button', { type: 'button', class: 'btn btn-primary', disabled: true, onClick: check }, 'Check');
+  let done = false;
+
+  function pick(group, index) {
+    if (done) return;
+    group.picked = index;
+    group.buttons.forEach((b, i) => {
+      b.classList.toggle('is-selected', i === index);
+      b.setAttribute('aria-pressed', i === index ? 'true' : 'false');
+    });
+    checkButton.disabled = !groups.every((g) => g.picked !== null);
+  }
+  function check() {
+    if (done || !groups.every((g) => g.picked !== null)) return;
+    done = true;
+    let right = 0;
+    groups.forEach((group) => {
+      const ok = group.picked === group.choice.answer;
+      if (ok) right += 1;
+      group.buttons.forEach((b, i) => {
+        b.disabled = true;
+        b.classList.remove('is-selected');
+        if (i === group.choice.answer) b.classList.add('is-correct');
+        else if (i === group.picked) b.classList.add('is-incorrect');
+      });
+    });
+    rows.forEach((row) => {
+      if (!row.sentence.explanation) return;
+      row.explanation.hidden = false;
+      row.explanation.textContent = row.sentence.explanation;
+    });
+    checkButton.disabled = true;
+    const correct = right === groups.length;
+    setFeedback(feedback, correct, correct
+      ? 'Every choice is right.'
+      : `${right} of ${groups.length} choices right. The right option is marked in each bracket.`);
+    report({ correct, score: right, max: groups.length });
+  }
+
+  return el('div', { class: 'inline-choice' }, [
+    el('ol', { class: 'item-list' }, rows.map((r) => r.node)),
+    feedback,
+    el('div', { class: 'btn-row' }, [checkButton]),
+  ]);
+}
+
+// Multiple select, as on Mini Exam 2 (Problems 5 to 8, "which
+// statements are correct?"): any number of the options may be correct
+// and the count is not shown. Scored per option: an option is right
+// when it is ticked and correct, or left blank and incorrect. Options
+// are shuffled with the same stable seed as mc.
+function multiSelectBody(question, report, { seed } = {}) {
+  const order = seededOrder(question.options.length, seed ?? question.id);
+  const rows = [];
+  const list = el('ul', { class: 'options ms-options' }, order.map((index) => {
+    const option = question.options[index];
+    const id = `${question.id}-ms-${index}`;
+    const box = el('input', { type: 'checkbox', id, onChange: update });
+    const verdict = el('span', { class: 'option-feedback', hidden: true });
+    const label = el('label', { class: 'option ms-option', for: id }, [box, el('span', { class: 'ms-text' }, [option.text, verdict])]);
+    rows.push({ option, box, label, verdict });
+    return el('li', {}, label);
+  }));
+  const feedback = feedbackBanner();
+  const checkButton = el('button', { type: 'button', class: 'btn btn-primary', disabled: true, onClick: check }, 'Check');
+  let done = false;
+
+  function update() {
+    rows.forEach((r) => r.label.classList.toggle('is-selected', r.box.checked));
+    checkButton.disabled = done || !rows.some((r) => r.box.checked);
+  }
+  function check() {
+    if (done || !rows.some((r) => r.box.checked)) return;
+    done = true;
+    let right = 0;
+    rows.forEach((r) => {
+      const truth = r.option.correct === true;
+      const ok = r.box.checked === truth;
+      if (ok) right += 1;
+      r.box.disabled = true;
+      r.label.classList.remove('is-selected');
+      r.label.classList.add(ok ? 'is-correct' : 'is-incorrect');
+      r.verdict.hidden = false;
+      r.verdict.replaceChildren(
+        el('span', { class: 'block-tag' }, truth ? 'Correct statement. ' : 'Incorrect statement. '),
+        r.option.feedback || ''
+      );
+    });
+    checkButton.disabled = true;
+    const correct = right === rows.length;
+    setFeedback(feedback, correct, correct
+      ? 'Every statement judged right.'
+      : `${right} of ${rows.length} statements judged right. Each one now says whether it is correct and why.`);
+    report({ correct, score: right, max: rows.length });
+  }
+
+  return el('div', { class: 'multi-select' }, [
+    el('p', { class: 'muted ms-hint' }, 'Tick every correct statement.'),
+    list,
+    feedback,
+    el('div', { class: 'btn-row' }, [checkButton]),
+  ]);
 }
 
 // Clinical case: a scenario, then pick (options) or name (accept) the
@@ -698,6 +910,8 @@ const BODIES = {
   clinicalCase: clinicalCaseBody,
   interpret: interpretBody,
   classify: classifyBody,
+  inlineChoice: inlineChoiceBody,
+  multiSelect: multiSelectBody,
 };
 
 // Renders one question card. options: { lectureId, index, total, source, onResult }
@@ -730,7 +944,7 @@ export function renderQuestion(question, { lectureId, index, total, source, onRe
     if (reported) return;
     reported = true;
     const scale = raw.max ? points.total / raw.max : 0;
-    const result = { correct: raw.correct, score: raw.score * scale, max: points.total };
+    const result = { correct: raw.correct, score: Math.round(raw.score * scale * 1000) / 1000, max: points.total };
     if (lectureId) recordQuestionResult(lectureId, question.id, result);
     if (onResult) onResult({ question, lectureId, ...result });
   }
@@ -761,6 +975,8 @@ function typeLabel(type) {
     clinicalCase: 'Clinical case',
     interpret: 'Interpret',
     classify: 'Classify',
+    inlineChoice: 'Circle the right answer',
+    multiSelect: 'Select all correct',
   }[type] || type;
 }
 
@@ -790,7 +1006,7 @@ export function renderLectureQuiz(questions, { lectureId } = {}) {
 
   const container = el('section', { class: 'lecture-quiz', id: 'lecture-quiz', 'aria-labelledby': 'lecture-quiz-title' }, [
     el('h2', { id: 'lecture-quiz-title' }, 'Lecture quiz'),
-    el('p', { class: 'muted' }, `${total} questions worth ${formatPoints(questions.reduce((sum, q) => sum + questionPoints(q).total, 0))} points, easy first, then medium, then hard. Points follow the mini-exam: 1 per single answer, 0.25 per sub-item. Answer before you reveal.`),
+    el('p', { class: 'muted' }, `${total} questions worth ${formatPoints(questions.reduce((sum, q) => sum + questionPoints(q).total, 0))} points, easy first, then medium, then hard. Points follow the mini-exam: 1 per single answer, 0.25 per sub-item, 0.1 per inline choice. Answer before you reveal.`),
     ...questions.map((question, index) =>
       renderQuestion(question, {
         lectureId,

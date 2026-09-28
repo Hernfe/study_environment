@@ -63,7 +63,7 @@ question does not mean missing the exam level.
 Rules that follow from the tiers:
 
 - Concept quizzes are always easy.
-- The lecture quiz has 12 to 15 questions ordered easy, then medium,
+- The lecture quiz has 12 to 16 questions ordered easy, then medium,
   then hard. Target about 3 easy, 5 medium, 5 hard. The split is
   advisory: the tier of a question describes its cognitive demand as
   defined in the table above, and it is never adjusted to hit a target
@@ -78,6 +78,9 @@ Rules that follow from the tiers:
     correction (a single false statement, or a `statements` set with
     at least one false one);
   - at least 2 `clinicalCase`;
+  - at least 2 `multiSelect` ("which statements are correct", count
+    not given; vary the number of correct options across the lecture);
+  - at least 1 `inlineChoice` (sentences with bracketed choices);
   - at least one each of `mc`, `order`, `fillBlank` and `interpret`;
   - `calc` where the lecture has a quantity to compute.
   Essays: zero by default, since the paper has none. An essay may be
@@ -85,9 +88,12 @@ Rules that follow from the tiers:
   can; it is labelled `beyondExam: true` and shown as beyond the exam
   format, for understanding only. The lint checks the mix. L01 and L02
   predate these rules, L03 and L04 were built before the mini-exam was
-  available.
+  available and before Mini Exam 2 added `multiSelect` and
+  `inlineChoice` (reported as the advisory `mix-todo` until
+  retrofitted).
 - Points follow the paper: 1 per single-answer question, 0.25 per
-  sub-item of a multi-part question, shown on every question.
+  sub-item of a multi-part question, 0.1 per inline choice, shown on
+  every question.
 - Every question is answerable from the slides plus the textbook within
   slide scope. No textbook trivia the slides never touch.
 - Rewrite the notes' self-check questions into these formats and include
@@ -157,6 +163,38 @@ are recorded per question by `progress.js`.
   shared list (directional terms, with the blank inline); these are
   easy.
 - Auto-scored per item, 0.25 each.
+- Table form (`columns`), as in Mini Exam 2 Problem 9: rows are phases
+  or conditions, columns are ions or structures, and every cell takes
+  one of a small fixed set ("Into the cell / Out of the cell / None").
+  Medium when each cell needs a mechanism (which channel is open in
+  this phase). Scored per cell.
+
+### Multiple select (`multiSelect`)
+
+- "Which statements about X are correct?" Four statements, any number
+  correct, the count not shown. Scored per statement, 0.25 each: a
+  statement is right when it is ticked and correct, or left and
+  incorrect.
+- Incorrect statements follow the true-or-false rules: one wrong link,
+  a wrong parameter, an over-generalisation ("only", "necessarily").
+  Correct and incorrect statements match in length and hedging.
+- The reasoning variant gives a change ("extracellular $\text{K}^+$
+  rises from $5$ to $20\,\text{mM}$") and offers both directions of
+  each consequence. It is medium when one step, hard when the student
+  must chain two.
+- Every option carries one line of feedback, shown after checking with
+  whether the statement is correct.
+
+### Inline choice (`inlineChoice`)
+
+- "Circle the right answer": two to four sentences in slide wording,
+  each with one to four bracketed choices of two or three options
+  (ions, values, directions, structures, consequences).
+- Options are shown in authored order, as printed; vary the place of
+  the right option (the lint tests it). Distractors are near-neighbours
+  (another ion, the opposite direction, a nearby value).
+- Easy: recall of one fact per bracket. Auto-scored per choice, 0.1
+  each.
 
 ### Fill in the blank (`fillBlank`)
 

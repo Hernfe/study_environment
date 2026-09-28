@@ -17,12 +17,17 @@ Reads src/content/<course>/L*.js through scripts/dump_questions.mjs
                and as shown after the seeded shuffle in conceptQuiz.js
 
   Question-bank mix, per course (COURSE_RULES, keyed by course slug)
-    nbe-e4210 (docs/PEDAGOGY.md section 2, docs/exam-format.md): 12 to
-    15 questions ordered easy, medium, hard; target about 3 easy,
-    5 medium, 5 hard; no essay unless labelled beyondExam, at most 1;
-    at least 2 classify, 1 label with a word bank, 2 trueFalse with a
-    false statement to correct, 2 clinicalCase; at least one mc, order,
-    fillBlank and interpret.
+    nbe-e4210 (docs/PEDAGOGY.md section 2, docs/exam-format.md, Mini
+    Exams 1 and 2): 12 to 16 questions ordered easy, medium, hard;
+    target about 3 easy, 5 medium, 5 hard; no essay unless labelled
+    beyondExam, at most 1; at least 2 classify, 1 label with a word
+    bank, 2 trueFalse with a false statement to correct, 2 clinicalCase,
+    2 multiSelect, 1 inlineChoice; at least one mc, order, fillBlank and
+    interpret. Lectures built before Mini Exam 2 (the course's
+    "pending" entry) get the multiSelect and inlineChoice minimums as
+    the advisory mix-todo until they are retrofitted.
+    ms-count (advisory): every multiSelect in the lecture has the same
+    number of correct options, so the count can be guessed.
     Any other course (DEFAULT_RULES): no mix is gated; the easy, medium,
     hard order is advisory. Add the course's entry from its exam-format
     file.
@@ -45,6 +50,14 @@ Reads src/content/<course>/L*.js through scripts/dump_questions.mjs
   Maths
     plain-text symbols and units outside $...$ (E_K, g_Na, 65 mV, Na+),
     which must go through KaTeX. Counted per lecture with examples.
+
+  Types from Mini Exam 2 (required fields, plus)
+    multiSelect  correct and incorrect statements balanced in length:
+                 longest or shortest when their mean lengths differ by
+                 more than 20 percent of the mean option length.
+    inlineChoice positions: the answer's place inside the brackets,
+                 across the lecture, far from uniform (inline options
+                 are shown in authored order, as on the paper).
 
 Lengths are measured on the text a student reads: HTML tags removed,
 $...$ maths counted by its TeX source without commands.
@@ -86,7 +99,8 @@ LEGACY = {
 }
 
 TIERS = ["easy", "medium", "hard"]
-TYPES = {"mc", "essay", "label", "order", "calc", "trueFalse", "fillBlank", "clinicalCase", "interpret", "classify"}
+TYPES = {"mc", "essay", "label", "order", "calc", "trueFalse", "fillBlank", "clinicalCase", "interpret", "classify",
+         "inlineChoice", "multiSelect"}
 
 # Question-bank mix per course, keyed by course slug. The mix is a
 # course's exam format, so it lives here; the universal checks (option
@@ -99,10 +113,12 @@ TYPES = {"mc", "essay", "label", "order", "calc", "trueFalse", "fillBlank", "cli
 #   target    advisory tier split, or None
 #   essays    None, or (most, needs beyondExam: true)
 #   min_mix   [(name, least, test)]: minimum count per type or feature
+#   pending   {lecture: set of min_mix names}: minimums reported as the
+#             advisory mix-todo for a lecture built before they existed
 COURSE_RULES = {
-    # docs/exam-format.md and docs/PEDAGOGY.md section 2 (Mini Exam 1).
+    # docs/exam-format.md and docs/PEDAGOGY.md section 2 (Mini Exams 1, 2).
     "nbe-e4210": {
-        "count": (12, 15),
+        "count": (12, 16),
         "order": "gate",
         "target": {"easy": 3, "medium": 5, "hard": 5},
         "essays": (1, True),
@@ -115,10 +131,18 @@ COURSE_RULES = {
             ("order", 1, lambda q: q.get("type") == "order"),
             ("fillBlank", 1, lambda q: q.get("type") == "fillBlank"),
             ("interpret", 1, lambda q: q.get("type") == "interpret"),
+            ("multiSelect", 2, lambda q: q.get("type") == "multiSelect"),
+            ("inlineChoice", 1, lambda q: q.get("type") == "inlineChoice"),
         ],
+        # Built before Mini Exam 2 (2026-09-28). Remove each entry when
+        # the lecture is retrofitted.
+        "pending": {
+            "L03": {"multiSelect", "inlineChoice"},
+            "L04": {"multiSelect", "inlineChoice"},
+        },
     },
 }
-DEFAULT_RULES = {"count": None, "order": "advisory", "target": None, "essays": None, "min_mix": []}
+DEFAULT_RULES = {"count": None, "order": "advisory", "target": None, "essays": None, "min_mix": [], "pending": {}}
 
 
 def rules_for(course):
@@ -270,7 +294,7 @@ def mc_questions(content):
         for q in section.get("conceptQuiz") or []:
             yield f"concept {q.get('id')}", q
     for q in content.get("lectureQuiz", []):
-        if q.get("options"):
+        if q.get("options") and q.get("type") != "multiSelect":
             yield f"quiz {q.get('id')}", q
 
 
@@ -294,7 +318,23 @@ def check_lengths(where, q):
     return out
 
 
-def check_mix(content, rules):
+def check_multiselect(q):
+    """The correct statements must not be recognisable by length."""
+    where = f"quiz {q.get('id')}"
+    options = q.get("options") or []
+    right = [len(plain(o.get("text"))) for o in options if o.get("correct") is True]
+    wrong = [len(plain(o.get("text"))) for o in options if o.get("correct") is not True]
+    if not right or not wrong:
+        return []
+    mean = (sum(right) + sum(wrong)) / len(options)
+    mean_right, mean_wrong = sum(right) / len(right), sum(wrong) / len(wrong)
+    if abs(mean_right - mean_wrong) > LENGTH_GAP * mean:
+        kind = "longest" if mean_right > mean_wrong else "shortest"
+        return [(kind, where, f"correct statements average {mean_right:.0f} chars, incorrect {mean_wrong:.0f} (mean {mean:.0f})")]
+    return []
+
+
+def check_mix(content, rules, lecture=""):
     out = []
     quiz = content.get("lectureQuiz", [])
     n = len(quiz)
@@ -323,10 +363,17 @@ def check_mix(content, rules):
         for q in essays if needs_label else []:
             if not q.get("beyondExam"):
                 out.append(("mix", f"quiz {q.get('id')}", "essay not labelled beyondExam: true; the mini-exam has no essays"))
+    pending = rules.get("pending", {}).get(lecture, set())
     for name, least, test in rules["min_mix"]:
         count = sum(1 for q in quiz if test(q))
         if count < least:
-            out.append(("mix", "quiz", f"{count} {name}; at least {least}"))
+            if name in pending:
+                out.append(("mix-todo", "quiz", f"{count} {name}; at least {least} (built before Mini Exam 2, retrofit)"))
+            else:
+                out.append(("mix", "quiz", f"{count} {name}; at least {least}"))
+    counts = [sum(1 for o in q.get("options") or [] if o.get("correct") is True) for q in quiz if q.get("type") == "multiSelect"]
+    if len(counts) >= 2 and len(set(counts)) == 1:
+        out.append(("ms-count", "quiz", f"every multiSelect has {counts[0]} correct options; vary the count so it cannot be guessed"))
     return out
 
 
@@ -392,17 +439,60 @@ def check_fields(q):
     elif t == "classify":
         categories = [bank_text(c) for c in q.get("categories") or []]
         items = q.get("items") or []
+        columns = q.get("columns")
         if len(categories) < 2:
             out.append(("error", where, "classify needs at least 2 categories"))
         if len(items) < 2:
             out.append(("error", where, "classify needs at least 2 items"))
+        if columns is not None and not columns:
+            out.append(("error", where, "classify table needs at least 1 column"))
         for i, item in enumerate(items):
             if not plain(item.get("text")):
                 out.append(("error", where, f"item {chr(97 + i)} has no text"))
+            if columns is not None:
+                answers = item.get("answers") or []
+                if len(answers) != len(columns):
+                    out.append(("error", where, f"item {chr(97 + i)} has {len(answers)} answers for {len(columns)} columns"))
+                for a in answers:
+                    if a not in categories:
+                        out.append(("error", where, f"item {chr(97 + i)} answer {a!r} is not a category"))
+                continue
             if item.get("answer") not in categories:
                 out.append(("error", where, f"item {chr(97 + i)} answer {item.get('answer')!r} is not a category"))
             if str(item.get("text") or "").count("___") > 1:
                 out.append(("error", where, f"item {chr(97 + i)} has more than one ___"))
+    elif t == "multiSelect":
+        options = q.get("options") or []
+        if len(options) < 3:
+            out.append(("error", where, "multiSelect needs at least 3 options (the paper uses 4)"))
+        if not any(o.get("correct") is True for o in options):
+            out.append(("error", where, "multiSelect needs at least one option with correct: true"))
+        for i, o in enumerate(options):
+            if not plain(o.get("text")):
+                out.append(("error", where, f"option {i + 1} has no text"))
+            if not plain(o.get("feedback")):
+                out.append(("error", where, f"option {i + 1} needs a one-line feedback saying why it is correct or not"))
+    elif t == "inlineChoice":
+        sentences = q.get("sentences") or []
+        if not sentences:
+            out.append(("error", where, "inlineChoice needs sentences"))
+        total = 0
+        for i, sentence in enumerate(sentences):
+            tag = f"sentence {chr(97 + i)}"
+            choices = sentence.get("choices") or []
+            gaps = str(sentence.get("text") or "").count("___")
+            total += len(choices)
+            if gaps == 0 or gaps != len(choices):
+                out.append(("error", where, f"{tag} has {gaps} ___ but {len(choices)} choices"))
+            for k, choice in enumerate(choices):
+                options = choice.get("options") or []
+                answer = choice.get("answer")
+                if not 2 <= len(options) <= 4:
+                    out.append(("error", where, f"{tag} choice {k + 1} has {len(options)} options; use 2 to 4"))
+                if not (isinstance(answer, int) and not isinstance(answer, bool) and 0 <= answer < len(options)):
+                    out.append(("error", where, f"{tag} choice {k + 1} needs answer, an index into its options"))
+        if sentences and total < 2:
+            out.append(("error", where, "inlineChoice needs at least 2 choices in all"))
     for key in ("points", "itemPoints"):
         value = q.get(key)
         if value is not None and not (isinstance(value, (int, float)) and value > 0):
@@ -430,6 +520,8 @@ def bank_of(q):
     t = q.get("type")
     if t == "classify":
         entries = [(bank_text(c), True if not isinstance(c, dict) else c.get("reusable", True)) for c in q.get("categories") or []]
+        if q.get("columns") is not None:
+            return entries, [a for i in q.get("items") or [] for a in i.get("answers") or []]
         return entries, [i.get("answer") for i in q.get("items") or []]
     if not q.get("wordBank"):
         return None
@@ -557,9 +649,22 @@ def lint(lecture_id, content, corpus):
         if p < P_LIMIT:
             dist = ", ".join(f"{k + 1}: {o} (exp {e:.1f})" for k, (o, e) in enumerate(zip(observed, expected)))
             findings.append(("positions", "all options", f"{label} correct positions far from uniform, p = {p:.3f}; {dist}"))
-    findings += check_mix(content, rules_for(lecture_id.split("/")[0]))
+    inline = [
+        (choice["answer"], len(choice["options"]))
+        for q in content.get("lectureQuiz", []) if q.get("type") == "inlineChoice"
+        for sentence in q.get("sentences") or [] for choice in sentence.get("choices") or []
+        if isinstance(choice.get("answer"), int) and 0 <= choice["answer"] < len(choice.get("options") or [])
+    ]
+    p, observed, expected = position_test(inline)
+    if p < P_LIMIT:
+        dist = ", ".join(f"{k + 1}: {o} (exp {e:.1f})" for k, (o, e) in enumerate(zip(observed, expected)))
+        findings.append(("positions", "inline choices", f"answer places inside the brackets far from uniform, p = {p:.3f}; {dist}"))
+    course, _, bare = lecture_id.partition("/")
+    findings += check_mix(content, rules_for(course), bare)
     for q in content.get("lectureQuiz", []):
         findings += check_fields(q)
+        if q.get("type") == "multiSelect":
+            findings += check_multiselect(q)
         findings += check_bank(q, corpus, (lecture_id, q.get("id")))
 
     hits = []

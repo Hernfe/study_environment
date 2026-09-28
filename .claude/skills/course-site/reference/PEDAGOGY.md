@@ -40,15 +40,18 @@ map onto it; for NBE-E4210:
 | Paper | Site type |
 |---|---|
 | Single-answer multiple choice | `mc` |
+| Which statements are correct, count not given | `multiSelect` |
+| Circle the right answer inside a sentence | `inlineChoice` |
 | Scenario multiple choice | `clinicalCase` (pick) |
 | Classify statements into shared categories, match items to a category | `classify` |
+| Table of rows by columns, each cell from a small fixed set | `classify` with `columns` |
 | Rank or sequence | `order` |
 | Complete sentences from a word bank | `classify` with a blank in each item, or `fillBlank` with `wordBank` |
 | Identify structures on a figure from a word bank | `label` with `wordBank` |
 | True or false, each false one corrected in one line | `trueFalse` with `statements` |
 
 Points as on the paper: 1 per single-answer question, 0.25 per sub-item,
-shown on every question. Override only to match a comparable problem on
+0.1 per inline choice, shown on every question. Override only to match a comparable problem on
 the paper.
 
 Past papers by the current instructor set format, wording, difficulty
@@ -76,9 +79,9 @@ questions instead. The lint reports the split as advisory only.
 ## Question mix
 
 Set per course from its exam-format file and enforced by the lint. For
-NBE-E4210, per lecture: 12 to 15 questions; at least 2 `classify`, 1
+NBE-E4210, per lecture: 12 to 16 questions; at least 2 `classify`, 1
 `label` with a word bank, 2 `trueFalse` with a false statement to
-correct, 2 `clinicalCase`, and at least one each of `mc`, `order`,
+correct, 2 `clinicalCase`, 2 `multiSelect`, 1 `inlineChoice`, and at least one each of `mc`, `order`,
 `fillBlank` and `interpret`; `calc` where the lecture has a quantity to
 compute. Essays: zero by default, since the paper has none; at most one,
 kept only when it teaches something no other format can, marked

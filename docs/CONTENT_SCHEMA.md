@@ -400,12 +400,13 @@ instead; new lectures use `tex`.
 
 ## lectureQuiz
 
-12 to 15 questions ordered easy, medium, hard. The format follows the
-real mini-exam (docs/exam-format.md). Target mix per lecture
+12 to 16 questions ordered easy, medium, hard. The format follows the
+real mini-exams (docs/exam-format.md). Target mix per lecture
 (docs/PEDAGOGY.md section 2): about 3 easy, 5 medium, 5 hard; at least
 2 `classify`, 1 `label` with a `wordBank`, 2 `trueFalse` with a false
-statement to correct, 2 `clinicalCase`, and at least one each of `mc`,
-`order`, `fillBlank` and `interpret`. No `essay` by default; a kept
+statement to correct, 2 `clinicalCase`, 2 `multiSelect`, 1
+`inlineChoice`, and at least one each of `mc`, `order`, `fillBlank`
+and `interpret`. No `essay` by default; a kept
 essay (at most 1) carries `beyondExam: true`. Fields shared by every
 type:
 
@@ -413,7 +414,7 @@ type:
 |---|---|---|
 | `id` | string | Unique in the lecture. Progress and review key on `meta.id + ':' + id`, so never rename an id after the lecture is published. |
 | `difficulty` | `'easy' \| 'medium' \| 'hard'` | Rendered as a badge. |
-| `type` | `'mc' \| 'trueFalse' \| 'fillBlank' \| 'classify' \| 'clinicalCase' \| 'interpret' \| 'label' \| 'order' \| 'calc' \| 'essay'` | |
+| `type` | `'mc' \| 'multiSelect' \| 'inlineChoice' \| 'trueFalse' \| 'fillBlank' \| 'classify' \| 'clinicalCase' \| 'interpret' \| 'label' \| 'order' \| 'calc' \| 'essay'` | |
 | `prompt` | string | Plain text or HTML, may hold inline maths. |
 | `modelAnswer` | string[] | Step-by-step model answer for the reveal button. Optional for `calc` (steps are used). For `clinicalCase` it is the reasoning, shown under "Show the reasoning". |
 | `points` | number | Optional. Total points. Default 1 for a single-answer question; for a multi-part question it is split evenly over the sub-items. See "Points". |
@@ -423,15 +424,18 @@ type:
 
 ### Points
 
-The mini-exam prints a point value with every problem: 1 point for a
+The mini-exams print a point value with most problems: 1 point for a
 question with one answer, 0.25 for each sub-item of a multi-part
-problem. The site uses the same convention and shows the value in each
-question's head ("1 point", "1.5 points, 6 × 0.25").
+problem, 0.1 for each circled inline choice. The site uses the same
+convention and shows the value in each question's head ("1 point",
+"1.5 points, 6 × 0.25").
 
 | Type | Sub-items | Default |
 |---|---|---|
 | `mc`, `clinicalCase`, `interpret` (pick), `calc`, `trueFalse` (one statement) | none | 1 point |
-| `classify` | `items` | 0.25 each |
+| `inlineChoice` | every choice of every sentence | 0.1 each |
+| `multiSelect` | `options` (each judged ticked or not) | 0.25 each |
+| `classify` | `items`, or `items` × `columns` cells in table form | 0.25 each |
 | `label` | regions | 0.25 each |
 | `fillBlank` | `blanks` | 0.25 each |
 | `order` | `items` (scored per position) | 0.25 each |
@@ -468,8 +472,8 @@ wordBank: ['Thalamus', 'Cerebellum', 'Olfactory bulb', { text: 'Medial', reusabl
 - Entries are shown in authored order, so do not list them in answer
   order.
 
-Options of every question that has `options` (`mc`, concept questions,
-`clinicalCase` and `interpret` in pick mode) are shown in a stable
+Options of every question that has `options` (`mc`, `multiSelect`,
+concept questions, `clinicalCase` and `interpret` in pick mode) are shown in a stable
 shuffled order seeded by lecture id plus question id
 (`seededOrder` in `src/js/dom.js`). Author them in any order; `correct`
 is the authored index. The shuffle is stable, so never reorder or
@@ -501,6 +505,88 @@ length, and any distractor under half its length.
     'In the PNS the same job is done by Schwann cells.',
     'One oligodendrocyte wraps segments of several axons; one Schwann cell wraps one segment of one axon.',
   ],
+}
+```
+
+### Multiple select (`multiSelect`)
+
+"Which statements are correct?", as on Mini Exam 2 (Problems 5 to 8).
+Distinct from `mc`, which keeps exactly one answer. Any number of the
+options may be correct and the count is not shown; the student ticks
+every statement they think is correct (at least one before Check).
+Scored per option, 0.25 each by default: an option is right when it
+is ticked and correct, or left blank and incorrect. After checking,
+each option says "Correct statement" or "Incorrect statement" with its
+`feedback`, and its border shows whether the student's tick was right.
+
+- `options`: 3 or more (the paper uses 4) of `{ text, correct, feedback }`.
+  `correct: true` on every correct statement, at least one; anything
+  else counts as incorrect. `feedback` (one line) is required.
+- Options are shuffled with the same stable seed as `mc`.
+- Vary the number of correct options across a lecture (the lint notes
+  it when every `multiSelect` has the same count), and keep correct
+  and incorrect statements alike in length (lint: `longest`,
+  `shortest` on their mean lengths).
+
+```js
+{
+  id: 'q07',
+  difficulty: 'medium',
+  type: 'multiSelect',
+  prompt: 'Suppose extracellular $\\text{K}^+$ rises from $5$ to $20\\,\\text{mM}$, while other ions stay the same. Mark the correct statements.',
+  options: [
+    { text: 'The resting membrane potential will hyperpolarize.', correct: false, feedback: 'A smaller gradient pushes the potential up, not down.' },
+    { text: 'The resting membrane potential will depolarize.', correct: true, feedback: 'The resting potential follows $E_{\\text{K}}$, which rises.' },
+    { text: 'The Nernst potential of $\\text{K}^+$ will become more positive.', correct: true, feedback: 'A smaller inside-to-outside ratio gives a less negative $E_{\\text{K}}$.' },
+    { text: 'The Nernst potential of $\\text{K}^+$ will become more negative.', correct: false, feedback: 'That would need a larger ratio, not a smaller one.' },
+  ],
+  modelAnswer: ['...'],
+}
+```
+
+### Inline choice (`inlineChoice`)
+
+"Circle the right answer", as on Mini Exam 2 (Problem 1): sentences
+with bracketed choices written into them. Each sentence's `text` holds
+one `___` per entry of its `choices`; each `___` is drawn as
+"( option / option / option )" with the options as toggle buttons.
+Options are shown in authored order, as on the paper, so vary the
+place of the right option (the lint tests positions across the
+lecture). Scored per choice, 0.1 each by default; Check is enabled
+once every bracket has a pick.
+
+- `sentences`: `{ text, choices, explanation? }`. Two to four
+  sentences, one to four choices each. `explanation` (one line) is
+  shown under the sentence after checking.
+- `choices`: `{ options, answer }`, 2 to 4 `options` (plain text or
+  `$...$`), `answer` the index of the right one.
+
+```js
+{
+  id: 'q01',
+  difficulty: 'easy',
+  type: 'inlineChoice',
+  prompt: 'Circle the right answer.',
+  sentences: [
+    {
+      text: 'At rest, the membrane is more permeable to ___ and the resting potential is about ___.',
+      choices: [
+        { options: ['$\\text{Na}^+$', '$\\text{K}^+$', '$\\text{Ca}^{2+}$'], answer: 1 },
+        { options: ['$-65\\,\\text{mV}$', '$+62\\,\\text{mV}$', '$-80\\,\\text{mV}$'], answer: 0 },
+      ],
+      explanation: 'Resting $\\text{K}^+$ channels dominate, so the potential sits near, but above, $E_{\\text{K}}$.',
+    },
+    {
+      text: 'The sodium-potassium pump moves ___ $\\text{Na}^+$ ___ and ___ $\\text{K}^+$ ___.',
+      choices: [
+        { options: ['$2$', '$3$'], answer: 1 },
+        { options: ['in', 'out'], answer: 1 },
+        { options: ['$2$', '$3$'], answer: 0 },
+        { options: ['in', 'out'], answer: 0 },
+      ],
+    },
+  ],
+  modelAnswer: ['...'],
 }
 ```
 
@@ -620,6 +706,40 @@ matching (Problem 5) and directional-term completion (Problem 6).
 }
 // Completion form: categoriesTitle: 'Choices',
 //   items: [{ text: 'The thalamus is ___ to the temporal lobe.', answer: 'Medial' }]
+```
+
+Table form, as on Mini Exam 2 (Problem 9, ion movement per phase):
+give `columns`, and each item becomes a table row with one picker per
+column, every cell taking one of the shared categories. Scored per
+cell (0.25 each by default), so a 4 × 2 table is worth 2 points.
+
+- `columns`: the column heads (plain text or `$...$`).
+- `rowHeader`: optional head of the first column ("Phase").
+- `items`: `{ text, answers, explanation? }`. `answers` has one
+  category per column, in column order. `explanation` (one line) is
+  shown under the row after checking; a wrong cell shows its answer.
+- Keep the category set small and fixed, the way the paper does
+  ("Into the cell / Out of the cell / None"), and let "None" be a real
+  answer in several cells.
+
+```js
+{
+  id: 'q09',
+  difficulty: 'medium',
+  type: 'classify',
+  prompt: 'For each phase, give the direction of the dominant $\\text{Na}^+$ and $\\text{K}^+$ movement. Use None for little or no movement through voltage-gated channels.',
+  categories: ['Into the cell', 'Out of the cell', 'None'],
+  categoriesTitle: 'Choices',
+  rowHeader: 'Phase',
+  columns: ['$\\text{Na}^+$', '$\\text{K}^+$'],
+  items: [
+    { text: 'Resting membrane', answers: ['None', 'None'] },
+    { text: 'Depolarization', answers: ['Into the cell', 'None'], explanation: 'Voltage-gated $\\text{Na}^+$ channels open; $\\text{K}^+$ channels are still closed.' },
+    { text: 'Repolarization', answers: ['None', 'Out of the cell'] },
+    { text: 'Hyperpolarization', answers: ['None', 'Out of the cell'] },
+  ],
+  modelAnswer: ['...'],
+}
 ```
 
 ### Clinical case (`clinicalCase`)
@@ -916,13 +1036,24 @@ course:
 - `positions`: correct-answer positions across the lecture far from
   uniform (chi-square, p < 0.05), both as authored and as shown after
   the seeded shuffle.
-- `mix`, `tiers` (NBE-E4210): 12 to 15 questions, easy to hard order; no essay
+- `mix`, `tiers` (NBE-E4210): 12 to 16 questions, easy to hard order; no essay
   unless it has `beyondExam: true`, at most 1; at least 2 classify, 1
   label with a word bank, 2 trueFalse with a false statement to
-  correct, 2 clinicalCase, and one each of mc, order, fillBlank and
-  interpret; tier split against about 3, 5, 5 (advisory).
+  correct, 2 clinicalCase, 2 multiSelect, 1 inlineChoice, and one each
+  of mc, order, fillBlank and interpret; tier split against about 3,
+  5, 5 (advisory). `mix-todo` (advisory): a minimum that a lecture
+  built before it existed still owes (the course's `pending` entry,
+  L03 and L04 for multiSelect and inlineChoice). `ms-count`
+  (advisory): every multiSelect has the same number of correct options.
+- `positions` also covers inline choices: the answer's place inside the
+  brackets across the lecture far from uniform. `longest`, `shortest`
+  also cover multiSelect: correct and incorrect statements differ in
+  mean length by more than 20 percent of the mean.
 - `error`: a missing required field (justification, correction of a
-  false statement, accepted answers, a classify answer that is not a
+  false statement, accepted answers, a multiSelect without a correct
+  option or feedback, an inlineChoice whose ___ and choices differ or
+  whose answer index is out of range, a classify table row whose
+  answers do not match the columns, a classify answer that is not a
   category, scenario, model answer, figure for interpret, and so on).
 - `wordbank`: an answer missing from the bank, a duplicate entry, a
   once-only entry needed twice, or an implausible distractor (length
