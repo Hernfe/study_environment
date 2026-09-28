@@ -6,13 +6,17 @@
 import '../styles/index.css';
 import { renderLecture, renderMissing } from './render.js';
 import { loadLectureContent } from './content.js';
+import { pruneLectureProgress } from './progress.js';
 
 const lectureId = document.body.dataset.lecture;
 const root = document.getElementById('app');
 
 loadLectureContent(lectureId)
   .then((content) => {
-    if (content) renderLecture(content, root);
+    if (content) {
+      pruneLectureProgress(content.meta.id, content);
+      renderLecture(content, root);
+    }
     else renderMissing(lectureId, root);
   })
   .catch((error) => {

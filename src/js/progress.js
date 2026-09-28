@@ -136,6 +136,32 @@ export function recordConceptResult(lectureId, questionId, correct) {
   return saveLectureProgress(lectureId, progress);
 }
 
+// Drop saved results whose question no longer exists in the lecture's
+// content file, so home-page totals follow the current question set.
+// Called on every lecture page load with the loaded content; writes
+// only when something was removed. Returns the number of records dropped.
+export function pruneLectureProgress(lectureId, content) {
+  const stored = read('progress:' + lectureId);
+  if (!stored || stored.version !== VERSION || !content) return 0;
+  const quizIds = new Set((content.lectureQuiz || []).map((q) => q.id));
+  const conceptIds = new Set(
+    (content.sections || []).flatMap((s) => (s.conceptQuiz || []).map((q) => q.id)),
+  );
+  let dropped = 0;
+  const keep = (records, valid) => {
+    const kept = {};
+    for (const [id, record] of Object.entries(records || {})) {
+      if (valid.has(id)) kept[id] = record;
+      else dropped += 1;
+    }
+    return kept;
+  };
+  const questions = keep(stored.questions, quizIds);
+  const concept = keep(stored.concept, conceptIds);
+  if (dropped) saveLectureProgress(lectureId, { ...stored, questions, concept });
+  return dropped;
+}
+
 export function getQuestionRecord(lectureId, questionId) {
   return getLectureProgress(lectureId).questions[questionId] || null;
 }

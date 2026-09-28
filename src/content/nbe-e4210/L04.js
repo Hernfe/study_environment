@@ -1441,6 +1441,23 @@ export default {
         '4. The LGN projects through the optic radiation to layer IVC of V1.',
       ],
     },
+    {
+      id: 'q25',
+      difficulty: 'easy',
+      type: 'multiSelect',
+      prompt: 'Which statements about the dorsal and ventral streams are correct?',
+      options: [
+        { text: 'Most neurons in area MT, in the dorsal stream, are selective for the direction of motion.', correct: true, feedback: 'MT (V5) is the motion area of the dorsal stream.' },
+        { text: 'Many neurons in area V4, in the ventral stream, are selective for colour and edge orientation.', correct: true, feedback: 'V4 combines colour and shape information.' },
+        { text: 'Neurons in inferior temporal cortex respond to faces only, and to no other kind of stimulus.', correct: false, feedback: 'Some IT neurons respond especially strongly to faces, but not only to faces.' },
+        { text: 'Bilateral damage near area MT can make a moving scene look like a series of frozen snapshots.', correct: true, feedback: 'Motion blindness follows damage to the dorsal stream.' },
+      ],
+      modelAnswer: [
+        'The dorsal stream runs from V1 toward the parietal lobe through MT and MST: motion and the visual control of action. MT neurons are direction selective; damage near MT gives motion blindness.',
+        'The ventral stream runs from V1 toward the temporal lobe through V4 and IT: colour, shape and object recognition. V4 neurons are selective for colour and edge orientation.',
+        'IT neurons respond to complex shapes, and some respond especially strongly to faces, but not exclusively: "only" is the over-generalisation.',
+      ],
+    },
 
     // Medium --------------------------------------------------------------
     {
@@ -1555,9 +1572,11 @@ export default {
         'In (c) darkness covers the whole center with only part of the surround, so excitation wins and the cell fires a barrage.',
       ],
     },
+
+    // Hard ----------------------------------------------------------------
     {
       id: 'q24',
-      difficulty: 'medium',
+      difficulty: 'hard',
       type: 'classify',
       prompt: 'The figure shows the photoreceptors of one bipolar cell\'s receptive field: the center wired directly, the surround acting through horizontal cells. For each light pattern, starting from darkness, indicate how the membrane potential of each cell changes.',
       figure: {
@@ -1582,25 +1601,6 @@ export default {
         'This is why bipolar and ganglion cells report contrast within their field, not the overall light level.',
       ],
     },
-    {
-      id: 'q25',
-      difficulty: 'medium',
-      type: 'multiSelect',
-      prompt: 'Which statements about the dorsal and ventral streams are correct?',
-      options: [
-        { text: 'Most neurons in area MT, in the dorsal stream, are selective for the direction of motion.', correct: true, feedback: 'MT (V5) is the motion area of the dorsal stream.' },
-        { text: 'Many neurons in area V4, in the ventral stream, are selective for colour and edge orientation.', correct: true, feedback: 'V4 combines colour and shape information.' },
-        { text: 'Neurons in inferior temporal cortex respond to faces only, and to no other kind of stimulus.', correct: false, feedback: 'Some IT neurons respond especially strongly to faces, but not only to faces.' },
-        { text: 'Bilateral damage near area MT can make a moving scene look like a series of frozen snapshots.', correct: true, feedback: 'Motion blindness follows damage to the dorsal stream.' },
-      ],
-      modelAnswer: [
-        'The dorsal stream runs from V1 toward the parietal lobe through MT and MST: motion and the visual control of action. MT neurons are direction selective; damage near MT gives motion blindness.',
-        'The ventral stream runs from V1 toward the temporal lobe through V4 and IT: colour, shape and object recognition. V4 neurons are selective for colour and edge orientation.',
-        'IT neurons respond to complex shapes, and some respond especially strongly to faces, but not exclusively: "only" is the over-generalisation.',
-      ],
-    },
-
-    // Hard ----------------------------------------------------------------
     {
       id: 'q09',
       difficulty: 'hard',

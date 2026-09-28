@@ -1492,6 +1492,26 @@ export default {
       ],
     },
     {
+      id: 'q18',
+      difficulty: 'medium',
+      type: 'clinicalCase',
+      scenario: 'A patient who ate food contaminated with botulinum toxin develops a flaccid paralysis. In a biopsy of the muscle, action potentials still reach the motor axon terminals and $\\text{Ca}^{2+}$ still enters them. The terminals are packed with docked vesicles full of acetylcholine, and the muscle still contracts when acetylcholine is applied to it. Yet almost no acetylcholine is released.',
+      prompt: 'Which step of transmission has the toxin broken?',
+      options: [
+        { text: 'SNARE-mediated fusion of docked vesicles with the membrane', feedback: 'Correct. Every step before and after fusion still works.' },
+        { text: 'Opening of voltage-gated $\\text{Ca}^{2+}$ channels at the active zone', feedback: '$\\text{Ca}^{2+}$ still enters the terminals, so the channels open.' },
+        { text: 'Loading of acetylcholine into vesicles by transporter proteins', feedback: 'The docked vesicles are full, so loading works.' },
+        { text: 'Binding of acetylcholine to nicotinic receptors on the muscle', feedback: 'Applied acetylcholine still contracts the muscle, so the receptors work.' },
+      ],
+      correct: 0,
+      modelAnswer: [
+        'Key finding: the spike arrives and $\\text{Ca}^{2+}$ enters, the vesicles are loaded and docked, and the muscle responds to applied acetylcholine, yet nothing is released.',
+        'Normally $\\text{Ca}^{2+}$ binds synaptotagmin, and the zipped v-SNARE and t-SNAREs pull the vesicle into the membrane so a fusion pore opens.',
+        'Every step before and after fusion works, so the broken link is fusion itself.',
+        'Answer: SNARE-mediated fusion. Botulinum toxins are enzymes that destroy specific SNARE proteins, so docked vesicles cannot fuse and release is blocked at the neuromuscular junction.',
+      ],
+    },
+    {
       id: 'q07',
       difficulty: 'medium',
       type: 'label',

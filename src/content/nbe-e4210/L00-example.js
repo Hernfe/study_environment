@@ -391,7 +391,7 @@ export default {
       prompt: 'For the toy curve with $g = 2$ and $\\tau = 3\\,\\text{ms}$, calculate the height of the peak. Give the answer to two decimals.',
       given: [
         { symbol: 'gain', value: 2, unit: '' },
-        { symbol: '$\tau$', value: 3, unit: 'ms' },
+        { symbol: '$\\tau$', value: 3, unit: 'ms' },
         { symbol: 'e', value: 2.718, unit: '', note: 'base of the natural logarithm' },
       ],
       answer: { value: 2.21, tolerance: 0.02, unit: '' },
@@ -402,7 +402,7 @@ export default {
       ],
       modelAnswer: [
         'Set x = tau because that is where the derivative is zero.',
-        '$y_{\text{peak}} = g\,\tau / e = 2 \times 3 / 2.718 = 2.21$.',
+        '$y_{\\text{peak}} = g\\,\\tau / e = 2 \\times 3 / 2.718 = 2.21$.',
       ],
     },
     {
