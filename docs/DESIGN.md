@@ -164,8 +164,9 @@ Class names are the contract between `render.js` and `components.css`.
 | Ordering | `.order-list` | Items with Up and Down buttons. |
 | Calculation | `.calc`, `.calc-input` | Numeric input with unit, tolerance check, then steps. |
 | Score card | `.score-card` | Summary at the end of the lecture quiz. |
-| Course map | `.course-map`, `.course-card` | Home page grid. `.status-built` / `.status-pending`. |
-| Review | `.review` | Cumulative review mode on the home page. |
+| Course map | `.course-map`, `.course-card` | Course home list, one card per lecture. `.status-built` / `.status-pending`. The hub reuses it with `.hub-card` (no number column), one card per course. |
+| Site nav | `.site-nav` | Breadcrumb: Study hub / course code / current page, `/` separators. |
+| Review | `.review` | Course review on the course home, that course only. |
 | Button | `.btn`, `.btn-primary`, `.btn-secondary` | Primary uses `--c-accent`; secondary is outlined. |
 | Notice | `.notice` | Inline information such as "not yet built" or storage unavailable. |
 | Block | `.block`, `.block-<type>`, `.block-kicker` | Quiet card with a small kicker heading: definition, steps, compare, example, keyNumber, misconception, whyItMatters, detail (`<details>`). |
@@ -234,8 +235,8 @@ crop, an asset-library illustration, a d3 chart or a hand-drawn SVG.
 4. Hand-drawn SVG, only when nothing above exists or when a variable
    changes an outcome (then d3 for scales, axes and ticks).
 
-Every raster figure in `src/assets/figures/L0X/` has a sidecar JSON
-naming its source, page and crop, and `scripts/figures_L0X.py` rebuilds
+Every raster figure in `src/assets/figures/nbe-e4210/L0X/` has a sidecar JSON
+naming its source, page and crop, and `scripts/figures_nbe-e4210_L0X.py` rebuilds
 the whole set. Provenance and licences are in `CREDITS.md`.
 
 ### 6.3 Hotspot widget

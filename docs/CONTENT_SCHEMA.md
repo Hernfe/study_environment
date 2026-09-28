@@ -1,21 +1,27 @@
 # Content schema
 
-The shape of `src/content/L0X.js`. This document is the contract with
-`src/js/render.js`, `conceptQuiz.js`, `lectureQuiz.js` and `review.js`.
-A new lecture must be addable by following this file alone.
+The shape of a lecture content file, `src/content/<course>/L0X.js`
+(NBE-E4210: `src/content/nbe-e4210/L0X.js`). This document is the
+contract with `src/js/render.js`, `conceptQuiz.js`, `lectureQuiz.js`
+and `review.js`. A new lecture must be addable by following this file
+alone. The site is a hub: `/` lists courses (`src/content/courses.js`),
+each course lives under `/courses/<course>/`, and every course page
+carries `<body data-course="<course>">` (`src/js/course.js`).
 
 To add a lecture:
 
-1. Write `src/content/L0X.js` exporting a default object of the shape
-   below. Any figures it needs go in `src/content/figures/` and are
-   registered in `src/content/figures/index.js`.
-2. Copy `src/lectures/L00/index.html` to `src/lectures/L0X/index.html`
-   and change `data-lecture="L0X"`.
-3. Add `L0X: 'lectures/L0X/index.html'` to `pages` in `vite.config.js`.
-4. Set `built: true` for that lecture in `src/content/registry.js`.
+1. Write `src/content/nbe-e4210/L0X.js` exporting a default object of the shape
+   below. Any figures it needs go in `src/content/nbe-e4210/figures/` and are
+   registered in `src/content/nbe-e4210/figures/index.js`.
+2. Copy `src/courses/nbe-e4210/lectures/L00/index.html` to
+   `src/courses/nbe-e4210/lectures/L0X/index.html` and change
+   `data-lecture="L0X"` (keep `data-course`) and the title.
+3. Add `'nbe-e4210-L0X': 'courses/nbe-e4210/lectures/L0X/index.html'`
+   to `pages` in `vite.config.js`.
+4. Set `built: true` for that lecture in `src/content/nbe-e4210/registry.js`.
 5. `npm run build`.
 
-`src/content/L00-example.js` is a complete dummy lecture that uses every
+`src/content/nbe-e4210/L00-example.js` is a complete dummy lecture that uses every
 section and question type. Use it as a template. The question format
 follows the real mini-exam, described in `docs/exam-format.md`.
 
@@ -184,14 +190,14 @@ Slide decks embed clips that the PDF export shows as a black box.
 `scripts/extract_figures.py videos <deck.pdf>` lists them by slide (the
 `list` command prints the same report); ask for the PPTX or the clip,
 then `scripts/video_asset.py pptx <deck.pptx>` extracts the media and
-`scripts/video_asset.py add <clip> --lecture L0X --name <name> --at <s>`
-copies or transcodes it to `src/assets/videos/L0X/` and writes a poster
-frame to `src/assets/figures/L0X/<name>-poster.webp`.
+`scripts/video_asset.py add <clip> --course nbe-e4210 --lecture L0X --name <name> --at <s>`
+copies or transcodes it to `src/assets/videos/nbe-e4210/L0X/` and writes a poster
+frame to `src/assets/figures/nbe-e4210/L0X/<name>-poster.webp`.
 
 ```js
 const v1Clip = {
-  src: new URL('../assets/videos/L04/v1-neurons.mp4', import.meta.url).href,
-  poster: new URL('../assets/figures/L04/v1-neurons-poster.webp', import.meta.url).href,
+  src: new URL('../../assets/videos/nbe-e4210/L04/v1-neurons.mp4', import.meta.url).href,
+  poster: new URL('../../assets/figures/nbe-e4210/L04/v1-neurons-poster.webp', import.meta.url).href,
   width: 1280, height: 720,          // optional, avoids layout shift
   sources: [{ src, type }],          // optional, instead of src, for several encodings
   tracks: [{ src, srclang: 'en', label: 'English' }],   // optional captions (WebVTT)
@@ -220,7 +226,7 @@ Rules for `body`:
 
 Rules for `visual`:
 
-- `type: 'svg'`: `name` must be exported from `src/content/figures/index.js`
+- `type: 'svg'`: `name` must be exported from `src/content/nbe-e4210/figures/index.js`
   as a function `(props) => svgString`. Alternatively give `markup`
   (an inline SVG string) instead of `name`.
 - `type: 'widget'`: `name` must be exported from `src/js/widgets/index.js`
@@ -279,7 +285,7 @@ equation lines). Below 48 rem a demo plot scrolls sideways inside
 ```
 
 Region elements in the figure must carry `data-region="<key>"` and the
-class `map-region`. Figures in `src/content/figures/` export their
+class `map-region`. Figures in `src/content/nbe-e4210/figures/` export their
 region key lists (for example `REGIONS` in `brain-lateral.js`) so the
 content file can attach explanations without repeating geometry.
 
@@ -344,8 +350,8 @@ Below 48 rem every badge becomes inline and offset from its anchor.
 
 At most seven regions per figure (docs/DESIGN.md, Figures). Reuse the
 same `regions` array for the lecture-quiz label question. Picture
-files live in `src/assets/figures/L0X/` and are referenced with
-`new URL('../assets/figures/L0X/name.webp', import.meta.url).href`.
+files live in `src/assets/figures/nbe-e4210/L0X/` and are referenced with
+`new URL('../../assets/figures/nbe-e4210/L0X/name.webp', import.meta.url).href`.
 Slide crops with printed labels: paint the labels out and inpaint their
 leader-line stubs (`scripts/retouch_figure.py paint` and `erase`), so
 the widget draws the only leaders.
@@ -827,8 +833,12 @@ unit. Each step's `tex` is typeset in display mode (legacy lectures use
 
 ## registry.js
 
-`src/content/registry.js` lists every lecture for the home page. It has
-no lecture text, only scheduling and status.
+`src/content/nbe-e4210/registry.js` lists every lecture for the course
+home. It has no lecture text, only scheduling and status. It exports
+`registry` and, for the dev-only renderer test page, `exampleLecture`.
+The course itself (code, title, term, status, the one-paragraph summary
+on the course home) is one entry in `src/content/courses.js`; the hub
+counts built lectures from the registry.
 
 ```js
 {
@@ -838,7 +848,7 @@ no lecture text, only scheduling and status.
   chapters: [1, 2, 7],
   lectureDate: '2026-09-02',
   examDate: '2026-09-18',
-  built: false,               // true once src/content/L01.js exists and the shell is wired
+  built: false,               // true once src/content/nbe-e4210/L01.js exists and the shell is wired
 }
 ```
 
@@ -846,7 +856,12 @@ no lecture text, only scheduling and status.
 
 ## Progress storage
 
-`progress.js` stores one key per lecture: `nbe4210:progress:<lectureId>`.
+`progress.js` stores one key per lecture, namespaced by course:
+`nbe:<course>:progress:<lectureId>`, for example
+`nbe:nbe-e4210:progress:L03`. Before the hub the keys were
+`nbe4210:progress:<lectureId>`; `migrateLegacyKeys()` copies every
+`nbe4210:` key into `nbe:nbe-e4210:` once, sets
+`nbe:migrated:nbe4210`, and leaves the old keys in place.
 
 ```js
 {
@@ -878,7 +893,7 @@ Asset pipeline (see each script's docstring):
 - `scripts/bioart_fetch.py`, `scripts/servier_fetch.py`: download from
   NIH BioArt and Servier Medical Art into `assets/incoming/` (ignored).
 - `scripts/extract_figures.py`: list embedded images in a slide PDF and
-  crop any rectangle at 300 DPI to `src/assets/figures/L0X/<name>.webp`
+  crop any rectangle at 300 DPI to `src/assets/figures/nbe-e4210/L0X/<name>.webp`
   (under 200 KB) with a sidecar JSON naming page and crop box.
 - `d3` is available for quantitative plots (`import * as d3 from 'd3'`
   or named imports; import only the modules a figure needs).
@@ -886,8 +901,10 @@ Asset pipeline (see each script's docstring):
 ## Question lint
 
 `scripts/lint_questions.py` (run by `npm run build` as the build
-report, or on its own with lecture ids) loads every content file through
-`scripts/dump_questions.mjs` and reports:
+report, or on its own with `L04`, `nbe-e4210` or `nbe-e4210/L04`) loads
+every content file through `scripts/dump_questions.mjs` and reports per
+lecture, keyed `<course>/<lecture>`. The word-bank corpus is per course.
+The mix rules below are NBE-E4210's mini-exam format:
 
 - `longest`, `shortest`: the correct option is the longest or shortest
   by more than 20 percent of the mean option length.
@@ -913,7 +930,8 @@ report, or on its own with lecture ids) loads every content file through
 
 Lengths are measured on what the student reads (tags stripped, TeX
 commands counted as one symbol). L00 to L02 predate these rules and are
-marked legacy (`LEGACY` in the script): their findings are summarised
+marked legacy (`LEGACY` in the script, keys such as
+`nbe-e4210/L01`): their findings are summarised
 and never fail anything; `--verbose` lists every one.
 
 The lint is a build gate. `npm run build` runs it with `--strict`

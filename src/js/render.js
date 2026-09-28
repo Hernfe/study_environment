@@ -7,13 +7,17 @@ import { renderTex, typesetInline, watchMath } from './math.js';
 import { renderConceptQuiz } from './conceptQuiz.js';
 import { renderLectureQuiz } from './lectureQuiz.js';
 import { storageAvailable } from './progress.js';
+import { courseInfo, courseHref, hubHref, lectureHref } from './course.js';
 
-const BASE = import.meta.env.BASE_URL || '/';
 const CREDITS_URL = 'https://github.com/Hernfe/Study_Environment/blob/main/CREDITS.md';
 
+// Breadcrumb: hub, then the course (a link when a lecture is open),
+// then the current page.
 export function renderSiteNav(current) {
+  const course = courseInfo();
   return el('nav', { class: 'site-nav', 'aria-label': 'Site' }, [
-    el('a', { href: BASE }, 'NBE-E4210 study'),
+    el('a', { href: hubHref() }, 'Study hub'),
+    course ? (current ? el('a', { href: courseHref() }, course.code) : el('span', {}, course.code)) : null,
     current ? el('span', {}, current) : null,
   ]);
 }
@@ -128,7 +132,7 @@ function renderPrerequisites(prerequisites) {
     el('ul', {}, prerequisites.map((p) => {
       const item = typeof p === 'string' ? { text: p } : p;
       if (item.lectureId) {
-        const href = `${BASE}lectures/${item.lectureId}/` + (item.sectionId ? `#${item.sectionId}` : '');
+        const href = lectureHref(item.lectureId) + (item.sectionId ? `#${item.sectionId}` : '');
         return el('li', {}, [item.text, ' ', el('a', { href }, `(${item.lectureId})`)]);
       }
       return el('li', {}, item.text);
@@ -324,7 +328,7 @@ export function renderMissing(lectureId, root) {
       renderSiteNav(lectureId),
       el('h1', {}, `${lectureId} is not built yet`),
       el('p', {}, 'The content file for this lecture does not exist. See docs/CONTENT_SCHEMA.md for how to add one.'),
-      el('p', {}, el('a', { href: BASE }, 'Back to the course map')),
+      el('p', {}, el('a', { href: courseHref() }, 'Back to the course map')),
     ])
   );
 }

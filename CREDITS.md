@@ -16,15 +16,15 @@ page so they can be replaced if the site is ever shared more widely.
 
 | Source | Licence | Attribution required | Notes |
 | --- | --- | --- | --- |
-| In-house SVG (`src/content/figures/`) | Same as this repository | No | Hand-drawn for this site. |
+| In-house SVG (`src/content/nbe-e4210/figures/`) | Same as this repository | No | Hand-drawn for this site. |
 | NIH BioArt Source, https://bioart.niaid.nih.gov | Public Domain (US Government work) | No, but credit "Courtesy of NIAID" is requested | SVG, PNG, AI and EPS per illustration. Creator named on each detail page. |
 | Servier Medical Art, https://smart.servier.com | CC BY 4.0, https://creativecommons.org/licenses/by/4.0/ | Yes | Web PNGs (small) and PPTX kits (vector). Credit line: "Servier Medical Art, https://smart.servier.com, CC BY 4.0". |
 | Bioicons, https://bioicons.com (repo https://github.com/duerrsimon/bioicons) | Per icon: cc-0, cc-by-3.0, cc-by-4.0, cc-by-sa-3.0, cc-by-sa-4.0, mit, bsd | Depends on the icon; `scripts/find_asset.py` prints it | The licence is the first folder under `static/icons/`; author is the third. Servier icons inside Bioicons are the older CC BY 3.0 release. |
 
 ## Assets in use
 
-All raster files are in `src/assets/figures/L01/`, built by
-`scripts/figures_L01.py`; each has a sidecar JSON with the source page
+All raster files are in `src/assets/figures/nbe-e4210/L01/`, built by
+`scripts/figures_nbe-e4210_L01.py`; each has a sidecar JSON with the source page
 or file and the crop and paint boxes. The slide crops are the figures
 the lecturer showed, reproduced here for the student's own study of
 that course; most of them are textbook figures (Bear, Connors and
@@ -34,7 +34,7 @@ the course context. Printed labels were painted out so the quiz mode
 works, and their leader-line stubs were inpainted
 (`scripts/retouch_figure.py erase`, OpenCV Telea) so the hotspot widget
 draws the only leaders; `gyri-sulci.webp` is also cropped to the brain.
-`scripts/figures_L01.py` records every step.
+`scripts/figures_nbe-e4210_L01.py` records every step.
 
 | File | Where used | Source | Original | Licence | Attribution required |
 | --- | --- | --- | --- | --- | --- |
@@ -53,12 +53,12 @@ draws the only leaders; `gyri-sulci.webp` is also cropped to the brain.
 | `glia-types.webp`, right panel (microglia-servier) | L01 Glia | Servier Medical Art, Microglia | https://smart.servier.com/smart_image/microglia/ | CC BY 4.0 | Yes: Servier Medical Art, https://smart.servier.com |
 | `neuron.webp` | L01 Prototypical neuron | NIH BioArt Source, Healthy neuron, NIAID Visual & Medical Arts | https://bioart.niaid.nih.gov/bioart/197 | Public Domain | No; credit "Courtesy of NIAID" |
 | `synapse.webp` | L01 Synaptic transmission | Servier Medical Art, Synapse | https://smart.servier.com/smart_image/synapse-overview/ | CC BY 4.0 | Yes: Servier Medical Art, https://smart.servier.com |
-| `src/content/figures/charts.js` (neuron-counts, disorder-burden) | L01 | d3 charts drawn for this site; data read off slides 16 and 13 (Herculano-Houzel; DiLuca and Olesen 2014) | n/a | Repository licence | No |
-| `src/content/figures/cells.js` (axonal-transport) | L01 Axonal transport | In-house SVG (no slide figure or library asset exists for this), shown through the image-hotspots widget | n/a | Repository licence | No |
-| `src/content/figures/example-cell.js` | L00 (dev example) | In-house SVG | n/a | Repository licence | No |
+| `src/content/nbe-e4210/figures/charts.js` (neuron-counts, disorder-burden) | L01 | d3 charts drawn for this site; data read off slides 16 and 13 (Herculano-Houzel; DiLuca and Olesen 2014) | n/a | Repository licence | No |
+| `src/content/nbe-e4210/figures/cells.js` (axonal-transport) | L01 Axonal transport | In-house SVG (no slide figure or library asset exists for this), shown through the image-hotspots widget | n/a | Repository licence | No |
+| `src/content/nbe-e4210/figures/example-cell.js` | L00 (dev example) | In-house SVG | n/a | Repository licence | No |
 
-Lecture 2 raster files are in `src/assets/figures/L02/`, built by
-`scripts/figures_L02.py` (slide crops with labels painted out, smeared
+Lecture 2 raster files are in `src/assets/figures/nbe-e4210/L02/`, built by
+`scripts/figures_nbe-e4210_L02.py` (slide crops with labels painted out, smeared
 over gradients or inpainted; each sidecar JSON records the steps).
 
 | File | Where used | Source | Original | Licence | Attribution required |
@@ -76,10 +76,10 @@ over gradients or inpainted; each sidecar JSON records the steps).
 | `channel-record.webp`, `channel-model.webp` | L02 Patch clamp, Channel states | L02 slide deck, page 36 (textbook Figure 4.10) | Course slides | Course material | Cite the course |
 | `spike-initiation.webp` | L02 Spike initiation | L02 slide deck, page 38 (textbook Figure 4.16) | Course slides | Course material | Cite the course |
 | `myelinated-axon.webp` | L02 Myelin | NIH BioArt Source, Healthy neuron (axon crop), NIAID Visual & Medical Arts | https://bioart.niaid.nih.gov/bioart/197 | Public Domain | No; credit "Courtesy of NIAID" |
-| `src/content/figures/membrane.js` (ap-waveform) and the widgets `nernst-calc`, `ghk-explorer`, `ap-scrubber`, `voltage-clamp`, `conduction-demo` | L02 | d3 figures and demos drawn for this site from a Hodgkin-Huxley model (`src/js/widgets/hhModel.js`) and textbook constants | n/a | Repository licence | No |
+| `src/content/nbe-e4210/figures/membrane.js` (ap-waveform) and the widgets `nernst-calc`, `ghk-explorer`, `ap-scrubber`, `voltage-clamp`, `conduction-demo` | L02 | d3 figures and demos drawn for this site from a Hodgkin-Huxley model (`src/js/widgets/hhModel.js`) and textbook constants | n/a | Repository licence | No |
 
-Lecture 3 raster files are in `src/assets/figures/L03/`, built by
-`scripts/figures_L03.py`. Two slide figures reproduce published
+Lecture 3 raster files are in `src/assets/figures/nbe-e4210/L03/`, built by
+`scripts/figures_nbe-e4210_L03.py`. Two slide figures reproduce published
 review figures (Sultan and Shi 2018, Wiley Interdisciplinary Reviews:
 Developmental Biology, CC BY; Rudy et al. 2011, Developmental
 Neurobiology) as shown on the slides.
@@ -111,8 +111,8 @@ Neurobiology) as shown on the slides.
 | `ne-cascade.webp` | L03 Pharmacology | L03 slide deck, page 53 (textbook Figure 5.22) | Course slides | Course material | Cite the course |
 | Widgets `synapse-timeline`, `synapse-compare`, `driving-force`, `summation-shunt`, `circuit-motifs`, `ampa-nmda` | L03 | d3 demos drawn for this site; the NMDA block uses the Jahr and Stevens 1990 form | n/a | Repository licence | No |
 
-Lecture 4 raster files are in `src/assets/figures/L04/`, built by
-`scripts/figures_L04.py`. Nearly all are Bear, Connors and Paradiso
+Lecture 4 raster files are in `src/assets/figures/nbe-e4210/L04/`, built by
+`scripts/figures_nbe-e4210_L04.py`. Nearly all are Bear, Connors and Paradiso
 figures as shown on the slides. The slide 34 video ("Cortical neurons V1") is not on the site yet.
 
 | File | Where used | Source | Original | Licence | Attribution required |
@@ -156,7 +156,7 @@ figures as shown on the slides. The slide 34 video ("Cortical neurons V1") is no
 | `human-areas.webp` | L04 Streams | L04 slide deck, page 38 (textbook Figure 10.28) | Course slides | Course material | Cite the course |
 | `hierarchy.webp` | L04 Organizational principles | L04 slide deck, page 39 (organizational principles diagram) | Course slides | Course material | Cite the course |
 | `faces.webp` | L04 fMRI | L04 slide deck, page 40 (textbook Figure 10.29) | Course slides | Course material | Cite the course |
-| `src/content/figures/vision.js` (rod and cone density, hierarchy chart) and the widgets `center-surround`, `hemifield-tracer`, `simple-cell` | L04 | d3 figures and demos drawn for this site; density curves traced from the slide, latencies and field sizes read off slide 39 | n/a | Repository licence | No |
+| `src/content/nbe-e4210/figures/vision.js` (rod and cone density, hierarchy chart) and the widgets `center-surround`, `hemifield-tracer`, `simple-cell` | L04 | d3 figures and demos drawn for this site; density curves traced from the slide, latencies and field sizes read off slide 39 | n/a | Repository licence | No |
 
 Credit lines shown on the site: the footer of every page names the
 sources whose licence asks for attribution and links here. When a page is
@@ -201,7 +201,7 @@ background, so crop before use.
 
 | File | Why it is kept | Source | Original | Licence |
 | --- | --- | --- | --- | --- |
-| `src/assets/figures/L03/interneuron-groups.webp` | Built by `scripts/figures_L03.py`; the three Rudy groups are taught as a compare table instead, so no page shows the picture. Delete it or use it, but do not lose the provenance. | L03 slide deck, page 45 (Rudy et al. 2011) | https://doi.org/10.1002/dneu.20853 | Publisher copyright, course material |
+| `src/assets/figures/nbe-e4210/L03/interneuron-groups.webp` | Built by `scripts/figures_nbe-e4210_L03.py`; the three Rudy groups are taught as a compare table instead, so no page shows the picture. Delete it or use it, but do not lose the provenance. | L03 slide deck, page 45 (Rudy et al. 2011) | https://doi.org/10.1002/dneu.20853 | Publisher copyright, course material |
 
 ### Bioicons
 

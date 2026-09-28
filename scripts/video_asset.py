@@ -10,16 +10,16 @@ original PPTX or the clip itself:
           (ignored by git) as slideNN-<name>.<ext>.
 
   add     Put one clip on the site: copy it to
-          src/assets/videos/<lecture>/<name>.mp4 (transcoded to H.264 MP4
+          src/assets/videos/<course>/<lecture>/<name>.mp4 (transcoded to H.264 MP4
           with ffmpeg when it is not already MP4 or WebM, or when
           --transcode is given) and save a poster frame as
-          src/assets/figures/<lecture>/<name>-poster.webp (under 200 KB).
+          src/assets/figures/<course>/<lecture>/<name>-poster.webp (under 200 KB).
           Prints the `video` block to paste into the content file.
 
 Examples:
-  python scripts/video_asset.py pptx "source/slides/NBE-E4210 LECTURE 04 - 2026.pptx"
+  python scripts/video_asset.py pptx "source/nbe-e4210/slides/NBE-E4210 LECTURE 04 - 2026.pptx"
   python scripts/video_asset.py add assets/incoming/videos/lecture-04/slide34-media1.mp4 \\
-      --lecture L04 --name v1-neurons --at 2.5
+      --course nbe-e4210 --lecture L04 --name v1-neurons --at 2.5
 
 Needs opencv-python-headless for the poster frame. ffmpeg (on PATH) only
 for transcoding. Keep clips short and small: aim for under 10 MB each.
@@ -128,7 +128,7 @@ def cmd_add(args):
     if not src.exists():
         sys.exit(f"not found: {src}")
     name = slug(args.name)
-    vdir = VIDEO_OUT / args.lecture
+    vdir = VIDEO_OUT / args.course / args.lecture
     vdir.mkdir(parents=True, exist_ok=True)
     ext = src.suffix.lower()
     if args.transcode or ext not in (".mp4", ".webm"):
@@ -147,7 +147,7 @@ def cmd_add(args):
         shutil.copyfile(src, dest)
 
     image, width, height, duration = poster_frame(dest, args.at)
-    fdir = FIG_OUT / args.lecture
+    fdir = FIG_OUT / args.course / args.lecture
     fdir.mkdir(parents=True, exist_ok=True)
     poster = fdir / f"{name}-poster.webp"
     poster.write_bytes(encode_webp(image))
@@ -159,8 +159,8 @@ def cmd_add(args):
         print("warning: over 10 MB; consider --transcode with a higher --crf or a smaller --max-width")
     print("\nContent block (fill caption and fallbackAlt; add a question with the same video):")
     print(f"""const {re.sub(r'-(.)', lambda m: m.group(1).upper(), name)}Clip = {{
-  src: new URL('../assets/videos/{args.lecture}/{dest.name}', import.meta.url).href,
-  poster: new URL('../assets/figures/{args.lecture}/{poster.name}', import.meta.url).href,
+  src: new URL('../../assets/videos/{args.course}/{args.lecture}/{dest.name}', import.meta.url).href,
+  poster: new URL('../../assets/figures/{args.course}/{args.lecture}/{poster.name}', import.meta.url).href,
   width: {width},
   height: {height},
   caption: '',
@@ -177,6 +177,7 @@ def main():
     pp.add_argument("--out", help="output folder (default assets/incoming/videos/<deck>)")
     ad = sub.add_parser("add", help="copy or transcode a clip into the site and make its poster")
     ad.add_argument("video")
+    ad.add_argument("--course", required=True, help="course slug, e.g. nbe-e4210")
     ad.add_argument("--lecture", required=True)
     ad.add_argument("--name", required=True)
     ad.add_argument("--at", type=float, default=1.0, help="poster frame time in seconds (default 1)")

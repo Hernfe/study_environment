@@ -17,7 +17,7 @@ Three commands:
           scripts/video_asset.py and CLAUDE.md, lecture build step 2).
 
   crop    Render any rectangle of any page at 300 DPI and save it as a
-          WebP under 200 KB in src/assets/figures/<lecture>/, with a
+          WebP under 200 KB in src/assets/figures/<course>/<lecture>/, with a
           sidecar JSON recording the source file, page, crop box and DPI.
 
 Page numbers are 1-based everywhere. Rectangles are given in PDF points
@@ -25,14 +25,14 @@ Page numbers are 1-based everywhere. Rectangles are given in PDF points
 (0-1 for x0 y0 x1 y1).
 
 Examples:
-  python scripts/extract_figures.py list "source/slides/NBE-E4210 LECTURE 01 - 2026.pdf"
-  python scripts/extract_figures.py list "source/slides/NBE-E4210 LECTURE 01 - 2026.pdf" --page 12 --preview
-  python scripts/extract_figures.py crop "source/slides/NBE-E4210 LECTURE 01 - 2026.pdf" \\
-      --lecture L01 --page 12 --rect 60 90 900 500 --name cortex-lobes
-  python scripts/extract_figures.py crop "source/slides/NBE-E4210 LECTURE 01 - 2026.pdf" \\
-      --lecture L01 --page 12 --image 1 --name cortex-lobes     # crop to embedded image 1 on that page
+  python scripts/extract_figures.py list "source/nbe-e4210/slides/NBE-E4210 LECTURE 01 - 2026.pdf"
+  python scripts/extract_figures.py list "source/nbe-e4210/slides/NBE-E4210 LECTURE 01 - 2026.pdf" --page 12 --preview
+  python scripts/extract_figures.py crop "source/nbe-e4210/slides/NBE-E4210 LECTURE 01 - 2026.pdf" \\
+      --course nbe-e4210 --lecture L01 --page 12 --rect 60 90 900 500 --name cortex-lobes
+  python scripts/extract_figures.py crop "source/nbe-e4210/slides/NBE-E4210 LECTURE 01 - 2026.pdf" \\
+      --course nbe-e4210 --lecture L01 --page 12 --image 1 --name cortex-lobes     # crop to embedded image 1 on that page
   python scripts/extract_figures.py crop ... --page 12 --frac 0 0.15 1 1 --name whole-slide
-  python scripts/extract_figures.py videos "source/slides/NBE-E4210 LECTURE 04 - 2026.pdf"
+  python scripts/extract_figures.py videos "source/nbe-e4210/slides/NBE-E4210 LECTURE 04 - 2026.pdf"
 
 --preview with list writes a low-res PNG of the page(s) with each image
 rectangle outlined and numbered, into the scratch directory given by
@@ -253,7 +253,7 @@ def crop(doc, pdf_path, args):
     img = Image.frombytes("RGB", (pix.width, pix.height), pix.samples)
     data, quality, scale = encode_webp_under(img, MAX_BYTES)
 
-    out_dir = OUT_ROOT / args.lecture
+    out_dir = OUT_ROOT / args.course / args.lecture
     out_dir.mkdir(parents=True, exist_ok=True)
     name = args.name or f"p{args.page:02d}-{int(rect.x0)}-{int(rect.y0)}"
     name = re.sub(r"[^a-z0-9-]+", "-", name.lower()).strip("-")
@@ -310,6 +310,7 @@ def main():
 
     cp = sub.add_parser("crop", help="render a rectangle to webp")
     cp.add_argument("pdf")
+    cp.add_argument("--course", required=True, help="course slug, e.g. nbe-e4210")
     cp.add_argument("--lecture", required=True, help="output folder name, e.g. L01")
     cp.add_argument("--page", type=int, required=True)
     cp.add_argument("--name", help="output file stem (default from page and box)")

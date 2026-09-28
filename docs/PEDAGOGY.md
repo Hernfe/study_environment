@@ -32,7 +32,7 @@ A section is one concept block. Each block has, in this order:
    Each option carries one line of feedback that says why it is right
    or which misconception it reflects. The student can retry.
 
-Scope: every block traces to a line in `docs/scope/L0X.md`. If a concept
+Scope: every block traces to a line in `docs/scope/nbe-e4210/L0X.md`. If a concept
 is not on the slides for that lecture, it does not get a block.
 
 Order: the notes' table of contents, unless the slides order differs,
@@ -105,7 +105,7 @@ Rules that follow from the tiers:
   and a clip does not need its own question. When a clip is available
   and a question depends on it, the question carries the clip so it
   also works in review.
-- The most recent mini-exam in `source/exams/` sets format, wording,
+- The most recent mini-exam in `source/nbe-e4210/exams/` sets format, wording,
   difficulty and points (docs/exam-format.md). The pre-2020 open-book
   papers only inform very hard stretch questions. Neither sets scope.
 
@@ -280,8 +280,9 @@ Rules:
 
 ## 5. Cumulative review logic
 
-Review mode on the home page pulls questions from every built lecture.
-Implemented in `src/js/review.js` on top of `progress.js`.
+Review mode on the course home pulls questions from every built lecture
+of that course, never across courses (the hub at `/` only lists
+courses). Implemented in `src/js/review.js` on top of `progress.js`.
 
 Queue construction, in this order:
 

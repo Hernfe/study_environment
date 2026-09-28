@@ -1,0 +1,7 @@
+{
+  "redirects": [
+    { "source": "/lectures/:lecture", "destination": "/courses/nbe-e4210/lectures/:lecture/", "permanent": true },
+    { "source": "/lectures/:lecture/", "destination": "/courses/nbe-e4210/lectures/:lecture/", "permanent": true },
+    { "source": "/lectures/:lecture/index.html", "destination": "/courses/nbe-e4210/lectures/:lecture/", "permanent": true }
+  ]
+}

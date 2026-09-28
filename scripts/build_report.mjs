@@ -1,7 +1,7 @@
 // Build report and gate, run by npm after every `vite build` (the
 // postbuild script). Runs scripts/lint_questions.py --strict with
 // whichever Python is on PATH. Findings in a lecture not marked legacy
-// (LEGACY in lint_questions.py) fail the build; legacy lectures (L01, L02)
+// (LEGACY in lint_questions.py) fail the build; legacy lectures (nbe-e4210 L01, L02)
 // and advisory notes are reported only. Without Python the lint is
 // skipped with a warning (for example on a deploy image). LINT_GATE=0
 // turns the gate back into a report for one run.

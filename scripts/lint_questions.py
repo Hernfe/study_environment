@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 """Lint the question bank of every lecture content file.
 
-Reads src/content/L*.js through scripts/dump_questions.mjs (Node) and
-reports, per lecture:
+Reads src/content/<course>/L*.js through scripts/dump_questions.mjs
+(Node) and reports, per lecture, keyed <course>/<lecture>:
 
   Multiple-choice fairness (every question with options: concept quizzes,
   lecture mc, clinicalCase and interpret questions that use options)
@@ -28,7 +28,8 @@ reports, per lecture:
                once-only entry needed twice, or a distractor that is not
                plausible: its length is under half or over twice the
                mean answer length, its capitalisation differs from every
-               answer, or it appears nowhere in any lecture's text (a
+               answer, or it appears nowhere in any lecture's text of
+               the same course (a
                distractor must be a course term).
     wordbank-note (advisory)
                no distractors and no reusable entries, so the last pick
@@ -44,7 +45,8 @@ $...$ maths counted by its TeX source without commands.
 
 Usage:
   python scripts/lint_questions.py            report on every lecture
-  python scripts/lint_questions.py L04 L05    only these lectures
+  python scripts/lint_questions.py L04 L05    only these lectures (any course)
+  python scripts/lint_questions.py nbe-e4210  one course; nbe-e4210/L04 one lecture
   python scripts/lint_questions.py --strict   exit 1 if any fairness, mix,
                                               field, word-bank or maths
                                               finding is reported for a
@@ -72,9 +74,9 @@ DUMP = ROOT / "scripts" / "dump_questions.mjs"
 # still reported, marked legacy, so a retrofit pass has a checklist, but
 # they never fail the build gate. Every other lecture must lint clean.
 LEGACY = {
-    "L00": "renderer test page, shows every type",
-    "L01": "legacy, written before the 2026-09-24 rules",
-    "L02": "legacy, written before the 2026-09-24 rules",
+    "nbe-e4210/L00": "renderer test page, shows every type",
+    "nbe-e4210/L01": "legacy, written before the 2026-09-24 rules",
+    "nbe-e4210/L02": "legacy, written before the 2026-09-24 rules",
 }
 
 TARGET = {"easy": 3, "medium": 5, "hard": 5}
@@ -463,15 +465,16 @@ def in_corpus(term, corpus, exclude):
 BANK_KEYS = {"wordBank", "categories", "labels", "labelPool"}
 
 
-def corpus_of(data):
-    """Every lecture's student-facing text as (owner, lower-cased text),
+def corpus_of(data, course):
+    """Every lecture's student-facing text in one course as (owner,
+    lower-cased text),
     owner being (lecture, question id) for quiz text and None otherwise.
     Word banks and label pools are left out: a distractor must occur in
     teaching text or another question, not only in a list of options."""
     corpus = []
     for lecture_id, entry in data.items():
         content = entry.get("content")
-        if not content:
+        if not content or lecture_id.split("/")[0] != course:
             continue
         rest = {k: v for k, v in content.items() if k not in {"meta", "lectureQuiz"}}
         corpus.extend((None, plain(t).lower()) for t in texts(rest))
@@ -511,7 +514,7 @@ def lint(lecture_id, content, corpus):
         correct = q.get("correct")
         if isinstance(correct, int) and 0 <= correct < len(options):
             positions_authored.append((correct, len(options)))
-            order = seeded_order(len(options), f"{lecture_id}:{q.get('id')}")
+            order = seeded_order(len(options), f"{lecture_id.split('/')[-1]}:{q.get('id')}")
             positions_shown.append((order.index(correct), len(options)))
     for label, items in (("authored", positions_authored), ("shown", positions_shown)):
         p, observed, expected = position_test(items)
@@ -545,7 +548,7 @@ SEVERE = {"error", "longest", "shortest", "short-distractor", "positions", "mix"
 
 def main():
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
-    ap.add_argument("lectures", nargs="*", help="lecture ids, e.g. L04 (default: all)")
+    ap.add_argument("lectures", nargs="*", help="L04, nbe-e4210 or nbe-e4210/L04 (default: all)")
     ap.add_argument("--strict", action="store_true", help="exit 1 on any fairness, mix or field finding")
     ap.add_argument("--json", action="store_true")
     ap.add_argument("--examples", type=int, default=3, help="plain-text maths examples to show per lecture")
@@ -555,18 +558,21 @@ def main():
     # Every lecture is loaded for the word-bank corpus; only the requested
     # ones are reported.
     data = dump([])
-    corpus = corpus_of(data)
+    corpora = {}
     wanted = set(args.lectures)
     report = {}
     severe = 0
     for lecture_id, entry in sorted(data.items()):
-        if wanted and lecture_id not in wanted and not any(lecture_id.startswith(w) for w in wanted):
+        course, _, bare = lecture_id.partition("/")
+        if wanted and not any(lecture_id.startswith(w) or bare.startswith(w) or w == course for w in wanted):
             continue
         if entry.get("error"):
             report[lecture_id] = {"error": entry["error"]}
             severe += 1
             continue
-        findings, hits, authored, shown = lint(lecture_id, entry["content"], corpus)
+        if course not in corpora:
+            corpora[course] = corpus_of(data, course)
+        findings, hits, authored, shown = lint(lecture_id, entry["content"], corpora[course])
         report[lecture_id] = {"file": entry["file"], "findings": findings, "symbols": hits, "mc": len(authored)}
         if lecture_id not in LEGACY:
             severe += sum(1 for f in findings if f[0] in SEVERE) + len(hits)

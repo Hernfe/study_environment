@@ -1,12 +1,12 @@
 # Mini-exam format
 
 The model for question format, wording, difficulty and point weighting.
-Source: `source/exams/Mini_exam_1_Sol.pdf`, Mini Exam 1 with solutions,
+Source: `source/nbe-e4210/exams/Mini_exam_1_Sol.pdf`, Mini Exam 1 with solutions,
 NBE-E4210 2025-2026, instructor Matias Palva, on lecture 1. It replaces
 the two pre-2020 open-book papers (`14468.pdf`, `14701.pdf`) for
 everything except very hard stretch questions.
 
-At the start of every lecture build, check `source/exams/` for new
+At the start of every lecture build, check `source/nbe-e4210/exams/` for new
 mini-exams. The most recent one is the current format; update this file
 when it differs from what is written here.
 

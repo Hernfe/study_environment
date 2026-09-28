@@ -1,6 +1,7 @@
-// Cumulative review: questions from every built lecture, missed ones
-// first, then never seen, then the rest. Every bucket is interleaved
-// across lectures. See docs/PEDAGOGY.md section 5.
+// Course review: questions from every built lecture of the current
+// course, never across courses. Missed ones first, then never seen,
+// then the rest. Every bucket is interleaved across lectures. See
+// docs/PEDAGOGY.md section 5.
 
 import { el, shuffle } from './dom.js';
 import { getLectureProgress } from './progress.js';

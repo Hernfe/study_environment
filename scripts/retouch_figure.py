@@ -31,8 +31,8 @@ Commands:
          <style> block that MuPDF ignores, so class fills are inlined first.
 
 Examples:
-  python scripts/retouch_figure.py paint src/assets/figures/L01/lobes.webp src/assets/figures/L01/lobes.webp --box 0 0 12 8
-  python scripts/retouch_figure.py compose src/assets/figures/L01/stains.webp --panel a.webp --panel b.webp --panel c.webp --height 600
+  python scripts/retouch_figure.py paint src/assets/figures/nbe-e4210/L01/lobes.webp src/assets/figures/nbe-e4210/L01/lobes.webp --box 0 0 12 8
+  python scripts/retouch_figure.py compose src/assets/figures/nbe-e4210/L01/stains.webp --panel a.webp --panel b.webp --panel c.webp --height 600
 """
 
 import argparse

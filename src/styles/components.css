@@ -1920,3 +1920,24 @@ p.classify-text {
 .case-scenario p:last-child {
   margin-bottom: 0;
 }
+
+/* Hub: one card per course, no number column */
+.course-card.hub-card {
+  grid-template-columns: 1fr;
+}
+
+.hub-card .code {
+  margin: 0;
+  font-size: var(--fs-sm);
+  font-weight: 600;
+  color: var(--c-text-muted);
+}
+
+
+/* Breadcrumb separators in the site nav */
+.site-nav > * + *::before {
+  content: '/';
+  display: inline-block;
+  margin-right: var(--sp-4);
+  color: var(--c-text-muted);
+}

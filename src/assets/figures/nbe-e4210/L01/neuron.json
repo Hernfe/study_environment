@@ -1,0 +1,17 @@
+{
+ "source": "assets/incoming/bioart/bioart-000197-healthy-neuron.svg",
+ "file": "src/assets/figures/nbe-e4210/L01/neuron.webp",
+ "saved_px": [
+  1168,
+  695
+ ],
+ "webp_quality": 90,
+ "bytes": 51634,
+ "retouch": [
+  {
+   "op": "svg2png",
+   "width": 1400,
+   "at": "2026-09-14T06:59:32+00:00"
+  }
+ ]
+}

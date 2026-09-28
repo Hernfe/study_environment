@@ -1,5 +1,6 @@
-// Entry for every lecture shell. Reads the lecture id from
-// <body data-lecture="L0X">, loads src/content/<id>.js and renders it.
+// Entry for every lecture shell. Reads the course and lecture id from
+// <body data-course="<slug>" data-lecture="L0X">, loads
+// src/content/<slug>/<id>.js and renders it.
 // Shells contain no lecture-specific text.
 
 import '../styles/index.css';

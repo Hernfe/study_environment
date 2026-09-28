@@ -1,12 +1,20 @@
 // Resolves a content `visual` ({ type, name, props, caption, fallbackAlt })
-// into a <figure>. Static SVGs come from src/content/figures/index.js,
+// into a <figure>. Static SVGs come from the current course's
+// src/content/<course>/figures/index.js,
 // widgets from src/js/widgets/index.js. A widget renders its static
 // fallback first and only then mounts the interactive version, so a
 // mount failure still leaves a picture.
 
 import { el, fragment } from './dom.js';
-import { figures } from '../content/figures/index.js';
 import { widgets } from './widgets/index.js';
+import { currentCourse } from './course.js';
+
+// Each course registers its own static figures, so names never collide
+// across courses.
+const figureModules = import.meta.glob('../content/*/figures/index.js', { eager: true });
+function figureFor(name) {
+  return figureModules[`../content/${currentCourse()}/figures/index.js`]?.figures?.[name] || null;
+}
 
 function svgFragment(markup) {
   return fragment(markup);
@@ -19,7 +27,8 @@ export function renderVisualBody(visual) {
   if (!visual) return body;
 
   if (visual.type === 'svg') {
-    const markup = visual.markup || (figures[visual.name] ? figures[visual.name](visual.props || {}) : null);
+    const figure = figureFor(visual.name);
+    const markup = visual.markup || (figure ? figure(visual.props || {}) : null);
     if (markup) body.appendChild(svgFragment(markup));
     else body.appendChild(el('p', { class: 'notice' }, `Figure "${visual.name}" is not registered.`));
     return body;
