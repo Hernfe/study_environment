@@ -119,6 +119,8 @@ def main():
     extract(15, 2, "receptive-field")       # Figure 9.25 (S15), labels kept
     extract(16, 3, "cnn-field")             # convolutional network fields (S16)
     extract(17, 2, "bipolar")               # Figure 9.26 (S17), labels kept
+    crop("bipolar", [0, 0, 48, 100], out="bipolar-a")   # panel (a) only, for the table question q24
+    paint("bipolar-a", [[1, 82, 10, 94]], color="#fefefe")  # panel letter, on the off-white ground
     extract(20, 2, "cs-spot")               # Figure 9.27 (S20)
     paint("cs-spot", [[21, 0, 43, 15.5], [7, 13, 17.5, 24], [21, 17, 29.5, 23], [31, 17, 43, 23], [50, 17, 62, 23]])
     erase("cs-spot", [[15.5, 20, 18.5, 27.5], [26.3, 19, 26.3, 33], [33.5, 19, 31.5, 30], [56.2, 19, 56.2, 34.5]], width=8)

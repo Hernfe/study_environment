@@ -136,10 +136,7 @@ COURSE_RULES = {
         ],
         # Built before Mini Exam 2 (2026-09-28). Remove each entry when
         # the lecture is retrofitted.
-        "pending": {
-            "L03": {"multiSelect", "inlineChoice"},
-            "L04": {"multiSelect", "inlineChoice"},
-        },
+        "pending": {},  # L03 and L04 retrofitted on 2026-09-28
     },
 }
 DEFAULT_RULES = {"count": None, "order": "advisory", "target": None, "essays": None, "min_mix": [], "pending": {}}

@@ -356,7 +356,7 @@ export function studyView(container, props) {
     refresh();
   }
 
-  container.replaceChildren(figure, el('div', { class: 'hotspots-side' }, [intro, list]));
+  container.replaceChildren(...(props.regions.length ? [figure, el('div', { class: 'hotspots-side' }, [intro, list])] : [figure]));
   refresh();
 }
 
@@ -441,7 +441,9 @@ export const imageHotspots = {
   },
 
   mount(container, props) {
-    const stage = el('div', { class: `hotspots${props.layout === 'stack' ? ' is-stack' : ''}` });
+    // A picture with no regions (the figure of an interpret or table
+    // question) is just the picture: no side list, no marker hint.
+    const stage = el('div', { class: `hotspots${props.layout === 'stack' || !props.regions.length ? ' is-stack' : ''}` });
     let mode = 'study';
     const toggle = el('button', { type: 'button', class: 'btn btn-secondary hotspots-toggle', 'aria-pressed': 'false' }, 'Quiz me');
 

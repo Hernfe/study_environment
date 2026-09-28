@@ -957,6 +957,9 @@ export function renderQuestion(question, { lectureId, index, total, source, onRe
   // Any question may carry a clip it depends on, so it still works in
   // review, away from its section.
   if (question.video) card.appendChild(renderVideo(question.video));
+  // A figure to read while answering (the membrane picture of a table
+  // classify). Interpret and label draw their own.
+  if (question.figure && question.type !== 'interpret' && question.type !== 'label') card.appendChild(renderVisual(question.figure));
   card.appendChild(build(question, report, { seed: `${lectureId}:${question.id}` }));
   const reveal = renderReveal(question);
   if (reveal) card.appendChild(reveal);

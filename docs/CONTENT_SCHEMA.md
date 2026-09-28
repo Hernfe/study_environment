@@ -421,6 +421,7 @@ type:
 | `itemPoints` | number | Optional. Points per sub-item of a multi-part question. Default 0.25. |
 | `beyondExam` | boolean | Marks a question as beyond the mini-exam format, for understanding only. Required on every `essay`. Shows a badge and a note. |
 | `video` | Video | Optional. The clip the question depends on, shown above the answer area. See "Videos". |
+| `figure` | Visual | Optional on any type: a figure shown above the answer area, as the membrane picture of Mini Exam 2's table (Problem 9). Same shape as `interpret`'s `figure` (a widget with `quiz: false` hotspots and a `fallbackAlt`). `interpret` and legacy `label` use it as their own figure. |
 
 ### Points
 
@@ -720,7 +721,10 @@ cell (0.25 each by default), so a 4 × 2 table is worth 2 points.
   shown under the row after checking; a wrong cell shows its answer.
 - Keep the category set small and fixed, the way the paper does
   ("Into the cell / Out of the cell / None"), and let "None" be a real
-  answer in several cells.
+  answer in several cells. Use every category at least once (the lint
+  treats an unused one as a word-bank distractor).
+- `figure`: optional, drawn above the table, as the paper's membrane
+  picture. Pick one that sets the scene without showing the answers.
 
 ```js
 {
@@ -1042,8 +1046,8 @@ course:
   correct, 2 clinicalCase, 2 multiSelect, 1 inlineChoice, and one each
   of mc, order, fillBlank and interpret; tier split against about 3,
   5, 5 (advisory). `mix-todo` (advisory): a minimum that a lecture
-  built before it existed still owes (the course's `pending` entry,
-  L03 and L04 for multiSelect and inlineChoice). `ms-count`
+  built before it existed still owes (the course's `pending` entry;
+  empty since L03 and L04 were retrofitted). `ms-count`
   (advisory): every multiSelect has the same number of correct options.
 - `positions` also covers inline choices: the answer's place inside the
   brackets across the lecture far from uniform. `longest`, `shortest`

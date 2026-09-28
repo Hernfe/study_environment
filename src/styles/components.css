@@ -994,6 +994,9 @@
    percentages of the picture, so the picture must fill its box. */
 .hotspots {
   display: grid;
+  /* minmax(0, ...) so a wide picture shrinks to the card instead of
+     widening the track (a stacked figure has no side column to bound it). */
+  grid-template-columns: minmax(0, 1fr);
   gap: var(--sp-4);
 }
 
@@ -1020,6 +1023,10 @@
 @media (min-width: 80rem) {
   .page.has-toc .figure {
     width: calc(100% + var(--bleed));
+  }
+  /* A question card clips its content, so its figure stays inside it. */
+  .page.has-toc .question .figure {
+    width: auto;
   }
 }
 

@@ -87,10 +87,9 @@ Rules that follow from the tiers:
   kept (at most one) only when it teaches something no other format
   can; it is labelled `beyondExam: true` and shown as beyond the exam
   format, for understanding only. The lint checks the mix. L01 and L02
-  predate these rules, L03 and L04 were built before the mini-exam was
-  available and before Mini Exam 2 added `multiSelect` and
-  `inlineChoice` (reported as the advisory `mix-todo` until
-  retrofitted).
+  predate these rules. L03 and L04 were built before Mini Exam 2 added
+  `multiSelect` and `inlineChoice`, and were retrofitted on
+  2026-09-28.
 - Points follow the paper: 1 per single-answer question, 0.25 per
   sub-item of a multi-part question, 0.1 per inline choice, shown on
   every question.

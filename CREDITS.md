@@ -104,7 +104,7 @@ Neurobiology) as shown on the slides.
 | `patch-transmitter.webp` | L03 Recording | L03 slide deck, page 29 (textbook Figure 5.18) | Course slides | Course material | Cite the course |
 | `summation.webp` | L03 Summation | L03 slide deck, page 30 (textbook Figure 5.19) | Course slides | Course material | Cite the course |
 | `cable.webp`, `shunting.webp` | L03 Dendrites | L03 slide deck, pages 31 and 32 (textbook Figures 5.20 and 5.21) | Course slides | Course material | Cite the course |
-| `glutamate-receptors.webp` | L03 Transmitter systems | L03 slide deck, page 35 | Course slides | Course material | Cite the course |
+| `glutamate-receptors.webp` | L03 Transmitter systems; lecture quiz q25 (table) | L03 slide deck, page 35 | Course slides | Course material | Cite the course |
 | `gabaa.webp` | L03 Transmitter systems | L03 slide deck, page 36 (textbook Figure 6.22) | Course slides | Course material | Cite the course |
 | `nmda.webp` | L03 NMDA | L03 slide deck, page 39 (textbook Figure 6.21) | Course slides | Course material | Cite the course |
 | `interneuron-types.webp`, `interneuron-targets.webp`, `interneuron-markers.webp`, `circuit-motifs.webp` | L03 Interneurons, Coupling | L03 slide deck, pages 44, 46 and 48 (Sultan and Shi 2018, Figure 1) | https://doi.org/10.1002/wdev.306 | CC BY 4.0 (WIREs Dev Biol open access) | Yes: Sultan and Shi 2018 |
@@ -129,6 +129,7 @@ figures as shown on the slides. The slide 34 video ("Cortical neurons V1") is no
 | `receptive-field.webp` | L04 Receptive fields | L04 slide deck, page 15 (textbook Figure 9.25) | Course slides | Course material | Cite the course |
 | `cnn-field.webp` | L04 Receptive fields | L04 slide deck, page 16 (convolutional network diagram) | Course slides | Course material | Cite the course |
 | `bipolar.webp` | L04 Bipolar cells | L04 slide deck, page 17 (textbook Figure 9.26) | Course slides | Course material | Cite the course |
+| `bipolar-a.webp` | L04 lecture quiz q24 (table) | Crop of `bipolar.webp`, panel (a) only, panel letter painted out | Course slides | Course material | Cite the course |
 | `cs-spot.webp` | L04 Center-surround | L04 slide deck, page 20 (textbook Figure 9.27) | Course slides | Course material | Cite the course |
 | `cs-edge.webp` | L04 Center-surround, lecture quiz q08 | L04 slide deck, page 21 (textbook Figure 9.28) | Course slides | Course material | Cite the course |
 | `retinofugal.webp` | L04 Retinofugal projection, lecture quiz q03 | L04 slide deck, page 22 (textbook Figure 10.2) | Course slides | Course material | Cite the course |
