@@ -1013,6 +1013,10 @@ export default {
           { label: 'Area 7', cells: ['Higher-order visual areas', 'Where the target is'] },
         ] },
         { type: 'whyItMatters', body: 'PPC neurons have large, complex receptive fields and respond to touch, vision, planned movement and attention. PPC and prefrontal cortex both feed area 6, where planning starts.' },
+        { type: 'detail', title: 'After PPC damage (notes 4.3, p. 437)', body: [
+          'Astereognosia: an object in the hand is felt but not recognized by touch, though basic touch is intact and the object is recognized by sight. It usually affects the side opposite the lesion.',
+          'Neglect: the person fails to attend to part of the body or the space around it, most often the left side after right-hemisphere damage. Neglect concerns attention to space; astereognosia concerns recognizing objects by touch.',
+        ] },
       ],
       conceptQuiz: [
         {
@@ -1265,7 +1269,6 @@ export default {
           { title: 'Myofilaments:', body: 'thin actin, thick myosin, and elastic titin.' },
         ] },
         { type: 'text', body: 'A muscle can only pull. At the elbow, flexors bend the joint and extensors straighten it.' },
-        { type: 'detail', title: 'Not on the slides', body: 'How a muscle action potential becomes force (calcium release, the cross-bridge cycle, ATP) is in the notes and on pp. 464-468, but no slide shows it; slide 34 may have been an animation of it. It is left out here.' },
       ],
       conceptQuiz: [
         {
@@ -1276,6 +1279,47 @@ export default {
             { text: 'The motor unit', feedback: 'A motor unit is a neuron and its fibres, not a unit inside a fibre.' },
             { text: 'The tendon', feedback: 'The tendon joins muscle to bone.' },
             { text: 'The fascicle', feedback: 'A fascicle is a bundle of whole fibres.' },
+          ],
+          correct: 0,
+        },
+      ],
+    },
+
+    // 19b ---------------------------------------------------------------
+    {
+      id: 'contraction',
+      title: 'How a muscle fibre contracts',
+      keyTerms: ['excitation-contraction coupling', 'sarcoplasmic reticulum', 'troponin', 'cross-bridge cycle'],
+      blocks: [
+        { type: 'text', body: 'Excitation-contraction coupling turns a muscle action potential into force. Calcium is the link and ATP the fuel. Slide 33 shows the parts; the mechanism is from the notes (6.1) and pp. 464-468.' },
+        { type: 'steps', title: 'Excitation (pp. 464-465, 467)', steps: [
+          { title: 'ACh release:', body: 'an action potential in the alpha motor neuron releases ACh at the neuromuscular junction.' },
+          { title: 'End-plate potential:', body: 'nicotinic receptor channels open and the sarcolemma depolarizes.' },
+          { title: 'Muscle action potential:', body: 'voltage-gated $\\text{Na}^+$ channels open, and it sweeps along the sarcolemma and down the T tubules.' },
+          { title: 'Calcium release:', body: 'T tubule depolarization opens calcium release channels in the sarcoplasmic reticulum (SR), the fibre\'s $\\text{Ca}^{2+}$ store.' },
+        ] },
+        { type: 'steps', title: 'The cross-bridge cycle (pp. 467-468)', steps: [
+          { title: 'Sites exposed:', body: '$\\text{Ca}^{2+}$ binds troponin, and tropomyosin shifts off the myosin binding sites on actin.' },
+          { title: 'Attach and pivot:', body: 'myosin heads bind actin and pivot, pulling the thin filaments toward the centre of the sarcomere.' },
+          { title: 'Detach:', body: 'an ATP binds each head, which lets go of actin and re-cocks.' },
+          { title: 'Repeat:', body: 'the heads walk along actin for as long as $\\text{Ca}^{2+}$ and ATP are present.' },
+        ] },
+        { type: 'compare', title: 'Two jobs for ATP (pp. 467-468)', columns: ['ATP is needed to', 'Without it'], rows: [
+          { label: 'Contraction', cells: ['Detach each myosin head from actin', 'Heads stay bound: rigor mortis'] },
+          { label: 'Relaxation', cells: ['Pump $\\text{Ca}^{2+}$ back into the SR', '$\\text{Ca}^{2+}$ stays high; no relaxation'] },
+        ] },
+        { type: 'text', body: 'When excitation ends, the pump returns $\\text{Ca}^{2+}$ to the SR, tropomyosin covers the binding sites again and the fibre relaxes.' },
+        { type: 'misconception', wrong: 'The actin and myosin filaments shorten.', right: 'The filaments slide past each other at constant length. The sarcomere shortens as the Z lines move together.' },
+      ],
+      conceptQuiz: [
+        {
+          id: 'contraction-1',
+          prompt: 'What does calcium do inside a skeletal muscle fibre?',
+          options: [
+            { text: 'Binds troponin, so tropomyosin uncovers the binding sites on actin', feedback: 'Correct. Myosin heads can then attach.' },
+            { text: 'Binds the myosin heads and supplies the energy for their pivot', feedback: 'The energy comes from ATP; calcium acts on troponin.' },
+            { text: 'Binds each myosin head and makes it let go of the actin filament', feedback: 'Detachment is the job of ATP.' },
+            { text: 'Opens the nicotinic receptors at the neuromuscular junction', feedback: 'ACh opens them; calcium is released later, from the SR.' },
           ],
           correct: 0,
         },
@@ -1963,6 +2007,7 @@ export default {
       { term: 'PAG', definition: 'Midbrain; to raphe nuclei (serotonin) to dorsal horn. Stimulation: profound analgesia.' },
       { term: 'Endorphins', definition: 'Endogenous opioids; less glutamate release, postsynaptic hyperpolarization.' },
       { term: 'TRP channels', definition: 'One per thermoreceptor; TRPM8 cool, menthol; TRPV1 above $43\\,^{\\circ}\\text{C}$, capsaicin. Thermoreceptors adapt.' },
+      { term: 'Excitation-contraction coupling', definition: 'ACh, muscle AP into T tubules, $\\text{Ca}^{2+}$ from the SR binds troponin, tropomyosin moves, myosin binds actin and pivots. ATP detaches heads and pumps $\\text{Ca}^{2+}$ back.' },
       { term: 'Agonist, antagonist', definition: 'Prime mover; opposing muscle. Synergist works with the agonist; fixator steadies its base.' },
       { term: 'Motor unit', definition: 'One alpha motor neuron and all its fibres. Pool: all motor neurons of one muscle.' },
       { term: 'Rate coding', definition: 'Faster firing summates twitches up to a smooth contraction.' },
@@ -1983,24 +2028,6 @@ export default {
 
   lectureQuiz: [
     // ---------------------------------------------------------------- easy
-    {
-      id: 'q01',
-      difficulty: 'easy',
-      type: 'mc',
-      prompt: 'Which Brodmann area is generally defined as the primary somatosensory cortex (S1)?',
-      options: [
-        { text: 'Area 3b', feedback: 'Correct. Dense VP input, purely somatosensory responses.' },
-        { text: 'Area 3a', feedback: 'Area 3a deals mainly with body position.' },
-        { text: 'Area 4', feedback: 'Area 4 is the primary motor cortex, in front of the central sulcus.' },
-        { text: 'Area 5', feedback: 'Area 5 is posterior parietal cortex.' },
-      ],
-      correct: 0,
-      modelAnswer: [
-        'Somatosensory cortex lies on the postcentral gyrus: areas 3a, 3b, 1 and 2 (slide 19).',
-        'Area 3b receives dense VP input, responds to somatosensory stimuli, loses sensation when lesioned and evokes sensation when stimulated.',
-        'So area 3b is S1. Area 4 is M1, area 5 posterior parietal cortex.',
-      ],
-    },
     {
       id: 'q02',
       difficulty: 'easy',
@@ -2056,6 +2083,25 @@ export default {
     },
 
     // -------------------------------------------------------------- medium
+    {
+      id: 'q17',
+      difficulty: 'medium',
+      type: 'mc',
+      prompt: 'A motor neuron action potential makes a muscle fibre contract and then relax. Which statement gives the roles of calcium and ATP correctly?',
+      options: [
+        { text: 'Calcium released from the SR binds troponin and exposes actin; ATP detaches each myosin head and powers the calcium pump.', feedback: 'Correct. Calcium opens the sites, ATP drives both cycling and relaxation.' },
+        { text: 'Calcium released from the SR binds myosin and powers its pivot; ATP binds troponin and exposes the binding sites on actin.', feedback: 'The roles are swapped: calcium acts on troponin, ATP on myosin.' },
+        { text: 'Calcium entering through nicotinic receptors binds troponin and exposes actin; ATP binds each myosin head firmly to actin.', feedback: 'The calcium comes from the SR, and ATP releases the head rather than binding it.' },
+        { text: 'Calcium released from the SR binds troponin and exposes actin; ATP powers the pivot, and calcium leaves the cytosol by diffusion.', feedback: 'Calcium reuptake needs an ATP-driven pump; without it the fibre stays contracted.' },
+      ],
+      correct: 0,
+      modelAnswer: [
+        'ACh from the motor neuron opens nicotinic receptors; the muscle action potential runs down the T tubules and releases $\\text{Ca}^{2+}$ from the sarcoplasmic reticulum.',
+        '$\\text{Ca}^{2+}$ binds troponin, tropomyosin shifts, and myosin heads bind actin and pivot: the filaments slide.',
+        'ATP binding detaches each head so the cycle can repeat; ATP also drives the pump that returns $\\text{Ca}^{2+}$ to the SR, so relaxation needs ATP too (pp. 467-468).',
+        'The force of the whole muscle is then graded by recruiting more motor units and firing them faster (notes self-check 4).',
+      ],
+    },
     {
       id: 'q05',
       difficulty: 'medium',
