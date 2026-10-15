@@ -2131,3 +2131,369 @@ p.classify-text {
   margin-right: var(--sp-4);
   color: var(--c-text-muted);
 }
+
+/* Point value beside a sub-item, shown only when a question's sub-items
+   are weighted unequally, as the paper prints "(0.3 points)". */
+.pts-tag {
+  font-size: var(--fs-sm);
+  color: var(--c-text-muted);
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+/* Match pairs: lettered targets in a box, numbered items with a picker.
+   Text items are rows; figure items are a grid of cards. */
+.mp-targets-wrap {
+  margin: 0 0 var(--sp-4);
+  padding: var(--sp-3) var(--sp-4);
+  border: 1px solid var(--c-border);
+  border-radius: var(--radius);
+  background: var(--c-bg);
+}
+
+.mp-targets-wrap .block-kicker {
+  margin-top: 0;
+}
+
+.mp-targets,
+.mp-items {
+  list-style: none;
+  margin: var(--sp-2) 0;
+  padding: 0;
+}
+
+.mp-items-wrap {
+  margin: 0 0 var(--sp-4);
+}
+
+.mp-gallery {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(8rem, 1fr));
+  gap: var(--sp-3);
+}
+
+.mp-card,
+.mp-card + .mp-card {
+  margin: 0;
+}
+
+.mp-gallery .mp-card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-2);
+  padding: var(--sp-2) var(--sp-3) var(--sp-3);
+  border: 1px solid var(--c-border);
+  border-radius: var(--radius-sm);
+  background: var(--c-surface);
+  transition: opacity var(--transition), border-color var(--transition);
+}
+
+.mp-list .mp-card {
+  display: grid;
+  grid-template-columns: 2em minmax(0, 1fr);
+  gap: var(--sp-1) var(--sp-2);
+  align-items: start;
+  transition: opacity var(--transition);
+}
+
+.mp-list .mp-card > :not(.mp-key) {
+  grid-column: 2;
+}
+
+.mp-targets.mp-list .mp-card + .mp-card {
+  margin-top: var(--sp-1);
+}
+
+.mp-items.mp-list .mp-card {
+  padding: var(--sp-3) 0;
+}
+
+.mp-items.mp-list .mp-card + .mp-card {
+  border-top: 1px solid var(--c-border);
+}
+
+.mp-key {
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+
+.mp-text p {
+  margin: 0;
+}
+
+.mp-card .figure {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+}
+
+.mp-card .figure svg,
+.mp-card .figure img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.mp-card .figure-caption {
+  margin-top: var(--sp-1);
+}
+
+.mp-pick {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--sp-2);
+}
+
+.mp-gallery .mp-select {
+  flex: 1 1 auto;
+}
+
+.mp-card.is-used {
+  opacity: 0.5;
+}
+
+.mp-gallery .mp-card.is-correct {
+  border-color: var(--c-correct);
+}
+
+.mp-gallery .mp-card.is-incorrect {
+  border-color: var(--c-incorrect);
+}
+
+/* Group items: named bins that fill with chips, items with one button
+   per group. */
+.gi-bins {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr));
+  gap: var(--sp-3);
+  margin: 0 0 var(--sp-4);
+}
+
+.gi-bin {
+  min-height: 5.5rem;
+  padding: var(--sp-3);
+  border: 1px dashed var(--c-border);
+  border-radius: var(--radius);
+  background: var(--c-bg);
+}
+
+.gi-bin .block-kicker {
+  margin: 0 0 var(--sp-1);
+}
+
+.gi-bin-note {
+  margin: 0 0 var(--sp-2);
+  font-size: var(--fs-sm);
+}
+
+.gi-bin-items {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--sp-1);
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.gi-chip,
+.gi-chip + .gi-chip {
+  margin: 0;
+}
+
+.gi-chip {
+  padding: 0.1em var(--sp-2);
+  border: 1px solid var(--c-border);
+  border-radius: var(--radius-sm);
+  background: var(--c-surface);
+  font-size: var(--fs-sm);
+}
+
+.gi-chip .num {
+  font-weight: 600;
+}
+
+.gi-chip.is-correct {
+  border-color: var(--c-correct);
+  background: var(--c-correct-bg);
+}
+
+.gi-chip.is-incorrect {
+  border-color: var(--c-incorrect);
+  background: var(--c-incorrect-bg);
+}
+
+.gi-text p {
+  margin: 0;
+}
+
+.gi-options {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--sp-2);
+  margin-top: var(--sp-2);
+}
+
+.gi-options .option {
+  width: auto;
+  padding: var(--sp-1) var(--sp-3);
+}
+
+/* Diagram annotate: per part, the site figure and the affected-region
+   figure or options side by side from 48rem, stacked below. */
+.da-parts {
+  list-style: none;
+  margin: 0 0 var(--sp-4);
+  padding: 0;
+}
+
+.da-part + .da-part {
+  margin-top: var(--sp-5);
+  padding-top: var(--sp-5);
+  border-top: 1px solid var(--c-border);
+}
+
+.da-part-title {
+  margin: 0 0 var(--sp-3);
+}
+
+.da-part-title .num {
+  font-weight: 600;
+}
+
+.da-stages {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--sp-4);
+}
+
+@media (min-width: 48rem) {
+  .da-stages {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+.da-stage .block-kicker {
+  margin: 0 0 var(--sp-2);
+}
+
+.da-stage .hotspots-figure {
+  cursor: pointer;
+}
+
+.da-stage.is-locked .da-figure,
+.da-stage.is-locked .da-options {
+  opacity: 0.45;
+}
+
+.da-stage.is-locked .hotspots-figure {
+  cursor: default;
+}
+
+.da-hint {
+  display: none;
+  margin: var(--sp-2) 0 0;
+  font-size: var(--fs-sm);
+}
+
+.da-stage.is-locked .da-hint {
+  display: block;
+}
+
+.da-readout {
+  margin: var(--sp-2) 0 0;
+  font-size: var(--fs-sm);
+}
+
+.da-options {
+  list-style: none;
+  margin: var(--sp-2) 0 0;
+  padding: 0;
+}
+
+.da-options li + li {
+  margin-top: var(--sp-1);
+}
+
+.da-option {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-2);
+  padding: var(--sp-1) var(--sp-2);
+  border: 1px solid transparent;
+  border-radius: var(--radius-sm);
+  font-size: var(--fs-sm);
+  cursor: pointer;
+}
+
+.da-option.is-correct {
+  border-color: var(--c-correct);
+  background: var(--c-correct-bg);
+}
+
+.da-option.is-incorrect {
+  border-color: var(--c-incorrect);
+  background: var(--c-incorrect-bg);
+}
+
+.da-result {
+  margin-top: var(--sp-3);
+  padding: var(--sp-3) var(--sp-4);
+  border-left: 3px solid var(--c-border);
+  background: var(--c-bg);
+  font-size: var(--fs-sm);
+}
+
+.da-result p {
+  margin: 0;
+}
+
+.da-result p + p {
+  margin-top: var(--sp-1);
+}
+
+/* Shading a picked region: the region drawn in the figure's own SVG, or
+   the overlay shape of a picture. After checking, right picks turn
+   green, wrong ones orange, and missed ones get a dashed outline. */
+.da-figure .hotspot-shape.is-chosen {
+  fill: var(--c-text);
+  fill-opacity: 0.5;
+  opacity: 1;
+}
+
+.da-figure svg [data-region].is-chosen {
+  fill: var(--c-text);
+  fill-opacity: 0.7;
+}
+
+.da-figure .hotspot-shape.is-correct,
+.da-figure svg [data-region].is-correct {
+  fill: var(--c-correct);
+  fill-opacity: 0.55;
+}
+
+.da-figure .hotspot-shape.is-incorrect,
+.da-figure svg [data-region].is-incorrect {
+  fill: var(--c-incorrect);
+  fill-opacity: 0.55;
+}
+
+.da-figure .hotspot-shape.is-missed,
+.da-figure svg [data-region].is-missed {
+  stroke: var(--c-incorrect);
+  stroke-width: 2.5px;
+  stroke-dasharray: 5 3;
+  opacity: 1;
+}
+
+/* A diagram-annotate figure is small and must stay whole: no sideways
+   scroll on narrow screens, unlike charts. */
+@media (max-width: 47.99rem) {
+  .da-figure .hotspots-stage.is-svg {
+    overflow-x: visible;
+  }
+  .da-figure .hotspots-stage.is-svg .hotspots-figure {
+    min-width: 0;
+  }
+}

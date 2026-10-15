@@ -18,14 +18,15 @@ Reads src/content/<course>/L*.js through scripts/dump_questions.mjs
 
   Question-bank mix, per course (COURSE_RULES, keyed by course slug)
     nbe-e4210 (docs/PEDAGOGY.md section 2, docs/exam-format.md, Mini
-    Exams 1 and 2): 12 to 16 questions ordered easy, medium, hard;
+    Exams 1 to 4): 12 to 16 questions ordered easy, medium, hard;
     target about 3 easy, 5 medium, 5 hard; no essay unless labelled
     beyondExam, at most 1; at least 2 classify, 1 label with a word
     bank, 2 trueFalse with a false statement to correct, 2 clinicalCase,
-    2 multiSelect, 1 inlineChoice; at least one mc, order, fillBlank and
-    interpret. Lectures built before Mini Exam 2 (the course's
-    "pending" entry) get the multiSelect and inlineChoice minimums as
-    the advisory mix-todo until they are retrofitted.
+    2 multiSelect, 1 inlineChoice, 1 matchPairs, 1 groupItems; at least
+    one mc, order, fillBlank and interpret. A lecture built before a
+    minimum existed (the course's "pending" entry: L03 and L04 for
+    matchPairs and groupItems, added after Mini Exams 3 and 4) gets it
+    as the advisory mix-todo until it is retrofitted.
     ms-count (advisory): every multiSelect in the lecture has the same
     number of correct options, so the count can be guessed.
     Any other course (DEFAULT_RULES): no mix is gated; the easy, medium,
@@ -50,6 +51,24 @@ Reads src/content/<course>/L*.js through scripts/dump_questions.mjs
   Maths
     plain-text symbols and units outside $...$ (E_K, g_Na, 65 mV, Na+),
     which must go through KaTeX. Counted per lecture with examples.
+
+  Types from Mini Exams 3 and 4 (required fields)
+    matchPairs   left items and lettered right targets, text or figures;
+                 every answer a target id; a once-only target needed
+                 twice, fewer targets than items, or targets listed in
+                 the answer order are errors.
+    groupItems   two or three named groups; every item's group is one
+                 of them.
+    diagramAnnotate
+                 a site figure with 2 to 7 regions, an affected figure
+                 or option set, and parts whose site and affected ids
+                 exist.
+
+  Points (every type)
+    points, itemPoints (a number or one entry per sub-item) and a
+    sub-item's own points must be positive; an itemPoints list must
+    match the number of sub-items; weights that fix every sub-item must
+    add up to points when both are given.
 
   Types from Mini Exam 2 (required fields, plus)
     multiSelect  correct and incorrect statements balanced in length:
@@ -100,7 +119,7 @@ LEGACY = {
 
 TIERS = ["easy", "medium", "hard"]
 TYPES = {"mc", "essay", "label", "order", "calc", "trueFalse", "fillBlank", "clinicalCase", "interpret", "classify",
-         "inlineChoice", "multiSelect"}
+         "inlineChoice", "multiSelect", "matchPairs", "groupItems", "diagramAnnotate"}
 
 # Question-bank mix per course, keyed by course slug. The mix is a
 # course's exam format, so it lives here; the universal checks (option
@@ -116,7 +135,7 @@ TYPES = {"mc", "essay", "label", "order", "calc", "trueFalse", "fillBlank", "cli
 #   pending   {lecture: set of min_mix names}: minimums reported as the
 #             advisory mix-todo for a lecture built before they existed
 COURSE_RULES = {
-    # docs/exam-format.md and docs/PEDAGOGY.md section 2 (Mini Exams 1, 2).
+    # docs/exam-format.md and docs/PEDAGOGY.md section 2 (Mini Exams 1-4).
     "nbe-e4210": {
         "count": (12, 16),
         "order": "gate",
@@ -133,10 +152,18 @@ COURSE_RULES = {
             ("interpret", 1, lambda q: q.get("type") == "interpret"),
             ("multiSelect", 2, lambda q: q.get("type") == "multiSelect"),
             ("inlineChoice", 1, lambda q: q.get("type") == "inlineChoice"),
+            # Mini Exams 3 and 4 (2026-10-15): matching appears four
+            # times across the two papers, sorting into bins once.
+            ("matchPairs", 1, lambda q: q.get("type") == "matchPairs"),
+            ("groupItems", 1, lambda q: q.get("type") == "groupItems"),
         ],
-        # Built before Mini Exam 2 (2026-09-28). Remove each entry when
-        # the lecture is retrofitted.
-        "pending": {},  # L03 and L04 retrofitted on 2026-09-28
+        # Minimums a lecture built before them does not yet owe. Remove
+        # an entry when the lecture is retrofitted. (L03 and L04 were
+        # retrofitted to Mini Exam 2 on 2026-09-28.)
+        "pending": {
+            "L03": {"matchPairs", "groupItems"},
+            "L04": {"matchPairs", "groupItems"},
+        },
     },
 }
 DEFAULT_RULES = {"count": None, "order": "advisory", "target": None, "essays": None, "min_mix": [], "pending": {}}
@@ -365,7 +392,7 @@ def check_mix(content, rules, lecture=""):
         count = sum(1 for q in quiz if test(q))
         if count < least:
             if name in pending:
-                out.append(("mix-todo", "quiz", f"{count} {name}; at least {least} (built before Mini Exam 2, retrofit)"))
+                out.append(("mix-todo", "quiz", f"{count} {name}; at least {least} (built before this minimum, retrofit)"))
             else:
                 out.append(("mix", "quiz", f"{count} {name}; at least {least}"))
     counts = [sum(1 for o in q.get("options") or [] if o.get("correct") is True) for q in quiz if q.get("type") == "multiSelect"]
@@ -490,10 +517,189 @@ def check_fields(q):
                     out.append(("error", where, f"{tag} choice {k + 1} needs answer, an index into its options"))
         if sentences and total < 2:
             out.append(("error", where, "inlineChoice needs at least 2 choices in all"))
-    for key in ("points", "itemPoints"):
-        value = q.get(key)
-        if value is not None and not (isinstance(value, (int, float)) and value > 0):
-            out.append(("error", where, f"{key} must be a positive number"))
+    elif t == "matchPairs":
+        out += check_match_pairs(q, where)
+    elif t == "groupItems":
+        out += check_group_items(q, where)
+    elif t == "diagramAnnotate":
+        out += check_diagram_annotate(q, where)
+    out += check_points(q, where)
+    return out
+
+
+def is_number(value):
+    return isinstance(value, (int, float)) and not isinstance(value, bool) and value > 0
+
+
+def sub_items(q):
+    """Sub-items in scoring order, as subItemWeights in lectureQuiz.js:
+    each is the sub-item object (or None), whose `points` weights it."""
+    t = q.get("type")
+    objects = lambda xs: [x if isinstance(x, dict) else None for x in xs or []]
+    if t == "classify":
+        items = q.get("items") or []
+        if q.get("columns") is None:
+            return objects(items)
+        return [i for i in objects(items) for _ in q["columns"] or []]
+    if t == "inlineChoice":
+        return [c for sentence in q.get("sentences") or [] for c in objects(sentence.get("choices"))]
+    if t in ("multiSelect",):
+        return objects(q.get("options"))
+    if t == "order":
+        return [None for _ in q.get("items") or []]
+    if t == "fillBlank":
+        return objects(q.get("blanks"))
+    if t == "label":
+        return objects((q.get("hotspots") or {}).get("regions") or q.get("regions"))
+    if t == "trueFalse":
+        return objects(q.get("statements")) if q.get("statements") else []
+    if t == "matchPairs":
+        return objects(q.get("left"))
+    if t == "groupItems":
+        return objects(q.get("items"))
+    if t == "diagramAnnotate":
+        # Two per part (site, affected); a part's points split evenly.
+        out = []
+        for part in objects(q.get("parts")):
+            half = {"points": part["points"] / 2} if part and is_number(part.get("points")) else None
+            out += [half, half]
+        return out
+    return []
+
+
+def check_points(q, where):
+    out = []
+    if q.get("points") is not None and not is_number(q["points"]):
+        out.append(("error", where, "points must be a positive number"))
+    item_points = q.get("itemPoints")
+    subs = sub_items(q)
+    if item_points is not None:
+        if isinstance(item_points, list):
+            if not all(is_number(v) for v in item_points):
+                out.append(("error", where, "itemPoints entries must be positive numbers"))
+            elif len(item_points) != len(subs):
+                out.append(("error", where, f"itemPoints lists {len(item_points)} values for {len(subs)} sub-items"))
+        elif not is_number(item_points):
+            out.append(("error", where, "itemPoints must be a positive number or a list of them"))
+    for i, sub in enumerate(subs):
+        if sub and sub.get("points") is not None and not is_number(sub["points"]):
+            out.append(("error", where, f"sub-item {i + 1} points must be a positive number"))
+    listed = item_points if isinstance(item_points, list) and len(item_points) == len(subs) else [None] * len(subs)
+    given = [(sub or {}).get("points") if (sub or {}).get("points") is not None else listed[i] for i, sub in enumerate(subs)]
+    total = q.get("points")
+    if subs and is_number(total) and all(is_number(g) for g in given if g is not None):
+        fixed = sum(g for g in given if g is not None)
+        if all(g is not None for g in given) and abs(fixed - total) > 1e-3:
+            out.append(("error", where, f"sub-item weights add up to {fixed:g}, not points {total:g}"))
+        elif fixed - total > 1e-3:
+            out.append(("error", where, f"sub-item weights add up to {fixed:g}, more than points {total:g}"))
+    return out
+
+
+def check_match_pairs(q, where):
+    out = []
+    left = q.get("left") or []
+    right = q.get("right") or []
+    ids = [r.get("id") for r in right]
+    if len(left) < 2:
+        out.append(("error", where, "matchPairs needs at least 2 left items"))
+    if len(right) < 2:
+        out.append(("error", where, "matchPairs needs at least 2 right targets"))
+    if any(not i for i in ids) or len(set(ids)) != len(ids):
+        out.append(("error", where, "every right target needs a unique id"))
+    for k, r in enumerate(right):
+        if not plain(r.get("text")) and not r.get("figure"):
+            out.append(("error", where, f"right target {chr(65 + k)} needs text or a figure"))
+    answers = []
+    for i, item in enumerate(left):
+        if not plain(item.get("text")) and not item.get("figure"):
+            out.append(("error", where, f"left item {i + 1} needs text or a figure"))
+        if item.get("answer") not in ids:
+            out.append(("error", where, f"left item {i + 1} answer {item.get('answer')!r} is not a right target id"))
+        answers.append(item.get("answer"))
+    for side, items in (("left", left), ("right", right)):
+        for k, item in enumerate(items):
+            figure = item.get("figure")
+            if figure and not plain(figure.get("fallbackAlt")):
+                out.append(("error", where, f"{side} {k + 1} figure needs a fallbackAlt"))
+    if not q.get("reusable"):
+        for a in set(answers):
+            if a and answers.count(a) > 1:
+                out.append(("error", where, f"target {a!r} answers {answers.count(a)} items; set reusable: true"))
+        if len(right) < len(left):
+            out.append(("error", where, f"{len(left)} items but {len(right)} once-only targets"))
+        if len(right) == len(left) and len(left) > 2:
+            out.append(("wordbank-note", where, "no spare target and each once-only, so the last pick follows by elimination"))
+    if len(left) > 1 and len(right) >= len(left) and all(item.get("answer") == ids[i] for i, item in enumerate(left)):
+        out.append(("error", where, "right targets are listed in the answer order; reorder them"))
+    return out
+
+
+def check_group_items(q, where):
+    out = []
+    groups = [g.get("label") if isinstance(g, dict) else g for g in q.get("groups") or []]
+    items = q.get("items") or []
+    if not 2 <= len(groups) <= 3:
+        out.append(("error", where, f"groupItems has {len(groups)} groups; use 2 or 3 (more is a classify)"))
+    if any(not plain(g) for g in groups) or len(set(groups)) != len(groups):
+        out.append(("error", where, "every group needs a unique label"))
+    if len(items) < 3:
+        out.append(("error", where, "groupItems needs at least 3 items"))
+    for i, item in enumerate(items):
+        if not plain(item.get("text")):
+            out.append(("error", where, f"item {chr(97 + i)} has no text"))
+        if item.get("group") not in groups:
+            out.append(("error", where, f"item {chr(97 + i)} group {item.get('group')!r} is not a group label"))
+    return out
+
+
+def check_diagram_annotate(q, where):
+    out = []
+    site = q.get("site") or {}
+    regions = site.get("regions") or []
+    site_ids = [r.get("id") for r in regions]
+    if not (site.get("src") or site.get("svg")):
+        out.append(("error", where, "site needs src or svg"))
+    if not plain(site.get("alt")):
+        out.append(("error", where, "site needs alt text"))
+    if not 2 <= len(regions) <= 7:
+        out.append(("error", where, f"site has {len(regions)} regions; use 2 to 7 candidate sites"))
+    if any(not i for i in site_ids) or len(set(site_ids)) != len(site_ids):
+        out.append(("error", where, "every site region needs a unique id"))
+    affected = q.get("affected") or {}
+    figure = affected.get("figure")
+    if figure:
+        choices = [r.get("id") for r in figure.get("regions") or []]
+        if not (figure.get("src") or figure.get("svg")) or not plain(figure.get("alt")):
+            out.append(("error", where, "affected.figure needs src or svg, and alt text"))
+        if not 2 <= len(choices) <= 7:
+            out.append(("error", where, f"affected.figure has {len(choices)} regions; use 2 to 7"))
+        if any(not plain(r.get("label")) for r in figure.get("regions") or []):
+            out.append(("error", where, "every affected region needs a label (it names the checkbox)"))
+    else:
+        options = affected.get("options") or []
+        choices = [o.get("id") for o in options]
+        if len(options) < 2:
+            out.append(("error", where, "affected needs a figure or at least 2 options"))
+        if any(not plain(o.get("text")) for o in options):
+            out.append(("error", where, "every affected option needs text"))
+    if any(not c for c in choices) or len(set(choices)) != len(choices):
+        out.append(("error", where, "every affected region or option needs a unique id"))
+    parts = q.get("parts") or []
+    if not parts:
+        out.append(("error", where, "diagramAnnotate needs at least one part"))
+    for i, part in enumerate(parts):
+        tag = f"part {chr(97 + i)}"
+        if not plain(part.get("text")):
+            out.append(("error", where, f"{tag} has no text"))
+        if part.get("site") not in site_ids:
+            out.append(("error", where, f"{tag} site {part.get('site')!r} is not a site region id"))
+        want = part.get("affected") or []
+        if not want:
+            out.append(("error", where, f"{tag} needs at least one affected id"))
+        for a in want:
+            if a not in choices:
+                out.append(("error", where, f"{tag} affected {a!r} is not a region or option id"))
     return out
 
 
@@ -515,6 +721,9 @@ def bank_of(q):
     None. entries: [(text, reusable)]; answers: list of bank texts, one
     per sub-item, in order (None where no entry matches)."""
     t = q.get("type")
+    if t == "groupItems":
+        labels = [g.get("label") if isinstance(g, dict) else g for g in q.get("groups") or []]
+        return [(label, True) for label in labels], [i.get("group") for i in q.get("items") or []]
     if t == "classify":
         entries = [(bank_text(c), True if not isinstance(c, dict) else c.get("reusable", True)) for c in q.get("categories") or []]
         if q.get("columns") is not None:
@@ -552,7 +761,7 @@ def check_bank(q, corpus, owner):
         if key in seen:
             out.append(("wordbank", where, f"duplicate entry {text!r}"))
         seen.add(key)
-    if q.get("type") != "classify":
+    if q.get("type") not in ("classify", "groupItems"):
         for i, a in enumerate(answers):
             if a is None:
                 out.append(("wordbank", where, f"sub-item {i + 1}: its answer is not in the word bank"))
@@ -573,7 +782,7 @@ def check_bank(q, corpus, owner):
             out.append(("wordbank", where, f"distractor {d!r} is capitalised differently from every answer"))
         if not in_corpus(d, corpus, owner):
             out.append(("wordbank", where, f"distractor {d!r} appears in no lecture text; use a course term a half-prepared student might pick"))
-    if not distractors and not any(reusable.get(t) for t in texts_) and q.get("type") != "classify":
+    if not distractors and not any(reusable.get(t) for t in texts_) and q.get("type") not in ("classify", "groupItems"):
         out.append(("wordbank-note", where, "no distractors and every entry once-only, so the last pick follows by elimination"))
     return out
 
@@ -616,7 +825,8 @@ def texts(content):
     """Every student-facing string, for the maths check."""
     def collect(value, key=""):
         if isinstance(value, str):
-            if key not in {"id", "src", "poster", "type", "name", "tex", "file", "math", "expression", "sectionId", "lectureId", "difficulty"}:
+            if key not in {"id", "src", "poster", "type", "name", "tex", "file", "math", "expression", "sectionId", "lectureId", "difficulty",
+                           "site", "affected", "svg"}:
                 yield value
         elif isinstance(value, list):
             for v in value:

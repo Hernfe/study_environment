@@ -405,8 +405,9 @@ real mini-exams (docs/exam-format.md). Target mix per lecture
 (docs/PEDAGOGY.md section 2): about 3 easy, 5 medium, 5 hard; at least
 2 `classify`, 1 `label` with a `wordBank`, 2 `trueFalse` with a false
 statement to correct, 2 `clinicalCase`, 2 `multiSelect`, 1
-`inlineChoice`, and at least one each of `mc`, `order`, `fillBlank`
-and `interpret`. No `essay` by default; a kept
+`inlineChoice`, 1 `matchPairs`, 1 `groupItems`, and at least one each
+of `mc`, `order`, `fillBlank` and `interpret`. `diagramAnnotate` where
+the lecture has a pathway with lesion logic. No `essay` by default; a kept
 essay (at most 1) carries `beyondExam: true`. Fields shared by every
 type:
 
@@ -414,38 +415,68 @@ type:
 |---|---|---|
 | `id` | string | Unique in the lecture. Progress and review key on `meta.id + ':' + id`, so never rename an id after the lecture is published. |
 | `difficulty` | `'easy' \| 'medium' \| 'hard'` | Rendered as a badge. |
-| `type` | `'mc' \| 'multiSelect' \| 'inlineChoice' \| 'trueFalse' \| 'fillBlank' \| 'classify' \| 'clinicalCase' \| 'interpret' \| 'label' \| 'order' \| 'calc' \| 'essay'` | |
+| `type` | `'mc' \| 'multiSelect' \| 'inlineChoice' \| 'trueFalse' \| 'fillBlank' \| 'classify' \| 'matchPairs' \| 'groupItems' \| 'diagramAnnotate' \| 'clinicalCase' \| 'interpret' \| 'label' \| 'order' \| 'calc' \| 'essay'` | |
 | `prompt` | string | Plain text or HTML, may hold inline maths. |
 | `modelAnswer` | string[] | Step-by-step model answer for the reveal button. Optional for `calc` (steps are used). For `clinicalCase` it is the reasoning, shown under "Show the reasoning". |
-| `points` | number | Optional. Total points. Default 1 for a single-answer question; for a multi-part question it is split evenly over the sub-items. See "Points". |
-| `itemPoints` | number | Optional. Points per sub-item of a multi-part question. Default 0.25. |
+| `points` | number | Optional. Total points. Default 1 for a single-answer question; for a multi-part question it is split evenly over the sub-items that have no weight of their own. See "Points". |
+| `itemPoints` | number or number[] | Optional. Points per sub-item of a multi-part question: one number for all, or one value per sub-item in scoring order. Default 0.25 (0.1 for `inlineChoice`). |
 | `beyondExam` | boolean | Marks a question as beyond the mini-exam format, for understanding only. Required on every `essay`. Shows a badge and a note. |
 | `video` | Video | Optional. The clip the question depends on, shown above the answer area. See "Videos". |
 | `figure` | Visual | Optional on any type: a figure shown above the answer area, as the membrane picture of Mini Exam 2's table (Problem 9). Same shape as `interpret`'s `figure` (a widget with `quiz: false` hotspots and a `fallbackAlt`). `interpret` and legacy `label` use it as their own figure. |
 
 ### Points
 
-The mini-exams print a point value with most problems: 1 point for a
-question with one answer, 0.25 for each sub-item of a multi-part
-problem, 0.1 for each circled inline choice. The site uses the same
-convention and shows the value in each question's head ("1 point",
-"1.5 points, 6 × 0.25").
+The mini-exams print a point value with every problem. From Mini Exam 2
+on, every problem is worth 1 point and its sub-items divide it, mostly
+equally (0.5, 0.33, 0.25, 0.2, 0.1), sometimes not (0.3, 0.3, 0.4; 0.2
+for two key items and 0.1 for the rest). See docs/exam-format.md,
+Point weighting. The site shows the value in each question's head ("1
+point", "1.5 points, 6 × 0.25", "1 point, 0.3 + 0.3 + 0.4", "1 point,
+6 × 0.1 + 2 × 0.2") and, when the sub-items differ, beside each
+sub-item ("(0.2)").
 
-| Type | Sub-items | Default |
+| Type | Sub-items, in scoring order | Default |
 |---|---|---|
 | `mc`, `clinicalCase`, `interpret` (pick), `calc`, `trueFalse` (one statement) | none | 1 point |
 | `inlineChoice` | every choice of every sentence | 0.1 each |
-| `multiSelect` | `options` (each judged ticked or not) | 0.25 each |
-| `classify` | `items`, or `items` × `columns` cells in table form | 0.25 each |
+| `multiSelect` | `options`, authored order (each judged ticked or not) | 0.25 each |
+| `classify` | `items`, or `items` × `columns` cells, row by row, in table form | 0.25 each |
 | `label` | regions | 0.25 each |
 | `fillBlank` | `blanks` | 0.25 each |
-| `order` | `items` (scored per position) | 0.25 each |
+| `order` | positions 1 to n | 0.25 each |
 | `trueFalse` with `statements` | `statements` | 0.25 each |
+| `matchPairs` | `left` items | 1 point in all, split evenly |
+| `groupItems` | `items` | 1 point in all, split evenly |
+| `diagramAnnotate` | per part: the site, then the affected regions | 1 point in all; each part split evenly, half per stage |
 | `essay`, `interpret` (mark scheme) | mark-scheme lines | sum of the mark scheme |
 
-Override with `points` (a total) or `itemPoints` (per sub-item) only
-when the mini-exam weights a comparable problem differently. The score
-card and the home page add points up; review records them per question.
+Weights, from most to least specific:
+
+1. `points` on a sub-item that is an object (a statement, blank,
+   region, option, inline choice, classify item or table row (each of
+   its cells), `left` item, group item, `diagramAnnotate` part).
+2. `itemPoints` as an array, one value per sub-item in scoring order
+   (the only way to weight `order` positions).
+3. `itemPoints` as a number, for every remaining sub-item.
+4. `points` (or the type's default total): what the weights above leave
+   is split evenly over the remaining sub-items.
+5. The type's per-sub-item default.
+
+```js
+// Mini Exam 4, Problem 9: three blanks worth 0.3, 0.3 and 0.4.
+blanks: [{ accept: ['nasal'], points: 0.3 }, { accept: ['temporal'], points: 0.3 }, { accept: ['left'], points: 0.4 }],
+// Mini Exam 3, Problem 3: two true-or-false statements, 0.5 each.
+points: 1,
+// Mini Exam 4, Problem 1 as one inline choice: four 0.2 picks, two 0.1 circles.
+itemPoints: [0.2, 0.2, 0.2, 0.2, 0.1, 0.1],
+```
+
+The built lectures keep the Exam 1 and 2 defaults (0.25 per sub-item);
+new questions modelled on a paper problem should set `points: 1` or the
+paper's weights. The lint checks that every weight is positive, that an
+`itemPoints` list has one entry per sub-item, and that weights fixing
+every sub-item add up to `points` when both are given. The score card
+and the home page add points up; review records them per question.
 
 ### Word banks
 
@@ -746,6 +777,140 @@ cell (0.25 each by default), so a 4 × 2 table is worth 2 points.
 }
 ```
 
+### Match pairs (`matchPairs`)
+
+Match each item in one list to an item in another, as on Mini Exam 4
+(Problem 7, stimulation conditions to spike-response patterns as
+pictures; Problem 1, functions to rods or cones; Problem 10,
+descriptions to simple or complex cells) and Mini Exam 3 (Problem 1,
+gap-junction terms). Scored per `left` item; 1 point in all by
+default.
+
+- `right`: the targets, `{ id, text?, figure? }`. Shown first, in a box
+  titled `rightTitle` (default "Choices"), lettered A, B, C in authored
+  order, as the paper prints them. Do not list them in the answer order
+  (the lint rejects it). Spare targets are allowed.
+- `left`: the scored items, `{ text?, figure?, answer, points?,
+  explanation? }`, numbered 1, 2, 3, under `leftTitle` if given. Each
+  gets a picker of the letters (with the target's text, if any).
+  `answer` is a target `id`. `explanation` (one line) is shown after
+  checking; a wrong pick also shows the right letter.
+- `figure` on either side is a Visual (`{ type: 'svg', markup, fallbackAlt }`,
+  a registered svg figure, or a widget). With a figure on any item the
+  side is drawn as a grid of cards; text-only sides are lists. So text
+  to text, figure to figure and text to figure all work.
+- `reusable: true` lets one target answer several items (Rods answers
+  two of four functions). Otherwise each target is used once: a picked
+  target is greyed in the box and disabled in the other pickers. With
+  no spare target, the last pick follows by elimination (the lint notes
+  it, as on the paper).
+
+```js
+{
+  id: 'q22',
+  difficulty: 'medium',
+  type: 'matchPairs',
+  prompt: 'Consider an ON-center ganglion cell. Match each spike-response pattern to the stimulation condition that evokes it.',
+  rightTitle: 'Stimulation conditions',
+  leftTitle: 'Spike-response patterns',
+  right: [
+    { id: 'center', figure: { type: 'svg', markup: centerLitSvg, fallbackAlt: 'Only the center is lit.' } },
+    { id: 'surround', figure: { type: 'svg', markup: surroundLitSvg, fallbackAlt: 'Only the surround is lit.' } },
+    // ...
+  ],
+  left: [
+    { figure: { type: 'svg', markup: barrageSvg, fallbackAlt: 'A dense barrage of spikes.' }, answer: 'center', explanation: 'Light on the center alone is the best stimulus.' },
+    // ...
+  ],
+  modelAnswer: ['...'],
+}
+// Text form: right: [{ id: 'simple', text: 'Simple cell' }, { id: 'complex', text: 'Complex cell' }], reusable: true,
+//   left: [{ text: 'Has distinct ON and OFF subregions.', answer: 'simple' }, ...]
+```
+
+### Group items (`groupItems`)
+
+Sort a flat list of short items into two or three named bins, as on
+Mini Exam 3 (Problem 7: eight neurotransmitters into inhibitory,
+excitatory or both). Each item gets one bin from a row of buttons and
+appears as a chip in that bin as it is placed. Scored per item; 1
+point in all by default, and `points` on an item weights it (glutamate
+and GABA 0.2, the rest 0.1). Use `classify` instead for statements
+that need reading, or for four or more categories.
+
+- `groups`: 2 or 3 of `{ label, description? }` (or plain strings).
+  `description` is a short line under the bin's name ("Depending on the
+  receptor and target cell"). A bin may end up with one item or none.
+- `items`: `{ text, group, points?, explanation? }`, shown in authored
+  order. `group` is a group `label`, spelled exactly.
+
+```js
+{
+  id: 'q23',
+  difficulty: 'medium',
+  type: 'groupItems',
+  prompt: 'Classify the neurotransmitters according to their usual effect.',
+  groups: [{ label: 'Inhibitory' }, { label: 'Excitatory' }, { label: 'Both', description: 'Depending on the receptor and target cell' }],
+  items: [
+    { text: 'Glutamate', group: 'Excitatory', points: 0.2 },
+    { text: 'GABA', group: 'Inhibitory', points: 0.2 },
+    { text: 'Acetylcholine', group: 'Both', points: 0.1, explanation: 'Nicotinic receptors excite; cardiac muscarinic receptors inhibit.' },
+    // ...
+  ],
+  modelAnswer: ['...'],
+}
+```
+
+### Diagram annotate (`diagramAnnotate`)
+
+A two-stage question, as on Mini Exam 4 (Problem 2: mark each lesion on
+the visual pathway diagram, then shade the lost visual field). For
+each part the student first picks a site on a hotspot figure, then
+picks the regions that are affected, on a second figure or from an
+option set. Stage two stays dimmed and disabled until a site is
+picked. Each part is two sub-items (site, affected) worth half the
+part's points; 1 point in all by default.
+
+- `site`: `image-hotspots` props (`src` or `svg`, `alt`, `aspect`,
+  `regions`). The regions are the candidate sites, 2 to 7, shown as
+  numbered markers without labels; author them out of pathway order.
+  Their `label` names the right site in the feedback.
+- `affected`: either `figure`, `image-hotspots` props whose regions are
+  toggled (a checkbox list with each region's `label` sits under the
+  figure, and is the keyboard route), or `options`, `[{ id, text }]`.
+  A region drawn in the figure's own SVG with `data-region="<id>"` is
+  shaded there and can be clicked directly; on a picture the overlay
+  shape is filled instead. Set `showShapes: false` for SVG that draws
+  its own regions.
+- `affected.multiple`: tick several (checkboxes) or one (radios).
+  Default: several with a figure, or when any part has more or fewer
+  than one affected id.
+- `parts`: `{ text, site, affected: id[], points?, explanation? }`. The
+  affected set is scored all or nothing; after checking, right picks
+  turn green, wrong ones orange, and missed ones get a dashed outline.
+- `siteLabel`, `affectedLabel`: optional stage headings ("1. Mark the
+  lesion", "2. Shade the lost visual field").
+
+```js
+{
+  id: 'q25',
+  difficulty: 'medium',
+  type: 'diagramAnnotate',
+  prompt: 'For each lesion, mark its location on the visual pathway and shade the part of the visual field that is lost.',
+  site: { src, alt, aspect, regions: LESION_SITES },
+  affected: { figure: { svg: FIELD_SVG, alt, aspect: 400 / 190, showShapes: false, regions: FIELD_HALVES } },
+  siteLabel: '1. Mark the lesion',
+  affectedLabel: '2. Shade the lost visual field',
+  parts: [
+    { text: 'The right optic nerve', site: 'nerve-r', affected: ['re-left', 're-right'], points: 0.33, explanation: 'Right monocular blindness.' },
+    { text: 'The optic tract on the right side', site: 'tract-r', affected: ['le-left', 're-left'], points: 0.33 },
+    { text: 'The optic chiasm', site: 'chiasm', affected: ['le-left', 're-right'], points: 0.34 },
+  ],
+  modelAnswer: ['...'],
+}
+// Option form: affected: { options: [{ id: 'bitemporal', text: 'Bitemporal hemianopia' }, ...] }
+```
+
 ### Clinical case (`clinicalCase`)
 
 A short scenario (patient, experiment or preparation), then the student
@@ -1043,11 +1208,12 @@ course:
 - `mix`, `tiers` (NBE-E4210): 12 to 16 questions, easy to hard order; no essay
   unless it has `beyondExam: true`, at most 1; at least 2 classify, 1
   label with a word bank, 2 trueFalse with a false statement to
-  correct, 2 clinicalCase, 2 multiSelect, 1 inlineChoice, and one each
-  of mc, order, fillBlank and interpret; tier split against about 3,
-  5, 5 (advisory). `mix-todo` (advisory): a minimum that a lecture
-  built before it existed still owes (the course's `pending` entry;
-  empty since L03 and L04 were retrofitted). `ms-count`
+  correct, 2 clinicalCase, 2 multiSelect, 1 inlineChoice, 1
+  matchPairs, 1 groupItems, and one each of mc, order, fillBlank and
+  interpret; tier split against about 3, 5, 5 (advisory). `mix-todo`
+  (advisory): a minimum that a lecture built before it existed still
+  owes (the course's `pending` entry: L03 and L04 for matchPairs and
+  groupItems, added after Mini Exams 3 and 4). `ms-count`
   (advisory): every multiSelect has the same number of correct options.
 - `positions` also covers inline choices: the answer's place inside the
   brackets across the lecture far from uniform. `longest`, `shortest`
@@ -1058,7 +1224,12 @@ course:
   option or feedback, an inlineChoice whose ___ and choices differ or
   whose answer index is out of range, a classify table row whose
   answers do not match the columns, a classify answer that is not a
-  category, scenario, model answer, figure for interpret, and so on).
+  category, a matchPairs answer that is not a target id or a once-only
+  target used twice or targets listed in answer order, a groupItems
+  group outside 2 or 3 or an item in no group, a diagramAnnotate part
+  whose site or affected id does not exist, weights that are not
+  positive or do not add up to `points`, scenario, model answer,
+  figure for interpret, and so on).
 - `wordbank`: an answer missing from the bank, a duplicate entry, a
   once-only entry needed twice, or an implausible distractor (length
   under half or over twice the mean answer, capitalised unlike every

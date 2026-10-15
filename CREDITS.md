@@ -133,7 +133,7 @@ figures as shown on the slides. The slide 34 video ("Cortical neurons V1") is no
 | `cs-spot.webp` | L04 Center-surround | L04 slide deck, page 20 (textbook Figure 9.27) | Course slides | Course material | Cite the course |
 | `cs-edge.webp` | L04 Center-surround, lecture quiz q08 | L04 slide deck, page 21 (textbook Figure 9.28) | Course slides | Course material | Cite the course |
 | `retinofugal.webp` | L04 Retinofugal projection, lecture quiz q03 | L04 slide deck, page 22 (textbook Figure 10.2) | Course slides | Course material | Cite the course |
-| `hemifields.webp` | L04 Retinofugal projection | L04 slide deck, page 23 (textbook Figure 10.3) | Course slides | Course material | Cite the course |
+| `hemifields.webp` | L04 Retinofugal projection; L00 renderer test q35, q36 (lesion sites) | L04 slide deck, page 23 (textbook Figure 10.3) | Course slides | Course material | Cite the course |
 | `binocular-fields.webp` | L04 Retinofugal projection | L04 slide deck, page 23 (the two binocular field schematics, composed) | Course slides | Course material | Cite the course |
 | `visual-pathway.webp` | L04 LGN | L04 slide deck, page 24 (textbook Figure 10.4) | Course slides | Course material | Cite the course |
 | `lgn-nissl.webp` | L04 LGN | L04 slide deck, page 25 (textbook Figure 10.7) | Course slides | Course material | Cite the course |

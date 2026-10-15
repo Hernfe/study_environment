@@ -293,7 +293,7 @@ export function buildFigure(props, { numbered = true, onEnter, onLeave, onPick, 
 }
 
 // Roving tabindex across the markers: arrows move, Home/End jump.
-function rove(markers, from, delta, event) {
+export function rove(markers, from, delta, event) {
   const list = [...markers.values()];
   let next = from + delta;
   if (event.key === 'Home') next = 0;

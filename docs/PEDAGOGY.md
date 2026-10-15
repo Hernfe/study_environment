@@ -81,6 +81,11 @@ Rules that follow from the tiers:
   - at least 2 `multiSelect` ("which statements are correct", count
     not given; vary the number of correct options across the lecture);
   - at least 1 `inlineChoice` (sentences with bracketed choices);
+  - at least 1 `matchPairs` (two lists, text or pictures) and 1
+    `groupItems` (a flat list into two or three bins), from Mini Exams
+    3 and 4;
+  - `diagramAnnotate` where the lecture has a pathway with lesion
+    logic (mark the lesion, then the regions it costs);
   - at least one each of `mc`, `order`, `fillBlank` and `interpret`;
   - `calc` where the lecture has a quantity to compute.
   Essays: zero by default, since the paper has none. An essay may be
@@ -89,10 +94,14 @@ Rules that follow from the tiers:
   format, for understanding only. The lint checks the mix. L01 and L02
   predate these rules. L03 and L04 were built before Mini Exam 2 added
   `multiSelect` and `inlineChoice`, and were retrofitted on
-  2026-09-28.
-- Points follow the paper: 1 per single-answer question, 0.25 per
-  sub-item of a multi-part question, 0.1 per inline choice, shown on
-  every question.
+  2026-09-28. They do not yet owe `matchPairs` and `groupItems` (the
+  lint's `pending`).
+- Points follow the paper: every problem is worth 1 point from Mini
+  Exam 2 on, its sub-items dividing it, sometimes unequally (0.3, 0.3,
+  0.4). The site's defaults are 1 per single-answer question, 0.25 per
+  sub-item, 0.1 per inline choice, and 1 in all for the three newer
+  types; set `points: 1` or per-sub-item weights to match the paper.
+  Points are shown on every question.
 - Every question is answerable from the slides plus the textbook within
   slide scope. No textbook trivia the slides never touch.
 - Rewrite the notes' self-check questions into these formats and include

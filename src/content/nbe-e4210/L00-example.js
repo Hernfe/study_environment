@@ -3,6 +3,78 @@
 
 import { exampleCell } from './figures/example-cell.js';
 
+// Pictures for the question types added after Mini Exams 3 and 4. The
+// pathway picture is the L04 slide crop (Figure 10.3), reused here only
+// to test the renderer.
+const hemifieldsUrl = new URL('../../assets/figures/nbe-e4210/L04/hemifields.webp', import.meta.url).href;
+
+// Candidate lesion sites on Figure 10.3, unlabelled in the question.
+// Authored out of pathway order so the numbers give nothing away.
+const LESION_SITES = [
+  { id: 'chiasm', label: 'Optic chiasm', x: 72, y: 84, w: 6, h: 6, side: 'right' },
+  { id: 'tract-l', label: 'Left optic tract', x: 66, y: 93, w: 5, h: 6, side: 'left' },
+  { id: 'nerve-r', label: 'Right optic nerve', x: 76.5, y: 75, w: 4, h: 7, side: 'right' },
+  { id: 'nerve-l', label: 'Left optic nerve', x: 57, y: 80, w: 6, h: 5, side: 'left' },
+  { id: 'tract-r', label: 'Right optic tract', x: 84, y: 86.5, w: 6, h: 5, side: 'right' },
+];
+
+const lesionSite = {
+  src: hemifieldsUrl,
+  alt: 'The two visual hemifields above two eyes; the optic nerves meet at the chiasm and leave as two optic tracts. Five numbered markers sit on the nerves, the chiasm and the tracts.',
+  aspect: 959 / 751,
+  regions: LESION_SITES,
+};
+
+// The visual field of each eye, split at the vertical meridian. Each
+// half is a region the student can shade.
+const FIELD_SVG = `<svg viewBox="0 0 400 190" xmlns="http://www.w3.org/2000/svg">
+  <style>.vf-half { fill: var(--c-surface); stroke: currentColor; stroke-width: 1.5; } .vf-text { fill: currentColor; font: 17px sans-serif; }</style>
+  <path class="vf-half" data-region="le-left" d="M100 20 A70 70 0 0 0 100 160 Z"/>
+  <path class="vf-half" data-region="le-right" d="M100 20 A70 70 0 0 1 100 160 Z"/>
+  <path class="vf-half" data-region="re-left" d="M300 20 A70 70 0 0 0 300 160 Z"/>
+  <path class="vf-half" data-region="re-right" d="M300 20 A70 70 0 0 1 300 160 Z"/>
+  <text class="vf-text" x="100" y="182" text-anchor="middle">Left eye</text>
+  <text class="vf-text" x="300" y="182" text-anchor="middle">Right eye</text>
+</svg>`;
+
+const fieldHalves = {
+  svg: FIELD_SVG,
+  alt: 'Two circles, the visual field of the left eye and of the right eye, each split by a vertical line into a left and a right half.',
+  aspect: 400 / 190,
+  showShapes: false,
+  regions: [
+    { id: 'le-left', label: 'Left eye, left half of the field', shape: 'rect', x: 16.25, y: 47.4, w: 17.5, h: 73.7, side: 'left' },
+    { id: 'le-right', label: 'Left eye, right half of the field', shape: 'rect', x: 33.75, y: 47.4, w: 17.5, h: 73.7, side: 'left' },
+    { id: 're-left', label: 'Right eye, left half of the field', shape: 'rect', x: 66.25, y: 47.4, w: 17.5, h: 73.7, side: 'right' },
+    { id: 're-right', label: 'Right eye, right half of the field', shape: 'rect', x: 83.75, y: 47.4, w: 17.5, h: 73.7, side: 'right' },
+  ],
+};
+
+// A patch of retina with a center-surround field; `lit` says which part
+// is lit (Mini Exam 4, Problem 7).
+function fieldPatch(lit) {
+  const on = '#f2d43c';
+  const off = '#c9d8e6';
+  const ground = lit === 'surround' || lit === 'all' ? on : off;
+  const centre = lit === 'center' || lit === 'all' ? on : off;
+  return `<svg viewBox="0 0 160 90" xmlns="http://www.w3.org/2000/svg">
+  <rect x="4" y="4" width="152" height="82" rx="4" fill="${ground}" stroke="currentColor"/>
+  <ellipse cx="80" cy="45" rx="58" ry="32" fill="none" stroke="currentColor"/>
+  <ellipse cx="80" cy="45" rx="22" ry="12" fill="${centre}" stroke="currentColor"/>
+</svg>`;
+}
+
+// A spike train: one tick per spike over a fixed window.
+function spikeTrain(times) {
+  const ticks = times.map((t) => `<line x1="${t}" y1="8" x2="${t}" y2="30" stroke="currentColor" stroke-width="1.5"/>`).join('');
+  return `<svg viewBox="0 0 160 36" xmlns="http://www.w3.org/2000/svg">
+  <line x1="4" y1="30" x2="156" y2="30" stroke="currentColor"/>${ticks}
+</svg>`;
+}
+
+const range = (from, to, step) => Array.from({ length: Math.floor((to - from) / step) + 1 }, (_, i) => from + i * step);
+const svgFigure = (markup, fallbackAlt) => ({ type: 'svg', markup, fallbackAlt });
+
 export default {
   meta: {
     id: 'L00',
@@ -16,7 +88,7 @@ export default {
 
   objectives: [
     'See every section type render: paragraph array, HTML string, static SVG, interactive widget.',
-    'See every question type render: multiple choice, true or false (single and several statements), fill in the blank (typed and word bank), classify, clinical case, interpret, essay, label (with and without a word bank), order, calculation.',
+    'See every question type render: multiple choice, true or false (single and several statements), fill in the blank (typed and word bank), classify, clinical case, interpret, essay, label (with and without a word bank), order, calculation, match pairs (text and figures), group items, diagram annotate, and weighted sub-items.',
     'See maths render through KaTeX, inline and as a block.',
     'Confirm progress is stored and that review pulls missed questions first.',
   ],
@@ -484,6 +556,152 @@ export default {
       ],
       correct: 0,
       modelAnswer: ['Flow through a channel always runs down the gradient.', 'An outward arrow means the inside is now the higher concentration.'],
+    },
+
+    // Question types and weights added after Mini Exams 3 and 4.
+    {
+      id: 'q30',
+      difficulty: 'easy',
+      type: 'inlineChoice',
+      prompt: 'Rods or cones? Circle the photoreceptor that contributes most, and in the last sentence the number of photopigment types. (Weighted as Mini Exam 4, Problem 1: 0.2 per function, 0.1 per number.)',
+      itemPoints: [0.2, 0.2, 0.2, 0.2, 0.1, 0.1],
+      sentences: [
+        { text: 'Detecting very dim light: ___', choices: [{ options: ['Rods', 'Cones'], answer: 0 }] },
+        { text: 'Supporting colour vision: ___', choices: [{ options: ['Rods', 'Cones'], answer: 1 }] },
+        { text: 'Fine spatial detail in the fovea: ___', choices: [{ options: ['Rods', 'Cones'], answer: 1 }] },
+        { text: 'Pooling signals from many photoreceptors for sensitivity: ___', choices: [{ options: ['Rods', 'Cones'], answer: 0 }] },
+        {
+          text: 'Human rods have ___ type of photopigment, and cones have ___ types.',
+          choices: [{ options: ['1', '3'], answer: 0 }, { options: ['1', '3'], answer: 1 }],
+          explanation: 'All rods contain the same photopigment; there are three types of cones, each with a different pigment.',
+        },
+      ],
+      modelAnswer: ['Rods: dim light and pooling.', 'Cones: colour and foveal detail.', 'Rods 1 photopigment, cones 3.'],
+    },
+    {
+      id: 'q31',
+      difficulty: 'easy',
+      type: 'matchPairs',
+      prompt: 'Match each part of a gap junction to its description. (Mini Exam 3, Problem 1.)',
+      rightTitle: 'Descriptions',
+      right: [
+        { id: 'connexon', text: 'A hemichannel built from six subunits' },
+        { id: 'channel', text: 'Two hemichannels docked, one from each cell' },
+        { id: 'connexin', text: 'A single protein subunit' },
+        { id: 'cleft', text: 'A gap of about $20$ to $50\\,\\text{nm}$ between two cells' },
+      ],
+      left: [
+        { text: 'Connexin', answer: 'connexin' },
+        { text: 'Connexon', answer: 'connexon', explanation: 'Six connexins make one connexon.' },
+        { text: 'Gap junction channel', answer: 'channel', explanation: 'One connexon from each cell, docked across the narrow gap.' },
+      ],
+      modelAnswer: ['A connexin is one subunit.', 'Six connexins form a connexon, a hemichannel.', 'Two connexons, one per cell, form the gap junction channel.', 'The wide cleft belongs to the chemical synapse, so D answers nothing.'],
+    },
+    {
+      id: 'q32',
+      difficulty: 'medium',
+      type: 'matchPairs',
+      prompt: 'Consider an ON-center ganglion cell. Match each spike-response pattern to the stimulation condition that evokes it. (Mini Exam 4, Problem 7.)',
+      rightTitle: 'Stimulation conditions',
+      leftTitle: 'Spike-response patterns',
+      right: [
+        { id: 'center', figure: svgFigure(fieldPatch('center'), 'Patch of retina: only the center of the receptive field is lit.') },
+        { id: 'surround', figure: svgFigure(fieldPatch('surround'), 'Patch of retina: the surround is lit, the center is dark.') },
+        { id: 'all', figure: svgFigure(fieldPatch('all'), 'Patch of retina: center and surround are both lit.') },
+        { id: 'none', figure: svgFigure(fieldPatch('none'), 'Patch of retina: no light on the field.') },
+      ],
+      left: [
+        { figure: svgFigure(spikeTrain(range(14, 146, 22)), 'Six evenly spaced spikes.'), answer: 'all', explanation: 'Uniform light: center and surround nearly cancel, a weak response.' },
+        { figure: svgFigure(spikeTrain(range(10, 150, 6)), 'A dense barrage of spikes.'), answer: 'center', explanation: 'Light on the center alone is the best stimulus.' },
+        { figure: svgFigure(spikeTrain([]), 'No spikes.'), answer: 'surround', explanation: 'Light on the surround alone inhibits the cell.' },
+        { figure: svgFigure(spikeTrain([30, 80, 130]), 'Three sparse spikes.'), answer: 'none', explanation: 'In the dark the cell fires only spontaneously.' },
+      ],
+      modelAnswer: ['Center alone lit: the strongest response, a barrage.', 'Surround alone lit: firing stops below spontaneous.', 'Whole field lit: center and surround cancel; a weak response.', 'No light: the sparse spontaneous rate.'],
+    },
+    {
+      id: 'q33',
+      difficulty: 'medium',
+      type: 'groupItems',
+      prompt: 'Classify the neurotransmitters according to their usual effect. (Mini Exam 3, Problem 7: glutamate and GABA 0.2 each, the rest 0.1.)',
+      groups: [
+        { label: 'Inhibitory' },
+        { label: 'Excitatory' },
+        { label: 'Both', description: 'Depending on the receptor and target cell' },
+      ],
+      items: [
+        { text: 'Acetylcholine', group: 'Both', points: 0.1, explanation: 'Nicotinic receptors excite; cardiac muscarinic receptors inhibit.' },
+        { text: 'Glutamate', group: 'Excitatory', points: 0.2 },
+        { text: 'GABA', group: 'Inhibitory', points: 0.2 },
+        { text: 'Glycine', group: 'Inhibitory', points: 0.1 },
+        { text: 'Histamine', group: 'Both', points: 0.1 },
+        { text: 'Dopamine', group: 'Both', points: 0.1 },
+        { text: 'Endocannabinoids', group: 'Inhibitory', points: 0.1, explanation: 'Retrograde messengers that reduce transmitter release.' },
+        { text: 'Serotonin', group: 'Both', points: 0.1 },
+      ],
+      modelAnswer: ['Inhibitory: GABA, glycine, endocannabinoids.', 'Excitatory: glutamate.', 'Both: acetylcholine, dopamine, serotonin, histamine.'],
+    },
+    {
+      id: 'q34',
+      difficulty: 'medium',
+      type: 'fillBlank',
+      prompt: 'A point lies in the right visual hemifield. Trace it to V1. (Weighted as Mini Exam 4, Problem 9: 0.3, 0.3, 0.4.)',
+      text: 'In the right eye its image falls on the ___ retina, in the left eye on the ___ retina, and it is represented in the ___ hemisphere of V1.',
+      blanks: [
+        { accept: ['nasal'], points: 0.3 },
+        { accept: ['temporal'], points: 0.3 },
+        { accept: ['left'], points: 0.4 },
+      ],
+      modelAnswer: ['The right hemifield falls on the right nasal and the left temporal hemiretina.', 'Right nasal fibres cross at the chiasm; left temporal fibres stay.', 'Both reach the left LGN and so the left V1.'],
+    },
+    {
+      id: 'q35',
+      difficulty: 'medium',
+      type: 'diagramAnnotate',
+      prompt: 'For each lesion, mark its location on the visual pathway and shade the part of the visual field that is lost. (Mini Exam 4, Problem 2.)',
+      site: lesionSite,
+      affected: { figure: fieldHalves },
+      siteLabel: '1. Mark the lesion',
+      affectedLabel: '2. Shade the lost visual field',
+      parts: [
+        { text: 'The right optic nerve', site: 'nerve-r', affected: ['re-left', 're-right'], points: 0.33, explanation: 'Right monocular blindness: the right eye loses its whole field.' },
+        { text: 'The optic tract on the right side', site: 'tract-r', affected: ['le-left', 're-left'], points: 0.33, explanation: 'Left homonymous hemianopia: the right tract carries the left hemifield of both eyes.' },
+        { text: 'The optic chiasm', site: 'chiasm', affected: ['le-left', 're-right'], points: 0.34, explanation: 'Bitemporal hemianopia: the crossing nasal fibres carry the temporal half-fields.' },
+      ],
+      modelAnswer: ['An optic nerve carries one eye only, so its whole field is lost.', 'Each tract carries the opposite hemifield from both eyes.', 'At the chiasm only the crossing nasal fibres are cut, so each eye loses its temporal half-field.'],
+    },
+    {
+      id: 'q36',
+      difficulty: 'hard',
+      type: 'diagramAnnotate',
+      prompt: 'For each lesion, mark its location and name the defect it causes.',
+      site: lesionSite,
+      affected: {
+        options: [
+          { id: 'mono-r', text: 'Right monocular blindness' },
+          { id: 'hh-l', text: 'Left homonymous hemianopia' },
+          { id: 'bitemporal', text: 'Bitemporal hemianopia' },
+          { id: 'hh-r', text: 'Right homonymous hemianopia' },
+        ],
+      },
+      siteLabel: '1. Mark the lesion',
+      affectedLabel: '2. Name the defect',
+      parts: [
+        { text: 'The optic tract on the left side', site: 'tract-l', affected: ['hh-r'] },
+        { text: 'The right optic nerve', site: 'nerve-r', affected: ['mono-r'] },
+      ],
+      modelAnswer: ['The left tract carries the right hemifield of both eyes: right homonymous hemianopia.', 'The right nerve carries the right eye only: right monocular blindness.'],
+    },
+    {
+      id: 'q37',
+      difficulty: 'medium',
+      type: 'trueFalse',
+      prompt: 'Mark each statement true or false. If false, replace the incorrect terms. (Two statements, so 0.5 each, as Mini Exam 3, Problem 3.)',
+      points: 1,
+      statements: [
+        { text: 'Gray type I synapses are usually symmetric and inhibitory.', answer: false, correction: 'Gray type I synapses are usually asymmetric and excitatory.' },
+        { text: 'Electrical synapses are useful when neighbouring cells must be synchronized.', answer: true, justification: 'Current passes directly and fast, in both directions.' },
+      ],
+      modelAnswer: ['a) False: asymmetric and excitatory.', 'b) True.'],
     },
   ],
 };

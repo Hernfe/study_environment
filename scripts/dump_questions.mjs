@@ -35,8 +35,9 @@ const files = readdirSync(dir)
   .sort();
 
 // Figure props hold SVG markup and region geometry the lint never reads.
-// Label questions keep only their region labels and label pool, which
-// the word-bank check compares against the bank.
+// Label questions keep only their region ids and labels and label pool, which
+// the word-bank check compares against the bank;
+// diagramAnnotate checks part sites and affected ids against the ids.
 function replacer(key, value) {
   if (typeof value === 'function') return undefined;
   if (typeof value === 'string' && value.trimStart().startsWith('<svg')) return '[svg]';
@@ -44,7 +45,7 @@ function replacer(key, value) {
   if (key === 'hotspots' && value && typeof value === 'object') {
     return { regions: value.regions, labelPool: value.labelPool };
   }
-  if (key === 'regions' && Array.isArray(value)) return value.map((r) => ({ label: r?.label }));
+  if (key === 'regions' && Array.isArray(value)) return value.map((r) => ({ id: r?.id, label: r?.label }));
   if (key === 'regions' && value && typeof value === 'object') return { dropped: true };
   return value;
 }
