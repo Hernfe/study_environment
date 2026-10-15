@@ -4,10 +4,12 @@
 // 16.9. The L05 deck's schedule (slide 2) lists chapter 11 on 9.10, a
 // typo: the later L06 deck has 30.9 for chapter 11 and 7.10 for
 // chapters 12 to 14, as below.
-// Mini-exam dates: L1 on 18.9, L2 on 25.9 and L4 on 9.10 are on the
-// slides (L04 deck: "Exam on Sep 25th on Lecture 2"; L06 deck: "Exam on
-// Oct 9th on Lecture 4"). L3 on 2.10 and the rest are assumed weekly on
-// Fridays with the same two-week lag. Check MyCourses and correct here.
+// Mini-exam dates: every Friday, one lecture per exam in lecture order,
+// no exam on Friday 16.10. L1 on 18.9, L2 on 25.9 and L4 on 9.10 are on
+// the slides (L04 deck: "Exam on Sep 25th on Lecture 2"; L06 deck: "Exam
+// on Oct 9th on Lecture 4"); L3 on 2.10 follows from them. L5 on 23.10
+// and L6 on 30.10 are confirmed. L7 to L11 (6.11 to 4.12, one per
+// Friday) are assumed from the pattern. Check MyCourses and correct here.
 // Titles are the textbook chapter titles, shortened.
 
 export const registry = [
@@ -53,7 +55,7 @@ export const registry = [
     title: 'The auditory system',
     chapters: [11],
     lectureDate: '2026-09-30',
-    examDate: '2026-10-16',
+    examDate: '2026-10-23',
     built: true,
   },
   {
@@ -62,7 +64,7 @@ export const registry = [
     title: 'Somatic sensation, spinal and brain control of movement',
     chapters: [12, 13, 14],
     lectureDate: '2026-10-07',
-    examDate: '2026-10-23',
+    examDate: '2026-10-30',
     built: true,
   },
   {
@@ -71,7 +73,7 @@ export const registry = [
     title: 'Chemical control of the brain and behaviour, brain mechanisms of emotion',
     chapters: [15, 18],
     lectureDate: '2026-10-21',
-    examDate: '2026-10-30',
+    examDate: '2026-11-06',
     built: false,
   },
   {
@@ -80,7 +82,7 @@ export const registry = [
     title: 'The resting brain, attention and consciousness',
     chapters: [21],
     lectureDate: '2026-10-28',
-    examDate: '2026-11-06',
+    examDate: '2026-11-13',
     built: false,
   },
   {
@@ -89,7 +91,7 @@ export const registry = [
     title: 'Mental illness',
     chapters: [22],
     lectureDate: '2026-11-04',
-    examDate: '2026-11-13',
+    examDate: '2026-11-20',
     built: false,
   },
   {
@@ -98,7 +100,7 @@ export const registry = [
     title: 'Wiring the brain',
     chapters: [23],
     lectureDate: '2026-11-11',
-    examDate: '2026-11-20',
+    examDate: '2026-11-27',
     built: false,
   },
   {
@@ -107,7 +109,7 @@ export const registry = [
     title: 'Memory systems and molecular mechanisms of learning and memory',
     chapters: [24, 25],
     lectureDate: '2026-11-18',
-    examDate: '2026-11-27',
+    examDate: '2026-12-04',
     built: false,
   },
 ];

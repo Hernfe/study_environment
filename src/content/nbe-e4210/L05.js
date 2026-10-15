@@ -226,7 +226,7 @@ export default {
       { chapter: 11, from: 399, to: 403 },
     ],
     lectureDate: '2026-09-30',
-    examDate: '2026-10-16',
+    examDate: '2026-10-23',
   },
 
   objectives: [

@@ -455,7 +455,7 @@ export default {
       { chapter: 14, from: 484, to: 517 },
     ],
     lectureDate: '2026-10-07',
-    examDate: '2026-10-23',
+    examDate: '2026-10-30',
   },
 
   objectives: [
