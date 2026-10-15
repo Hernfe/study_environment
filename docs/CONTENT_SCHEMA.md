@@ -107,6 +107,12 @@ text needs them. Every section ends with its `conceptQuiz`.
 }
 ```
 
+`part` (optional) opens a part of a long lecture: `{ id, number, title,
+intro? }` on the first section of the part. The renderer draws a banner
+before that section (kicker "Part 2", the title, the muted intro) and a
+non-link heading in the table of contents. L06 uses three parts, one per
+textbook chapter.
+
 ### Blocks
 
 Each block renders as its own quiet card with a small kicker heading,
@@ -267,6 +273,11 @@ Rules for `visual`:
 | `compression-rarefaction` | `compressionRarefaction.js` | Slider through two cycles of a tone: air pressure, basilar membrane position and receptor potential on aligned traces, a hair bundle with its tip links and MET channels, and read-out rows per state. Props: `{ labels, rowLabels, states: { compression, rarefaction, between } }`. |
 | `phase-locking` | `phaseLocking.js` | Frequency slider; ten cycles of a tone, spike rasters of model fibres with a refractory period and fixed timing jitter, the pooled volley row and a spike-phase histogram; read-out of period, fraction of cycles per fibre, cycles covered and vector strength. Props: `{ initial, fibres, refractory, probability, jitter, labels }`. |
 | `simple-cell` | `simpleCell.js` | Light bar rotated and shifted over three LGN ON-center fields, aligned or scattered; LGN and simple cell spike trains and an orientation tuning curve. Props: `{ axis, threshold, gain, initial, labels }`. |
+| `adaptation-demo` | `adaptationDemo.js` | A probe pressed, held and lifted: receptor potential and spikes of an intact Pacinian, a capsule-stripped Pacinian and a Merkel afferent on one time axis; sliders for hold time and depth; spike counts at onset, during the hold and at removal. Props: `{ initial: { hold, depth }, rows: [{ key: 'pacinian' \| 'stripped' \| 'merkel', label, sub }], labels }`. |
+| `dermatome-map` | `dermatomeMap.js` | Segment buttons (C2 to S5, grouped, arrow keys) shade that segment's skin on a dermatome picture from SVG paths, rings where the figure only points; optional whole-group shading. Props: `{ src, alt, size: { width, height }, paths: { seg: 'M..Z' }, points: { seg: [[x, y]] }, groups: [{ key, label, segments }], initial, notes, labels }`. Paths come from `scripts/trace_dermatomes.py`. |
+| `pathway-tracer` | `pathwayTracer.js` | Schematic of the dorsal column-medial lemniscal and spinothalamic pathways from either side of the body to S1, crossings marked; lesion radios (`none`, `hemi-right`, `dc-right`, `ml-left`) cut the drawing and the read-out lists what is lost on each side. Props: `{ initial: { side, show, lesion }, lesions: [{ key, label }], labels }`. |
+| `recruitment-demo` | `recruitmentDemo.js` | Force slider (percent MVC): a pool of motor units recruited smallest first (size principle), a one-second raster of their spikes (rate coding), and force against percent of the pool recruited. Props: `{ units, initial, labels: { ..., types: { S, FR, FF } } }`. |
+| `control-loop` | `controlLoop.js` | Block diagram of the spinal feedback loop (`mode: 'spinal'`, slide 42) or the brain's feedforward controller on top of it (`mode: 'brain'`, slide 43); checkboxes remove parts (`sensor`, `input`, `ff`, `extero`) and a toy arm model plots elbow opening after a weight lands, against the intact loop; brain mode adds expected or unexpected weight. Props: `{ mode, scenarios: [{ key, label }], parts: [{ key, label, effect }], labels: { blocks: {...}, ... } }`. |
 
 The five quantitative demos share `hhModel.js` (the membrane model)
 and `d3util.js` (which also holds `spikeTrain` and `ringSamples` for the

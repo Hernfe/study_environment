@@ -1,0 +1,28 @@
+{
+ "file": "src/assets/figures/nbe-e4210/L06/dermatomes.webp",
+ "source": "source/nbe-e4210/slides/NBE-E4210 LECTURE 06 - 2026.pdf",
+ "page": 16,
+ "crop_box_pt": [
+  581.25,
+  177.0,
+  922.5,
+  493.5
+ ],
+ "page_size_pt": [
+  960.0,
+  540.0
+ ],
+ "dpi": 270,
+ "rendered_px": [
+  1283,
+  1190
+ ],
+ "saved_px": [
+  1283,
+  1190
+ ],
+ "webp_quality": 90,
+ "bytes": 114794,
+ "extracted": "2026-10-15T12:30:53+00:00",
+ "note": "Course slide material. Redraw or replace before publishing; see CREDITS.md."
+}

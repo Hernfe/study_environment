@@ -1,0 +1,28 @@
+{
+ "file": "src/assets/figures/nbe-e4210/L06/tracts-section.webp",
+ "source": "source/nbe-e4210/slides/NBE-E4210 LECTURE 06 - 2026.pdf",
+ "page": 45,
+ "crop_box_pt": [
+  25.5,
+  172.5,
+  461.25,
+  452.25
+ ],
+ "page_size_pt": [
+  960.0,
+  540.0
+ ],
+ "dpi": 200,
+ "rendered_px": [
+  1211,
+  777
+ ],
+ "saved_px": [
+  1211,
+  777
+ ],
+ "webp_quality": 90,
+ "bytes": 50690,
+ "extracted": "2026-10-15T13:04:21+00:00",
+ "note": "Course slide material. Redraw or replace before publishing; see CREDITS.md."
+}

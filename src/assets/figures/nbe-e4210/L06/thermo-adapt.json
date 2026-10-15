@@ -1,0 +1,28 @@
+{
+ "file": "src/assets/figures/nbe-e4210/L06/thermo-adapt.webp",
+ "source": "source/nbe-e4210/slides/NBE-E4210 LECTURE 06 - 2026.pdf",
+ "page": 31,
+ "crop_box_pt": [
+  405.75,
+  138.75,
+  915.75,
+  536.25
+ ],
+ "page_size_pt": [
+  960.0,
+  540.0
+ ],
+ "dpi": 131,
+ "rendered_px": [
+  927,
+  723
+ ],
+ "saved_px": [
+  927,
+  723
+ ],
+ "webp_quality": 90,
+ "bytes": 16076,
+ "extracted": "2026-10-15T13:04:06+00:00",
+ "note": "Course slide material. Redraw or replace before publishing; see CREDITS.md."
+}

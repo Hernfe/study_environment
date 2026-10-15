@@ -26,6 +26,11 @@ import { travelingWave } from './travelingWave.js';
 import { hairCellStepper } from './hairCellStepper.js';
 import { compressionRarefaction } from './compressionRarefaction.js';
 import { phaseLocking } from './phaseLocking.js';
+import { adaptationDemo } from './adaptationDemo.js';
+import { dermatomeMap } from './dermatomeMap.js';
+import { pathwayTracer } from './pathwayTracer.js';
+import { recruitmentDemo } from './recruitmentDemo.js';
+import { controlLoop } from './controlLoop.js';
 
 export const widgets = {
   'slider-plot': sliderPlot,
@@ -61,4 +66,10 @@ export const widgets = {
   'hair-cell-stepper': hairCellStepper,
   'compression-rarefaction': compressionRarefaction,
   'phase-locking': phaseLocking,
+  // Somatic sensation and motor control demos (d3).
+  'adaptation-demo': adaptationDemo,
+  'dermatome-map': dermatomeMap,
+  'pathway-tracer': pathwayTracer,
+  'recruitment-demo': recruitmentDemo,
+  'control-loop': controlLoop,
 };

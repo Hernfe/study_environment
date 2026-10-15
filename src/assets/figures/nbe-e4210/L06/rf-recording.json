@@ -1,0 +1,28 @@
+{
+ "file": "src/assets/figures/nbe-e4210/L06/rf-recording.webp",
+ "source": "source/nbe-e4210/slides/NBE-E4210 LECTURE 06 - 2026.pdf",
+ "page": 9,
+ "crop_box_pt": [
+  69.0,
+  159.75,
+  510.75,
+  420.75
+ ],
+ "page_size_pt": [
+  960.0,
+  540.0
+ ],
+ "dpi": 134,
+ "rendered_px": [
+  826,
+  488
+ ],
+ "saved_px": [
+  826,
+  488
+ ],
+ "webp_quality": 90,
+ "bytes": 22822,
+ "extracted": "2026-10-15T12:30:43+00:00",
+ "note": "Course slide material. Redraw or replace before publishing; see CREDITS.md."
+}

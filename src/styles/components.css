@@ -2509,3 +2509,104 @@ p.block-link {
   border: 0;
   overflow-wrap: anywhere;
 }
+
+/* Parts of a long lecture (a section's `part`): a banner before the
+   section that opens the part, and a heading in the table of contents. */
+.part-header {
+  margin: var(--sp-7) 0 var(--sp-6);
+  padding-top: var(--sp-4);
+  border-top: 2px solid var(--c-accent);
+  scroll-margin-top: var(--sp-6);
+}
+
+.part-kicker {
+  margin: 0;
+  font-size: var(--fs-sm);
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--c-accent);
+}
+
+.part-title {
+  margin: var(--sp-1) 0 0;
+  font-size: var(--fs-xl, 1.5rem);
+  font-weight: 600;
+  line-height: 1.25;
+}
+
+.part-intro {
+  margin-top: var(--sp-2);
+  color: var(--c-text-muted);
+}
+
+.toc li.toc-part {
+  margin-top: var(--sp-3);
+  padding: 0 var(--sp-2);
+  font-weight: 600;
+  color: var(--c-text);
+}
+
+.toc li.toc-part:first-child {
+  margin-top: 0;
+}
+
+/* Dermatome map: segment buttons grouped by spinal region. */
+.dermatome-stage {
+  background: #ffffff;
+  border-radius: var(--radius-sm);
+}
+
+.dermatome-picker {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-2);
+  flex: 1 1 100%;
+}
+
+.dermatome-group {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--sp-2);
+}
+
+.dermatome-group-label {
+  min-width: 5.5rem;
+  color: var(--c-text-muted);
+}
+
+.dermatome-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--sp-1);
+}
+
+.dermatome-btn {
+  min-width: 2.6rem;
+  padding: 0.2rem 0.45rem;
+  font: inherit;
+  font-size: var(--fs-sm);
+  font-variant-numeric: tabular-nums;
+  color: var(--c-text);
+  background: var(--c-surface);
+  border: 1px solid var(--c-border);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: background-color 0.12s, border-color 0.12s;
+}
+
+.dermatome-btn:hover {
+  border-color: var(--c-accent);
+}
+
+.dermatome-btn[aria-pressed="true"] {
+  color: var(--c-surface);
+  background: var(--c-accent);
+  border-color: var(--c-accent);
+}
+
+.dermatome-btn.is-lit {
+  background: var(--c-accent-soft);
+  border-color: var(--c-accent);
+}

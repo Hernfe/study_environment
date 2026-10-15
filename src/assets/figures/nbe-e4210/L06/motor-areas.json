@@ -1,0 +1,53 @@
+{
+ "file": "src/assets/figures/nbe-e4210/L06/motor-areas.webp",
+ "source": "source/nbe-e4210/slides/NBE-E4210 LECTURE 06 - 2026.pdf",
+ "page": 47,
+ "crop_box_pt": [
+  40.5,
+  119.25,
+  462.75,
+  527.25
+ ],
+ "page_size_pt": [
+  960.0,
+  540.0
+ ],
+ "dpi": 200,
+ "rendered_px": [
+  1173,
+  1134
+ ],
+ "saved_px": [
+  1173,
+  1077
+ ],
+ "webp_quality": 90,
+ "bytes": 95742,
+ "extracted": "2026-10-15T13:04:24+00:00",
+ "note": "Course slide material. Redraw or replace before publishing; see CREDITS.md.",
+ "retouch": [
+  {
+   "op": "paint",
+   "boxes_pct": [
+    [
+     30.0,
+     95.0,
+     70.0,
+     100.0
+    ]
+   ],
+   "color": "#ffffff",
+   "at": "2026-10-15T13:04:41+00:00"
+  },
+  {
+   "op": "crop",
+   "box_pct": [
+    0.0,
+    0.0,
+    100.0,
+    95.0
+   ],
+   "at": "2026-10-15T13:04:42+00:00"
+  }
+ ]
+}

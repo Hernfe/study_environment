@@ -1,0 +1,28 @@
+{
+ "file": "src/assets/figures/nbe-e4210/L06/alpha-gamma.webp",
+ "source": "source/nbe-e4210/slides/NBE-E4210 LECTURE 06 - 2026.pdf",
+ "page": 38,
+ "crop_box_pt": [
+  568.5,
+  147.0,
+  849.75,
+  512.25
+ ],
+ "page_size_pt": [
+  960.0,
+  540.0
+ ],
+ "dpi": 200,
+ "rendered_px": [
+  782,
+  1015
+ ],
+ "saved_px": [
+  782,
+  1015
+ ],
+ "webp_quality": 90,
+ "bytes": 75900,
+ "extracted": "2026-10-15T13:04:13+00:00",
+ "note": "Course slide material. Redraw or replace before publishing; see CREDITS.md."
+}

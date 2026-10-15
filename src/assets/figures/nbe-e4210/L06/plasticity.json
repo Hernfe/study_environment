@@ -1,0 +1,28 @@
+{
+ "file": "src/assets/figures/nbe-e4210/L06/plasticity.webp",
+ "source": "source/nbe-e4210/slides/NBE-E4210 LECTURE 06 - 2026.pdf",
+ "page": 23,
+ "crop_box_pt": [
+  615.75,
+  0.0,
+  960.0,
+  540.0
+ ],
+ "page_size_pt": [
+  960.0,
+  540.0
+ ],
+ "dpi": 143,
+ "rendered_px": [
+  687,
+  1077
+ ],
+ "saved_px": [
+  687,
+  1077
+ ],
+ "webp_quality": 90,
+ "bytes": 71714,
+ "extracted": "2026-10-15T13:03:57+00:00",
+ "note": "Course slide material. Redraw or replace before publishing; see CREDITS.md."
+}

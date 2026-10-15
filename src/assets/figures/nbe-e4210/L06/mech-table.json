@@ -1,0 +1,28 @@
+{
+ "file": "src/assets/figures/nbe-e4210/L06/mech-table.webp",
+ "source": "source/nbe-e4210/slides/NBE-E4210 LECTURE 06 - 2026.pdf",
+ "page": 10,
+ "crop_box_pt": [
+  0.0,
+  168.75,
+  543.0,
+  388.5
+ ],
+ "page_size_pt": [
+  960.0,
+  540.0
+ ],
+ "dpi": 138,
+ "rendered_px": [
+  1039,
+  422
+ ],
+ "saved_px": [
+  1039,
+  422
+ ],
+ "webp_quality": 90,
+ "bytes": 26120,
+ "extracted": "2026-10-15T12:30:45+00:00",
+ "note": "Course slide material. Redraw or replace before publishing; see CREDITS.md."
+}

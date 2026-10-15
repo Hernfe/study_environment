@@ -1,0 +1,40 @@
+{
+ "file": "src/assets/figures/nbe-e4210/L06/rf-hands.webp",
+ "source": "source/nbe-e4210/slides/NBE-E4210 LECTURE 06 - 2026.pdf",
+ "page": 9,
+ "crop_box_pt": [
+  522.75,
+  67.5,
+  902.25,
+  358.5
+ ],
+ "page_size_pt": [
+  960.0,
+  540.0
+ ],
+ "dpi": 113,
+ "rendered_px": [
+  599,
+  459
+ ],
+ "saved_px": [
+  599,
+  394
+ ],
+ "webp_quality": 90,
+ "bytes": 18036,
+ "extracted": "2026-10-15T12:30:44+00:00",
+ "note": "Course slide material. Redraw or replace before publishing; see CREDITS.md.",
+ "retouch": [
+  {
+   "op": "crop",
+   "box_pct": [
+    0.0,
+    0.0,
+    100.0,
+    86.0
+   ],
+   "at": "2026-10-15T13:04:46+00:00"
+  }
+ ]
+}

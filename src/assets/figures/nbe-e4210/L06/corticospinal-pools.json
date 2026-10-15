@@ -1,0 +1,28 @@
+{
+ "file": "src/assets/figures/nbe-e4210/L06/corticospinal-pools.webp",
+ "source": "source/nbe-e4210/slides/NBE-E4210 LECTURE 06 - 2026.pdf",
+ "page": 49,
+ "crop_box_pt": [
+  519.75,
+  142.5,
+  906.0,
+  519.75
+ ],
+ "page_size_pt": [
+  960.0,
+  540.0
+ ],
+ "dpi": 200,
+ "rendered_px": [
+  1073,
+  1048
+ ],
+ "saved_px": [
+  1073,
+  1048
+ ],
+ "webp_quality": 90,
+ "bytes": 101842,
+ "extracted": "2026-10-15T13:04:27+00:00",
+ "note": "Course slide material. Redraw or replace before publishing; see CREDITS.md."
+}

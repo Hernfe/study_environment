@@ -1,0 +1,28 @@
+{
+ "file": "src/assets/figures/nbe-e4210/L06/pain-soup.webp",
+ "source": "source/nbe-e4210/slides/NBE-E4210 LECTURE 06 - 2026.pdf",
+ "page": 26,
+ "crop_box_pt": [
+  9.0,
+  168.75,
+  358.5,
+  420.75
+ ],
+ "page_size_pt": [
+  960.0,
+  540.0
+ ],
+ "dpi": 216,
+ "rendered_px": [
+  1049,
+  756
+ ],
+ "saved_px": [
+  1049,
+  756
+ ],
+ "webp_quality": 90,
+ "bytes": 57864,
+ "extracted": "2026-10-15T13:03:59+00:00",
+ "note": "Course slide material. Redraw or replace before publishing; see CREDITS.md."
+}

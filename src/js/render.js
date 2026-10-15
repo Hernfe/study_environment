@@ -88,15 +88,35 @@ function renderHeader(meta) {
 
 function renderToc(content) {
   const items = [
-    ...content.sections.map((s) => ({ id: s.id, title: s.title })),
+    ...content.sections.flatMap((s) => [
+      s.part ? { part: s.part } : null,
+      { id: s.id, title: s.title },
+    ].filter(Boolean)),
     { id: 'recap', title: 'Recap card' },
     { id: 'lecture-quiz', title: 'Lecture quiz' },
   ];
   const nav = el('nav', { class: 'toc', 'aria-label': 'Contents' }, [
     el('p', { class: 'toc-title' }, 'Contents'),
-    el('ol', {}, items.map((item) => el('li', {}, el('a', { href: `#${item.id}` }, item.title)))),
+    el('ol', {}, items.map((item) => (item.part
+      ? el('li', { class: 'toc-part' }, `${partLabel(item.part)}: ${item.part.title}`)
+      : el('li', {}, el('a', { href: `#${item.id}` }, item.title))))),
   ]);
   return nav;
+}
+
+// A section may open a part of the lecture (L06 has three: somatic
+// sensation, spinal control, brain control). The part is a banner
+// before the section and a heading in the table of contents.
+function partLabel(part) {
+  return part.number ? `Part ${part.number}` : 'Part';
+}
+
+function renderPartHeader(part) {
+  return el('div', { class: 'part-header', id: part.id || null }, [
+    el('p', { class: 'part-kicker' }, partLabel(part)),
+    el('p', { class: 'part-title' }, part.title),
+    part.intro ? el('div', { class: 'part-intro' }, paragraphs(part.intro)) : null,
+  ]);
 }
 
 function trackCurrentSection(toc) {
@@ -314,7 +334,10 @@ export function renderLecture(content, root) {
     renderObjectives(content.objectives),
     renderPrerequisites(content.prerequisites),
     el('div', { class: 'toc-inline' }, [toc.cloneNode(true)]),
-    ...content.sections.map((section) => renderSection(section, lectureId)),
+    ...content.sections.flatMap((section) => [
+      section.part ? renderPartHeader(section.part) : null,
+      renderSection(section, lectureId),
+    ]),
     renderRecap(content.recap),
     renderLectureQuiz(content.lectureQuiz || [], { lectureId }),
     renderCredits(),

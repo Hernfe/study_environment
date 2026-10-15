@@ -178,6 +178,53 @@ figures as shown on the slides. The slide 34 video ("Cortical neurons V1") is no
 | `a1.webp` | L05 Auditory cortex | L05 slide deck, page 38 (textbook Figure 11.27) | Course slides | Course material | Cite the course |
 | Widgets `traveling-wave`, `hair-cell-stepper`, `compression-rarefaction`, `phase-locking` | L05 | d3 demos drawn for this site; the place map is the Greenwood function, the phase-locking model a jittered refractory spiking model, both illustrative | n/a | Repository licence | No |
 | Link: https://youtu.be/aBZPPOm0_pA | L05 Frequency analyzer (optional link card) | Video recommended by the L05 teaching assistant; linked, not embedded | YouTube | Third party | n/a |
+| `skin.webp` | L06 Somatosensory system | L06 slide deck, page 8 (textbook Figure 12.1), labels and leaders removed | Course slides | Course material | Cite the course |
+| `rf-recording.webp` | L06 Receptive fields | L06 slide deck, page 9 (textbook Figure 12.2a) | Course slides | Course material | Cite the course |
+| `rf-hands.webp` | L06 Receptive fields | L06 slide deck, page 9 (textbook Figure 12.2b), cropped | Course slides | Course material | Cite the course |
+| `mech-table.webp` | L06 Receptive fields | L06 slide deck, page 10 (textbook Figure 12.3) | Course slides | Course material | Cite the course |
+| `freq-tuning.webp` | L06 Receptive fields | L06 slide deck, page 10 (textbook Figure 12.4) | Course slides | Course material | Cite the course |
+| `pacinian.webp` | L06 Adaptation | L06 slide deck, page 11 (textbook Figure 12.5) | Course slides | Course material | Cite the course |
+| `mech-channels.webp` | L06 Mechanosensitive channels | L06 slide deck, page 12 (textbook Figure 12.6) | Course slides | Course material | Cite the course |
+| `spinal-roots.webp` | L06 lecture quiz q02 | L06 slide deck, page 13 (textbook Figure 12.9), labels and leaders removed | Course slides | Course material | Cite the course |
+| `fibre-classes.webp` | L06 Afferent axons | L06 slide deck, page 14 (textbook Figure 12.10) | Course slides | Course material | Cite the course |
+| `segments.webp` | L06 Spinal segments and dermatomes | L06 slide deck, page 15 (textbook Figure 12.11) | Course slides | Course material | Cite the course |
+| `dermatomes.webp` | L06 Dermatome widget | L06 slide deck, page 16 (textbook Figure 12.12); regions traced by scripts/trace_dermatomes.py into src/content/nbe-e4210/figures/dermatome-regions.js | Course slides | Course material | Cite the course |
+| `dorsal-horn.webp` | L06 Dorsal column pathway | L06 slide deck, page 17 (textbook Figure 12.14), labels and leaders removed | Course slides | Course material | Cite the course |
+| `dcml.webp` | L06 Dorsal column pathway | L06 slide deck, page 17 (textbook Figure 12.15), stray slide text cropped | Course slides | Course material | Cite the course |
+| `trigeminal.webp` | L06 Trigeminal pathway | L06 slide deck, page 18 (textbook Figure 12.16) | Course slides | Course material | Cite the course |
+| `s1-areas.webp` | L06 Somatosensory cortex | L06 slide deck, page 19 (textbook Figure 12.17) | Course slides | Course material | Cite the course |
+| `s1-columns.webp` | L06 Somatosensory cortex | L06 slide deck, page 20 (textbook Figure 12.18) | Course slides | Course material | Cite the course |
+| `homunculus.webp` | L06 Somatotopic map | L06 slide deck, page 21 (textbook Figure 12.19), slide text cropped | Course slides | Course material | Cite the course |
+| `plasticity.webp` | L06 Map plasticity | L06 slide deck, page 23 (textbook Figure 12.23) | Course slides | Course material | Cite the course |
+| `pain-soup.webp` | L06 Nociceptors | L06 slide deck, page 26 (textbook Figure 12.25) | Course slides | Course material | Cite the course |
+| `spinothalamic.webp` | L06 Spinothalamic pathway | L06 slide deck, page 27 (textbook Figure 12.30), stray bullets painted out | Course slides | Course material | Cite the course |
+| `two-pathways.webp` | L06 Spinothalamic pathway | L06 slide deck, page 27 (textbook Figure 12.31) | Course slides | Course material | Cite the course |
+| `gate.webp` | L06 Pain regulation | L06 slide deck, page 28 (textbook Figure 12.33), slide text cropped | Course slides | Course material | Cite the course |
+| `pag.webp` | L06 Pain regulation | L06 slide deck, page 28 (textbook Figure 12.34) | Course slides | Course material | Cite the course |
+| `trp.webp` | L06 Temperature | L06 slide deck, page 30 (textbook Figure 12.35 with slide additions) | Course slides | Course material | Cite the course |
+| `thermo-adapt.webp` | L06 Temperature | L06 slide deck, page 31 (textbook Figure 12.36) | Course slides | Course material | Cite the course |
+| `muscle.webp` | L06 Skeletal muscle | L06 slide deck, page 33 (textbook Figure 13.1) | Course slides | Course material | Cite the course |
+| `muscle-structure.webp` | L06 Skeletal muscle | L06 slide deck, page 33 (adapted from Komi 2003 and Monroy et al. 2012, as on the slide) | Course slides | Course material | Cite the course |
+| `motor-unit.webp` | L06 Motor unit | L06 slide deck, page 36 (textbook Figure 13.7) | Course slides | Course material | Cite the course |
+| `twitch-summation.webp` | L06 Motor unit | L06 slide deck, page 36 (textbook Figure 13.8) | Course slides | Course material | Cite the course |
+| `mu-types.webp` | L06 Motor unit, lecture quiz q13 | L06 slide deck, page 36 (textbook Figure 13.10) | Course slides | Course material | Cite the course |
+| `lmn-inputs.webp` | L06 Lower motor neurons | L06 slide deck, page 38 (textbook Figure 13.9) | Course slides | Course material | Cite the course |
+| `alpha-gamma.webp` | L06 Lower motor neurons | L06 slide deck, page 38 (textbook Figure 13.20) | Course slides | Course material | Cite the course |
+| `lmn.webp` | L06 Lower motor neurons | L06 slide deck, page 39 (textbook Figure 13.4) | Course slides | Course material | Cite the course |
+| `ventral-horn-map.webp` | L06 Lower motor neurons | L06 slide deck, page 39 (textbook Figure 13.6) | Course slides | Course material | Cite the course |
+| `spindle.webp` | L06 Muscle spindles | L06 slide deck, page 40 (textbook Figure 13.21), slide title and caption painted out | Course slides | Course material | Cite the course |
+| `gto.webp` | L06 Golgi tendon organs | L06 slide deck, page 41 (textbook Figure 13.22) | Course slides | Course material | Cite the course |
+| `gto-series.webp` | L06 Golgi tendon organs | L06 slide deck, page 41 (textbook Figure 13.23) | Course slides | Course material | Cite the course |
+| `hierarchy.webp` | L06 Motor control hierarchy | L06 slide deck, page 44 (Kandel et al. 2013, Principles of Neural Science, as on the slide) | Course slides | Course material | Cite the course |
+| `tracts-section.webp` | L06 Descending tracts | L06 slide deck, page 45 (textbook Figure 14.2) | Course slides | Course material | Cite the course |
+| `tracts-summary.webp` | L06 Descending tracts | L06 slide deck, page 45 (textbook Figure 14.6) | Course slides | Course material | Cite the course |
+| `motor-map.webp` | L06 Motor areas | L06 slide deck, page 46 (textbook Figure 14.8 with the sensory map), slide title painted out | Course slides | Course material | Cite the course |
+| `motor-areas.webp` | L06 Motor areas | L06 slide deck, page 47 (textbook Figure 14.7), slide caption cropped | Course slides | Course material | Cite the course |
+| `bg-loop.webp` | L06 Basal ganglia loop | L06 slide deck, page 48 (adapted textbook Figure 14.14); striatum-to-GPe arrow recoloured inhibitory and its plus made a minus, per the TA notes and p. 500 | Course slides | Course material | Cite the course |
+| `cerebellar-loop.webp` | L06 Cerebellar loop | L06 slide deck, page 49 (textbook Figure 14.22) | Course slides | Course material | Cite the course |
+| `corticospinal-pools.webp` | L06 Cerebellar loop | L06 slide deck, page 49 (textbook Figure 14.15) | Course slides | Course material | Cite the course |
+| `fmri-map.webp` | L06 Mapping the motor cortex | L06 slide deck, page 50 (Meier et al. 2008, J Neurophysiol 100:1800, Fig. 4, as on the slide), citation cropped | Course slides | Course material | Cite the course |
+| Widgets `adaptation-demo`, `dermatome-map`, `pathway-tracer`, `recruitment-demo`, `control-loop` | L06 | d3 and SVG demos drawn for this site; adaptation, recruitment and control-loop models are illustrative; the dermatome map overlays regions traced from Figure 12.12 | n/a | Repository licence | No |
 
 Credit lines shown on the site: the footer of every page names the
 sources whose licence asks for attribution and links here. When a page is

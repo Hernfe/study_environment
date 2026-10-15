@@ -1,0 +1,28 @@
+{
+ "file": "src/assets/figures/nbe-e4210/L06/pag.webp",
+ "source": "source/nbe-e4210/slides/NBE-E4210 LECTURE 06 - 2026.pdf",
+ "page": 28,
+ "crop_box_pt": [
+  0.0,
+  0.0,
+  441.75,
+  381.0
+ ],
+ "page_size_pt": [
+  960.0,
+  540.0
+ ],
+ "dpi": 139,
+ "rendered_px": [
+  852,
+  735
+ ],
+ "saved_px": [
+  852,
+  735
+ ],
+ "webp_quality": 90,
+ "bytes": 45764,
+ "extracted": "2026-10-15T13:04:03+00:00",
+ "note": "Course slide material. Redraw or replace before publishing; see CREDITS.md."
+}
