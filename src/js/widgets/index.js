@@ -22,6 +22,10 @@ import { ampaNmda } from './ampaNmda.js';
 import { centerSurround } from './centerSurround.js';
 import { hemifieldTracer } from './hemifieldTracer.js';
 import { simpleCell } from './simpleCell.js';
+import { travelingWave } from './travelingWave.js';
+import { hairCellStepper } from './hairCellStepper.js';
+import { compressionRarefaction } from './compressionRarefaction.js';
+import { phaseLocking } from './phaseLocking.js';
 
 export const widgets = {
   'slider-plot': sliderPlot,
@@ -52,4 +56,9 @@ export const widgets = {
   'center-surround': centerSurround,
   'hemifield-tracer': hemifieldTracer,
   'simple-cell': simpleCell,
+  // Auditory system demos (d3).
+  'traveling-wave': travelingWave,
+  'hair-cell-stepper': hairCellStepper,
+  'compression-rarefaction': compressionRarefaction,
+  'phase-locking': phaseLocking,
 };

@@ -154,6 +154,7 @@ const KICKERS = {
   equation: 'Equation',
   math: 'Equation',
   detail: 'Detail',
+  link: 'Optional',
 };
 
 function card(type, title, children, extraClass = '') {
@@ -202,6 +203,12 @@ const BLOCKS = {
     b.note ? el('p', { class: 'block-note' }, b.note) : null,
   ]),
   video: (b) => renderVideo(b.video || b),
+  // An external resource, never required: the kicker says Optional, the
+  // note says what it covers and what it leaves out.
+  link: (b) => card('link', b.title, [
+    el('p', { class: 'block-link' }, el('a', { href: b.href, target: '_blank', rel: 'noopener noreferrer' }, b.label || b.href)),
+    b.body ? el('div', { class: 'block-body' }, paragraphs(b.body)) : null,
+  ]),
   misconception: (b) => card('misconception', b.title, [
     el('p', { class: 'block-wrong' }, [el('span', { class: 'block-tag' }, 'Not this: '), b.wrong]),
     el('p', { class: 'block-right' }, [el('span', { class: 'block-tag' }, 'But this: '), b.right]),

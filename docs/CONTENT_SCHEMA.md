@@ -130,6 +130,7 @@ characters at the site measure). Mechanisms are `steps`, contrasts are
 | `whyItMatters` | `title?`, `body` | Card, kicker "Why it matters". One or two sentences. |
 | `detail` | `title`, `body` or `blocks` | `<details>` collapsed by default. Optional depth within slide scope. |
 | `figure` | `visual` | A figure, same shape as a section `visual`. |
+| `link` | `href`, `label?`, `title?`, `body?` | Dashed card, kicker "Optional". An external resource that is never required, such as a video a TA recommended; `body` says what it covers and what it leaves out. Opens in a new tab. No question may depend on it. |
 
 `keyNumber` values may hold inline maths (`'$-65\\,\\text{mV}$'`).
 
@@ -261,6 +262,10 @@ Rules for `visual`:
 | `ampa-nmda` | `ampaNmda.js` | Vm slider and glutamate toggle; AMPA and NMDA I-V curves with the Mg2+ block, a pore cartoon and the two time courses. Props: `{ labels }`. |
 | `center-surround` | `centerSurround.js` | Light spot, dark spot or light-dark edge dragged and resized over an ON-center or OFF-center field; spike trains for the ground alone and with the stimulus, center and surround coverage read-out, preset buttons. Props: `{ base, gain, max, surroundWeight, initial, presets: [{ label, state }], labels }`. |
 | `hemifield-tracer` | `hemifieldTracer.js` | Click a point in either eye's field chart; the path lights up through hemiretina, nerve, chiasm, tract, LGN layers and V1. Lesion radios (`none`, `nerve-L`, `chiasm`, `tract-L`, `v1-L`, `v1-L-spare`) shade the lost field per eye. Props: `{ lesions: [{ key, label }], initial, labels }` (labels include `{placeholder}` templates). |
+| `traveling-wave` | `travelingWave.js` | Frequency slider (log, $20\,\text{Hz}$ to $20\,\text{kHz}$) moves the peak of a travelling wave along an uncoiled basilar membrane, drawn to scale in width with a stiffness band; a phase slider shifts the snapshot (no animation). Place map: Greenwood function, illustrative. Props: `{ initial, marks, labels }`. |
+| `hair-cell-stepper` | `hairCellStepper.js` | Step slider through hair cell transduction: bundle deflection, tip link stretch, MET channel opening, $\text{K}^+$ entry, depolarization, $\text{Ca}^{2+}$ entry, glutamate release and afferent spikes, with the endolymph and perilymph shown. Props: `{ steps: [{ label, body }], labels }`. |
+| `compression-rarefaction` | `compressionRarefaction.js` | Slider through two cycles of a tone: air pressure, basilar membrane position and receptor potential on aligned traces, a hair bundle with its tip links and MET channels, and read-out rows per state. Props: `{ labels, rowLabels, states: { compression, rarefaction, between } }`. |
+| `phase-locking` | `phaseLocking.js` | Frequency slider; ten cycles of a tone, spike rasters of model fibres with a refractory period and fixed timing jitter, the pooled volley row and a spike-phase histogram; read-out of period, fraction of cycles per fibre, cycles covered and vector strength. Props: `{ initial, fibres, refractory, probability, jitter, labels }`. |
 | `simple-cell` | `simpleCell.js` | Light bar rotated and shifted over three LGN ON-center fields, aligned or scattered; LGN and simple cell spike trains and an orientation tuning curve. Props: `{ axis, threshold, gain, initial, labels }`. |
 
 The five quantitative demos share `hhModel.js` (the membrane model)

@@ -1,0 +1,28 @@
+{
+ "file": "src/assets/figures/nbe-e4210/L05/tuning.webp",
+ "source": "source/nbe-e4210/slides/NBE-E4210 LECTURE 05 - 2026.pdf",
+ "page": 34,
+ "crop_box_pt": [
+  27.0,
+  113.25,
+  396.75,
+  512.25
+ ],
+ "page_size_pt": [
+  960.0,
+  540.0
+ ],
+ "dpi": 102,
+ "rendered_px": [
+  527,
+  568
+ ],
+ "saved_px": [
+  527,
+  568
+ ],
+ "webp_quality": 90,
+ "bytes": 22252,
+ "extracted": "2026-10-15T11:01:54+00:00",
+ "note": "Course slide material. Redraw or replace before publishing; see CREDITS.md."
+}

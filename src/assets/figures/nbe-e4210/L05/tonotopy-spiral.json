@@ -1,0 +1,28 @@
+{
+ "file": "src/assets/figures/nbe-e4210/L05/tonotopy-spiral.webp",
+ "source": "source/nbe-e4210/slides/NBE-E4210 LECTURE 05 - 2026.pdf",
+ "page": 14,
+ "crop_box_pt": [
+  501.0,
+  154.5,
+  841.15,
+  403.9
+ ],
+ "page_size_pt": [
+  960.0,
+  540.0
+ ],
+ "dpi": 207,
+ "rendered_px": [
+  981,
+  719
+ ],
+ "saved_px": [
+  981,
+  719
+ ],
+ "webp_quality": 90,
+ "bytes": 39642,
+ "extracted": "2026-10-15T11:01:48+00:00",
+ "note": "Course slide material. Redraw or replace before publishing; see CREDITS.md."
+}

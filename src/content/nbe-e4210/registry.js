@@ -50,11 +50,11 @@ export const registry = [
   {
     id: 'L05',
     number: 5,
-    title: 'The auditory and vestibular systems',
+    title: 'The auditory system',
     chapters: [11],
     lectureDate: '2026-09-30',
     examDate: '2026-10-16',
-    built: false,
+    built: true,
   },
   {
     id: 'L06',

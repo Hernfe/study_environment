@@ -2497,3 +2497,15 @@ p.classify-text {
     min-width: 0;
   }
 }
+
+/* Optional external resource: a dashed card, so it reads as outside the
+   course material. */
+.block-link {
+  border-style: dashed;
+}
+
+p.block-link {
+  margin: 0 0 var(--sp-2);
+  border: 0;
+  overflow-wrap: anywhere;
+}

@@ -1,0 +1,28 @@
+{
+ "file": "src/assets/figures/nbe-e4210/L05/phase-lock.webp",
+ "source": "source/nbe-e4210/slides/NBE-E4210 LECTURE 05 - 2026.pdf",
+ "page": 31,
+ "crop_box_pt": [
+  27.0,
+  186.0,
+  460.5,
+  496.5
+ ],
+ "page_size_pt": [
+  960.0,
+  540.0
+ ],
+ "dpi": 78,
+ "rendered_px": [
+  471,
+  338
+ ],
+ "saved_px": [
+  471,
+  338
+ ],
+ "webp_quality": 90,
+ "bytes": 11894,
+ "extracted": "2026-10-15T11:01:52+00:00",
+ "note": "Course slide material. Redraw or replace before publishing; see CREDITS.md."
+}

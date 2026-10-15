@@ -177,8 +177,22 @@ def cmd_erase(args):
         thick = cv2.morphologyEx(dark, cv2.MORPH_OPEN, k)
         thick = cv2.dilate(thick, np.ones((args.grow_px, args.grow_px), np.uint8))
         mask[y0:y1, x0:x1] = np.maximum(mask[y0:y1, x0:x1], thick)
+    for x0, y0, x1, y1 in args.leader or []:
+        # A grey leader line whose position is only roughly known: inside
+        # a wide corridor along the line, mask only near-neutral dark
+        # pixels, so coloured outlines of the artwork survive.
+        corridor = np.zeros_like(mask)
+        p0 = (int(img.width * x0 / 100), int(img.height * y0 / 100))
+        p1 = (int(img.width * x1 / 100), int(img.height * y1 / 100))
+        cv2.line(corridor, p0, p1, 255, args.corridor)
+        rgb = arr.astype(np.int16)
+        chroma = rgb.max(axis=2) - rgb.min(axis=2)
+        gray = cv2.cvtColor(arr, cv2.COLOR_RGB2GRAY)
+        ink = ((gray < args.leader_threshold) & (chroma < args.chroma)).astype(np.uint8) * 255
+        ink = cv2.dilate(ink & corridor, np.ones((3, 3), np.uint8), iterations=2)
+        mask = np.maximum(mask, ink)
     out = cv2.inpaint(arr, mask, args.radius, cv2.INPAINT_TELEA)
-    save(Image.fromarray(out), args.output, meta, {"op": "erase", "lines_pct": args.line, "boxes_pct": args.box, "text_pct": args.text, "width_px": args.width})
+    save(Image.fromarray(out), args.output, meta, {"op": "erase", "lines_pct": args.line, "boxes_pct": args.box, "text_pct": args.text, "leaders_pct": args.leader, "width_px": args.width})
 
 
 def cmd_crop(args):
@@ -270,6 +284,10 @@ def main():
     e.add_argument("--threshold", type=int, default=110, help="--text: grey level below which a pixel counts as ink")
     e.add_argument("--open-px", dest="open_px", type=int, default=4, help="--text: strokes thinner than this survive")
     e.add_argument("--grow-px", dest="grow_px", type=int, default=5, help="--text: dilate the text mask by this much")
+    e.add_argument("--leader", type=float, nargs=4, action="append", required=False, metavar=("X0", "Y0", "X1", "Y1"), help="inpaint only the grey line inside a corridor along this approximate line")
+    e.add_argument("--corridor", type=int, default=30, help="--leader: corridor width in px")
+    e.add_argument("--leader-threshold", dest="leader_threshold", type=int, default=170, help="--leader: grey level below which a pixel counts as line")
+    e.add_argument("--chroma", type=int, default=45, help="--leader: max channel spread for a pixel to count as grey")
     e.add_argument("--width", type=int, default=7, help="mask thickness in px")
     e.add_argument("--radius", type=int, default=5, help="inpaint radius in px")
     e.set_defaults(fn=cmd_erase)

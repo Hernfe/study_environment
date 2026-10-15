@@ -1,0 +1,40 @@
+{
+ "file": "src/assets/figures/nbe-e4210/L05/traveling-wave.webp",
+ "source": "source/nbe-e4210/slides/NBE-E4210 LECTURE 05 - 2026.pdf",
+ "page": 16,
+ "crop_box_pt": [
+  158.25,
+  135.0,
+  779.25,
+  490.5
+ ],
+ "page_size_pt": [
+  960.0,
+  540.0
+ ],
+ "dpi": 121,
+ "rendered_px": [
+  1042,
+  597
+ ],
+ "saved_px": [
+  1042,
+  328
+ ],
+ "webp_quality": 90,
+ "bytes": 25582,
+ "extracted": "2026-10-15T11:01:48+00:00",
+ "note": "Course slide material. Redraw or replace before publishing; see CREDITS.md.",
+ "retouch": [
+  {
+   "op": "crop",
+   "box_pct": [
+    0.0,
+    0.0,
+    100.0,
+    55.0
+   ],
+   "at": "2026-10-15T11:02:08+00:00"
+  }
+ ]
+}

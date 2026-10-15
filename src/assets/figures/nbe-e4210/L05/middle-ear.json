@@ -1,0 +1,59 @@
+{
+ "file": "src/assets/figures/nbe-e4210/L05/middle-ear.webp",
+ "source": "source/nbe-e4210/slides/NBE-E4210 LECTURE 05 - 2026.pdf",
+ "page": 8,
+ "crop_box_pt": [
+  390.75,
+  41.25,
+  917.25,
+  499.5
+ ],
+ "page_size_pt": [
+  960.0,
+  540.0
+ ],
+ "dpi": 136,
+ "rendered_px": [
+  994,
+  866
+ ],
+ "saved_px": [
+  915,
+  849
+ ],
+ "webp_quality": 90,
+ "bytes": 63998,
+ "extracted": "2026-10-15T11:01:45+00:00",
+ "note": "Course slide material. Redraw or replace before publishing; see CREDITS.md.",
+ "retouch": [
+  {
+   "op": "paint",
+   "boxes_pct": [
+    [
+     0.0,
+     0.0,
+     18.0,
+     10.0
+    ],
+    [
+     0.0,
+     22.0,
+     3.0,
+     29.0
+    ]
+   ],
+   "color": "#ffffff",
+   "at": "2026-10-15T11:02:07+00:00"
+  },
+  {
+   "op": "crop",
+   "box_pct": [
+    8.0,
+    2.0,
+    100.0,
+    100.0
+   ],
+   "at": "2026-10-15T11:02:07+00:00"
+  }
+ ]
+}

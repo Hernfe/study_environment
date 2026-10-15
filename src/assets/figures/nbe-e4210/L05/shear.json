@@ -1,0 +1,28 @@
+{
+ "file": "src/assets/figures/nbe-e4210/L05/shear.webp",
+ "source": "source/nbe-e4210/slides/NBE-E4210 LECTURE 05 - 2026.pdf",
+ "page": 20,
+ "crop_box_pt": [
+  0.0,
+  18.0,
+  960.0,
+  324.0
+ ],
+ "page_size_pt": [
+  960.0,
+  540.0
+ ],
+ "dpi": 117,
+ "rendered_px": [
+  1558,
+  497
+ ],
+ "saved_px": [
+  1558,
+  497
+ ],
+ "webp_quality": 90,
+ "bytes": 59788,
+ "extracted": "2026-10-15T11:01:51+00:00",
+ "note": "Course slide material. Redraw or replace before publishing; see CREDITS.md."
+}

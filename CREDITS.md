@@ -158,6 +158,26 @@ figures as shown on the slides. The slide 34 video ("Cortical neurons V1") is no
 | `hierarchy.webp` | L04 Organizational principles | L04 slide deck, page 39 (organizational principles diagram) | Course slides | Course material | Cite the course |
 | `faces.webp` | L04 fMRI | L04 slide deck, page 40 (textbook Figure 10.29) | Course slides | Course material | Cite the course |
 | `src/content/nbe-e4210/figures/vision.js` (rod and cone density, hierarchy chart) and the widgets `center-surround`, `hemifield-tracer`, `simple-cell` | L04 | d3 figures and demos drawn for this site; density curves traced from the slide, latencies and field sizes read off slide 39 | n/a | Repository licence | No |
+| `sound-wave.webp` | L05 What sound is | L05 slide deck, page 4 (slide graphic, compression bands and pressure wave) | Course slides | Course material | Cite the course |
+| `ear.webp` | L05 Ear anatomy, lecture quiz q03 | L05 slide deck, page 6 (textbook Figure 11.3), labels painted out | Course slides | Course material | Cite the course |
+| `middle-ear.webp` | L05 Middle ear | L05 slide deck, page 8 (textbook Figure 11.6) | Course slides | Course material | Cite the course |
+| `cochlea-uncoiled.webp` | L05 Cochlea | L05 slide deck, page 10 (textbook Figure 11.8) | Course slides | Course material | Cite the course |
+| `scalae.webp` | L05 Cochlea | L05 slide deck, page 12 (textbook Figure 11.7), labels painted out | Course slides | Course material | Cite the course |
+| `tonotopy-spiral.webp` | L05 Frequency analyzer | L05 slide deck, page 14 (slide graphic, best frequency along the cochlea; origin not given) | Course slides | Course material | Cite the course |
+| `traveling-wave.webp` | L05 Frequency analyzer | L05 slide deck, page 16 (textbook Figure 11.9), caption cropped | Course slides | Course material | Cite the course |
+| `corti.webp` | L05 Organ of Corti | L05 slide deck, page 18 (slide drawing of unknown origin), label boxes cropped off | Course slides | Course material | Cite the course |
+| `transduction.webp` | L05 Transduction | L05 slide deck, page 19 (textbook Figure 11.15) | Course slides | Course material | Cite the course |
+| `shear.webp` | L05 Compression and rarefaction | L05 slide deck, page 20 (textbook Figure 11.13) | Course slides | Course material | Cite the course |
+| `ohc-motor.webp` | L05 Outer hair cells | L05 slide deck, page 24 (textbook Figure 11.17 a, b) | Course slides | Course material | Cite the course |
+| `innervation.webp` | L05 Inner versus outer hair cells | L05 slide deck, page 24 (textbook Figure 11.16) | Course slides | Course material | Cite the course |
+| `phase-lock.webp` | L05 Phase locking | L05 slide deck, page 31 (slide graphic after Figure 11.14b) | Course slides | Course material | Cite the course |
+| `spiral-ganglion.webp` | L05 Spiral ganglion | L05 slide deck, page 32 (slide graphic, signed illustration) | Course slides | Course material | Cite the course |
+| `labelled-line.webp` | L05 Labelled lines | L05 slide deck, page 33 (textbook Figure 11.20) | Course slides | Course material | Cite the course |
+| `tuning.webp` | L05 Labelled lines, lecture quiz q16 | L05 slide deck, page 34 (textbook Figure 11.19) | Course slides | Course material | Cite the course |
+| `pathway.webp` | L05 Central pathway | L05 slide deck, page 35 (textbook Figure 11.18), caption painted out | Course slides | Course material | Cite the course |
+| `a1.webp` | L05 Auditory cortex | L05 slide deck, page 38 (textbook Figure 11.27) | Course slides | Course material | Cite the course |
+| Widgets `traveling-wave`, `hair-cell-stepper`, `compression-rarefaction`, `phase-locking` | L05 | d3 demos drawn for this site; the place map is the Greenwood function, the phase-locking model a jittered refractory spiking model, both illustrative | n/a | Repository licence | No |
+| Link: https://youtu.be/aBZPPOm0_pA | L05 Frequency analyzer (optional link card) | Video recommended by the L05 teaching assistant; linked, not embedded | YouTube | Third party | n/a |
 
 Credit lines shown on the site: the footer of every page names the
 sources whose licence asks for attribution and links here. When a page is

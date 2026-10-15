@@ -1,0 +1,28 @@
+{
+ "file": "src/assets/figures/nbe-e4210/L05/spiral-ganglion.webp",
+ "source": "source/nbe-e4210/slides/NBE-E4210 LECTURE 05 - 2026.pdf",
+ "page": 32,
+ "crop_box_pt": [
+  0.0,
+  0.0,
+  480.0,
+  324.0
+ ],
+ "page_size_pt": [
+  960.0,
+  540.0
+ ],
+ "dpi": 110,
+ "rendered_px": [
+  730,
+  493
+ ],
+ "saved_px": [
+  730,
+  493
+ ],
+ "webp_quality": 90,
+ "bytes": 35308,
+ "extracted": "2026-10-15T11:01:53+00:00",
+ "note": "Course slide material. Redraw or replace before publishing; see CREDITS.md."
+}
