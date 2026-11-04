@@ -92,7 +92,7 @@ function renderToc(content) {
       s.part ? { part: s.part } : null,
       { id: s.id, title: s.title },
     ].filter(Boolean)),
-    { id: 'recap', title: 'Recap card' },
+    ...(content.recap ? [{ id: 'recap', title: 'Recap card' }] : []),
     { id: 'lecture-quiz', title: 'Lecture quiz' },
   ];
   const nav = el('nav', { class: 'toc', 'aria-label': 'Contents' }, [

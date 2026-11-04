@@ -23,6 +23,41 @@ page so they can be replaced if the site is ever shared more widely.
 
 ## Assets in use
 
+### Lecture 7
+
+Rebuilt by `scripts/figures_nbe-e4210_L07.py`; crop/mask provenance is in
+each asset's JSON sidecar. All paths below are under
+`src/assets/figures/nbe-e4210/L07/`. Source: the locally supplied
+`source/nbe-e4210/slides/NBE-E4210 LECTURE 07 - 2026.pdf`, no public deck
+URL supplied. These are course/publisher copyrighted material for private
+study, not newly licensed illustrations. Attribution: NBE-E4210 lecturer;
+Bear, Connors and Paradiso, Neuroscience: Exploring the Brain, 4th ed.,
+where the deck reproduces its figures. No library or generated images.
+
+| File | Where used | Original source / attribution |
+| --- | --- | --- |
+| `anatomy.webp` | Orientation label practice | Slide 5, medial temporal anatomy |
+| `control.webp` | Three control systems label practice | Slide 8, Bear Fig. 15.1 |
+| `modulators.webp` | Monoamine label practice | Slide 11, Bear Figs. 15.12–15.14 |
+| `cholinergic.webp` | Acetylcholine label practice | Slide 11, Bear Fig. 15.15 |
+| `hypothalamus.webp` | Hypothalamic zones label practice | Slide 12, Bear Fig. 15.3 |
+| `posterior.webp` | Posterior pituitary label practice | Slide 13, Bear Fig. 15.4 |
+| `anterior.webp` | Anterior pituitary label practice | Slide 13, Bear Fig. 15.6 |
+| `ans.webp` | Autonomic circuits label practice | Slide 14, Bear Fig. 15.8 |
+| `ans-organs.webp` | Autonomic divisions label practice | Slide 15, Bear Fig. 15.9 |
+| `emotions.webp` | Six emotions label practice | Slide 16, Nummenmaa et al. (2014), bodily maps reproduced on the slide; slide-only use, no additional box content |
+| `masking.webp` | Unconscious emotion label practice | Slide 17, Bear Fig. 18.3; Morris, Öhman and Dolan (1998) |
+| `elicitation.webp` | Measurement label practice | Slide 19, Levenson, emotion elicitation schematic |
+| `papez.webp` | Limbic circuit label practice | Slide 22, Bear Fig. 18.5 |
+| `dimensions.webp` | Emotion dimensions label practice | Slide 27, Bear Fig. 18.7 |
+| `amygdala.webp` | Amygdala practice and quiz q03 | Slide 30, Bear Fig. 18.8 |
+| `conditioning.webp` | Conditioning practice and quiz q15 | Slide 32; source link printed on the deck: https://oxfordre.com/view/10.1093/acrefore/9780190264086.001.0001/acrefore-9780190264086-e-129 |
+| `fear.webp` | Fear circuit label practice | Slide 34, Bear Fig. 18.10 |
+| `plasticity.webp` | LA plasticity label practice | Slide 36; https://pubmed.ncbi.nlm.nih.gov/11584069/ |
+| `aggression.webp` | Aggression circuit label practice | Slide 37, Bear Fig. 18.14 |
+
+No video assets were found or added.
+
 All raster files are in `src/assets/figures/nbe-e4210/L01/`, built by
 `scripts/figures_nbe-e4210_L01.py`; each has a sidecar JSON with the source page
 or file and the crop and paint boxes. The slide crops are the figures

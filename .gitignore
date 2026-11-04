@@ -10,3 +10,5 @@ build/
 .playwright-mcp/
 shots/
 __pycache__/
+.tmp-tools/
+.tmp-pdf/

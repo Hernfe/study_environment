@@ -37,7 +37,7 @@ export default {
   objectives,      // required, string[]
   prerequisites,   // required, may be []
   sections,        // required, Section[]
-  recap,           // required
+  recap,           // omit for a questions-only lecture without a recap
   lectureQuiz,     // required, Question[]
 };
 ```

@@ -1,0 +1,15 @@
+{
+  "source": "source\\nbe-e4210\\slides\\NBE-E4210 LECTURE 07 - 2026.pdf",
+  "page": 30,
+  "crop": [
+    325.0,
+    262.5,
+    466.25,
+    411.25
+  ],
+  "masks": [],
+  "size": [
+    339,
+    357
+  ]
+}

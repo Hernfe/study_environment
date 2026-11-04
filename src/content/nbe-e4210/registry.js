@@ -8,7 +8,7 @@
 // no exam on Friday 16.10. L1 on 18.9, L2 on 25.9 and L4 on 9.10 are on
 // the slides (L04 deck: "Exam on Sep 25th on Lecture 2"; L06 deck: "Exam
 // on Oct 9th on Lecture 4"); L3 on 2.10 follows from them. L5 on 23.10
-// and L6 on 30.10 are confirmed. L7 to L11 (6.11 to 4.12, one per
+// and L6 on 30.10 are confirmed. L7 on 6.11 is user-confirmed. L8 to L11 (13.11 to 4.12, one per
 // Friday) are assumed from the pattern. Check MyCourses and correct here.
 // Titles are the textbook chapter titles, shortened.
 
@@ -74,7 +74,7 @@ export const registry = [
     chapters: [15, 18],
     lectureDate: '2026-10-21',
     examDate: '2026-11-06',
-    built: false,
+    built: true,
   },
   {
     id: 'L08',
