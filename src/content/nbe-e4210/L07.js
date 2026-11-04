@@ -110,8 +110,29 @@ const images = {
   ] },
 };
 const hot = name => ({ src: fig(name), ...images[name], layout: 'stack', gutter: 'auto' });
+const extraDistractors = {
+  anatomy:     ['Hypothalamus','Thalamus'],
+  control:     ['Somatic motor system','Sympathetic ganglion'],
+  modulators:  ['Basal forebrain complex','Medial septal nuclei'],
+  cholinergic: ['Locus coeruleus','Substantia nigra'],
+  hypothalamus:['Corpus callosum','Thalamus'],
+  posterior:   ['Subfornical organ','Median eminence'],
+  anterior:    ['Posterior pituitary','Magnocellular neurons'],
+  ans:         ['Adrenal medulla','Peripheral ganglia'],
+  'ans-organs':['Enteric division','Sympathetic ganglion'],
+  emotions:    ['Neutral','Anxiety'],
+  masking:     ['Skin conductance','Facial expression'],
+  elicitation: ['Bodily feedback','Sensory detection'],
+  papez:       ['Basal ganglia','Amygdala'],
+  dimensions:  ['Intensity','Sadness'],
+  amygdala:    ['Stria terminalis','Hippocampus'],
+  conditioning:['Conditioned response','Fear conditioning'],
+  fear:        ['Locus coeruleus','Substantia nigra'],
+  plasticity:  ['Extinction training','Conditioned stimulus'],
+  aggression:  ['Locus coeruleus','Raphe nuclei'],
+};
 const label = (name,id,prompt) => ({ id, type: 'label', difficulty: 'easy', points: 1, prompt,
-  hotspots: hot(name), wordBank: [...images[name].regions].reverse().map(r=>r.label),
+  hotspots: hot(name), wordBank: [...[...images[name].regions].reverse().map(r=>r.label),...(extraDistractors[name]||[])],
   modelAnswer: images[name].regions.map((r,i)=>`${i+1}. ${r.label}. ${r.body}`) });
 
 // Entries carry the teaching feedback, including the near-miss alternatives.
@@ -339,7 +360,7 @@ export default {
     section('basic-emotion','Basic emotions and early theories','emotions',[
       ['Which list gives all six basic emotions on slide 16?',[
         ['Anger, fear, disgust, happiness, sadness and surprise','Neutral is a comparison condition, not a seventh basic emotion. The maps reflect reported body sensations, not direct ANS recordings.'],
-        ['Anger, fear, disgust, happiness, sadness and neutrality','This replaces surprise with the neutral comparison condition.'],
+        ['Anger, fear, disgust, happiness, sadness and neutrality','Surprise is the sixth basic emotion; the neutral condition is a comparison standard for the body-map colours, not an emotion in the six-category scheme.'],
         ['Anger, fear, disgust, happiness, arousal and valence','Arousal and valence are dimensions; sadness and surprise are missing from this category list.']]],
       ['What is the key James–Lange proposal?',[
         ['Perceived bodily responses contribute to the feeling of emotion','The threatening stimulus first evokes somatic/visceral responses, and sensing those changes produces the experience.'],
@@ -387,8 +408,8 @@ export default {
         ['Event, cortical silence and purely voluntary gland secretion','Emotion engages neural and autonomic systems; the schematic does not posit cortical silence.']]],
       ['What do SCL and HR measure?',[
         ['Skin-conductance level and cardiac heart rate','Both index physiological responses; the Face trace indexes facial disgust expression. Neither alone equals conscious feeling.'],
-        ['Sensory cortical location and hippocampal recall','These expansions do not match the physiological traces labelled on slide 19.'],
-        ['Subjective confidence level and happiness rating','These are not the slide abbreviations; subjective reports would be a different measurement.']]],
+        ['Sensory cortical location and hippocampal recall','SCL is skin conductance level and HR is cardiac heart rate, both physiological expression indices; they are not brain-imaging or memory measures.'],
+        ['Subjective confidence level and happiness rating','SCL and HR are objective physiological measures; subjective confidence or happiness ratings are verbal-report measures, a different component of the schematic.']]],
       ['Which are distinct modes of expression in the schematic?',[
         ['Facial, vocal, motor and autonomic responses','Nose wrinkling, vocal sounds, withdrawal and salivation/motility are different outputs that should be measured separately.'],
         ['Facial, vocal, motor and identical conscious feelings','Conscious experience is a separate component, not interchangeable with observable expression.'],
@@ -417,7 +438,7 @@ export default {
         ['Motor cortex, spinal cord, skeletal muscle and peripheral ganglia','This is not the orbitofrontal/insular/amygdala/anterior-temporal grouping.']]],
       ['What did MacLean’s formulation emphasize?',[
         ['An interconnected cortical and subcortical limbic system','The slide describes functional integration by short- and long-range fiber bundles. This is a historical model, not proof of exclusive emotion function.'],
-        ['An emotion system without any cortical or subcortical connections','Connections were essential to the integrated-system proposal.'],
+        ['An emotion system without any cortical or subcortical connections','MacLean proposed an interconnected system linked by long-range fiber bundles; connections between cortical and subcortical structures were central to the proposal, not absent from it.'],
         ['An isolated hypothalamic gland with no cerebral contributions','MacLean’s model combined limbic cortical and subcortical structures, not just a gland.']]],
       ['Why is the limbic system not a single exclusive emotion system?',[
         ['Its regions serve other functions and emotions use distributed networks','Anatomical connections and modern functional connectivity do not establish one necessary-and-sufficient emotion module; hippocampus is not simply an emotion-expression center.'],
@@ -435,8 +456,8 @@ export default {
         ['All emotions are identical learned labels with no biology','The slide’s basic theories emphasize innate universal experiences, not absence of biological contribution.']]],
       ['What are the two dimensions on slide 27?',[
         ['Arousal level and pleasantness valence','Arousal measures activation; valence describes pleasantness versus unpleasantness. High arousal need not mean pleasantness.'],
-        ['Cortical volume and pituitary mass','These are anatomical quantities, not the psychological coordinates on the slide.'],
-        ['Consciousness and sympathetic neuron number','These are not the arousal and pleasantness axes used in the example.']]],
+        ['Cortical volume and pituitary mass','The two-dimensional framework uses pleasantness (valence) and activation level (arousal) as psychological axes, not anatomical measurements.'],
+        ['Consciousness and sympathetic neuron number','The model uses pleasantness and arousal as psychological state axes, not consciousness level or neuron counts.']]],
       ['What does a dimensional account allow?',[
         ['Different emotions can combine shared components in different amounts','Two states can share arousal but differ in valence. Slide 28 contrasts this possibility with unique dissociable circuits, without settling the debate.'],
         ['Every named emotion must use one unique disconnected neural circuit','Unique indivisible circuits are the alternative being questioned, not a requirement of dimensional reduction.'],
@@ -575,10 +596,10 @@ export default {
     {id:'q01',type:'mc',difficulty:'easy',points:1,
       prompt:'Which source releases cortisol in the HPA stress response?',
       options:[
-        {text:'Posterior pituitary',feedback:'Posterior terminals release oxytocin and vasopressin.'},
+        {text:'Posterior pituitary',feedback:'Posterior terminals release oxytocin and vasopressin, not cortisol.'},
         {text:'Adrenal cortex',feedback:'ACTH stimulates the adrenal cortex to release cortisol.'},
-        {text:'Adrenal medulla',feedback:'Sympathetic input drives medullary catecholamine release.'},
-        {text:'Anterior pituitary',feedback:'Anterior pituitary releases ACTH, the signal upstream of cortisol.'},
+        {text:'Adrenal medulla',feedback:'Sympathetic preganglionic input drives medullary catecholamine release, not cortisol.'},
+        {text:'Anterior pituitary',feedback:'Anterior pituitary releases ACTH, the upstream signal that drives adrenal cortisol.'},
       ],correct:1,modelAnswer:['Identify the steroid cortisol as the final HPA hormone.','Its source is adrenal cortex; ACTH comes from anterior pituitary.']},
     {id:'q02',type:'inlineChoice',difficulty:'easy',points:1,
       prompt:'Circle the right alternative in each bracket.',sentences:[
@@ -626,7 +647,7 @@ export default {
     {id:'q08',type:'multiSelect',difficulty:'medium',points:1,
       prompt:'Which statements about James–Lange and Cannon–Bard theories are correct?',options:[
         {text:'James–Lange makes sensing bodily responses central to emotional experience.',correct:true,feedback:'Perceived visceral and somatic changes contribute to the feeling in this proposal.'},
-        {text:'Cannon–Bard makes bodily feedback a necessary step before every feeling.',correct:false,feedback:'Its contrast is that experience need not depend on sensing expression.'},
+        {text:'Cannon–Bard makes bodily feedback a necessary step before every feeling.',correct:false,feedback:'Cannon–Bard proposes the opposite: central processing can produce experience without a mandatory body-feedback chain.'},
         {text:'Preserved emotion after sensory loss challenged a mandatory feedback chain.',correct:true,feedback:'Cannon used spinal transection observations to criticize the strict bodily-feedback requirement.'},
         {text:'The two theories both prove that experience and expression are identical.',correct:false,feedback:'They propose different relationships between those separable components; neither proves identity.'},
       ],modelAnswer:['James–Lange: stimulus, bodily change, sensed change, feeling.','Cannon–Bard: central processing can produce experience independently of bodily feedback.','Preserved responses after spinal injury challenged a strict feedback requirement; later evidence gives both theories merits and limits.']},
@@ -641,15 +662,6 @@ export default {
       prompt:'Rank the forward HPA stress pathway. Negative feedback occurs after the cortisol output.',
       items:['Anterior pituitary releases ACTH into general blood','Adrenal cortex releases cortisol','Parvocellular hypothalamic neurons release CRH into portal blood','ACTH reaches the adrenal cortex'],correctOrder:[2,0,3,1],
       modelAnswer:['Hypothalamic CRH enters portal circulation.','CRH stimulates anterior pituitary ACTH release.','ACTH travels in general blood to adrenal cortex.','The cortex releases cortisol; cortisol subsequently limits upstream CRH drive.']},
-    {id:'q11',type:'fillBlank',difficulty:'medium',points:1,
-      prompt:'Complete the taught fear pathway without a word bank. Use nuclear groups, not just "amygdala".',
-      text:'Tone via auditory cortex and shock via somatosensory cortex converge in ___. Output is relayed through the ___ toward hypothalamus for autonomic responses and ___ for behavioral reactions. Emotional experience involves ___.',
-      blanks:[
-        {accept:['basolateral nuclei','basolateral amygdala','basolateral nuclei of the amygdala','basolateral region of the amygdala']},
-        {accept:['central nucleus','central amygdala','central nucleus of the amygdala','amygdala central nucleus']},
-        {accept:['periaqueductal gray','periaqueductal grey','periaqueductal gray matter','periaqueductal grey matter','PAG']},
-        {accept:['cerebral cortex','cortex','the cerebral cortex']},
-      ],modelAnswer:['Sensory cortical inputs converge on basolateral amygdala and pairing strengthens cue responses.','The central nucleus relays output toward response systems.','Hypothalamus coordinates ANS; PAG coordinates behavioral output; cortical activity contributes to experience.']},
     {id:'q12',type:'matchPairs',difficulty:'medium',points:1,
       prompt:'Match each diffuse modulatory origin to its transmitter, main target and function.',
       right:[
@@ -659,6 +671,7 @@ export default {
         {id:'lc',text:'Norepinephrine → broad CNS targets → salient-event responsiveness'},
         {id:'sn',text:'Dopamine → striatum → movement initiation'},
         {id:'pmt',text:'Acetylcholine → dorsal thalamus → relay excitability'},
+        {id:'spare',text:'Dopamine → median eminence → pituitary prolactin inhibition'},
       ],left:[
         {text:'Pontine locus coeruleus',answer:'lc',explanation:'NE projections are highly divergent and respond to novelty.'},
         {text:'Brain-stem raphe nuclei',answer:'raphe',explanation:'Rostral and caudal raphe send serotonin to different CNS levels.'},
@@ -676,21 +689,36 @@ export default {
         {text:'Lateral hypothalamic stimulation',group:'Predatory aggression',explanation:'The taught experiment elicited silent-biting attack.'},
         {text:'Medial hypothalamic stimulation',group:'Affective aggression',explanation:'The taught experiment elicited threat attack.'},
       ],modelAnswer:['Predatory: quiet, aimed at prey head/neck, linked to lateral hypothalamic stimulation.','Affective: vocal and defensive display, linked to medial hypothalamic stimulation.','These are expression patterns; they do not directly measure subjective anger.']},
-    {id:'q14',type:'clinicalCase',difficulty:'medium',points:1,
-      scenario:'A person with bilateral damage from Urbach–Wiethe disease recognizes identities, happiness, sadness and disgust in photographs. Fearful faces are poorly recognized, but fear in tone of voice can still be recognized.',
-      prompt:'Which damaged structure best matches the taught case? Name it.',
-      accept:['amygdala','amygdalae','bilateral amygdala','the amygdala'],
-      modelAnswer:['The deficit concerns emotional facial recognition rather than basic identity perception.','The taught case had bilateral amygdala destruction.','Preserved vocal fear recognition and improvement with eye-looking instructions make an all-modalities loss of fear too strong a conclusion.']},
-    {id:'q15',type:'interpret',difficulty:'medium',points:1,
-      prompt:'Read the four panels. Which panel shows falling freezing across repeated CS-only presentations? What procedure does it represent?',
-      figure:{type:'widget',name:'image-hotspots',props:{...hot('conditioning'),quiz:false,regions:[]},
-        caption:'Experimental panels from slide 32. Read the stimulus bars and response slopes.',fallbackAlt:'Four panels A to D show stimulus protocols with corresponding freezing curves below.'},
+    {id:'q11',type:'fillBlank',difficulty:'hard',points:1,
+      prompt:'Complete the taught fear pathway without a word bank. Use the nuclear groups, not just “amygdala”.',
+      text:'Tone via auditory cortex and shock via somatosensory cortex converge in ___. Output is relayed through the ___ toward hypothalamus for autonomic responses and ___ for behavioral reactions. Emotional experience involves ___.',
+      blanks:[
+        {accept:['basolateral nuclei','basolateral amygdala','basolateral nuclei of the amygdala','basolateral region of the amygdala']},
+        {accept:['central nucleus','central amygdala','central nucleus of the amygdala','amygdala central nucleus']},
+        {accept:['periaqueductal gray','periaqueductal grey','periaqueductal gray matter','periaqueductal grey matter','PAG']},
+        {accept:['cerebral cortex','cortex','the cerebral cortex']},
+      ],modelAnswer:['Sensory cortical inputs converge on basolateral amygdala and pairing strengthens cue responses.','The central nucleus relays output toward response systems.','Hypothalamus coordinates ANS; PAG coordinates behavioral output; cortical activity contributes to experience.']},
+    {id:'q14',type:'clinicalCase',difficulty:'hard',points:1,
+      scenario:'A rat has learned that a tone (CS) predicts a mild shock (US). A selective lesion then destroys the basolateral nuclei while leaving the central nucleus and all sensory cortices intact. The rat retains full hearing and motor ability.',
+      prompt:'Which outcome most directly follows from what the taught fear circuit predicts?',
       options:[
-        {text:'Panel A, acquisition training',feedback:'Panel A pairs CS and US and shows increasing freezing.'},
-        {text:'Panel B, expression testing',feedback:'Panel B tests a cue after learning and shows a sustained response.'},
-        {text:'Panel C, extinction training',feedback:'Panel C omits the US over repeated CS presentations and shows declining freezing.'},
-        {text:'Panel D, extinction testing',feedback:'Panel D tests the cue after extinction; it is not the repeated-training decline.'},
-      ],correct:2,modelAnswer:['Read the stimulus bars: panel C repeats CS without the shock US.','Read the freezing curve: it decreases across those presentations.','This is extinction training; it does not establish permanent erasure of the association.']},
+        {text:'The learned tone–fear association is abolished: the tone no longer evokes conditioned freezing.',feedback:'BLA is where CS and US inputs converge and plasticity occurs. Without the BLA the central nucleus loses its learned input, so the conditioned tone cannot activate the output system even though the central nucleus is intact.'},
+        {text:'The conditioned response is fully preserved, because the intact central nucleus substitutes for basolateral plasticity.',feedback:'The central nucleus provides output pathways, not the plasticity site. It cannot generate the learned association that was stored in the basolateral complex.'},
+        {text:'The rat loses all emotional responses including reactions to the unconditioned shock.',feedback:'Unconditioned aversive responses can reach the central nucleus through pathways that do not require basolateral plasticity; selective BLA damage is not equivalent to removing all fear-relevant input.'},
+        {text:'The tone evokes autonomic responses but not behavioral freezing, because those outputs use different central-nucleus targets.',feedback:'Both autonomic and behavioral outputs are routed through the central nucleus after learning. Without the learned BLA input, neither should be specifically conditioned to the tone.'},
+      ],correct:0,
+      modelAnswer:['BLA is the site where CS and US inputs converge and plasticity occurs.','Destroying BLA removes the learned association; the central nucleus output system is intact but loses its learned input.','Therefore the conditioned tone should no longer drive freezing, while unconditioned responses to the shock US may survive through other routes.']},
+    {id:'q15',type:'interpret',difficulty:'hard',points:1,
+      prompt:'Panel C shows decreasing freezing over CS-alone presentations. After that training ends, the animal is returned to the original conditioning context three weeks later. Based on the recall and renewal concepts shown on the same slides, which prediction is most consistent with the taught evidence?',
+      figure:{type:'widget',name:'image-hotspots',props:{...hot('conditioning'),quiz:false,regions:[]},
+        caption:'Experimental panels from slide 32. Each panel shows a stimulus protocol above and a freezing curve below.',fallbackAlt:'Four panels A to D show stimulus protocols with corresponding freezing curves below.'},
+      options:[
+        {text:'Responding has returned toward acquisition levels, because extinction is context-dependent and the original context acts as a renewal cue.',feedback:'Recall and renewal on the slide illustrate that extinction learning is context-dependent: the conditioned response can return when the animal is re-exposed to the original context, showing the original association was not erased.'},
+        {text:'Responding stays at extinction-level zero, because the original association was permanently erased by extinction training.',feedback:'The slides explicitly show recall and renewal as evidence that extinction is not permanent erasure; the original association remains and can be retrieved with the right conditions.'},
+        {text:'Responding exceeds the acquisition peak because extinction training rebound-amplifies the original CS–US link.',feedback:'No rebound amplification is proposed; renewal refers to a return toward the original response level, not a strengthening beyond it.'},
+        {text:'Responding returns only if the rat receives additional US-alone exposures in the original context.',feedback:'Renewal does not require additional US exposures; it is the return of the conditioned response based on context alone, without reinstating the aversive US.'},
+      ],correct:0,
+      modelAnswer:['Panel C (extinction training) repeatedly presents the CS without the US and the response decreases.','Testing in the original context after extinction can produce recall or renewal, illustrated on slides 32–33.','The conditioned response is expected to return because extinction is context-dependent, not permanent erasure.','This shows the original CS–US association was not erased but rather suppressed in the extinction context.']},
     {id:'q16',type:'clinicalCase',difficulty:'hard',points:1,
       scenario:'In a simplified experiment based on slide 36, CS–US pairing still depolarizes lateral-amygdala neurons and permits NMDA-receptor calcium entry. A manipulation selectively removes the additional calcium entry through voltage-gated calcium channels, while leaving sensory input and motor output intact.',
       prompt:'Which prediction best follows from the proposed mechanism?',options:[
