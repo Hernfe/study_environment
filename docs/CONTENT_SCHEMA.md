@@ -113,6 +113,33 @@ before that section (kicker "Part 2", the title, the muted intro) and a
 non-link heading in the table of contents. L06 uses three parts, one per
 textbook chapter.
 
+### Questions-only sections
+
+Set `mode: 'questions-only'` to omit theory. Supply `id`, `title` and
+`conceptQuiz` with 1 to 6 easy multiple-choice questions. Omit `blocks`,
+`body` and `visual`. Each option must have nonempty `feedback` explaining
+the underlying fact, including wrong options: this is the teaching text.
+All option feedback is shown after checking, and retry remains available.
+
+An optional `figure` is a complete easy `label` question (see Label the
+figure), with a stable `id`, `prompt`, `hotspots` (or legacy `figure`
+and `regions`), required `wordBank`, and `modelAnswer`. Give each region
+an explanation (`body` for hotspots). It renders as a label question,
+not an already-labelled study figure. It does not record lecture-quiz
+progress or enter review. Concept checks retain their usual progress.
+
+```js
+{ id: 'practice', title: 'Identify and recall', mode: 'questions-only',
+  figure: { id: 'practice-label', type: 'label', difficulty: 'easy',
+    prompt: 'Identify the marked structures.', hotspots: { /* image and regions */ },
+    wordBank: ['Pump', 'Membrane', 'Channel'], modelAnswer: ['...'] },
+  conceptQuiz: [ /* 1 to 6 easy ConceptQuestion objects */ ] }
+```
+
+Ordinary sections keep the 1 to 4 concept-question limit. The lint
+checks both limits and requires explanatory feedback on every option.
+L00 demonstrates questions-only sections with and without a figure.
+
 ### Blocks
 
 Each block renders as its own quiet card with a small kicker heading,
@@ -1157,7 +1184,12 @@ counts built lectures from the registry.
 }
 ```
 
-`review.js` imports content only for entries with `built: true`.
+`review.js` imports content only for entries with `built: true` whose
+registry `examDate` is not before the browser's local calendar date.
+Exam day itself remains eligible; a missing date remains eligible.
+The queue applies the same filter before considering progress, so even
+missed questions from past exams are excluded. Review lists excluded
+lectures and their dates; lecture pages and saved progress remain usable.
 
 ## Progress storage
 

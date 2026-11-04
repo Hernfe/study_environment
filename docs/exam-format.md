@@ -18,7 +18,13 @@ Sources, all by the current instructor, Matias Palva:
 
 Together they replace the two pre-2020 open-book papers (`14468.pdf`,
 `14701.pdf`) for everything except very hard stretch questions. Mini
-Exam 4 is the current format.
+Exam 6 is the current format.
+
+Additional sources: `source/nbe-e4210/exams/Mini exam 5 solution (1).pdf`
+(lecture 5, auditory system) and `Mini exam 6 solutions.pdf` (lecture 6,
+somatic sensation and motor control), both 2026-2027 solution papers by
+Matias Palva. Exam 6 omits the original distractors for Problems 4 and 8;
+do not infer their wording from the answer key.
 
 At the start of every lecture build, check `source/nbe-e4210/exams/` for new
 mini-exams. The most recent one is the current format; update this file
@@ -26,10 +32,11 @@ when it differs from what is written here. Record what each new paper
 adds, and keep what the earlier papers established unless the new one
 contradicts it.
 
-## All four papers at a glance
+## Papers at a glance
 
 - One hour, paper, one A4 cheat sheet. Eight problems in Exam 1; ten
-  problems in each of Exams 2, 3 and 4, on two to three pages.
+  problems in each of Exams 2 to 6. The solutions for Exams 5 and 6
+  each occupy four pages.
 - Every problem is worth exactly 1 point from Exam 2 on, so a paper is
   worth 10. Exams 3 and 4 print "(1 point)" on every problem, and the
   points Exam 2 prints (Problems 1 to 3) add up to 1 each. Exam 1 was
@@ -44,13 +51,14 @@ contradicts it.
   0.34.
 - True or false weighting follows the count: 0.5 per statement with two
   statements (Exam 3, Problem 3), 0.25 with four (Exams 2 and 4).
-- No essay questions in any of the four papers. Nothing asks for a
+- No essay questions in any of the six papers. Nothing asks for a
   paragraph. The longest thing the student writes is a one-line
   correction of a false statement or a short phrase in a blank.
 - Every answer is a tick, a circled option, a term picked from a list,
   a number in a ranking, a letter in a box, an arrow or dash in a
   table, a mark and a shaded area on a diagram, or a short label or
-  term.
+  term. Exam 6 additionally asks for a sketched spike train or firing-rate
+  curve with a labelled axis and the adaptation type.
 - Exams 3 and 4 add three shapes the first two papers did not have:
   matching two lists (four times across the two papers, once picture to
   picture), sorting a flat list into two or three bins with per-item
@@ -126,6 +134,53 @@ From the answer key; the figures are not in the file.
 | 8 | Complete 2 sentences on the dorsal and ventral streams, word bank of 6 with 2 distractors (Colour vision, Frontal) | 4 | 4 × 0.25 | `fillBlank` with `wordBank` |
 | 9 | Trace a point in the right hemifield: nasal or temporal retina in each eye, which V1 hemisphere | 3 | 0.3 + 0.3 + 0.4 | `fillBlank` or `inlineChoice` with weights |
 | 10 | Match 2 descriptions to Simple cell or Complex cell | 2 | 2 × 0.5 | `matchPairs` (`reusable`) or `classify`, `points: 1` |
+
+### Mini Exam 5 (lecture 5, auditory system)
+
+| # | Type | Items | Points | Site type |
+|---|---|---|---|---|
+| 1 | Name cochlear structures on a cross-section and an organ-of-Corti inset, no word bank | 5 | 5 × 0.2 | `label` without bank |
+| 2 | Correct statements about ossicles and attenuation reflex | 4 | 1 total | `multiSelect` |
+| 3 | Single best answer: round-window movement when stapes pushes inward | 1 | 1 | `mc` |
+| 4 | Circle base/apex width and stiffness | 4 | 4 × 0.25 | `inlineChoice` |
+| 5 | Rank hair-cell transduction events | 5 | 5 × 0.2 | `order` |
+| 6 | Correct statements about inner/outer hair cells | 4 | 1 total | `multiSelect` |
+| 7 | Correct statements about auditory cortex | 4 | 1 total | `multiSelect` |
+| 8 | Complete four auditory pathway stations, use-once bank | 4 | 4 × 0.25 | `fillBlank` with bank |
+| 9 | Place four supplied frequencies at marked positions on an uncoiled cochlea | 4 | 4 × 0.25 | `label` with numerical bank |
+| 10 | Predict consequences of increasing tone frequency at fixed intensity | 5 | 1 total | `multiSelect` |
+
+Adds a five-statement multi-select with only one correct statement
+(Problem 10): neither four options nor two correct answers is a rule.
+Frequency placement is figure labelling with supplied values, not a
+calculation. Problem 5 explicitly warns that its ranking is simplified:
+potassium efflux can overlap calcium entry and transmitter release.
+Do not teach its numbering as a strict non-overlapping physiological sequence.
+
+### Mini Exam 6 (lecture 6, somatic sensation and motor control)
+
+| # | Type | Items | Points | Site type |
+|---|---|---|---|---|
+| 1 | Circle directions, roots, facial pathway, receptive-field properties, fibre types and cold sensation | 10 | 10 × 0.1 | `inlineChoice` |
+| 2 | True/false: dermatome, somatotopic discontinuities, opioids, posterior parietal cortex | 4 | 4 × 0.25 | `trueFalse` |
+| 3 | Order dorsal column–medial lemniscal pathway for hand touch | 4 | 4 × 0.25 | `order` |
+| 4 | Best mechanism for rubbing near an injury reducing pain | 1 | not printed | `mc` or `clinicalCase` |
+| 5 | Correct statements about muscle force and recruitment | 4 | not printed | `multiSelect` |
+| 6 | Correct statements about muscle/tendon feedback | 4 | not printed | `multiSelect` |
+| 7 | Correct statements about cortical plasticity after tactile training | 4 | not printed | `multiSelect` |
+| 8 | Name the pair at the tactics level of motor control | 1 | not printed | `mc` |
+| 9 | Complete a stretch-reflex pathway diagram, use-once bank | 4 | 4 × 0.25 | `label` or `fillBlank` with bank |
+| 10 | Sketch intact Pacinian firing for sustained skin indentation; label vertical axis and name adaptation type | sketch + axis + term | not printed | `interpret` with self-scored mark scheme as a site approximation |
+
+Problem 10 adds production of a response trace, beyond choosing or
+reading a supplied figure: onset firing, little/no sustained firing,
+offset firing, a labelled vertical axis, and rapidly adapting (phasic).
+Spikes or a firing-rate curve are both accepted. The site has no drawing
+question engine; an `interpret` prompt can ask for a sketch on paper,
+then reveal the expected response and a self-scored mark scheme.
+Do not claim this approximation checks a drawing automatically.
+The key gives no sub-item weights for this problem; do not invent them.
+It remains recall of a taught response, within the medium ceiling.
 
 ## Problem types and wording
 
@@ -331,7 +386,11 @@ From the answer key; the figures are not in the file.
 
 ## Point weighting
 
-- Every problem is 1 point (Exams 2 to 4). Its sub-items divide it:
+- Every problem is 1 point in Exams 2 to 4; Exam 5 retains this scheme.
+  Exam 6 prints totals for Problems 1 and 2 and 0.25 per item in 3 and
+  9, but omits weights for 4 to 8 and 10. Its ten-problem structure is
+  consistent with the scheme; those omitted weights are not confirmed.
+  Sub-items divide the total:
   0.5, 0.33, 0.25, 0.2 or 0.1 depending on how many there are.
 - Sub-items are usually equal, but not always: 0.3, 0.3, 0.4 (Exam 4,
   Problem 9), 0.2 for the two key items and 0.1 for the rest (Exam 3,
@@ -373,6 +432,9 @@ unless the problem itself is unusual.
   once, not a new multi-step scenario.
 - Ranking grows from four events (Exams 1 to 3) to five (Exam 3
   Problem 4, Exam 4 Problem 3), still a sequence taught on the slides.
+- Exam 5 adds a qualitative frequency-change prediction at fixed
+  intensity; Exam 6 adds sketching a known adaptation response, not
+  calculating it. Neither raises the ceiling to a new multi-step scenario.
 - Nothing requires a calculation, a multi-step prediction, a written
   explanation beyond one line, or combining two lectures.
 - This sets the site's medium tier. Easy questions sit below it (one
@@ -382,7 +444,7 @@ unless the problem itself is unusual.
 
 ## What this changes for the site
 
-- Essays are not part of the exam: none in any of the four papers. The
+- Essays are not part of the exam: none in any of the six papers. The
   default is zero essays per lecture; a kept essay is labelled as
   beyond the exam format.
 - Core types per lecture: at least 2 `classify` (one may be the table

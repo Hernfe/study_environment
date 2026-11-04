@@ -11,14 +11,22 @@ import { watchMath } from './math.js';
 
 const SLICE = 15;
 
+// ISO calendar dates compare directly. Use local components, not UTC:
+// an exam remains eligible for its whole day in the browser's timezone.
+export function examIsPast(lecture, now = new Date()) {
+  const today = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}-${String(now.getDate()).padStart(2, '0')}`;
+  return /^\d{4}-\d{2}-\d{2}$/.test(lecture.examDate || '') && lecture.examDate < today;
+}
+
 // lectures: [{ id, number, title, questions }]
 // getProgress: (lectureId) => progress object (injectable for tests)
-export function buildReviewQueue(lectures, getProgress = getLectureProgress) {
+export function buildReviewQueue(lectures, getProgress = getLectureProgress, now = new Date()) {
   const missed = [];
   const unseen = [];
   const seen = [];
 
   for (const lecture of lectures) {
+    if (examIsPast(lecture, now)) continue;
     const progress = getProgress(lecture.id);
     for (const question of lecture.questions || []) {
       const record = progress.questions[question.id];
@@ -62,13 +70,13 @@ export function interleave(entries, { within = shuffle, across = shuffle } = {})
   return out;
 }
 
-export async function loadBuiltLectures(registry) {
-  const built = registry.filter((entry) => entry.built);
+export async function loadBuiltLectures(registry, now = new Date()) {
+  const built = registry.filter((entry) => entry.built && !examIsPast(entry, now));
   const loaded = await Promise.all(
     built.map(async (entry) => {
       const content = await loadLectureContent(entry.id);
       if (!content) return null;
-      return { id: entry.id, number: entry.number, title: entry.title, questions: content.lectureQuiz || [] };
+      return { id: entry.id, number: entry.number, title: entry.title, examDate: entry.examDate, questions: content.lectureQuiz || [] };
     })
   );
   return loaded.filter(Boolean);
@@ -76,6 +84,15 @@ export async function loadBuiltLectures(registry) {
 
 // Mounts the review mode into container. registry entries with built: true are used.
 export function renderReview(container, registry) {
+  const exclusions = el('p', { class: 'muted review-exclusions' });
+  function updateExclusions() {
+    const excluded = registry.filter((entry) => examIsPast(entry));
+    exclusions.hidden = !excluded.length;
+    exclusions.textContent = excluded.length
+      ? `Excluded from review because their mini-exam dates have passed: ${excluded.map((entry) => `${entry.id} (${entry.examDate})`).join(', ')}. Lecture pages remain available.`
+      : '';
+  }
+  updateExclusions();
   const status = el('p', { class: 'review-progress' });
   const list = el('div', { class: 'review-list' });
   const startButton = el('button', { type: 'button', class: 'btn btn-primary', onClick: start }, 'Start review');
@@ -90,7 +107,8 @@ export function renderReview(container, registry) {
     startButton.disabled = true;
     status.textContent = 'Loading questions...';
     try {
-      lectures = lectures || (await loadBuiltLectures(registry));
+      updateExclusions();
+      lectures = await loadBuiltLectures(registry);
     } catch (error) {
       console.error(error);
       status.textContent = 'Could not load lecture content.';
@@ -98,7 +116,9 @@ export function renderReview(container, registry) {
       return;
     }
     if (!lectures.length) {
-      status.textContent = 'No lectures are built yet, so there is nothing to review.';
+      list.replaceChildren();
+      moreButton.hidden = true;
+      status.textContent = 'No built lectures have a mini-exam today or in the future (or no exam date), so there is nothing to review.';
       startButton.disabled = false;
       return;
     }
@@ -132,7 +152,8 @@ export function renderReview(container, registry) {
   watchMath(list);
   container.replaceChildren(
     el('h2', { id: 'review-title' }, 'Cumulative review'),
-    el('p', {}, 'Questions from every built lecture, mixed across lectures. Ones you missed come first, then ones you have not seen, then the rest.'),
+    el('p', {}, 'Questions from built lectures whose mini-exams have not passed, mixed across lectures. Ones you missed come first, then ones you have not seen, then the rest.'),
+    exclusions,
     controls,
     list,
     el('div', { class: 'btn-row' }, [moreButton])

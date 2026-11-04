@@ -41,6 +41,17 @@ When two slide decks disagree on schedule, scope or emphasis, the most recent de
 
 ## Content rules
 
+- Questions-only sections are an exception to the theory-block pattern below:
+  set `mode: 'questions-only'`, omit theory, and use 1-6 easy concept
+  questions plus an optional easy label question with a word bank. Every
+  option's feedback teaches the underlying fact; show all feedback after
+  checking. See `docs/CONTENT_SCHEMA.md` for the contract and L00 examples.
+
+- Mini Exams 5 and 6 are now included in `docs/exam-format.md`; Exam 6
+  is the current format. It adds sketching a taught response trace with
+  an axis label and adaptation type, practised on paper with a self-scored
+  `interpret` question. No new per-lecture question-type minimum is needed.
+
 - Lecture pages follow the notes' table-of-contents order unless the slides order differs, in which case follow the slides.
 
 - Each section is written with the block vocabulary in `docs/CONTENT_SCHEMA.md` (text, definition, steps, compare, example, keyNumber, misconception, math, whyItMatters, detail, figure, video), key terms marked, then a concept quiz of 1-4 multiple choice questions with one-line feedback per option. Concept quizzes are always easy.

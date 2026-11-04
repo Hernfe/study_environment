@@ -11,7 +11,7 @@ import { recordConceptResult } from './progress.js';
 // Options are shown in a stable shuffled order seeded by `seed`
 // (lecture id plus question id), so the authored position of the
 // correct option never shows through.
-export function createMcBody(question, { onCheck, allowRetry = false, seed } = {}) {
+export function createMcBody(question, { onCheck, allowRetry = false, seed, showAllFeedback = false } = {}) {
   let selected = null;
   let locked = false;
   const buttons = [];
@@ -61,7 +61,7 @@ export function createMcBody(question, { onCheck, allowRetry = false, seed } = {
       b.disabled = true;
       if (i === question.correct) b.classList.add('is-correct');
       if (i === selected && !correct) b.classList.add('is-incorrect');
-      if (i === selected || i === question.correct) {
+      if (showAllFeedback || i === selected || i === question.correct) {
         const line = question.options[i].feedback;
         if (line) b.appendChild(el('span', { class: 'option-feedback' }, line));
       }
@@ -99,7 +99,7 @@ export function createMcBody(question, { onCheck, allowRetry = false, seed } = {
   return { root, reset, isLocked: () => locked };
 }
 
-export function renderConceptQuiz(questions, { lectureId, sectionTitle } = {}) {
+export function renderConceptQuiz(questions, { lectureId, sectionTitle, showAllFeedback = false } = {}) {
   if (!questions || questions.length === 0) return null;
   const container = el('div', { class: 'concept-quiz' }, [
     el('h3', {}, 'Check yourself'),
@@ -115,6 +115,7 @@ export function renderConceptQuiz(questions, { lectureId, sectionTitle } = {}) {
     ]);
     const body = createMcBody(question, {
       allowRetry: true,
+      showAllFeedback,
       seed: `${lectureId}:${question.id}`,
       onCheck: ({ correct }) => {
         if (lectureId) recordConceptResult(lectureId, question.id, correct);

@@ -42,6 +42,11 @@ is not on the slides for that lecture, it does not get a block.
 Order: the notes' table of contents, unless the slides order differs,
 in which case the slides win.
 
+Questions-only sections (`mode: 'questions-only'`) may omit theory and
+use 1 to 6 easy concept questions, plus an optional label question with
+a word bank. Every option's feedback must teach the underlying fact;
+all feedback is shown after checking. See docs/CONTENT_SCHEMA.md.
+
 ## 2. Difficulty tiers
 
 | Tier | Colour | Cognitive demand | Typical forms |
@@ -333,6 +338,12 @@ Rules:
 Review mode on the course home pulls questions from every built lecture
 of that course, never across courses (the hub at `/` only lists
 courses). Implemented in `src/js/review.js` on top of `progress.js`.
+
+Before constructing the queue, exclude lectures whose registry mini-exam
+date is before today in the browser's local timezone, including their
+missed questions. Keep exams today or later, and lectures without a date.
+Review lists excluded lectures with dates and the reason. This affects
+review only; lecture pages and stored progress stay fully usable.
 
 Queue construction, in this order:
 

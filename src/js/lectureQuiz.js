@@ -1344,7 +1344,7 @@ const BODIES = {
 
 // Renders one question card. options: { lectureId, index, total, source, onResult }
 // source (optional) is shown in the head, used by review to name the lecture.
-export function renderQuestion(question, { lectureId, index, total, source, onResult } = {}) {
+export function renderQuestion(question, { lectureId, index, total, source, onResult, recordResult = true } = {}) {
   const head = el('div', { class: 'question-head' }, [
     badge(question.difficulty),
     el('span', { class: 'badge badge-neutral' }, typeLabel(question.type)),
@@ -1379,7 +1379,7 @@ export function renderQuestion(question, { lectureId, index, total, source, onRe
       score = raw.max ? raw.score * (points.total / raw.max) : 0;
     }
     const result = { correct: raw.correct, score: round3(score), max: points.total };
-    if (lectureId) recordQuestionResult(lectureId, question.id, result);
+    if (lectureId && recordResult) recordQuestionResult(lectureId, question.id, result);
     if (onResult) onResult({ question, lectureId, ...result });
   }
 

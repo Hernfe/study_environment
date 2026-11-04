@@ -5,7 +5,7 @@ import { el, paragraphs, formatDate, daysUntil } from './dom.js';
 import { renderVisual, renderVideo } from './visuals.js';
 import { renderTex, typesetInline, watchMath } from './math.js';
 import { renderConceptQuiz } from './conceptQuiz.js';
-import { renderLectureQuiz } from './lectureQuiz.js';
+import { renderLectureQuiz, renderQuestion } from './lectureQuiz.js';
 import { storageAvailable } from './progress.js';
 import { courseInfo, courseHref, hubHref, lectureHref } from './course.js';
 
@@ -284,6 +284,13 @@ export function renderBlocks(blocks = []) {
 }
 
 function renderSection(section, lectureId) {
+  if (section.mode === 'questions-only') {
+    return el('section', { class: 'section questions-only', id: section.id, 'aria-labelledby': `${section.id}-title` }, [
+      el('h2', { id: `${section.id}-title` }, section.title),
+      section.figure ? renderQuestion(section.figure, { lectureId, recordResult: false }) : null,
+      renderConceptQuiz(section.conceptQuiz, { lectureId, sectionTitle: section.title, showAllFeedback: true }),
+    ]);
+  }
   const body = el('div', { class: 'concept-body' }, [
     section.body ? paragraphs(section.body) : null,
     ...renderBlocks(section.blocks),

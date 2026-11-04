@@ -839,8 +839,40 @@ def texts(content):
     yield from collect({k: v for k, v in content.items() if k != "meta"})
 
 
+def check_sections(content, corpus, lecture_id):
+    out = []
+    for section in content.get("sections", []):
+        where = f"section {section.get('id')}"
+        questions_only = section.get("mode") == "questions-only"
+        maximum = 6 if questions_only else 4
+        questions = section.get("conceptQuiz") or []
+        # Legacy theory sections may omit the concept check entirely.
+        if (questions_only or questions) and not 1 <= len(questions) <= maximum:
+            out.append(("error", where, f"conceptQuiz must have 1 to {maximum} easy questions"))
+        for q in questions:
+            if q.get("difficulty", "easy") != "easy":
+                out.append(("error", where, "concept questions must be easy"))
+            for option in q.get("options") or []:
+                if not plain(option.get("feedback")).strip():
+                    out.append(("error", f"concept {q.get('id')}", "every option needs explanatory feedback"))
+        if questions_only:
+            if section.get("blocks") or section.get("body") or section.get("visual"):
+                out.append(("error", where, "questions-only sections use figure, not theory blocks, body or visual"))
+            figure = section.get("figure")
+            if figure:
+                if figure.get("type") != "label" or figure.get("difficulty") != "easy" or not figure.get("wordBank"):
+                    out.append(("error", where, "figure must be an easy label question with a wordBank"))
+                out += check_fields(figure)
+                out += check_bank(figure, corpus, (lecture_id, figure.get("id")))
+                for region in (figure.get("hotspots") or {}).get("regions", figure.get("regions") or []):
+                    if not plain(region.get("body") or region.get("explanation")).strip():
+                        out.append(("error", where, "every figure region needs an explanation"))
+    return out
+
+
 def lint(lecture_id, content, corpus):
     findings = []
+    findings += check_sections(content, corpus, lecture_id)
     positions_authored = []
     positions_shown = []
     for where, q in mc_questions(content):

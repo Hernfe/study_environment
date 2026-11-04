@@ -45,7 +45,7 @@ function replacer(key, value) {
   if (key === 'hotspots' && value && typeof value === 'object') {
     return { regions: value.regions, labelPool: value.labelPool };
   }
-  if (key === 'regions' && Array.isArray(value)) return value.map((r) => ({ id: r?.id, label: r?.label }));
+  if (key === 'regions' && Array.isArray(value)) return value.map((r) => ({ id: r?.id, label: r?.label, body: r?.body, explanation: r?.explanation }));
   if (key === 'regions' && value && typeof value === 'object') return { dropped: true };
   return value;
 }

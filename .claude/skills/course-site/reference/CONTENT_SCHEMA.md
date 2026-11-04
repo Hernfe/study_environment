@@ -49,6 +49,13 @@ a stable shuffle seeded by lecture id plus question id.
 
 ## Blocks
 
+Sections may instead set `mode: 'questions-only'`, omit theory fields,
+and supply 1 to 6 easy `conceptQuiz` questions. Every option requires
+feedback teaching the fact; all option feedback appears after checking.
+Optional `figure` is a complete easy `label` question with a `wordBank`,
+rendered as practice without lecture-quiz progress. See the repo schema
+and L00 for the full contract.
+
 Every block but `text` is a quiet card with a kicker. No body runs
 longer than five lines (about 350 characters). Mechanisms are `steps`,
 contrasts are `compare`, secondary in-scope detail is `detail`.

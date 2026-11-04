@@ -100,6 +100,54 @@ export default {
 
   sections: [
     {
+      id: 'questions-only',
+      title: 'Questions only: toy cell',
+      mode: 'questions-only',
+      figure: {
+        id: 'questions-only-figure', type: 'label', difficulty: 'easy',
+        prompt: 'Identify the three numbered parts of the toy cell.',
+        figure: {
+          type: 'svg', markup: exampleCell({ labels: false }),
+          fallbackAlt: 'A toy cell with a channel in the top membrane and a pump on the right.',
+        },
+        regions: [
+          { id: 'membrane', label: 'Membrane', x: 15, y: 50, explanation: 'The membrane separates the inside from the outside.' },
+          { id: 'channel', label: 'Channel', x: 34, y: 13, explanation: 'The channel allows particles to move down their gradient.' },
+          { id: 'pump', label: 'Pump', x: 85, y: 50, explanation: 'The pump uses energy to move particles against their gradient.' },
+        ],
+        wordBank: ['Pump', 'Membrane', 'Channel'],
+        modelAnswer: ['The membrane is the boundary.', 'The channel allows movement down a gradient.', 'The pump uses energy for movement against a gradient.'],
+      },
+      conceptQuiz: [
+        ['boundary', 'Which part separates inside from outside?', 'Membrane', 'Channel', 'Pump', 0],
+        ['energy', 'Which part uses energy to move particles against their gradient?', 'Channel', 'Pump', 'Membrane', 1],
+        ['passive', 'Which part allows particles to move down their gradient?', 'Membrane', 'Pump', 'Channel', 2],
+        ['barrier', 'Which part forms the cell boundary?', 'Membrane', 'Channel', 'Pump', 0],
+        ['active', 'Which part can move particles against their gradient?', 'Channel', 'Pump', 'Membrane', 1],
+        ['pore', 'Which part provides a route down a particle gradient?', 'Membrane', 'Pump', 'Channel', 2],
+      ].map(([id, prompt, ...values]) => ({
+        id: `questions-only-${id}`, prompt, correct: values[3],
+        options: values.slice(0, 3).map((text) => ({ text: text === 'Pump' ? 'Ion pump' : text, feedback: {
+          Membrane: 'The membrane separates the inside from the outside of the cell.',
+          Channel: 'The channel lets particles move down their gradient without directly using energy.',
+          Pump: 'The pump uses energy to move particles against their gradient.',
+        }[text] })),
+      })),
+    },
+    {
+      id: 'questions-only-no-figure',
+      title: 'Questions only: without a figure',
+      mode: 'questions-only',
+      conceptQuiz: [{
+        id: 'questions-only-no-figure-1',
+        prompt: 'Which part uses energy to transport particles?',
+        options: [
+          { text: 'A channel', feedback: 'A channel permits movement down a gradient without directly using energy.' },
+          { text: 'An ion pump', feedback: 'A pump uses energy to transport particles against a gradient.' },
+        ], correct: 1,
+      }],
+    },
+    {
       id: 'toy-cell',
       title: 'A toy cell (static figure, paragraph array)',
       body: [
