@@ -16,6 +16,8 @@ for path in sorted(SOURCE.rglob('*.pdf')):
     pages = [page.get_text() for page in doc]
     (OUT / (path.stem + '.txt')).write_text('\n'.join(f'PDF PAGE {i+1}\n{t}' for i, t in enumerate(pages)), encoding='utf-8')
     inventory.append(dict(file=path.relative_to(ROOT).as_posix(), pages=len(doc), sha256=hashlib.sha256(path.read_bytes()).hexdigest(), headings=[next((s for s in t.splitlines() if s.strip()), '') for t in pages]))
+    if path.name.startswith('Exam info'):
+        doc[3].get_pixmap(matrix=fitz.Matrix(2, 2)).save(OUT / 'equation-sheet.png')
     if 'Intro_' in path.name or path.name.startswith('Exam info') or path.name.startswith('Exercise1'):
         for first in range(0, len(doc), 6):
             sheet = fitz.open()

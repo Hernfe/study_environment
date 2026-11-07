@@ -8,7 +8,7 @@ import { renderConceptQuiz } from './conceptQuiz.js';
 import { renderLectureQuiz, renderQuestion } from './lectureQuiz.js';
 import { storageAvailable } from './progress.js';
 import { courseInfo, courseHref, hubHref, lectureHref } from './course.js';
-import { renderFormula } from './quantitative.js';
+import { renderFormula, renderFormulaReference } from './quantitative.js';
 import { renderMockExams } from './mockExam.js';
 
 const CREDITS_URL = 'https://github.com/Hernfe/Study_Environment/blob/main/CREDITS.md';
@@ -346,7 +346,7 @@ export function renderLecture(content, root) {
     storageAvailable() ? null : el('p', { class: 'notice' }, 'Storage is unavailable in this browser, so quiz results will not be remembered.'),
     renderObjectives(content.objectives),
     renderPrerequisites(content.prerequisites),
-    content.formulaReference ? el('details', { class: 'reveal formula-reference' }, [el('summary', {}, 'Provided exam equation sheet'), ...content.formulaReference.map((eq) => renderTex(eq, { display: true }))]) : null,
+    renderFormulaReference(content.formulaReference, content.formulaReferenceNote),
     el('div', { class: 'toc-inline' }, [toc.cloneNode(true)]),
     ...content.sections.flatMap((section) => [
       section.part ? renderPartHeader(section.part) : null,

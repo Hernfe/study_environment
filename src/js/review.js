@@ -8,6 +8,7 @@ import { getLectureProgress } from './progress.js';
 import { renderQuestion } from './lectureQuiz.js';
 import { loadLectureContent } from './content.js';
 import { watchMath } from './math.js';
+import { courseInfo } from './course.js';
 
 const SLICE = 15;
 
@@ -152,7 +153,7 @@ export function renderReview(container, registry) {
   watchMath(list);
   container.replaceChildren(
     el('h2', { id: 'review-title' }, 'Cumulative review'),
-    el('p', {}, 'Questions from built lectures whose mini-exams have not passed, mixed across lectures. Ones you missed come first, then ones you have not seen, then the rest.'),
+    el('p', {}, courseInfo()?.examLabel ? 'Questions from built lectures whose exam has not passed, mixed across lectures. Ones you missed come first, then ones you have not seen, then the rest.' : 'Questions from built lectures whose mini-exams have not passed, mixed across lectures. Ones you missed come first, then ones you have not seen, then the rest.'),
     exclusions,
     controls,
     list,

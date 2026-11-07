@@ -44,6 +44,9 @@ explicit dummy fixtures, not NBE-E4120 lecture content.
   `intro`, `constants: [{ name, tex }]`, and `conventions: string[]`.
 - `meta.examLabel` overrides the legacy `Mini-exam` label. Optional top-level
   `formulaReference: string[]` contains TeX equations in a separate disclosure.
+  `formulaReferenceNote` supplies its source note. A course registry entry in
+  `courses.js` can similarly supply `examLabel`, `finalExam: { date, detail }`,
+  `equationSheet: string[]`, and `equationSheetNote` for the course home.
 - `mockExams: [{ id, title, coverage, questions }]` mounts the reusable mock
   attempt UI. Each mock has exactly five complete question objects in exam
   order. In exam mode only prompts and response textareas are mounted before

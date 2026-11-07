@@ -9,6 +9,7 @@ const root = fileURLToPath(new URL('./src', import.meta.url));
 // Content itself lives in src/content/<slug>/.
 const pages = {
   hub: 'index.html',
+  'nbe-e4120': 'courses/nbe-e4120/index.html',
   'nbe-e4210': 'courses/nbe-e4210/index.html',
   'nbe-e4210-L00': 'courses/nbe-e4210/lectures/L00/index.html',
   'nbe-e4210-L01': 'courses/nbe-e4210/lectures/L01/index.html',

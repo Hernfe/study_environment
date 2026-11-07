@@ -10,16 +10,17 @@ import { courseRegistry } from './content.js';
 import { getLectureSummary, storageAvailable } from './progress.js';
 import { renderReview } from './review.js';
 import { renderSiteNav, renderCredits } from './render.js';
+import { renderFormulaReference } from './quantitative.js';
 
 const course = courseInfo();
 const { registry = [], exampleLecture = null } = courseRegistry() || {};
 const lectures = import.meta.env.DEV && exampleLecture ? [...registry, exampleLecture] : registry;
 
 function examLabel(examDate) {
-  if (!examDate) return 'No mini-exam';
+  if (!examDate) return `No ${(course?.examLabel || 'mini-exam').toLowerCase()}`;
   const days = daysUntil(examDate);
   const when = days > 1 ? `in ${days} days` : days === 1 ? 'tomorrow' : days === 0 ? 'today' : 'past';
-  return `Mini-exam ${formatDate(examDate)} (${when})`;
+  return `${course?.examLabel || 'Mini-exam'} ${formatDate(examDate)} (${when})`;
 }
 
 function courseCard(entry) {
@@ -46,6 +47,7 @@ function courseCard(entry) {
 }
 
 function nextExam() {
+  if (course?.finalExam) return el('p', { class: 'notice' }, course.finalExam.detail);
   const upcoming = registry
     .filter((e) => e.examDate && daysUntil(e.examDate) >= 0)
     .sort((a, b) => a.examDate.localeCompare(b.examDate))[0];
@@ -73,6 +75,7 @@ function render() {
       ]),
       storageAvailable() ? null : el('p', { class: 'notice' }, 'Storage is unavailable in this browser, so quiz results will not be remembered.'),
       nextExam(),
+      renderFormulaReference(course.equationSheet, course.equationSheetNote),
       el('h2', { id: 'course-map-title' }, 'Course map'),
       el('ol', { class: 'course-map', 'aria-labelledby': 'course-map-title' }, lectures.map(courseCard)),
       review,

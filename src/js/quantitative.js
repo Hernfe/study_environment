@@ -5,6 +5,23 @@ import { checkQuantity, evaluateRelation } from './numeric.js';
 const button = (text, action) => el('button', { type: 'button', class: 'btn', onClick: action }, text);
 const disclosure = (title, body) => el('details', { class: 'reveal' }, [el('summary', {}, title), el('div', { class: 'reveal-body' }, body)]);
 
+export function renderFormulaReference(equations, note) {
+  if (!equations?.length) return null;
+  const details = disclosure('Provided exam equation sheet', [
+    note ? el('p', { class: 'muted' }, note) : null,
+    el('p', { class: 'muted' }, 'Long equations scroll horizontally. Focus an equation and use the arrow keys.'),
+    ...equations.map((tex, i) => {
+      const equation = renderTex(tex, { display: true });
+      equation.tabIndex = 0;
+      equation.setAttribute('role', 'group');
+      equation.setAttribute('aria-label', `Equation ${i + 1}`);
+      return equation;
+    }),
+  ]);
+  details.classList.add('formula-reference');
+  return details;
+}
+
 export function renderHints(hints = [], onHint = () => {}) {
   return el('div', { class: 'progressive-hints' }, hints.map((hint, i) => {
     const details = disclosure(`Hint ${i + 1}`, paragraphs(hint.body ?? hint));

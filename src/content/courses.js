@@ -4,7 +4,17 @@
 // from there, so nothing here needs updating when a lecture is built.
 // status: active | upcoming | archived
 
+import { equationSheet } from './nbe-e4120/equation-sheet.js';
+
 export const courses = [
+  {
+    slug: 'nbe-e4120', code: 'NBE-E4120', title: 'Cellular Electrophysiology',
+    term: 'Autumn 2026', status: 'active', examLabel: 'Final exam',
+    equationSheet,
+    equationSheetNote: 'Transcribed from the official exam information, page 4. This reference covers the full course, including lectures not yet built.',
+    finalExam: { date: '2026-11-30', detail: '30 November 2026, 13:00–16:00, F239a. Equations provided; bring a calculator. Open-book status is not established by the supplied instructions.' },
+    summary: 'Question-led preparation for the final written exam: concepts, explanations, calculations and electrophysiological methods. Lecture material is being added in teaching order.',
+  },
   {
     slug: 'nbe-e4210',
     code: 'NBE-E4210',
