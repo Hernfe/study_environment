@@ -5,6 +5,16 @@ any content for one.
 
 ## Status in the repo
 
+Update 7 November 2026: initial generic explorers/drills, two hints,
+checked calculation stages (`multiStepCalc` or `calc.stages`), unit-aware
+input, written/derive/predict self-review, convention blocks, recap
+constants/conventions, and independent `scripts/check_calcs.py` are now
+implemented and demonstrated on L00. See the quantitative extensions in
+`docs/CONTENT_SCHEMA.md` for the actual fields. The older design below
+remains useful pedagogical guidance, but its “planned” field sketches
+are superseded by that contract. Mock attempts are also implemented;
+course content and its three distinct mocks still require separate QA.
+
 What exists today (`docs/CONTENT_SCHEMA.md`, Calculation):
 
 - `calc` questions: `given: [{ symbol, value, unit }]` (symbols as

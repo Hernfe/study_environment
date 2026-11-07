@@ -1,5 +1,13 @@
 # Content schema
 
+Quantitative extensions (7 November 2026): generic formula explorers,
+one drill each, checked calculation stages, two progressive hints,
+unit-aware answers, written/derive/predict rubrics, convention blocks,
+recap constants, and persisted five-question mock attempts are initially
+implemented on L00. Their authoritative contract is the new quantitative
+extensions section in `docs/CONTENT_SCHEMA.md`; it supersedes the old
+“planned” sketches at the end of this reference.
+
 The authoritative contract is `docs/CONTENT_SCHEMA.md` in the repo,
 kept in sync with `render.js`, `lectureQuiz.js` and the lint. This file
 summarises it so the skill can be read without the repo open. Where

@@ -2610,3 +2610,15 @@ p.block-link {
   background: var(--c-accent-soft);
   border-color: var(--c-accent);
 }
+/* Quantitative practice uses the existing card and feedback tokens. */
+.formula-symbols { display: flex; flex-wrap: wrap; gap: var(--sp-2); }
+.formula-expression { align-items: center; justify-content: center; padding: var(--sp-4); background: var(--c-bg); }
+.formula-symbol { background: var(--c-surface); color: var(--c-text); border: 1px solid var(--c-border); border-radius: var(--radius-sm); padding: var(--sp-2); }
+.formula-symbol.is-active { border-color: var(--c-accent); background: var(--c-accent-soft); }
+.formula-explorer:has(.formula-symbol.is-active) .formula-symbol:not(.is-active) { opacity: 0.45; }
+.symbol-description { min-height: 6rem; padding: var(--sp-3) 0; }
+.calculation-stage { min-width: 0; border: 1px solid var(--c-border); border-radius: var(--radius); margin-block: var(--sp-5); padding: var(--sp-4); }
+.quantity-field { display: flex; flex-wrap: wrap; align-items: center; gap: var(--sp-2); margin-block: var(--sp-3); }
+.quantity-field input:not([type=checkbox]) { max-width: 100%; min-width: 0; width: 12rem; }
+.formula-drill { border-top: 1px solid var(--c-border); margin-top: var(--sp-4); padding-top: var(--sp-4); }
+.mock-exams textarea { width: 100%; min-height: 8rem; }

@@ -1,5 +1,75 @@
 # Content schema
 
+## Quantitative practice extensions
+
+Implemented in `src/js/quantitative.js`, `numeric.js`, and `mockExam.js`.
+The existing NBE-E4210 question contracts remain supported. L00 includes
+explicit dummy fixtures, not NBE-E4120 lecture content.
+
+- `section.formulas` is an array of `{ id, name, tex, symbols, tokens?, reads,
+  assumes, variants?, interactive?, drill }`. Symbols contain `{ tex, name,
+  unit, meaning, convention? }`. Optional tokens compose the displayed formula:
+  `{ symbol: index }` inserts an interactive symbol, `{ tex }` inserts an
+  operator or grouping expression. Use each symbol index once; repeat symbols
+  as separate symbol entries. Arrow keys traverse the symbol buttons.
+- `variants` contains `{ tex, note }`. `interactive` contains a registered
+  `relation`, optional `constants`, `inputs: [{ key, label, symbolTex?, unit,
+  min, max, step, value }]`, `outputLabel`, `unit`, and optional `substitution`
+  TeX template with `{{key}}` placeholders. No arbitrary code is evaluated.
+- Exactly one `drill` follows each explorer: `{ prompt, answer, tex,
+  modelAnswer, error }`. Answer is `{ value, unit, tolerance, verification }`.
+  Wrong attempts allow retry; the second check opens the solution. The user
+  can also request it directly. Drills do not enter the lecture review bank.
+- New `multiStepCalc`, or a `calc` with `stages`, uses checked stages rather
+  than the legacy final-answer control. Every stage has `title`, `prompt?`,
+  `tex?`, `modelAnswer`, and either `answer`, `fields: [{ label, answer }]`, or
+  `choices: [{ label }]` plus `correct` index. Formula selection, rearrangement,
+  substitution operands, conversions, evaluation and plausibility can be
+  separate stages. Structured operand fields accept equivalent units without
+  requiring an exact expression string. Downstream answers are authored from
+  correct earlier values, preventing cascading errors. Stages may have
+  `feedback`, `error`, and `commonErrors: [{ wrongValue, tolerance?, why,
+  verification }]`. Student inputs and checked-stage state persist separately
+  from the one recorded question result. A wrong check remains a review miss
+  even after a successful retry.
+- `written`, `derive`, and `predict` have `markScheme: [{ text }]` and
+  `modelAnswer: string[]`. Students type before self-review and explicitly
+  record the criteria met. These controls never assess semantic correctness.
+  Practice criteria are not official exam marks.
+- New calculation/written questions require `hints: [{ body }, { body }]`.
+  They are separate collapsed disclosures. Hint usage is recorded; hint 2
+  returns the question to the missed review bucket. Hint-only records do not
+  increase answered counts. Each control retains its native keyboard action.
+- `convention` blocks use `{ title?, body }`. Recaps additionally accept
+  `intro`, `constants: [{ name, tex }]`, and `conventions: string[]`.
+- `meta.examLabel` overrides the legacy `Mini-exam` label. Optional top-level
+  `formulaReference: string[]` contains TeX equations in a separate disclosure.
+- `mockExams: [{ id, title, coverage, questions }]` mounts the reusable mock
+  attempt UI. Each mock has exactly five complete question objects in exam
+  order. In exam mode only prompts and response textareas are mounted before
+  submission. All responses must contain text (an explicit “No answer” is
+  allowed). Submission persists and locks the attempt, then exposes the
+  normal question controls for review. Automatic numeric checks and written
+  self-review have separate summary counts. Starting another attempt resets
+  that attempt and gives review controls a new storage namespace. Practice
+  mode exposes checks/hints during the attempt. Any figure needed to answer
+  must also be visible in the initial prompt view before a course mock ships.
+
+Numeric input accepts finite decimal/comma/scientific numbers and supported
+equivalent units: voltage, current, resistance, conductance, capacitance,
+charge, time, frequency, concentration and area (see `numeric.js`). Unit
+dimensions must match; unknown units are rejected explicitly. A bare number
+uses the requested unit. Tolerances are absolute in that unit.
+
+Every numeric answer/error carries independent recomputation metadata:
+`verification: { relation, inputs, displayScale? }`. Inputs use SI, the Python
+checker recomputes independently and divides by `displayScale` for display.
+Supported initial relations are product, ratio, sum, parallel, divider,
+charging, corner and nernst. The build runs `scripts/check_calcs.py` and the
+strict Python question lint. Metadata does not itself establish source
+correctness; source review remains required. Existing legacy calculations
+without this metadata have not been retroactively certified.
+
 The shape of a lecture content file, `src/content/<course>/L0X.js`
 (NBE-E4210: `src/content/nbe-e4210/L0X.js`). This document is the
 contract with `src/js/render.js`, `conceptQuiz.js`, `lectureQuiz.js`

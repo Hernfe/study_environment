@@ -31,7 +31,7 @@ export function buildReviewQueue(lectures, getProgress = getLectureProgress, now
     for (const question of lecture.questions || []) {
       const record = progress.questions[question.id];
       const entry = { lectureId: lecture.id, lectureNumber: lecture.number, lectureTitle: lecture.title, question, record };
-      if (!record) unseen.push(entry);
+      if (!record || (!record.attempts && record.lastResult !== 'missed')) unseen.push(entry);
       else if (record.lastResult === 'missed') missed.push(entry);
       else seen.push(entry);
     }

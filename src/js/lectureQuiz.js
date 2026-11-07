@@ -7,7 +7,8 @@ import { createMcBody } from './conceptQuiz.js';
 import { renderVisual, renderVisualBody, renderVideo } from './visuals.js';
 import { renderTex, stripMath } from './math.js';
 import { quizView, buildFigure, rove } from './widgets/imageHotspots.js';
-import { recordQuestionResult } from './progress.js';
+import { recordQuestionResult, recordHint, getPracticeState, savePracticeState } from './progress.js';
+import { renderCheckedStages, renderWritten, renderHints } from './quantitative.js';
 import { normaliseBank, renderBank, bankSelect, linkPickers } from './wordBank.js';
 
 const DIFFICULTY_LABEL = { easy: 'Easy', medium: 'Medium', hard: 'Hard' };
@@ -1330,6 +1331,10 @@ const BODIES = {
   label: labelBody,
   order: orderBody,
   calc: calcBody,
+  multiStepCalc: renderCheckedStages,
+  derive: renderWritten,
+  predict: renderWritten,
+  written: renderWritten,
   trueFalse: trueFalseBody,
   fillBlank: fillBlankBody,
   clinicalCase: clinicalCaseBody,
@@ -1344,7 +1349,7 @@ const BODIES = {
 
 // Renders one question card. options: { lectureId, index, total, source, onResult }
 // source (optional) is shown in the head, used by review to name the lecture.
-export function renderQuestion(question, { lectureId, index, total, source, onResult, recordResult = true } = {}) {
+export function renderQuestion(question, { lectureId, index, total, source, onResult, onHint, initialResponse, recordResult = true } = {}) {
   const head = el('div', { class: 'question-head' }, [
     badge(question.difficulty),
     el('span', { class: 'badge badge-neutral' }, typeLabel(question.type)),
@@ -1394,8 +1399,13 @@ export function renderQuestion(question, { lectureId, index, total, source, onRe
   // A figure to read while answering (the membrane picture of a table
   // classify). Interpret and label draw their own.
   if (question.figure && question.type !== 'interpret' && question.type !== 'label') card.appendChild(renderVisual(question.figure));
-  card.appendChild(build(question, report, { seed: `${lectureId}:${question.id}`, points }));
-  const reveal = renderReveal(question);
+  const practiceKey = `${lectureId}:${question.id}`;
+  const hints = renderHints(question.hints, (level) => { if (recordResult) recordHint(lectureId, question.id, level); onHint?.(level); });
+  if (question.hints?.length) card.appendChild(hints);
+  const ctx = { seed: practiceKey, points,
+    restore: { ...(initialResponse ? { text: initialResponse } : {}), ...getPracticeState(practiceKey) }, save: (state) => savePracticeState(practiceKey, state) };
+  card.appendChild(question.type === 'calc' && question.stages ? renderCheckedStages(question, report, ctx) : build(question, report, ctx));
+  const reveal = ['written', 'derive', 'predict'].includes(question.type) ? null : renderReveal(question);
   if (reveal) card.appendChild(reveal);
   return card;
 }
@@ -1407,6 +1417,10 @@ function typeLabel(type) {
     label: 'Label the figure',
     order: 'Order the events',
     calc: 'Calculation',
+    multiStepCalc: 'Checked calculation',
+    written: 'Written self-review',
+    derive: 'Derivation',
+    predict: 'Prediction',
     trueFalse: 'True or false',
     fillBlank: 'Fill in the blank',
     clinicalCase: 'Clinical case',

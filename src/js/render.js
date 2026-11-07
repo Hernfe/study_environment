@@ -8,6 +8,8 @@ import { renderConceptQuiz } from './conceptQuiz.js';
 import { renderLectureQuiz, renderQuestion } from './lectureQuiz.js';
 import { storageAvailable } from './progress.js';
 import { courseInfo, courseHref, hubHref, lectureHref } from './course.js';
+import { renderFormula } from './quantitative.js';
+import { renderMockExams } from './mockExam.js';
 
 const CREDITS_URL = 'https://github.com/Hernfe/Study_Environment/blob/main/CREDITS.md';
 
@@ -71,7 +73,7 @@ function escapeRegExp(text) {
 function renderHeader(meta) {
   const days = daysUntil(meta.examDate);
   const examText = meta.examDate
-    ? `Mini-exam ${formatDate(meta.examDate)}` + (days === null ? '' : days > 0 ? ` (in ${days} days)` : days === 0 ? ' (today)' : ' (past)')
+    ? `${meta.examLabel || 'Mini-exam'} ${formatDate(meta.examDate)}` + (days === null ? '' : days > 0 ? ` (in ${days} days)` : days === 0 ? ' (today)' : ' (past)')
     : null;
   const pages = (meta.pages || []).map((p) => `ch ${p.chapter} pp. ${p.from}-${p.to}`).join(', ');
   return el('header', { class: 'page-header' }, [
@@ -185,6 +187,7 @@ function card(type, title, children, extraClass = '') {
 }
 
 const BLOCKS = {
+  convention: (b) => card('definition', b.title || 'Sign convention', [paragraphs(b.body)]),
   text: (b) => el('div', { class: 'block-text' }, paragraphs(b.body)),
   figure: (b) => renderVisual(b.visual),
   definition: (b) => card('definition', b.term, [el('div', { class: 'block-body' }, paragraphs(b.body))]),
@@ -301,6 +304,7 @@ function renderSection(section, lectureId) {
     el('h2', { id: `${section.id}-title` }, section.title),
     body,
     section.visual ? renderVisual(section.visual) : null,
+    ...(section.formulas || []).map(renderFormula),
     renderConceptQuiz(section.conceptQuiz, { lectureId, sectionTitle: section.title }),
   ]);
 }
@@ -309,7 +313,7 @@ function renderRecap(recap) {
   if (!recap) return null;
   return el('section', { class: 'recap', id: 'recap', 'aria-labelledby': 'recap-title' }, [
     el('h2', { id: 'recap-title' }, 'Recap card'),
-    el('p', { class: 'muted' }, 'Key terms and equations, ready to copy onto the cheat sheet.'),
+    el('p', { class: 'muted' }, recap.intro || 'Key terms and equations, ready to copy onto the cheat sheet.'),
     recap.terms?.length
       ? el('dl', {}, recap.terms.flatMap((t) => [el('dt', {}, t.term), el('dd', {}, t.definition)]))
       : null,
@@ -325,13 +329,15 @@ function renderRecap(recap) {
           ),
         ])
       : null,
+    ...(recap.constants || []).map((c) => el('div', {}, [el('p', {}, c.name), renderTex(c.tex, { display: true })])),
+    recap.conventions ? paragraphs(recap.conventions) : null,
   ]);
 }
 
 // Entry point. root is the element inside the shell that receives the page.
 export function renderLecture(content, root) {
   const lectureId = content.meta.id;
-  document.title = `L${content.meta.number} ${content.meta.title} | NBE-E4210 study`;
+  document.title = `L${content.meta.number} ${content.meta.title} | ${courseInfo()?.code || 'Course'} study`;
 
   const toc = renderToc(content);
   const inner = el('div', { class: 'page-inner' }, [
@@ -340,6 +346,7 @@ export function renderLecture(content, root) {
     storageAvailable() ? null : el('p', { class: 'notice' }, 'Storage is unavailable in this browser, so quiz results will not be remembered.'),
     renderObjectives(content.objectives),
     renderPrerequisites(content.prerequisites),
+    content.formulaReference ? el('details', { class: 'reveal formula-reference' }, [el('summary', {}, 'Provided exam equation sheet'), ...content.formulaReference.map((eq) => renderTex(eq, { display: true }))]) : null,
     el('div', { class: 'toc-inline' }, [toc.cloneNode(true)]),
     ...content.sections.flatMap((section) => [
       section.part ? renderPartHeader(section.part) : null,
@@ -347,6 +354,7 @@ export function renderLecture(content, root) {
     ]),
     renderRecap(content.recap),
     renderLectureQuiz(content.lectureQuiz || [], { lectureId }),
+    content.mockExams ? renderMockExams(content.mockExams, { lectureId, reference: content.formulaReference?.map((eq) => `$${eq}$`) }) : null,
     renderCredits(),
   ]);
 

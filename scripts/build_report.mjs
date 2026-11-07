@@ -20,8 +20,11 @@ const python = ['python3', 'python', 'py'].find((cmd) => {
 
 if (!python) {
   console.log('\nBuild report: WARNING, question lint skipped, no Python 3 on PATH. The lint gate did not run.');
-  process.exit(0);
+  process.exit(1);
 }
+
+const calculations = spawnSync(python, [fileURLToPath(new URL('./check_calcs.py', import.meta.url))], { cwd: root, stdio: 'inherit' });
+if (calculations.status !== 0) process.exit(1);
 
 console.log('\nBuild report');
 const run = spawnSync(python, [script, '--strict'], { cwd: root, stdio: 'inherit' });

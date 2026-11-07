@@ -119,7 +119,7 @@ LEGACY = {
 
 TIERS = ["easy", "medium", "hard"]
 TYPES = {"mc", "essay", "label", "order", "calc", "trueFalse", "fillBlank", "clinicalCase", "interpret", "classify",
-         "inlineChoice", "multiSelect", "matchPairs", "groupItems", "diagramAnnotate"}
+         "inlineChoice", "multiSelect", "matchPairs", "groupItems", "diagramAnnotate", "multiStepCalc", "written", "derive", "predict"}
 
 # Question-bank mix per course, keyed by course slug. The mix is a
 # course's exam format, so it lives here; the universal checks (option
@@ -135,6 +135,7 @@ TYPES = {"mc", "essay", "label", "order", "calc", "trueFalse", "fillBlank", "cli
 #   pending   {lecture: set of min_mix names}: minimums reported as the
 #             advisory mix-todo for a lecture built before they existed
 COURSE_RULES = {
+    "nbe-e4120": {"count": None, "order": "gate", "target": None, "essays": None, "min_mix": [], "pending": {}},
     # docs/exam-format.md and docs/PEDAGOGY.md section 2 (Mini Exams 1-4).
     "nbe-e4210": {
         "count": (12, 16),
@@ -411,6 +412,22 @@ def check_fields(q):
     where = f"quiz {q.get('id')}"
     t = q.get("type")
     out = []
+    if t in {"multiStepCalc", "written", "derive", "predict"} or q.get("stages"):
+        if len(q.get("hints", [])) != 2:
+            out.append(("error", where, "quantitative/written practice requires two progressive hints"))
+        if t in {"written", "derive", "predict"} and not q.get("markScheme"):
+            out.append(("error", where, "written practice requires self-assessment criteria"))
+        if t == "multiStepCalc" or q.get("stages"):
+            if not q.get("stages"):
+                out.append(("error", where, "checked calculation requires stages"))
+            for stage in q.get("stages", []):
+                if not stage.get("title") or not stage.get("modelAnswer"):
+                    out.append(("error", where, "each calculation stage needs title and model answer"))
+                if stage.get("choices"):
+                    if not isinstance(stage.get("correct"), int) or not 0 <= stage["correct"] < len(stage["choices"]):
+                        out.append(("error", where, "formula-selection stage needs valid correct index"))
+                elif not stage.get("fields") and not stage.get("answer"):
+                    out.append(("error", where, "calculation stage needs quantity fields or an answer"))
     if t not in TYPES:
         return [("error", where, f"unknown type {t!r}")]
     if not q.get("modelAnswer") and not (t == "calc" and q.get("steps")):
@@ -843,6 +860,11 @@ def check_sections(content, corpus, lecture_id):
     out = []
     for section in content.get("sections", []):
         where = f"section {section.get('id')}"
+        for formula in section.get('formulas', []):
+            if not all(formula.get(k) for k in ('id', 'name', 'tex', 'symbols', 'reads', 'assumes', 'drill')):
+                out.append(('error', where, 'formula explorer requires identity, equation, symbols, meaning, assumptions and exactly one drill'))
+            if not formula.get('drill', {}).get('answer', {}).get('verification'):
+                out.append(('error', where, 'formula drill answer requires independent verification metadata'))
         questions_only = section.get("mode") == "questions-only"
         maximum = 6 if questions_only else 4
         questions = section.get("conceptQuiz") or []
@@ -873,6 +895,11 @@ def check_sections(content, corpus, lecture_id):
 def lint(lecture_id, content, corpus):
     findings = []
     findings += check_sections(content, corpus, lecture_id)
+    for exam in content.get('mockExams', []):
+        if len(exam.get('questions', [])) != 5:
+            findings.append(('error', 'mock ' + exam.get('id', '?'), 'mock must contain exactly five questions'))
+        for question in exam.get('questions', []):
+            findings += check_fields(question)
     positions_authored = []
     positions_shown = []
     for where, q in mc_questions(content):

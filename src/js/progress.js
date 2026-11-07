@@ -114,9 +114,11 @@ export function recordQuestionResult(lectureId, questionId, result) {
   const progress = getLectureProgress(lectureId);
   const prev = progress.questions[questionId] || { attempts: 0, correct: 0 };
   progress.questions[questionId] = {
+    ...prev,
     attempts: prev.attempts + 1,
     correct: prev.correct + (result.correct ? 1 : 0),
-    lastResult: result.correct ? 'correct' : 'missed',
+    lastResult: result.correct && !(prev.activeHints || []).includes(2) ? 'correct' : 'missed',
+    activeHints: [],
     lastAt: Date.now(),
     score: result.score ?? (result.correct ? 1 : 0),
     max: result.max ?? 1,
@@ -124,6 +126,17 @@ export function recordQuestionResult(lectureId, questionId, result) {
   progress.lastQuizAt = Date.now();
   return saveLectureProgress(lectureId, progress);
 }
+
+export function recordHint(lectureId, questionId, level) {
+  const progress = getLectureProgress(lectureId);
+  const prev = progress.questions[questionId] || { attempts: 0, correct: 0 };
+  progress.questions[questionId] = { ...prev, hints: [...new Set([...(prev.hints || []), level])], activeHints: [...new Set([...(prev.activeHints || []), level])] };
+  if (level === 2) progress.questions[questionId].lastResult = 'missed';
+  return saveLectureProgress(lectureId, progress);
+}
+
+export function getPracticeState(key) { return read('practice:' + key) || {}; }
+export function savePracticeState(key, value) { return write('practice:' + key, value); }
 
 export function recordConceptResult(lectureId, questionId, correct) {
   const progress = getLectureProgress(lectureId);
@@ -171,7 +184,7 @@ export function getQuestionRecord(lectureId, questionId) {
 // answered ones.
 export function getLectureSummary(lectureId) {
   const progress = getLectureProgress(lectureId);
-  const records = Object.values(progress.questions);
+  const records = Object.values(progress.questions).filter((r) => r.attempts > 0);
   const answered = records.length;
   const missed = records.filter((r) => r.lastResult === 'missed').length;
   const score = records.reduce((sum, r) => sum + (r.score || 0), 0);

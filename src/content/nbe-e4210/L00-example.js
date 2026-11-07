@@ -2,6 +2,7 @@
 // renderer can be tested. Not course content. Shown only in dev.
 
 import { exampleCell } from './figures/example-cell.js';
+import { exampleFormula, exampleCalculation, exampleWritten, exampleMocks } from '../quantitative-example.js';
 
 // Pictures for the question types added after Mini Exams 3 and 4. The
 // pathway picture is the L04 slide crop (Figure 10.3), reused here only
@@ -99,6 +100,12 @@ export default {
   ],
 
   sections: [
+    { id: 'quantitative-fixtures', title: 'Quantitative component fixtures',
+      blocks: [{ type: 'convention', title: 'Fixture direction', body: 'Voltage is the drop in the direction of positive resistor current.' }],
+      formulas: [exampleFormula],
+      conceptQuiz: [{ id: 'fixture-proportionality', prompt: 'At fixed resistance, what happens when current doubles?', correct: 1,
+        options: [{ text: 'Voltage halves.', feedback: 'At fixed resistance voltage follows current.' }, { text: 'Voltage doubles.', feedback: 'Ohm law is proportional at fixed resistance.' }] }],
+    },
     {
       id: 'questions-only',
       title: 'Questions only: toy cell',
@@ -276,7 +283,10 @@ export default {
     ],
   },
 
+  mockExams: exampleMocks,
   lectureQuiz: [
+    exampleCalculation,
+    exampleWritten,
     {
       id: 'q01',
       difficulty: 'easy',
