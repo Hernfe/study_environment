@@ -292,6 +292,7 @@ function renderSection(section, lectureId, questions = []) {
       el('h2', { id: `${section.id}-title` }, section.title),
       section.figure ? renderQuestion(section.figure, { lectureId, recordResult: false }) : null,
       renderConceptQuiz(section.conceptQuiz, { lectureId, sectionTitle: section.title, showAllFeedback: true }),
+      section.calculation ? renderQuestion(section.calculation, { lectureId, recordResult: false }) : null,
     ]);
   }
   const body = el('div', { class: 'concept-body' }, [

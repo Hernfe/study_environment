@@ -65,6 +65,9 @@ feedback teaching the fact; all option feedback appears after checking.
 Optional `figure` is a complete easy `label` question with a `wordBank`,
 rendered as practice without lecture-quiz progress. See the repo schema
 and L00 for the full contract.
+Optional `calculation` is a complete `calc` question after the easy checks,
+rendered without lecture-quiz progress. It may use checked stages, hints
+and independent verification metadata. L08 uses this for benefit/cost.
 
 Every block but `text` is a quiet card with a kicker. No body runs
 longer than five lines (about 350 characters). Mechanisms are `steps`,

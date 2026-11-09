@@ -28,6 +28,7 @@ const pages = {
   'nbe-e4210-L05': 'courses/nbe-e4210/lectures/L05/index.html',
   'nbe-e4210-L06': 'courses/nbe-e4210/lectures/L06/index.html',
   'nbe-e4210-L07': 'courses/nbe-e4210/lectures/L07/index.html',
+  'nbe-e4210-L08': 'courses/nbe-e4210/lectures/L08/index.html',
 };
 
 export default defineConfig({

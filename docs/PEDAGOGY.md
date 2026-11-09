@@ -49,6 +49,14 @@ all feedback is shown after checking. See docs/CONTENT_SCHEMA.md.
 
 ## 2. Difficulty tiers
 
+Mini Exam 7 update: a short taught calculation can be medium. The user
+reports one on that paper, although the local answer key contains none
+(see docs/exam-format.md). L08's neutral-reference benefit/cost
+subtractions are medium, supported directly by HW4 exercise 3. Novel
+multi-step quantitative predictions remain hard.
+For the single-answer minimum, a `calc` may substitute for `mc` when
+needed to fit the full format mix within 16 questions.
+
 | Tier | Colour | Cognitive demand | Typical forms |
 |---|---|---|---|
 | Easy | green | Recall or identify. One fact, one term, one structure. | Multiple choice, true or false, fill in the blank, label a figure from a word bank, match an area to a lobe. |
@@ -60,8 +68,8 @@ The medium tier is anchored to the mini-exam's difficulty ceiling
 one-step applications, a described lesion or finding mapped to a cell
 type or structure. A student who gets the medium tier right is ready
 for the paper. The hard tier sits deliberately above that ceiling:
-multi-step scenarios, predictions and calculations the paper does not
-ask for. It gives a margin of safety and builds the understanding that
+novel multi-step scenarios, predictions and calculations beyond taught
+arithmetic. It gives a margin of safety and builds the understanding that
 makes the one-step items easy. Say so to the student: missing a hard
 question does not mean missing the exam level.
 

@@ -145,6 +145,7 @@ export default {
       id: 'questions-only-no-figure',
       title: 'Questions only: without a figure',
       mode: 'questions-only',
+      calculation: { ...exampleCalculation, id: 'questions-only-calculation', type: 'calc' },
       conceptQuiz: [{
         id: 'questions-only-no-figure-1',
         prompt: 'Which part uses energy to transport particles?',

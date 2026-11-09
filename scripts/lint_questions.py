@@ -147,7 +147,7 @@ COURSE_RULES = {
             ("label with a word bank", 1, lambda q: q.get("type") == "label" and q.get("wordBank")),
             ("trueFalse with a false statement to correct", 2, lambda q: q.get("type") == "trueFalse" and has_false(q)),
             ("clinicalCase", 2, lambda q: q.get("type") == "clinicalCase"),
-            ("mc", 1, lambda q: q.get("type") == "mc"),
+            ("mc or calc", 1, lambda q: q.get("type") in {"mc", "calc"}),
             ("order", 1, lambda q: q.get("type") == "order"),
             ("fillBlank", 1, lambda q: q.get("type") == "fillBlank"),
             ("interpret", 1, lambda q: q.get("type") == "interpret"),
@@ -883,6 +883,11 @@ def check_sections(content, corpus, lecture_id):
                 if not plain(option.get("feedback")).strip():
                     out.append(("error", f"concept {q.get('id')}", "every option needs explanatory feedback"))
         if questions_only:
+            calculation = section.get('calculation')
+            if calculation:
+                if calculation.get('type') != 'calc':
+                    out.append(('error', where, 'calculation must be a calc question'))
+                out += check_fields(calculation)
             if section.get("blocks") or section.get("body") or section.get("visual"):
                 out.append(("error", where, "questions-only sections use figure, not theory blocks, body or visual"))
             figure = section.get("figure")

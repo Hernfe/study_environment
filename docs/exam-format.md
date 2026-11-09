@@ -18,7 +18,32 @@ Sources, all by the current instructor, Matias Palva:
 
 Together they replace the two pre-2020 open-book papers (`14468.pdf`,
 `14701.pdf`) for everything except very hard stretch questions. Mini
-Exam 6 is the current format.
+Exam 7 is the current format.
+
+Latest source: `source/nbe-e4210/exams/Brain_Exams (7).pdf`, a three-page
+Mini Exam 7 answer key, chapters 15 and 18, 2026-2027. All ten problems
+are worth 1 point. It uses pathway completion (HPA, five items at 0.2),
+anterior/posterior pituitary classification (four at 0.25), autonomic
+transmitter completion (four at 0.25), SNS/PNS/Neither classification
+(five at 0.2), transmitter/function matching (four lines at 0.25), a
+single-answer structural question, emotion component classification and
+theory sequences, evidence interpretation (two at 0.5), learned-fear
+pathway completion/classification (four at 0.25), and five corrected
+true/false statements (0.2 each). Original distractors and some original
+response formats are absent, so do not reconstruct them from the key.
+
+Calculation discrepancy: the user reports a small calculation in Mini
+Exam 7, but none appears in the supplied answer key. That report broadens
+preparation to include a short taught calculation at medium difficulty;
+the exact exam calculation remains unverified. L08 has an independent
+source for benefit and cost subtraction: HW4 exercise 3. Do not claim
+that arithmetic is necessarily above the exam merely because Exams 1-6
+did not require it.
+
+To retain the 16-question cap when a lecture needs a calculation, the
+single-answer minimum is now `mc` or `calc`. The other format minima
+remain unchanged. This permits 16 questions including the complete
+existing mix and one calculation, rather than forcing a seventeenth.
 
 Additional sources: `source/nbe-e4210/exams/Mini exam 5 solution (1).pdf`
 (lecture 5, auditory system) and `Mini exam 6 solutions.pdf` (lecture 6,
@@ -51,7 +76,7 @@ contradicts it.
   0.34.
 - True or false weighting follows the count: 0.5 per statement with two
   statements (Exam 3, Problem 3), 0.25 with four (Exams 2 and 4).
-- No essay questions in any of the six papers. Nothing asks for a
+- No essay questions in any of the seven papers. Nothing asks for a
   paragraph. The longest thing the student writes is a one-line
   correction of a false statement or a short phrase in a blank.
 - Every answer is a tick, a circled option, a term picked from a list,
@@ -435,7 +460,10 @@ unless the problem itself is unusual.
 - Exam 5 adds a qualitative frequency-change prediction at fixed
   intensity; Exam 6 adds sketching a known adaptation response, not
   calculating it. Neither raises the ceiling to a new multi-step scenario.
-- Nothing requires a calculation, a multi-step prediction, a written
+- In the supplied papers/keys, no item requires a calculation. The user
+  reports a small one on Exam 7; its exact question is absent from the
+  local key, so prepare taught arithmetic at medium as described above.
+  Nothing in the supplied material requires a multi-step prediction, a written
   explanation beyond one line, or combining two lectures.
 - This sets the site's medium tier. Easy questions sit below it (one
   fact, one term). Hard questions sit deliberately above it (multi-step
@@ -444,7 +472,7 @@ unless the problem itself is unusual.
 
 ## What this changes for the site
 
-- Essays are not part of the exam: none in any of the six papers. The
+- Essays are not part of the exam: none in any of the seven papers. The
   default is zero essays per lecture; a kept essay is labelled as
   beyond the exam format.
 - Core types per lecture: at least 2 `classify` (one may be the table

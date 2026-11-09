@@ -23,6 +23,39 @@ page so they can be replaced if the site is ever shared more widely.
 
 ## Assets in use
 
+### Lecture 8
+
+All paths below are under `src/assets/figures/nbe-e4210/L08/`, used in
+L08 questions-only label practice unless stated otherwise. Rebuilt by
+`scripts/figures_nbe-e4210_L08.py`; JSON sidecars record deck, slide,
+crop and text masks. Source: the locally supplied
+`source/nbe-e4210/slides/NBE-E4210 LECTURE 08 - 2026.pdf`.
+No public deck URL supplied. Licence: course/publisher copyrighted
+material, private study use, no new licence implied. Attribution:
+NBE-E4210 lecturer and the original creators listed below. No library
+assets or generated images were added.
+
+| File | Slide / where used | Original attribution / URL where supplied by deck |
+| --- | --- | --- |
+| `modulators.webp` | 4, diffuse systems | Bear, Connors and Paradiso, Neuroscience: Exploring the Brain, 4th ed. |
+| `noradrenergic.webp` | 5, NE system | Bear et al., norepinephrine projection diagram |
+| `methods.webp` | 11, fMRI versus MEG | Scanner photographs supplied in lecture, no original URL stated |
+| `bold.webp` | 12, BOLD | Neuroimaging physiology illustration; https://www.cns.nyu.edu/~david/courses/perception/lecturenotes/neuroimaging/fMRI-physics-physiology.html |
+| `currents.webp` | 13, MEG/EEG | Primary/return-current illustration; same NYU neuroimaging URL as slide 12 |
+| `discovery.webp` | 17, DMN discovery | Bear Fig. 21.1, Raichle et al. 2007 |
+| `dmn-functions.webp` | 18, DMN functions | Bear Fig. 21.2, Addis et al. 2007 |
+| `subsystems.webp` | 24, DMN subsystems | Andrews-Hanna, Smallwood and Spreng; https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4039623/ |
+| `yeo.webp` | 25, Yeo networks | Yeo et al. 2011; https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3174820/ |
+| `power.webp` | 28, Power networks | Power et al. 2011, Neuron, figure reproduced in lecture |
+| `search.webp` | 33, attention types | Serial versus pop-out search diagram supplied in lecture |
+| `posner.webp` | 34, Posner paradigm | Bear Fig. 21.4, spatial cueing |
+| `behaviour.webp` | 36, behavioural effects | Bear Figs. 21.5-21.6; Posner, Snyder and Davidson 1980 |
+| `spotlight.webp` | 37, neural effects | Bear Fig. 21.7, Brefczynski and DeYoe |
+| `v4.webp` | 38, lecture-quiz interpretation | Bear Fig. 21.12, Moran and Desimone 1985 |
+| `frontoparietal.webp` | 39, control/maps practice and quiz label | Bear Fig. 21.21, macaque frontoparietal network |
+| `executive.webp` | 42, executive/control taxonomy | Executive-function wheel reproduced in lecture; no original URL stated; answer text masked |
+| `pfc.webp` | 45, prefrontal cortex | Goal/value/control schematic reproduced in lecture; no original URL stated |
+
 ### Lecture 7
 
 Rebuilt by `scripts/figures_nbe-e4210_L07.py`; crop/mask provenance is in

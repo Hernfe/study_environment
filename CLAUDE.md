@@ -47,10 +47,12 @@ When two slide decks disagree on schedule, scope or emphasis, the most recent de
   option's feedback teaches the underlying fact; show all feedback after
   checking. See `docs/CONTENT_SCHEMA.md` for the contract and L00 examples.
 
-- Mini Exams 5 and 6 are now included in `docs/exam-format.md`; Exam 6
-  is the current format. It adds sketching a taught response trace with
+- Mini Exams 5 to 7 are now included in `docs/exam-format.md`; Exam 7
+  is the current format. Exam 6 adds sketching a taught response trace with
   an axis label and adaptation type, practised on paper with a self-scored
-  `interpret` question. No new per-lecture question-type minimum is needed.
+  `interpret` question. The supplied Exam 7 key has no calculation, despite
+  the user's report of one; prepare taught short arithmetic at medium.
+  A `calc` may meet the single-answer `mc` minimum to keep the 16-question cap.
 
 - Lecture pages follow the notes' table-of-contents order unless the slides order differs, in which case follow the slides.
 

@@ -190,6 +190,12 @@ textbook chapter.
 
 ### Questions-only sections
 
+Optional `calculation` is a complete `calc` question rendered after the
+easy concept checks as ungraded section practice (`recordResult: false`).
+It has its own stable ID and follows the usual calc/stages, hints and
+verification contract. It does not replace any of the 1-6 easy checks.
+Use it for a taught numerical exercise alongside questions-only recall.
+
 Set `mode: 'questions-only'` to omit theory. Supply `id`, `title` and
 `conceptQuiz` with 1 to 6 easy multiple-choice questions. Omit `blocks`,
 `body` and `visual`. Each option must have nonempty `feedback` explaining
@@ -543,6 +549,10 @@ type:
 | `figure` | Visual | Optional on any type: a figure shown above the answer area, as the membrane picture of Mini Exam 2's table (Problem 9). Same shape as `interpret`'s `figure` (a widget with `quiz: false` hotspots and a `fallbackAlt`). `interpret` and legacy `label` use it as their own figure. |
 
 ### Points
+
+NBE-E4210's single-answer format minimum is satisfied by `mc` or `calc`
+when a taught calculation must fit within the 16-question cap. Other
+type minima are unchanged (Mini Exam 7 update in docs/exam-format.md).
 
 The mini-exams print a point value with every problem. From Mini Exam 2
 on, every problem is worth 1 point and its sub-items divide it, mostly
