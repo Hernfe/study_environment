@@ -12,11 +12,11 @@ const SKIP = 'script, style, code, pre, textarea, input, select, option, svg, .k
 
 // Returns an element holding the rendered expression. On a TeX error the
 // source is shown in monospace so the page still says something.
-export function renderTex(tex, { display = false } = {}) {
+export function renderTex(tex, { display = false, symbolClasses = false } = {}) {
   const node = document.createElement(display ? 'div' : 'span');
   node.className = display ? 'math-display' : 'math-inline';
   try {
-    katex.render(tex, node, { displayMode: display, throwOnError: true, output: 'htmlAndMathml', strict: 'ignore' });
+    katex.render(tex, node, { displayMode: display, throwOnError: true, output: 'htmlAndMathml', strict: 'ignore', trust: symbolClasses ? (context) => context.command === '\\htmlClass' : false });
   } catch (error) {
     console.error(`KaTeX could not render "${tex}".`, error);
     node.className += ' math-error';

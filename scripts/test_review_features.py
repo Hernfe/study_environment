@@ -1,14 +1,16 @@
 """Browser regression checks. Requires playwright and a running npm run dev.
 
 Run: python scripts/test_review_features.py
-Uses installed Chrome; screenshots go to ignored shots/features/.
+Uses installed Chrome by default. Set PLAYWRIGHT_CHROMIUM_EXECUTABLE to a container-local Chromium binary. Screenshots go to ignored shots/features/.
 """
+import os
 from pathlib import Path
 from playwright.sync_api import sync_playwright
 
 
 with sync_playwright() as p:
-    browser = p.chromium.launch(channel="chrome", headless=True)
+    browser_options = {"executable_path": os.environ["PLAYWRIGHT_CHROMIUM_EXECUTABLE"]} if os.environ.get("PLAYWRIGHT_CHROMIUM_EXECUTABLE") else {"channel": "chrome"}
+    browser = p.chromium.launch(**browser_options, headless=True)
     context = browser.new_context(timezone_id="Europe/Helsinki")
     page = context.new_page()
     errors = []

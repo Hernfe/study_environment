@@ -2622,3 +2622,11 @@ p.block-link {
 .quantity-field input:not([type=checkbox]) { max-width: 100%; min-width: 0; width: 12rem; }
 .formula-drill { border-top: 1px solid var(--c-border); margin-top: var(--sp-4); padding-top: var(--sp-4); }
 .mock-exams textarea { width: 100%; min-height: 8rem; }
+.calculation-stage select { width: 100%; max-width: 100%; min-width: 0; }
+.formula-explorer > .math-display { overflow-x: auto; }
+.interactive-equation [role=button] { cursor: pointer; border-bottom: 1px dotted var(--c-accent); padding-bottom: 2px; }
+.interactive-equation:has(.is-active) [role=button]:not(.is-active) { opacity: .4; }
+.interactive-equation .is-active { background: var(--c-accent-soft); }
+
+/* Opt-in source plots retain readable axes at narrow viewports. */
+.hotspots-scroll { width: 100%; max-width: 100%; overflow-x: auto; }

@@ -3,7 +3,8 @@
 // The multiple-choice body is also used by lectureQuiz.js.
 
 import { el, paragraphs, seededOrder } from './dom.js';
-import { recordConceptResult } from './progress.js';
+import { renderHints } from './quantitative.js';
+import { recordConceptHint, recordConceptResult } from './progress.js';
 
 // Builds the options list plus check/feedback for one multiple-choice
 // question. Returns { root, reset } and calls onCheck({ correct, index })
@@ -121,7 +122,9 @@ export function renderConceptQuiz(questions, { lectureId, sectionTitle, showAllF
         if (lectureId) recordConceptResult(lectureId, question.id, correct);
       },
     });
+    if (question.hints?.length) card.appendChild(renderHints(question.hints, (level) => { if (lectureId) recordConceptHint(lectureId, question.id, level); }));
     card.appendChild(body.root);
+    if (question.modelAnswer?.length) card.appendChild(el('details', { class: 'reveal' }, [el('summary', {}, 'Show worked answer'), el('div', {}, paragraphs(question.modelAnswer))]));
     container.appendChild(card);
   });
   return container;

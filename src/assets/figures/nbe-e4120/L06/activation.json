@@ -1,0 +1,17 @@
+{
+  "source": "source/nbe-e4120/lectures/Ephys-Lecture-6-2026_Nonlinearities_full (1).pdf",
+  "page": 16,
+  "cropFractions": [
+    0.07,
+    0.16,
+    0.67,
+    0.94
+  ],
+  "width": 1395,
+  "height": 809,
+  "embeddedImageIndices": [
+    1,
+    2
+  ],
+  "labels": "retained; quiz disabled"
+}

@@ -25,6 +25,15 @@ class SectionLintTests(unittest.TestCase):
         self.section['conceptQuiz'].append(self.section['conceptQuiz'][0])
         self.assertTrue(self.check_section())
 
+    def test_part_heading_contract(self):
+        # A string used to silently render an undefined title/number in the TOC.
+        for bad in ['Part 1', {}, {'id': 'p', 'title': 'Models', 'number': 0},
+                    {'id': 'p', 'title': 'Models', 'number': True}]:
+            self.section['part'] = bad
+            self.assertTrue(any('part requires' in f[2] for f in self.check_section()))
+        self.section['part'] = {'id': 'p', 'number': 1, 'title': 'Models'}
+        self.assertEqual(self.check_section(), [])
+
     def test_every_option_needs_feedback(self):
         self.section['conceptQuiz'][0]['options'][1]['feedback'] = '  '
         self.assertTrue(self.check_section())

@@ -1,0 +1,14 @@
+{
+  "source": "source/nbe-e4120/exercises/Exercise8HH.pdf",
+  "page": 3,
+  "cropFractions": [
+    0.09,
+    0.15,
+    0.59,
+    0.4
+  ],
+  "embeddedImage": null,
+  "width": 746,
+  "height": 527,
+  "labels": "Original source labels and axes retained; quiz disabled."
+}

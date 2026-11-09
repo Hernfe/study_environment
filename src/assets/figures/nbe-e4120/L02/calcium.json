@@ -1,0 +1,27 @@
+{
+  "source": "source/nbe-e4120/lectures/Ephys-Lectures-2-2026_Potentials_11-9-26 (1).pdf",
+  "page": 28,
+  "cropFractions": [
+    0.46,
+    0.54,
+    0.998,
+    0.92
+  ],
+  "width": 1038,
+  "height": 892,
+  "labels": "retained; quiz off",
+  "panelsPoints": [
+    [
+      660,
+      55,
+      925,
+      280
+    ],
+    [
+      440,
+      290,
+      959,
+      496
+    ]
+  ]
+}

@@ -9,6 +9,15 @@ const root = fileURLToPath(new URL('./src', import.meta.url));
 // Content itself lives in src/content/<slug>/.
 const pages = {
   hub: 'index.html',
+  'nbe-e4120-L09': 'courses/nbe-e4120/lectures/L09/index.html',
+  'nbe-e4120-L03': 'courses/nbe-e4120/lectures/L03/index.html',
+  'nbe-e4120-L08': 'courses/nbe-e4120/lectures/L08/index.html',
+  'nbe-e4120-L07': 'courses/nbe-e4120/lectures/L07/index.html',
+  'nbe-e4120-L06': 'courses/nbe-e4120/lectures/L06/index.html',
+  'nbe-e4120-L05': 'courses/nbe-e4120/lectures/L05/index.html',
+  'nbe-e4120-L04': 'courses/nbe-e4120/lectures/L04/index.html',
+  'nbe-e4120-L02': 'courses/nbe-e4120/lectures/L02/index.html',
+  'nbe-e4120-L01': 'courses/nbe-e4120/lectures/L01/index.html',
   'nbe-e4120': 'courses/nbe-e4120/index.html',
   'nbe-e4210': 'courses/nbe-e4210/index.html',
   'nbe-e4210-L00': 'courses/nbe-e4210/lectures/L00/index.html',
@@ -36,5 +45,7 @@ export default defineConfig({
   },
   server: {
     open: false,
+    // Container-mounted edits do not reliably emit filesystem events.
+    watch: { usePolling: true, interval: 500 },
   },
 });

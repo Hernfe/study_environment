@@ -138,10 +138,18 @@ export function recordHint(lectureId, questionId, level) {
 export function getPracticeState(key) { return read('practice:' + key) || {}; }
 export function savePracticeState(key, value) { return write('practice:' + key, value); }
 
+export function recordConceptHint(lectureId, questionId, level) {
+  const progress = getLectureProgress(lectureId);
+  const prev = progress.concept[questionId] || { attempts: 0, correct: 0 };
+  progress.concept[questionId] = { ...prev, hints: [...new Set([...(prev.hints || []), level])] };
+  return saveLectureProgress(lectureId, progress);
+}
+
 export function recordConceptResult(lectureId, questionId, correct) {
   const progress = getLectureProgress(lectureId);
   const prev = progress.concept[questionId] || { attempts: 0, correct: 0 };
   progress.concept[questionId] = {
+    ...prev,
     attempts: prev.attempts + 1,
     correct: prev.correct + (correct ? 1 : 0),
     lastAt: Date.now(),

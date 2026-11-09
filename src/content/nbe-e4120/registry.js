@@ -16,6 +16,6 @@ const titles = [
 const dates = ['09-04', '09-11', '09-18', '09-25', '10-02', '10-09', '10-23', '10-30', '11-06', '11-13', '11-20', '11-27'];
 export const registry = titles.map((title, i) => ({
   id: `L${String(i + 1).padStart(2, '0')}`, number: i + 1, title,
-  chapters: [], lectureDate: `2026-${dates[i]}`, examDate: '2026-11-30', built: false,
+  chapters: [], lectureDate: `2026-${dates[i]}`, examDate: '2026-11-30', built: i < 9,
 }));
 export const exampleLecture = null;

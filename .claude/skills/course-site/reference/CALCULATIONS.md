@@ -27,14 +27,7 @@ What exists today (`docs/CONTENT_SCHEMA.md`, Calculation):
 - Calculator widgets for specific formulas (`nernst-calc`,
   `ghk-explorer`), built per formula, not a generic explorer.
 
-Everything else in this file is design for the first quantitative
-course and is not implemented: the generic formula explorer, the drill,
-the two hints, `commonErrors`, `sigfigs`, `multiStepCalc`, `derive`,
-the `convention` block, recap constants and conventions,
-`scripts/check_calcs.py`, and the hint-2 review bucket. Build each in
-the renderer, `docs/CONTENT_SCHEMA.md`, the lint and `L00-example.js`
-together before the lecture that needs it, and use the repo's naming
-(`tex`, not `latex`; `steps`, not `solution`).
+The original design sketches below are historical guidance. Implemented fields and registered relations are in `docs/CONTENT_SCHEMA.md`; do not rebuild them from the old sketches. L01 now exercises the real course relations and three complete mocks.
 
 All maths in every field below goes through KaTeX, inline between
 dollar signs or as display `tex`. The lint fails the build on
@@ -213,9 +206,7 @@ lint's per-course rules (`ARCHITECTURE.md`, Adding a course).
 
 Every number you publish is verified by running it.
 
-`scripts/check_calcs.py` does not exist yet. Write it with the first
-lecture that has a calculation beyond a single substitution, so that each lecture's content file has a
-matching block of Python that recomputes: every drill answer, every
+`scripts/check_calcs.py` independently recomputes declarative verification metadata for: every drill answer, every
 calculation answer, every intermediate value quoted in a solution step,
 and every `commonErrors` wrong value from the error it claims to
 represent. The script prints a table of expected against computed and

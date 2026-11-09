@@ -2,6 +2,7 @@ import { el, paragraphs } from './dom.js';
 import { renderQuestion } from './lectureQuiz.js';
 import { getPracticeState, savePracticeState } from './progress.js';
 import { renderVisual, renderVideo } from './visuals.js';
+import { renderFormulaReference } from './quantitative.js';
 
 // Attempt answers are separate from the practice bank. During an exam no
 // answer/check/reveal components are mounted; submission is irreversible for
@@ -16,7 +17,7 @@ export function renderMockExams(exams, { lectureId, reference } = {}) {
     const render = () => {
       body.replaceChildren();
       const intro = el('div', {}, [el('h3', {}, exam.title), paragraphs(exam.coverage), el('p', { class: 'muted' }, 'Five practice questions. A calculator is allowed. Rubrics are practice criteria, not official exam weights.')]);
-      if (reference) intro.append(el('details', { class: 'reveal' }, [el('summary', {}, 'Provided equation sheet'), ...reference.map((eq) => el('div', {}, paragraphs(eq)))]));
+      if (reference) intro.append(renderFormulaReference(reference.map((eq) => eq.replace(/^\$|\$$/g, '')), 'Official provided equation sheet. A calculator is allowed.'));
       body.append(intro);
       if (!state.mode) {
         for (const [mode, label] of [['exam', 'Start real-exam practice'], ['practice', 'Start with hints and checks']]) {

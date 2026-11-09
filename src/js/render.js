@@ -286,7 +286,7 @@ export function renderBlocks(blocks = []) {
   return out;
 }
 
-function renderSection(section, lectureId) {
+function renderSection(section, lectureId, questions = []) {
   if (section.mode === 'questions-only') {
     return el('section', { class: 'section questions-only', id: section.id, 'aria-labelledby': `${section.id}-title` }, [
       el('h2', { id: `${section.id}-title` }, section.title),
@@ -306,6 +306,10 @@ function renderSection(section, lectureId) {
     section.visual ? renderVisual(section.visual) : null,
     ...(section.formulas || []).map(renderFormula),
     renderConceptQuiz(section.conceptQuiz, { lectureId, sectionTitle: section.title }),
+    ...['easy', 'medium', 'hard'].flatMap((tier) => {
+      const group = questions.filter((q) => q.sectionId === section.id && q.difficulty === tier);
+      return group.length ? [el('h3', {}, `${tier[0].toUpperCase()}${tier.slice(1)} practice`), ...group.map((q) => renderQuestion(q, { lectureId }))] : [];
+    }),
   ]);
 }
 
@@ -350,10 +354,10 @@ export function renderLecture(content, root) {
     el('div', { class: 'toc-inline' }, [toc.cloneNode(true)]),
     ...content.sections.flatMap((section) => [
       section.part ? renderPartHeader(section.part) : null,
-      renderSection(section, lectureId),
+      renderSection(section, lectureId, content.segmentedPractice ? content.lectureQuiz : []),
     ]),
     renderRecap(content.recap),
-    renderLectureQuiz(content.lectureQuiz || [], { lectureId }),
+    content.segmentedPractice ? el('section', { id: 'lecture-quiz' }, [el('h2', {}, 'Lecture practice'), el('p', {}, 'Practice is grouped by difficulty within each segment above. Results also enter course review.')]) : renderLectureQuiz(content.lectureQuiz || [], { lectureId }),
     content.mockExams ? renderMockExams(content.mockExams, { lectureId, reference: content.formulaReference?.map((eq) => `$${eq}$`) }) : null,
     renderCredits(),
   ]);

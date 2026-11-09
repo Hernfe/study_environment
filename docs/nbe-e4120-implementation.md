@@ -1,4 +1,14 @@
+# Lecture 9 local implementation, 9 November 2026
+
+Lectures 1–9 are now built locally. L09 has 34 segments, 10 explorer/drill pairs, 110 bank questions and exactly three distinct five-question mocks. Full scope/coverage are in `docs/scope/nbe-e4120/L09.md` and `docs/coverage-nbe-e4120-L09.md`; actual final checks and limitations are in `.codex-away/PHASE9-REPORT.md`. Exercise9 is not supplied. Applications exam scope remains provisional. L10–L12 await materials. No Git mutations or deployment. This status supersedes older pending notes below.
+
+# Current phase 8 status, 8 November 2026
+
+Lectures 1–8 are now implemented locally; phase-specific evidence is in `.codex-away/PHASE8-REPORT.md` and `docs/coverage-nbe-e4120-L08.md`. L09 remains the next runner phase; L10–L12 still await source decks. Historical planning and checks below remain dated evidence, not the current status. No Git or remote mutations or deployment occurred.
+
 # NBE-E4120 implementation audit
+
+8 November phase 2: L01 and L02 are built and checked locally. See `.codex-away/PHASE2-REPORT.md` and `docs/coverage-nbe-e4120-L02.md`. L03–L09 remain subsequent runner phases. This status supersedes historical phase-one planning below.
 
 Audit started 7 November 2026. Authority: kickoff and handoff section 0, official Exam info Ephys_Oct_2026.pdf, local decks and exercises. This is a plan and evidence record, not a completion report.
 
@@ -8,8 +18,8 @@ Audit started 7 November 2026. Authority: kickoff and handoff section 0, officia
 2. Extend shared machinery on the existing L00 test page: accessible formula explorers and one drill each, unit-aware numerical checks, structured substitution and intermediate inputs, separate progressive hints, written self-assessment, hint-aware progress/review, and five-question mock attempts with locked solutions before submission. Add independent calculation checking and schema/lint support together.
 3. Wire a separate NBE-E4120 shell and registry. Preserve NBE-E4210 content and its assessment wording. Expose the supplied equation sheet as a permanent reference.
 4. Build L01 in actual slide order, cover all assessable slide and Exercise 1 concepts, add genuinely distinct practice questions and exactly three complete five-question mocks. Maintain source-to-question coverage.
-5. Run full build with visible Python lint, independent numeric checks, and browser checks at 380, 768, 1280 and 1920 pixels in both themes. Commit completed increments locally only.
-6. Pause after L01 for the student's actual Claude Code review. Resolve reported findings before L02. Continue in order only after that review; no claim that the supplied QA prompt is a completed review.
+5. Run full build with visible Python lint, independent numeric checks, and browser checks at 380, 768, 1280 and 1920 pixels in both themes. Leave increments local and uncommitted.
+6. Finish this invocation after the L01 phase report. Later runner invocations handle L02–L09. No intermediate approval is required; independent Claude review is deferred until the unattended phases finish.
 
 ## Existing components and gaps
 
@@ -64,3 +74,8 @@ Current infrastructure limitations to resolve before declaring the full shared-f
 Course-shell increment: hub card and separate home are wired, all 12 lectures honestly remain unbuilt. Actual deck titles populate L01-L09; later titles are explicitly pending materials. All entries use the one final exam date. The 16 display rows in `equation-sheet.js` transcribe every relation on official PDF p4, including both Nernst shortcuts, reversed chloride ratios in GHK, specific cable notation, maximum-conductance bars, gating charge and the binomial/Poisson relations. The reference is permanently accessible on the course home. Long equations have keyboard-focusable horizontal scrolling, tested at 380 px. No new raster assets or credits are needed for this TeX transcription.
 
 Shell checks actually run: full build with lint and 13-value numeric checker passed; hub navigation, 12 pending cards, 16 rendered equation rows and zero math-render errors checked; shell screenshots captured and visually inspected at all four widths in both themes, with no body overflow. NBE-E4210 home retains its mini-exam wording; L07 renders 16 quiz questions and zero math errors. This is implementer QA only. L01 question count: zero. L01 mock count: zero. The next required content milestone is not complete and no Claude review is claimed.
+
+
+## Current phase status, 8 November 2026
+
+The earlier validation notes are historical. Python in this container is 3.12.3. Shared components, course shell and L01 are implemented. See `.codex-away/PHASE1-REPORT.md` for actual current gates, browser evidence and remaining limitations. L02–L09 remain unbuilt for later runner invocations. No commit or remote operation was performed.

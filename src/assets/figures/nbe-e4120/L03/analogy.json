@@ -1,0 +1,16 @@
+{
+  "source": "source/nbe-e4120/lectures/Ephys-Lectures-3_2026_Cable (1).pdf",
+  "page": 4,
+  "cropFractions": [
+    0.105,
+    0.6,
+    0.57,
+    0.865
+  ],
+  "width": 1378,
+  "height": 441,
+  "labels": "retained; quiz off",
+  "embeddedImageIndices": [
+    6
+  ]
+}

@@ -1,0 +1,14 @@
+{
+  "source": "source/nbe-e4120/lectures/Ephys-Lecture-8-1-2026_HHmodel2 (1).pdf",
+  "page": 11,
+  "cropFractions": [
+    0.02,
+    0.22,
+    0.98,
+    0.9
+  ],
+  "embeddedImage": null,
+  "width": 2304,
+  "height": 918,
+  "labels": "Original source labels and axes retained; quiz disabled."
+}

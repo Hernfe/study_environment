@@ -1,0 +1,18 @@
+{
+  "source": "source/nbe-e4120/lectures/Ephys-Lectures-5_2026_Rall.pdf",
+  "page": 24,
+  "printedSlide": 25,
+  "cropFractions": [
+    0.08,
+    0.69,
+    0.95,
+    0.94
+  ],
+  "embeddedImageIndices": [
+    1,
+    0
+  ],
+  "width": 1089,
+  "height": 1137,
+  "labels": "retained; quiz off"
+}

@@ -4,7 +4,7 @@ Quantitative extensions (7 November 2026): generic formula explorers,
 one drill each, checked calculation stages, two progressive hints,
 unit-aware answers, written/derive/predict rubrics, convention blocks,
 recap constants, and persisted five-question mock attempts are initially
-implemented on L00. Their authoritative contract is the new quantitative
+implemented on L00. Segmented practice and in-equation symbol targets are also supported. L02 adds GHK voltage/current density with a zero-voltage limit, weighted parallel voltage, reversal-ratio and spherical-area verification relations, plus permeability units. Written models require a typed response before opening. Their authoritative contract is the new quantitative
 extensions section in `docs/CONTENT_SCHEMA.md`; it supersedes the old
 “planned” sketches at the end of this reference.
 
@@ -54,6 +54,8 @@ a stable shuffle seeded by lecture id plus question id.
   conceptQuiz: [ /* 1 to 4 easy multiple choice */ ],
 }
 ```
+
+`part` on the first section of a part is `{ id, number, title, intro? }`, with a positive integer number. A plain string is invalid and gated by the shared section lint.
 
 ## Blocks
 
@@ -230,3 +232,29 @@ move them up into the tables above. Full design in `CALCULATIONS.md`.
 - A `convention` block for sign rules, and recap `constants` and
   `conventions`.
 - A review bucket for questions solved only after the second hint.
+
+L03 quantitative extension: `cableAxial`, `cableMembrane`, `cableCapacitance`, `cableLength` (optional external resistance), `cableDecay`, `cableInverse` and `cableEvolution` are registered independently in JS and Python. Evolution omits the source term when injection is absent. Cable units include length, specific resistance, resistivity/resistance-length, axial resistance per length, current per length and voltage curvature. Equivalent centimetre/millimetre inputs are supported.
+
+L04 quantitative extension: independent JS/Python relations `passiveSpeed`, `passivePosition` (taught approximate half-rise contour), `powerRatio`, `infiniteCable`, `cableInput`, `finiteCable`, `endpointCable` and `annulus`. Finite-cable inputs are dimensionless `length`, `x`, nonnegative `load`, and optional `mode: "open"`; `v` is volts. `load: 0` means sealed and `load: 1` matched. Endpoint interpolation uses `v0`, `ve`, `length`, `x`. Valid finite positions satisfy zero through positive total length. Stable exponential forms avoid long-cable overflow. Velocity accepts metres/second, centimetres/second and micrometres/millisecond. Restored completed checked stages do not report a duplicate result until an input is edited; rechecking unchanged restored work preserves the existing review result.
+
+L05 quantitative extension: `rallDiameter` takes positive SI `diameters` and returns the three-halves equivalent diameter. `rallConductance` takes positive `diameter`, specific `rm`, axial `ri`, and optional positive electrotonic `length`; it returns one-arm semi-infinite or finite sealed conductance. `sealedResistance` takes positive one-arm `resistance` and electrotonic `length`. `sealedLength` inverts a remaining terminal `fraction` in (0,1]. `pathLength` sums `segments: [{length, lambda}]` in SI with nonnegative physical lengths and positive local scales. `passiveDecay` uses signed `v`, nonnegative `time` and positive `tau`. `resistanceRetune` uses initial `resistance` and positive `old`/`new` characteristic speeds at unchanged geometry/capacitance. JS and independent Python implementations are tested against identities and the supplied Exercise 5.
+
+### L06 quantitative relations (8 November 2026)
+
+`exponentialRate { base, exponent }` computes a nonnegative baseline times the exponential of a finite dimensionless exponent. Used for either permeation coefficients or gating transition rates; their units differ and must be explicit. `gateDerivative { alpha, beta, y }` computes the first-order permissive-state derivative. `gateSteady { alpha, beta }` requires nonnegative rates and a positive sum. `gateRelax { y0, steady, time, tau }` requires probabilities in [0,1], nonnegative elapsed time and positive tau. `gatePower { y, count }` requires probability in [0,1] and positive integer count of independent all-required particles. Independent Python implementations validate these relations. Unit-aware input now accepts `1/s`, `s^-1`, `1/ms`, `ms^-1` as a rate dimension, separate from frequency and time.
+
+The shared GHK current-density evaluator uses a negative-voltage exponential reversal to avoid overflow and retains its continuous zero-voltage limit. Python independently uses a hyperbolic form and local zero-voltage series. Source metadata must still distinguish current density from total current.
+
+Quantitative model-answer entries consisting entirely of `$...$` render as focusable, horizontally scrollable display equations. Mixed prose and inline maths retain paragraph rendering. This applies to checked-stage, written and drill answer entries; long substitutions should be separate equation entries rather than unbreakable inline prose.
+
+### L07 empirical HH rate relation
+
+`hhRate { gate, voltage }` accepts `gate: "an"|"bn"|"am"|"bm"|"ah"|"bh"` and SI volts of depolarization relative to rest, not absolute membrane voltage. It returns inverse seconds. The source laws use numerical millivolts and inverse milliseconds at the squid fit temperature (6.3°C). No temperature scaling is implied. Alpha-n at 10mV relative to rest and alpha-m at 25mV use continuous removable-singularity limits (100/s and 1000/s). JS uses expm1 with a local series; independent Python uses a sinh form with a local series. L07 fixtures exercise the origin, conversion, limits and all authored numeric records.
+
+### L08 current balance, charge and probability
+
+`hhBalance {im, ionic, capacitance}` returns (applied minus outward ionic current)/positive capacitance in V/s. `axialSource {radius, rho, curvature}` returns radius times voltage curvature divided by twice positive bulk axial resistivity, in A/m². `boltzmann {bias, z, voltage, thermal}` returns normalized two-state probability from dimensionless zero-voltage bias plus z times voltage/positive thermal voltage, using stable logistic evaluation. `expCharge {current, tau, time}` integrates a stated ideal exponential to a nonnegative finite time with positive tau. JS and independent Python implementations reject invalid parameters. Units additionally include energy (J/aJ/zJ), charge density (C/m2, nC/cm2, uC/cm2), inverse-area channel density (1/m2, 1/cm2, 1/um2), specific conductance (S/m2, S/cm2, pS/um2), and current per capacitance (A/F, pA/pF). Source density and maximal conductance must share an area basis; these relations do not certify source assumptions.
+
+L09 numeric correction: A/F and pA/pF are accepted as equivalent voltage-slope units to V/s and mV/ms, since A/F = V/s. Unit conversion rejects nonfinite results. No content-specific renderer was added.
+
+`image-hotspots` optionally accepts `minWidth` (finite pixels, 200–2000). It wraps the entire figure stage in a focusable horizontal-scroll viewport, preserving percentage overlay coordinates and source plot/table labels. Omit it for default image sizing. Arrow keys pan the focused viewport; this applies to source rasters as well as SVG.

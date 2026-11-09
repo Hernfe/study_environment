@@ -1,0 +1,17 @@
+{
+  "source": "source/nbe-e4120/lectures/Ephys-Lecture-9_2-2026_Channelopathy_v2.pdf",
+  "page": 13,
+  "cropFractions": [
+    0.145,
+    0.555,
+    0.99,
+    0.91
+  ],
+  "embeddedImage": null,
+  "embeddedCrop": null,
+  "composedRenderedRects": null,
+  "alphaComposite": "white",
+  "width": 2028,
+  "height": 480,
+  "labels": "Original source labels retained; quiz disabled."
+}

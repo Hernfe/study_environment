@@ -1,0 +1,17 @@
+{
+  "source": "source/nbe-e4120/lectures/Ephys-Lecture-9_1_2026-Ion_channels.pdf",
+  "page": 7,
+  "cropFractions": [
+    0.6,
+    0.56,
+    0.96,
+    0.94
+  ],
+  "embeddedImage": null,
+  "embeddedCrop": null,
+  "composedRenderedRects": null,
+  "alphaComposite": "white",
+  "width": 864,
+  "height": 513,
+  "labels": "Original source labels retained; quiz disabled."
+}

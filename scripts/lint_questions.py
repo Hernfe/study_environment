@@ -843,7 +843,7 @@ def texts(content):
     def collect(value, key=""):
         if isinstance(value, str):
             if key not in {"id", "src", "poster", "type", "name", "tex", "file", "math", "expression", "sectionId", "lectureId", "difficulty",
-                           "site", "affected", "svg"}:
+                           "site", "affected", "svg", "formulaReference", "interactiveTex"}:
                 yield value
         elif isinstance(value, list):
             for v in value:
@@ -860,6 +860,11 @@ def check_sections(content, corpus, lecture_id):
     out = []
     for section in content.get("sections", []):
         where = f"section {section.get('id')}"
+        part = section.get('part')
+        if part is not None and (not isinstance(part, dict) or
+                not all(isinstance(part.get(k), str) and part[k].strip() for k in ('id', 'title')) or
+                not isinstance(part.get('number'), int) or isinstance(part.get('number'), bool) or part['number'] < 1):
+            out.append(('error', where, 'part requires an object with nonempty id/title and a positive integer number'))
         for formula in section.get('formulas', []):
             if not all(formula.get(k) for k in ('id', 'name', 'tex', 'symbols', 'reads', 'assumes', 'drill')):
                 out.append(('error', where, 'formula explorer requires identity, equation, symbols, meaning, assumptions and exactly one drill'))
@@ -895,6 +900,18 @@ def check_sections(content, corpus, lecture_id):
 def lint(lecture_id, content, corpus):
     findings = []
     findings += check_sections(content, corpus, lecture_id)
+    if lecture_id.startswith('nbe-e4120/'):
+        exams = content.get('mockExams', [])
+        if len(exams) != 3:
+            findings.append(('error', 'mocks', 'NBE-E4120 requires exactly three complete five-question mocks'))
+        for question in content.get('lectureQuiz', []) + [q for e in exams for q in e.get('questions', [])]:
+            if len(question.get('hints', [])) != 2:
+                findings.append(('error', question.get('id', '?'), 'every E4120 practice question requires two progressive hints'))
+        for exam in exams:
+            qs = exam.get('questions', [])
+            if len(qs) == 5 and (any(qs[i].get('type') not in {'calc', 'multiStepCalc'} for i in (2, 3)) or any(qs[i].get('type') not in {'written', 'derive', 'predict', 'interpret', 'essay'} for i in (0, 1, 4))):
+                findings.append(('error', 'mock ' + exam.get('id', '?'), 'mock must preserve short-answer, explanation, two calculations, methods/interpretation order'))
+
     for exam in content.get('mockExams', []):
         if len(exam.get('questions', [])) != 5:
             findings.append(('error', 'mock ' + exam.get('id', '?'), 'mock must contain exactly five questions'))

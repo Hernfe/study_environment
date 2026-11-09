@@ -1,9 +1,24 @@
 import { el, paragraphs } from './dom.js';
+import { getPracticeState, savePracticeState } from './progress.js';
 import { renderTex } from './math.js';
 import { checkQuantity, evaluateRelation } from './numeric.js';
 
 const button = (text, action) => el('button', { type: 'button', class: 'btn', onClick: action }, text);
 const disclosure = (title, body) => el('details', { class: 'reveal' }, [el('summary', {}, title), el('div', { class: 'reveal-body' }, body)]);
+
+// A complete equation is a display block, not an unbreakable prose span.
+// Keep ordinary mixed text/inline maths on the established paragraph path.
+function workedAnswerBlocks(answer) {
+  return (Array.isArray(answer) ? answer : [answer]).flatMap((line) => {
+    const match = typeof line === 'string' && line.trim().match(/^\$([^$]+)\$$/);
+    if (!match) return paragraphs(line);
+    const equation = renderTex(match[1], { display: true });
+    equation.tabIndex = 0;
+    equation.setAttribute('role', 'group');
+    equation.setAttribute('aria-label', 'Worked equation');
+    return [equation];
+  });
+}
 
 export function renderFormulaReference(equations, note) {
   if (!equations?.length) return null;
@@ -37,13 +52,16 @@ export function renderCheckedStages(question, report, { onHint = () => {}, resto
   const state = structuredClone(restore);
   const statuses = [];
   let firstWrong = Boolean(state.firstWrong);
-  let reported = false;
+  // A restored completion has already reported. Rechecking unchanged work must
+  // not overwrite its hint-assisted/missed review result after a reload.
+  let reported = stages.length > 0 && stages.every((_, i) => state[i]?.checked === true);
   const root = el('div', { class: 'checked-stages' });
   stages.forEach((stage, i) => {
     const answers = stage.fields || (stage.answer ? [{ label: 'Result', answer: stage.answer }] : []);
     const fields = answers.map((field, k) => {
       const input = el('input', { type: 'text', inputmode: 'decimal', 'aria-label': `${stage.title}: ${field.label}`, value: state[i]?.values?.[k] || '' });
       input.addEventListener('input', () => {
+        reported = false;
         statuses[i] = false;
         state[i] = { values: fields.map((f) => f.input.value), checked: false };
         save(state);
@@ -52,15 +70,18 @@ export function renderCheckedStages(question, report, { onHint = () => {}, resto
     });
     const selected = el('select', { 'aria-label': stage.title }, [el('option', { value: '' }, 'Choose a relation'), ...(stage.choices || []).map((c, k) => el('option', { value: k }, c.label))]);
     if (state[i]?.choice !== undefined) selected.value = state[i].choice;
-    selected.addEventListener('change', () => { statuses[i] = false; state[i] = { choice: selected.value, checked: false }; save(state); });
+    selected.addEventListener('change', () => { reported = false; statuses[i] = false; state[i] = { choice: selected.value, checked: false }; save(state); });
+    const solution = stage.modelAnswer ? disclosure('Show this stage solution', workedAnswerBlocks(stage.modelAnswer)) : null;
+    if (solution) solution.hidden = !state[i]?.attempted;
     const feedback = el('p', { role: 'status', class: 'feedback', hidden: true });
     const check = () => {
       const results = stage.choices ? [{ correct: selected.value !== '' && Number(selected.value) === stage.correct }] : fields.map(({ input, field }) => checkQuantity(input.value, field.answer));
-      const valid = !results.some((r) => r.error);
+      const valid = stage.choices ? selected.value !== '' : !results.some((r) => r.error);
       const ok = valid && results.length > 0 && results.every((r) => r.correct);
       if (valid && !ok) { firstWrong = true; state.firstWrong = true; }
       statuses[i] = ok;
-      state[i] = { values: fields.map((f) => f.input.value), choice: selected.value, checked: ok };
+      state[i] = { values: fields.map((f) => f.input.value), choice: selected.value, checked: ok, attempted: valid };
+      if (solution && valid) solution.hidden = false;
       save(state);
       feedback.hidden = false;
       feedback.className = `feedback ${ok ? 'is-correct' : 'is-incorrect'}`;
@@ -79,7 +100,7 @@ export function renderCheckedStages(question, report, { onHint = () => {}, resto
       stage.tex ? renderTex(stage.tex, { display: true }) : null,
       stage.choices ? selected : fields.map(({ input, field }) => el('label', { class: 'quantity-field' }, [field.label, ' ', input, ' ', field.answer.unit || ''])),
       button('Check stage', check), feedback,
-      stage.modelAnswer ? disclosure('Show this stage solution', paragraphs(stage.modelAnswer)) : null,
+      solution,
     ]);
     fields.forEach(({ input }) => input.addEventListener('keydown', (event) => { if (event.key === 'Enter') { event.preventDefault(); check(); } }));
     root.append(section);
@@ -96,7 +117,7 @@ export function renderWritten(question, report, { restore = {}, save = () => {} 
   const boxes = (question.markScheme || []).map((item, i) => el('input', { type: 'checkbox', checked: restore.reviewed?.[i], onChange: saved }));
   const status = el('p', { role: 'status' });
   const criteria = disclosure('Model answer and self-review criteria', [
-    el('div', {}, paragraphs(question.modelAnswer)),
+    el('div', {}, workedAnswerBlocks(question.modelAnswer)),
     el('p', { class: 'muted' }, 'Self-assessment only. The site does not evaluate the meaning of your writing.'),
     ...(question.markScheme || []).map((item, i) => el('label', { class: 'quantity-field' }, [boxes[i], item.text])),
     button('Record self-review', () => {
@@ -105,16 +126,25 @@ export function renderWritten(question, report, { restore = {}, save = () => {} 
       status.textContent = `Self-reviewed: ${earned} of ${boxes.length} practice criteria met.`;
       report({ correct: earned === boxes.length, score: earned, max: boxes.length, selfReviewed: true });
       saved();
-    }), status,
+    }),
   ]);
-  return el('div', { class: 'written-practice' }, [text, criteria]);
+  criteria.querySelector('summary').addEventListener('click', (event) => {
+    if (!text.value.trim()) {
+      event.preventDefault();
+      status.textContent = 'Write an answer before opening the model.';
+      text.focus();
+    }
+  });
+  return el('div', { class: 'written-practice' }, [text, status, criteria]);
 }
 
 export function renderFormula(formula) {
   const panel = el('div', { class: 'symbol-description', role: 'status' }, 'Focus or tap a symbol to read its meaning.');
+  let inlineTargets = [];
   const targets = formula.symbols.map((symbol, i) => {
     const show = () => {
       targets.forEach((target, j) => target.classList.toggle('is-active', i === j));
+      inlineTargets.forEach((target) => target.classList.toggle('is-active', Number(target.dataset.symbol) === i));
       panel.replaceChildren(...[el('p', {}, symbol.name), el('p', {}, `Unit: ${symbol.unit || 'dimensionless'}`), paragraphs(symbol.meaning), symbol.convention ? paragraphs(symbol.convention) : null].filter(Boolean));
     };
     return el('button', { type: 'button', class: 'formula-symbol', 'aria-label': symbol.name, onFocus: show, onClick: show, onMouseenter: show, onKeydown: (e) => {
@@ -148,7 +178,7 @@ export function renderFormula(formula) {
   const input = el('input', { type: 'text', inputmode: 'decimal', 'aria-label': `${formula.name} drill answer` });
   const feedback = el('p', { role: 'status' });
   let attempts = 0;
-  const solution = disclosure('Show drill solution', [renderTex(drill.tex, { display: true }), paragraphs(drill.modelAnswer)]);
+  const solution = disclosure('Show drill solution', [renderTex(drill.tex, { display: true }), workedAnswerBlocks(drill.modelAnswer)]);
   const check = () => {
     const result = checkQuantity(input.value, drill.answer);
     if (result.error) { feedback.textContent = result.error; return; }
@@ -157,13 +187,31 @@ export function renderFormula(formula) {
     if (result.correct || attempts >= 2) solution.open = true;
   };
   input.addEventListener('keydown', (e) => { if (e.key === 'Enter') { e.preventDefault(); check(); } });
-  const expression = formula.tokens
+  const inlineEquation = formula.interactiveTex ? renderTex(formula.interactiveTex, { display: true, symbolClasses: true }) : null;
+  if (inlineEquation) {
+    inlineEquation.classList.add('interactive-equation');
+    inlineEquation.querySelector('.katex-html')?.removeAttribute('aria-hidden');
+    inlineEquation.querySelector('.katex-mathml')?.setAttribute('aria-hidden', 'true');
+    inlineTargets = [...inlineEquation.querySelectorAll('[class*=formula-term-]')];
+    inlineTargets.forEach((target, index) => {
+      const i = Number(target.className.match(/formula-term-(\d+)/)[1]);
+      target.dataset.symbol = i; target.tabIndex = 0; target.setAttribute('role', 'button'); target.setAttribute('aria-label', formula.symbols[i].name);
+      const show = () => targets[i].click();
+      target.addEventListener('focus', show); target.addEventListener('mouseenter', show); target.addEventListener('click', show);
+      target.addEventListener('keydown', (event) => {
+        const direction = ['ArrowRight', 'ArrowDown'].includes(event.key) ? 1 : ['ArrowLeft', 'ArrowUp'].includes(event.key) ? -1 : 0;
+        if (direction) { event.preventDefault(); inlineTargets[(index + direction + inlineTargets.length) % inlineTargets.length].focus(); }
+        if (['Enter', ' '].includes(event.key)) { event.preventDefault(); show(); }
+      });
+    });
+  }
+  const expression = inlineEquation || (formula.tokens
     ? el('div', { class: 'formula-symbols formula-expression', 'aria-label': formula.name }, formula.tokens.map((token) => token.symbol !== undefined ? targets[token.symbol] : renderTex(token.tex)))
-    : el('div', {}, [renderTex(formula.tex, { display: true }), el('div', { class: 'formula-symbols', 'aria-label': 'Formula symbols' }, targets)]);
+    : el('div', {}, [renderTex(formula.tex, { display: true }), el('div', { class: 'formula-symbols', 'aria-label': 'Formula symbols' }, targets)]));
   return el('div', { class: 'block formula-explorer', id: formula.id }, [
     el('h3', {}, formula.name), expression, panel,
     paragraphs(formula.reads), el('p', { class: 'muted' }, formula.assumes),
     ...(formula.variants || []).map((v) => el('div', {}, [renderTex(v.tex, { display: true }), paragraphs(v.note)])), live,
-    el('div', { class: 'formula-drill' }, [el('h4', {}, 'Single-step drill'), paragraphs(drill.prompt), input, ` ${drill.answer.unit || ''} `, button('Check drill', check), feedback, solution]),
+    el('div', { class: 'formula-drill' }, [el('h4', {}, 'Single-step drill'), paragraphs(drill.prompt), renderHints(drill.hints, (level) => { const key = `drill:${formula.id}`; const state = getPracticeState(key); savePracticeState(key, { ...state, hints: [...new Set([...(state.hints || []), level])] }); }), input, ` ${drill.answer.unit || ''} `, button('Check drill', check), feedback, solution]),
   ]);
 }

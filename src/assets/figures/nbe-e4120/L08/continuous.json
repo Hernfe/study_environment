@@ -1,0 +1,14 @@
+{
+  "source": "source/nbe-e4120/lectures/Ephys-Lecture-8-2-2026_Saltatory_v4 (1).pdf",
+  "page": 10,
+  "cropFractions": [
+    0.02,
+    0.17,
+    0.48,
+    0.86
+  ],
+  "embeddedImage": null,
+  "width": 847,
+  "height": 714,
+  "labels": "Original source labels and axes retained; quiz disabled."
+}

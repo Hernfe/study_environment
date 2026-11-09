@@ -1374,8 +1374,13 @@ export function renderQuestion(question, { lectureId, index, total, source, onRe
   // units (1 or 0, or mark-scheme points), scaled to the question's points.
   const points = questionPoints(question);
   let reported = false;
+  const repeatable = ['multiStepCalc', 'written', 'derive', 'predict'].includes(question.type)
+    || (question.type === 'calc' && Boolean(question.stages));
   function report(raw) {
-    if (reported) return;
+    // Mutable practice bodies own their completion/review controls. An edit or
+    // explicit revised self-review must reach progress rather than being lost
+    // behind the single-submission guard used by fixed-answer bodies.
+    if (reported && !repeatable) return;
     reported = true;
     let score;
     if (Array.isArray(raw.results) && points.weights.length === raw.results.length) {
@@ -1405,7 +1410,7 @@ export function renderQuestion(question, { lectureId, index, total, source, onRe
   const ctx = { seed: practiceKey, points,
     restore: { ...(initialResponse ? { text: initialResponse } : {}), ...getPracticeState(practiceKey) }, save: (state) => savePracticeState(practiceKey, state) };
   card.appendChild(question.type === 'calc' && question.stages ? renderCheckedStages(question, report, ctx) : build(question, report, ctx));
-  const reveal = ['written', 'derive', 'predict'].includes(question.type) ? null : renderReveal(question);
+  const reveal = (['written', 'derive', 'predict', 'multiStepCalc'].includes(question.type) || question.stages) ? null : renderReveal(question);
   if (reveal) card.appendChild(reveal);
   return card;
 }

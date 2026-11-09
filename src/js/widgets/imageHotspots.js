@@ -112,6 +112,9 @@ export function buildFigure(props, { numbered = true, onEnter, onLeave, onPick, 
   // Tall pictures are capped at 28rem high; the width follows so the
   // percentage overlay stays aligned. The stage adds the gutters.
   const stage = el('div', { class: `hotspots-stage ${gutterClass}${props.svg ? ' is-svg' : ''}`, style: `max-width: calc(28rem * ${aspect} + 2 * var(--gx))` });
+  // Optional raster-chart width keeps source axes legible while the outer viewport scrolls.
+  const minWidth = Number.isFinite(props.minWidth) && props.minWidth >= 200 && props.minWidth <= 2000 ? props.minWidth : 0;
+  if (minWidth) stage.style.minWidth = `${minWidth}px`;
   const figure = el('div', { class: 'hotspots-figure', style: `aspect-ratio: ${aspect}` });
   if (props.svg) {
     figure.classList.add('is-svg');
@@ -289,7 +292,8 @@ export function buildFigure(props, { numbered = true, onEnter, onLeave, onPick, 
     stage.classList.toggle('has-active', Boolean(stage.querySelector('.hotspot-marker.is-active')));
   }
 
-  return { figure: stage, markers, setState, uid, layout };
+  const viewport = minWidth ? el('div', { class: 'hotspots-scroll', tabindex: '0', role: 'region', 'aria-label': 'Scrollable source figure. Use arrow keys to pan.' }, [stage]) : stage;
+  return { figure: viewport, markers, setState, uid, layout };
 }
 
 // Roving tabindex across the markers: arrows move, Home/End jump.

@@ -6,6 +6,8 @@ Implemented in `src/js/quantitative.js`, `numeric.js`, and `mockExam.js`.
 The existing NBE-E4210 question contracts remain supported. L00 includes
 explicit dummy fixtures, not NBE-E4120 lecture content.
 
+- `segmentedPractice: true` displays the canonical `lectureQuiz` questions within their `sectionId`, grouped easy, medium and hard. IDs, progress and review use the same bank; no duplicate question controls are mounted. The bottom practice anchor explains the arrangement. Omit the flag to retain the existing end-of-lecture quiz.
+- Formula `interactiveTex` optionally marks equation terms with `\htmlClass{formula-term-N}{...}`, where N is the zero-based symbol index. Only the KaTeX htmlClass command is trusted for these locally authored equations. Every marked occurrence is focusable, hoverable and tappable; arrows traverse occurrences. `tex` remains the plain equation for reference and lint.
 - `section.formulas` is an array of `{ id, name, tex, symbols, tokens?, reads,
   assumes, variants?, interactive?, drill }`. Symbols contain `{ tex, name,
   unit, meaning, convention? }`. Optional tokens compose the displayed formula:
@@ -29,13 +31,14 @@ explicit dummy fixtures, not NBE-E4120 lecture content.
   requiring an exact expression string. Downstream answers are authored from
   correct earlier values, preventing cascading errors. Stages may have
   `feedback`, `error`, and `commonErrors: [{ wrongValue, tolerance?, why,
-  verification }]`. Student inputs and checked-stage state persist separately
+  verification }]`. A stage solution becomes available only after a valid attempt on that stage. Checked calculations omit the global answer reveal, so working stays attached to the entered stages. Student inputs and checked-stage state persist separately
   from the one recorded question result. A wrong check remains a review miss
   even after a successful retry.
 - `written`, `derive`, and `predict` have `markScheme: [{ text }]` and
-  `modelAnswer: string[]`. Students type before self-review and explicitly
+  `modelAnswer: string[]`. Students must type before opening the model, then explicitly
   record the criteria met. These controls never assess semantic correctness.
   Practice criteria are not official exam marks.
+- Inline concept checks and formula drills optionally accept the same two `hints` disclosures. Concept hint history is stored alongside concept progress; drill hint history uses the formula ID in practice storage. An inline concept can also supply `modelAnswer` for a separate worked-answer disclosure. Bank questions continue to drive the course review queue.
 - New calculation/written questions require `hints: [{ body }, { body }]`.
   They are separate collapsed disclosures. Hint usage is recorded; hint 2
   returns the question to the missed review bucket. Hint-only records do not
@@ -67,8 +70,7 @@ uses the requested unit. Tolerances are absolute in that unit.
 Every numeric answer/error carries independent recomputation metadata:
 `verification: { relation, inputs, displayScale? }`. Inputs use SI, the Python
 checker recomputes independently and divides by `displayScale` for display.
-Supported initial relations are product, ratio, sum, parallel, divider,
-charging, corner and nernst. The build runs `scripts/check_calcs.py` and the
+Supported relations are product, ratio, sum, parallel, divider, charging, corner, nernst, geometry, diffusion, drift, einstein (course mobility convention), electrodiffusion, fluxCurrent (current density for flux density), ghkVoltage (monovalent constant-field voltage, base-ten shortcut), ghkCurrent (SI current density, continuous zero-voltage limit), weightedVoltage (three parallel branches), nernstRatio (fixed-inside monovalent reversal shift), sphereArea, and donnan (equal fixed volumes, initial equal monovalent salt plus impermeant intracellular anion salt). Donnan recomputation additionally checks the conserved product constraint. Numeric parsing also supports length, specific capacitance, permittivity, mobility, diffusion, flux density, concentration gradient, electric field current density and permeability. Metadata values are checked using authored absolute tolerance plus floating-point ulps, without a fixed SI-scale epsilon. The build runs `scripts/check_calcs.py` and the
 strict Python question lint. Metadata does not itself establish source
 correctness; source review remains required. Existing legacy calculations
 without this metadata have not been retroactively certified.
@@ -182,7 +184,7 @@ text needs them. Every section ends with its `conceptQuiz`.
 
 `part` (optional) opens a part of a long lecture: `{ id, number, title,
 intro? }` on the first section of the part. The renderer draws a banner
-before that section (kicker "Part 2", the title, the muted intro) and a
+before that section. The lint requires an object with nonempty `id`/`title` and a positive integer `number`; strings are invalid. It renders a kicker "Part 2", the title and muted intro, and a
 non-link heading in the table of contents. L06 uses three parts, one per
 textbook chapter.
 
@@ -1372,3 +1374,33 @@ legacy, plain-text maths included, fails the build. Advisory notes
 reports without failing, for a work-in-progress build only. Without
 Python the lint is skipped with a warning. A new lecture is never added
 to `LEGACY`.
+
+L03 quantitative extension: `cableAxial`, `cableMembrane`, `cableCapacitance`, `cableLength` (optional external resistance), `cableDecay`, `cableInverse` and `cableEvolution` are registered independently in JS and Python. Evolution omits the source term when injection is absent. Cable units include length, specific resistance, resistivity/resistance-length, axial resistance per length, current per length and voltage curvature. Equivalent centimetre/millimetre inputs are supported.
+
+Completed checked calculations invalidate the prior report latch when any operand or relation selection is edited. A subsequent completed retry updates progress; prior wrong checks still keep the result in review.
+
+L04 quantitative extension: independent JS/Python relations `passiveSpeed`, `passivePosition` (taught approximate half-rise contour), `powerRatio`, `infiniteCable`, `cableInput`, `finiteCable`, `endpointCable` and `annulus`. Finite-cable inputs are dimensionless `length`, `x`, nonnegative `load`, and optional `mode: "open"`; `v` is volts. `load: 0` means sealed and `load: 1` matched. Endpoint interpolation uses `v0`, `ve`, `length`, `x`. Valid finite positions satisfy zero through positive total length. Stable exponential forms avoid long-cable overflow. Velocity accepts metres/second, centimetres/second and micrometres/millisecond. Restored completed checked stages do not report a duplicate result until an input is edited; rechecking unchanged restored work preserves the existing review result.
+
+The full question wrapper also permits revised reports from checked calculations and written/derive/predict self-review controls. These mutable bodies retain their own completion or explicit review action. Fixed-answer types keep their single-submission guard. Browser fixtures cover restored-completion deduplication and edited numeric/relation results through `renderQuestion`, not only the inner calculation renderer.
+
+L05 quantitative extension: `rallDiameter` takes positive SI `diameters` and returns the three-halves equivalent diameter. `rallConductance` takes positive `diameter`, specific `rm`, axial `ri`, and optional positive electrotonic `length`; it returns one-arm semi-infinite or finite sealed conductance. `sealedResistance` takes positive one-arm `resistance` and electrotonic `length`. `sealedLength` inverts a remaining terminal `fraction` in (0,1]. `pathLength` sums `segments: [{length, lambda}]` in SI with nonnegative physical lengths and positive local scales. `passiveDecay` uses signed `v`, nonnegative `time` and positive `tau`. `resistanceRetune` uses initial `resistance` and positive `old`/`new` characteristic speeds at unchanged geometry/capacitance. JS and independent Python implementations are tested against identities and the supplied Exercise 5.
+
+### L06 quantitative relations (8 November 2026)
+
+`exponentialRate { base, exponent }` computes a nonnegative baseline times the exponential of a finite dimensionless exponent. Used for either permeation coefficients or gating transition rates; their units differ and must be explicit. `gateDerivative { alpha, beta, y }` computes the first-order permissive-state derivative. `gateSteady { alpha, beta }` requires nonnegative rates and a positive sum. `gateRelax { y0, steady, time, tau }` requires probabilities in [0,1], nonnegative elapsed time and positive tau. `gatePower { y, count }` requires probability in [0,1] and positive integer count of independent all-required particles. Independent Python implementations validate these relations. Unit-aware input now accepts `1/s`, `s^-1`, `1/ms`, `ms^-1` as a rate dimension, separate from frequency and time.
+
+The shared GHK current-density evaluator uses a negative-voltage exponential reversal to avoid overflow and retains its continuous zero-voltage limit. Python independently uses a hyperbolic form and local zero-voltage series. Source metadata must still distinguish current density from total current.
+
+Quantitative model-answer entries consisting entirely of `$...$` render as focusable, horizontally scrollable display equations. Mixed prose and inline maths retain paragraph rendering. This applies to checked-stage, written and drill answer entries; long substitutions should be separate equation entries rather than unbreakable inline prose.
+
+### L07 empirical HH rate relation
+
+`hhRate { gate, voltage }` accepts `gate: "an"|"bn"|"am"|"bm"|"ah"|"bh"` and SI volts of depolarization relative to rest, not absolute membrane voltage. It returns inverse seconds. The source laws use numerical millivolts and inverse milliseconds at the squid fit temperature (6.3°C). No temperature scaling is implied. Alpha-n at 10mV relative to rest and alpha-m at 25mV use continuous removable-singularity limits (100/s and 1000/s). JS uses expm1 with a local series; independent Python uses a sinh form with a local series. L07 fixtures exercise the origin, conversion, limits and all authored numeric records.
+
+### L08 current balance, charge and probability
+
+`hhBalance {im, ionic, capacitance}` returns (applied minus outward ionic current)/positive capacitance in V/s. `axialSource {radius, rho, curvature}` returns radius times voltage curvature divided by twice positive bulk axial resistivity, in A/m². `boltzmann {bias, z, voltage, thermal}` returns normalized two-state probability from dimensionless zero-voltage bias plus z times voltage/positive thermal voltage, using stable logistic evaluation. `expCharge {current, tau, time}` integrates a stated ideal exponential to a nonnegative finite time with positive tau. JS and independent Python implementations reject invalid parameters. Units additionally include energy (J/aJ/zJ), charge density (C/m2, nC/cm2, uC/cm2), inverse-area channel density (1/m2, 1/cm2, 1/um2), specific conductance (S/m2, S/cm2, pS/um2), and current per capacitance (A/F, pA/pF). Source density and maximal conductance must share an area basis; these relations do not certify source assumptions.
+
+L09 numeric correction: A/F and pA/pF are accepted as equivalent voltage-slope units to V/s and mV/ms, since A/F = V/s. Unit conversion rejects nonfinite results. No content-specific renderer was added.
+
+`image-hotspots` optionally accepts `minWidth` (finite pixels, 200–2000). It wraps the entire figure stage in a focusable horizontal-scroll viewport, preserving percentage overlay coordinates and source plot/table labels. Omit it for default image sizing. Arrow keys pan the focused viewport; this applies to source rasters as well as SVG.

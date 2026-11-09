@@ -1,6 +1,7 @@
 // Renderer fixtures only, not course questions or an official practice exam.
 const verified = (value, unit, relation, inputs, displayScale = 1, tolerance = 1e-6) => ({ value, unit, tolerance, verification: { relation, inputs, displayScale } });
 export const exampleFormula = {
+  interactiveTex: '\\htmlClass{formula-term-0}{V}=\\htmlClass{formula-term-1}{I}\\htmlClass{formula-term-2}{R}',
   id: 'example-ohm', name: 'Ohm law explorer fixture', tex: 'V=IR',
   tokens: [{ symbol: 0 }, { tex: '=' }, { symbol: 1 }, { symbol: 2 }],
   symbols: [

@@ -1,0 +1,33 @@
+{
+  "source": "source/nbe-e4120/lectures/Ephys-Lecture-1-2026_Intro_4-9-26 (3).pdf",
+  "page": 24,
+  "cropFractions": [
+    0.01,
+    0.16,
+    0.34,
+    0.98
+  ],
+  "width": 1273,
+  "height": 550,
+  "panelsPoints": [
+    [
+      25,
+      90,
+      190,
+      310
+    ],
+    [
+      178,
+      294,
+      320,
+      440
+    ],
+    [
+      20,
+      425,
+      190,
+      530
+    ]
+  ],
+  "labels": "retained; quiz off"
+}

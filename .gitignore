@@ -12,3 +12,5 @@ shots/
 __pycache__/
 .tmp-tools/
 .tmp-pdf/
+.codex-away/
+run-codex-away.sh.bak
