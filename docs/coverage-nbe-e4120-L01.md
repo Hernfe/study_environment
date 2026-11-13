@@ -31,3 +31,57 @@ Every assessable source concept is mapped in the scope table; the table below co
 | C | 30,34–35: transport and net flux | 36–38: charge, voltage, osmosis | 37–38; Exercise 1 P3: fixed-anion constrained redistribution | 20–21,27: inverse parallel pathways | 16–17: patch access and suction electrode |
 
 Mocks are distinct from one another in central reasoning. Their checked calculation tasks are also available in segment practice for preparation. The bank contains 58 questions (37 checked calculations), 17 easy concept checks and 30 drills. Each mock uses L01 only; no future lecture is required.
+
+
+## Easy-MCQ progression follow-up, 12 November 2026
+
+L01 now has 48 inline easy MCQs: 17 existing checks reused and 31 new checks.
+The canonical bank remains 52 core and 6 optional questions, with 30 unchanged
+explorer/drill pairs and three unchanged lecture mocks. Earlier counts above
+are historical. All section IDs, order, theory, source visuals, formulas,
+numeric answers, bank questions and optional assignments are preserved.
+
+Each section shows visible theory/figures/equations, then 2–3 best-guess easy
+MCQs, then existing easy numeric/application work, medium work, hard work,
+and closed optional practice. No passing gate is imposed. Feedback for every
+option appears after Check, then retry and the worked answer are available.
+Only new checks carry `progressionAdded: true`; existing IDs and answer indices
+are retained. Weak distractors in signals/apparatus/movement were replaced
+with relevant recording, apparatus and transport confusions. The movement
+stem now asks directly about field-driven flux; its correct index stays zero.
+
+| Section | PDF source | Reused | Added | Total starters |
+|---|---|---:|---:|---:|
+| cells | 8–9 | 1 | 2 | 3 |
+| applications | 10–12 | 1 | 1 | 2 |
+| signals | 13–14 | 1 | 2 | 3 |
+| apparatus | 15–17 | 1 | 2 | 3 |
+| signs | 18–19 | 1 | 2 | 3 |
+| resistance | 20–21 | 1 | 2 | 3 |
+| divider | 22 | 1 | 1 | 2 |
+| capacitance | 23 | 1 | 2 | 3 |
+| passive | 24; Exercise 1 P2 | 1 | 2 | 3 |
+| filters | 25–26 | 1 | 2 | 3 |
+| combinations | 27 | 1 | 2 | 3 |
+| movement | 29 | 1 | 2 | 3 |
+| equilibrium | 30–31 | 1 | 2 | 3 |
+| ion-patterns | 32–33 | 1 | 2 | 3 |
+| transport | 34–35 | 1 | 2 | 3 |
+| neutrality | 36 | 1 | 1 | 2 |
+| donnan | 37–38; Exercise 1 P3 | 1 | 2 | 3 |
+
+Applications, divider and neutrality each use two starters: their existing
+check plus one complementary recall check covers the small section without
+repeating the later functional-safety explanation, divider design or charge
+balance calculation. All other sections use three. No section falls below two.
+New IDs use `<section>-starter-<topic>` and cite the listed source pages.
+Concentration signs, current convention and Donnan/water constraints retain
+the conservative revision’s qualifications. No disputed slide-35 transporter
+direction or unsupported image measurement is assessed.
+
+Question quality and complete preservation are executable in
+`scripts/test_l01_progression.mjs`; severe length cues and excessive position
+bias are checked with the existing lint mutation guards. Browser evidence,
+command exits and the full lint summary are in `.codex-progression/L01/` and
+`.codex-progression/L01-REPORT.md`. L02–L09 expansion and cumulative mocks are
+outside this L01-only phase.

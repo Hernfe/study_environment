@@ -1414,3 +1414,90 @@ Quantitative model-answer entries consisting entirely of `$...$` render as focus
 L09 numeric correction: A/F and pA/pF are accepted as equivalent voltage-slope units to V/s and mV/ms, since A/F = V/s. Unit conversion rejects nonfinite results. No content-specific renderer was added.
 
 `image-hotspots` optionally accepts `minWidth` (finite pixels, 200–2000). It wraps the entire figure stage in a focusable horizontal-scroll viewport, preserving percentage overlay coordinates and source plot/table labels. Omit it for default image sizing. Arrow keys pan the focused viewport; this applies to source rasters as well as SVG.
+
+### NBE-E4120 core and extra practice
+
+On NBE-E4120 segmented lecture pages only, a bank question may set
+`practice: 'extra'`. Omit the field for core questions. Keep extra questions
+in `lectureQuiz`, with the original IDs, order, hints, solutions and numeric
+verification metadata. Each affected section renders core by difficulty,
+then one native, initially closed `Extra practice` details panel containing
+extras by difficulty. Theory, figures, formula explorers and inline checks
+remain visible. Other courses ignore this field.
+
+Unattempted extras are excluded from normal course review. A saved attempt
+or hint opts the question into review under the existing bucket rules.
+Drafts and results retain their existing storage keys; hiding or closing
+extra practice never deletes progress. Mocks do not use this grouping.
+
+L09 occupancy repair: `binomialProb { n, k, p }` is supported in the JS relation evaluator as well as independent Python verification. Counts are nonnegative integers with `k <= n`; `p` is a probability. Zero/one endpoints are exact; log evaluation avoids intermediate coefficient overflow.
+
+The same repair supports `poissonProb { m, k }` for a nonnegative finite mean and nonnegative integer count. Dimensionless numeric inputs accept the existing authored unit `1` as well as an empty unit. No prior relation or unit changes meaning.
+
+
+### NBE-E4120 section progression (12 November 2026)
+
+On standard E4120 section pages, visible theory, figures and formula explorers
+precede easy inline concept MCQs. Their numeric drills follow the concept
+checks, then core bank practice proceeds easy, medium, hard. Within easy bank
+practice, explicit `mc` questions precede other easy tasks in stable order.
+Optional practice stays last and initially closed. No answer or pass is required
+to reach later work. Concept checks are implicitly easy MCQs; bank questions
+use explicit type/difficulty. Source arrays and IDs are never sorted in place.
+
+The renderer enables `renderConceptQuiz`'s `bestGuess` option only for E4120
+standard sections. It withholds hint and worked-answer controls until Check,
+then shows every option's explanatory feedback. Retry clears the checked UI,
+without erasing attempt history. Checked authored option indices restore from
+`nbe:nbe-e4120:practice:concept:<lectureId>:<questionId>`; restore does not
+record another attempt. Existing version-1 concept results and all question,
+draft, hint and mock keys retain their meaning. Blocked storage permits practice.
+
+`renderFormula(formula, { drills })` optionally appends the drill node to the
+provided array instead of inside the explorer. The deferred node identifies its
+formula with `data-formula` and a named heading. Default callers keep their
+existing explorer/drill DOM. Other courses, questions-only sections, review and
+mock exams retain their existing flow.
+
+This framework does not add starter questions: the current one-per-section
+content awaits the separately scoped lecture expansion.
+
+## Course-level cumulative mocks
+
+A course registry may export `fullCourseMockOptions: { lectureId, intro }`
+and `fullCourseMocks`, an array with the existing
+`mockExams` exam shape. The homepage mounts these independently of lecture
+mocks, using `lectureId: 'FULL-L01-L09'` and the official course equation sheet.
+E4120 supplies exactly five, with IDs `full-L01-L09-01` through `-05`.
+`renderMockExams(..., { cumulative: true })` enables anchored homepage entries,
+per-question and overall practice marks and archived attempts. The default
+lecture runner path and all existing keys are unchanged.
+
+Cumulative calculation questions carry `methodCriteria: [{ text }]` in
+addition to checked `stages`, full `modelAnswer`, sources and two hints.
+Each question is worth 10 practice points: written questions normalize their
+self-review criteria to 10; calculations allocate 6 over currently correct
+checked stages and 4 over the method checklist. This records corrected practice,
+not automated grading of the original free-text answer. The runner explicitly
+asks students to transfer numeric results to the existing stage fields after
+submission. Unreviewed work receives provisional zero. Models and method
+checklists are withheld in exam mode until submission; sketches remain on
+paper and self-reviewed. Numeric stages retain unit-aware absolute tolerances.
+
+The cumulative attempt record uses the existing guarded practice API and
+`mock:FULL-L01-L09:<exam.id>` keys, with independent component drafts under
+`FULL-L01-L09-mocks-<started>:<exam.id>-<question.id>`. `methods`, `review`,
+`mark` and `history` are additional fields. Starting a new attempt archives
+the previous responses, timestamps and results; history is retained across
+reloads and never enters the lecture review bank. Existing attempt storage
+requires no migration.
+
+
+### Completed NBE-E4120 starter content (12 November 2026)
+
+The earlier framework-only note above is historical. L01-L09 now provide
+492 easy inline MCQs across 239 preserved sections: 239 reused checks and
+253 added checks, with 2-3 starters per section. Only added checks carry
+`progressionAdded: true`. The bank remains 609 core and 80 optional items;
+27 lecture mocks coexist with the five independent cumulative mocks.
+The progression and cumulative storage contracts above remain unchanged.

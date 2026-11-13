@@ -181,6 +181,12 @@ def main():
                 errors += not passed
             except (KeyError, ValueError, ZeroDivisionError, OverflowError) as exc:
                 print(f'{path}: FAIL {exc}'); errors += 1
+    cumulative = subprocess.run(['node', 'scripts/check_final_mocks.mjs'], cwd=ROOT, capture_output=True, text=True)
+    print(cumulative.stdout, end='')
+    if cumulative.returncode:
+        print(cumulative.stderr); errors += 1
+    else:
+        count += 45
     print(f'Calculation check: {count} verified values, {errors} failures.')
     return int(errors > 0)
 

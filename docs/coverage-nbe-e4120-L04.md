@@ -53,3 +53,46 @@ Each mock covers lectures 1–4 and prominently uses lecture 3. Calculation copi
 23 segments, 23 easy inline checks, 22 explorer/drill pairs, 53 bank questions, three five-question mocks.
 
 Bank types: {"trueFalse":5,"multiStepCalc":31,"written":13,"derive":3,"predict":1}. Tiers: {"easy":27,"medium":16,"hard":10}.
+
+
+## Easy-first progression, 12 November 2026 (L04-only)
+
+All 23 sections now begin practice with two easy concept MCQs after the unchanged visible theory, source figures and formula explorers. Existing drills follow, then core easy application/numeric tasks, medium work and hard work independently within each section. Existing optional assignments stay last and closed by default. Learners can skip ahead without a completion gate.
+
+23 existing checks reused and 23 complementary recall checks added, 46 total. Each new question has a stable `L04-<section>-starter` ID, `progressionAdded: true`, explicit easy/MCQ fields and a source citation. Existing checks retain IDs, correct indices, option positions, hints and model answers. Every option now has brief explanatory feedback, shown only after Check. Four reused distractors were narrowed without changing their keys or positions: endpoint removes an absolute “Always”; neuron contrasts membrane conductance with axial resistivity; spatial contrasts the causal input with the later response peak; distance-effect contrasts controlled cable properties with input-peak matching alone. New questions have three options; the original two-choice items remain compatible with saved selections.
+
+Two starters are sufficient in each narrowly divided segment: the existing check and new check retrieve distinct definitions, physical roles, boundary conditions or recording sites. Existing drills and bank work supply the next application steps. No section falls below two, and no medium/hard question was relabelled. No prompts are duplicated within L04 starters or newly copied from its bank/mocks.
+
+| Section | Source (PDF page unless noted) | Reused | Added | Total |
+|---|---|---:|---:|---:|
+| overview | 1–2 | 1 | 1 | 2 |
+| speed | 2 | 1 | 1 | 2 |
+| scaling | 3; Exercise 4 problem 2 | 1 | 1 | 2 |
+| boundaries | 4 | 1 | 1 | 2 |
+| coordinates | 5 | 1 | 1 | 2 |
+| infinite | 6 | 1 | 1 | 2 |
+| input | 7 | 1 | 1 | 2 |
+| attenuation | 8 | 1 | 1 | 2 |
+| ends | 9 | 1 | 1 | 2 |
+| hyperbolic | 10 | 1 | 1 | 2 |
+| load | 11 | 1 | 1 | 2 |
+| finite | 10–11 | 1 | 1 | 2 |
+| cases | 11 | 1 | 1 | 2 |
+| endpoint | 11 | 1 | 1 | 2 |
+| summary | 12 | 1 | 1 | 2 |
+| neuron | 13 | 1 | 1 | 2 |
+| synapses | 14 | 1 | 1 | 2 |
+| summation | 15 | 1 | 1 | 2 |
+| superposition | 16 | 1 | 1 | 2 |
+| temporal | 17 | 1 | 1 | 2 |
+| spatial | 18 | 1 | 1 | 2 |
+| distance-effect | 19 | 1 | 1 | 2 |
+| return | Exercise 4 pages 1–2; answers pages 1–2 | 1 | 1 | 2 |
+
+Sources re-read: all 19 L04 PDF pages, both Exercise 4 pages, both supplied solution pages and all four official exam-guidance pages, with visual reading sheets. New checks cover graded passive responses, local half-rise criterion, square-root radius scaling, transient stimuli, time normalization, distant resting limit, input measurement site, sealed attenuation, open endpoint voltage, steady temporal derivative, matched load, origin prefactor, matched exponential, endpoint data, origin consistency, insulated tips, low-pass synaptic transformation, spatial integration, baseline counted once, residual depolarization and source recording-site identification, plus the isopotential criterion. No unavailable textbook, later active-channel/Rall mechanism, unsupported graph measurement or new source figure is introduced. Existing passive-speed, hyperbolic-sign, normalized-gradient, fixed-origin/load, causal-timing and return-path qualifications remain intact.
+
+Preserved exactly: all 23 section IDs/order/titles and non-quiz section fields; all theory, visuals, formulas and 22 explorer/drill pairs; recap/equations; all 47 core + 6 optional bank objects, numerical answers, hints, rubrics and progress keys; all three L04 mocks and all 27 full lecture mocks course-wide. Course bank remains 609 core/80 optional. Other lectures, all shared source and E4210 product/test files are unchanged from this invocation's dirty-tree snapshot. No cumulative mocks belong to this L04-only phase.
+
+Correct positions across 46 mixed two-/three-option checks: authored 20/19/7; deterministic displayed 22/14/10. Expected per-item uniform positions: 19.167/19.167/7.667. Authored p=0.9533, displayed p=0.2834; zero length-cue findings. The 23 new items alone use authored positions 8/8/7. Mutation tests reject severe length cues and excessive correct-position bias. Semantic review checked one best answer, parallel options and section/source relevance; statistical lint does not substitute for this review.
+
+Build (including strict lint), independent numeric verification (1,758 values), L04 source/relation tests, numeric-input tests, all-question feedback/restore and compatibility checks pass. Playwright verifies every section's first practice, theory/explorer/drill order, keyboard, old/new concept reload/deduplication, optional numeric/hint/review preservation, formula keyboard and mock draft/submission restoration. 184 section captures plus eight feedback captures cover 380/768/1280/1920 in both themes; representative screenshots were visually inspected. Existing source raster labels remain as supplied. The documented E4210 fixture assertion remains a separate pre-existing failure. Exact commands, exits and preservation evidence are in `.codex-progression/L04/` and the phase/final reports. LOCAL ONLY; no Git writes, commit, push or deployment.

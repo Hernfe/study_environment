@@ -10,10 +10,11 @@ import { courseRegistry } from './content.js';
 import { getLectureSummary, storageAvailable } from './progress.js';
 import { renderReview } from './review.js';
 import { renderSiteNav, renderCredits } from './render.js';
+import { renderMockExams } from './mockExam.js';
 import { renderFormulaReference } from './quantitative.js';
 
 const course = courseInfo();
-const { registry = [], exampleLecture = null } = courseRegistry() || {};
+const { registry = [], exampleLecture = null, fullCourseMocks = [], fullCourseMockOptions = {} } = courseRegistry() || {};
 const lectures = import.meta.env.DEV && exampleLecture ? [...registry, exampleLecture] : registry;
 
 function examLabel(examDate) {
@@ -78,6 +79,8 @@ function render() {
       renderFormulaReference(course.equationSheet, course.equationSheetNote),
       el('h2', { id: 'course-map-title' }, 'Course map'),
       el('ol', { class: 'course-map', 'aria-labelledby': 'course-map-title' }, lectures.map(courseCard)),
+      fullCourseMocks.length ? el('nav', { 'aria-label': 'Full-course mock exam links' }, [el('h2', {}, 'Choose a full-course paper'), el('p', {}, fullCourseMockOptions.intro), el('ul', {}, fullCourseMocks.map((exam) => el('li', {}, el('a', { href: `#${exam.id}` }, exam.title))))]) : null,
+      fullCourseMocks.length ? renderMockExams(fullCourseMocks, { lectureId: fullCourseMockOptions.lectureId, reference: course.equationSheet, cumulative: true }) : null,
       review,
       renderCredits(),
     ])

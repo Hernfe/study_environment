@@ -1,3 +1,4 @@
+import { isExtraPractice } from './extraPractice.js';
 // Course review: questions from every built lecture of the current
 // course, never across courses. Missed ones first, then never seen,
 // then the rest. Every bucket is interleaved across lectures. See
@@ -31,6 +32,8 @@ export function buildReviewQueue(lectures, getProgress = getLectureProgress, now
     const progress = getProgress(lecture.id);
     for (const question of lecture.questions || []) {
       const record = progress.questions[question.id];
+      // Optional repetition joins review only after the learner engages with it.
+      if (isExtraPractice(question) && !record?.attempts && !record?.hints?.length) continue;
       const entry = { lectureId: lecture.id, lectureNumber: lecture.number, lectureTitle: lecture.title, question, record };
       if (!record || (!record.attempts && record.lastResult !== 'missed')) unseen.push(entry);
       else if (record.lastResult === 'missed') missed.push(entry);

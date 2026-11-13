@@ -59,3 +59,50 @@ Each mock covers lectures 1–5 and prominently uses lecture 5. Calculation copi
 29 segments, 29 easy inline checks, 22 explorer/drill pairs, 69 bank questions, three five-question mocks.
 
 Bank types: {"trueFalse":15,"multiStepCalc":28,"written":24,"derive":1,"predict":1}. Tiers: {"easy":37,"medium":17,"hard":15}.
+
+
+## L05 easy-first progression, 12 November 2026
+
+Every section now opens practice with two easy concept MCQs, after its preserved visible theory, figure and formula explorers. Formula drills follow these checks, then core bank questions progress easy, medium, hard, with optional extras last and initially closed. There is no completion gate. The existing E4120 renderer already supports this sequence; no shared product change was needed.
+
+Reused 29 checks and added 29 complementary recall checks, 58 total. Existing prompts, option order/text, correct indices, IDs, hints and model answers are preserved; retained checks now have short option-specific explanations. Only added questions carry `progressionAdded: true`, explicit easy/MC metadata, unique `L05-<section>-starter` IDs and source citations. Two checks per section cover the immediate distinction and a complementary foundation without padding or duplicating the later numeric/interpretive work. No section has fewer than two.
+
+| Section | Source | Reused | Added | Total |
+|---|---|---:|---:|---:|
+| overview | L05 PDF 1 | 1 | 1 | 2 |
+| functional | L05 PDF 2 | 1 | 1 | 2 |
+| structure | L05 PDF 3 | 1 | 1 | 2 |
+| lumped | L05 PDF 4 | 1 | 1 | 2 |
+| distributed | L05 PDF 5 | 1 | 1 | 2 |
+| one | L05 PDF 6 | 1 | 1 | 2 |
+| two | L05 PDF 7 | 1 | 1 | 2 |
+| chemical | L05 PDF 9 | 1 | 1 | 2 |
+| receptors | L05 PDF 10 | 1 | 1 | 2 |
+| graded | L05 PDF 11 | 1 | 1 | 2 |
+| dendritic | L05 PDF 12–13 | 1 | 1 | 2 |
+| backprop | L05 PDF 14 | 1 | 1 | 2 |
+| atype | L05 PDF 15 | 1 | 1 | 2 |
+| morphology | L05 PDF 16–17 | 1 | 1 | 2 |
+| equivalent | L05 PDF 18 | 1 | 1 | 2 |
+| distance | L05 PDF 19 | 1 | 1 | 2 |
+| matching | L05 PDF 20 | 1 | 1 | 2 |
+| assumptions | L05 PDF 21 | 1 | 1 | 2 |
+| semi | L05 PDF 22 | 1 | 1 | 2 |
+| recursive | L05 PDF 23–25 | 1 | 1 | 2 |
+| stems | L05 PDF 26 | 1 | 1 | 2 |
+| boundaries | L05 PDF 27 | 1 | 1 | 2 |
+| finite | L05 PDF 28 | 1 | 1 | 2 |
+| paths | L05 PDF 29 | 1 | 1 | 2 |
+| tree-example | L05 PDF 30 | 1 | 1 | 2 |
+| soma | L05 PDF 31 | 1 | 1 | 2 |
+| step-input | L05 PDF 32 | 1 | 1 | 2 |
+| conductance-input | L05 PDF 33 | 1 | 1 | 2 |
+| exercise | Exercise 5 p1–2, answers p1–2; L04 PDF2; L05 PDF29 | 1 | 1 | 2 |
+
+Preserved: all 29 section IDs/titles/order, theory, source visuals, formulas, 22 explorer/drill pairs, all 69 bank payloads and numeric answers (61 core, 8 optional), all three L05 mocks and all 27 lecture mocks across the course. Course bank remains 609 core/80 optional. No old question was relabelled or moved in its canonical array. Earlier L01–L04 progression and E4210 product remain untouched.
+
+Source coverage remains the 33-page L05 deck and Exercise 5/answers, with the scope file's corrections and qualifications. No supplementary depth source exists for these topics. New checks do not require source graph measurements, invented alpha kinetics, exact passive propagation delays or later channel kinetics. Existing asset credits and no-video report remain unchanged.
+
+All 58 MCQs: authored correct positions 25/24/9; displayed seeded positions 23/24/11. Because 29 retained items have two options and 29 added items have three, expected counts are 24.167/24.167/9.667, not three equal counts. Authored p=0.9628 and displayed p=0.8863; zero length findings. Added items alone use authored positions 10/10/9. Semantic review checked one best answer, credible misconceptions, parallel wording and alignment to the section. Mutation checks detect severe length cues and excessive position bias.
+
+Fresh verification and exceptions are recorded in `.codex-progression/L05-REPORT.md` and `.codex-progression/L05/`. LOCAL ONLY. Other lecture expansion and cumulative final mocks are outside this L05-only phase.

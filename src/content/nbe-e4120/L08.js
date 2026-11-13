@@ -39,7 +39,7 @@ const content={
       "blocks": [
         {
           "type": "text",
-          "body": "Combine ionic conductances with membrane capacitance, then add axial current. Follow excitability, gating-charge measurements and myelinated propagation. Use $V_m=V_{in}-V_{out}$ and positive outward membrane current."
+          "body": ["Combine ionic conductances with membrane capacitance, then add axial current. Follow excitability, gating-charge measurements and myelinated propagation. Use $V_m=V_{in}-V_{out}$ and positive outward membrane current.", "The circuit links a changing voltage to the difference between supplied current and ionic current. Adding spatial coupling explains how local excitation recruits adjacent membrane. Keep these two questions separate: what changes voltage at one site, and what carries excitation to the next site? (8:1 PDF p1.)"]
         },
         {
           "type": "figure",
@@ -63,16 +63,16 @@ const content={
       "conceptQuiz": [
         {
           "id": "L08-overview-check",
-          "prompt": "Which quantity can change under space clamp?",
+          "prompt": "Under space clamp, which voltage variation remains possible?",
           "correct": 0,
           "options": [
             {
               "text": "Voltage over time at a spatially uniform site",
-              "feedback": "Correct. Voltage over time at a spatially uniform site."
+              "feedback": "Space clamp makes voltage uniform in space while allowing temporal changes."
             },
             {
               "text": "Voltage over space at a temporally fixed site",
-              "feedback": "Use this distinction: Voltage over time at a spatially uniform site."
+              "feedback": "Spatial variation is removed by space clamp; voltage can still change with time."
             }
           ],
           "hints": [
@@ -85,6 +85,40 @@ const content={
           ],
           "modelAnswer": [
             "Voltage over time at a spatially uniform site."
+          ]
+        },
+        {
+          "id": "L08-overview-starter",
+          "type": "mc",
+          "difficulty": "easy",
+          "progressionAdded": true,
+          "source": "L08 8:1 p1–2",
+          "prompt": "Which component stores charge in the HH circuit?",
+          "options": [
+            {
+              "text": "The membrane capacitance",
+              "feedback": "Capacitance links stored charge to membrane voltage."
+            },
+            {
+              "text": "The membrane leak conductance",
+              "feedback": "Leak conductance carries ionic current rather than storing charge."
+            },
+            {
+              "text": "The axial resistance branch",
+              "feedback": "Axial resistance limits longitudinal current rather than storing membrane charge."
+            }
+          ],
+          "correct": 0,
+          "hints": [
+            {
+              "body": "Recall the definition or distinction taught in this section."
+            },
+            {
+              "body": "Capacitance links stored charge to membrane voltage."
+            }
+          ],
+          "modelAnswer": [
+            "Capacitance links stored charge to membrane voltage."
           ]
         }
       ],
@@ -102,7 +136,7 @@ const content={
       "blocks": [
         {
           "type": "text",
-          "body": "Capacitance, potassium, sodium and leak branches are parallel. Each ionic current is conductance times its own signed driving force. Use total currents with total capacitance, or densities consistently."
+          "body": ["Capacitance, potassium, sodium and leak branches are parallel. Each ionic current is conductance times its own signed driving force. Use total currents with total capacitance, or densities consistently.", "All branches share voltage, but their reversal potentials differ. Calculate each signed branch first, sum the ionic currents, then use the current-balance explorer to obtain the voltage slope. A zero sum can hide opposing ionic flows; it does not imply that every channel is closed. (8:1 PDF p2.)"]
         },
         {
           "type": "figure",
@@ -255,16 +289,16 @@ const content={
       "conceptQuiz": [
         {
           "id": "L08-circuit-check",
-          "prompt": "What determines the sign of an ionic branch?",
+          "prompt": "Which factor sets inward versus outward current for an open ionic branch?",
           "correct": 1,
           "options": [
             {
               "text": "The maximum conductance $\\bar g_i$",
-              "feedback": "Use this distinction: The driving force $V_m-E_i$."
+              "feedback": "Conductance sets current magnitude; the signed driving force sets its direction."
             },
             {
               "text": "The driving force $V_m-E_i$",
-              "feedback": "Correct. The driving force $V_m-E_i$."
+              "feedback": "With nonnegative conductance, current has the sign of its driving force."
             }
           ],
           "hints": [
@@ -278,6 +312,40 @@ const content={
           "modelAnswer": [
             "The driving force $V_m-E_i$."
           ]
+        },
+        {
+          "id": "L08-circuit-starter",
+          "type": "mc",
+          "difficulty": "easy",
+          "progressionAdded": true,
+          "source": "L08 8:1 p2",
+          "prompt": "How are the ionic branches connected to membrane capacitance?",
+          "options": [
+            {
+              "text": "In series along the axoplasm",
+              "feedback": "The ionic branches cross the membrane; axial resistance belongs along the axon."
+            },
+            {
+              "text": "In parallel across the membrane",
+              "feedback": "Parallel branches share membrane voltage and carry separate currents."
+            },
+            {
+              "text": "In series across the membrane",
+              "feedback": "Series branches would share current, whereas the HH branches share voltage."
+            }
+          ],
+          "correct": 1,
+          "hints": [
+            {
+              "body": "Recall the definition or distinction taught in this section."
+            },
+            {
+              "body": "Parallel branches share membrane voltage and carry separate currents."
+            }
+          ],
+          "modelAnswer": [
+            "Parallel branches share membrane voltage and carry separate currents."
+          ]
         }
       ]
     },
@@ -289,7 +357,7 @@ const content={
       "blocks": [
         {
           "type": "text",
-          "body": "Use $g_K=\\bar g_Kn^4$ and $g_{Na}=\\bar g_{Na}m^3h$. The source compares calculated and recorded waveforms and currents. These are source results, not a new simulation or a unique molecular proof."
+          "body": ["Use $g_K=\\bar g_Kn^4$ and $g_{Na}=\\bar g_{Na}m^3h$. The source compares calculated and recorded waveforms and currents. These are source results, not a new simulation or a unique molecular proof.", "The variables $m,n,h$ are particle probabilities; their products are channel conductance fractions, not currents. First apply the powers, multiply by maximal conductance, then use the appropriate driving force. Agreement of predicted and recorded traces tests the combined model, rather than uniquely establishing its molecular interpretation. (8:1 PDF p3.)"]
         },
         {
           "type": "figure",
@@ -436,16 +504,16 @@ const content={
       "conceptQuiz": [
         {
           "id": "L08-agreement-check",
-          "prompt": "Which fitted fraction gives sodium conductance?",
+          "prompt": "Which product combines sodium activation with sodium availability?",
           "correct": 0,
           "options": [
             {
               "text": "$m^3h$, activation times availability",
-              "feedback": "Correct. $m^3h$, activation times availability."
+              "feedback": "Three activation factors and one availability factor give the sodium fraction."
             },
             {
               "text": "$n^4$, four potassium activation factors",
-              "feedback": "Use this distinction: $m^3h$, activation times availability."
+              "feedback": "The fourth power of potassium activation describes potassium, not sodium."
             }
           ],
           "hints": [
@@ -459,6 +527,40 @@ const content={
           "modelAnswer": [
             "$m^3h$, activation times availability."
           ]
+        },
+        {
+          "id": "L08-agreement-starter",
+          "type": "mc",
+          "difficulty": "easy",
+          "progressionAdded": true,
+          "source": "L08 8:1 p3",
+          "prompt": "What do the individual HH variables represent?",
+          "options": [
+            {
+              "text": "Fractions of total injected current",
+              "feedback": "Gate variables determine conductance fractions, not shares of applied current."
+            },
+            {
+              "text": "Ratios of ionic reversal potentials",
+              "feedback": "Reversal potentials set driving forces separately from gate probabilities."
+            },
+            {
+              "text": "Permissive-state probabilities",
+              "feedback": "The channel fraction combines these probabilities using the taught powers."
+            }
+          ],
+          "correct": 2,
+          "hints": [
+            {
+              "body": "Recall the definition or distinction taught in this section."
+            },
+            {
+              "body": "The channel fraction combines these probabilities using the taught powers."
+            }
+          ],
+          "modelAnswer": [
+            "The channel fraction combines these probabilities using the taught powers."
+          ]
         }
       ]
     },
@@ -470,7 +572,7 @@ const content={
       "blocks": [
         {
           "type": "text",
-          "body": "Space clamp removes spatial gradients; voltage clamp fixes voltage. A uniform axon supports an approximately constant-speed travelling wave. The source propagation equation drops driving forces in one line; retain the full ionic currents."
+          "body": ["Space clamp removes spatial gradients; voltage clamp fixes voltage. A uniform axon supports an approximately constant-speed travelling wave. The source propagation equation drops driving forces in one line; retain the full ionic currents.", "For a travelling profile, converting spatial curvature to temporal curvature introduces an inverse-square speed factor. The axial-source explorer uses radius and bulk intracellular resistivity, giving current per area. Use capacitance and ionic currents per area in the same equation; a whole-cell capacitance cannot be mixed directly with that density. (8:1 PDF p4.)"]
         },
         {
           "type": "figure",
@@ -613,16 +715,16 @@ const content={
       "conceptQuiz": [
         {
           "id": "L08-space-check",
-          "prompt": "Does space clamp also fix voltage over time?",
+          "prompt": "Does a spatially uniform membrane have to remain at one voltage over time?",
           "correct": 1,
           "options": [
             {
               "text": "Yes, it removes temporal variation in voltage",
-              "feedback": "Use this distinction: No, it removes spatial variation in voltage."
+              "feedback": "Voltage clamp controls voltage; space clamp alone removes spatial gradients."
             },
             {
               "text": "No, it removes spatial variation in voltage",
-              "feedback": "Correct. No, it removes spatial variation in voltage."
+              "feedback": "Space clamp makes voltage independent of position without fixing its time course."
             }
           ],
           "hints": [
@@ -636,6 +738,40 @@ const content={
           "modelAnswer": [
             "No, it removes spatial variation in voltage."
           ]
+        },
+        {
+          "id": "L08-space-starter",
+          "type": "mc",
+          "difficulty": "easy",
+          "progressionAdded": true,
+          "source": "L08 8:1 p4",
+          "prompt": "Which pathway couples neighboring axonal regions in cable theory?",
+          "options": [
+            {
+              "text": "Longitudinal current through the axoplasm",
+              "feedback": "Axial current couples sites with different membrane voltages."
+            },
+            {
+              "text": "Transverse current through the membrane",
+              "feedback": "Transmembrane current charges or crosses local membrane rather than running along the axon."
+            },
+            {
+              "text": "Displacement current across local capacitance",
+              "feedback": "Local capacitive current changes stored charge; axial current couples positions."
+            }
+          ],
+          "correct": 0,
+          "hints": [
+            {
+              "body": "Recall the definition or distinction taught in this section."
+            },
+            {
+              "body": "Axial current couples sites with different membrane voltages."
+            }
+          ],
+          "modelAnswer": [
+            "Axial current couples sites with different membrane voltages."
+          ]
         }
       ]
     },
@@ -647,7 +783,7 @@ const content={
       "blocks": [
         {
           "type": "text",
-          "body": "After a brief stimulus ends in a space-clamped cell, the net applied current is zero. Inward net ionic current charges the capacitor during the rising phase. Include leak in the ionic sum unless it is explicitly negligible."
+          "body": ["After a brief stimulus ends in a space-clamped cell, the net applied current is zero. Inward net ionic current charges the capacitor during the rising phase. Include leak in the ionic sum unless it is explicitly negligible.", "With no applied current, the voltage slope is minus the ionic sum divided by capacitance. Thus inward ionic current gives a positive slope and outward current gives a negative slope. At a smooth voltage maximum the capacitive current is zero, even though individual ionic currents may remain substantial. (8:1 PDF p5.)"]
         },
         {
           "type": "figure",
@@ -737,16 +873,16 @@ const content={
       "conceptQuiz": [
         {
           "id": "L08-nonpropagating-check",
-          "prompt": "After the stimulus ends, rising voltage requires",
+          "prompt": "With injection over, which ionic current accompanies a rising space-clamped voltage?",
           "correct": 1,
           "options": [
             {
               "text": "Net outward ionic current balanced by capacitance",
-              "feedback": "Use this distinction: Net inward ionic current balanced by capacitance."
+              "feedback": "Net outward ionic current lowers voltage once injection has ended."
             },
             {
               "text": "Net inward ionic current balanced by capacitance",
-              "feedback": "Correct. Net inward ionic current balanced by capacitance."
+              "feedback": "Net inward ionic current is balanced by outward capacitive current as voltage rises."
             }
           ],
           "hints": [
@@ -760,6 +896,40 @@ const content={
           "modelAnswer": [
             "Net inward ionic current balanced by capacitance."
           ]
+        },
+        {
+          "id": "L08-nonpropagating-starter",
+          "type": "mc",
+          "difficulty": "easy",
+          "progressionAdded": true,
+          "source": "L08 8:1 p5",
+          "prompt": "At a smooth voltage peak, what is the capacitive current?",
+          "options": [
+            {
+              "text": "Inward at that instant",
+              "feedback": "Inward capacitive current accompanies falling voltage under the stated convention."
+            },
+            {
+              "text": "Zero at that instant",
+              "feedback": "Capacitive current is proportional to voltage slope, which is zero at a smooth peak."
+            },
+            {
+              "text": "Outward at that instant",
+              "feedback": "Outward capacitive current accompanies rising voltage under the stated convention."
+            }
+          ],
+          "correct": 1,
+          "hints": [
+            {
+              "body": "Recall the definition or distinction taught in this section."
+            },
+            {
+              "body": "Capacitive current is proportional to voltage slope, which is zero at a smooth peak."
+            }
+          ],
+          "modelAnswer": [
+            "Capacitive current is proportional to voltage slope, which is zero at a smooth peak."
+          ]
         }
       ]
     },
@@ -771,7 +941,7 @@ const content={
       "blocks": [
         {
           "type": "text",
-          "body": "An active region provides inward ionic current. Axial current spreads in both directions and excites available adjacent membrane. Recently active membrane has reduced sodium availability, so ordinary propagation advances away from the refractory wake."
+          "body": ["An active region provides inward ionic current. Axial current spreads in both directions and excites available adjacent membrane. Recently active membrane has reduced sodium availability, so ordinary propagation advances away from the refractory wake.", "The key sequence is local inward current, passive axial spread, then fresh sodium-channel recruitment ahead of the wave. Current can spread backward too. Directional regeneration depends on the different gating histories ahead and behind, rather than on an axial pathway that conducts in only one direction. (8:1 PDF p6.)"]
         },
         {
           "type": "figure",
@@ -795,16 +965,16 @@ const content={
       "conceptQuiz": [
         {
           "id": "L08-regeneration-check",
-          "prompt": "Why does the wave usually fail to re-excite its wake?",
+          "prompt": "Which sodium property limits immediate regeneration behind an advancing spike?",
           "correct": 0,
           "options": [
             {
               "text": "Sodium availability remains reduced after activation",
-              "feedback": "Correct. Sodium availability remains reduced after activation."
+              "feedback": "Recent inactivation reduces sodium availability in the wake."
             },
             {
-              "text": "Sodium reversal remains absent after activation",
-              "feedback": "Use this distinction: Sodium availability remains reduced after activation."
+              "text": "Sodium availability recovers fully after activation",
+              "feedback": "Full recovery would restore excitability; the wake instead retains sodium inactivation."
             }
           ],
           "hints": [
@@ -818,6 +988,40 @@ const content={
           "modelAnswer": [
             "Sodium availability remains reduced after activation."
           ]
+        },
+        {
+          "id": "L08-regeneration-starter",
+          "type": "mc",
+          "difficulty": "easy",
+          "progressionAdded": true,
+          "source": "L08 8:1 p6",
+          "prompt": "How does axial current spread away from an active region?",
+          "options": [
+            {
+              "text": "Actively in the forward direction",
+              "feedback": "Axial spread is passive; local membrane channels provide regeneration."
+            },
+            {
+              "text": "Passively in the forward direction",
+              "feedback": "Passive current can spread backward too; refractoriness limits backward regeneration."
+            },
+            {
+              "text": "Passively in both axial directions",
+              "feedback": "Current spreads both ways; available channels ahead support fresh regeneration."
+            }
+          ],
+          "correct": 2,
+          "hints": [
+            {
+              "body": "Recall the definition or distinction taught in this section."
+            },
+            {
+              "body": "Current spreads both ways; available channels ahead support fresh regeneration."
+            }
+          ],
+          "modelAnswer": [
+            "Current spreads both ways; available channels ahead support fresh regeneration."
+          ]
         }
       ]
     },
@@ -829,7 +1033,7 @@ const content={
       "blocks": [
         {
           "type": "text",
-          "body": "During propagation ionic current supplies local capacitance and axial current. Therefore $I_{ion}=-I_C$ is not generally valid at each point. Read position, time and propagation direction separately on the source traces."
+          "body": ["During propagation ionic current supplies local capacitance and axial current. Therefore $I_{ion}=-I_C$ is not generally valid at each point. Read position, time and propagation direction separately on the source traces.", "Follow one recording position through time before comparing positions. A mismatch between local ionic and capacitive current is expected when longitudinal current supplies neighboring membrane. The plotted wave travels right to left; the trace order must be read with that direction, rather than inferred from current sign alone. (8:1 PDF p7.)"]
         },
         {
           "type": "figure",
@@ -853,16 +1057,16 @@ const content={
       "conceptQuiz": [
         {
           "id": "L08-propagating-check",
-          "prompt": "Which extra route matters during propagation?",
+          "prompt": "Which route prevents ionic current from balancing only local capacitive current during propagation?",
           "correct": 0,
           "options": [
             {
               "text": "Longitudinal current into adjacent axonal regions",
-              "feedback": "Correct. Longitudinal current into adjacent axonal regions."
+              "feedback": "Axial current can supply adjacent regions as well as local membrane charging."
             },
             {
               "text": "Only transverse current into local capacitance",
-              "feedback": "Use this distinction: Longitudinal current into adjacent axonal regions."
+              "feedback": "Propagation also requires longitudinal current, so local capacitance is not the only destination."
             }
           ],
           "hints": [
@@ -876,6 +1080,40 @@ const content={
           "modelAnswer": [
             "Longitudinal current into adjacent axonal regions."
           ]
+        },
+        {
+          "id": "L08-propagating-starter",
+          "type": "mc",
+          "difficulty": "easy",
+          "progressionAdded": true,
+          "source": "L08 8:1 p7",
+          "prompt": "What does the local membrane capacitor account for?",
+          "options": [
+            {
+              "text": "Charge stored across the local membrane",
+              "feedback": "Local charging is one destination for current during propagation."
+            },
+            {
+              "text": "Charge carried along the axonal interior",
+              "feedback": "Longitudinal transport is axial current, distinct from local capacitive charging."
+            },
+            {
+              "text": "Charge transferred through the ionic pores",
+              "feedback": "Ionic current crosses channels; capacitive current changes stored charge."
+            }
+          ],
+          "correct": 0,
+          "hints": [
+            {
+              "body": "Recall the definition or distinction taught in this section."
+            },
+            {
+              "body": "Local charging is one destination for current during propagation."
+            }
+          ],
+          "modelAnswer": [
+            "Local charging is one destination for current during propagation."
+          ]
         }
       ]
     },
@@ -887,7 +1125,7 @@ const content={
       "blocks": [
         {
           "type": "text",
-          "body": "Fast activation follows its steady value while slower potassium activation and sodium availability are briefly fixed. The momentary total current can have several zeros. Positive slope at rest produces restoring current in this reduced subsystem."
+          "body": ["Fast activation follows its steady value while slower potassium activation and sodium availability are briefly fixed. The momentary total current can have several zeros. Positive slope at rest produces restoring current in this reduced subsystem.", "Read the total momentary curve, not the sodium branch alone. A small depolarization at a positive-slope zero produces outward current and reverses the displacement. This argument assumes fast $m$ follows voltage while $n,h$ are frozen; it describes local fast stability, not an equilibrium with all gates fixed forever. (8:1 PDF p8.)"]
         },
         {
           "type": "figure",
@@ -911,16 +1149,16 @@ const content={
       "conceptQuiz": [
         {
           "id": "L08-noble-check",
-          "prompt": "What is held slow in the momentary approximation?",
+          "prompt": "Which pair is briefly frozen while fast sodium activation follows voltage?",
           "correct": 0,
           "options": [
             {
               "text": "Potassium activation $n$ and availability $h$",
-              "feedback": "Correct. Potassium activation $n$ and availability $h$."
+              "feedback": "The approximation freezes the slower potassium activation and sodium availability."
             },
             {
               "text": "Sodium activation $m$ and driving force $V-E$",
-              "feedback": "Use this distinction: Potassium activation $n$ and availability $h$."
+              "feedback": "Sodium activation follows voltage rapidly, and driving force still depends on voltage."
             }
           ],
           "hints": [
@@ -934,6 +1172,40 @@ const content={
           "modelAnswer": [
             "Potassium activation $n$ and availability $h$."
           ]
+        },
+        {
+          "id": "L08-noble-starter",
+          "type": "mc",
+          "difficulty": "easy",
+          "progressionAdded": true,
+          "source": "L08 8:1 p8",
+          "prompt": "Which variable follows voltage rapidly in the Noble approximation?",
+          "options": [
+            {
+              "text": "Sodium availability probability $h$",
+              "feedback": "Sodium availability is treated as slow during the momentary approximation."
+            },
+            {
+              "text": "Sodium activation probability $m$",
+              "feedback": "Fast sodium activation follows its steady voltage-dependent value."
+            },
+            {
+              "text": "Potassium activation probability $n$",
+              "feedback": "Potassium activation is treated as slow during the momentary approximation."
+            }
+          ],
+          "correct": 1,
+          "hints": [
+            {
+              "body": "Recall the definition or distinction taught in this section."
+            },
+            {
+              "body": "Fast sodium activation follows its steady voltage-dependent value."
+            }
+          ],
+          "modelAnswer": [
+            "Fast sodium activation follows its steady voltage-dependent value."
+          ]
         }
       ]
     },
@@ -945,7 +1217,7 @@ const content={
       "blocks": [
         {
           "type": "text",
-          "body": "A negative current slope at threshold amplifies voltage perturbations. The positive-slope high-voltage zero is transient: potassium activation rises and sodium availability falls. The momentary curve shifts outward and can lose its high-voltage zeros."
+          "body": ["A negative current slope at threshold amplifies voltage perturbations. The positive-slope high-voltage zero is transient: potassium activation rises and sodium availability falls. The momentary curve shifts outward and can lose its high-voltage zeros.", "The perturbation rate is the negative local current slope divided by capacitance. A negative slope therefore gives growth instead of recovery. During sustained depolarization the slow gates change the curve itself, so stability at a momentary high-voltage crossing cannot guarantee a sustained plateau in the full model. (8:1 PDF p9.)"]
         },
         {
           "type": "figure",
@@ -1028,16 +1300,16 @@ const content={
       "conceptQuiz": [
         {
           "id": "L08-moving-iv-check",
-          "prompt": "Which sign of momentary slope amplifies a displacement?",
+          "prompt": "At a momentary current zero, which slope sign gives local instability?",
           "correct": 0,
           "options": [
             {
               "text": "Negative slope with zero applied current",
-              "feedback": "Correct. Negative slope with zero applied current."
+              "feedback": "A negative slope gives an amplifying current rather than a restoring current."
             },
             {
               "text": "Positive slope with zero applied current",
-              "feedback": "Use this distinction: Negative slope with zero applied current."
+              "feedback": "A positive slope gives restoring current near the zero in the fast subsystem."
             }
           ],
           "hints": [
@@ -1051,6 +1323,40 @@ const content={
           "modelAnswer": [
             "Negative slope with zero applied current."
           ]
+        },
+        {
+          "id": "L08-moving-iv-starter",
+          "type": "mc",
+          "difficulty": "easy",
+          "progressionAdded": true,
+          "source": "L08 8:1 p9",
+          "prompt": "During sustained depolarization, which slow gating change is taught?",
+          "options": [
+            {
+              "text": "Potassium activation falls; sodium availability rises",
+              "feedback": "This reverses the taught depolarization-dependent changes in the slow gates."
+            },
+            {
+              "text": "Potassium activation rises; sodium availability rises",
+              "feedback": "Potassium activation rises, but sodium inactivation reduces availability."
+            },
+            {
+              "text": "Potassium activation rises; sodium availability falls",
+              "feedback": "Both changes shift the momentary current balance outward."
+            }
+          ],
+          "correct": 2,
+          "hints": [
+            {
+              "body": "Recall the definition or distinction taught in this section."
+            },
+            {
+              "body": "Both changes shift the momentary current balance outward."
+            }
+          ],
+          "modelAnswer": [
+            "Both changes shift the momentary current balance outward."
+          ]
         }
       ]
     },
@@ -1062,7 +1368,7 @@ const content={
       "blocks": [
         {
           "type": "text",
-          "body": "A sufficiently rapid depolarization recruits regenerative sodium activation. The deterministic HH model gives the same response for identical initial states and stimuli. Biological variability near threshold is absent unless noise or variability is explicitly introduced."
+          "body": ["A sufficiently rapid depolarization recruits regenerative sodium activation. The deterministic HH model gives the same response for identical initial states and stimuli. Biological variability near threshold is absent unless noise or variability is explicitly introduced.", "Compare trials with the same starting voltage, gate history and stimulus waveform. The model separates recovery toward rest from regenerative depolarization. Experimental trial-to-trial success near threshold is probabilistic, whereas a deterministic fit cannot generate that variability from identical inputs without an added source of noise. (8:1 PDF p10.)"]
         },
         {
           "type": "figure",
@@ -1086,16 +1392,16 @@ const content={
       "conceptQuiz": [
         {
           "id": "L08-threshold-check",
-          "prompt": "What distinguishes the basic HH response at fixed initial state?",
+          "prompt": "For identical initial gates and stimuli, how does deterministic HH behave across trials?",
           "correct": 1,
           "options": [
             {
               "text": "Identical stimuli give inherently random responses",
-              "feedback": "Use this distinction: Identical stimuli give deterministic responses."
+              "feedback": "Identical inputs and initial states do not generate random trials in deterministic HH."
             },
             {
               "text": "Identical stimuli give deterministic responses",
-              "feedback": "Correct. Identical stimuli give deterministic responses."
+              "feedback": "Fixed inputs and initial states give the same response unless variability is added."
             }
           ],
           "hints": [
@@ -1109,6 +1415,40 @@ const content={
           "modelAnswer": [
             "Identical stimuli give deterministic responses."
           ]
+        },
+        {
+          "id": "L08-threshold-starter",
+          "type": "mc",
+          "difficulty": "easy",
+          "progressionAdded": true,
+          "source": "L08 8:1 p10",
+          "prompt": "Which response begins once rapid excitation recruits sufficient sodium activation?",
+          "options": [
+            {
+              "text": "Regenerative depolarization of the membrane",
+              "feedback": "Sodium recruitment reinforces depolarization above threshold."
+            },
+            {
+              "text": "Passive recovery toward the resting voltage",
+              "feedback": "Recovery toward rest is the subthreshold alternative to regeneration."
+            },
+            {
+              "text": "Delayed recovery of sodium availability",
+              "feedback": "Recovery from inactivation prepares later excitation rather than initiating the fast upstroke."
+            }
+          ],
+          "correct": 0,
+          "hints": [
+            {
+              "body": "Recall the definition or distinction taught in this section."
+            },
+            {
+              "body": "Sodium recruitment reinforces depolarization above threshold."
+            }
+          ],
+          "modelAnswer": [
+            "Sodium recruitment reinforces depolarization above threshold."
+          ]
         }
       ]
     },
@@ -1120,7 +1460,7 @@ const content={
       "blocks": [
         {
           "type": "text",
-          "body": "Depolarization increases sodium activation and inward current, which promotes more depolarization. Slower sodium inactivation and potassium activation oppose this cycle and terminate the spike."
+          "body": ["Depolarization increases sodium activation and inward current, which promotes more depolarization. Slower sodium inactivation and potassium activation oppose this cycle and terminate the spike.", "Trace the loop in causal order: activation increases sodium conductance, inward sodium current raises voltage, and higher voltage recruits more activation. Delayed potassium activation and falling sodium availability break that loop. The voltage trace alone does not identify either conductance; interpret it alongside the conductance panel. (8:1 PDF p11.)"]
         },
         {
           "type": "figure",
@@ -1144,16 +1484,16 @@ const content={
       "conceptQuiz": [
         {
           "id": "L08-feedback-check",
-          "prompt": "Which process belongs to the fast positive loop?",
+          "prompt": "Which link reinforces depolarization during the fast feedback cycle?",
           "correct": 1,
           "options": [
             {
               "text": "Depolarization removes all sodium driving force",
-              "feedback": "Use this distinction: Depolarization recruits inward sodium current."
+              "feedback": "Reduced sodium driving force limits inward current rather than reinforcing it."
             },
             {
               "text": "Depolarization recruits inward sodium current",
-              "feedback": "Correct. Depolarization recruits inward sodium current."
+              "feedback": "Rapid sodium recruitment increases inward current, reinforcing depolarization."
             }
           ],
           "hints": [
@@ -1167,6 +1507,40 @@ const content={
           "modelAnswer": [
             "Depolarization recruits inward sodium current."
           ]
+        },
+        {
+          "id": "L08-feedback-starter",
+          "type": "mc",
+          "difficulty": "easy",
+          "progressionAdded": true,
+          "source": "L08 8:1 p11",
+          "prompt": "Which pair belongs to the slow negative feedback cycle?",
+          "options": [
+            {
+              "text": "Sodium recovery and potassium deactivation",
+              "feedback": "These describe recovery toward excitability, not the processes terminating the upstroke."
+            },
+            {
+              "text": "Sodium inactivation and potassium activation",
+              "feedback": "These slower processes oppose the fast regenerative inward current."
+            },
+            {
+              "text": "Sodium activation and potassium deactivation",
+              "feedback": "Sodium activation reinforces depolarization; it is part of the fast positive cycle."
+            }
+          ],
+          "correct": 1,
+          "hints": [
+            {
+              "body": "Recall the definition or distinction taught in this section."
+            },
+            {
+              "body": "These slower processes oppose the fast regenerative inward current."
+            }
+          ],
+          "modelAnswer": [
+            "These slower processes oppose the fast regenerative inward current."
+          ]
         }
       ]
     },
@@ -1178,7 +1552,7 @@ const content={
       "blocks": [
         {
           "type": "text",
-          "body": "Upstroke, peak, repolarization and afterhyperpolarization follow changing gates and driving forces. Current sign cannot be inferred from comparing conductances alone. Slow potassium closure and recovering sodium availability return the membrane toward rest."
+          "body": ["Upstroke, peak, repolarization and afterhyperpolarization follow changing gates and driving forces. Current sign cannot be inferred from comparing conductances alone. Slow potassium closure and recovering sodium availability return the membrane toward rest.", "Near the peak, approaching sodium reversal reduces inward sodium current even before every sodium channel closes. Later, persistent potassium conductance pulls voltage toward potassium reversal and produces the undershoot. Always combine a conductance trace with its signed driving force before explaining a current or voltage phase. (8:1 PDF p12.)"]
         },
         {
           "type": "figure",
@@ -1202,16 +1576,16 @@ const content={
       "conceptQuiz": [
         {
           "id": "L08-phases-check",
-          "prompt": "Why can high sodium conductance carry little current?",
+          "prompt": "What permits little sodium current even when many sodium channels are open?",
           "correct": 0,
           "options": [
             {
               "text": "Voltage can approach sodium reversal potential",
-              "feedback": "Correct. Voltage can approach sodium reversal potential."
+              "feedback": "Near sodium reversal the driving force is small despite high conductance."
             },
             {
-              "text": "Conductance can remove sodium reversal potential",
-              "feedback": "Use this distinction: Voltage can approach sodium reversal potential."
+              "text": "Voltage can stay far from sodium reversal potential",
+              "feedback": "Far from reversal, high conductance gives substantial current; near reversal the driving force shrinks."
             }
           ],
           "hints": [
@@ -1225,6 +1599,40 @@ const content={
           "modelAnswer": [
             "Voltage can approach sodium reversal potential."
           ]
+        },
+        {
+          "id": "L08-phases-starter",
+          "type": "mc",
+          "difficulty": "easy",
+          "progressionAdded": true,
+          "source": "L08 8:1 p12",
+          "prompt": "Which persistent conductance contributes to afterhyperpolarization?",
+          "options": [
+            {
+              "text": "Sodium conductance that activates rapidly",
+              "feedback": "Fast sodium activation supports the upstroke rather than the potassium-driven undershoot."
+            },
+            {
+              "text": "Leak conductance that inactivates rapidly",
+              "feedback": "The taught leak is not a rapidly inactivating branch producing the undershoot."
+            },
+            {
+              "text": "Potassium conductance that closes slowly",
+              "feedback": "Persistent potassium conductance draws voltage toward potassium reversal below rest."
+            }
+          ],
+          "correct": 2,
+          "hints": [
+            {
+              "body": "Recall the definition or distinction taught in this section."
+            },
+            {
+              "body": "Persistent potassium conductance draws voltage toward potassium reversal below rest."
+            }
+          ],
+          "modelAnswer": [
+            "Persistent potassium conductance draws voltage toward potassium reversal below rest."
+          ]
         }
       ]
     },
@@ -1236,7 +1644,7 @@ const content={
       "blocks": [
         {
           "type": "text",
-          "body": "A slowly rising stimulus allows $n$ to increase and $h$ to fall before regenerative excitation. The threshold increases; an otherwise effective fast stimulus can fail when delivered slowly. This is a kinetic-history effect."
+          "body": ["A slowly rising stimulus allows $n$ to increase and $h$ to fall before regenerative excitation. The threshold increases; an otherwise effective fast stimulus can fail when delivered slowly. This is a kinetic-history effect.", "Compare stimulus rise times while following the voltage response and threshold. The slowly changing momentary curve can lose its regenerative region before a spike starts. Unlike refractoriness, accommodation does not require a preceding action potential; both involve slow gating history, but the experimental triggers differ. (8:1 PDF p13.)"]
         },
         {
           "type": "figure",
@@ -1260,16 +1668,16 @@ const content={
       "conceptQuiz": [
         {
           "id": "L08-accommodation-check",
-          "prompt": "What can a slow depolarizing ramp do?",
+          "prompt": "What threshold effect can develop while a depolarizing ramp rises slowly?",
           "correct": 0,
           "options": [
             {
               "text": "Raise threshold through slow gating changes",
-              "feedback": "Correct. Raise threshold through slow gating changes."
+              "feedback": "Slow potassium activation and sodium inactivation can increase threshold."
             },
             {
               "text": "Lower threshold while all slow gates stay fixed",
-              "feedback": "Use this distinction: Raise threshold through slow gating changes."
+              "feedback": "Slow gates change during the ramp; holding them fixed misses accommodation."
             }
           ],
           "hints": [
@@ -1283,6 +1691,40 @@ const content={
           "modelAnswer": [
             "Raise threshold through slow gating changes."
           ]
+        },
+        {
+          "id": "L08-accommodation-starter",
+          "type": "mc",
+          "difficulty": "easy",
+          "progressionAdded": true,
+          "source": "L08 8:1 p13",
+          "prompt": "Which stimulus feature is central to accommodation?",
+          "options": [
+            {
+              "text": "A slowly developing depolarization",
+              "feedback": "Slow depolarization permits potassium activation and sodium inactivation before a spike."
+            },
+            {
+              "text": "A brief rapidly rising depolarization",
+              "feedback": "A fast rise recruits sodium activation before the slow opposing gates catch up."
+            },
+            {
+              "text": "A delay after a preceding action potential",
+              "feedback": "A preceding spike defines refractory recovery; accommodation needs no earlier spike."
+            }
+          ],
+          "correct": 0,
+          "hints": [
+            {
+              "body": "Recall the definition or distinction taught in this section."
+            },
+            {
+              "body": "Slow depolarization permits potassium activation and sodium inactivation before a spike."
+            }
+          ],
+          "modelAnswer": [
+            "Slow depolarization permits potassium activation and sodium inactivation before a spike."
+          ]
         }
       ]
     },
@@ -1294,7 +1736,7 @@ const content={
       "blocks": [
         {
           "type": "text",
-          "body": "Vary the interval between two stimuli. Early extensive sodium inactivation prevents another spike. Later partial recovery and residual potassium conductance mean a stronger second stimulus may succeed. Record threshold, not just whether identical pulses fail."
+          "body": ["Vary the interval between two stimuli. Early extensive sodium inactivation prevents another spike. Later partial recovery and residual potassium conductance mean a stronger second stimulus may succeed. Record threshold, not just whether identical pulses fail.", "Keep the first pulse reliable and change the second-pulse delay; then vary its strength to distinguish failure from an elevated threshold. Recovery of sodium availability and decay of potassium conductance restore excitability. Failure of one fixed second pulse alone cannot distinguish absolute from relative refractoriness. (8:1 PDF p14.)"]
         },
         {
           "type": "figure",
@@ -1318,16 +1760,16 @@ const content={
       "conceptQuiz": [
         {
           "id": "L08-refractory-check",
-          "prompt": "What distinguishes relative refractoriness?",
+          "prompt": "Which outcome identifies the relative rather than absolute refractory period?",
           "correct": 1,
           "options": [
             {
               "text": "No second stimulus strength can trigger a spike",
-              "feedback": "Use this distinction: A stronger second stimulus may still trigger a spike."
+              "feedback": "Failure at every stimulus strength describes absolute refractoriness."
             },
             {
               "text": "A stronger second stimulus may still trigger a spike",
-              "feedback": "Correct. A stronger second stimulus may still trigger a spike."
+              "feedback": "Partial recovery permits a second spike if the second stimulus is stronger."
             }
           ],
           "hints": [
@@ -1341,6 +1783,40 @@ const content={
           "modelAnswer": [
             "A stronger second stimulus may still trigger a spike."
           ]
+        },
+        {
+          "id": "L08-refractory-starter",
+          "type": "mc",
+          "difficulty": "easy",
+          "progressionAdded": true,
+          "source": "L08 8:1 p14",
+          "prompt": "What is varied in the taught paired-pulse recovery protocol?",
+          "options": [
+            {
+              "text": "The ratio between two ionic concentrations",
+              "feedback": "Concentration changes alter driving forces, not the paired-pulse recovery interval."
+            },
+            {
+              "text": "The interval between two current stimuli",
+              "feedback": "Varying delay tests recovery after the first pulse reliably evokes a spike."
+            },
+            {
+              "text": "The spacing between two recording sites",
+              "feedback": "Spatial spacing tests propagation rather than recovery time after a first spike."
+            }
+          ],
+          "correct": 1,
+          "hints": [
+            {
+              "body": "Recall the definition or distinction taught in this section."
+            },
+            {
+              "body": "Varying delay tests recovery after the first pulse reliably evokes a spike."
+            }
+          ],
+          "modelAnswer": [
+            "Varying delay tests recovery after the first pulse reliably evokes a spike."
+          ]
         }
       ]
     },
@@ -1352,7 +1828,7 @@ const content={
       "blocks": [
         {
           "type": "text",
-          "body": "Voltage sensors move charged protein regions in the membrane field. Their collective transient produces a gating current even when permeation is blocked. Opening a pore and ions passing through it are distinct events."
+          "body": ["Voltage sensors move charged protein regions in the membrane field. Their collective transient produces a gating current even when permeation is blocked. Opening a pore and ions passing through it are distinct events.", "A voltage step moves sensor charge only while the sensor population redistributes, so the signal is transient. Ionic current instead requires an open permeation pathway and a driving force. Blocking pore current helps reveal sensor movement; it does not mean that every remaining transient is necessarily a gating current. (8:1 PDF p15.)"]
         },
         {
           "type": "figure",
@@ -1376,16 +1852,16 @@ const content={
       "conceptQuiz": [
         {
           "id": "L08-sensor-check",
-          "prompt": "What produces a gating current?",
+          "prompt": "Which charge movement is measured as gating rather than ionic current?",
           "correct": 1,
           "options": [
             {
               "text": "Movement of sodium ions through an open pore",
-              "feedback": "Use this distinction: Movement of channel voltage-sensor charge."
+              "feedback": "Pore permeation is ionic current, distinct from sensor charge displacement."
             },
             {
               "text": "Movement of channel voltage-sensor charge",
-              "feedback": "Correct. Movement of channel voltage-sensor charge."
+              "feedback": "Moving charged protein sensors creates a transient gating current."
             }
           ],
           "hints": [
@@ -1398,6 +1874,40 @@ const content={
           ],
           "modelAnswer": [
             "Movement of channel voltage-sensor charge."
+          ]
+        },
+        {
+          "id": "L08-sensor-starter",
+          "type": "mc",
+          "difficulty": "easy",
+          "progressionAdded": true,
+          "source": "L08 8:1 p15",
+          "prompt": "When does a voltage sensor produce its transient current?",
+          "options": [
+            {
+              "text": "While ions pass steadily through its pore",
+              "feedback": "Steady ionic permeation is distinct from transient movement of sensor charge."
+            },
+            {
+              "text": "While membrane voltage stays at its plateau",
+              "feedback": "A maintained voltage does not require sustained sensor movement after equilibration."
+            },
+            {
+              "text": "While its charge redistributes after a step",
+              "feedback": "Current reflects sensor charge movement, so it decays when redistribution ends."
+            }
+          ],
+          "correct": 2,
+          "hints": [
+            {
+              "body": "Recall the definition or distinction taught in this section."
+            },
+            {
+              "body": "Current reflects sensor charge movement, so it decays when redistribution ends."
+            }
+          ],
+          "modelAnswer": [
+            "Current reflects sensor charge movement, so it decays when redistribution ends."
           ]
         }
       ],
@@ -1415,7 +1925,7 @@ const content={
       "blocks": [
         {
           "type": "text",
-          "body": "The source odds are $r=\\exp((w+zeV)/kT)$. With probabilities summing to one, $y_{out}=r/(1+r)$. The slide’s minus denominator is a typo. This two-state illustration is not the full sodium $m^3h$ model."
+          "body": ["The source odds are $r=\\exp((w+zeV)/kT)$. With probabilities summing to one, $y_{out}=r/(1+r)$. The slide’s minus denominator is a typo. This two-state illustration is not the full sodium $m^3h$ model.", "Here $w$ is the zero-voltage energy bias, $ze$ the displaced charge, and $kT$ thermal energy. Positive odds are not probabilities: divide by one plus the odds to keep the result between zero and one. The explorer uses dimensionless bias and thermal voltage to express this same normalization. (8:1 PDF p16–17.)"]
         },
         {
           "type": "figure",
@@ -1633,16 +2143,16 @@ const content={
       "conceptQuiz": [
         {
           "id": "L08-boltzmann-check",
-          "prompt": "Which denominator normalizes positive odds?",
+          "prompt": "Which denominator keeps a positive outside-to-inside odds ratio bounded as a probability?",
           "correct": 0,
           "options": [
             {
               "text": "$1+r$, so probability stays bounded",
-              "feedback": "Correct. $1+r$, so probability stays bounded."
+              "feedback": "Dividing positive odds by one plus those odds gives a bounded probability."
             },
             {
               "text": "$1-r$, so probability stays bounded",
-              "feedback": "Use this distinction: $1+r$, so probability stays bounded."
+              "feedback": "One minus the odds can vanish or become negative, so it cannot normalize probability."
             }
           ],
           "hints": [
@@ -1656,6 +2166,40 @@ const content={
           "modelAnswer": [
             "$1+r$, so probability stays bounded."
           ]
+        },
+        {
+          "id": "L08-boltzmann-starter",
+          "type": "mc",
+          "difficulty": "easy",
+          "progressionAdded": true,
+          "source": "L08 8:1 p16–17",
+          "prompt": "What does the zero-voltage bias describe in the two-state model?",
+          "options": [
+            {
+              "text": "An energy preference between sensor states",
+              "feedback": "Bias specifies the relative state energies before the voltage contribution is added."
+            },
+            {
+              "text": "An ionic concentration ratio across the pore",
+              "feedback": "Ion concentrations set permeation driving forces rather than this sensor-state energy bias."
+            },
+            {
+              "text": "A relaxation time between sensor states",
+              "feedback": "The equilibrium bias describes state preference, not how quickly states interconvert."
+            }
+          ],
+          "correct": 0,
+          "hints": [
+            {
+              "body": "Recall the definition or distinction taught in this section."
+            },
+            {
+              "body": "Bias specifies the relative state energies before the voltage contribution is added."
+            }
+          ],
+          "modelAnswer": [
+            "Bias specifies the relative state energies before the voltage contribution is added."
+          ]
         }
       ]
     },
@@ -1667,7 +2211,7 @@ const content={
       "blocks": [
         {
           "type": "text",
-          "body": "At small activation, conductance is approximately exponential in voltage. An e-fold voltage scale $s$ gives effective $z=(kT/e)/s$. Use the source rounded thermal voltage only for its stated room-temperature approximation."
+          "body": ["At small activation, conductance is approximately exponential in voltage. An e-fold voltage scale $s$ gives effective $z=(kT/e)/s$. Use the source rounded thermal voltage only for its stated room-temperature approximation.", "An e-fold rise means multiplication by the exponential base for each voltage increment $s$. Estimate the slope only in the low-activation region, before saturation bends the curve. The inferred effective charge describes voltage sensitivity under this approximation, rather than directly counting anatomical particles in one channel. (8:1 PDF p17.)"]
         },
         {
           "type": "figure",
@@ -1808,16 +2352,16 @@ const content={
       "conceptQuiz": [
         {
           "id": "L08-charge-slope-check",
-          "prompt": "What does the slope-derived charge represent?",
+          "prompt": "How should a charge estimated from low-activation voltage sensitivity be interpreted?",
           "correct": 0,
           "options": [
             {
               "text": "An effective displaced charge under the stated model",
-              "feedback": "Correct. An effective displaced charge under the stated model."
+              "feedback": "The estimate describes voltage sensitivity under the model assumptions."
             },
             {
               "text": "An exact count of independently hinged protein gates",
-              "feedback": "Use this distinction: An effective displaced charge under the stated model."
+              "feedback": "A slope-derived effective charge is not an anatomical count of hinged gates."
             }
           ],
           "hints": [
@@ -1831,6 +2375,40 @@ const content={
           "modelAnswer": [
             "An effective displaced charge under the stated model."
           ]
+        },
+        {
+          "id": "L08-charge-slope-starter",
+          "type": "mc",
+          "difficulty": "easy",
+          "progressionAdded": true,
+          "source": "L08 8:1 p17",
+          "prompt": "Where is the exponential conductance approximation used?",
+          "options": [
+            {
+              "text": "In the reversal region of the current trace",
+              "feedback": "Current reversal concerns driving force, not the low-activation conductance approximation."
+            },
+            {
+              "text": "In the low-activation part of the curve",
+              "feedback": "At low activation the normalized probability is approximated by its small odds."
+            },
+            {
+              "text": "In the saturated high-activation plateau",
+              "feedback": "Saturation bends the curve away from exponential growth."
+            }
+          ],
+          "correct": 1,
+          "hints": [
+            {
+              "body": "Recall the definition or distinction taught in this section."
+            },
+            {
+              "body": "At low activation the normalized probability is approximated by its small odds."
+            }
+          ],
+          "modelAnswer": [
+            "At low activation the normalized probability is approximated by its small odds."
+          ]
         }
       ]
     },
@@ -1842,7 +2420,7 @@ const content={
       "blocks": [
         {
           "type": "text",
-          "body": "Suppress ionic current, then subtract linear capacitance with matched control steps having minimal sensor movement. For the taught depolarization-activated sensor, ON charge is outward and OFF charge inward. Poor subtraction can mimic a gating signal."
+          "body": ["Suppress ionic current, then subtract linear capacitance with matched control steps having minimal sensor movement. For the taught depolarization-activated sensor, ON charge is outward and OFF charge inward. Poor subtraction can mimic a gating signal.", "Voltage is controlled and total clamp current is measured. The taught protocol suppresses sodium permeation with sodium-free solution and TTX, and potassium current with internal cesium. Opposite control steps cancel linear charging only if sensor movement is negligible in the control; test control-step dependence before integrating the residual. (8:1 PDF p18.)"]
         },
         {
           "type": "figure",
@@ -1866,16 +2444,16 @@ const content={
       "conceptQuiz": [
         {
           "id": "L08-isolation-check",
-          "prompt": "Which contribution should remain after valid subtraction?",
+          "prompt": "After ionic block and matched capacitive subtraction, which transient is sought?",
           "correct": 1,
           "options": [
             {
               "text": "Linear membrane-capacitance charging of the step",
-              "feedback": "Use this distinction: Nonlinear gating-charge movement of the sensors."
+              "feedback": "Linear capacitive charging should be removed along with ionic current."
             },
             {
               "text": "Nonlinear gating-charge movement of the sensors",
-              "feedback": "Correct. Nonlinear gating-charge movement of the sensors."
+              "feedback": "Valid subtraction leaves nonlinear sensor movement rather than ordinary linear charging."
             }
           ],
           "hints": [
@@ -1889,6 +2467,40 @@ const content={
           "modelAnswer": [
             "Nonlinear gating-charge movement of the sensors."
           ]
+        },
+        {
+          "id": "L08-isolation-starter",
+          "type": "mc",
+          "difficulty": "easy",
+          "progressionAdded": true,
+          "source": "L08 8:1 p18",
+          "prompt": "For the taught depolarization-activated sensor, what is the ON current direction?",
+          "options": [
+            {
+              "text": "Inward during sensor activation",
+              "feedback": "Inward is the taught OFF return direction, not the ON direction."
+            },
+            {
+              "text": "Outward during sensor deactivation",
+              "feedback": "Outward describes activation here; deactivation returns charge inward."
+            },
+            {
+              "text": "Outward during sensor activation",
+              "feedback": "Depolarization moves the taught positive sensor charge outward; OFF movement reverses it."
+            }
+          ],
+          "correct": 2,
+          "hints": [
+            {
+              "body": "Recall the definition or distinction taught in this section."
+            },
+            {
+              "body": "Depolarization moves the taught positive sensor charge outward; OFF movement reverses it."
+            }
+          ],
+          "modelAnswer": [
+            "Depolarization moves the taught positive sensor charge outward; OFF movement reverses it."
+          ]
         }
       ]
     },
@@ -1900,7 +2512,7 @@ const content={
       "blocks": [
         {
           "type": "text",
-          "body": "Subtract the steady leak before integrating the transient. Then $C_m=Q/\\Delta V$. With constant specific capacitance, area follows from total capacitance. Current per capacitance is a size-normalized measure, not literally current per area without the conversion."
+          "body": ["Subtract the steady leak before integrating the transient. Then $C_m=Q/\\Delta V$. With constant specific capacitance, area follows from total capacitance. Current per capacitance is a size-normalized measure, not literally current per area without the conversion.", "Control the voltage step and measure the current transient above the steady leak baseline. Integrating only an early window misses charge and underestimates capacitance. For the stated exponential model the charge explorer quantifies this loss. Unremoved gating or ionic currents contaminate the area and therefore the inferred cell size. (8:1 PDF p19.)"]
         },
         {
           "type": "figure",
@@ -2164,16 +2776,16 @@ const content={
       "conceptQuiz": [
         {
           "id": "L08-capacitance-check",
-          "prompt": "What is integrated to estimate capacitive charge?",
+          "prompt": "Which current trace should supply the charge integral for a capacitance estimate?",
           "correct": 0,
           "options": [
             {
               "text": "Transient current after steady leak subtraction",
-              "feedback": "Correct. Transient current after steady leak subtraction."
+              "feedback": "Leak subtraction isolates the charging transient before integration."
             },
             {
               "text": "Total current including steady leak throughout",
-              "feedback": "Use this distinction: Transient current after steady leak subtraction."
+              "feedback": "Steady leak adds charge throughout the window and contaminates the capacitance estimate."
             }
           ],
           "hints": [
@@ -2187,6 +2799,40 @@ const content={
           "modelAnswer": [
             "Transient current after steady leak subtraction."
           ]
+        },
+        {
+          "id": "L08-capacitance-starter",
+          "type": "mc",
+          "difficulty": "easy",
+          "progressionAdded": true,
+          "source": "L08 8:1 p19",
+          "prompt": "What must be assumed when using capacitance to estimate membrane area?",
+          "options": [
+            {
+              "text": "Specific membrane capacitance is constant",
+              "feedback": "Area follows from total capacitance divided by the assumed specific capacitance."
+            },
+            {
+              "text": "Total membrane capacitance is constant",
+              "feedback": "Total capacitance varies with membrane area under the taught assumption."
+            },
+            {
+              "text": "Membrane leak conductance is constant",
+              "feedback": "Leak subtraction is needed, but a constant leak alone does not convert capacitance to area."
+            }
+          ],
+          "correct": 0,
+          "hints": [
+            {
+              "body": "Recall the definition or distinction taught in this section."
+            },
+            {
+              "body": "Area follows from total capacitance divided by the assumed specific capacitance."
+            }
+          ],
+          "modelAnswer": [
+            "Area follows from total capacitance divided by the assumed specific capacitance."
+          ]
         }
       ]
     },
@@ -2198,7 +2844,7 @@ const content={
       "blocks": [
         {
           "type": "text",
-          "body": "Integrated sensor current gives displaced charge. Divide charge density by displaced charge per channel to estimate channel density. Divide maximal ionic conductance density by channel density to estimate single-channel conductance. State complete activation and charge-assignment assumptions."
+          "body": ["Integrated sensor current gives displaced charge. Divide charge density by displaced charge per channel to estimate channel density. Divide maximal ionic conductance density by channel density to estimate single-channel conductance. State complete activation and charge-assignment assumptions.", "Keep gating charge and conductance on the same membrane-area basis before dividing. A charge assignment per channel converts the measured integral into channel number, not open probability. If the ionic conductance is measured before full activation, its ratio to channel density gives conductance times open probability instead. (8:1 PDF p20.)"]
         },
         {
           "type": "figure",
@@ -2339,16 +2985,16 @@ const content={
       "conceptQuiz": [
         {
           "id": "L08-density-check",
-          "prompt": "Which conductance is needed for single-channel inference?",
+          "prompt": "Which conductance measurement supports unitary-conductance inference from channel density?",
           "correct": 0,
           "options": [
             {
               "text": "Maximal conductance normalized to the same area",
-              "feedback": "Correct. Maximal conductance normalized to the same area."
+              "feedback": "Maximal conductance and channel density on the same area basis yield unitary conductance."
             },
             {
               "text": "Arbitrary transient current normalized to voltage",
-              "feedback": "Use this distinction: Maximal conductance normalized to the same area."
+              "feedback": "An arbitrary current divided by voltage does not establish full activation or matching channel density."
             }
           ],
           "hints": [
@@ -2362,6 +3008,40 @@ const content={
           "modelAnswer": [
             "Maximal conductance normalized to the same area."
           ]
+        },
+        {
+          "id": "L08-density-starter",
+          "type": "mc",
+          "difficulty": "easy",
+          "progressionAdded": true,
+          "source": "L08 8:1 p20",
+          "prompt": "What is obtained by dividing gating-charge density by charge moved per channel?",
+          "options": [
+            {
+              "text": "Conductance per membrane channel",
+              "feedback": "Single-channel conductance needs a conductance measurement as well as channel density."
+            },
+            {
+              "text": "Channel number per membrane area",
+              "feedback": "The assigned charge per channel converts total displaced charge density into channel density."
+            },
+            {
+              "text": "Ionic current per membrane area",
+              "feedback": "Current is charge per time; this division instead counts channels per area."
+            }
+          ],
+          "correct": 1,
+          "hints": [
+            {
+              "body": "Recall the definition or distinction taught in this section."
+            },
+            {
+              "body": "The assigned charge per channel converts total displaced charge density into channel density."
+            }
+          ],
+          "modelAnswer": [
+            "The assigned charge per channel converts total displaced charge density into channel density."
+          ]
         }
       ]
     },
@@ -2373,7 +3053,7 @@ const content={
       "blocks": [
         {
           "type": "text",
-          "body": "The HH circuit combines voltage-dependent conductances, gating kinetics and current balance. It explains threshold, refractory history and accommodation. Gating-charge measurements test sensor movement but do not turn fitted particle exponents into literal anatomical gate counts."
+          "body": ["The HH circuit combines voltage-dependent conductances, gating kinetics and current balance. It explains threshold, refractory history and accommodation. Gating-charge measurements test sensor movement but do not turn fitted particle exponents into literal anatomical gate counts.", "A complete dynamic calculation needs initial voltage and gate values, stimulus, gating kinetics and the current-balance equation. Fixed-gate ionic branches can be linear even though the evolving membrane is nonlinear. Compare the source voltage-clamp measurements with the resulting action-potential prediction without treating the fitted model as a unique channel structure. (8:1 PDF p21–22.)"]
         },
         {
           "type": "figure",
@@ -2397,16 +3077,16 @@ const content={
       "conceptQuiz": [
         {
           "id": "L08-synthesis-check",
-          "prompt": "What closes the dynamic HH description?",
+          "prompt": "What combination determines the evolving voltage in a free-running HH membrane?",
           "correct": 1,
           "options": [
             {
               "text": "Gating probabilities without any membrane current balance",
-              "feedback": "Use this distinction: Gating kinetics together with membrane current balance."
+              "feedback": "Gate probabilities alone do not determine a free-running membrane voltage."
             },
             {
               "text": "Gating kinetics together with membrane current balance",
-              "feedback": "Correct. Gating kinetics together with membrane current balance."
+              "feedback": "Current balance evolves voltage while gating kinetics evolve conductances."
             }
           ],
           "hints": [
@@ -2420,6 +3100,40 @@ const content={
           "modelAnswer": [
             "Gating kinetics together with membrane current balance."
           ]
+        },
+        {
+          "id": "L08-synthesis-starter",
+          "type": "mc",
+          "difficulty": "easy",
+          "progressionAdded": true,
+          "source": "L08 8:1 p21–22",
+          "prompt": "At fixed gate values, how does each HH ionic current depend on voltage?",
+          "options": [
+            {
+              "text": "Exponentially through its signed driving force",
+              "feedback": "Voltage-dependent gates add nonlinearity; a frozen HH branch is linear."
+            },
+            {
+              "text": "Independently of its signed driving force",
+              "feedback": "Even frozen channels carry current according to voltage minus reversal."
+            },
+            {
+              "text": "Linearly through its signed driving force",
+              "feedback": "At frozen conductance the ionic branch is Ohmic, with its own reversal potential."
+            }
+          ],
+          "correct": 2,
+          "hints": [
+            {
+              "body": "Recall the definition or distinction taught in this section."
+            },
+            {
+              "body": "At frozen conductance the ionic branch is Ohmic, with its own reversal potential."
+            }
+          ],
+          "modelAnswer": [
+            "At frozen conductance the ionic branch is Ohmic, with its own reversal potential."
+          ]
         }
       ]
     },
@@ -2431,7 +3145,7 @@ const content={
       "blocks": [
         {
           "type": "text",
-          "body": "High sodium-channel density gives the initial segment a low threshold. Activity propagates toward terminals and can backpropagate toward soma and dendrites. The refractory wake prevents immediate re-excitation; it does not prohibit all backward spread."
+          "body": ["High sodium-channel density gives the initial segment a low threshold. Activity propagates toward terminals and can backpropagate toward soma and dendrites. The refractory wake prevents immediate re-excitation; it does not prohibit all backward spread.", "The diagram separates initiation from the routes followed afterward. High local excitability explains why the initial segment reaches threshold first; axial current then recruits available membrane on either side. Backpropagation toward the soma is compatible with a refractory wake behind a wave already advancing toward the terminals. (8:2 PDF p1–2.)"]
         },
         {
           "type": "figure",
@@ -2455,16 +3169,16 @@ const content={
       "conceptQuiz": [
         {
           "id": "L08-ais-check",
-          "prompt": "Where is the usual low-threshold initiation site?",
+          "prompt": "Which site usually reaches spike threshold first near the soma?",
           "correct": 1,
           "options": [
             {
               "text": "The myelin-covered center of each internode",
-              "feedback": "Use this distinction: The sodium-channel-rich axon initial segment."
+              "feedback": "Covered internodal membrane is not the usual low-threshold initiation site."
             },
             {
               "text": "The sodium-channel-rich axon initial segment",
-              "feedback": "Correct. The sodium-channel-rich axon initial segment."
+              "feedback": "High sodium-channel density makes the initial segment especially excitable."
             }
           ],
           "hints": [
@@ -2477,6 +3191,40 @@ const content={
           ],
           "modelAnswer": [
             "The sodium-channel-rich axon initial segment."
+          ]
+        },
+        {
+          "id": "L08-ais-starter",
+          "type": "mc",
+          "difficulty": "easy",
+          "progressionAdded": true,
+          "source": "L08 8:2 p1–2",
+          "prompt": "Where does backpropagation from the initial segment travel?",
+          "options": [
+            {
+              "text": "Back toward the soma and dendrites",
+              "feedback": "Backward spread from the initiation region can invade soma and dendrites."
+            },
+            {
+              "text": "Toward the axonal synaptic terminals",
+              "feedback": "That is forward axonal propagation in the source description."
+            },
+            {
+              "text": "Toward the center of a myelin sheath",
+              "feedback": "Myelin is insulation, not the somatodendritic destination of backpropagation."
+            }
+          ],
+          "correct": 0,
+          "hints": [
+            {
+              "body": "Recall the definition or distinction taught in this section."
+            },
+            {
+              "body": "Backward spread from the initiation region can invade soma and dendrites."
+            }
+          ],
+          "modelAnswer": [
+            "Backward spread from the initiation region can invade soma and dendrites."
           ]
         }
       ],
@@ -2494,7 +3242,7 @@ const content={
       "blocks": [
         {
           "type": "text",
-          "body": "Unmyelinated speed scales approximately as $\\sqrt d$ under comparable membrane properties. Giant diameter can improve speed at a large volume cost. Improved insulation offers another route."
+          "body": ["Unmyelinated speed scales approximately as $\\sqrt d$ under comparable membrane properties. Giant diameter can improve speed at a large volume cost. Improved insulation offers another route.", "For comparisons, take the square root of the diameter ratio rather than applying the diameter ratio directly to speed. This scaling holds other membrane properties comparable. The cross sections illustrate the space cost of a giant axon; they do not establish a universal speed coefficient for all unmyelinated fibers. (8:2 PDF p3.)"]
         },
         {
           "type": "figure",
@@ -2572,16 +3320,16 @@ const content={
       "conceptQuiz": [
         {
           "id": "L08-diameter-check",
-          "prompt": "How does comparable unmyelinated speed scale?",
+          "prompt": "Which diameter dependence is used for the unmyelinated speed comparison?",
           "correct": 0,
           "options": [
             {
               "text": "As the square root of axon diameter",
-              "feedback": "Correct. As the square root of axon diameter."
+              "feedback": "Speed follows a square-root diameter law under comparable properties."
             },
             {
               "text": "As the square of axon diameter",
-              "feedback": "Use this distinction: As the square root of axon diameter."
+              "feedback": "A squared-diameter law greatly overstates the taught speed gain."
             }
           ],
           "hints": [
@@ -2595,6 +3343,40 @@ const content={
           "modelAnswer": [
             "As the square root of axon diameter."
           ]
+        },
+        {
+          "id": "L08-diameter-starter",
+          "type": "mc",
+          "difficulty": "easy",
+          "progressionAdded": true,
+          "source": "L08 8:2 p3",
+          "prompt": "What is the main trade-off of a giant unmyelinated axon?",
+          "options": [
+            {
+              "text": "Reduced speed at a large volume cost",
+              "feedback": "Larger comparable unmyelinated axons conduct faster, despite the space cost."
+            },
+            {
+              "text": "Improved speed at a large volume cost",
+              "feedback": "Increasing diameter improves speed but uses much more anatomical space."
+            },
+            {
+              "text": "Improved speed at a smaller volume cost",
+              "feedback": "A larger diameter increases the required space rather than reducing it."
+            }
+          ],
+          "correct": 1,
+          "hints": [
+            {
+              "body": "Recall the definition or distinction taught in this section."
+            },
+            {
+              "body": "Increasing diameter improves speed but uses much more anatomical space."
+            }
+          ],
+          "modelAnswer": [
+            "Increasing diameter improves speed but uses much more anatomical space."
+          ]
         }
       ]
     },
@@ -2606,7 +3388,7 @@ const content={
       "blocks": [
         {
           "type": "text",
-          "body": "Myelinated speed is approximately linear in fiber diameter in the source comparison, near $6\\,\\mathrm{m/s}$ per micrometer. These are empirical scales, not universal exact laws across species, temperatures and axons."
+          "body": ["Myelinated speed is approximately linear in fiber diameter in the source comparison, near $6\\,\\mathrm{m/s}$ per micrometer. These are empirical scales, not universal exact laws across species, temperatures and axons.", "Use the source coefficient with outer fiber diameter in micrometers, or convert both quantities to the SI convention in the explorer. For ratios, myelinated speed follows diameter while unmyelinated speed follows its square root. Compare like conditions; the scattered source measurements show why these are approximate trends. (8:2 PDF p4.)"]
         },
         {
           "type": "figure",
@@ -2689,16 +3471,16 @@ const content={
       "conceptQuiz": [
         {
           "id": "L08-speed-check",
-          "prompt": "Which is the source myelinated scaling?",
+          "prompt": "Which diameter dependence describes the source myelinated trend?",
           "correct": 0,
           "options": [
             {
               "text": "Approximately proportional to fiber diameter",
-              "feedback": "Correct. Approximately proportional to fiber diameter."
+              "feedback": "The source myelinated trend is approximately linear in fiber diameter."
             },
             {
               "text": "Approximately proportional to squared diameter",
-              "feedback": "Use this distinction: Approximately proportional to fiber diameter."
+              "feedback": "Squaring diameter is not the source fit for myelinated speed."
             }
           ],
           "hints": [
@@ -2712,6 +3494,40 @@ const content={
           "modelAnswer": [
             "Approximately proportional to fiber diameter."
           ]
+        },
+        {
+          "id": "L08-speed-starter",
+          "type": "mc",
+          "difficulty": "easy",
+          "progressionAdded": true,
+          "source": "L08 8:2 p4",
+          "prompt": "How should the myelinated speed coefficient be treated?",
+          "options": [
+            {
+              "text": "An exact constant across different temperatures",
+              "feedback": "Temperature and preparation differences limit the empirical approximation."
+            },
+            {
+              "text": "An exact constant across different axon types",
+              "feedback": "The source comparisons do not establish an identical coefficient for every axon."
+            },
+            {
+              "text": "An empirical estimate under comparable conditions",
+              "feedback": "The source coefficient summarizes a trend, not a universal exact law."
+            }
+          ],
+          "correct": 2,
+          "hints": [
+            {
+              "body": "Recall the definition or distinction taught in this section."
+            },
+            {
+              "body": "The source coefficient summarizes a trend, not a universal exact law."
+            }
+          ],
+          "modelAnswer": [
+            "The source coefficient summarizes a trend, not a universal exact law."
+          ]
         }
       ]
     },
@@ -2723,7 +3539,7 @@ const content={
       "blocks": [
         {
           "type": "text",
-          "body": "Glial membrane wraps an axonal segment into compact insulating layers. A Schwann cell makes one peripheral internode. An oligodendrocyte can make several central internodes, often across different axons."
+          "body": ["Glial membrane wraps an axonal segment into compact insulating layers. A Schwann cell makes one peripheral internode. An oligodendrocyte can make several central internodes, often across different axons.", "An internode is the wrapped segment, not the entire axon. Several successive Schwann cells are needed to cover a peripheral axon, whereas processes from one oligodendrocyte can reach several central segments. Read the source diagram by following each glial cell to its wraps rather than counting axons alone. (8:2 PDF p5.)"]
         },
         {
           "type": "figure",
@@ -2747,16 +3563,16 @@ const content={
       "conceptQuiz": [
         {
           "id": "L08-glia-check",
-          "prompt": "Which cell can myelinate multiple CNS internodes?",
+          "prompt": "Which glial cell can supply several internodes in the central nervous system?",
           "correct": 1,
           "options": [
             {
               "text": "A Schwann cell making one peripheral segment",
-              "feedback": "Use this distinction: An oligodendrocyte contacting several segments."
+              "feedback": "One Schwann cell normally supplies one peripheral internode."
             },
             {
               "text": "An oligodendrocyte contacting several segments",
-              "feedback": "Correct. An oligodendrocyte contacting several segments."
+              "feedback": "One oligodendrocyte can extend processes to several central internodes."
             }
           ],
           "hints": [
@@ -2770,6 +3586,40 @@ const content={
           "modelAnswer": [
             "An oligodendrocyte contacting several segments."
           ]
+        },
+        {
+          "id": "L08-glia-starter",
+          "type": "mc",
+          "difficulty": "easy",
+          "progressionAdded": true,
+          "source": "L08 8:2 p5",
+          "prompt": "What material forms the compact myelin wrap?",
+          "options": [
+            {
+              "text": "Multiple layers of glial plasma membrane",
+              "feedback": "Glial membrane wraps the axon to form the insulating sheath."
+            },
+            {
+              "text": "Multiple layers of axonal plasma membrane",
+              "feedback": "The wrap is supplied by glia rather than repeated layers of the axon membrane."
+            },
+            {
+              "text": "Multiple layers of extracellular connective tissue",
+              "feedback": "Myelin is compact glial membrane rather than extracellular connective tissue."
+            }
+          ],
+          "correct": 0,
+          "hints": [
+            {
+              "body": "Recall the definition or distinction taught in this section."
+            },
+            {
+              "body": "Glial membrane wraps the axon to form the insulating sheath."
+            }
+          ],
+          "modelAnswer": [
+            "Glial membrane wraps the axon to form the insulating sheath."
+          ]
         }
       ]
     },
@@ -2781,7 +3631,7 @@ const content={
       "blocks": [
         {
           "type": "text",
-          "body": "Myelin increases effective transverse resistance and lowers capacitance. The length constant increases. The time constant is the product $RC$, so its change depends on both factors. Ideal identical series layers leave that product unchanged."
+          "body": ["Myelin increases effective transverse resistance and lowers capacitance. The length constant increases. The time constant is the product $RC$, so its change depends on both factors. Ideal identical series layers leave that product unchanged.", "For the ideal equal-layer model, add series resistances and reciprocals of capacitances before calculating the product. At fixed axial properties, higher membrane resistance lengthens passive spread, reducing attenuation between nodes. This spatial benefit does not require a smaller time constant; use the integrated example to separate those conclusions. (8:2 PDF p6.)"]
         },
         {
           "type": "figure",
@@ -3103,16 +3953,16 @@ const content={
       "conceptQuiz": [
         {
           "id": "L08-insulation-check",
-          "prompt": "Does higher resistance alone prove a smaller time constant?",
+          "prompt": "Can the sign of a resistance change alone establish faster membrane charging?",
           "correct": 1,
           "options": [
             {
               "text": "Yes, higher resistance always makes charging faster",
-              "feedback": "Use this distinction: No, the capacitance change must also be considered."
+              "feedback": "Resistance alone cannot settle a time constant that is a resistance-capacitance product."
             },
             {
               "text": "No, the capacitance change must also be considered",
-              "feedback": "Correct. No, the capacitance change must also be considered."
+              "feedback": "Both effective resistance and capacitance determine the charging time constant."
             }
           ],
           "hints": [
@@ -3126,6 +3976,40 @@ const content={
           "modelAnswer": [
             "No, the capacitance change must also be considered."
           ]
+        },
+        {
+          "id": "L08-insulation-starter",
+          "type": "mc",
+          "difficulty": "easy",
+          "progressionAdded": true,
+          "source": "L08 8:2 p6",
+          "prompt": "At fixed axial properties, what does increased membrane resistance do to passive spread?",
+          "options": [
+            {
+              "text": "Preserves the spatial attenuation scale",
+              "feedback": "At fixed axial resistance, changing membrane resistance changes the length constant."
+            },
+            {
+              "text": "Lengthens the spatial attenuation scale",
+              "feedback": "Higher transverse resistance reduces leakage and increases the length constant."
+            },
+            {
+              "text": "Shortens the spatial attenuation scale",
+              "feedback": "Less leakage allows farther spread, so the length constant increases."
+            }
+          ],
+          "correct": 1,
+          "hints": [
+            {
+              "body": "Recall the definition or distinction taught in this section."
+            },
+            {
+              "body": "Higher transverse resistance reduces leakage and increases the length constant."
+            }
+          ],
+          "modelAnswer": [
+            "Higher transverse resistance reduces leakage and increases the length constant."
+          ]
         }
       ]
     },
@@ -3137,7 +4021,7 @@ const content={
       "blocks": [
         {
           "type": "text",
-          "body": "A node is a short exposed membrane gap between internodes. Paranodes border the gap; juxtaparanodes lie beneath nearby myelin. Preserve those locations when explaining channel distributions."
+          "body": ["A node is a short exposed membrane gap between internodes. Paranodes border the gap; juxtaparanodes lie beneath nearby myelin. Preserve those locations when explaining channel distributions.", "Read the spatial diagram from the exposed node through the paranode to the covered juxtaparanode and internode. These locations distinguish accessible regenerative membrane from insulated membrane. The gap is small relative to the internode, but it concentrates excitability; a long covered segment need not contain a matching density of active channels. (8:2 PDF p7.)"]
         },
         {
           "type": "figure",
@@ -3161,16 +4045,16 @@ const content={
       "conceptQuiz": [
         {
           "id": "L08-node-check",
-          "prompt": "Where is the node of Ranvier?",
+          "prompt": "Which location corresponds to the exposed nodal membrane?",
           "correct": 1,
           "options": [
             {
               "text": "At the long insulated center between nodal gaps",
-              "feedback": "Use this distinction: At the short exposed gap between myelin segments."
+              "feedback": "The long covered segment is an internode, not a node."
             },
             {
               "text": "At the short exposed gap between myelin segments",
-              "feedback": "Correct. At the short exposed gap between myelin segments."
+              "feedback": "Nodes are short exposed gaps with concentrated regenerative channels."
             }
           ],
           "hints": [
@@ -3184,6 +4068,40 @@ const content={
           "modelAnswer": [
             "At the short exposed gap between myelin segments."
           ]
+        },
+        {
+          "id": "L08-node-starter",
+          "type": "mc",
+          "difficulty": "easy",
+          "progressionAdded": true,
+          "source": "L08 8:2 p7",
+          "prompt": "Which region is the long myelin-covered segment?",
+          "options": [
+            {
+              "text": "The node between insulated segments",
+              "feedback": "A node is the short exposed gap, not the long covered segment."
+            },
+            {
+              "text": "The paranode bordering an exposed gap",
+              "feedback": "Paranodes border the node and are distinct from the long internode."
+            },
+            {
+              "text": "The internode between exposed gaps",
+              "feedback": "Internodes are the insulated segments connecting nodal gaps."
+            }
+          ],
+          "correct": 2,
+          "hints": [
+            {
+              "body": "Recall the definition or distinction taught in this section."
+            },
+            {
+              "body": "Internodes are the insulated segments connecting nodal gaps."
+            }
+          ],
+          "modelAnswer": [
+            "Internodes are the insulated segments connecting nodal gaps."
+          ]
         }
       ]
     },
@@ -3195,7 +4113,7 @@ const content={
       "blocks": [
         {
           "type": "text",
-          "body": "The source uses outer fiber diameter $D$ and inner axon diameter $d$. Its approximate fits are $L(\\mathrm{mm})=0.146D(\\mu\\mathrm m)$ and $d/D=0.74$. The illustrative drawing is not an exact simultaneous instance of both fits."
+          "body": ["The source uses outer fiber diameter $D$ and inner axon diameter $d$. Its approximate fits are $L(\\mathrm{mm})=0.146D(\\mu\\mathrm m)$ and $d/D=0.74$. The illustrative drawing is not an exact simultaneous instance of both fits.", "Apply each fit with its stated units. Radial sheath thickness is half the difference between outer and inner diameters; internode transit time is length divided by speed. Node length is an approximate fraction of internode length. These empirical proportions summarize the source population, rather than defining every myelinated axon. (8:2 PDF p8.)"]
         },
         {
           "type": "figure",
@@ -3376,16 +4294,16 @@ const content={
       "conceptQuiz": [
         {
           "id": "L08-dimensions-check",
-          "prompt": "Which diameter includes the myelin sheath?",
+          "prompt": "Which diameter spans both axon and sheath in the geometry panel?",
           "correct": 0,
           "options": [
             {
               "text": "Outer fiber diameter $D$ in the supplied fit",
-              "feedback": "Correct. Outer fiber diameter $D$ in the supplied fit."
+              "feedback": "Outer fiber diameter includes axon plus myelin sheath."
             },
             {
               "text": "Inner axon diameter $d$ in the supplied fit",
-              "feedback": "Use this distinction: Outer fiber diameter $D$ in the supplied fit."
+              "feedback": "Inner axon diameter excludes the surrounding sheath."
             }
           ],
           "hints": [
@@ -3399,6 +4317,40 @@ const content={
           "modelAnswer": [
             "Outer fiber diameter $D$ in the supplied fit."
           ]
+        },
+        {
+          "id": "L08-dimensions-starter",
+          "type": "mc",
+          "difficulty": "easy",
+          "progressionAdded": true,
+          "source": "L08 8:2 p8",
+          "prompt": "How does internode length vary with outer diameter in the supplied fit?",
+          "options": [
+            {
+              "text": "Approximately in direct proportion",
+              "feedback": "The empirical fit makes internode length approximately linear in outer diameter."
+            },
+            {
+              "text": "Approximately in inverse proportion",
+              "feedback": "The source trend lengthens internodes as outer fiber diameter increases."
+            },
+            {
+              "text": "Approximately with its square root",
+              "feedback": "Square-root scaling describes unmyelinated speed, not this internode-length fit."
+            }
+          ],
+          "correct": 0,
+          "hints": [
+            {
+              "body": "Recall the definition or distinction taught in this section."
+            },
+            {
+              "body": "The empirical fit makes internode length approximately linear in outer diameter."
+            }
+          ],
+          "modelAnswer": [
+            "The empirical fit makes internode length approximately linear in outer diameter."
+          ]
         }
       ]
     },
@@ -3410,7 +4362,7 @@ const content={
       "blocks": [
         {
           "type": "text",
-          "body": "Both forms use continuous passive spread of current. Unmyelinated membrane regenerates along the axon; myelinated axons regenerate mainly at nodes. The source cartoon simplifies potassium distribution, which the next panel refines."
+          "body": ["Both forms use continuous passive spread of current. Unmyelinated membrane regenerates along the axon; myelinated axons regenerate mainly at nodes. The source cartoon simplifies potassium distribution, which the next panel refines.", "At an active node, inward sodium current supplies local charging and axial spread beneath myelin. If downstream membrane reaches threshold, nodal sodium current regenerates the signal. Internodal voltage still changes during that passive connection; localization of regeneration does not mean the electrical pathway is interrupted between nodes. (8:2 PDF p9–10.)"]
         },
         {
           "type": "figure",
@@ -3434,16 +4386,16 @@ const content={
       "conceptQuiz": [
         {
           "id": "L08-saltation-check",
-          "prompt": "What is localized mainly to nodes?",
+          "prompt": "Which signal component is concentrated at regenerative sites in myelinated fibers?",
           "correct": 1,
           "options": [
             {
               "text": "All longitudinal current and membrane voltage",
-              "feedback": "Use this distinction: Regenerative inward sodium membrane current."
+              "feedback": "Axial current and voltage continue between nodes."
             },
             {
               "text": "Regenerative inward sodium membrane current",
-              "feedback": "Correct. Regenerative inward sodium membrane current."
+              "feedback": "Strong regenerative sodium current is concentrated at excitable nodes."
             }
           ],
           "hints": [
@@ -3457,6 +4409,40 @@ const content={
           "modelAnswer": [
             "Regenerative inward sodium membrane current."
           ]
+        },
+        {
+          "id": "L08-saltation-starter",
+          "type": "mc",
+          "difficulty": "easy",
+          "progressionAdded": true,
+          "source": "L08 8:2 p9–10",
+          "prompt": "What links one active node to downstream excitable membrane?",
+          "options": [
+            {
+              "text": "Passive ionic leakage across each wrap",
+              "feedback": "Transverse leakage loses current rather than providing the longitudinal connection."
+            },
+            {
+              "text": "Passive axial spread beneath myelin",
+              "feedback": "Axial spread depolarizes downstream membrane before local regeneration."
+            },
+            {
+              "text": "Active inward current throughout the sheath",
+              "feedback": "The sheath is insulating; strong regenerative inward current is concentrated at nodes."
+            }
+          ],
+          "correct": 1,
+          "hints": [
+            {
+              "body": "Recall the definition or distinction taught in this section."
+            },
+            {
+              "body": "Axial spread depolarizes downstream membrane before local regeneration."
+            }
+          ],
+          "modelAnswer": [
+            "Axial spread depolarizes downstream membrane before local regeneration."
+          ]
         }
       ]
     },
@@ -3468,7 +4454,7 @@ const content={
       "blocks": [
         {
           "type": "text",
-          "body": "Nodes concentrate sodium channels and include Kv3.1b and Kv7 potassium channels. Many Kv1 channels cluster at juxtaparanodes beneath myelin, limiting normal activation. Distribution and insulation improve speed and metabolic efficiency."
+          "body": ["Nodes concentrate sodium channels and include Kv3.1b and Kv7 potassium channels. Many Kv1 channels cluster at juxtaparanodes beneath myelin, limiting normal activation. Distribution and insulation improve speed and metabolic efficiency.", "Use the detailed distribution panel to refine the earlier cartoon. Rapid nodal sodium activation supports regeneration, while potassium-channel location and accessibility differ among families. Do not describe the insulated internode as an exposed patch with the same channel distribution or infer that all potassium channels are absent from nodes. (8:2 PDF p11.)"]
         },
         {
           "type": "figure",
@@ -3492,16 +4478,16 @@ const content={
       "conceptQuiz": [
         {
           "id": "L08-channels-check",
-          "prompt": "Where are many Kv1 channels concentrated?",
+          "prompt": "Which region contains the taught cluster of many Kv1 channels?",
           "correct": 1,
           "options": [
             {
               "text": "The exposed nodal gap without nearby myelin",
-              "feedback": "Use this distinction: Juxtaparanodal membrane beneath the myelin."
+              "feedback": "The exposed node contains other potassium families; many Kv1 are under nearby myelin."
             },
             {
               "text": "Juxtaparanodal membrane beneath the myelin",
-              "feedback": "Correct. Juxtaparanodal membrane beneath the myelin."
+              "feedback": "Many Kv1 channels cluster in covered juxtaparanodal regions."
             }
           ],
           "hints": [
@@ -3515,6 +4501,40 @@ const content={
           "modelAnswer": [
             "Juxtaparanodal membrane beneath the myelin."
           ]
+        },
+        {
+          "id": "L08-channels-starter",
+          "type": "mc",
+          "difficulty": "easy",
+          "progressionAdded": true,
+          "source": "L08 8:2 p11",
+          "prompt": "Which potassium-channel families are included at nodes in the detailed panel?",
+          "options": [
+            {
+              "text": "Kv1 channels without Kv7 channels",
+              "feedback": "Many Kv1 channels are juxtaparanodal; the panel includes nodal Kv7."
+            },
+            {
+              "text": "Kv1 channels without Kv3.1b channels",
+              "feedback": "The detailed distribution includes nodal Kv3.1b and places many Kv1 beneath myelin."
+            },
+            {
+              "text": "Nodal Kv3.1b and Kv7 channels",
+              "feedback": "The detailed nodal panel includes these potassium families alongside sodium channels."
+            }
+          ],
+          "correct": 2,
+          "hints": [
+            {
+              "body": "Recall the definition or distinction taught in this section."
+            },
+            {
+              "body": "The detailed nodal panel includes these potassium families alongside sodium channels."
+            }
+          ],
+          "modelAnswer": [
+            "The detailed nodal panel includes these potassium families alongside sodium channels."
+          ]
         }
       ]
     },
@@ -3526,7 +4546,7 @@ const content={
       "blocks": [
         {
           "type": "text",
-          "body": "The source experiments show propagation past a small number of blocked nodes and failure after more consecutive nodes are blocked. Large inward currents localize to nodes. These observations support a safety margin, not a universal blocked-node cutoff."
+          "body": ["The source experiments show propagation past a small number of blocked nodes and failure after more consecutive nodes are blocked. Large inward currents localize to nodes. These observations support a safety margin, not a universal blocked-node cutoff.", "The manipulated variable is the number of consecutive anesthetized nodes; the readout is successful conduction beyond the treated region. Relate that result to the spatial current panel, where strong inward current occurs at nodes. Passive spread can bridge some inactive sites, but the experiment does not fix a universal safety distance. (8:2 PDF p12.)"]
         },
         {
           "type": "figure",
@@ -3550,16 +4570,16 @@ const content={
       "conceptQuiz": [
         {
           "id": "L08-anesthetic-check",
-          "prompt": "What does propagation past a blocked node support?",
+          "prompt": "Which mechanism can carry excitation beyond a locally blocked node?",
           "correct": 0,
           "options": [
             {
               "text": "Passive spread can excite a farther available node",
-              "feedback": "Correct. Passive spread can excite a farther available node."
+              "feedback": "Passive spread can reach an available node beyond an inactive one."
             },
             {
               "text": "Every node is strictly required to regenerate each spike",
-              "feedback": "Use this distinction: Passive spread can excite a farther available node."
+              "feedback": "Conduction past a blocked node shows that every individual node need not regenerate."
             }
           ],
           "hints": [
@@ -3573,6 +4593,40 @@ const content={
           "modelAnswer": [
             "Passive spread can excite a farther available node."
           ]
+        },
+        {
+          "id": "L08-anesthetic-starter",
+          "type": "mc",
+          "difficulty": "easy",
+          "progressionAdded": true,
+          "source": "L08 8:2 p12",
+          "prompt": "What was varied in the local-anesthetic propagation experiment?",
+          "options": [
+            {
+              "text": "The number of consecutive blocked nodes",
+              "feedback": "The source compared successful conduction as more adjacent nodes were blocked."
+            },
+            {
+              "text": "The diameter of consecutive blocked axons",
+              "feedback": "Axon diameter was not the manipulated variable in this local nodal-block experiment."
+            },
+            {
+              "text": "The spacing of consecutive recording electrodes",
+              "feedback": "The block experiment varies inactive nodes rather than recording-electrode spacing."
+            }
+          ],
+          "correct": 0,
+          "hints": [
+            {
+              "body": "Recall the definition or distinction taught in this section."
+            },
+            {
+              "body": "The source compared successful conduction as more adjacent nodes were blocked."
+            }
+          ],
+          "modelAnswer": [
+            "The source compared successful conduction as more adjacent nodes were blocked."
+          ]
         }
       ]
     },
@@ -3584,7 +4638,7 @@ const content={
       "blocks": [
         {
           "type": "text",
-          "body": "Move a stimulating electrode along a motor nerve and measure the minimum current producing a barely detectable muscle twitch. Lowest thresholds near nodes support spatially distinct excitability. A twitch is an indirect readout, not a direct intracellular voltage trace."
+          "body": ["Move a stimulating electrode along a motor nerve and measure the minimum current producing a barely detectable muscle twitch. Lowest thresholds near nodes support spatially distinct excitability. A twitch is an indirect readout, not a direct intracellular voltage trace.", "Electrode position is varied and threshold stimulus current is measured using the twitch criterion. Minima near nodes support greater nodal excitability. Keep nerve-muscle preparation and electrode geometry comparable: the endpoint also requires successful downstream transmission and muscle activation, so it is not a direct local membrane-voltage measurement. (8:2 PDF p13.)"]
         },
         {
           "type": "figure",
@@ -3608,16 +4662,16 @@ const content={
       "conceptQuiz": [
         {
           "id": "L08-twitch-check",
-          "prompt": "What readout defined excitation threshold here?",
+          "prompt": "Which measured endpoint was used to identify the stimulation threshold?",
           "correct": 0,
           "options": [
             {
               "text": "The minimum stimulus producing a detectable twitch",
-              "feedback": "Correct. The minimum stimulus producing a detectable twitch."
+              "feedback": "The twitch criterion reports successful excitation indirectly through the nerve-muscle preparation."
             },
             {
               "text": "The maximum stimulus producing a fixed inward current",
-              "feedback": "Use this distinction: The minimum stimulus producing a detectable twitch."
+              "feedback": "The experiment used the minimum twitch-producing stimulus, not a maximum inward-current criterion."
             }
           ],
           "hints": [
@@ -3631,6 +4685,40 @@ const content={
           "modelAnswer": [
             "The minimum stimulus producing a detectable twitch."
           ]
+        },
+        {
+          "id": "L08-twitch-starter",
+          "type": "mc",
+          "difficulty": "easy",
+          "progressionAdded": true,
+          "source": "L08 8:2 p13",
+          "prompt": "Where were excitation-threshold minima found in the local-stimulation experiment?",
+          "options": [
+            {
+              "text": "Uniformly along nodes and internodes",
+              "feedback": "Spatially varying thresholds are the evidence for nonuniform excitability."
+            },
+            {
+              "text": "Near the nodes of Ranvier",
+              "feedback": "Low thresholds near nodes support localized excitable membrane."
+            },
+            {
+              "text": "Near the centers of internodes",
+              "feedback": "Covered mid-internodal membrane had higher thresholds in this experiment."
+            }
+          ],
+          "correct": 1,
+          "hints": [
+            {
+              "body": "Recall the definition or distinction taught in this section."
+            },
+            {
+              "body": "Low thresholds near nodes support localized excitable membrane."
+            }
+          ],
+          "modelAnswer": [
+            "Low thresholds near nodes support localized excitable membrane."
+          ]
         }
       ]
     },
@@ -3642,7 +4730,7 @@ const content={
       "blocks": [
         {
           "type": "text",
-          "body": "Extracellular AP amplitude is largest near a node and decreases away from it. Its spatial organization supports localized regenerative current sources. The measured extracellular voltage is not the transmembrane voltage itself."
+          "body": ["Extracellular AP amplitude is largest near a node and decreases away from it. Its spatial organization supports localized regenerative current sources. The measured extracellular voltage is not the transmembrane voltage itself.", "Move the recording electrode while retaining a comparable propagated response and reference geometry. A spatial amplitude maximum near the node supports a localized source, but amplitude also depends on electrode distance and the surrounding conductive path. Compare positions at controlled distances before attributing a changed amplitude to altered membrane excitability. (8:2 PDF p14.)"]
         },
         {
           "type": "figure",
@@ -3666,16 +4754,16 @@ const content={
       "conceptQuiz": [
         {
           "id": "L08-extracellular-check",
-          "prompt": "What is measured by the surrounding electrode?",
+          "prompt": "Which potential difference does the surrounding recording electrode report?",
           "correct": 0,
           "options": [
             {
               "text": "Extracellular potential relative to its reference",
-              "feedback": "Correct. Extracellular potential relative to its reference."
+              "feedback": "The electrode measures an extracellular potential difference relative to a reference."
             },
             {
               "text": "Transmembrane potential independent of its reference",
-              "feedback": "Use this distinction: Extracellular potential relative to its reference."
+              "feedback": "Transmembrane voltage requires inside-minus-outside potential, not one surrounding electrode alone."
             }
           ],
           "hints": [
@@ -3689,6 +4777,40 @@ const content={
           "modelAnswer": [
             "Extracellular potential relative to its reference."
           ]
+        },
+        {
+          "id": "L08-extracellular-starter",
+          "type": "mc",
+          "difficulty": "easy",
+          "progressionAdded": true,
+          "source": "L08 8:2 p14",
+          "prompt": "Where is the source extracellular action-potential amplitude greatest?",
+          "options": [
+            {
+              "text": "Near the middle of an internode",
+              "feedback": "The source amplitude maximum is nodal rather than mid-internodal."
+            },
+            {
+              "text": "Equally at nodal and internodal sites",
+              "feedback": "The source maps spatially varying amplitude, not an equal signal everywhere."
+            },
+            {
+              "text": "Near the exposed node of Ranvier",
+              "feedback": "The spatial amplitude maximum supports a localized nodal current source."
+            }
+          ],
+          "correct": 2,
+          "hints": [
+            {
+              "body": "Recall the definition or distinction taught in this section."
+            },
+            {
+              "body": "The spatial amplitude maximum supports a localized nodal current source."
+            }
+          ],
+          "modelAnswer": [
+            "The spatial amplitude maximum supports a localized nodal current source."
+          ]
         }
       ]
     },
@@ -3700,7 +4822,7 @@ const content={
       "blocks": [
         {
           "type": "text",
-          "body": "Classical panels show a strongly localized inward membrane current but continuous depolarization across nodes and internodes. Waveforms need not be identical at the two sites. Distinguish transmembrane current from axial current."
+          "body": ["Classical panels show a strongly localized inward membrane current but continuous depolarization across nodes and internodes. Waveforms need not be identical at the two sites. Distinguish transmembrane current from axial current.", "Compare the nodal and mid-internodal panels separately for voltage and membrane current. The inward current component is concentrated at nodes, whereas the voltage waveform remains present between them. Axial current carries charge along the fiber; it should not be mistaken for inward transmembrane current at every intermediate location. (8:2 PDF p15.)"]
         },
         {
           "type": "figure",
@@ -3724,16 +4846,16 @@ const content={
       "conceptQuiz": [
         {
           "id": "L08-continuity-check",
-          "prompt": "Which signal is more spatially discontinuous?",
+          "prompt": "Which measured component is localized more strongly to nodes than membrane voltage?",
           "correct": 1,
           "options": [
             {
               "text": "Depolarization propagating through the internodes",
-              "feedback": "Use this distinction: Regenerative inward transmembrane current."
+              "feedback": "Depolarization remains present through internodes despite localized inward membrane current."
             },
             {
               "text": "Regenerative inward transmembrane current",
-              "feedback": "Correct. Regenerative inward transmembrane current."
+              "feedback": "Regenerative inward transmembrane current is concentrated mainly at nodes."
             }
           ],
           "hints": [
@@ -3747,6 +4869,40 @@ const content={
           "modelAnswer": [
             "Regenerative inward transmembrane current."
           ]
+        },
+        {
+          "id": "L08-continuity-starter",
+          "type": "mc",
+          "difficulty": "easy",
+          "progressionAdded": true,
+          "source": "L08 8:2 p15",
+          "prompt": "What does axial current describe?",
+          "options": [
+            {
+              "text": "Charge moving along the fiber",
+              "feedback": "Axial current runs longitudinally and links successive membrane regions."
+            },
+            {
+              "text": "Charge entering across the membrane",
+              "feedback": "Inward transmembrane current crosses the membrane rather than running along the fiber."
+            },
+            {
+              "text": "Charge stored across the membrane",
+              "feedback": "Stored membrane charge belongs to capacitance; axial current transfers charge longitudinally."
+            }
+          ],
+          "correct": 0,
+          "hints": [
+            {
+              "body": "Recall the definition or distinction taught in this section."
+            },
+            {
+              "body": "Axial current runs longitudinally and links successive membrane regions."
+            }
+          ],
+          "modelAnswer": [
+            "Axial current runs longitudinally and links successive membrane regions."
+          ]
         }
       ]
     },
@@ -3758,7 +4914,7 @@ const content={
       "blocks": [
         {
           "type": "text",
-          "body": "A narrow periaxonal conductive pathway adds a second axial route under myelin. The supplied optical study found different nodal and internodal waveforms and faster propagation when this space was reduced. These are study-specific observations."
+          "body": ["A narrow periaxonal conductive pathway adds a second axial route under myelin. The supplied optical study found different nodal and internodal waveforms and faster propagation when this space was reduced. These are study-specific observations.", "The optical measurement follows membrane voltage at nodal and internodal sites; it does not simply measure extracellular amplitude. Distinct waveforms remain compatible with continuous internodal depolarization. Adding the periaxonal route refines the single-cable picture, while the reported space and waveform differences belong to the illustrated study. (8:2 PDF p16.)"]
         },
         {
           "type": "figure",
@@ -3782,16 +4938,16 @@ const content={
       "conceptQuiz": [
         {
           "id": "L08-double-check",
-          "prompt": "What extra route does the double cable include?",
+          "prompt": "Which conductive pathway is added to the ordinary axoplasmic route?",
           "correct": 1,
           "options": [
             {
               "text": "Only the intracellular axoplasm inside the axon",
-              "feedback": "Use this distinction: Conductive periaxonal space under the myelin."
+              "feedback": "Axoplasm is already the longitudinal route in a single-cable model."
             },
             {
               "text": "Conductive periaxonal space under the myelin",
-              "feedback": "Correct. Conductive periaxonal space under the myelin."
+              "feedback": "The double cable adds the conductive space between axon membrane and sheath."
             }
           ],
           "hints": [
@@ -3805,6 +4961,40 @@ const content={
           "modelAnswer": [
             "Conductive periaxonal space under the myelin."
           ]
+        },
+        {
+          "id": "L08-double-starter",
+          "type": "mc",
+          "difficulty": "easy",
+          "progressionAdded": true,
+          "source": "L08 8:2 p16",
+          "prompt": "Which method supplied the modern nodal versus internodal voltage comparison?",
+          "options": [
+            {
+              "text": "Local nerve-muscle twitch stimulation",
+              "feedback": "That measures excitation threshold indirectly rather than comparing optical voltage waveforms."
+            },
+            {
+              "text": "High-speed optical voltage recording",
+              "feedback": "The supplied study used optical recordings of transaxonal voltage waveforms."
+            },
+            {
+              "text": "Spatial extracellular amplitude recording",
+              "feedback": "That describes the earlier extracellular source-localization experiment."
+            }
+          ],
+          "correct": 1,
+          "hints": [
+            {
+              "body": "Recall the definition or distinction taught in this section."
+            },
+            {
+              "body": "The supplied study used optical recordings of transaxonal voltage waveforms."
+            }
+          ],
+          "modelAnswer": [
+            "The supplied study used optical recordings of transaxonal voltage waveforms."
+          ]
         }
       ]
     },
@@ -3816,7 +5006,7 @@ const content={
       "blocks": [
         {
           "type": "text",
-          "body": "Saltatory describes mainly the localization of regenerative inward current. Continuous passive spread links active nodes, sometimes across several internodes. A model answer must distinguish current and voltage rather than saying the entire AP vanishes and reappears."
+          "body": ["Saltatory describes mainly the localization of regenerative inward current. Continuous passive spread links active nodes, sometimes across several internodes. A model answer must distinguish current and voltage rather than saying the entire AP vanishes and reappears.", "Build an explanation from independent observations: localized inward current, easier nodal excitation and continuous internodal voltage. Blocking experiments add evidence that passive spread can bridge inactive nodes. Together these support reliable nodal regeneration without requiring identical waveforms everywhere or literal disappearance and reappearance of the membrane potential. (8:2 PDF p17–18.)"]
         },
         {
           "type": "figure",
@@ -3840,16 +5030,16 @@ const content={
       "conceptQuiz": [
         {
           "id": "L08-jump-check",
-          "prompt": "What is a sound description of saltatory conduction?",
+          "prompt": "Which account keeps both internodal continuity and localized regeneration?",
           "correct": 0,
           "options": [
             {
               "text": "Continuous passive spread with nodal regeneration",
-              "feedback": "Correct. Continuous passive spread with nodal regeneration."
+              "feedback": "Passive spread connects sites of regenerative nodal excitation."
             },
             {
               "text": "Disappearance of voltage throughout every internode",
-              "feedback": "Use this distinction: Continuous passive spread with nodal regeneration."
+              "feedback": "Internodal depolarization persists; the voltage does not disappear and reappear."
             }
           ],
           "hints": [
@@ -3863,6 +5053,40 @@ const content={
           "modelAnswer": [
             "Continuous passive spread with nodal regeneration."
           ]
+        },
+        {
+          "id": "L08-jump-starter",
+          "type": "mc",
+          "difficulty": "easy",
+          "progressionAdded": true,
+          "source": "L08 8:2 p17–18",
+          "prompt": "Which observation argues directly against disappearance of internodal voltage?",
+          "options": [
+            {
+              "text": "Inward current concentrated at active nodes",
+              "feedback": "Localized inward current alone does not show whether internodal voltage disappears."
+            },
+            {
+              "text": "Sodium channels concentrated at active nodes",
+              "feedback": "Channel localization identifies regenerative sites but does not itself measure internodal voltage."
+            },
+            {
+              "text": "Depolarization recorded between active nodes",
+              "feedback": "A voltage waveform between nodes contradicts literal disappearance there."
+            }
+          ],
+          "correct": 2,
+          "hints": [
+            {
+              "body": "Recall the definition or distinction taught in this section."
+            },
+            {
+              "body": "A voltage waveform between nodes contradicts literal disappearance there."
+            }
+          ],
+          "modelAnswer": [
+            "A voltage waveform between nodes contradicts literal disappearance there."
+          ]
         }
       ]
     },
@@ -3874,7 +5098,7 @@ const content={
       "blocks": [
         {
           "type": "text",
-          "body": "Use the exact supplied $m_\\infty,h_\\infty$ table. Compare current at the sampled voltages; changing reversal changes driving force without changing the stipulated gates. Removing inactivation sets $h=1$. A continuous maximum requires an additional interpolation choice."
+          "body": ["Use the exact supplied $m_\\infty,h_\\infty$ table. Compare current at the sampled voltages; changing reversal changes driving force without changing the stipulated gates. Removing inactivation sets $h=1$. A continuous maximum requires an additional interpolation choice.", "At each voltage, multiply maximal conductance by the activation-cubed and availability product, then multiply by signed driving force. For inverse problems, divide measured currents by their stipulated gate products before fitting conductance and reversal. Normalize only where that product is nonzero; small products magnify measurement error. (Exercise8 PDF p1–2 #1.)"]
         },
         {
           "type": "figure",
@@ -4096,16 +5320,16 @@ const content={
       "conceptQuiz": [
         {
           "id": "L08-ex-iv-check",
-          "prompt": "Which gates belong in a steady current table?",
+          "prompt": "Which gate values should be used at each voltage after equilibration?",
           "correct": 1,
           "options": [
             {
               "text": "Initial activation and availability at every voltage",
-              "feedback": "Use this distinction: Steady activation and availability at each voltage."
+              "feedback": "Initial gates describe the starting state, not each steady test voltage."
             },
             {
               "text": "Steady activation and availability at each voltage",
-              "feedback": "Correct. Steady activation and availability at each voltage."
+              "feedback": "Each table entry uses steady gates appropriate to its own test voltage."
             }
           ],
           "hints": [
@@ -4118,6 +5342,40 @@ const content={
           ],
           "modelAnswer": [
             "Steady activation and availability at each voltage."
+          ]
+        },
+        {
+          "id": "L08-ex-iv-starter",
+          "type": "mc",
+          "difficulty": "easy",
+          "progressionAdded": true,
+          "source": "L08 Exercise8 p1–2 #1",
+          "prompt": "In the exercise comparison, what changes when sodium reversal shifts at fixed gates?",
+          "options": [
+            {
+              "text": "The signed sodium driving force",
+              "feedback": "The exercise stipulates unchanged gates, so reversal changes the driving-force factor."
+            },
+            {
+              "text": "The steady activation probability",
+              "feedback": "Activation is explicitly held unchanged in the reversal comparison."
+            },
+            {
+              "text": "The steady availability probability",
+              "feedback": "Availability is explicitly held unchanged in the reversal comparison."
+            }
+          ],
+          "correct": 0,
+          "hints": [
+            {
+              "body": "Recall the definition or distinction taught in this section."
+            },
+            {
+              "body": "The exercise stipulates unchanged gates, so reversal changes the driving-force factor."
+            }
+          ],
+          "modelAnswer": [
+            "The exercise stipulates unchanged gates, so reversal changes the driving-force factor."
           ]
         }
       ],
@@ -4135,7 +5393,7 @@ const content={
       "blocks": [
         {
           "type": "text",
-          "body": "The supplied plot explicitly annotates $n_\\infty\\approx0.88$ at absolute $0\\,\\mathrm{mV}$. Raise the particle probability to the fourth power before applying the signed driving force. Do not feed that absolute voltage into an unshifted rest-relative L07 rate law."
+          "body": ["The supplied plot explicitly annotates $n_\\infty\\approx0.88$ at absolute $0\\,\\mathrm{mV}$. Raise the particle probability to the fourth power before applying the signed driving force. Do not feed that absolute voltage into an unshifted rest-relative L07 rate law.", "For a voltage jump, distinguish immediate driving-force change at frozen gates from subsequent relaxation toward the new steady activation. Recover conductance from current divided by driving force, then take the fourth root of its maximal fraction. Separate the capacitive transient before interpreting the ionic tail. (Exercise8 PDF p2 #2.)"]
         },
         {
           "type": "figure",
@@ -4159,16 +5417,16 @@ const content={
       "conceptQuiz": [
         {
           "id": "L08-ex-k-check",
-          "prompt": "What is the potassium open-channel fraction?",
+          "prompt": "How is the potassium channel fraction formed from its particle probability?",
           "correct": 0,
           "options": [
             {
               "text": "The fourth power of the particle probability",
-              "feedback": "Correct. The fourth power of the particle probability."
+              "feedback": "All four independent potassium factors must be permissive, giving the fourth power."
             },
             {
               "text": "The first power of the particle probability",
-              "feedback": "Use this distinction: The fourth power of the particle probability."
+              "feedback": "The single-particle fraction alone omits the other three required factors."
             }
           ],
           "hints": [
@@ -4182,6 +5440,40 @@ const content={
           "modelAnswer": [
             "The fourth power of the particle probability."
           ]
+        },
+        {
+          "id": "L08-ex-k-starter",
+          "type": "mc",
+          "difficulty": "easy",
+          "progressionAdded": true,
+          "source": "L08 Exercise8 p2 #2",
+          "prompt": "What voltage reference does the supplied potassium activation graph use?",
+          "options": [
+            {
+              "text": "Voltage relative to potassium reversal",
+              "feedback": "Potassium reversal sets driving force; it is not the activation graph origin."
+            },
+            {
+              "text": "Absolute inside-minus-outside voltage",
+              "feedback": "The source graph uses absolute voltage, unlike the rest-relative L07 empirical rates."
+            },
+            {
+              "text": "Depolarization relative to resting voltage",
+              "feedback": "That convention belongs to the empirical L07 rate laws, not this graph."
+            }
+          ],
+          "correct": 1,
+          "hints": [
+            {
+              "body": "Recall the definition or distinction taught in this section."
+            },
+            {
+              "body": "The source graph uses absolute voltage, unlike the rest-relative L07 empirical rates."
+            }
+          ],
+          "modelAnswer": [
+            "The source graph uses absolute voltage, unlike the rest-relative L07 empirical rates."
+          ]
         }
       ]
     },
@@ -4193,7 +5485,7 @@ const content={
       "blocks": [
         {
           "type": "text",
-          "body": "Use the given charge integral and assigned charge per channel. The source gives measured conductance at its test voltage, without confirming maximal activation. Thus $g_A/D$ estimates single-channel conductance only if fully open; otherwise it measures $\\gamma P_{open}$."
+          "body": ["Use the given charge integral and assigned charge per channel. The source gives measured conductance at its test voltage, without confirming maximal activation. Thus $g_A/D$ estimates single-channel conductance only if fully open; otherwise it measures $\\gamma P_{open}$.", "Integrate the isolated sensor transient, convert the charge-density units, and divide by the assigned elementary charges per channel. Use the same area basis for conductance. A separate fully open measurement makes single-channel conductance identifiable; without it, the test pulse gives only its product with open probability. (Exercise8 PDF p3 #3.)"]
         },
         {
           "type": "figure",
@@ -4217,16 +5509,16 @@ const content={
       "conceptQuiz": [
         {
           "id": "L08-ex-charge-check",
-          "prompt": "What does integrating gating-current density yield?",
+          "prompt": "Which quantity is obtained from the time integral of sensor-current density?",
           "correct": 1,
           "options": [
             {
               "text": "Ionic conductance per unit membrane area",
-              "feedback": "Use this distinction: Displaced charge per unit membrane area."
+              "feedback": "Gating-current integration gives charge, not conductance."
             },
             {
               "text": "Displaced charge per unit membrane area",
-              "feedback": "Correct. Displaced charge per unit membrane area."
+              "feedback": "Integrating current density over time gives displaced charge per membrane area."
             }
           ],
           "hints": [
@@ -4239,6 +5531,40 @@ const content={
           ],
           "modelAnswer": [
             "Displaced charge per unit membrane area."
+          ]
+        },
+        {
+          "id": "L08-ex-charge-starter",
+          "type": "mc",
+          "difficulty": "easy",
+          "progressionAdded": true,
+          "source": "L08 Exercise8 p3 #3",
+          "prompt": "Without confirmed full opening, what does conductance density divided by channel density represent?",
+          "options": [
+            {
+              "text": "Unitary conductance without an activation factor",
+              "feedback": "This equality requires full opening, which the exercise does not establish."
+            },
+            {
+              "text": "Open probability without a conductance factor",
+              "feedback": "The quotient still has conductance units and includes unitary conductance."
+            },
+            {
+              "text": "Unitary conductance times open probability",
+              "feedback": "The measured conductance reflects both unitary conductance and the fraction open."
+            }
+          ],
+          "correct": 2,
+          "hints": [
+            {
+              "body": "Recall the definition or distinction taught in this section."
+            },
+            {
+              "body": "The measured conductance reflects both unitary conductance and the fraction open."
+            }
+          ],
+          "modelAnswer": [
+            "The measured conductance reflects both unitary conductance and the fraction open."
           ]
         }
       ]
@@ -4278,6 +5604,7 @@ const content={
     },
     {
       "id": "L08-direct-ohmic",
+      "practice": "extra",
       "sectionId": "circuit",
       "difficulty": "easy",
       "type": "multiStepCalc",
@@ -4363,6 +5690,7 @@ const content={
     },
     {
       "id": "L08-direct-sum",
+      "practice": "extra",
       "sectionId": "circuit",
       "difficulty": "easy",
       "type": "multiStepCalc",
@@ -4612,6 +5940,7 @@ const content={
     },
     {
       "id": "L08-direct-wave",
+      "practice": "extra",
       "sectionId": "space",
       "difficulty": "easy",
       "type": "multiStepCalc",
@@ -5287,6 +6616,7 @@ const content={
     },
     {
       "id": "L08-direct-energy",
+      "practice": "extra",
       "sectionId": "boltzmann",
       "difficulty": "easy",
       "type": "multiStepCalc",
@@ -5372,6 +6702,7 @@ const content={
     },
     {
       "id": "L08-direct-odds",
+      "practice": "extra",
       "sectionId": "boltzmann",
       "difficulty": "easy",
       "type": "multiStepCalc",
@@ -5676,6 +7007,7 @@ const content={
     },
     {
       "id": "L08-direct-efold",
+      "practice": "extra",
       "sectionId": "charge-slope",
       "difficulty": "easy",
       "type": "multiStepCalc",
@@ -5925,6 +7257,7 @@ const content={
     },
     {
       "id": "L08-direct-cap",
+      "practice": "extra",
       "sectionId": "capacitance",
       "difficulty": "easy",
       "type": "multiStepCalc",
@@ -6010,6 +7343,7 @@ const content={
     },
     {
       "id": "L08-direct-area",
+      "practice": "extra",
       "sectionId": "capacitance",
       "difficulty": "easy",
       "type": "multiStepCalc",
@@ -6095,6 +7429,7 @@ const content={
     },
     {
       "id": "L08-direct-normalize",
+      "practice": "extra",
       "sectionId": "capacitance",
       "difficulty": "easy",
       "type": "multiStepCalc",
@@ -6591,6 +7926,7 @@ const content={
     },
     {
       "id": "L08-direct-myelinspeed",
+      "practice": "extra",
       "sectionId": "speed",
       "difficulty": "easy",
       "type": "multiStepCalc",
@@ -6738,6 +8074,7 @@ const content={
     },
     {
       "id": "L08-direct-series-r",
+      "practice": "extra",
       "sectionId": "insulation",
       "difficulty": "easy",
       "type": "multiStepCalc",
@@ -6823,6 +8160,7 @@ const content={
     },
     {
       "id": "L08-direct-series-c",
+      "practice": "extra",
       "sectionId": "insulation",
       "difficulty": "easy",
       "type": "multiStepCalc",
@@ -7010,6 +8348,7 @@ const content={
     },
     {
       "id": "L08-direct-tau",
+      "practice": "extra",
       "sectionId": "insulation",
       "difficulty": "easy",
       "type": "multiStepCalc",
@@ -7274,6 +8613,7 @@ const content={
     },
     {
       "id": "L08-direct-internode",
+      "practice": "extra",
       "sectionId": "dimensions",
       "difficulty": "easy",
       "type": "multiStepCalc",
@@ -7359,6 +8699,7 @@ const content={
     },
     {
       "id": "L08-direct-inner",
+      "practice": "extra",
       "sectionId": "dimensions",
       "difficulty": "easy",
       "type": "multiStepCalc",
@@ -7444,6 +8785,7 @@ const content={
     },
     {
       "id": "L08-direct-nodelength",
+      "practice": "extra",
       "sectionId": "dimensions",
       "difficulty": "easy",
       "type": "multiStepCalc",

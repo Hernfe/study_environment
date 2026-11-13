@@ -24,3 +24,9 @@ for mutation,expected in [('missing','exactly three'),('swapped','preserve'),('h
  fs,*_=lint(name,c,corpus)
  assert any(expected in f[2] for f in fs),(mutation,fs)
 print('E4120 contract: complete content, unique IDs, section membership, missing mock, wrong exam order and missing hints PASS.')
+
+c=deepcopy(content)
+c['lectureQuiz'][0]['practice']='optional-typo'
+fs,*_=lint(name,c,corpus)
+assert any('practice must be extra' in f[2] for f in fs),fs
+print('E4120 extra-practice metadata validation PASS.')

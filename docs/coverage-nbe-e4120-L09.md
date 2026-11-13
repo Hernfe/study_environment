@@ -68,3 +68,55 @@ Bank types: {"mc":33,"classify":2,"multiStepCalc":19,"trueFalse":2,"written":50,
 19 checked calculation questions contain 85 stages; six mock calculations contain 38 stages. Every numeric answer/intermediate/diagnostic has deterministic independent verification metadata. Source descriptive constants are source examples, not newly derived precision claims.
 
 Reference table examples are assessed as source-reading and structural classification, not expanded clinical memorization. Disease-image associations, dose anecdotes, current clinical-development status, precise dose-response fitting and universal QT diagnoses are explicitly excluded. Paper sketches and semantic prose require student self-review.
+
+
+## L09 easy-first progression, 12 November 2026
+
+All 34 sections now begin practice with two easy MCQs after their unchanged visible theory, source visuals and formula explorers. Existing drills and easy application tasks follow, then medium/hard core work independently within each section. Optional assignments remain last and initially closed. No completion gate.
+
+34 existing checks reused, 34 complementary recall checks added, 68 total. Two starters cover the central distinction and a complementary role, process, structure or recording variable in each narrowly divided segment. Later numeric and written tasks supply application without padding the opening. No section falls below two; no existing bank task was relabelled. New objects alone carry `progressionAdded: true`, explicit easy/MC fields and a section source citation. Existing two-option checks retain IDs, correct indices, option positions, hints and models; new checks use three options. Reused feedback now explains both choices. Reused stems were distinguished from the 33 verbatim bank repetitions. Three weak distractors were repaired at their original incorrect indices: gating contrasts ordinary closed-state activation with recovery; evolution distinguishes sensor charge from pore current; evolution-other contrasts binding alone with binding coupled to gating. No original answer key changed.
+
+| Section | Source | Reused | Added | Total |
+|---|---|---:|---:|---:|
+| overview | L09 9:1 p1 | 1 | 1 | 2 |
+| transport | L09 9:1 p2 | 1 | 1 | 2 |
+| channelome | L09 9:1 p3 | 1 | 1 | 2 |
+| control | L09 9:1 p4 | 1 | 1 | 2 |
+| kcsa | L09 9:1 p5 | 1 | 1 | 2 |
+| permeation | L09 9:1 p6 | 1 | 1 | 2 |
+| filter | L09 9:1 p7 | 1 | 1 | 2 |
+| hydration | L09 9:1 p8 | 1 | 1 | 2 |
+| gating | L09 9:1 p9 | 1 | 1 | 2 |
+| single | L09 9:1 p10 | 1 | 1 | 2 |
+| classification | L09 9:1 p11 | 1 | 1 | 2 |
+| evolution | L09 9:1 p12 | 1 | 1 | 2 |
+| evolution-other | L09 9:1 p13 | 1 | 1 | 2 |
+| families | L09 9:1 p14 | 1 | 1 | 2 |
+| stimuli | L09 9:1 p15 | 1 | 1 | 2 |
+| cation | L09 9:1 p16 | 1 | 1 | 2 |
+| sensor | L09 9:1 p17 | 1 | 1 | 2 |
+| nav | L09 9:1 p18 | 1 | 1 | 2 |
+| kv | L09 9:1 p19 | 1 | 1 | 2 |
+| trp | L09 9:1 p20 | 1 | 1 | 2 |
+| thermal | L09 9:1 p21 | 1 | 1 | 2 |
+| ligand | L09 9:1 p22 | 1 | 1 | 2 |
+| channelopathy | L09 9:2 p1–2 | 1 | 1 | 2 |
+| toxins | L09 9:2 p3 | 1 | 1 | 2 |
+| ttx | L09 9:2 p4 | 1 | 1 | 2 |
+| modulation | L09 9:2 p5 | 1 | 1 | 2 |
+| pain | L09 9:2 p6 | 1 | 1 | 2 |
+| lidocaine | L09 9:2 p7 | 1 | 1 | 2 |
+| epilepsy | L09 9:2 p8 | 1 | 1 | 2 |
+| persistent | L09 9:2 p9 | 1 | 1 | 2 |
+| kv-target | L09 9:2 p10 | 1 | 1 | 2 |
+| herg | L09 9:2 p11 | 1 | 1 | 2 |
+| lqt | L09 9:2 p12 | 1 | 1 | 2 |
+| screen | L09 9:2 p13 | 1 | 1 | 2 |
+
+Source review: all 22 pages of 9:1 and 13 pages of 9:2, official four-page exam guidance, original scope/coverage qualifications and conservative-revision final report. Source text and visual reading sheets are stored locally with phase evidence. No Exercise9, solution, TA note or specialist depth text exists locally; none was invented. New questions use only existing section facts, with no new numerical graph readings, clinical advice or later-lecture scope. Applications remain provisional exam scope; source thresholds and safety claims retain their qualifications. No asset/video changes.
+
+Preserved exactly: section IDs/titles/order and every non-quiz field, theory/visuals/formulas, all 12 existing explorer/drill pairs, recap/equation sheet, all 111 bank payloads (97 core/14 optional), numerical answers, rubrics, sources, hints and all three L09 mocks. Course-wide 609 core/80 optional and all 27 full mock payloads remain unchanged. Older 110-question/10-tool prose predates the occupancy repair; the audited current counts are 111/12. Other lectures, shared components and all E4210 product remain unchanged from this invocation's dirty-tree snapshot.
+
+Correct positions across the 68 inline checks: authored [29, 28, 11], seeded displayed [29, 26, 13]. New-only authored positions are 12/11/11. Including bank MCQs: authored [48, 43, 11], displayed [42, 47, 13]; expected [45.333333333333314, 45.333333333333314, 11.333333333333336], authored p=0.8664, displayed p=0.7590. Mixed two-/three-option counts explain unequal expected positions. Zero length findings; mutation guards reject severe length cues and excessive bias. Manual review also checked one best answer, plausible misconceptions and parallel wording.
+
+Verification commands, exits, browser evidence and exceptions: `.codex-progression/L09-REPORT.md` and `L09/`. LOCAL ONLY. No Git writes, commit, push or deployment. Cumulative mocks are outside this lecture-only phase.

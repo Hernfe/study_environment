@@ -906,6 +906,9 @@ def lint(lecture_id, content, corpus):
     findings = []
     findings += check_sections(content, corpus, lecture_id)
     if lecture_id.startswith('nbe-e4120/'):
+        for question in content.get('lectureQuiz', []):
+            if 'practice' in question and (question['practice'] != 'extra' or not content.get('segmentedPractice')):
+                findings.append(('error', question.get('id', '?'), 'practice must be extra on a segmented E4120 lecture'))
         exams = content.get('mockExams', [])
         if len(exams) != 3:
             findings.append(('error', 'mocks', 'NBE-E4120 requires exactly three complete five-question mocks'))

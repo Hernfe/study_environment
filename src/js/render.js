@@ -1,3 +1,4 @@
+import { renderSectionPractice } from './extraPractice.js';
 // Renders one lecture content object (see docs/CONTENT_SCHEMA.md) into
 // the shell. Contains no lecture-specific text.
 
@@ -7,7 +8,7 @@ import { renderTex, typesetInline, watchMath } from './math.js';
 import { renderConceptQuiz } from './conceptQuiz.js';
 import { renderLectureQuiz, renderQuestion } from './lectureQuiz.js';
 import { storageAvailable } from './progress.js';
-import { courseInfo, courseHref, hubHref, lectureHref } from './course.js';
+import { currentCourse, courseInfo, courseHref, hubHref, lectureHref } from './course.js';
 import { renderFormula, renderFormulaReference } from './quantitative.js';
 import { renderMockExams } from './mockExam.js';
 
@@ -301,16 +302,17 @@ function renderSection(section, lectureId, questions = []) {
   ]);
   typesetInline(body);
   markKeyTerms(body, section.keyTerms);
+  const bestGuess = currentCourse() === 'nbe-e4120';
+  const drills = [];
+  const formulas = (section.formulas || []).map((formula) => renderFormula(formula, bestGuess ? { drills } : undefined));
   return el('section', { class: 'section', id: section.id, 'aria-labelledby': `${section.id}-title` }, [
     el('h2', { id: `${section.id}-title` }, section.title),
     body,
     section.visual ? renderVisual(section.visual) : null,
-    ...(section.formulas || []).map(renderFormula),
-    renderConceptQuiz(section.conceptQuiz, { lectureId, sectionTitle: section.title }),
-    ...['easy', 'medium', 'hard'].flatMap((tier) => {
-      const group = questions.filter((q) => q.sectionId === section.id && q.difficulty === tier);
-      return group.length ? [el('h3', {}, `${tier[0].toUpperCase()}${tier.slice(1)} practice`), ...group.map((q) => renderQuestion(q, { lectureId }))] : [];
-    }),
+    ...formulas,
+    renderConceptQuiz(section.conceptQuiz, { lectureId, sectionTitle: section.title, bestGuess }),
+    ...drills,
+    ...renderSectionPractice(questions.filter((q) => q.sectionId === section.id), (q) => renderQuestion(q, { lectureId })),
   ]);
 }
 

@@ -71,3 +71,62 @@ All three cover lectures 1–8 only, with lecture 8 prominent. Six new canonical
 Bank types: {"mc":38,"multiStepCalc":38,"trueFalse":2,"written":42,"derive":1}. Tiers: {"easy":67,"medium":41,"hard":13}.
 
 The 39 original Exercise8 sodium-table currents are independently reconstructed by the source audit script. The bank uses new inverse problems: simultaneous maximal-conductance/reversal inference, potassium tail-history inference and partial-versus-full activation identifiability, replacing original-sheet reconstruction entries. Three d3 plots show the tabulated conditions separately; dots are exact rounded-source samples, connecting lines are visual guides. Maxima are sampled-grid maxima, not continuous estimates. Source potassium graph n∞≈0.88 limits precision. Charge-density inference assumes the given displacement per channel and maximal activation.
+
+
+## L08 easy-first progression, 12 November 2026
+
+All 39 sections now start practice with two easy MCQs after the preserved visible theory, source visuals and formula explorers. Existing easy formula drills/application work follows, then medium and hard core practice independently in each section. Optional work stays last and closed by default. There is no passing or completion gate.
+
+39 existing inline checks reused and 39 complementary recall questions added, 78 total. Two starters are sufficient for these narrowly divided source segments: one checks the central distinction, the other retrieves its physical component, model assumption, complementary gate/process, location or recording variable. Existing numeric and written tasks provide the next application steps. No section has fewer than two and no medium/hard task was relabelled. New items alone have `progressionAdded: true`, explicit easy/MC metadata, unique `L08-<section>-starter` IDs and source citations.
+
+The 39 retained checks keep IDs, correct indices, option positions, hints and model answers. Their stems were distinguished from the 38 verbatim inline/bank repetitions and given short option-specific feedback. Two wrong options were repaired without changing their positions or correctness: regeneration now contrasts reduced versus fully recovered sodium availability; phases contrasts voltage near versus far from sodium reversal. All other retained option text is unchanged. New options are parallel in form with one best answer. Feedback appears after Check for both correct and incorrect answers; clues remain hidden beforehand. Existing deterministic display shuffle, saved authored indices, progress keys and attempt history remain supported without migration.
+
+| Section | Source (PDF pages) | Reused | Added | Total |
+|---|---|---:|---:|---:|
+| overview | L08 8:1 p1–2 | 1 | 1 | 2 |
+| circuit | L08 8:1 p2 | 1 | 1 | 2 |
+| agreement | L08 8:1 p3 | 1 | 1 | 2 |
+| space | L08 8:1 p4 | 1 | 1 | 2 |
+| nonpropagating | L08 8:1 p5 | 1 | 1 | 2 |
+| regeneration | L08 8:1 p6 | 1 | 1 | 2 |
+| propagating | L08 8:1 p7 | 1 | 1 | 2 |
+| noble | L08 8:1 p8 | 1 | 1 | 2 |
+| moving-iv | L08 8:1 p9 | 1 | 1 | 2 |
+| threshold | L08 8:1 p10 | 1 | 1 | 2 |
+| feedback | L08 8:1 p11 | 1 | 1 | 2 |
+| phases | L08 8:1 p12 | 1 | 1 | 2 |
+| accommodation | L08 8:1 p13 | 1 | 1 | 2 |
+| refractory | L08 8:1 p14 | 1 | 1 | 2 |
+| sensor | L08 8:1 p15 | 1 | 1 | 2 |
+| boltzmann | L08 8:1 p16–17 | 1 | 1 | 2 |
+| charge-slope | L08 8:1 p17 | 1 | 1 | 2 |
+| isolation | L08 8:1 p18 | 1 | 1 | 2 |
+| capacitance | L08 8:1 p19 | 1 | 1 | 2 |
+| density | L08 8:1 p20 | 1 | 1 | 2 |
+| synthesis | L08 8:1 p21–22 | 1 | 1 | 2 |
+| ais | L08 8:2 p1–2 | 1 | 1 | 2 |
+| diameter | L08 8:2 p3 | 1 | 1 | 2 |
+| speed | L08 8:2 p4 | 1 | 1 | 2 |
+| glia | L08 8:2 p5 | 1 | 1 | 2 |
+| insulation | L08 8:2 p6 | 1 | 1 | 2 |
+| node | L08 8:2 p7 | 1 | 1 | 2 |
+| dimensions | L08 8:2 p8 | 1 | 1 | 2 |
+| saltation | L08 8:2 p9–10 | 1 | 1 | 2 |
+| channels | L08 8:2 p11 | 1 | 1 | 2 |
+| anesthetic | L08 8:2 p12 | 1 | 1 | 2 |
+| twitch | L08 8:2 p13 | 1 | 1 | 2 |
+| extracellular | L08 8:2 p14 | 1 | 1 | 2 |
+| continuity | L08 8:2 p15 | 1 | 1 | 2 |
+| double | L08 8:2 p16 | 1 | 1 | 2 |
+| jump | L08 8:2 p17–18 | 1 | 1 | 2 |
+| ex-iv | L08 Exercise8 p1–2 #1 | 1 | 1 | 2 |
+| ex-k | L08 Exercise8 p2 #2 | 1 | 1 | 2 |
+| ex-charge | L08 Exercise8 p3 #3 | 1 | 1 | 2 |
+
+Sources re-read directly: all 22 HH part-2 deck pages, all 18 saltatory-v4 pages, Exercise8HH pages 1–3 and all four official exam-guidance pages, as extracted text plus visual contact sheets. New questions use only facts already taught in each section. Existing corrections remain: include driving forces/leak, sodium availability falls with inactivation, normalize odds with a plus denominator, myelin does not guarantee a lower RC product, distinguish outer/inner diameters, source table maxima are sampled, and conductance-density inference needs activation assumptions. No new graph measurement, simulated recording, unavailable textbook derivation or later-lecture topic was introduced. No official Exercise8 solution or specialist depth text is supplied. No new asset or video was added.
+
+Preserved exactly: all 39 section IDs/titles/order and non-quiz fields; theory, visuals, formulas and 29 explorer/drill pairs; recap/equation sheet; all 121 bank question payloads including numeric answers/rubrics/sources (105 core, 16 optional); all three L08 mocks and all 27 complete lecture mocks course-wide. Course bank remains 609 core and 80 optional. All other lecture and E4210 product files and shared components remain byte-identical to this invocation's dirty-tree snapshot. No cumulative mock was added in this L08-only phase.
+
+Inline correct positions (1–3): authored 33/32/13, seeded display 36/29/13; mixed-option expected counts 32.5/32.5/13. New items alone use authored positions 13/13/13. Including bank MCQs, 116 questions have authored 50/53/13 and displayed 53/50/13, expected 51.5/51.5/13; both position-test p-values 0.9573. Zero option-length findings. Mutation tests reject severe length cues and excessive position bias. Single-best-answer, misconception plausibility and source relevance were also reviewed manually.
+
+Build with strict lint, independent numeric checks (1,758 values, zero failures), L08 source/relation tests, numeric-input/component/quality/content/progress and preservation checks pass. Playwright checks every section opening, wrong/correct feedback, keyboard/retry/reload without duplicate attempts, optional numeric stages/hints/review and mock draft/submission restoration. 312 section viewport captures plus eight feedback captures cover 380/768/1280/1920 in both themes; representative mobile/desktop light/dark captures were visually inspected. No browser errors, failed image loads, KaTeX errors or body overflow. E4210 DOM/pixel isolation passes; its original review-feature test still fails at the documented pre-existing line-24 fixture assertion. No E4210 fix was attempted. Full command exits and limitations: `.codex-progression/L08-REPORT.md` and phase evidence. LOCAL ONLY.

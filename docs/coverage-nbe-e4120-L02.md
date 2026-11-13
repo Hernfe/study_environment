@@ -52,3 +52,41 @@ Each mock covers lectures 1–2 and prominently uses lecture 2. Calculation copi
 22 segments, 22 easy inline checks, 19 explorer/drill pairs, 54 bank questions, three five-question mocks.
 
 Bank types: {"trueFalse":7,"multiStepCalc":26,"written":18,"derive":2,"predict":1}. Tiers: {"easy":26,"medium":19,"hard":9}.
+
+
+## Easy-first progression, 12 November 2026
+
+L02-only follow-up. Every section retains its visible theory, source figures and formula explorers, then begins practice with two easy MCQs. Numeric drills follow, then easy applied bank work, medium and hard work; existing optional assignments remain last and closed. No completion gate. Two concept checks per section cover distinct definitions or roles; existing numeric, explanation and interpretation tasks provide further depth without padding the starter bank. No section needs a below-two exception.
+
+22 existing checks reused, 22 new checks added, 44 total. Existing question IDs, authored option order, answer indices, hints and models are preserved. Two weak distractors were narrowed without moving their indices: action-potential removes the giveaway “permanently”, and iv asks about holding measured current amplitude constant instead of arbitrary trace placement. Reused option feedback now explains the selected misconception rather than repeating the answer. Existing two-choice items are intentionally retained for compatibility; new items have three plausible alternatives. Only new questions carry `progressionAdded: true`. No bank question was relabelled or duplicated.
+
+| Section | Source (PDF page) | Reused | Added | New question |
+|---|---|---:|---:|---|
+| equilibrium | 2 | 1 | 1 | L02-equilibrium-starter |
+| chloride | 3–4 | 1 | 1 | L02-chloride-starter |
+| permeability | 5 | 1 | 1 | L02-permeability-starter |
+| ghk | 6 | 1 | 1 | L02-ghk-starter |
+| rectification | 7–8 | 1 | 1 | L02-rectification-starter |
+| potassium | 9 | 1 | 1 | L02-potassium-starter |
+| resting | 10 | 1 | 1 | L02-resting-starter |
+| charge | 11; Exercise2 P1 | 1 | 1 | L02-charge-starter |
+| resting-functions | 12 | 1 | 1 | L02-resting-functions-starter |
+| mutation | 13 | 1 | 1 | L02-mutation-starter |
+| neuron | 14 | 1 | 1 | L02-neuron-starter |
+| signalling | 15 | 1 | 1 | L02-signalling-starter |
+| action-potential | 16 | 1 | 1 | L02-action-potential-starter |
+| clamp | 17–18 | 1 | 1 | L02-clamp-starter |
+| blockers | 19 | 1 | 1 | L02-blockers-starter |
+| circuit | 22 | 1 | 1 | L02-circuit-starter |
+| reversal | 23 | 1 | 1 | L02-reversal-starter |
+| conductance | 24 | 1 | 1 | L02-conductance-starter |
+| slope | 25 | 1 | 1 | L02-slope-starter |
+| parallel | 26 | 1 | 1 | L02-parallel-starter |
+| iv | 27 | 1 | 1 | L02-iv-starter |
+| calcium | 28 | 1 | 1 | L02-calcium-starter |
+
+All new checks ask for a single taught fact, term or experimental role. Sources: all 28 lecture PDF pages, both Exercise 2 pages and both supplied solution pages; official exam guidance pp1–4 and existing scope qualifications were rechecked. No new textbook content, unsupported graph measurements, figures or videos were added. The optional squid video on PDF20 remains optional with no dependent question. Fixed-volume/water-flow caveats, current-density units, selective-block assumptions and zero-total-current requirements remain intact.
+
+Preserved: 22 section IDs/order, all blocks/figures/formulas, 19 explorer/drill pairs, 49 core + 5 optional bank objects, all numeric answers and all three L02 mocks. Across L01–L09, 609 core/80 optional and all 27 lecture mocks remain unchanged. Authored correct positions over 44 checks: 19/18/7; displayed positions: 22/17/5. The mixture of 22 two-option and 22 three-option checks has expected uniform positions 18.33/18.33/7.33; position-bias test passes (displayed p=0.4555). No length-cue findings.
+
+Build/strict lint, 1,758-value numeric check, numeric-input/relation tests, all-question feedback/restore tests and dirty-tree preservation passed. Playwright verified all 22 first-practice sequences, keyboard checks/retry, old/new saved concepts, optional staged work/hints/review, formula keyboard controls and mock persistence; 176 section captures plus 8 starter-feedback captures at four widths and both themes. Representative captures were visually inspected; capture count does not claim individual manual review of every image. Unchanged E4210 `test_review_features.py:24` remains a documented fixture failure. Full commands/exits and evidence: `.codex-progression/L02-REPORT.md`. LOCAL ONLY, no commit/push/deployment. Other lectures and cumulative mocks are outside this phase.

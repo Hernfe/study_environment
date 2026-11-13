@@ -138,7 +138,8 @@ export function renderWritten(question, report, { restore = {}, save = () => {} 
   return el('div', { class: 'written-practice' }, [text, status, criteria]);
 }
 
-export function renderFormula(formula) {
+// A caller may place drills after its easy concept checks without rebuilding them.
+export function renderFormula(formula, { drills } = {}) {
   const panel = el('div', { class: 'symbol-description', role: 'status' }, 'Focus or tap a symbol to read its meaning.');
   let inlineTargets = [];
   const targets = formula.symbols.map((symbol, i) => {
@@ -208,10 +209,16 @@ export function renderFormula(formula) {
   const expression = inlineEquation || (formula.tokens
     ? el('div', { class: 'formula-symbols formula-expression', 'aria-label': formula.name }, formula.tokens.map((token) => token.symbol !== undefined ? targets[token.symbol] : renderTex(token.tex)))
     : el('div', {}, [renderTex(formula.tex, { display: true }), el('div', { class: 'formula-symbols', 'aria-label': 'Formula symbols' }, targets)]));
+  const drillNode = el('div', { class: 'formula-drill' }, [el('h4', {}, 'Single-step drill'), paragraphs(drill.prompt), renderHints(drill.hints, (level) => { const key = `drill:${formula.id}`; const state = getPracticeState(key); savePracticeState(key, { ...state, hints: [...new Set([...(state.hints || []), level])] }); }), input, ` ${drill.answer.unit || ''} `, button('Check drill', check), feedback, solution]);
+  if (drills) {
+    drillNode.dataset.formula = formula.id;
+    drillNode.querySelector('h4').textContent = `${formula.name}: single-step drill`;
+    drills.push(drillNode);
+  }
   return el('div', { class: 'block formula-explorer', id: formula.id }, [
     el('h3', {}, formula.name), expression, panel,
     paragraphs(formula.reads), el('p', { class: 'muted' }, formula.assumes),
     ...(formula.variants || []).map((v) => el('div', {}, [renderTex(v.tex, { display: true }), paragraphs(v.note)])), live,
-    el('div', { class: 'formula-drill' }, [el('h4', {}, 'Single-step drill'), paragraphs(drill.prompt), renderHints(drill.hints, (level) => { const key = `drill:${formula.id}`; const state = getPracticeState(key); savePracticeState(key, { ...state, hints: [...new Set([...(state.hints || []), level])] }); }), input, ` ${drill.answer.unit || ''} `, button('Check drill', check), feedback, solution]),
+    drills ? null : drillNode,
   ]);
 }

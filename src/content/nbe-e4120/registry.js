@@ -19,3 +19,10 @@ export const registry = titles.map((title, i) => ({
   chapters: [], lectureDate: `2026-${dates[i]}`, examDate: '2026-11-30', built: i < 9,
 }));
 export const exampleLecture = null;
+
+export { fullCourseMocks } from './final-mocks.js';
+
+export const fullCourseMockOptions = {
+  lectureId: 'FULL-L01-L09',
+  intro: 'Five separate cumulative papers for the available L01–L09 material. Lecture-specific mocks remain on their lecture pages.',
+};

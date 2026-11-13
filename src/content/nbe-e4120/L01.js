@@ -30,7 +30,7 @@ const content = {
       "blocks": [
         {
           "type": "text",
-          "body": "Start with what is measured, then connect circuits to ion movement. Work through signs, passive circuits, electrodiffusion and constrained Donnan equilibrium. The provided exam sheet is a full-course reference; later formulas are not required here."
+          "body": ["Electrophysiology measures voltage or current at different scales. A neuron has dendrites, a soma and an axon; synapses connect cells. A single-cell measurement addresses cellular function, while extracellular network and organ recordings combine activity from multiple sources.", "ECG records heart activity, EEG brain activity, EMG muscle activity and ERG retinal activity. Choose the scale to match the question: a changed organ signal alone cannot identify which individual channel changed. See slides 8–9 below."]
         },
         {
           "type": "figure",
@@ -111,6 +111,58 @@ const content = {
           "modelAnswer": [
             "EMG records muscle electrical activity."
           ]
+        },
+        {
+          "id": "cells-starter-soma",
+          "difficulty": "easy",
+          "type": "mc",
+          "progressionAdded": true,
+          "source": "L01 PDF 8–9",
+          "prompt": "Which name denotes the cell body of a neuron?",
+          "options": [
+            {
+              "text": "The axon",
+              "feedback": "The axon is a process extending from the cell body."
+            },
+            {
+              "text": "The synapse",
+              "feedback": "A synapse is a connection for communication between cells."
+            },
+            {
+              "text": "The soma",
+              "feedback": "The soma is the cell body."
+            }
+          ],
+          "correct": 2,
+          "modelAnswer": [
+            "The soma is the cell body."
+          ]
+        },
+        {
+          "id": "cells-starter-scale",
+          "difficulty": "easy",
+          "type": "mc",
+          "progressionAdded": true,
+          "source": "L01 PDF 8–9",
+          "prompt": "Which recording level addresses the electrical function of one cell?",
+          "options": [
+            {
+              "text": "Cellular electrophysiology",
+              "feedback": "Cellular recordings measure the function of individual cells."
+            },
+            {
+              "text": "Network electrophysiology",
+              "feedback": "Network recordings combine activity from multiple cells."
+            },
+            {
+              "text": "Whole-organ electrography",
+              "feedback": "Organ recordings combine sources across a tissue or organ."
+            }
+          ],
+          "correct": 0,
+          "modelAnswer": [
+            "Cellular recordings measure the function of individual cells."
+          ]
         }
       ],
       "formulas": []
@@ -122,7 +174,7 @@ const content = {
       "blocks": [
         {
           "type": "text",
-          "body": "Electrical readouts connect altered excitability to research, diagnostics, drug effects and prosthetic interfaces. A drug can block, activate, desensitize or change gating; its molecular name alone does not establish the functional outcome."
+          "body": ["Electrical readouts test function in research, diagnostics, drug safety and prosthetic interfaces. A compound may block, activate, desensitize or change channel gating. Its molecular identity alone does not tell us which functional effect occurred in the recorded cells.", "Compare cellular responses before and after treatment, then ask whether the relevant organ-level signal also changes. An intended cellular effect does not establish safety: off-target changes can disturb cardiac rhythm or neural activity. Slides 10–12 connect these scales."]
         },
         {
           "type": "figure",
@@ -172,6 +224,32 @@ const content = {
           "modelAnswer": [
             "The recording tests the functional effect."
           ]
+        },
+        {
+          "id": "applications-starter-safety",
+          "difficulty": "easy",
+          "type": "mc",
+          "progressionAdded": true,
+          "source": "L01 PDF 10–12",
+          "prompt": "Why are cardiac electrical recordings used in drug safety testing?",
+          "options": [
+            {
+              "text": "To identify the drug molecule itself",
+              "feedback": "A functional recording tests effects, not molecular identity."
+            },
+            {
+              "text": "To detect effects on cardiac rhythm",
+              "feedback": "An off-target electrical effect can disturb cardiac rhythm."
+            },
+            {
+              "text": "To locate the drug binding site",
+              "feedback": "A cardiac trace alone does not locate a molecular binding site."
+            }
+          ],
+          "correct": 1,
+          "modelAnswer": [
+            "An off-target electrical effect can disturb cardiac rhythm."
+          ]
         }
       ],
       "formulas": []
@@ -183,7 +261,7 @@ const content = {
       "blocks": [
         {
           "type": "text",
-          "body": "Ion channels have selective permeability and gating. Signals spread passively or through active voltage- and time-dependent properties. Current clamp records intracellular potential; voltage clamp records current. These are recording modes, not names for experimental preparations."
+          "body": ["Chemical signals convey information through molecules; electrical signals involve ionic current. Selective permeability determines which ions can pass a channel, while gating determines whether its pathway is available. Passive spread follows the electrical properties of the structure; active spread involves voltage- and time-dependent membrane properties.", "In current clamp, control injected current and record intracellular voltage. In voltage clamp, control voltage and record current. These modes differ from the preparation, such as cultured cells or a tissue slice. A trace alone does not identify its molecular source. See slides 13–14."]
         },
         {
           "type": "figure",
@@ -217,8 +295,8 @@ const content = {
               "feedback": "Voltage clamp records current while voltage is controlled."
             },
             {
-              "text": "Extracellular light output",
-              "feedback": "Optical methods are a separate approach."
+              "text": "Extracellular field potential",
+              "feedback": "Field recording measures extracellular voltage; voltage clamp records membrane current."
             }
           ],
           "correct": 1,
@@ -233,6 +311,58 @@ const content = {
           "modelAnswer": [
             "Voltage clamp records current while voltage is controlled."
           ]
+        },
+        {
+          "id": "signals-starter-selectivity",
+          "difficulty": "easy",
+          "type": "mc",
+          "progressionAdded": true,
+          "source": "L01 PDF 13–14",
+          "prompt": "What does selective permeability describe?",
+          "options": [
+            {
+              "text": "When the channel pathway opens",
+              "feedback": "Gating concerns availability of the pathway, not ion selectivity."
+            },
+            {
+              "text": "Where the recording is performed",
+              "feedback": "Preparation and recording location do not define selectivity."
+            },
+            {
+              "text": "Which ions can pass a channel",
+              "feedback": "Selectivity concerns the ion species that can permeate."
+            }
+          ],
+          "correct": 2,
+          "modelAnswer": [
+            "Selectivity concerns the ion species that can permeate."
+          ]
+        },
+        {
+          "id": "signals-starter-current-clamp",
+          "difficulty": "easy",
+          "type": "mc",
+          "progressionAdded": true,
+          "source": "L01 PDF 13–14",
+          "prompt": "Which variable is controlled in current clamp?",
+          "options": [
+            {
+              "text": "The injected electric current",
+              "feedback": "Current clamp controls injected current and records voltage."
+            },
+            {
+              "text": "The intracellular potential",
+              "feedback": "Voltage is recorded in current clamp, rather than held fixed."
+            },
+            {
+              "text": "The extracellular ion content",
+              "feedback": "Bath composition is an experimental condition, not the clamped variable."
+            }
+          ],
+          "correct": 0,
+          "modelAnswer": [
+            "Current clamp controls injected current and records voltage."
+          ]
         }
       ],
       "formulas": []
@@ -244,7 +374,7 @@ const content = {
       "blocks": [
         {
           "type": "text",
-          "body": "A tight mechanical and electrical seal isolates a membrane patch. Microscopy, vibration isolation, micromanipulation and electrical shielding support recordings. Suction electrodes in the lecture measure changes in extracellular photoreceptor current."
+          "body": ["A tight pipette–membrane seal isolates a patch electrically. An incomplete seal permits current to bypass the patch. Microscopy and micromanipulation position the electrode; vibration isolation reduces movement and shielding reduces electrical interference.", "Cell-attached leaves the patch on the cell. Inside-out exposes its inner face to the bath; outside-out exposes its outer face. Whole-cell access ruptures the patch, whereas perforated patch gives access through perforations. The suction electrode instead measures changes in extracellular photoreceptor current. See slides 15–17."]
         },
         {
           "type": "figure",
@@ -342,12 +472,12 @@ const content = {
               "feedback": "The tight seal directs current through the isolated patch."
             },
             {
-              "text": "A large electrode–membrane gap",
-              "feedback": "A gap provides a bypass path."
+              "text": "A grounded electrical shield",
+              "feedback": "Shielding reduces interference but does not seal the patch."
             },
             {
-              "text": "A rapid pipette–membrane sweep",
-              "feedback": "Pipette motion does not provide electrical isolation."
+              "text": "A stable micromanipulator tip",
+              "feedback": "Positioning stabilizes the pipette; electrical isolation requires the seal."
             }
           ],
           "correct": 0,
@@ -362,6 +492,58 @@ const content = {
           "modelAnswer": [
             "The tight seal directs current through the isolated patch."
           ]
+        },
+        {
+          "id": "apparatus-starter-shielding",
+          "difficulty": "easy",
+          "type": "mc",
+          "progressionAdded": true,
+          "source": "L01 PDF 15–17",
+          "prompt": "What is the main purpose of electrical shielding in this setup?",
+          "options": [
+            {
+              "text": "Reduce mechanical vibration",
+              "feedback": "Vibration isolation addresses movement rather than electrical interference."
+            },
+            {
+              "text": "Reduce electrical interference",
+              "feedback": "Shielding reduces interference picked up by the recording apparatus."
+            },
+            {
+              "text": "Position the recording pipette",
+              "feedback": "Micromanipulation positions the pipette; shielding addresses interference."
+            }
+          ],
+          "correct": 1,
+          "modelAnswer": [
+            "Shielding reduces interference picked up by the recording apparatus."
+          ]
+        },
+        {
+          "id": "apparatus-starter-inside-out",
+          "difficulty": "easy",
+          "type": "mc",
+          "progressionAdded": true,
+          "source": "L01 PDF 15–17",
+          "prompt": "Which patch configuration exposes the inner membrane face to the bath?",
+          "options": [
+            {
+              "text": "An outside-out patch",
+              "feedback": "Outside-out exposes the extracellular face to the bath."
+            },
+            {
+              "text": "A cell-attached patch",
+              "feedback": "Cell-attached leaves the patch on the intact cell."
+            },
+            {
+              "text": "An inside-out patch",
+              "feedback": "Excising an inside-out patch exposes the cytoplasmic face."
+            }
+          ],
+          "correct": 2,
+          "modelAnswer": [
+            "Excising an inside-out patch exposes the cytoplasmic face."
+          ]
         }
       ],
       "formulas": []
@@ -373,7 +555,7 @@ const content = {
       "blocks": [
         {
           "type": "text",
-          "body": "Lipids provide insulation; proteins provide channels and transport pathways. Define $V_m=V_{in}-V_{out}$ with $V_{out}=0$. Outward membrane current is positive: positive charge leaving or negative charge entering."
+          "body": ["Lipids insulate the membrane; proteins provide channels and transport pathways. Define $V_m=V_{in}-V_{out}$ with $V_{out}=0$. A negative membrane voltage means the inside is at lower potential than the outside, not that the outside has an independently negative reference.", "Current is signed charge transferred per time, as in the explorer below. Outward membrane current is positive: positive charge leaving or negative charge entering. For a negative ion, particle movement and conventional current point in opposite directions. Slides 18–19 establish both sign rules."]
         },
         {
           "type": "convention",
@@ -426,6 +608,58 @@ const content = {
           ],
           "modelAnswer": [
             "Negative charge entering has the same conventional-current sign as positive charge leaving."
+          ]
+        },
+        {
+          "id": "signs-starter-voltage",
+          "difficulty": "easy",
+          "type": "mc",
+          "progressionAdded": true,
+          "source": "L01 PDF 18–19",
+          "prompt": "With the outside reference set to zero, what does a negative membrane voltage mean?",
+          "options": [
+            {
+              "text": "Inside potential is lower than outside",
+              "feedback": "Membrane voltage is inside potential minus outside potential."
+            },
+            {
+              "text": "Inside potential is higher than outside",
+              "feedback": "A higher inside potential would give a positive membrane voltage."
+            },
+            {
+              "text": "Inside potential is equal to outside",
+              "feedback": "Equal potentials give zero membrane voltage."
+            }
+          ],
+          "correct": 0,
+          "modelAnswer": [
+            "Membrane voltage is inside potential minus outside potential."
+          ]
+        },
+        {
+          "id": "signs-starter-current",
+          "difficulty": "easy",
+          "type": "mc",
+          "progressionAdded": true,
+          "source": "L01 PDF 18–19",
+          "prompt": "What is electric current?",
+          "options": [
+            {
+              "text": "Stored charge divided by voltage",
+              "feedback": "Charge divided by voltage defines capacitance."
+            },
+            {
+              "text": "Signed charge transferred per time",
+              "feedback": "Current measures the rate of transfer of signed charge."
+            },
+            {
+              "text": "Voltage drop divided by current",
+              "feedback": "Voltage drop divided by current defines resistance."
+            }
+          ],
+          "correct": 1,
+          "modelAnswer": [
+            "Current measures the rate of transfer of signed charge."
           ]
         }
       ],
@@ -497,7 +731,7 @@ const content = {
       "blocks": [
         {
           "type": "text",
-          "body": "Resistance opposes current. Conductance describes a pathway for current. Parallel open channels add conductance. Impedance generalizes opposition to current for time-varying circuits; do not assume every frequency-dependent circuit is only a resistor."
+          "body": ["Resistance opposes current; conductance describes how readily a pathway carries it. They are reciprocals, $G=1/R$. For an ohmic path, voltage drop is proportional to current. Parallel channels share voltage, so their conductances add; opening more parallel paths lowers total resistance.", "An extracellular voltage drop can therefore indicate current if the path resistance is known and the ohmic approximation holds. Use the explorers below to convert between resistance, conductance and current. Impedance also includes time-dependent circuit behavior, so it need not equal resistance. See slides 20–21."]
         },
         {
           "type": "figure",
@@ -546,6 +780,58 @@ const content = {
           ],
           "modelAnswer": [
             "Parallel conductances add."
+          ]
+        },
+        {
+          "id": "resistance-starter-reciprocal",
+          "difficulty": "easy",
+          "type": "mc",
+          "progressionAdded": true,
+          "source": "L01 PDF 20–21",
+          "prompt": "How are resistance and conductance related?",
+          "options": [
+            {
+              "text": "Each is proportional to the other",
+              "feedback": "Increasing passive resistance reduces conductance."
+            },
+            {
+              "text": "Each is independent of the other",
+              "feedback": "They describe the same path through reciprocal quantities."
+            },
+            {
+              "text": "Each is the reciprocal of the other",
+              "feedback": "Conductance is one divided by resistance."
+            }
+          ],
+          "correct": 2,
+          "modelAnswer": [
+            "Conductance is one divided by resistance."
+          ]
+        },
+        {
+          "id": "resistance-starter-ohm",
+          "difficulty": "easy",
+          "type": "mc",
+          "progressionAdded": true,
+          "source": "L01 PDF 20–21",
+          "prompt": "For an ohmic resistor, what relates voltage drop to current?",
+          "options": [
+            {
+              "text": "Their ratio is the resistance",
+              "feedback": "Ohm’s law gives voltage drop divided by current as resistance."
+            },
+            {
+              "text": "Their product is the resistance",
+              "feedback": "Ohm’s law uses a ratio to find resistance, not a product."
+            },
+            {
+              "text": "Their difference is the resistance",
+              "feedback": "Subtracting voltage and current cannot give resistance."
+            }
+          ],
+          "correct": 0,
+          "modelAnswer": [
+            "Ohm’s law gives voltage drop divided by current as resistance."
           ]
         }
       ],
@@ -675,7 +961,7 @@ const content = {
       "blocks": [
         {
           "type": "text",
-          "body": "An unloaded pair of series resistors shares current. The output is the voltage across the lower resistor, measured relative to ground. Divider notation $V_{out}$ is an output node, not the extracellular reference used in the membrane convention."
+          "body": ["An unloaded pair of series resistors carries the same current. The input voltage is shared between their drops; the output across the lower resistor is its fraction of the total resistance times the input. The explorer below defines this attenuation ratio.", "For an inverse design, first find the required output/input fraction, then solve for the upper resistance. Increasing the upper resistance reduces output when the lower one is fixed. Here $V_{out}$ names the output node, not the extracellular reference. See slide 22."]
         },
         {
           "type": "figure",
@@ -724,6 +1010,32 @@ const content = {
           ],
           "modelAnswer": [
             "The output node is measured relative to the grounded lower end."
+          ]
+        },
+        {
+          "id": "divider-starter-series-current",
+          "difficulty": "easy",
+          "type": "mc",
+          "progressionAdded": true,
+          "source": "L01 PDF 22",
+          "prompt": "What is shared by both resistors in an unloaded series voltage divider?",
+          "options": [
+            {
+              "text": "The voltage drop on each resistor",
+              "feedback": "Voltage drops depend on the individual resistances."
+            },
+            {
+              "text": "The current through each resistor",
+              "feedback": "With no branch load, the same current passes through both."
+            },
+            {
+              "text": "The resistance of each component",
+              "feedback": "The two resistances need not be equal."
+            }
+          ],
+          "correct": 1,
+          "modelAnswer": [
+            "With no branch load, the same current passes through both."
           ]
         }
       ],
@@ -807,7 +1119,7 @@ const content = {
       "blocks": [
         {
           "type": "text",
-          "body": "Two conductive surfaces separated by dielectric store separated charge. Keep total capacitance distinct from specific capacitance per area. The approximate specific membrane value is $1\\,\\mu\\text{F}/\\text{cm}^2$. Signed inner charge follows the sign of inside-minus-outside voltage."
+          "body": ["Two conducting surfaces separated by dielectric store equal and opposite charges. Capacitance increases with area and permittivity and decreases with separation. Specific capacitance is capacitance per area; multiply it by membrane area to get total capacitance, converting squared length units carefully.", "The approximate specific membrane value is $1\\,\\mu\\text{F}/\\text{cm}^2$. Signed inner charge follows $Q=CV_m$. For a voltage ramp, combine charge transfer with elapsed time to infer capacitance from current and voltage slope. The explorers develop these steps from slide 23 and Exercise 1 P1."]
         },
         {
           "type": "figure",
@@ -856,6 +1168,58 @@ const content = {
           ],
           "modelAnswer": [
             "Capacitance is proportional to area."
+          ]
+        },
+        {
+          "id": "capacitance-starter-specific",
+          "difficulty": "easy",
+          "type": "mc",
+          "progressionAdded": true,
+          "source": "L01 PDF 23",
+          "prompt": "What does specific membrane capacitance mean?",
+          "options": [
+            {
+              "text": "Capacitance per membrane voltage",
+              "feedback": "Capacitance already relates charge to voltage; specific means per area."
+            },
+            {
+              "text": "Capacitance per membrane thickness",
+              "feedback": "Thickness affects capacitance, but specific capacitance is per area."
+            },
+            {
+              "text": "Capacitance per membrane area",
+              "feedback": "Multiply specific capacitance by area to obtain total capacitance."
+            }
+          ],
+          "correct": 2,
+          "modelAnswer": [
+            "Multiply specific capacitance by area to obtain total capacitance."
+          ]
+        },
+        {
+          "id": "capacitance-starter-dielectric",
+          "difficulty": "easy",
+          "type": "mc",
+          "progressionAdded": true,
+          "source": "L01 PDF 23",
+          "prompt": "Which membrane component provides the insulating dielectric for charge storage?",
+          "options": [
+            {
+              "text": "The membrane lipid bilayer",
+              "feedback": "The lipid bilayer separates conducting solutions and acts as an insulator."
+            },
+            {
+              "text": "The intracellular solution",
+              "feedback": "The intracellular solution provides one conducting side of the capacitor."
+            },
+            {
+              "text": "The extracellular solution",
+              "feedback": "The extracellular solution provides the other conducting side."
+            }
+          ],
+          "correct": 0,
+          "modelAnswer": [
+            "The lipid bilayer separates conducting solutions and acts as an insulator."
           ]
         }
       ],
@@ -1055,7 +1419,7 @@ const content = {
       "blocks": [
         {
           "type": "text",
-          "body": "A membrane is represented by a resistance in parallel with capacitance. During a voltage change, capacitive current contributes; at constant voltage it vanishes. A passive, electrically small cell is approximated as isopotential for a single-time-constant measurement."
+          "body": ["A passive membrane has resistance and capacitance in parallel. A current step initially charges the capacitor; as voltage approaches its plateau, capacitive current falls to zero. For an electrically small, isopotential cell, the voltage change follows a single exponential with time constant $\\tau=RC$.", "Use plateau voltage change divided by injected current to infer input resistance, then use the fitted time constant to infer capacitance. A response that is not a single exponential challenges the passive isopotential approximation. The charging explorer uses voltage change relative to baseline. See slide 24 and Exercise 1 P2."]
         },
         {
           "type": "figure",
@@ -1104,6 +1468,58 @@ const content = {
           ],
           "modelAnswer": [
             "A zero voltage derivative gives zero capacitive current."
+          ]
+        },
+        {
+          "id": "passive-starter-topology",
+          "difficulty": "easy",
+          "type": "mc",
+          "progressionAdded": true,
+          "source": "L01 PDF 24; Exercise 1 P2",
+          "prompt": "How are resistance and capacitance arranged in the passive membrane model?",
+          "options": [
+            {
+              "text": "As two series circuit elements",
+              "feedback": "A series pair shares current; the membrane paths instead share voltage."
+            },
+            {
+              "text": "As two parallel circuit elements",
+              "feedback": "Both elements experience the same membrane voltage."
+            },
+            {
+              "text": "As two disconnected circuit elements",
+              "feedback": "The resistive and capacitive paths both participate in membrane response."
+            }
+          ],
+          "correct": 1,
+          "modelAnswer": [
+            "Both elements experience the same membrane voltage."
+          ]
+        },
+        {
+          "id": "passive-starter-tau",
+          "difficulty": "easy",
+          "type": "mc",
+          "progressionAdded": true,
+          "source": "L01 PDF 24; Exercise 1 P2",
+          "prompt": "Which pair determines the passive membrane time constant?",
+          "options": [
+            {
+              "text": "Resistance and injected current",
+              "feedback": "Injected current sets response amplitude, not the passive RC time constant."
+            },
+            {
+              "text": "Capacitance and plateau voltage",
+              "feedback": "Plateau voltage depends on the stimulus; it does not define the RC product."
+            },
+            {
+              "text": "Resistance and capacitance",
+              "feedback": "The time constant is the product of consistent resistance and capacitance."
+            }
+          ],
+          "correct": 2,
+          "modelAnswer": [
+            "The time constant is the product of consistent resistance and capacitance."
           ]
         }
       ],
@@ -1305,7 +1721,7 @@ const content = {
       "blocks": [
         {
           "type": "text",
-          "body": "Low-pass filters preferentially attenuate faster changes; high-pass filters attenuate slower changes. The passive membrane is a low-pass filter. A corner is a transition scale, not an abrupt threshold with perfect transmission below it."
+          "body": ["Low-pass filters attenuate faster changes more strongly; high-pass filters attenuate slower changes. The passive membrane is a low-pass filter because charging takes time. Larger time constants give slower voltage responses and lower corner frequencies, as quantified by the explorer below.", "A corner frequency marks a transition, not an abrupt cutoff. Rapid components of a square pulse are attenuated, rounding its voltage response. Convert period to frequency before comparing a signal with the corner; keep total resistance and capacitance consistent when designing a response. See slides 25–26."]
         },
         {
           "type": "figure",
@@ -1354,6 +1770,58 @@ const content = {
           ],
           "modelAnswer": [
             "Corner frequency is inversely proportional to time constant."
+          ]
+        },
+        {
+          "id": "filters-starter-low-pass",
+          "difficulty": "easy",
+          "type": "mc",
+          "progressionAdded": true,
+          "source": "L01 PDF 25–26",
+          "prompt": "Which components does a low-pass membrane filter attenuate more strongly?",
+          "options": [
+            {
+              "text": "Higher-frequency signal components",
+              "feedback": "Charging takes time, so rapid changes are attenuated more strongly."
+            },
+            {
+              "text": "Lower-frequency signal components",
+              "feedback": "Preferential loss of slow components describes high-pass filtering."
+            },
+            {
+              "text": "All signal frequencies equally",
+              "feedback": "A frequency-independent attenuation would not describe low-pass filtering."
+            }
+          ],
+          "correct": 0,
+          "modelAnswer": [
+            "Charging takes time, so rapid changes are attenuated more strongly."
+          ]
+        },
+        {
+          "id": "filters-starter-frequency",
+          "difficulty": "easy",
+          "type": "mc",
+          "progressionAdded": true,
+          "source": "L01 PDF 25–26",
+          "prompt": "What does the frequency of a periodic signal count?",
+          "options": [
+            {
+              "text": "Time occupied by a single cycle",
+              "feedback": "Time per cycle is the period, the reciprocal of frequency."
+            },
+            {
+              "text": "Cycles occurring per unit time",
+              "feedback": "Frequency counts cycles per second when expressed in hertz."
+            },
+            {
+              "text": "Voltage change during each cycle",
+              "feedback": "Voltage change describes amplitude, not cycles per time."
+            }
+          ],
+          "correct": 1,
+          "modelAnswer": [
+            "Frequency counts cycles per second when expressed in hertz."
           ]
         }
       ],
@@ -1470,7 +1938,7 @@ const content = {
       "blocks": [
         {
           "type": "text",
-          "body": "Series elements share current and their voltage drops add. Parallel branches share voltage and their currents add. Apply Kirchhoff node and loop laws with signed reference directions."
+          "body": ["Identify topology before choosing arithmetic. Series elements share current and their voltage drops add. Parallel branches share voltage and their currents add. Resistors add in series; conductances and capacitances add in parallel. The opposite arrangements use reciprocal sums, as shown in the explorers below.", "Kirchhoff’s node law conserves signed current, while the loop law makes signed voltage changes around a closed loop sum to zero. Choose directions first and retain them through the calculation. Do not add parallel voltage drops as if they were in series. See slide 27."]
         },
         {
           "type": "figure",
@@ -1519,6 +1987,58 @@ const content = {
           ],
           "modelAnswer": [
             "Parallel branches connect to the same two nodes."
+          ]
+        },
+        {
+          "id": "combinations-starter-series",
+          "difficulty": "easy",
+          "type": "mc",
+          "progressionAdded": true,
+          "source": "L01 PDF 27",
+          "prompt": "Which quantity is the same through all elements of a simple series circuit?",
+          "options": [
+            {
+              "text": "Voltage drop across each element",
+              "feedback": "Series voltage drops can differ and add to the total."
+            },
+            {
+              "text": "Resistance value of each element",
+              "feedback": "Series topology does not require equal component resistances."
+            },
+            {
+              "text": "Current through each element",
+              "feedback": "A single series path carries the same current through each element."
+            }
+          ],
+          "correct": 2,
+          "modelAnswer": [
+            "A single series path carries the same current through each element."
+          ]
+        },
+        {
+          "id": "combinations-starter-node",
+          "difficulty": "easy",
+          "type": "mc",
+          "progressionAdded": true,
+          "source": "L01 PDF 27",
+          "prompt": "Which conservation principle underlies Kirchhoff’s node law?",
+          "options": [
+            {
+              "text": "Conservation of electric charge",
+              "feedback": "No net charge accumulates at an ideal node, so signed currents balance."
+            },
+            {
+              "text": "Equality of branch resistances",
+              "feedback": "Branch resistances can differ while current is conserved."
+            },
+            {
+              "text": "Equality of branch capacitances",
+              "feedback": "Capacitances need not be equal for signed currents to balance."
+            }
+          ],
+          "correct": 0,
+          "modelAnswer": [
+            "No net charge accumulates at an ideal node, so signed currents balance."
           ]
         }
       ],
@@ -2016,7 +2536,7 @@ const content = {
       "blocks": [
         {
           "type": "text",
-          "body": "Thermal diffusion is passive motion down a concentration gradient. Charged particles also drift in an electric field. Use consistent molar concentration and distance units in flux calculations; a molar flux density becomes current density when multiplied by charge per mole."
+          "body": ["Thermal diffusion produces net flux down a concentration gradient, although individual particles move randomly. The minus sign in Fick’s law expresses this direction. Charged particles also drift in an electric field; their valence determines the direction relative to the potential gradient.", "Electrodiffusion combines these two fluxes, which may reinforce or oppose one another. Use consistent molar concentration and distance units. Multiplying molar flux density by signed charge per mole gives current density, not total current; total current also needs area. Slide 29 supplies the mobility convention used below."]
         },
         {
           "type": "figure",
@@ -2039,19 +2559,19 @@ const content = {
       "conceptQuiz": [
         {
           "id": "movement-check",
-          "prompt": "What can drive ions even when concentration is uniform?",
+          "prompt": "Which contribution to ion flux is driven by an electric field?",
           "options": [
             {
-              "text": "An electrical potential gradient",
+              "text": "Electrical drift of charged ions",
               "feedback": "Charged particles drift in an electric field."
             },
             {
-              "text": "A reversed concentration gradient",
-              "feedback": "Diffusion requires a concentration gradient."
+              "text": "Thermal diffusion of particles",
+              "feedback": "Diffusion is driven by concentration gradients, rather than electric fields."
             },
             {
-              "text": "An absent concentration gradient",
-              "feedback": "An absent gradient does not itself drive diffusion."
+              "text": "Active pumping of charged ions",
+              "feedback": "Active transport uses an energy source such as ATP or another ion gradient."
             }
           ],
           "correct": 0,
@@ -2065,6 +2585,58 @@ const content = {
           ],
           "modelAnswer": [
             "Charged particles drift in an electric field."
+          ]
+        },
+        {
+          "id": "movement-starter-diffusion",
+          "difficulty": "easy",
+          "type": "mc",
+          "progressionAdded": true,
+          "source": "L01 PDF 29",
+          "prompt": "In which direction does net diffusion carry particles?",
+          "options": [
+            {
+              "text": "From lower toward higher concentration",
+              "feedback": "That direction opposes passive diffusion down the gradient."
+            },
+            {
+              "text": "From higher toward lower concentration",
+              "feedback": "Random motion gives net transport down a concentration gradient."
+            },
+            {
+              "text": "Along surfaces of equal concentration",
+              "feedback": "A concentration gradient drives net diffusion across such surfaces."
+            }
+          ],
+          "correct": 1,
+          "modelAnswer": [
+            "Random motion gives net transport down a concentration gradient."
+          ]
+        },
+        {
+          "id": "movement-starter-electrodiffusion",
+          "difficulty": "easy",
+          "type": "mc",
+          "progressionAdded": true,
+          "source": "L01 PDF 29",
+          "prompt": "Which two contributions make up electrodiffusive ion flux?",
+          "options": [
+            {
+              "text": "Diffusion and ATP-driven pumping",
+              "feedback": "Active pumping is distinct from the passive electrodiffusive flux law."
+            },
+            {
+              "text": "Electrical drift and ATP pumping",
+              "feedback": "This omits the diffusion contribution and adds active transport."
+            },
+            {
+              "text": "Diffusion and electrical drift",
+              "feedback": "Concentration gradients drive diffusion; electric fields drive drift."
+            }
+          ],
+          "correct": 2,
+          "modelAnswer": [
+            "Concentration gradients drive diffusion; electric fields drive drift."
           ]
         }
       ],
@@ -2274,7 +2846,7 @@ const content = {
       "blocks": [
         {
           "type": "text",
-          "body": "At an ion equilibrium potential, the electrical and diffusional fluxes cancel. Individual ions can still cross in both directions. One-ion equilibrium is not a claim that all ions, water and the entire cell are in equilibrium."
+          "body": ["At an ion’s equilibrium voltage, electrical and diffusional fluxes cancel. Individual ions can still cross in both directions. Setting net Nernst–Planck flux to zero and integrating across the membrane gives the Nernst concentration ratio in the explorer below.", "Use outside/inside with the positive prefactor, or inside/outside with a minus sign. Include signed valence and the stated temperature; the base-ten shortcut already incorporates the logarithm conversion. One-ion equilibrium does not imply equilibrium for every ion or water. See slides 30–31."]
         },
         {
           "type": "figure",
@@ -2323,6 +2895,58 @@ const content = {
           ],
           "modelAnswer": [
             "Opposing fluxes balance to give zero net flux."
+          ]
+        },
+        {
+          "id": "equilibrium-starter-ratio",
+          "difficulty": "easy",
+          "type": "mc",
+          "progressionAdded": true,
+          "source": "L01 PDF 30–31",
+          "prompt": "Which concentration ratio accompanies the positive Nernst prefactor $RT/(zF)$?",
+          "options": [
+            {
+              "text": "Outside concentration over inside",
+              "feedback": "The positive prefactor uses the outside/inside ratio."
+            },
+            {
+              "text": "Inside concentration over outside",
+              "feedback": "The reciprocal ratio needs a minus sign before the prefactor."
+            },
+            {
+              "text": "Inside concentration over their sum",
+              "feedback": "Nernst uses a side-to-side ratio, not a fraction of the total."
+            }
+          ],
+          "correct": 0,
+          "modelAnswer": [
+            "The positive prefactor uses the outside/inside ratio."
+          ]
+        },
+        {
+          "id": "equilibrium-starter-balance",
+          "difficulty": "easy",
+          "type": "mc",
+          "progressionAdded": true,
+          "source": "L01 PDF 30–31",
+          "prompt": "What balances at the equilibrium voltage of a permeant ion?",
+          "options": [
+            {
+              "text": "Electrical and ATP-driven fluxes",
+              "feedback": "The Nernst balance is passive; ATP pumping is not one of its two terms."
+            },
+            {
+              "text": "Electrical and diffusional fluxes",
+              "feedback": "Their opposite net contributions cancel for that ion."
+            },
+            {
+              "text": "Diffusional and ATP-driven fluxes",
+              "feedback": "This replaces the electrical contribution with active transport."
+            }
+          ],
+          "correct": 1,
+          "modelAnswer": [
+            "Their opposite net contributions cancel for that ion."
           ]
         }
       ],
@@ -2586,7 +3210,7 @@ const content = {
       "blocks": [
         {
           "type": "text",
-          "body": "Typical animal cells have more potassium inside and more sodium, chloride and calcium outside. Typical potassium and chloride equilibrium potentials are negative; sodium and calcium are positive. A table value describes its stated preparation and temperature, not every cell."
+          "body": ["Typical animal cells contain more potassium inside and more sodium, chloride and calcium outside. Their equilibrium voltages reflect both concentration ratios and signed valence: typical potassium and chloride values are negative, whereas sodium and calcium values are positive. Source table values depend on preparation and temperature.", "Compare membrane voltage with the ion’s own equilibrium voltage to predict movement. Holding voltage more positive than equilibrium favors outward positive-charge current: cations move out, whereas anions move in. At equilibrium the net flux vanishes. See slides 32–33."]
         },
         {
           "type": "figure",
@@ -2636,6 +3260,58 @@ const content = {
           "modelAnswer": [
             "The logarithm of a unit ratio is zero."
           ]
+        },
+        {
+          "id": "ion-patterns-starter-potassium",
+          "difficulty": "easy",
+          "type": "mc",
+          "progressionAdded": true,
+          "source": "L01 PDF 32–33",
+          "prompt": "Which ion is typically more concentrated inside animal cells than outside?",
+          "options": [
+            {
+              "text": "Sodium ions",
+              "feedback": "The source pattern places sodium predominantly outside."
+            },
+            {
+              "text": "Calcium ions",
+              "feedback": "Free calcium is typically much more concentrated outside."
+            },
+            {
+              "text": "Potassium ions",
+              "feedback": "The source pattern places potassium predominantly inside."
+            }
+          ],
+          "correct": 2,
+          "modelAnswer": [
+            "The source pattern places potassium predominantly inside."
+          ]
+        },
+        {
+          "id": "ion-patterns-starter-chloride",
+          "difficulty": "easy",
+          "type": "mc",
+          "progressionAdded": true,
+          "source": "L01 PDF 32–33",
+          "prompt": "What is the typical sign of the chloride equilibrium voltage in the source pattern?",
+          "options": [
+            {
+              "text": "A negative equilibrium voltage",
+              "feedback": "Outside-rich chloride has negative valence, giving a negative equilibrium voltage."
+            },
+            {
+              "text": "A positive equilibrium voltage",
+              "feedback": "This misses the negative valence of chloride."
+            },
+            {
+              "text": "A zero equilibrium voltage",
+              "feedback": "Zero requires equal concentrations, unlike the source chloride pattern."
+            }
+          ],
+          "correct": 0,
+          "modelAnswer": [
+            "Outside-rich chloride has negative valence, giving a negative equilibrium voltage."
+          ]
         }
       ],
       "formulas": []
@@ -2647,7 +3323,7 @@ const content = {
       "blocks": [
         {
           "type": "text",
-          "body": "Passive selective pathways allow downhill movement. Primary active transport uses ATP hydrolysis; secondary active transport uses another ion gradient. Impermeant intracellular anions help shape distributions. The disputed bicarbonate/chloride directions on slide 35 are excluded."
+          "body": ["Passive selective pathways allow ions to move downhill in electrochemical potential. Leaks would dissipate gradients without maintenance. Primary active transport uses ATP hydrolysis; secondary active transport uses energy stored in another ion gradient rather than directly consuming ATP for each transport event.", "The sodium/potassium ATPase exports three sodium ions for two potassium ions imported, transferring net positive charge outward. Impermeant intracellular anions also shape ionic distributions. Maintaining gradients despite leak is not the same as zero flux through every pathway. See slides 34–35; disputed bicarbonate/chloride directions remain excluded."]
         },
         {
           "type": "figure",
@@ -2697,6 +3373,58 @@ const content = {
           "modelAnswer": [
             "ATP hydrolysis powers primary active transport."
           ]
+        },
+        {
+          "id": "transport-starter-secondary",
+          "difficulty": "easy",
+          "type": "mc",
+          "progressionAdded": true,
+          "source": "L01 PDF 34–35",
+          "prompt": "What energy source directly drives secondary active transport?",
+          "options": [
+            {
+              "text": "ATP split by the transporter itself",
+              "feedback": "Direct ATP hydrolysis defines primary rather than secondary transport."
+            },
+            {
+              "text": "Energy stored in another ion gradient",
+              "feedback": "Secondary transport couples movement to another ion’s electrochemical gradient."
+            },
+            {
+              "text": "Random motion through a leak channel",
+              "feedback": "Passive leaks do not supply the coupling of secondary active transport."
+            }
+          ],
+          "correct": 1,
+          "modelAnswer": [
+            "Secondary transport couples movement to another ion’s electrochemical gradient."
+          ]
+        },
+        {
+          "id": "transport-starter-pump",
+          "difficulty": "easy",
+          "type": "mc",
+          "progressionAdded": true,
+          "source": "L01 PDF 34–35",
+          "prompt": "Which directions does the sodium/potassium pump use in its normal cycle?",
+          "options": [
+            {
+              "text": "Sodium inward and potassium outward",
+              "feedback": "Those are the reverse of the pump’s normal transport directions."
+            },
+            {
+              "text": "Sodium outward and potassium outward",
+              "feedback": "Potassium is imported, rather than exported, in the normal cycle."
+            },
+            {
+              "text": "Sodium outward and potassium inward",
+              "feedback": "The pump exports three sodium ions and imports two potassium ions."
+            }
+          ],
+          "correct": 2,
+          "modelAnswer": [
+            "The pump exports three sodium ions and imports two potassium ions."
+          ]
         }
       ],
       "formulas": []
@@ -2708,7 +3436,7 @@ const content = {
       "blocks": [
         {
           "type": "text",
-          "body": "Bulk solutions are approximately electrically neutral. A thin region of charge separation near the membrane supports voltage. These statements are compatible: voltage does not require a large charge imbalance throughout the cytoplasm."
+          "body": ["Bulk intracellular and extracellular solutions are approximately electrically neutral. Add concentrations weighted by valence: a divalent cation requires twice as much monovalent anion concentration for charge balance. Counting particles without their charge would give the wrong neutrality condition.", "Membrane voltage is compatible with this bulk neutrality because a thin boundary region holds separated charge on opposite sides of the insulating membrane. A negative inside voltage therefore does not require a large charge imbalance throughout the cytoplasm. See slide 36 and the charge-storage relations above."]
         },
         {
           "type": "figure",
@@ -2757,6 +3485,32 @@ const content = {
           ],
           "modelAnswer": [
             "Membrane-adjacent charge separation supports voltage."
+          ]
+        },
+        {
+          "id": "neutrality-starter-valence",
+          "difficulty": "easy",
+          "type": "mc",
+          "progressionAdded": true,
+          "source": "L01 PDF 36",
+          "prompt": "What must weight ion concentrations when checking bulk electroneutrality?",
+          "options": [
+            {
+              "text": "The signed valence of each ion",
+              "feedback": "Charge balance weights concentration by signed ionic charge."
+            },
+            {
+              "text": "The molecular mass of each ion",
+              "feedback": "Mass balance is different from electric charge balance."
+            },
+            {
+              "text": "The diffusion rate of each ion",
+              "feedback": "Diffusion rates affect transport, not charge per particle."
+            }
+          ],
+          "correct": 0,
+          "modelAnswer": [
+            "Charge balance weights concentration by signed ionic charge."
           ]
         }
       ],
@@ -2828,7 +3582,7 @@ const content = {
       "blocks": [
         {
           "type": "text",
-          "body": "Impermeant charge makes permeant ions distribute asymmetrically. Apply electroneutrality, conservation and equal electrochemical potentials together. The worked concentrations assume fixed volumes; if water can move, separately predict osmotic tendency rather than call this the unrestricted final equilibrium."
+          "body": ["Impermeant charge forces permeant ions to distribute asymmetrically. At constrained equilibrium their Nernst voltages agree. For monovalent potassium and chloride this gives equal concentration products on both sides. Combine that relation with bulk electroneutrality and conservation; do not assume the permeant concentrations must match.", "For equal fixed volumes, express redistribution by one concentration transfer and solve for the final concentrations before calculating voltage. Count all dissolved particles, including impermeant ions, to predict water tendency. The fixed-volume result is not the unrestricted osmotic equilibrium. See slides 37–38 and Exercise 1 P3."]
         },
         {
           "type": "figure",
@@ -2877,6 +3631,58 @@ const content = {
           ],
           "modelAnswer": [
             "Conservation and electroneutrality determine the allowed redistribution."
+          ]
+        },
+        {
+          "id": "donnan-starter-impermeant",
+          "difficulty": "easy",
+          "type": "mc",
+          "progressionAdded": true,
+          "source": "L01 PDF 37–38; Exercise 1 P3",
+          "prompt": "What establishes the asymmetry in the taught Donnan setup?",
+          "options": [
+            {
+              "text": "Equal permeant salt on both sides",
+              "feedback": "Equal salt alone does not establish the trapped-charge asymmetry."
+            },
+            {
+              "text": "Charged solute trapped on one side",
+              "feedback": "Impermeant charge constrains how the permeant ions can redistribute."
+            },
+            {
+              "text": "A pump moving salt to one side",
+              "feedback": "The taught Donnan equilibrium uses passive redistribution, not pumping."
+            }
+          ],
+          "correct": 1,
+          "modelAnswer": [
+            "Impermeant charge constrains how the permeant ions can redistribute."
+          ]
+        },
+        {
+          "id": "donnan-starter-water",
+          "difficulty": "easy",
+          "type": "mc",
+          "progressionAdded": true,
+          "source": "L01 PDF 37–38; Exercise 1 P3",
+          "prompt": "Which particles count when comparing osmotic tendencies in this setup?",
+          "options": [
+            {
+              "text": "Only solutes that cross the membrane",
+              "feedback": "Impermeant dissolved particles also contribute to osmotic tendency."
+            },
+            {
+              "text": "Only solutes trapped by the membrane",
+              "feedback": "Permeant dissolved particles also count in each compartment."
+            },
+            {
+              "text": "Both permeant and impermeant solutes",
+              "feedback": "All dissolved particles contribute to the osmotic comparison."
+            }
+          ],
+          "correct": 2,
+          "modelAnswer": [
+            "All dissolved particles contribute to the osmotic comparison."
           ]
         }
       ],
@@ -4619,6 +5425,7 @@ const content = {
     },
     {
       "id": "L01-direct-series-r",
+      "practice": "extra",
       "sectionId": "combinations",
       "type": "multiStepCalc",
       "difficulty": "easy",
@@ -4821,6 +5628,7 @@ const content = {
     },
     {
       "id": "L01-direct-parallel-c",
+      "practice": "extra",
       "sectionId": "combinations",
       "type": "multiStepCalc",
       "difficulty": "easy",
@@ -5124,6 +5932,7 @@ const content = {
     },
     {
       "id": "L01-direct-series-g",
+      "practice": "extra",
       "sectionId": "combinations",
       "type": "multiStepCalc",
       "difficulty": "easy",
@@ -5225,6 +6034,7 @@ const content = {
     },
     {
       "id": "L01-direct-node",
+      "practice": "extra",
       "sectionId": "combinations",
       "type": "multiStepCalc",
       "difficulty": "easy",
@@ -5425,6 +6235,7 @@ const content = {
     },
     {
       "id": "L01-direct-series-v",
+      "practice": "extra",
       "sectionId": "combinations",
       "type": "multiStepCalc",
       "difficulty": "easy",
@@ -5525,6 +6336,7 @@ const content = {
     },
     {
       "id": "L01-direct-parallel-i",
+      "practice": "extra",
       "sectionId": "combinations",
       "type": "multiStepCalc",
       "difficulty": "easy",

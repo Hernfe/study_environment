@@ -60,3 +60,37 @@ Each mock covers lectures 1–7 and prominently uses lecture 7. Calculation copi
 30 segments, 30 easy inline checks, 27 explorer/drill pairs, 98 bank questions, three five-question mocks.
 
 Bank types: {"mc":29,"multiStepCalc":33,"classify":1,"trueFalse":2,"written":32,"derive":1}. Tiers: {"easy":50,"medium":39,"hard":9}.
+
+## Easy-first progression follow-up, 12 November 2026
+
+L07 only. Every one of the 30 sections now has two easy inline MCQs before
+numeric drills and tiered bank work: 30 reused checks and 30 new complementary
+starters (`L07-<sectionId>-starter`, marked `progressionAdded`). Each section
+reuses its existing check ID, answer index, option order, hints and model
+answer. Inline prompts are distinguished from the 29 existing bank recall
+prompts, and feedback now explains each option's underlying distinction.
+One inline sensor distractor was repaired from electrode-metal trivia to the
+permeation concentration gradient, with its correct answer/index unchanged.
+All other reused option text is preserved. The bank remains unchanged and provides later retrieval of those core facts;
+there are no identical inline/bank prompt strings. Two checks suffice for each
+small source-page segment, rather than adding redundant 3rd/4th checks.
+
+New question coverage follows each row's existing source: overview p1;
+recording p2; model p3–4; overshoot p5; ions p6; TEVC p7; components p8;
+reversal p9; concentration p10; substitution p11; blockers p12;
+instantaneous protocol p13 and law p14; sodium p15–16; potassium p17;
+conductance p18; sensors p19; gates p20; states p21; inactivation p22;
+products p23; structure p24; balance p25; relaxation p26; time courses p27;
+fitting p28; steady curves p29; inferred rates p30; empirical laws p31;
+group work p32–33. All 33 full-deck pages were reread, including visual
+source sheets. No Exercise7 or original 1939 article was found or invented.
+No new measurements, numeric answers, formulas, figures or external sources.
+
+Preserved: section order/theory/visuals, 27 explorer/drill pairs, 87 core and
+11 optional bank questions, all their IDs and numeric payloads, three local
+mocks and all 27 course mocks. Across the course: 609 core/80 optional remain.
+New starters have three balanced options; existing two-option checks retain
+their answer semantics for saved progress. Correct authored positions among
+60 inline checks: 25/25/10; seeded displayed positions: 26/23/11 (mixed two-
+and three-option questions, so equal thirds is not the expected distribution).
+See `.codex-progression/L07-REPORT.md` for commands, exits and browser evidence.

@@ -4,7 +4,7 @@
 
 import { el, paragraphs, seededOrder } from './dom.js';
 import { renderHints } from './quantitative.js';
-import { recordConceptHint, recordConceptResult } from './progress.js';
+import { getPracticeState, savePracticeState, recordConceptHint, recordConceptResult } from './progress.js';
 
 // Builds the options list plus check/feedback for one multiple-choice
 // question. Returns { root, reset } and calls onCheck({ correct, index })
@@ -12,7 +12,7 @@ import { recordConceptHint, recordConceptResult } from './progress.js';
 // Options are shown in a stable shuffled order seeded by `seed`
 // (lecture id plus question id), so the authored position of the
 // correct option never shows through.
-export function createMcBody(question, { onCheck, allowRetry = false, seed, showAllFeedback = false } = {}) {
+export function createMcBody(question, { onCheck, allowRetry = false, seed, showAllFeedback = false, onReset } = {}) {
   let selected = null;
   let locked = false;
   const buttons = [];
@@ -82,6 +82,7 @@ export function createMcBody(question, { onCheck, allowRetry = false, seed, show
   function reset() {
     selected = null;
     locked = false;
+    onReset?.();
     buttons.forEach((b) => {
       b.disabled = false;
       b.className = 'option';
@@ -97,14 +98,19 @@ export function createMcBody(question, { onCheck, allowRetry = false, seed, show
   }
 
   const root = el('div', { class: 'mc-body' }, [list, feedback, row]);
-  return { root, reset, isLocked: () => locked };
+  return { root, reset, restore: (index) => {
+    if (!Number.isInteger(index) || index < 0 || index >= question.options.length) return;
+    select(index);
+    check();
+  }, isLocked: () => locked };
 }
 
-export function renderConceptQuiz(questions, { lectureId, sectionTitle, showAllFeedback = false } = {}) {
+export function renderConceptQuiz(questions, { lectureId, sectionTitle, showAllFeedback = false, bestGuess = false } = {}) {
   if (!questions || questions.length === 0) return null;
   const container = el('div', { class: 'concept-quiz' }, [
     el('h3', {}, 'Check yourself'),
   ]);
+  if (bestGuess) container.appendChild(el('p', { class: 'muted' }, 'Make your best guess, then check to read the explanations. You can skip ahead to any practice question.'));
   questions.forEach((question, index) => {
     const card = el('article', { class: 'question', 'aria-labelledby': `cq-${question.id}` }, [
       el('div', { class: 'question-head' }, [
@@ -114,17 +120,38 @@ export function renderConceptQuiz(questions, { lectureId, sectionTitle, showAllF
       ]),
       el('div', { class: 'question-prompt', id: `cq-${question.id}` }, paragraphs(question.prompt)),
     ]);
+    const stateKey = `concept:${lectureId}:${question.id}`;
+    let restoring = false;
+    const help = el('div');
+    const showHelp = () => {
+      help.replaceChildren();
+      if (question.hints?.length) help.appendChild(renderHints(question.hints, (level) => { if (lectureId) recordConceptHint(lectureId, question.id, level); }));
+      if (question.modelAnswer?.length) help.appendChild(el('details', { class: 'reveal' }, [el('summary', {}, 'Show worked answer'), el('div', {}, paragraphs(question.modelAnswer))]));
+    };
     const body = createMcBody(question, {
       allowRetry: true,
-      showAllFeedback,
+      showAllFeedback: bestGuess || showAllFeedback,
       seed: `${lectureId}:${question.id}`,
-      onCheck: ({ correct }) => {
-        if (lectureId) recordConceptResult(lectureId, question.id, correct);
+      onReset: () => {
+        if (bestGuess) { help.replaceChildren(); if (lectureId) savePracticeState(stateKey, {}); }
+      },
+      onCheck: ({ correct, index }) => {
+        if (lectureId && !restoring) recordConceptResult(lectureId, question.id, correct);
+        if (bestGuess) {
+          showHelp();
+          if (lectureId && !restoring) savePracticeState(stateKey, { selected: index });
+        }
       },
     });
-    if (question.hints?.length) card.appendChild(renderHints(question.hints, (level) => { if (lectureId) recordConceptHint(lectureId, question.id, level); }));
+    if (!bestGuess && question.hints?.length) card.appendChild(renderHints(question.hints, (level) => { if (lectureId) recordConceptHint(lectureId, question.id, level); }));
     card.appendChild(body.root);
-    if (question.modelAnswer?.length) card.appendChild(el('details', { class: 'reveal' }, [el('summary', {}, 'Show worked answer'), el('div', {}, paragraphs(question.modelAnswer))]));
+    if (!bestGuess && question.modelAnswer?.length) card.appendChild(el('details', { class: 'reveal' }, [el('summary', {}, 'Show worked answer'), el('div', {}, paragraphs(question.modelAnswer))]));
+    if (bestGuess) {
+      card.appendChild(help);
+      restoring = true;
+      if (lectureId) body.restore(getPracticeState(stateKey).selected);
+      restoring = false;
+    }
     container.appendChild(card);
   });
   return container;

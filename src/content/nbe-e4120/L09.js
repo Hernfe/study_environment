@@ -39,7 +39,7 @@ const content={
       "blocks": [
         {
           "type": "text",
-          "body": "Explain transport energy, molecular selectivity and gating before linking altered channel function to cell behavior. Use $V_m=V_{in}-V_{out}$ and positive outward current. Applications in part 2 are taught here but their final-exam scope remains provisional."
+          "body": ["Ion channels link molecular structure to electrical behavior: a pore selects ions, while a gate controls when they pass. Distinguish these roles before explaining how altered channel function changes a cell.", "Use $V_m=V_{in}-V_{out}$ and positive outward current throughout. Part 1 develops transport, selectivity and gating; part 2 applies those ideas to channel dysfunction and recording. The applications remain provisional final-exam scope. (9:1 PDF p1.)"]
         },
         {
           "type": "figure",
@@ -68,11 +68,11 @@ const content={
           "options": [
             {
               "text": "Ion passage down its electrochemical gradient",
-              "feedback": "Correct. Ion passage down its electrochemical gradient."
+              "feedback": "An open pore allows downhill electrochemical movement without obligatory ATP per ion."
             },
             {
               "text": "Ion pumping against its electrochemical gradient",
-              "feedback": "Use this distinction: Ion passage down its electrochemical gradient."
+              "feedback": "Uphill pumping requires an energy source and is active transport."
             }
           ],
           "hints": [
@@ -85,6 +85,40 @@ const content={
           ],
           "modelAnswer": [
             "Ion passage down its electrochemical gradient."
+          ]
+        },
+        {
+          "id": "L09-overview-starter",
+          "type": "mc",
+          "difficulty": "easy",
+          "progressionAdded": true,
+          "source": "L09 9:1 p1",
+          "prompt": "What is the role of a channel gate?",
+          "options": [
+            {
+              "text": "Control when ions can pass",
+              "feedback": "The gate controls opening and closing of the permeation pathway."
+            },
+            {
+              "text": "Determine which ions fit best",
+              "feedback": "Selectivity belongs to the pore and filter, distinct from the gate."
+            },
+            {
+              "text": "Maintain the ionic gradient",
+              "feedback": "Pumps maintain gradients; gates control passive access to a pore."
+            }
+          ],
+          "correct": 0,
+          "hints": [
+            {
+              "body": "Recall the distinction taught in this section."
+            },
+            {
+              "body": "The gate controls opening and closing of the permeation pathway."
+            }
+          ],
+          "modelAnswer": [
+            "The gate controls opening and closing of the permeation pathway."
           ]
         }
       ],
@@ -102,7 +136,7 @@ const content={
       "blocks": [
         {
           "type": "text",
-          "body": "Primary pumps directly use energy. The source secondary carriers couple downhill transport to uphill transport. Channels provide rapid passive movement down the electrochemical gradient; opening a channel does not pump an ion."
+          "body": ["Primary pumps directly convert ATP, light or other energy into concentration gradients. The secondary carriers shown here use a gradient created by pumps: downhill movement of one substance drives another uphill.", "Channels instead provide rapid passive movement down an electrochemical gradient. Electrical and concentration forces must be considered together. Opening a pore changes access to that gradient; it neither supplies energy nor guarantees movement down the concentration gradient alone. (9:1 PDF p2.)"]
         },
         {
           "type": "figure",
@@ -126,16 +160,16 @@ const content={
       "conceptQuiz": [
         {
           "id": "L09-transport-check",
-          "prompt": "Which source directly powers secondary active transport?",
+          "prompt": "Which energy source does a secondary carrier use immediately?",
           "correct": 1,
           "options": [
             {
               "text": "ATP cleavage during every carrier movement",
-              "feedback": "Use this distinction: A gradient previously established by pumping."
+              "feedback": "Direct ATP use describes primary active transport, not the secondary carrier."
             },
             {
               "text": "A gradient previously established by pumping",
-              "feedback": "Correct. A gradient previously established by pumping."
+              "feedback": "Secondary carriers use energy stored in a gradient established by pumps."
             }
           ],
           "hints": [
@@ -149,6 +183,40 @@ const content={
           "modelAnswer": [
             "A gradient previously established by pumping."
           ]
+        },
+        {
+          "id": "L09-transport-starter",
+          "type": "mc",
+          "difficulty": "easy",
+          "progressionAdded": true,
+          "source": "L09 9:1 p2",
+          "prompt": "What distinguishes channel transport from alternating-access carrier transport?",
+          "options": [
+            {
+              "text": "ATP is cleaved for each ion passed",
+              "feedback": "Channel permeation is passive and needs no obligatory ATP cleavage per ion."
+            },
+            {
+              "text": "Many ions pass during one opening",
+              "feedback": "An open pore permits rapid flow of many ions down their electrochemical gradient."
+            },
+            {
+              "text": "One ion crosses per protein cycle",
+              "feedback": "Alternating access describes carriers rather than flow through an open pore."
+            }
+          ],
+          "correct": 1,
+          "hints": [
+            {
+              "body": "Recall the distinction taught in this section."
+            },
+            {
+              "body": "An open pore permits rapid flow of many ions down their electrochemical gradient."
+            }
+          ],
+          "modelAnswer": [
+            "An open pore permits rapid flow of many ions down their electrochemical gradient."
+          ]
         }
       ]
     },
@@ -160,7 +228,7 @@ const content={
       "blocks": [
         {
           "type": "text",
-          "body": "The channelome includes channel types, abundance and distribution in plasma and organelle membranes. It shapes excitability, cell volume, salt and water handling, secretion and homeostasis. A repertoire is more than one dominant channel."
+          "body": ["The channelome is the complete set of channel types, their abundance and their distribution in plasma and organelle membranes. Together they shape excitability, signaling and homeostasis.", "Gating changes membrane potential, cell volume, salt and water handling, and secretion. Thus a cell cannot be described by naming its most prominent channel alone. In the source cell diagram, location matters as well as channel identity because different membranes separate different compartments. (9:1 PDF p3.)"]
         },
         {
           "type": "figure",
@@ -184,16 +252,16 @@ const content={
       "conceptQuiz": [
         {
           "id": "L09-channelome-check",
-          "prompt": "What belongs to the channelome?",
+          "prompt": "Does the channelome include channels that are currently closed?",
           "correct": 0,
           "options": [
             {
               "text": "Channel repertoire, abundance and membrane distribution",
-              "feedback": "Correct. Channel repertoire, abundance and membrane distribution."
+              "feedback": "The channelome includes the repertoire, abundance and distribution, including closed channels."
             },
             {
               "text": "Only the channels conducting at the moment of recording",
-              "feedback": "Use this distinction: Channel repertoire, abundance and membrane distribution."
+              "feedback": "Being closed during one recording does not remove a channel from the channelome."
             }
           ],
           "hints": [
@@ -207,6 +275,40 @@ const content={
           "modelAnswer": [
             "Channel repertoire, abundance and membrane distribution."
           ]
+        },
+        {
+          "id": "L09-channelome-starter",
+          "type": "mc",
+          "difficulty": "easy",
+          "progressionAdded": true,
+          "source": "L09 9:1 p3",
+          "prompt": "Which membranes are included in the taught channelome?",
+          "options": [
+            {
+              "text": "Plasma and extracellular matrices",
+              "feedback": "Extracellular matrix is not a channel-bearing cellular membrane."
+            },
+            {
+              "text": "Organelle and nuclear contents",
+              "feedback": "The channelome concerns membrane proteins, not all organelle or nuclear contents."
+            },
+            {
+              "text": "Plasma and organelle membranes",
+              "feedback": "The repertoire includes channels in the surface and organelle membranes."
+            }
+          ],
+          "correct": 2,
+          "hints": [
+            {
+              "body": "Recall the distinction taught in this section."
+            },
+            {
+              "body": "The repertoire includes channels in the surface and organelle membranes."
+            }
+          ],
+          "modelAnswer": [
+            "The repertoire includes channels in the surface and organelle membranes."
+          ]
         }
       ]
     },
@@ -218,7 +320,7 @@ const content={
       "blocks": [
         {
           "type": "text",
-          "body": "Long-term expression sets the repertoire; short-term gating changes activity. Trafficking changes membrane location. The supplied retinal pigment epithelium example relocates sodium channels toward phagosomes during photoreceptor outer-segment uptake."
+          "body": ["Cells regulate channels through expression, gating and trafficking. Expression sets the longer-term repertoire; gating changes whether existing channels conduct; trafficking relocates them between membrane compartments. The source retinal pigment epithelium example moves sodium channels toward phagosomes during photoreceptor outer-segment uptake.", "In the conductance explorer below, channel number, open probability and unitary conductance are separate factors. A smaller population conductance alone cannot identify which factor changed; membrane relocation need not change the pore gene. (9:1 PDF p4.)"]
         },
         {
           "type": "figure",
@@ -307,16 +409,16 @@ const content={
       "conceptQuiz": [
         {
           "id": "L09-control-check",
-          "prompt": "What changes membrane location without changing the pore gene?",
+          "prompt": "Which process relocates an already synthesized channel?",
           "correct": 1,
           "options": [
             {
               "text": "Replacement of the channel selectivity sequence",
-              "feedback": "Use this distinction: Trafficking of existing channel proteins."
+              "feedback": "A selectivity-sequence change alters the protein; relocation uses trafficking."
             },
             {
               "text": "Trafficking of existing channel proteins",
-              "feedback": "Correct. Trafficking of existing channel proteins."
+              "feedback": "Trafficking moves existing channels between membrane compartments."
             }
           ],
           "hints": [
@@ -330,6 +432,40 @@ const content={
           "modelAnswer": [
             "Trafficking of existing channel proteins."
           ]
+        },
+        {
+          "id": "L09-control-starter",
+          "type": "mc",
+          "difficulty": "easy",
+          "progressionAdded": true,
+          "source": "L09 9:1 p4",
+          "prompt": "Which control changes the fraction of existing channels that are open?",
+          "options": [
+            {
+              "text": "Changing channel gating",
+              "feedback": "Gating changes open probability without requiring a new channel protein."
+            },
+            {
+              "text": "Changing gene expression",
+              "feedback": "Expression changes the repertoire or abundance rather than directly defining open probability."
+            },
+            {
+              "text": "Changing channel location",
+              "feedback": "Trafficking relocates channels; gating controls their open state."
+            }
+          ],
+          "correct": 0,
+          "hints": [
+            {
+              "body": "Recall the distinction taught in this section."
+            },
+            {
+              "body": "Gating changes open probability without requiring a new channel protein."
+            }
+          ],
+          "modelAnswer": [
+            "Gating changes open probability without requiring a new channel protein."
+          ]
         }
       ]
     },
@@ -341,7 +477,7 @@ const content={
       "blocks": [
         {
           "type": "text",
-          "body": "KcsA is a bacterial potassium-selective tetramer. Each identical subunit has two membrane helices joined by a P-loop. The cytoplasmic helix bundle forms the gate; the extracellular P-loop region forms the filter. Intracellular pH regulates opening."
+          "body": ["KcsA is a bacterial potassium-selective tetramer, with four identical two-helix subunits around a central pore. Each subunit contributes a P-loop to the extracellular selectivity-filter region.", "The intracellular helix bundle forms the gate and responds to intracellular pH. Follow the inside/outside labels in the source structure: changing access at the bundle gate differs from changing which ions the filter favors. KcsA illustrates pore architecture without requiring a voltage-sensor domain. (9:1 PDF p5.)"]
         },
         {
           "type": "figure",
@@ -365,16 +501,16 @@ const content={
       "conceptQuiz": [
         {
           "id": "L09-kcsa-check",
-          "prompt": "Where is the KcsA bundle gate?",
+          "prompt": "Which part of KcsA closes at its cytoplasmic entrance?",
           "correct": 0,
           "options": [
             {
               "text": "At the tightly packed cytoplasmic helices",
-              "feedback": "Correct. At the tightly packed cytoplasmic helices."
+              "feedback": "The cytoplasmic helices form the gate; intracellular pH regulates KcsA."
             },
             {
               "text": "At the widened extracellular pore entrance",
-              "feedback": "Use this distinction: At the tightly packed cytoplasmic helices."
+              "feedback": "The extracellular region contains the filter rather than the cytoplasmic bundle gate."
             }
           ],
           "hints": [
@@ -388,6 +524,40 @@ const content={
           "modelAnswer": [
             "At the tightly packed cytoplasmic helices."
           ]
+        },
+        {
+          "id": "L09-kcsa-starter",
+          "type": "mc",
+          "difficulty": "easy",
+          "progressionAdded": true,
+          "source": "L09 9:1 p5",
+          "prompt": "Which stimulus regulates the taught KcsA gate?",
+          "options": [
+            {
+              "text": "Extracellular ACh binding",
+              "feedback": "Acetylcholine gates the nicotinic receptor, not the taught KcsA gate."
+            },
+            {
+              "text": "Intracellular pH change",
+              "feedback": "KcsA is the pH-regulated two-helix potassium channel in this section."
+            },
+            {
+              "text": "Membrane voltage change",
+              "feedback": "The six-helix voltage-sensor architecture belongs to voltage-gated channels, not KcsA."
+            }
+          ],
+          "correct": 1,
+          "hints": [
+            {
+              "body": "Recall the distinction taught in this section."
+            },
+            {
+              "body": "KcsA is the pH-regulated two-helix potassium channel in this section."
+            }
+          ],
+          "modelAnswer": [
+            "KcsA is the pH-regulated two-helix potassium channel in this section."
+          ]
         }
       ]
     },
@@ -399,7 +569,7 @@ const content={
       "blocks": [
         {
           "type": "text",
-          "body": "For outward flow, potassium enters an aqueous cavity, sheds hydration water in the narrow filter, is coordinated by carbonyl oxygens and rehydrates outside. The pathway is reversible when driving force reverses. Less-selective pores need less dehydration."
+          "body": ["For the outward passage illustrated, potassium enters the aqueous cavity, loses hydration water at the narrow filter, interacts with carbonyl oxygens, then rehydrates outside. Negative pore-helix charges help attract potassium toward the cavity.", "Filter interactions must compensate for dehydration. Less-selective pores, such as the acetylcholine receptor example, allow ions to remain more hydrated. The drawing follows outward flow for explanation; the pathway can carry inward flow when the electrochemical driving force reverses. (9:1 PDF p6.)"]
         },
         {
           "type": "figure",
@@ -423,16 +593,16 @@ const content={
       "conceptQuiz": [
         {
           "id": "L09-permeation-check",
-          "prompt": "What replaces hydration water in the selective filter?",
+          "prompt": "Which pore groups coordinate potassium after its water shell is shed?",
           "correct": 1,
           "options": [
             {
               "text": "Hydrophobic lipid tails surrounding the channel",
-              "feedback": "Use this distinction: Coordinating carbonyl oxygens of the channel."
+              "feedback": "Lipid tails do not provide the carbonyl coordination within the selective filter."
             },
             {
               "text": "Coordinating carbonyl oxygens of the channel",
-              "feedback": "Correct. Coordinating carbonyl oxygens of the channel."
+              "feedback": "Filter carbonyl oxygens coordinate potassium in place of its hydration water."
             }
           ],
           "hints": [
@@ -446,6 +616,40 @@ const content={
           "modelAnswer": [
             "Coordinating carbonyl oxygens of the channel."
           ]
+        },
+        {
+          "id": "L09-permeation-starter",
+          "type": "mc",
+          "difficulty": "easy",
+          "progressionAdded": true,
+          "source": "L09 9:1 p6",
+          "prompt": "How are ions described within the less-selective acetylcholine-receptor pore?",
+          "options": [
+            {
+              "text": "They become fully dehydrated",
+              "feedback": "Strong dehydration is characteristic of the narrow potassium filter comparison."
+            },
+            {
+              "text": "They are carried by ATP pumps",
+              "feedback": "The receptor is a passive pore, not an ATP-driven carrier."
+            },
+            {
+              "text": "They remain largely hydrated",
+              "feedback": "This broader pore passes sodium and potassium largely hydrated."
+            }
+          ],
+          "correct": 2,
+          "hints": [
+            {
+              "body": "Recall the distinction taught in this section."
+            },
+            {
+              "body": "This broader pore passes sodium and potassium largely hydrated."
+            }
+          ],
+          "modelAnswer": [
+            "This broader pore passes sodium and potassium largely hydrated."
+          ]
         }
       ]
     },
@@ -457,7 +661,7 @@ const content={
       "blocks": [
         {
           "type": "text",
-          "body": "The source KcsA filter has four main sites, each coordinated by carbonyl oxygens from TVGYG. Fit and hydration energy explain why smaller sodium is rejected. Single-file motion and mutual repulsion help maintain fast flow."
+          "body": ["The KcsA filter contains four main binding sites formed by oxygens associated with the TVGYG sequence. These replace the hydration shell of potassium at low energetic cost. Single-file ions and mutual repulsion support rapid passage.", "Smaller sodium is not automatically admitted: its stronger hydration and poorer fit make replacement of water less favorable. A filter mutation can therefore alter selectivity without simply widening the pore. Compare ion passage or reversal under matched solutions, rather than attributing an amplitude change alone to selectivity. (9:1 PDF p7.)"]
         },
         {
           "type": "figure",
@@ -481,16 +685,16 @@ const content={
       "conceptQuiz": [
         {
           "id": "L09-filter-check",
-          "prompt": "Why can a smaller ion be excluded?",
+          "prompt": "Which energetic mismatch can exclude sodium from the potassium filter?",
           "correct": 0,
           "options": [
             {
               "text": "Its dehydration cost is poorly compensated by the filter",
-              "feedback": "Correct. Its dehydration cost is poorly compensated by the filter."
+              "feedback": "Selectivity depends on the energetic balance between dehydration and filter coordination."
             },
             {
               "text": "Its smaller bare radius always prevents entering the pore",
-              "feedback": "Use this distinction: Its dehydration cost is poorly compensated by the filter."
+              "feedback": "A smaller bare ion can fit geometrically yet remain energetically disfavored."
             }
           ],
           "hints": [
@@ -504,6 +708,40 @@ const content={
           "modelAnswer": [
             "Its dehydration cost is poorly compensated by the filter."
           ]
+        },
+        {
+          "id": "L09-filter-starter",
+          "type": "mc",
+          "difficulty": "easy",
+          "progressionAdded": true,
+          "source": "L09 9:1 p7",
+          "prompt": "What is the arrangement of potassium ions in the narrow KcsA filter?",
+          "options": [
+            {
+              "text": "A single file of bound ions",
+              "feedback": "The filter has consecutive binding sites and supports single-file permeation."
+            },
+            {
+              "text": "A water-filled cluster of ions",
+              "feedback": "The aqueous cavity is wider; the narrow filter constrains ions to single file."
+            },
+            {
+              "text": "A carrier-bound pair of ions",
+              "feedback": "KcsA is a pore rather than an alternating-access carrier moving a bound pair."
+            }
+          ],
+          "correct": 0,
+          "hints": [
+            {
+              "body": "Recall the distinction taught in this section."
+            },
+            {
+              "body": "The filter has consecutive binding sites and supports single-file permeation."
+            }
+          ],
+          "modelAnswer": [
+            "The filter has consecutive binding sites and supports single-file permeation."
+          ]
         }
       ]
     },
@@ -515,7 +753,7 @@ const content={
       "blocks": [
         {
           "type": "text",
-          "body": "Selectivity depends on bare size, charge and hydration, not radius alone. Calcium and sodium have similar bare radii but different charge and hydration energies. Rapid conduction leaves only brief ion–filter interactions."
+          "body": ["Ion selectivity depends on size, charge and hydration energy together. Calcium and sodium have similar bare radii, but calcium has twice the charge. In the source comparison, hydration is strongest for calcium, then sodium, then potassium.", "Dehydration costs energy that filter interactions must compensate. Rapid conduction therefore requires selective but brief interactions, rather than permanent binding. For the throughput calculation below, multiply the stated net outward ion rate by charge per ion; include valence when the ions are not monovalent. (9:1 PDF p8.)"]
         },
         {
           "type": "figure",
@@ -604,16 +842,16 @@ const content={
       "conceptQuiz": [
         {
           "id": "L09-hydration-check",
-          "prompt": "Which is most strongly hydrated in the source comparison?",
+          "prompt": "Which hydration ordering is taught from strongest to weakest?",
           "correct": 1,
           "options": [
             {
               "text": "Potassium, then sodium, then calcium",
-              "feedback": "Use this distinction: Calcium, then sodium, then potassium."
+              "feedback": "This reverses the source ordering; calcium is more strongly hydrated than sodium or potassium."
             },
             {
               "text": "Calcium, then sodium, then potassium",
-              "feedback": "Correct. Calcium, then sodium, then potassium."
+              "feedback": "Higher charge and smaller radius favor stronger hydration in the source comparison."
             }
           ],
           "hints": [
@@ -627,6 +865,40 @@ const content={
           "modelAnswer": [
             "Calcium, then sodium, then potassium."
           ]
+        },
+        {
+          "id": "L09-hydration-starter",
+          "type": "mc",
+          "difficulty": "easy",
+          "progressionAdded": true,
+          "source": "L09 9:1 p8",
+          "prompt": "What happens energetically when an ion loses its hydration shell?",
+          "options": [
+            {
+              "text": "Energy cost is independent of ion",
+              "feedback": "Size and charge affect hydration strength and therefore dehydration cost."
+            },
+            {
+              "text": "Energy must be supplied",
+              "feedback": "Dehydration costs energy that favorable filter interactions must compensate."
+            },
+            {
+              "text": "Energy is always released",
+              "feedback": "Hydration releases energy; removing the shell requires energy."
+            }
+          ],
+          "correct": 1,
+          "hints": [
+            {
+              "body": "Recall the distinction taught in this section."
+            },
+            {
+              "body": "Dehydration costs energy that favorable filter interactions must compensate."
+            }
+          ],
+          "modelAnswer": [
+            "Dehydration costs energy that favorable filter interactions must compensate."
+          ]
         }
       ]
     },
@@ -638,7 +910,7 @@ const content={
       "blocks": [
         {
           "type": "text",
-          "body": "Opening depends on voltage, time and/or ligand concentration. Resting closed and inactivated are distinct states. Transitions can look abrupt at the recording bandwidth. Brief openings redistribute enough charge to change voltage while bulk gradients remain approximately unchanged."
+          "body": ["Activation opens a resting closed channel; deactivation closes it. An inactivated channel must recover before normal reopening. Opening depends on voltage, time and/or ligand concentration. Apparently abrupt transitions are unresolved at the recording bandwidth, rather than literally instantaneous.", "Brief current can change membrane voltage while bulk concentrations remain approximately unchanged. Multiply signed current by duration for transferred charge, then use the charge-to-voltage explorer. Inward positive charge raises voltage in an isolated capacitor; voltage clamp supplies balancing current instead of permitting that free voltage change. (9:1 PDF p9.)"]
         },
         {
           "type": "figure",
@@ -779,16 +1051,16 @@ const content={
       "conceptQuiz": [
         {
           "id": "L09-gating-check",
-          "prompt": "Which state must recover before normal reopening?",
+          "prompt": "Which channel state is unavailable until recovery?",
           "correct": 0,
           "options": [
             {
               "text": "An inactivated channel following activation",
-              "feedback": "Correct. An inactivated channel following activation."
+              "feedback": "Inactivation removes channel availability until recovery occurs."
             },
             {
-              "text": "A hydrated ion after arriving outside the cell",
-              "feedback": "Use this distinction: An inactivated channel following activation."
+              "text": "A closed channel awaiting ordinary activation",
+              "feedback": "Ordinary activation opens an available closed channel; inactivation requires recovery first."
             }
           ],
           "hints": [
@@ -802,6 +1074,40 @@ const content={
           "modelAnswer": [
             "An inactivated channel following activation."
           ]
+        },
+        {
+          "id": "L09-gating-starter",
+          "type": "mc",
+          "difficulty": "easy",
+          "progressionAdded": true,
+          "source": "L09 9:1 p9",
+          "prompt": "Which transition is called deactivation?",
+          "options": [
+            {
+              "text": "Closed state to open state",
+              "feedback": "Closed-to-open is activation, the reverse of deactivation."
+            },
+            {
+              "text": "Inactivated state to available state",
+              "feedback": "Recovery restores availability after inactivation; it is a different transition."
+            },
+            {
+              "text": "Open state to closed state",
+              "feedback": "Deactivation closes an activated channel."
+            }
+          ],
+          "correct": 2,
+          "hints": [
+            {
+              "body": "Recall the distinction taught in this section."
+            },
+            {
+              "body": "Deactivation closes an activated channel."
+            }
+          ],
+          "modelAnswer": [
+            "Deactivation closes an activated channel."
+          ]
         }
       ]
     },
@@ -813,7 +1119,7 @@ const content={
       "blocks": [
         {
           "type": "text",
-          "body": "Individual openings vary between repeated identical voltage steps. Their ensemble mean has reproducible kinetics. Separate unitary amplitude, opening probability, channel number and driving force. A negative deflection is inward current under the stated convention. The count of open channels at any instant follows the binomial distribution; the Poisson formula applies when $N$ is large and $P_{open}$ is small."
+          "body": ["Repeated identical voltage steps control voltage while measuring current. Individual opening times vary, but averaging trials gives reproducible ensemble kinetics. Negative deflections indicate inward current. The source sodium traces are experimental; the potassium ensemble example is simulated.", "Unitary amplitude depends on conductance and driving force; mean current also depends on channel number and open probability. For identical independent channels, the instantaneous open count is binomial with mean $NP_{open}$; Poisson approximates large $N$, small $P_{open}$. A smaller mean alone cannot distinguish fewer channels from less opening. (9:1 PDF p10.)", "For the count calculation, use $P(k)=\\binom{N}{k}p^k(1-p)^{N-k}$, where $p=P_{open}$ and $k$ is the integer open count. This assumes identical independent channels. (Official exam PDF p4; cumulative HH model.)"]
         },
         {
           "type": "figure",
@@ -1024,7 +1330,7 @@ const content={
         {
           "id": "L09-f-binomial",
           "name": "Binomial open-channel probability",
-          "tex": "P_n(k)=\frac{n!}{k!(n-k)!}p^k(1-p)^{n-k}",
+          "tex": "P_n(k)=\\frac{n!}{k!(n-k)!}p^k(1-p)^{n-k}",
           "symbols": [
             {
               "tex": "P_n(k)",
@@ -1051,11 +1357,11 @@ const content={
               "meaning": "Open probability for each channel; equals $P_{open}$ in the stated model."
             }
           ],
-          "reads": "The combinatorial factor counts all ways k channels can be open; $p^k$ and $(1-p)^{n-k}$ supply independent per-channel probabilities. This is the same logic as $n_\infty^4$ for a $\mathrm{K}^+$ channel with four gating particles each of probability $n_\infty$.",
+          "reads": "The combinatorial factor counts all ways k channels can be open; $p^k$ and $(1-p)^{n-k}$ supply independent per-channel probabilities. This is the same logic as $n_\\infty^4$ for a $\\mathrm{K}^+$ channel with four gating particles each of probability $n_\\infty$.",
           "assumes": "n identical independent channels; p is the same for every channel.",
           "variants": [],
           "drill": {
-            "prompt": "A $\mathrm{K}^+$ channel is treated as $n=4$ independent activation particles each with $p=0.80$. Find $P(k=3)$, the probability that exactly 3 of 4 are permissive.",
+            "prompt": "A $\\mathrm{K}^+$ channel is treated as $n=4$ independent activation particles each with $p=0.80$. Find $P(k=3)$, the probability that exactly 3 of 4 are permissive.",
             "answer": {
               "value": 0.4096,
               "unit": "1",
@@ -1070,26 +1376,26 @@ const content={
                 "displayScale": 1
               }
             },
-            "tex": "P_n(3;4,0.80)=\binom{4}{3}(0.80)^3(0.20)^1=4(0.512)(0.20)=0.4096",
+            "tex": "P_n(3;4,0.80)=\\binom{4}{3}(0.80)^3(0.20)^1=4(0.512)(0.20)=0.4096",
             "modelAnswer": [
-              "Combinatorial factor $\binom{4}{3}=4$; then $4\times0.80^3\times0.20=0.4096$."
+              "Combinatorial factor $\\binom{4}{3}=4$; then $4\\times0.80^3\\times0.20=0.4096$."
             ],
             "error": "Check the combinatorial factor and the exponents.",
             "hints": [
               {
-                "body": "Use $P_n(k)=\frac{n!}{k!(n-k)!}p^k(1-p)^{n-k}$ with $n=4$, $k=3$, $p=0.80$."
+                "body": "Use $P_n(k)=\\frac{n!}{k!(n-k)!}p^k(1-p)^{n-k}$ with $n=4$, $k=3$, $p=0.80$."
               },
               {
-                "body": "$\binom{4}{3}=4$; then $4\times0.80^3\times0.20=4\times0.512\times0.20=0.4096$."
+                "body": "$\\binom{4}{3}=4$; then $4\\times0.80^3\\times0.20=4\\times0.512\\times0.20=0.4096$."
               }
             ]
           },
-          "interactiveTex": "\htmlClass{formula-term-0}{P_n(k)}=\frac{n!}{k!(n-k)!}\htmlClass{formula-term-1}{p}^k(1-\htmlClass{formula-term-1}{p})^{n-k}"
+          "interactiveTex": "\\htmlClass{formula-term-0}{P_n(k)}=\\frac{\\htmlClass{formula-term-1}{n}!}{\\htmlClass{formula-term-2}{k}!(n-k)!}\\htmlClass{formula-term-3}{p}^k(1-p)^{n-k}"
         },
         {
           "id": "L09-f-poisson",
           "name": "Poisson approximation for open channels",
-          "tex": "P(k)=\frac{m^ke^{-m}}{k!}",
+          "tex": "P(k)=\\frac{m^ke^{-m}}{k!}",
           "symbols": [
             {
               "tex": "P(k)",
@@ -1101,7 +1407,7 @@ const content={
               "tex": "m",
               "name": "Mean open channels",
               "unit": "1",
-              "meaning": "Expected number open; $m = n \cdot P_{open}$."
+              "meaning": "Expected number open; $m = n \\cdot P_{open}$."
             },
             {
               "tex": "k",
@@ -1114,7 +1420,7 @@ const content={
           "assumes": "Poisson limit of the binomial; $m = n P_{open}$; large n, small p.",
           "variants": [],
           "drill": {
-            "prompt": "A resting patch has 1000 $\mathrm{Na}^+$ channels. At rest $P_{open}=0.003$ so the mean is $m=3$. Find $P(k=0)$, the probability that all channels are closed at a given instant.",
+            "prompt": "A resting patch has 1000 $\\mathrm{Na}^+$ channels. At rest $P_{open}=0.003$ so the mean is $m=3$. Find $P(k=0)$, the probability that all channels are closed at a given instant.",
             "answer": {
               "value": 0.049787068367863944,
               "unit": "1",
@@ -1128,9 +1434,9 @@ const content={
                 "displayScale": 1
               }
             },
-            "tex": "P(0)=\frac{3^0e^{-3}}{0!}=e^{-3}\approx0.0498",
+            "tex": "P(0)=\\frac{3^0e^{-3}}{0!}=e^{-3}\\approx0.0498",
             "modelAnswer": [
-              "$P(0)=e^{-m}=e^{-3}\approx0.0498$."
+              "$P(0)=e^{-m}=e^{-3}\\approx0.0498$."
             ],
             "error": "For k=0 the formula simplifies to $e^{-m}$; check that you used $m=3$.",
             "hints": [
@@ -1138,26 +1444,26 @@ const content={
                 "body": "Use $P(k)=m^ke^{-m}/k!$ with $m=3$, $k=0$."
               },
               {
-                "body": "$P(0)=3^0e^{-3}/0!=e^{-3}\approx0.0498$."
+                "body": "$P(0)=3^0e^{-3}/0!=e^{-3}\\approx0.0498$."
               }
             ]
           },
-          "interactiveTex": "\htmlClass{formula-term-0}{P(k)}=\frac{\htmlClass{formula-term-1}{m}^ke^{-\htmlClass{formula-term-1}{m}}}{k!}"
+          "interactiveTex": "\\htmlClass{formula-term-0}{P(k)}=\\frac{\\htmlClass{formula-term-1}{m}^{\\htmlClass{formula-term-2}{k}}e^{-m}}{k!}"
         }
       ],
       "conceptQuiz": [
         {
           "id": "L09-single-check",
-          "prompt": "What varies randomly on repeated identical steps?",
+          "prompt": "Which feature of a unitary recording remains stochastic under an identical clamp command?",
           "correct": 1,
           "options": [
             {
               "text": "The command voltage imposed by an ideal voltage clamp",
-              "feedback": "Use this distinction: The opening and closing times of individual channels."
+              "feedback": "An ideal voltage clamp holds the same command across trials; channel events remain random."
             },
             {
               "text": "The opening and closing times of individual channels",
-              "feedback": "Correct. The opening and closing times of individual channels."
+              "feedback": "Individual openings and closings are stochastic even under identical commands."
             }
           ],
           "hints": [
@@ -1171,6 +1477,40 @@ const content={
           "modelAnswer": [
             "The opening and closing times of individual channels."
           ]
+        },
+        {
+          "id": "L09-single-starter",
+          "type": "mc",
+          "difficulty": "easy",
+          "progressionAdded": true,
+          "source": "L09 9:1 p10",
+          "prompt": "At fixed voltage and solutions, what does an ensemble average summarize?",
+          "options": [
+            {
+              "text": "Mean current across repeated trials",
+              "feedback": "Averaging stochastic openings produces a smoother mean current response."
+            },
+            {
+              "text": "Opening time of each single trial",
+              "feedback": "Individual opening times vary; the average does not fix each trial."
+            },
+            {
+              "text": "Command voltage across repeated trials",
+              "feedback": "The command is controlled; the ensemble average here concerns the measured current."
+            }
+          ],
+          "correct": 0,
+          "hints": [
+            {
+              "body": "Recall the distinction taught in this section."
+            },
+            {
+              "body": "Averaging stochastic openings produces a smoother mean current response."
+            }
+          ],
+          "modelAnswer": [
+            "Averaging stochastic openings produces a smoother mean current response."
+          ]
         }
       ]
     },
@@ -1182,7 +1522,7 @@ const content={
       "blocks": [
         {
           "type": "text",
-          "body": "Traditional classifications use selectivity, gating, location, pores or drug sensitivity. Structural families use protein architecture and evolutionary relationships. Pore-forming alpha subunits differ from auxiliary subunits that modulate gating, expression and stability."
+          "body": ["Channel classifications answer different questions: selectivity identifies permeating ions, gating identifies triggers, and structural families describe protein architecture and relationships. Location and drug sensitivity supply further classifications.", "Pore-forming alpha subunits differ from auxiliary subunits that usually regulate gating, expression or stability. The pore is often central between subunits or domains, but some families have pores within individual subunits. Do not infer a universal pore arrangement from the sodium-channel cartoon alone. (9:1 PDF p11.)"]
         },
         {
           "type": "figure",
@@ -1206,16 +1546,16 @@ const content={
       "conceptQuiz": [
         {
           "id": "L09-classification-check",
-          "prompt": "Which component usually forms the conducting pore?",
+          "prompt": "Which component supplies the usual permeation pathway?",
           "correct": 0,
           "options": [
             {
               "text": "The pore-forming alpha subunit or linked domains",
-              "feedback": "Correct. The pore-forming alpha subunit or linked domains."
+              "feedback": "Alpha subunits or linked domains supply the conducting pathway."
             },
             {
               "text": "The non-pore-forming auxiliary beta subunit",
-              "feedback": "Use this distinction: The pore-forming alpha subunit or linked domains."
+              "feedback": "Auxiliary beta subunits usually regulate the complex without forming its pore."
             }
           ],
           "hints": [
@@ -1229,6 +1569,40 @@ const content={
           "modelAnswer": [
             "The pore-forming alpha subunit or linked domains."
           ]
+        },
+        {
+          "id": "L09-classification-starter",
+          "type": "mc",
+          "difficulty": "easy",
+          "progressionAdded": true,
+          "source": "L09 9:1 p11",
+          "prompt": "Which role is usually assigned to auxiliary beta subunits?",
+          "options": [
+            {
+              "text": "Generation of the ionic gradient",
+              "feedback": "Pumps establish gradients; auxiliary subunits modulate the channel complex."
+            },
+            {
+              "text": "Modulation of gating and stability",
+              "feedback": "Auxiliary subunits tune gating, voltage dependence or stability."
+            },
+            {
+              "text": "Formation of the central ionic pore",
+              "feedback": "The alpha subunit or linked pore-forming domains usually supply the pore."
+            }
+          ],
+          "correct": 1,
+          "hints": [
+            {
+              "body": "Recall the distinction taught in this section."
+            },
+            {
+              "body": "Auxiliary subunits tune gating, voltage dependence or stability."
+            }
+          ],
+          "modelAnswer": [
+            "Auxiliary subunits tune gating, voltage dependence or stability."
+          ]
         }
       ]
     },
@@ -1240,7 +1614,7 @@ const content={
       "blocks": [
         {
           "type": "text",
-          "body": "The source schematic relates two-helix pores, duplicated pores, addition of a voltage-sensor domain and four-domain sodium/calcium channels. Positively charged S4 supports voltage sensing. Distinguish one subunit from one domain of a linked polypeptide."
+          "body": ["The source schematic starts with a two-helix pore module. Duplication gives additional pore modules, while addition of S1–S4 gives a six-helix subunit with a voltage-sensor domain. Positive S4 charges support voltage sensitivity.", "Further duplication links four homologous domains in vertebrate sodium and calcium channels. Count domains separately from independently assembled subunits. The diagram is a schematic relationship among channel architectures, rather than evidence that every family followed one universal evolutionary sequence. (9:1 PDF p12.)"]
         },
         {
           "type": "figure",
@@ -1265,16 +1639,16 @@ const content={
       "conceptQuiz": [
         {
           "id": "L09-evolution-check",
-          "prompt": "What gives the source S4 segment voltage sensitivity?",
+          "prompt": "What charge property makes S4 a voltage sensor?",
           "correct": 1,
           "options": [
             {
-              "text": "Neutral residues pumping ions against a gradient",
-              "feedback": "Use this distinction: Positive residues moving within the membrane field."
+              "text": "Positive residues carrying ions through the open pore",
+              "feedback": "Sensor residues move within the field; permeant ions carry the separate ionic current."
             },
             {
               "text": "Positive residues moving within the membrane field",
-              "feedback": "Correct. Positive residues moving within the membrane field."
+              "feedback": "Charged S4 residues respond to the membrane field, coupling voltage to gating."
             }
           ],
           "hints": [
@@ -1288,6 +1662,40 @@ const content={
           "modelAnswer": [
             "Positive residues moving within the membrane field."
           ]
+        },
+        {
+          "id": "L09-evolution-starter",
+          "type": "mc",
+          "difficulty": "easy",
+          "progressionAdded": true,
+          "source": "L09 9:1 p12",
+          "prompt": "In the source schematic, what is added to the two-helix pore module to make a six-helix module?",
+          "options": [
+            {
+              "text": "A second complete S5–S6 pore",
+              "feedback": "Pore duplication gives a different schematic topology, not the S1–S4 sensor addition."
+            },
+            {
+              "text": "Four separate auxiliary subunits",
+              "feedback": "Auxiliary subunits are distinct proteins, not the four added helices of this module."
+            },
+            {
+              "text": "The S1–S4 sensor segments",
+              "feedback": "Adding S1–S4 to S5–S6 makes the six-helix module."
+            }
+          ],
+          "correct": 2,
+          "hints": [
+            {
+              "body": "Recall the distinction taught in this section."
+            },
+            {
+              "body": "Adding S1–S4 to S5–S6 makes the six-helix module."
+            }
+          ],
+          "modelAnswer": [
+            "Adding S1–S4 to S5–S6 makes the six-helix module."
+          ]
         }
       ]
     },
@@ -1299,7 +1707,7 @@ const content={
       "blocks": [
         {
           "type": "text",
-          "body": "A glutamate-binding domain supplies chemical sensitivity. The source water-channel lineage duplicates a smaller membrane module. Chloride, ammonia and connexin architectures illustrate why one potassium-channel topology cannot describe all channels."
+          "body": ["Adding a glutamate-binding domain provides chemical sensitivity to a channel lineage. The source also depicts duplication of a three-membrane-segment module in the water-channel lineage, illustrating another route to a larger protein.", "Chloride, ammonia and connexin architectures broaden the comparison beyond potassium channels. Read each topology and assembly separately: acquiring ligand sensitivity changes the gating input, whereas duplicating a membrane module changes architecture. Neither statement alone specifies which ions or molecules will pass. (9:1 PDF p13.)"]
         },
         {
           "type": "figure",
@@ -1324,16 +1732,16 @@ const content={
       "conceptQuiz": [
         {
           "id": "L09-evolution-other-check",
-          "prompt": "What does acquisition of a ligand-binding domain add?",
+          "prompt": "What function does the source glutamate-binding addition supply?",
           "correct": 0,
           "options": [
             {
               "text": "Chemical recognition coupled to pore opening",
-              "feedback": "Correct. Chemical recognition coupled to pore opening."
+              "feedback": "A binding domain adds chemical recognition that can control the pore."
             },
             {
-              "text": "Mandatory pumping coupled to ATP breakdown",
-              "feedback": "Use this distinction: Chemical recognition coupled to pore opening."
+              "text": "Chemical recognition without coupling to pore gating",
+              "feedback": "The source binding domain couples chemical recognition to gating, not recognition alone."
             }
           ],
           "hints": [
@@ -1347,6 +1755,40 @@ const content={
           "modelAnswer": [
             "Chemical recognition coupled to pore opening."
           ]
+        },
+        {
+          "id": "L09-evolution-other-starter",
+          "type": "mc",
+          "difficulty": "easy",
+          "progressionAdded": true,
+          "source": "L09 9:1 p13",
+          "prompt": "Which process makes repeated channel modules in the source lineage schematic?",
+          "options": [
+            {
+              "text": "Duplication of a channel gene",
+              "feedback": "Gene duplication produces repeated inherited modules in the schematic."
+            },
+            {
+              "text": "Opening of a channel gate",
+              "feedback": "Gating changes a protein state, not the number of inherited modules."
+            },
+            {
+              "text": "Trafficking of a channel protein",
+              "feedback": "Trafficking relocates proteins without duplicating their genes."
+            }
+          ],
+          "correct": 0,
+          "hints": [
+            {
+              "body": "Recall the distinction taught in this section."
+            },
+            {
+              "body": "Gene duplication produces repeated inherited modules in the schematic."
+            }
+          ],
+          "modelAnswer": [
+            "Gene duplication produces repeated inherited modules in the schematic."
+          ]
         }
       ]
     },
@@ -1358,7 +1800,7 @@ const content={
       "blocks": [
         {
           "type": "text",
-          "body": "Read the source taxonomy by membrane topology and pore organization. Its helix counts refer to pore-forming subunits, or to individual domains in vertebrate sodium/calcium channels. Regulatory subunits must be counted separately."
+          "body": ["The source taxonomy groups channels by membrane topology and pore organization. It includes one-helix M2, two-helix examples, S5–S6/P-loop families, extracellular ligand-gated channels, and separate chloride, water, ammonia and connexin families.", "Counts refer to each pore-forming subunit, or each domain in vertebrate sodium/calcium channels. Count regulatory subunits separately. For a family match, first identify the pore architecture rather than using the gating stimulus alone; similar stimuli need not imply identical protein topology. (9:1 PDF p14.)"]
         },
         {
           "type": "figure",
@@ -1383,16 +1825,16 @@ const content={
       "conceptQuiz": [
         {
           "id": "L09-families-check",
-          "prompt": "How should sodium-channel helix counts be interpreted?",
+          "prompt": "What unit of sodium-channel architecture does the six-helix count describe?",
           "correct": 1,
           "options": [
             {
               "text": "Per complete channel including every auxiliary subunit",
-              "feedback": "Use this distinction: Per homologous domain of the linked alpha subunit."
+              "feedback": "Auxiliary proteins are not included in each homologous domain helix count."
             },
             {
               "text": "Per homologous domain of the linked alpha subunit",
-              "feedback": "Correct. Per homologous domain of the linked alpha subunit."
+              "feedback": "The linked sodium alpha protein contains four homologous six-helix domains."
             }
           ],
           "hints": [
@@ -1406,6 +1848,40 @@ const content={
           "modelAnswer": [
             "Per homologous domain of the linked alpha subunit."
           ]
+        },
+        {
+          "id": "L09-families-starter",
+          "type": "mc",
+          "difficulty": "easy",
+          "progressionAdded": true,
+          "source": "L09 9:1 p14",
+          "prompt": "Which source family contains gap-junction channels?",
+          "options": [
+            {
+              "text": "The bestrophin channel family",
+              "feedback": "Bestrophins are grouped with chloride channels in the source list."
+            },
+            {
+              "text": "The connexin channel family",
+              "feedback": "Connexins form the source gap-junction channels."
+            },
+            {
+              "text": "The aquaporin channel family",
+              "feedback": "Aquaporins are the water-channel comparison, not connexin gap junctions."
+            }
+          ],
+          "correct": 1,
+          "hints": [
+            {
+              "body": "Recall the distinction taught in this section."
+            },
+            {
+              "body": "Connexins form the source gap-junction channels."
+            }
+          ],
+          "modelAnswer": [
+            "Connexins form the source gap-junction channels."
+          ]
         }
       ]
     },
@@ -1417,7 +1893,7 @@ const content={
       "blocks": [
         {
           "type": "text",
-          "body": "Voltage shifts opening probability; chemical binding can open or close channels; mechanical disturbance gates others. Many channels respond to more than one stimulus. Gating stimulus and ion selectivity are separate classification axes."
+          "body": ["Voltage, ligand binding and mechanical disturbance can alter opening probability. Ligands may act outside or inside the cell. Multimodal channels respond to several cues with different sensitivities.", "Classify a trigger by the physical signal named in the question: voltage change, chemical binding or mechanical force. This does not classify the ions carried. A channel can be both chemically gated and cation-permeable, and one channel need not belong to only one stimulus class. (9:1 PDF p15.)"]
         },
         {
           "type": "figure",
@@ -1441,16 +1917,16 @@ const content={
       "conceptQuiz": [
         {
           "id": "L09-stimuli-check",
-          "prompt": "Can one channel respond to several stimulus classes?",
+          "prompt": "Are voltage, ligand and mechanical gating categories allowed to overlap?",
           "correct": 0,
           "options": [
             {
               "text": "Yes, channels can have multimodal gating",
-              "feedback": "Correct. Yes, channels can have multimodal gating."
+              "feedback": "Multimodal channels respond to more than one chemical or physical stimulus class."
             },
             {
               "text": "No, gating classes are always mutually exclusive",
-              "feedback": "Use this distinction: Yes, channels can have multimodal gating."
+              "feedback": "Gating categories can overlap; the source explicitly includes multimodal channels."
             }
           ],
           "hints": [
@@ -1464,6 +1940,40 @@ const content={
           "modelAnswer": [
             "Yes, channels can have multimodal gating."
           ]
+        },
+        {
+          "id": "L09-stimuli-starter",
+          "type": "mc",
+          "difficulty": "easy",
+          "progressionAdded": true,
+          "source": "L09 9:1 p15",
+          "prompt": "What directly stimulates a mechanically gated channel?",
+          "options": [
+            {
+              "text": "A chemical ligand binding event",
+              "feedback": "Ligand binding defines chemical gating, although channels may be multimodal."
+            },
+            {
+              "text": "An electrical voltage change alone",
+              "feedback": "Voltage changes define voltage gating rather than mechanical gating."
+            },
+            {
+              "text": "A mechanical membrane disturbance",
+              "feedback": "Mechanical disturbance is the defining input for this gating class."
+            }
+          ],
+          "correct": 2,
+          "hints": [
+            {
+              "body": "Recall the distinction taught in this section."
+            },
+            {
+              "body": "Mechanical disturbance is the defining input for this gating class."
+            }
+          ],
+          "modelAnswer": [
+            "Mechanical disturbance is the defining input for this gating class."
+          ]
         }
       ]
     },
@@ -1475,7 +1985,7 @@ const content={
       "blocks": [
         {
           "type": "text",
-          "body": "Potassium channels assemble four subunits; vertebrate sodium/calcium channels link four homologous domains in one alpha polypeptide. Coordinated sensor motions activate the pore. The supplied peptide-occlusion model explains some rapid inactivation, not every channel."
+          "body": ["Potassium channels assemble four alpha subunits; vertebrate sodium and calcium channels link four homologous six-helix domains in one alpha polypeptide. Bacterial sodium/calcium channels can instead assemble four identical subunits. Auxiliary subunits are additional components.", "Coordinated sensor movement activates the pore. The source peptide-occlusion model explains some rapid inactivation, not every channel. The probability explorer below assumes independent all-required factors explicitly; anatomical subunit or domain counts alone do not establish that mathematical independence. (9:1 PDF p16.)"]
         },
         {
           "type": "figure",
@@ -1558,16 +2068,16 @@ const content={
       "conceptQuiz": [
         {
           "id": "L09-cation-check",
-          "prompt": "What is linked in vertebrate sodium-channel alpha protein?",
+          "prompt": "Which repeating units belong to a vertebrate sodium alpha polypeptide?",
           "correct": 1,
           "options": [
             {
               "text": "Four independent two-helix membrane proteins",
-              "feedback": "Use this distinction: Four homologous six-helix membrane domains."
+              "feedback": "Independent two-helix proteins describe a different architecture from vertebrate sodium alpha."
             },
             {
               "text": "Four homologous six-helix membrane domains",
-              "feedback": "Correct. Four homologous six-helix membrane domains."
+              "feedback": "Vertebrate sodium alpha links four homologous six-helix domains in one polypeptide."
             }
           ],
           "hints": [
@@ -1581,6 +2091,40 @@ const content={
           "modelAnswer": [
             "Four homologous six-helix membrane domains."
           ]
+        },
+        {
+          "id": "L09-cation-starter",
+          "type": "mc",
+          "difficulty": "easy",
+          "progressionAdded": true,
+          "source": "L09 9:1 p16",
+          "prompt": "Where is the taught fast-inactivation peptide in a sodium channel?",
+          "options": [
+            {
+              "text": "In a loop between linked domains",
+              "feedback": "The source places the sodium inactivation peptide in an interdomain loop."
+            },
+            {
+              "text": "In the extracellular selectivity filter",
+              "feedback": "The filter selects permeating ions; it is not the taught peptide location."
+            },
+            {
+              "text": "In a separate pore-forming subunit",
+              "feedback": "The sodium alpha protein links its domains; the taught peptide is part of that protein."
+            }
+          ],
+          "correct": 0,
+          "hints": [
+            {
+              "body": "Recall the distinction taught in this section."
+            },
+            {
+              "body": "The source places the sodium inactivation peptide in an interdomain loop."
+            }
+          ],
+          "modelAnswer": [
+            "The source places the sodium inactivation peptide in an interdomain loop."
+          ]
         }
       ]
     },
@@ -1592,7 +2136,7 @@ const content={
       "blocks": [
         {
           "type": "text",
-          "body": "S1–S4 form the sensor domain; S5–S6 and their P-loop form the pore/filter. Depolarization favors outward motion of positive S4 residues and produces gating current. Conformational coupling opens the pore; it does not send the sensor through the aqueous ion pathway."
+          "body": ["S1–S4 form the voltage-sensor domain; S5–S6 and the P-loop form the pore and filter. Depolarization favors outward movement of positive S4 residues, producing gating current and a conformational change that opens the pore.", "Sensor charge movement differs from ion permeation through the aqueous pathway. An S4 change can shift voltage-dependent opening, whereas a filter change can alter selectivity and reversal under matched gradients. A gating-current measurement therefore does not directly measure ionic selectivity. (9:1 PDF p17.)"]
         },
         {
           "type": "figure",
@@ -1616,16 +2160,16 @@ const content={
       "conceptQuiz": [
         {
           "id": "L09-sensor-check",
-          "prompt": "Which segment carries the source positive voltage-sensor residues?",
+          "prompt": "Where are the positive voltage-sensing residues in the source architecture?",
           "correct": 0,
           "options": [
             {
               "text": "S4 in the peripheral voltage-sensor domain",
-              "feedback": "Correct. S4 in the peripheral voltage-sensor domain."
+              "feedback": "S4 carries the positive voltage-sensing residues in the S1–S4 domain."
             },
             {
               "text": "S6 in the central ion-selectivity filter",
-              "feedback": "Use this distinction: S4 in the peripheral voltage-sensor domain."
+              "feedback": "S6 belongs to the pore domain; the P-loop rather than S6 supplies the filter."
             }
           ],
           "hints": [
@@ -1639,6 +2183,40 @@ const content={
           "modelAnswer": [
             "S4 in the peripheral voltage-sensor domain."
           ]
+        },
+        {
+          "id": "L09-sensor-starter",
+          "type": "mc",
+          "difficulty": "easy",
+          "progressionAdded": true,
+          "source": "L09 9:1 p17",
+          "prompt": "Which region forms the selectivity filter in the source potassium channel?",
+          "options": [
+            {
+              "text": "The cytoplasmic end of S1",
+              "feedback": "S1 belongs to the sensor domain, not the filter-forming P-loop."
+            },
+            {
+              "text": "The P-loop between S5 and S6",
+              "feedback": "The P-loop belongs to the pore domain and supplies the filter."
+            },
+            {
+              "text": "The S4 helix within S1–S4",
+              "feedback": "S4 is the voltage sensor; its charge motion differs from ionic selection."
+            }
+          ],
+          "correct": 1,
+          "hints": [
+            {
+              "body": "Recall the distinction taught in this section."
+            },
+            {
+              "body": "The P-loop belongs to the pore domain and supplies the filter."
+            }
+          ],
+          "modelAnswer": [
+            "The P-loop belongs to the pore domain and supplies the filter."
+          ]
         }
       ]
     },
@@ -1650,7 +2228,7 @@ const content={
       "blocks": [
         {
           "type": "text",
-          "body": "The source lists nine sodium-channel family members. Sensory neurons express several subtypes; NaV1.7, NaV1.8 and NaV1.9 contribute to pain signaling. Beta subunits regulate gating and expression and also participate in adhesion and cytoskeletal interactions."
+          "body": ["The source lists nine sodium-channel family members. Adult sensory neurons express several subtypes, with NaV1.7, NaV1.8 and NaV1.9 emphasized in pain signaling. Their contributions should be read in the source action-potential panel rather than treated as interchangeable labels.", "Beta subunits regulate gating and expression and participate in adhesion and cytoskeletal interactions. Thus altered sodium current may reflect regulation of the alpha pore as well as the pore itself; an auxiliary subunit need not conduct ions to affect excitability. (9:1 PDF p18.)"]
         },
         {
           "type": "figure",
@@ -1675,16 +2253,16 @@ const content={
       "conceptQuiz": [
         {
           "id": "L09-nav-check",
-          "prompt": "Which source subtype group is emphasized in pain signaling?",
+          "prompt": "Which sodium subtype set is highlighted for pain pathways?",
           "correct": 1,
           "options": [
             {
               "text": "Only the cardiac NaV1.5 channel subtype",
-              "feedback": "Use this distinction: NaV1.7, NaV1.8 and NaV1.9 channels."
+              "feedback": "NaV1.5 is the cardiac comparison rather than the emphasized pain subtype group."
             },
             {
               "text": "NaV1.7, NaV1.8 and NaV1.9 channels",
-              "feedback": "Correct. NaV1.7, NaV1.8 and NaV1.9 channels."
+              "feedback": "The source emphasizes NaV1.7, NaV1.8 and NaV1.9 in pain signaling."
             }
           ],
           "hints": [
@@ -1698,6 +2276,40 @@ const content={
           "modelAnswer": [
             "NaV1.7, NaV1.8 and NaV1.9 channels."
           ]
+        },
+        {
+          "id": "L09-nav-starter",
+          "type": "mc",
+          "difficulty": "easy",
+          "progressionAdded": true,
+          "source": "L09 9:1 p18",
+          "prompt": "Which function of sodium-channel beta subunits extends beyond gating?",
+          "options": [
+            {
+              "text": "ATP hydrolysis and gradient maintenance",
+              "feedback": "Pumping gradients is not a beta-subunit function in this model."
+            },
+            {
+              "text": "Pore formation and ionic permeation",
+              "feedback": "The sodium alpha protein forms the conducting pore; beta subunits modulate it."
+            },
+            {
+              "text": "Cell adhesion and cytoskeletal interaction",
+              "feedback": "The source beta functions include adhesion and cytoskeletal interactions."
+            }
+          ],
+          "correct": 2,
+          "hints": [
+            {
+              "body": "Recall the distinction taught in this section."
+            },
+            {
+              "body": "The source beta functions include adhesion and cytoskeletal interactions."
+            }
+          ],
+          "modelAnswer": [
+            "The source beta functions include adhesion and cytoskeletal interactions."
+          ]
         }
       ]
     },
@@ -1709,7 +2321,7 @@ const content={
       "blocks": [
         {
           "type": "text",
-          "body": "Delayed rectifiers activate after depolarization and inactivate slowly or little. A-type currents activate and inactivate rapidly. M-type currents activate slowly without inactivation. Compare normalized kinetics, not just peak amplitude."
+          "body": ["Delayed rectifiers activate after depolarization and inactivate slowly or little. A-type currents activate rapidly and then inactivate rapidly. M-type currents activate slowly without inactivation.", "Compare the time course during the same depolarizing step: a transient peak followed by decay differs from a sustained or slowly rising response. Peak amplitude alone cannot identify these kinetic types. Potassium channels form homo- or heterotetramers, and auxiliary subunits can further modify gating, expression and trafficking. (9:1 PDF p19.)"]
         },
         {
           "type": "figure",
@@ -1734,16 +2346,16 @@ const content={
       "conceptQuiz": [
         {
           "id": "L09-kv-check",
-          "prompt": "Which type rapidly activates and then rapidly inactivates?",
+          "prompt": "Which potassium-current class gives rapid activation followed by rapid inactivation?",
           "correct": 0,
           "options": [
             {
               "text": "The transient A-type potassium current",
-              "feedback": "Correct. The transient A-type potassium current."
+              "feedback": "A-type current activates and inactivates rapidly, giving a transient response."
             },
             {
               "text": "The sustained M-type potassium current",
-              "feedback": "Use this distinction: The transient A-type potassium current."
+              "feedback": "M-type current activates slowly and does not inactivate in the source description."
             }
           ],
           "hints": [
@@ -1757,6 +2369,40 @@ const content={
           "modelAnswer": [
             "The transient A-type potassium current."
           ]
+        },
+        {
+          "id": "L09-kv-starter",
+          "type": "mc",
+          "difficulty": "easy",
+          "progressionAdded": true,
+          "source": "L09 9:1 p19",
+          "prompt": "Which kinetic description identifies the taught M-type current?",
+          "options": [
+            {
+              "text": "Slow activation without inactivation",
+              "feedback": "The source M-type description is slowly activating and non-inactivating."
+            },
+            {
+              "text": "Rapid activation with fast inactivation",
+              "feedback": "Rapid activation and inactivation describe A-type current."
+            },
+            {
+              "text": "Delayed activation with fast inactivation",
+              "feedback": "The delayed rectifier inactivates slowly or not at all, not rapidly."
+            }
+          ],
+          "correct": 0,
+          "hints": [
+            {
+              "body": "Recall the distinction taught in this section."
+            },
+            {
+              "body": "The source M-type description is slowly activating and non-inactivating."
+            }
+          ],
+          "modelAnswer": [
+            "The source M-type description is slowly activating and non-inactivating."
+          ]
         }
       ]
     },
@@ -1768,7 +2414,7 @@ const content={
       "blocks": [
         {
           "type": "text",
-          "body": "TRP channels commonly have four six-helix subunits and P-loop filters. In the source comparison S4 lacks the canonical strong positive-charge pattern, so voltage dependence is generally weaker. Many pass sodium and calcium partially hydrated and respond to several physical or chemical cues."
+          "body": ["TRP channels commonly assemble four six-helix subunits with P-loop filters. Many conduct sodium and calcium while the ions remain partly hydrated. The source contrasts their S4 charge pattern with canonical voltage sensors, giving generally weaker voltage dependence.", "Temperature, chemicals, osmotic changes and mechanical stimuli can act on these multimodal channels. Their sensory roles include pain, temperature, taste, mechanosensation and vision. Shared architecture does not mean identical stimulus sensitivity, and the source generalizations need not describe every TRP member. (9:1 PDF p20.)"]
         },
         {
           "type": "figure",
@@ -1792,16 +2438,16 @@ const content={
       "conceptQuiz": [
         {
           "id": "L09-trp-check",
-          "prompt": "What best characterizes the source TRP family?",
+          "prompt": "Which description summarizes the taught TRP gating and permeation properties?",
           "correct": 1,
           "options": [
             {
               "text": "Uniformly potassium-selective, strongly voltage-dependent pores",
-              "feedback": "Use this distinction: Multimodal, often weakly voltage-dependent cation pores."
+              "feedback": "The source TRP generalization is weak voltage dependence and broad cation permeation."
             },
             {
               "text": "Multimodal, often weakly voltage-dependent cation pores",
-              "feedback": "Correct. Multimodal, often weakly voltage-dependent cation pores."
+              "feedback": "Multiple inputs and broad cation permeation characterize the source TRP comparison."
             }
           ],
           "hints": [
@@ -1815,6 +2461,40 @@ const content={
           "modelAnswer": [
             "Multimodal, often weakly voltage-dependent cation pores."
           ]
+        },
+        {
+          "id": "L09-trp-starter",
+          "type": "mc",
+          "difficulty": "easy",
+          "progressionAdded": true,
+          "source": "L09 9:1 p20",
+          "prompt": "Which architecture is shown for the source TRP channel?",
+          "options": [
+            {
+              "text": "Five subunits with four helices each",
+              "feedback": "Five four-helix subunits describe the pentameric ligand-gated comparison."
+            },
+            {
+              "text": "Four subunits with six helices each",
+              "feedback": "The source TRP channel has four six-helix subunits with P-loops."
+            },
+            {
+              "text": "Four subunits with two helices each",
+              "feedback": "Four two-helix subunits describe the KcsA comparison."
+            }
+          ],
+          "correct": 1,
+          "hints": [
+            {
+              "body": "Recall the distinction taught in this section."
+            },
+            {
+              "body": "The source TRP channel has four six-helix subunits with P-loops."
+            }
+          ],
+          "modelAnswer": [
+            "The source TRP channel has four six-helix subunits with P-loops."
+          ]
         }
       ]
     },
@@ -1826,7 +2506,7 @@ const content={
       "blocks": [
         {
           "type": "text",
-          "body": "The source associates TRPV1 with heat around $43\\,^{\\circ}\\mathrm C$ and capsaicin, and TRPV2 with higher heat around $52\\,^{\\circ}\\mathrm C$. Other TRP members sense osmotic pressure, volume, stretch or vibration. These are approximate source examples."
+          "body": ["The source associates TRPV1 with heat around $43\\,^{\\circ}\\mathrm C$ and capsaicin, and TRPV2 with higher heat around $52\\,^{\\circ}\\mathrm C$. The diagram places different TRP members across cold, warmth and noxious heat ranges.", "These are approximate examples of stimulus sensitivity. Chemical and thermal activation of the same channel illustrate multimodal gating, rather than separate ion pathways. Other TRP members sense osmotic pressure, volume, stretch or vibration; a temperature label alone does not describe the full response repertoire. (9:1 PDF p21.)"]
         },
         {
           "type": "figure",
@@ -1851,16 +2531,16 @@ const content={
       "conceptQuiz": [
         {
           "id": "L09-thermal-check",
-          "prompt": "Which source stimulus pair activates TRPV1?",
+          "prompt": "Which combination illustrates TRPV1 multimodal sensitivity?",
           "correct": 0,
           "options": [
             {
               "text": "Moderate heat and capsaicin exposure",
-              "feedback": "Correct. Moderate heat and capsaicin exposure."
+              "feedback": "TRPV1 responds to capsaicin as well as moderate heat in the source example."
             },
             {
               "text": "Only extreme heat without chemical ligands",
-              "feedback": "Use this distinction: Moderate heat and capsaicin exposure."
+              "feedback": "Chemical activation is part of the TRPV1 example; extreme heat is not its sole input."
             }
           ],
           "hints": [
@@ -1874,6 +2554,40 @@ const content={
           "modelAnswer": [
             "Moderate heat and capsaicin exposure."
           ]
+        },
+        {
+          "id": "L09-thermal-starter",
+          "type": "mc",
+          "difficulty": "easy",
+          "progressionAdded": true,
+          "source": "L09 9:1 p21",
+          "prompt": "What does the source TRPV2 example detect?",
+          "options": [
+            {
+              "text": "Lower cold than the TRPM8 example",
+              "feedback": "TRPV2 is the high-heat example, not a cold sensor."
+            },
+            {
+              "text": "Capsaicin rather than thermal input",
+              "feedback": "Capsaicin activation is emphasized for TRPV1; TRPV2 is the high-heat comparison."
+            },
+            {
+              "text": "Higher heat than the TRPV1 example",
+              "feedback": "The source places TRPV2 at a higher heat threshold than TRPV1; thresholds depend on conditions."
+            }
+          ],
+          "correct": 2,
+          "hints": [
+            {
+              "body": "Recall the distinction taught in this section."
+            },
+            {
+              "body": "The source places TRPV2 at a higher heat threshold than TRPV1; thresholds depend on conditions."
+            }
+          ],
+          "modelAnswer": [
+            "The source places TRPV2 at a higher heat threshold than TRPV1; thresholds depend on conditions."
+          ]
         }
       ]
     },
@@ -1885,7 +2599,7 @@ const content={
       "blocks": [
         {
           "type": "text",
-          "body": "Ionotropic receptors couple transmitter binding directly to channel gating. Pentameric receptors have five four-helix subunits. The nicotinic example binds two acetylcholine molecules and passes sodium and potassium more readily than calcium, linking endplate depolarization to muscle activation."
+          "body": ["Ionotropic receptors couple extracellular transmitter binding directly to channel gating. The source examples include acetylcholine, serotonin, glutamate, glycine and GABA. Pentameric ligand-gated receptors have five subunits, each with four membrane helices.", "In the nicotinic example, binding two acetylcholine molecules opens a channel more permeable to sodium and potassium than calcium. The resulting endplate depolarization can trigger muscle activation. Ligand binding controls opening; it should not be confused with the electrochemical forces that determine ion movement through the open pore. (9:1 PDF p22.)"]
         },
         {
           "type": "figure",
@@ -1910,16 +2624,16 @@ const content={
       "conceptQuiz": [
         {
           "id": "L09-ligand-check",
-          "prompt": "Which event directly gates an ionotropic receptor?",
+          "prompt": "What opens an ionotropic postsynaptic channel directly?",
           "correct": 1,
           "options": [
             {
               "text": "An obligatory long intracellular transcription cascade",
-              "feedback": "Use this distinction: Neurotransmitter binding to the channel complex."
+              "feedback": "Ionotropic gating is direct ligand control of the channel, not obligatory transcription."
             },
             {
               "text": "Neurotransmitter binding to the channel complex",
-              "feedback": "Correct. Neurotransmitter binding to the channel complex."
+              "feedback": "Neurotransmitter binding gates the ionotropic channel complex directly."
             }
           ],
           "hints": [
@@ -1933,6 +2647,40 @@ const content={
           "modelAnswer": [
             "Neurotransmitter binding to the channel complex."
           ]
+        },
+        {
+          "id": "L09-ligand-starter",
+          "type": "mc",
+          "difficulty": "easy",
+          "progressionAdded": true,
+          "source": "L09 9:1 p22",
+          "prompt": "How many subunits form the taught pentameric ligand-gated receptor?",
+          "options": [
+            {
+              "text": "Five pore-associated subunits",
+              "feedback": "Pentameric means five subunits, each with four transmembrane segments here."
+            },
+            {
+              "text": "Four pore-associated subunits",
+              "feedback": "Four subunits describe several other channel families, not a pentamer."
+            },
+            {
+              "text": "Two pore-associated subunits",
+              "feedback": "Two acetylcholine molecules gate the taught receptor; that is not its subunit count."
+            }
+          ],
+          "correct": 0,
+          "hints": [
+            {
+              "body": "Recall the distinction taught in this section."
+            },
+            {
+              "body": "Pentameric means five subunits, each with four transmembrane segments here."
+            }
+          ],
+          "modelAnswer": [
+            "Pentameric means five subunits, each with four transmembrane segments here."
+          ]
         }
       ]
     },
@@ -1944,7 +2692,7 @@ const content={
       "blocks": [
         {
           "type": "text",
-          "body": "Channel dysfunction can be inherited or acquired through disease, drug or toxin. A variant may increase function, decrease function or be neutral. The ENaC example links increased renal sodium absorption to water retention and hypertension; reduced function can give hypotension. Applications remain provisional exam scope."
+          "body": ["Channel dysfunction can be inherited or acquired through disease, drugs or toxins. Functional changes can involve gating, conductance, selectivity, abundance or signaling. A genetic variant may cause gain of function, loss of function or no measurable functional change.", "The ENaC example links increased renal sodium absorption to water retention, expanded extracellular volume and hypertension; reduced function can give hypotension. Establish the functional defect before predicting the physiological effect. These applications remain provisional exam scope; a mutation alone does not establish a disease mechanism. (9:2 PDF p1–2.)"]
         },
         {
           "type": "figure",
@@ -1968,16 +2716,16 @@ const content={
       "conceptQuiz": [
         {
           "id": "L09-channelopathy-check",
-          "prompt": "What defines a channelopathy?",
+          "prompt": "Which definition requires channel dysfunction rather than a sequence variant alone?",
           "correct": 0,
           "options": [
             {
               "text": "Disease caused by dysfunctional ion-channel behavior",
-              "feedback": "Correct. Disease caused by dysfunctional ion-channel behavior."
+              "feedback": "Channelopathy requires channel dysfunction causing disease, inherited or acquired."
             },
             {
               "text": "Any genetic sequence change regardless of its effect",
-              "feedback": "Use this distinction: Disease caused by dysfunctional ion-channel behavior."
+              "feedback": "A sequence variant alone does not establish dysfunction or a disease mechanism."
             }
           ],
           "hints": [
@@ -1990,6 +2738,40 @@ const content={
           ],
           "modelAnswer": [
             "Disease caused by dysfunctional ion-channel behavior."
+          ]
+        },
+        {
+          "id": "L09-channelopathy-starter",
+          "type": "mc",
+          "difficulty": "easy",
+          "progressionAdded": true,
+          "source": "L09 9:2 p1–2",
+          "prompt": "What distinguishes an acquired channelopathy from an inherited one?",
+          "options": [
+            {
+              "text": "Dysfunction caused by a duplicated gene only",
+              "feedback": "Gene duplication alone does not define acquired dysfunction or establish disease."
+            },
+            {
+              "text": "Dysfunction caused by disease, drug or toxin",
+              "feedback": "Acquired channel dysfunction can follow disease, drugs or toxins."
+            },
+            {
+              "text": "Dysfunction caused by an inherited variant",
+              "feedback": "An inherited variant belongs to the inherited rather than acquired category."
+            }
+          ],
+          "correct": 1,
+          "hints": [
+            {
+              "body": "Recall the distinction taught in this section."
+            },
+            {
+              "body": "Acquired channel dysfunction can follow disease, drugs or toxins."
+            }
+          ],
+          "modelAnswer": [
+            "Acquired channel dysfunction can follow disease, drugs or toxins."
           ]
         }
       ],
@@ -2008,7 +2790,7 @@ const content={
       "blocks": [
         {
           "type": "text",
-          "body": "Toxins can block ion channels or change their gating. Receptor agonists activate; antagonists oppose receptor activation. Use the source table to distinguish pore block, persistent activation and ligand-receptor antagonism."
+          "body": ["Toxins can block pores or change gating. In the source table, TTX blocks sodium channels from outside, whereas batrachotoxin slows inactivation and shifts activation. Receptor agonists activate; antagonists oppose receptor activation.", "Compare the intervention with its immediate channel effect before predicting a cellular response. The table also includes ligand-receptor antagonists, such as strychnine at glycine receptors. Blocking a conducting pore and preventing ligand activation can both reduce current, but they act at different steps. (9:2 PDF p3.)"]
         },
         {
           "type": "figure",
@@ -2033,16 +2815,16 @@ const content={
       "conceptQuiz": [
         {
           "id": "L09-toxins-check",
-          "prompt": "Which action defines an agonist in the source?",
+          "prompt": "What does an agonist do when it binds its receptor?",
           "correct": 1,
           "options": [
             {
               "text": "Prevention of receptor activation by binding",
-              "feedback": "Use this distinction: Activation of the receptor through its binding."
+              "feedback": "Prevention of activation defines antagonism in the source distinction."
             },
             {
               "text": "Activation of the receptor through its binding",
-              "feedback": "Correct. Activation of the receptor through its binding."
+              "feedback": "Agonists activate receptors; antagonists oppose their activation."
             }
           ],
           "hints": [
@@ -2056,6 +2838,40 @@ const content={
           "modelAnswer": [
             "Activation of the receptor through its binding."
           ]
+        },
+        {
+          "id": "L09-toxins-starter",
+          "type": "mc",
+          "difficulty": "easy",
+          "progressionAdded": true,
+          "source": "L09 9:2 p3",
+          "prompt": "Which action defines a receptor antagonist?",
+          "options": [
+            {
+              "text": "Promoting receptor activation",
+              "feedback": "Promoting activation describes an agonist in this source distinction."
+            },
+            {
+              "text": "Increasing receptor expression",
+              "feedback": "Changing expression changes receptor abundance, not the definition of antagonism."
+            },
+            {
+              "text": "Blocking receptor activation",
+              "feedback": "An antagonist blocks activation, unlike an agonist that activates the receptor."
+            }
+          ],
+          "correct": 2,
+          "hints": [
+            {
+              "body": "Recall the distinction taught in this section."
+            },
+            {
+              "body": "An antagonist blocks activation, unlike an agonist that activates the receptor."
+            }
+          ],
+          "modelAnswer": [
+            "An antagonist blocks activation, unlike an agonist that activates the receptor."
+          ]
         }
       ]
     },
@@ -2067,7 +2883,7 @@ const content={
       "blocks": [
         {
           "type": "text",
-          "body": "TTX pore block reduces sodium current and can prevent action-potential propagation. The source contrasts relatively sensitive and resistant subtypes; resistant does not mean immune. Its animal/food anecdotes and lethal-dose number are not treatment or food-safety guidance."
+          "body": ["TTX pore block reduces sodium current and can prevent action-potential propagation. The source separates relatively low-concentration-sensitive NaV1.1–1.4, 1.6 and 1.7 from relatively resistant NaV1.5, 1.8 and 1.9. Resistant does not mean immune.", "In the clamp panel, compare current before and after TTX at the same voltage protocol; reduced inward current supports sodium-channel block. Sensitivity depends on subtype and concentration. The slide animal/food anecdotes and lethal-dose value are contextual material, not a quantitative rule for channel inhibition. (9:2 PDF p4.)"]
         },
         {
           "type": "figure",
@@ -2091,16 +2907,16 @@ const content={
       "conceptQuiz": [
         {
           "id": "L09-ttx-check",
-          "prompt": "What directly explains TTX-induced propagation failure?",
+          "prompt": "Which current change links sodium pore block to failed propagation?",
           "correct": 0,
           "options": [
             {
               "text": "Reduced sodium current supporting regenerative depolarization",
-              "feedback": "Correct. Reduced sodium current supporting regenerative depolarization."
+              "feedback": "Sodium pore block reduces the inward current needed for regenerative propagation."
             },
             {
               "text": "Increased sodium current supporting repetitive depolarization",
-              "feedback": "Use this distinction: Reduced sodium current supporting regenerative depolarization."
+              "feedback": "TTX blocks rather than enhances the sodium current supporting propagation."
             }
           ],
           "hints": [
@@ -2114,6 +2930,40 @@ const content={
           "modelAnswer": [
             "Reduced sodium current supporting regenerative depolarization."
           ]
+        },
+        {
+          "id": "L09-ttx-starter",
+          "type": "mc",
+          "difficulty": "easy",
+          "progressionAdded": true,
+          "source": "L09 9:2 p4",
+          "prompt": "What does relative TTX resistance mean in the source subtype comparison?",
+          "options": [
+            {
+              "text": "Block requires a higher concentration",
+              "feedback": "Resistance is relative: less-sensitive subtypes require higher concentrations, not absolute immunity."
+            },
+            {
+              "text": "Block requires a lower concentration",
+              "feedback": "Lower concentrations block the more sensitive subtype group."
+            },
+            {
+              "text": "Block requires a different current sign",
+              "feedback": "Sensitivity concerns toxin concentration and subtype, not whether current is inward or outward."
+            }
+          ],
+          "correct": 0,
+          "hints": [
+            {
+              "body": "Recall the distinction taught in this section."
+            },
+            {
+              "body": "Resistance is relative: less-sensitive subtypes require higher concentrations, not absolute immunity."
+            }
+          ],
+          "modelAnswer": [
+            "Resistance is relative: less-sensitive subtypes require higher concentrations, not absolute immunity."
+          ]
         }
       ]
     },
@@ -2125,7 +2975,7 @@ const content={
       "blocks": [
         {
           "type": "text",
-          "body": "A direct modulator can inhibit excessive channel activity or enhance reduced activity. An alternative strategy compensates through another pathway. Drugs can act on normal channels when the disease itself is not caused by a channel mutation."
+          "body": ["Direct modulation aims to oppose a measured functional defect: inhibit excessive activity or enhance reduced activity. Compensation instead acts through another signaling pathway to offset the cellular consequence.", "A channel-targeting drug does not imply that the disease is caused by a mutated channel. In the source example, inflammatory pain can be reduced by blocking normal sodium channels involved in signal transmission. Explain target action separately from disease origin before choosing between direct correction and compensation. (9:2 PDF p5.)"]
         },
         {
           "type": "figure",
@@ -2150,16 +3000,16 @@ const content={
       "conceptQuiz": [
         {
           "id": "L09-modulation-check",
-          "prompt": "Does a channel-targeting drug imply a mutated target?",
+          "prompt": "Must a channel carry a mutation for its blockade to relieve symptoms?",
           "correct": 1,
           "options": [
             {
               "text": "Yes, all drug targets must carry a disease mutation",
-              "feedback": "Use this distinction: No, normal channels can mediate disease symptoms."
+              "feedback": "A drug can target normal channels carrying symptoms without a target mutation."
             },
             {
               "text": "No, normal channels can mediate disease symptoms",
-              "feedback": "Correct. No, normal channels can mediate disease symptoms."
+              "feedback": "The inflammatory-pain example targets normal sodium channels used in signal transmission."
             }
           ],
           "hints": [
@@ -2173,6 +3023,40 @@ const content={
           "modelAnswer": [
             "No, normal channels can mediate disease symptoms."
           ]
+        },
+        {
+          "id": "L09-modulation-starter",
+          "type": "mc",
+          "difficulty": "easy",
+          "progressionAdded": true,
+          "source": "L09 9:2 p5",
+          "prompt": "Which strategy is compensation rather than direct modulation?",
+          "options": [
+            {
+              "text": "Enhancing activity of the underactive target channel",
+              "feedback": "Enhancing the defective underactive channel is direct modulation."
+            },
+            {
+              "text": "Acting through an alternative signaling pathway",
+              "feedback": "Compensation offsets the cellular consequence through another pathway."
+            },
+            {
+              "text": "Reducing activity of the overactive target channel",
+              "feedback": "Inhibiting the defective overactive channel is direct modulation."
+            }
+          ],
+          "correct": 1,
+          "hints": [
+            {
+              "body": "Recall the distinction taught in this section."
+            },
+            {
+              "body": "Compensation offsets the cellular consequence through another pathway."
+            }
+          ],
+          "modelAnswer": [
+            "Compensation offsets the cellular consequence through another pathway."
+          ]
         }
       ]
     },
@@ -2184,7 +3068,7 @@ const content={
       "blocks": [
         {
           "type": "text",
-          "body": "The source contrasts NaV1.7 loss of function with insensitivity to pain and gain of function with severe congenital pain. Subtype-selective block is a proposed way to spare other tissues. Clinical-development and safety statements on this slide are dated teaching claims."
+          "body": ["The source contrasts NaV1.7 loss of function with congenital insensitivity to pain and gain of function with severe congenital pain. NaV1.7, 1.8 and 1.9 contribute to pain pathways, but sodium channels also serve other tissues.", "Subtype-selective blockade is therefore a rationale for suppressing unwanted pain signaling while sparing other functions. A subtype list alone cannot establish selectivity or safety. The clinical-development and safety statements on this slide are dated teaching claims, rather than current treatment guidance. (9:2 PDF p6.)"]
         },
         {
           "type": "figure",
@@ -2208,16 +3092,16 @@ const content={
       "conceptQuiz": [
         {
           "id": "L09-pain-check",
-          "prompt": "What is the source NaV1.7 loss-of-function phenotype?",
+          "prompt": "Which phenotype is paired with NaV1.7 loss of function?",
           "correct": 0,
           "options": [
             {
               "text": "Congenital reduction or absence of pain sensation",
-              "feedback": "Correct. Congenital reduction or absence of pain sensation."
+              "feedback": "The source links NaV1.7 loss of function to reduced or absent congenital pain sensation."
             },
             {
               "text": "Congenital increase in persistent pain sensation",
-              "feedback": "Use this distinction: Congenital reduction or absence of pain sensation."
+              "feedback": "Severe congenital pain is the gain-of-function comparison."
             }
           ],
           "hints": [
@@ -2231,6 +3115,40 @@ const content={
           "modelAnswer": [
             "Congenital reduction or absence of pain sensation."
           ]
+        },
+        {
+          "id": "L09-pain-starter",
+          "type": "mc",
+          "difficulty": "easy",
+          "progressionAdded": true,
+          "source": "L09 9:2 p6",
+          "prompt": "What is the rationale for subtype-selective sodium-channel blockade in pain pathways?",
+          "options": [
+            {
+              "text": "Suppress channel expression throughout other tissues",
+              "feedback": "Broad suppression in other tissues defeats the intended selectivity."
+            },
+            {
+              "text": "Enhance pain signaling while sparing other functions",
+              "feedback": "The aim is to reduce unwanted pain signaling, not enhance it."
+            },
+            {
+              "text": "Suppress pain signaling while sparing other functions",
+              "feedback": "Subtype selectivity aims to reduce unwanted pain signals while preserving other sodium-channel functions."
+            }
+          ],
+          "correct": 2,
+          "hints": [
+            {
+              "body": "Recall the distinction taught in this section."
+            },
+            {
+              "body": "Subtype selectivity aims to reduce unwanted pain signals while preserving other sodium-channel functions."
+            }
+          ],
+          "modelAnswer": [
+            "Subtype selectivity aims to reduce unwanted pain signals while preserving other sodium-channel functions."
+          ]
         }
       ]
     },
@@ -2242,7 +3160,7 @@ const content={
       "blocks": [
         {
           "type": "text",
-          "body": "Lidocaine preferentially binds open/inactivated sodium channels in the source account. Reduced sodium entry limits depolarization and propagation. The slide contrasts class-I cardiac effects; tissue state and subtype matter, so inhibition is not uniformly beneficial."
+          "body": ["In the source account, lidocaine preferentially binds open and inactivated sodium channels. Reduced sodium entry limits depolarization and action-potential propagation. Tissue voltage and activity influence the channel states available for binding.", "To compare rested and repeatedly depolarized cells, control the voltage protocol and exposure, then measure sodium current with matched solutions and channel expression. Differences may reflect state occupancy rather than different pore numbers. The cardiac class comparison supplies a tissue-dependent rationale, not a guarantee of uniform benefit or safety. (9:2 PDF p7.)"]
         },
         {
           "type": "figure",
@@ -2266,16 +3184,16 @@ const content={
       "conceptQuiz": [
         {
           "id": "L09-lidocaine-check",
-          "prompt": "Which states are preferred by the taught lidocaine model?",
+          "prompt": "Which sodium-channel states favor lidocaine binding in the source account?",
           "correct": 1,
           "options": [
             {
               "text": "Only the fully recovered resting closed state",
-              "feedback": "Use this distinction: Open and inactivated sodium-channel states."
+              "feedback": "The taught preference is for open and inactivated channels rather than resting channels."
             },
             {
               "text": "Open and inactivated sodium-channel states",
-              "feedback": "Correct. Open and inactivated sodium-channel states."
+              "feedback": "Binding preference depends on channel state, favoring open and inactivated sodium channels."
             }
           ],
           "hints": [
@@ -2289,6 +3207,40 @@ const content={
           "modelAnswer": [
             "Open and inactivated sodium-channel states."
           ]
+        },
+        {
+          "id": "L09-lidocaine-starter",
+          "type": "mc",
+          "difficulty": "easy",
+          "progressionAdded": true,
+          "source": "L09 9:2 p7",
+          "prompt": "What ionic change follows the taught lidocaine sodium-channel block?",
+          "options": [
+            {
+              "text": "Reduced sodium entry during depolarization",
+              "feedback": "Sodium-channel block reduces sodium entry and limits propagation."
+            },
+            {
+              "text": "Increased sodium entry during depolarization",
+              "feedback": "Increased entry is opposite to the taught blocking action."
+            },
+            {
+              "text": "Reduced potassium exit during repolarization",
+              "feedback": "Potassium exit is a different channel pathway, not the direct sodium-block effect."
+            }
+          ],
+          "correct": 0,
+          "hints": [
+            {
+              "body": "Recall the distinction taught in this section."
+            },
+            {
+              "body": "Sodium-channel block reduces sodium entry and limits propagation."
+            }
+          ],
+          "modelAnswer": [
+            "Sodium-channel block reduces sodium entry and limits propagation."
+          ]
         }
       ]
     },
@@ -2300,7 +3252,7 @@ const content={
       "blocks": [
         {
           "type": "text",
-          "body": "Seizure activity combines excess firing and abnormal population synchronization. Genetic and environmental causes can interact. Not every epilepsy is one channel mutation, and a single-cell burst alone does not demonstrate network synchronization."
+          "body": ["Seizure activity combines hyperexcitability, excessive firing within cells, with hypersynchronization across a neuronal population. The source contrasts a normal action potential with abnormal repetitive discharges.", "A single-cell burst supports altered excitability but cannot establish population synchrony; that requires observations across cells. Genetic and environmental causes can interact, and not every epilepsy is a single channel mutation. Relate the illustrated discharge pattern to the cellular claim before extending the explanation to a network-level disorder. (9:2 PDF p8.)"]
         },
         {
           "type": "figure",
@@ -2325,16 +3277,16 @@ const content={
       "conceptQuiz": [
         {
           "id": "L09-epilepsy-check",
-          "prompt": "What distinguishes hypersynchronization from excitability?",
+          "prompt": "Which description concerns synchrony between cells rather than firing within one cell?",
           "correct": 0,
           "options": [
             {
               "text": "Coordinated timing across a neuronal population",
-              "feedback": "Correct. Coordinated timing across a neuronal population."
+              "feedback": "Synchrony describes coordinated timing across cells, not simply their individual firing rates."
             },
             {
               "text": "Increased firing within one isolated neuron only",
-              "feedback": "Use this distinction: Coordinated timing across a neuronal population."
+              "feedback": "Increased single-neuron firing supports hyperexcitability, not population synchrony by itself."
             }
           ],
           "hints": [
@@ -2348,6 +3300,40 @@ const content={
           "modelAnswer": [
             "Coordinated timing across a neuronal population."
           ]
+        },
+        {
+          "id": "L09-epilepsy-starter",
+          "type": "mc",
+          "difficulty": "easy",
+          "progressionAdded": true,
+          "source": "L09 9:2 p8",
+          "prompt": "Which observation describes cellular hyperexcitability in the source?",
+          "options": [
+            {
+              "text": "Reduced firing within an isolated neuron",
+              "feedback": "Reduced firing does not describe the excessive cellular firing in this example."
+            },
+            {
+              "text": "High-frequency bursts within a neuron",
+              "feedback": "The source uses high-frequency action-potential bursts to describe hyperexcitability."
+            },
+            {
+              "text": "Coordinated timing between many neurons",
+              "feedback": "Coordinated population timing describes hypersynchronization instead."
+            }
+          ],
+          "correct": 1,
+          "hints": [
+            {
+              "body": "Recall the distinction taught in this section."
+            },
+            {
+              "body": "The source uses high-frequency action-potential bursts to describe hyperexcitability."
+            }
+          ],
+          "modelAnswer": [
+            "The source uses high-frequency action-potential bursts to describe hyperexcitability."
+          ]
         }
       ]
     },
@@ -2359,7 +3345,7 @@ const content={
       "blocks": [
         {
           "type": "text",
-          "body": "Altered channel function or abundance can promote epileptogenesis. Impaired sodium inactivation can increase persistent inward current and excitability. The diagram is one causal mechanism, not a claim that every sodium-channel mutation has the same network effect."
+          "body": ["Impaired sodium-channel inactivation can leave persistent inward current during sustained depolarization, promoting excitability. Channel abundance can also change current. In the source normal/abnormal panel, compare late current relative to the transient peak rather than interpreting a larger peak alone as impaired inactivation.", "Under matched voltage clamp, separate leak and compare kinetics and expression. The HH explorer combines activation cubed with availability; use its conductance fraction and signed driving force to calculate current. A cellular current change alone does not demonstrate seizure synchronization or determine its effect in every neuronal population. (9:2 PDF p9.)"]
         },
         {
           "type": "figure",
@@ -2442,16 +3428,16 @@ const content={
       "conceptQuiz": [
         {
           "id": "L09-persistent-check",
-          "prompt": "Which defect increases the source persistent sodium current?",
+          "prompt": "Which inactivation change leaves excessive late sodium current?",
           "correct": 1,
           "options": [
             {
               "text": "Faster complete inactivation eliminating residual current",
-              "feedback": "Use this distinction: Impaired inactivation leaving residual inward current."
+              "feedback": "Complete rapid inactivation suppresses late sodium current rather than increasing it."
             },
             {
               "text": "Impaired inactivation leaving residual inward current",
-              "feedback": "Correct. Impaired inactivation leaving residual inward current."
+              "feedback": "Incomplete inactivation leaves inward sodium current during sustained depolarization."
             }
           ],
           "hints": [
@@ -2465,6 +3451,40 @@ const content={
           "modelAnswer": [
             "Impaired inactivation leaving residual inward current."
           ]
+        },
+        {
+          "id": "L09-persistent-starter",
+          "type": "mc",
+          "difficulty": "easy",
+          "progressionAdded": true,
+          "source": "L09 9:2 p9",
+          "prompt": "Which part of a sustained clamp response reveals persistent current?",
+          "options": [
+            {
+              "text": "Command voltage before the voltage step",
+              "feedback": "The pre-step command is a control condition, not residual ionic current."
+            },
+            {
+              "text": "Capacitive transient at the voltage step",
+              "feedback": "Capacitive charging is a brief transient and must be separated from late ionic current."
+            },
+            {
+              "text": "Residual current late in the voltage step",
+              "feedback": "Persistent current remains late rather than disappearing with the initial transient."
+            }
+          ],
+          "correct": 2,
+          "hints": [
+            {
+              "body": "Recall the distinction taught in this section."
+            },
+            {
+              "body": "Persistent current remains late rather than disappearing with the initial transient."
+            }
+          ],
+          "modelAnswer": [
+            "Persistent current remains late rather than disappearing with the initial transient."
+          ]
         }
       ]
     },
@@ -2476,7 +3496,7 @@ const content={
       "blocks": [
         {
           "type": "text",
-          "body": "Potassium channels influence repolarization, waveform and firing. In the taught setting blockade reduces outward current and can increase excitability; activation can reduce hyperexcitability. The outcome depends on reversal, timing, subtype and cell context."
+          "body": ["Potassium channels regulate repolarization, action-potential waveform and firing frequency. Under the source outward-current conditions, blockade reduces potassium efflux and can slow repolarization; activation can promote hyperpolarization and reduce pathological excitability.", "Predict the current direction from voltage relative to potassium reversal before applying that reasoning. Timing, subtype and cellular context also matter. The illustrated firing changes explain the rationale for modulation, rather than establishing that every potassium blocker increases firing or every activator has the same physiological effect. (9:2 PDF p10.)"]
         },
         {
           "type": "figure",
@@ -2501,16 +3521,16 @@ const content={
       "conceptQuiz": [
         {
           "id": "L09-kv-target-check",
-          "prompt": "Under the taught outward-current conditions, activation tends to",
+          "prompt": "With outward potassium driving force, what tendency follows channel activation?",
           "correct": 0,
           "options": [
             {
               "text": "Increase repolarizing current and oppose excess firing",
-              "feedback": "Correct. Increase repolarizing current and oppose excess firing."
+              "feedback": "More outward potassium current supports repolarization and can oppose excessive firing."
             },
             {
               "text": "Decrease repolarizing current and promote excess firing",
-              "feedback": "Use this distinction: Increase repolarizing current and oppose excess firing."
+              "feedback": "Under the stated outward-current conditions, activation increases rather than decreases that current."
             }
           ],
           "hints": [
@@ -2524,6 +3544,40 @@ const content={
           "modelAnswer": [
             "Increase repolarizing current and oppose excess firing."
           ]
+        },
+        {
+          "id": "L09-kv-target-starter",
+          "type": "mc",
+          "difficulty": "easy",
+          "progressionAdded": true,
+          "source": "L09 9:2 p10",
+          "prompt": "Which action-potential phase is directly supported by the taught outward potassium current?",
+          "options": [
+            {
+              "text": "The repolarizing falling phase",
+              "feedback": "Outward potassium current supports the falling phase under the stated driving force."
+            },
+            {
+              "text": "The regenerative rising phase",
+              "feedback": "The fast regenerative upstroke is supported by inward sodium current in this model."
+            },
+            {
+              "text": "The capacitive command artifact",
+              "feedback": "The command artifact is a recording transient, not an action-potential phase."
+            }
+          ],
+          "correct": 0,
+          "hints": [
+            {
+              "body": "Recall the distinction taught in this section."
+            },
+            {
+              "body": "Outward potassium current supports the falling phase under the stated driving force."
+            }
+          ],
+          "modelAnswer": [
+            "Outward potassium current supports the falling phase under the stated driving force."
+          ]
         }
       ]
     },
@@ -2535,7 +3589,7 @@ const content={
       "blocks": [
         {
           "type": "text",
-          "body": "hERG supports ventricular repolarization and has a blocker-binding pocket that accepts diverse compounds. Inhibition can prolong repolarization and QT. The source contrasts predominantly atrial KV1.5 targeting; tissue selectivity is a rationale, not a guarantee against ventricular harm."
+          "body": ["hERG supports ventricular repolarization and has a blocker-binding pocket that accommodates diverse compounds. Inhibition reduces repolarizing potassium current and can prolong the cellular action potential and ECG QT interval.", "The source contrasts predominantly atrial KV1.5 targeting with ventricular hERG risk. Tissue selectivity is a rationale for atrial action, not proof of freedom from ventricular harm. Keep the molecular target, cellular waveform and tissue-level outcome distinct when explaining why a drug can be useful at one target and hazardous at another. (9:2 PDF p11.)"]
         },
         {
           "type": "figure",
@@ -2560,16 +3614,16 @@ const content={
       "conceptQuiz": [
         {
           "id": "L09-herg-check",
-          "prompt": "Which target is the source ventricular safety concern?",
+          "prompt": "Which potassium target raises the taught ventricular repolarization concern?",
           "correct": 1,
           "options": [
             {
               "text": "KV1.5 considered mainly for atrial-selective targeting",
-              "feedback": "Use this distinction: KV11.1/hERG supporting cardiac repolarization."
+              "feedback": "KV1.5 is the predominantly atrial target in this contrast."
             },
             {
               "text": "KV11.1/hERG supporting cardiac repolarization",
-              "feedback": "Correct. KV11.1/hERG supporting cardiac repolarization."
+              "feedback": "hERG supports ventricular repolarization and is the source safety concern."
             }
           ],
           "hints": [
@@ -2583,6 +3637,40 @@ const content={
           "modelAnswer": [
             "KV11.1/hERG supporting cardiac repolarization."
           ]
+        },
+        {
+          "id": "L09-herg-starter",
+          "type": "mc",
+          "difficulty": "easy",
+          "progressionAdded": true,
+          "source": "L09 9:2 p11",
+          "prompt": "Which tissue predominantly expresses KV1.5 in the source comparison?",
+          "options": [
+            {
+              "text": "Peripheral pain-sensing nerve cells",
+              "feedback": "Pain-sensing neurons are discussed for sodium subtypes, not this atrial target."
+            },
+            {
+              "text": "Atrial cardiac muscle cells",
+              "feedback": "The source contrasts predominantly atrial KV1.5 with ventricular hERG safety concerns."
+            },
+            {
+              "text": "Ventricular cardiac muscle cells",
+              "feedback": "Ventricular repolarization is the hERG safety comparison, not the source predominant KV1.5 location."
+            }
+          ],
+          "correct": 1,
+          "hints": [
+            {
+              "body": "Recall the distinction taught in this section."
+            },
+            {
+              "body": "The source contrasts predominantly atrial KV1.5 with ventricular hERG safety concerns."
+            }
+          ],
+          "modelAnswer": [
+            "The source contrasts predominantly atrial KV1.5 with ventricular hERG safety concerns."
+          ]
         }
       ]
     },
@@ -2594,7 +3682,7 @@ const content={
       "blocks": [
         {
           "type": "text",
-          "body": "Loss of outward potassium function or gain of persistent inward sodium current can delay ventricular repolarization. The source connects LQT1 with KCNQ1, LQT2 with KCNH2/hERG and LQT3 with SCN5A. Interpret QT and cellular action-potential duration at their proper measurement levels."
+          "body": ["Loss of outward potassium function or gain of persistent inward sodium current can delay ventricular repolarization. The source links LQT1 with KCNQ1/KV7.1 loss, LQT2 with KCNH2/hERG loss and LQT3 with SCN5A/NaV1.5 gain.", "For the instantaneous calculation, add signed ionic currents and use minus their sum divided by capacitance when applied current is zero. An outward net current lowers voltage. This local slope does not specify a full action potential or ECG QT interval; the source simplified QT threshold is not a protocol-independent diagnostic rule. (9:2 PDF p12.)"]
         },
         {
           "type": "figure",
@@ -2619,16 +3707,16 @@ const content={
       "conceptQuiz": [
         {
           "id": "L09-lqt-check",
-          "prompt": "Which source change can produce LQT3?",
+          "prompt": "Which inward-current change is linked to LQT3?",
           "correct": 0,
           "options": [
             {
               "text": "Gain of persistent sodium current through NaV1.5",
-              "feedback": "Correct. Gain of persistent sodium current through NaV1.5."
+              "feedback": "The source LQT3 mechanism is gain of persistent inward sodium current."
             },
             {
               "text": "Gain of repolarizing potassium current through hERG",
-              "feedback": "Use this distinction: Gain of persistent sodium current through NaV1.5."
+              "feedback": "Increased repolarizing potassium current opposes the source delay in repolarization."
             }
           ],
           "hints": [
@@ -2642,6 +3730,40 @@ const content={
           "modelAnswer": [
             "Gain of persistent sodium current through NaV1.5."
           ]
+        },
+        {
+          "id": "L09-lqt-starter",
+          "type": "mc",
+          "difficulty": "easy",
+          "progressionAdded": true,
+          "source": "L09 9:2 p12",
+          "prompt": "What cellular change is shared by the taught long-QT mechanisms?",
+          "options": [
+            {
+              "text": "Accelerated ventricular repolarization",
+              "feedback": "Faster repolarization is the opposite of the taught long-QT mechanism."
+            },
+            {
+              "text": "Delayed atrial depolarization only",
+              "feedback": "The taught convergence is ventricular repolarization, not atrial depolarization alone."
+            },
+            {
+              "text": "Delayed ventricular repolarization",
+              "feedback": "Reduced outward or increased persistent inward current can delay ventricular repolarization."
+            }
+          ],
+          "correct": 2,
+          "hints": [
+            {
+              "body": "Recall the distinction taught in this section."
+            },
+            {
+              "body": "Reduced outward or increased persistent inward current can delay ventricular repolarization."
+            }
+          ],
+          "modelAnswer": [
+            "Reduced outward or increased persistent inward current can delay ventricular repolarization."
+          ]
         }
       ]
     },
@@ -2653,7 +3775,7 @@ const content={
       "blocks": [
         {
           "type": "text",
-          "body": "The source CHO-cell patch-clamp panels show tail currents and normalized drug-response curves. Rapid recovery from inactivation produces a tail as voltage changes, followed by deactivation. Compare matched protocols and controls before interpreting inhibition as a channel effect."
+          "body": ["The source CHO-cell patch-clamp assay controls voltage and measures current. Recovery from inactivation produces a hERG tail after the voltage change, followed by deactivation. Compare the same tail measure under matched voltage, solutions and exposure.", "Normalize drug current to a time-matched control; declining control tails indicate rundown. Check leak, capacitive transients and holding-current changes before attributing suppression to hERG inhibition. The curves illustrate concentration dependence, but no precise digitized fit is established here. Channel inhibition identifies a hazard without measuring clinical arrhythmia incidence. (9:2 PDF p13.)"]
         },
         {
           "type": "figure",
@@ -2737,16 +3859,16 @@ const content={
       "conceptQuiz": [
         {
           "id": "L09-screen-check",
-          "prompt": "What does the source tail-current assay directly measure?",
+          "prompt": "Which variable is measured directly in the hERG clamp assay?",
           "correct": 1,
           "options": [
             {
               "text": "Clinical arrhythmia incidence during drug treatment",
-              "feedback": "Use this distinction: Channel current during a defined voltage-clamp protocol."
+              "feedback": "A channel assay is a hazard measurement, not a direct count of clinical arrhythmias."
             },
             {
               "text": "Channel current during a defined voltage-clamp protocol",
-              "feedback": "Correct. Channel current during a defined voltage-clamp protocol."
+              "feedback": "Voltage clamp measures current under a defined protocol; clinical risk requires additional evidence."
             }
           ],
           "hints": [
@@ -2759,6 +3881,40 @@ const content={
           ],
           "modelAnswer": [
             "Channel current during a defined voltage-clamp protocol."
+          ]
+        },
+        {
+          "id": "L09-screen-starter",
+          "type": "mc",
+          "difficulty": "easy",
+          "progressionAdded": true,
+          "source": "L09 9:2 p13",
+          "prompt": "Which process produces the initial hERG tail in the source account?",
+          "options": [
+            {
+              "text": "Rapid recovery from inactivation",
+              "feedback": "Recovery from inactivation initially permits tail current; slower deactivation follows."
+            },
+            {
+              "text": "Slow completion of deactivation",
+              "feedback": "Deactivation closes channels and contributes to the later tail decay."
+            },
+            {
+              "text": "Rapid increase in channel expression",
+              "feedback": "Expression does not change rapidly enough to explain a tail after a voltage step."
+            }
+          ],
+          "correct": 0,
+          "hints": [
+            {
+              "body": "Recall the distinction taught in this section."
+            },
+            {
+              "body": "Recovery from inactivation initially permits tail current; slower deactivation follows."
+            }
+          ],
+          "modelAnswer": [
+            "Recovery from inactivation initially permits tail current; slower deactivation follows."
           ]
         }
       ]
@@ -4075,6 +5231,7 @@ const content={
     },
     {
       "id": "L09-family-match",
+      "practice": "extra",
       "sectionId": "families",
       "difficulty": "easy",
       "type": "classify",
@@ -4403,6 +5560,7 @@ const content={
     },
     {
       "id": "L09-nav-recall",
+      "practice": "extra",
       "prompt": "Which source subtype group is emphasized in pain signaling?",
       "correct": 0,
       "options": [
@@ -4553,6 +5711,7 @@ const content={
     },
     {
       "id": "L09-thermal-recall",
+      "practice": "extra",
       "prompt": "Which source stimulus pair activates TRPV1?",
       "correct": 0,
       "options": [
@@ -5079,6 +6238,7 @@ const content={
     },
     {
       "id": "L09-lqt-recall",
+      "practice": "extra",
       "prompt": "Which source change can produce LQT3?",
       "correct": 0,
       "options": [
@@ -5141,6 +6301,7 @@ const content={
     },
     {
       "id": "L09-direct-remaining",
+      "practice": "extra",
       "sectionId": "screen",
       "difficulty": "easy",
       "type": "multiStepCalc",
@@ -6323,6 +7484,7 @@ const content={
     },
     {
       "id": "L09-evolution-other-explain",
+      "practice": "extra",
       "sectionId": "evolution-other",
       "difficulty": "medium",
       "type": "written",
@@ -6731,6 +7893,7 @@ const content={
     },
     {
       "id": "L09-thermal-explain",
+      "practice": "extra",
       "sectionId": "thermal",
       "difficulty": "medium",
       "type": "written",
@@ -6882,6 +8045,7 @@ const content={
     },
     {
       "id": "L09-toxins-explain",
+      "practice": "extra",
       "sectionId": "toxins",
       "difficulty": "medium",
       "type": "written",
@@ -7041,6 +8205,7 @@ const content={
     },
     {
       "id": "L09-pain-explain",
+      "practice": "extra",
       "sectionId": "pain",
       "difficulty": "medium",
       "type": "written",
@@ -7147,6 +8312,7 @@ const content={
     },
     {
       "id": "L09-epilepsy-explain",
+      "practice": "extra",
       "sectionId": "epilepsy",
       "difficulty": "medium",
       "type": "written",
@@ -7462,6 +8628,7 @@ const content={
     },
     {
       "id": "L09-screen-explain",
+      "practice": "extra",
       "sectionId": "screen",
       "difficulty": "medium",
       "type": "written",
@@ -7518,6 +8685,7 @@ const content={
     },
     {
       "id": "L09-matched-inhibition",
+      "practice": "extra",
       "sectionId": "screen",
       "difficulty": "medium",
       "type": "multiStepCalc",
@@ -8578,6 +9746,7 @@ const content={
     },
     {
       "id": "L09-lidocaine-synthesis",
+      "practice": "extra",
       "sectionId": "lidocaine",
       "difficulty": "hard",
       "type": "written",
@@ -8675,6 +9844,7 @@ const content={
     },
     {
       "id": "L09-persistent-synthesis",
+      "practice": "extra",
       "sectionId": "persistent",
       "difficulty": "hard",
       "type": "written",
@@ -9496,13 +10666,13 @@ const content={
       "sectionId": "single",
       "type": "multiStepCalc",
       "difficulty": "hard",
-      "prompt": "A patch has $n=5$ identical $\mathrm{Na}^+$ channels. After a depolarizing step the HH gating factor gives $P_{open}=0.30$ per channel. Find (a) the mean number of open channels and (b) using the binomial formula, $P(k=1)$, the probability that exactly one channel is open.",
+      "prompt": "A patch has $n=5$ identical $\\mathrm{Na}^+$ channels. After a depolarizing step the HH gating factor gives $P_{open}=0.30$ per channel. Find (a) the mean number of open channels and (b) using the binomial formula, $P(k=1)$, the probability that exactly one channel is open.",
       "hints": [
         {
-          "body": "Mean $=n\times P_{open}$; then $P_n(k)=\binom{n}{k}p^k(1-p)^{n-k}$."
+          "body": "Mean $=n\\times P_{open}$; then $P_n(k)=\\binom{n}{k}p^k(1-p)^{n-k}$."
         },
         {
-          "body": "Mean $=5\times0.30=1.5$; $\binom{5}{1}=5$; $P(k=1)=5(0.30)(0.70)^4=5(0.30)(0.2401)$."
+          "body": "Mean $=5\\times0.30=1.5$; $\\binom{5}{1}=5$; $P(k=1)=5(0.30)(0.70)^4=5(0.30)(0.2401)$."
         }
       ],
       "stages": [
@@ -9521,9 +10691,9 @@ const content={
               "displayScale": 1
             }
           },
-          "tex": "\langle k\rangle=n P_{open}=5\times0.30=1.5",
+          "tex": "\\langle k\\rangle=n P_{open}=5\\times0.30=1.5",
           "modelAnswer": [
-            "$\langle k\rangle=5\times0.30=1.5$"
+            "$\\langle k\\rangle=5\\times0.30=1.5$"
           ]
         },
         {
@@ -9542,9 +10712,9 @@ const content={
               "displayScale": 1
             }
           },
-          "tex": "P_n(1;5,0.30)=\binom{5}{1}(0.30)^1(0.70)^4=5(0.30)(0.2401)=0.36015",
+          "tex": "P_n(1;5,0.30)=\\binom{5}{1}(0.30)^1(0.70)^4=5(0.30)(0.2401)=0.36015",
           "modelAnswer": [
-            "$\binom{5}{1}=5$; $(0.70)^4=0.2401$; $5\times0.30\times0.2401=0.36015$."
+            "$\\binom{5}{1}=5$; $(0.70)^4=0.2401$; $5\\times0.30\\times0.2401=0.36015$."
           ]
         },
         {
@@ -9564,8 +10734,8 @@ const content={
         }
       ],
       "modelAnswer": [
-        "Mean = $5\times0.30=1.5$ channels.",
-        "P(k=1) = $\binom{5}{1}(0.30)^1(0.70)^4=5\times0.30\times0.2401=0.36015$."
+        "Mean = $5\\times0.30=1.5$ channels.",
+        "P(k=1) = $\\binom{5}{1}(0.30)^1(0.70)^4=5\\times0.30\\times0.2401=0.36015$."
       ],
       "source": "single",
       "points": 1

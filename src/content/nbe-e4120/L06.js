@@ -39,7 +39,7 @@ const content = {
       "blocks": [
         {
           "type": "text",
-          "body": "Nonlinear current can arise without channels opening or closing. First identify permeation, then energy barriers, then dynamic gating. Use $V_m=V_{in}-V_{out}$ and positive outward ionic current. The same channel may involve all three mechanisms."
+          "body": ["Lecture 6 separates three questions: how ions permeate an open pore, which energy barrier limits passage, and how the fraction of conducting channels changes. A curved current–voltage relation alone does not prove that gates move. Concentration gradients or an asymmetric barrier can also produce curvature.", "The models introduced on PDF page 1 and compared on pages 18–21 can work together. Use $V_m=V_{in}-V_{out}$ and positive outward ionic current throughout. First identify whether the observation concerns static permeation or a time-dependent change in channel state."]
         },
         {
           "type": "figure",
@@ -68,11 +68,11 @@ const content = {
           "options": [
             {
               "text": "The gate model with a dynamic state variable",
-              "feedback": "Correct. The gate model with a dynamic state variable."
+              "feedback": "The state variable stores how opening changes with time."
             },
             {
               "text": "The constant-field model with fixed permeability",
-              "feedback": "Use this distinction: The gate model with a dynamic state variable."
+              "feedback": "Fixed permeability specifies permeation without a changing gate state."
             }
           ],
           "hints": [
@@ -85,6 +85,32 @@ const content = {
           ],
           "modelAnswer": [
             "The gate model with a dynamic state variable."
+          ]
+        },
+        {
+          "id": "L06-overview-starter",
+          "type": "mc",
+          "difficulty": "easy",
+          "progressionAdded": true,
+          "source": "L06 PDF 1,18",
+          "prompt": "Which quantity describes permeation through an already open pore?",
+          "options": [
+            {
+              "text": "The current carried by ions through the pore",
+              "feedback": "Permeation describes ion passage once the pore is available."
+            },
+            {
+              "text": "The fraction of channels in the open state",
+              "feedback": "The open fraction describes gating, which controls access to the pore."
+            },
+            {
+              "text": "The rate of switching between channel states",
+              "feedback": "State-transition rates describe gating rather than open-pore ion passage."
+            }
+          ],
+          "correct": 0,
+          "modelAnswer": [
+            "Permeation describes ion passage once the pore is available."
           ]
         }
       ],
@@ -102,7 +128,7 @@ const content = {
       "blocks": [
         {
           "type": "text",
-          "body": "A linear approximation holds over a limited voltage range. Inward rectification favors inward current; outward rectification favors outward current. Compare conductance relative to reversal, not just current magnitudes at unequal driving forces. Voltage and time can each produce nonlinearity."
+          "body": ["Rectification means that current passes more easily in one direction: inward rectification favors inward current, outward rectification favors outward current. PDF page 2 also shows that linear behavior may hold only over a restricted voltage range; a membrane can rectify differently in different ranges.", "Locate reversal before comparing the two sides. Unequal current magnitudes at unequal driving forces do not by themselves establish unequal conductance. Distinguish curvature with voltage from a change over time at fixed voltage; these observations place different demands on a model."]
         },
         {
           "type": "figure",
@@ -131,11 +157,11 @@ const content = {
           "options": [
             {
               "text": "Greater ease of outward than inward current",
-              "feedback": "Use this distinction: Greater ease of inward than outward current."
+              "feedback": "That describes outward rectification, which favors outward current."
             },
             {
               "text": "Greater ease of inward than outward current",
-              "feedback": "Correct. Greater ease of inward than outward current."
+              "feedback": "Inward rectification favors inward current relative to outward current."
             }
           ],
           "hints": [
@@ -149,6 +175,32 @@ const content = {
           "modelAnswer": [
             "Greater ease of inward than outward current."
           ]
+        },
+        {
+          "id": "L06-rectification-starter",
+          "type": "mc",
+          "difficulty": "easy",
+          "progressionAdded": true,
+          "source": "L06 PDF 2",
+          "prompt": "What is the reversal potential on a current–voltage plot?",
+          "options": [
+            {
+              "text": "The voltage where the ionic current is largest",
+              "feedback": "A maximum current is not reversal; reversal is the zero-current crossing."
+            },
+            {
+              "text": "The voltage where the local slope is zero",
+              "feedback": "A horizontal tangent identifies zero slope, not necessarily zero current."
+            },
+            {
+              "text": "The voltage where the ionic current is zero",
+              "feedback": "At reversal, inward and outward ionic contributions balance."
+            }
+          ],
+          "correct": 2,
+          "modelAnswer": [
+            "At reversal, inward and outward ionic contributions balance."
+          ]
         }
       ]
     },
@@ -160,7 +212,7 @@ const content = {
       "blocks": [
         {
           "type": "text",
-          "body": "GHK assumes a uniform electric field and independent permeation with fixed permeability. A concentration gradient can bend the current–voltage curve without dynamic gates. For a positive ion, higher outside concentration gives positive reversal and inward rectification. Opposite rectification at that reversal is anomalous for this model."
+          "body": ["GHK assumes independent permeation through a uniform electric field with fixed permeability. Unequal concentrations can bend the current–voltage relation without any gates opening or closing. For the positive ion on PDF page 3, higher outside concentration gives positive reversal and inward rectification; higher inside gives the opposite pairing.", "Use the current-density explorer below with inside and outside concentrations in consistent SI units. Current density becomes total current only after multiplication by membrane area. An incompatible rectification/reversal pairing rules out this fixed-permeability account, but a compatible curve does not uniquely prove it."]
         },
         {
           "type": "figure",
@@ -290,11 +342,11 @@ const content = {
           "options": [
             {
               "text": "Unequal concentrations on the two sides",
-              "feedback": "Correct. Unequal concentrations on the two sides."
+              "feedback": "A concentration gradient can curve the relation without changing pore availability."
             },
             {
               "text": "Time-dependent opening of the channel gates",
-              "feedback": "Use this distinction: Unequal concentrations on the two sides."
+              "feedback": "Fixed-permeability GHK has no dynamic opening variable."
             }
           ],
           "hints": [
@@ -308,6 +360,32 @@ const content = {
           "modelAnswer": [
             "Unequal concentrations on the two sides."
           ]
+        },
+        {
+          "id": "L06-constant-field-starter",
+          "type": "mc",
+          "difficulty": "easy",
+          "progressionAdded": true,
+          "source": "L06 PDF 3",
+          "prompt": "Which electric-field assumption defines the constant-field model?",
+          "options": [
+            {
+              "text": "The field is absent throughout the membrane",
+              "feedback": "Constant field does not mean zero field; applied voltage can bias flux."
+            },
+            {
+              "text": "The field is uniform across the membrane",
+              "feedback": "The constant-field approximation uses a uniform transmembrane field."
+            },
+            {
+              "text": "The field is confined to one narrow barrier",
+              "feedback": "A localized barrier belongs to an energy-barrier account."
+            }
+          ],
+          "correct": 1,
+          "modelAnswer": [
+            "The constant-field approximation uses a uniform transmembrane field."
+          ]
         }
       ]
     },
@@ -319,7 +397,7 @@ const content = {
       "blocks": [
         {
           "type": "text",
-          "body": "Local potential need not vary linearly along a channel. Ions alter local fields and must cross energy barriers. One dominant rate-limiting barrier motivates the single-barrier model. Several comparable barriers require a richer model."
+          "body": ["An energy barrier represents the energetic cost of ion passage through a pore. Local potential need not vary linearly because ions within the channel can alter the field. PDF page 4 distinguishes one dominant rate-limiting barrier from several comparable barriers, which require a richer model.", "The two crossing coefficients describe opposite directions over the barrier. Their values concern permeation through the pore, not the probability that a gate is open. A higher activation barrier slows crossing; the shape of a current–voltage curve therefore depends on the energetic pathway as well as concentrations."]
         },
         {
           "type": "figure",
@@ -347,12 +425,12 @@ const content = {
           "correct": 1,
           "options": [
             {
-              "text": "Movement of the recording electrode through saline",
-              "feedback": "Use this distinction: Movement of the permeating ion through a pore."
+              "text": "Movement of a gating particle between channel states",
+              "feedback": "That describes a gating transition, not the path of a permeating ion."
             },
             {
               "text": "Movement of the permeating ion through a pore",
-              "feedback": "Correct. Movement of the permeating ion through a pore."
+              "feedback": "The barrier is the energetic obstacle an ion crosses in the pore."
             }
           ],
           "hints": [
@@ -366,6 +444,32 @@ const content = {
           "modelAnswer": [
             "Movement of the permeating ion through a pore."
           ]
+        },
+        {
+          "id": "L06-barrier-starter",
+          "type": "mc",
+          "difficulty": "easy",
+          "progressionAdded": true,
+          "source": "L06 PDF 4",
+          "prompt": "When is a single dominant barrier a suitable approximation?",
+          "options": [
+            {
+              "text": "One crossing step limits the overall passage",
+              "feedback": "A dominant rate-limiting step can represent the main obstruction to passage."
+            },
+            {
+              "text": "Several crossing steps limit passage equally",
+              "feedback": "Comparable rate-limiting barriers require a multiple-barrier account."
+            },
+            {
+              "text": "Every crossing step has negligible resistance",
+              "feedback": "A negligible barrier cannot be the dominant obstruction to passage."
+            }
+          ],
+          "correct": 0,
+          "modelAnswer": [
+            "A dominant rate-limiting step can represent the main obstruction to passage."
+          ]
         }
       ]
     },
@@ -377,7 +481,7 @@ const content = {
       "blocks": [
         {
           "type": "text",
-          "body": "Independent passage means one ion does not alter another ion’s passage. Saturation of finite binding sites and flux coupling violate that assumption. The partition coefficient $\\beta_p$ is channel concentration divided by solution concentration. Here the subscript distinguishes it from the later closing rate $\\beta$."
+          "body": ["Independent passage means one ion does not alter another ion’s passage. PDF page 5 lists saturation of finite binding sites, flux coupling and interacting ions at multiple sites as limitations. The partition coefficient $\\beta_p$ is channel concentration divided by surrounding solution concentration, distinct from the later closing rate $\\beta$.", "Calculate each directional flux from its source side: inward uses outside concentration and outward uses inside concentration. Multiply crossing coefficient, partition coefficient and concentration, as in the explorers below. Keep both fluxes positive as directional magnitudes; subtract them only when forming signed net current."]
         },
         {
           "type": "figure",
@@ -535,11 +639,11 @@ const content = {
           "options": [
             {
               "text": "Flux saturates as binding sites become occupied",
-              "feedback": "Correct. Flux saturates as binding sites become occupied."
+              "feedback": "Finite binding capacity can make flux saturate rather than remain proportional."
             },
             {
               "text": "Flux scales with concentration at fixed coefficient",
-              "feedback": "Use this distinction: Flux saturates as binding sites become occupied."
+              "feedback": "Proportional flux at fixed coefficient is consistent with independent passage."
             }
           ],
           "hints": [
@@ -553,6 +657,32 @@ const content = {
           "modelAnswer": [
             "Flux saturates as binding sites become occupied."
           ]
+        },
+        {
+          "id": "L06-independence-starter",
+          "type": "mc",
+          "difficulty": "easy",
+          "progressionAdded": true,
+          "source": "L06 PDF 5",
+          "prompt": "What does the partition coefficient compare?",
+          "options": [
+            {
+              "text": "Outside concentration with inside concentration",
+              "feedback": "The transmembrane concentration ratio differs from channel-to-solution partitioning."
+            },
+            {
+              "text": "Opening transition rate with closing transition rate",
+              "feedback": "A ratio of gating rates describes state balance, not ion partitioning."
+            },
+            {
+              "text": "Channel concentration with solution concentration",
+              "feedback": "Partitioning compares ion concentration inside the channel with the surrounding solution."
+            }
+          ],
+          "correct": 2,
+          "modelAnswer": [
+            "Partitioning compares ion concentration inside the channel with the surrounding solution."
+          ]
         }
       ]
     },
@@ -564,7 +694,7 @@ const content = {
       "blocks": [
         {
           "type": "text",
-          "body": "For the symmetric source barrier at zero voltage, both crossing coefficients are equal. Fluxes can still differ when concentrations differ. The activation energy controls the crossing coefficient exponentially; equal coefficients do not imply zero net flux. This argument also applies to neutral particles."
+          "body": ["At zero voltage the symmetric barrier on PDF page 6 gives equal crossing coefficients in both directions. The Arrhenius relation below makes crossing exponentially slower as activation energy increases relative to thermal energy. Its exponent is dimensionless; the prefactor and crossing coefficient have the same units.", "Equal coefficients do not mean equal fluxes: their ratio is still set by outside versus inside concentration when partitioning is common. Net flux vanishes only when the two directional contributions balance. This concentration argument also applies to neutral particles, for which voltage supplies no electrical bias."]
         },
         {
           "type": "figure",
@@ -728,11 +858,11 @@ const content = {
           "options": [
             {
               "text": "The two concentrations can be arbitrary",
-              "feedback": "Use this distinction: The two concentrations are also equal."
+              "feedback": "With common partitioning, different concentrations still give different fluxes."
             },
             {
               "text": "The two concentrations are also equal",
-              "feedback": "Correct. The two concentrations are also equal."
+              "feedback": "Equal coefficients give equal fluxes only when the source concentrations also match."
             }
           ],
           "hints": [
@@ -746,6 +876,32 @@ const content = {
           "modelAnswer": [
             "The two concentrations are also equal."
           ]
+        },
+        {
+          "id": "L06-zero-barrier-starter",
+          "type": "mc",
+          "difficulty": "easy",
+          "progressionAdded": true,
+          "source": "L06 PDF 6",
+          "prompt": "What happens to crossing at a higher activation barrier, with temperature and prefactor fixed?",
+          "options": [
+            {
+              "text": "The crossing coefficient stays unchanged",
+              "feedback": "Barrier height appears in the exponent and therefore changes the coefficient."
+            },
+            {
+              "text": "The crossing coefficient becomes smaller",
+              "feedback": "The negative Arrhenius exponent makes crossing slower at a higher barrier."
+            },
+            {
+              "text": "The crossing coefficient becomes larger",
+              "feedback": "A higher barrier reduces the fraction able to cross at the same temperature."
+            }
+          ],
+          "correct": 1,
+          "modelAnswer": [
+            "The negative Arrhenius exponent makes crossing slower at a higher barrier."
+          ]
         }
       ]
     },
@@ -757,7 +913,7 @@ const content = {
       "blocks": [
         {
           "type": "text",
-          "body": "Location $\\delta$ is measured from the inside: inner margin is zero, outer margin is one. For a positive ion, positive inside voltage lowers the outward activation barrier and raises the inward barrier. Net outward current subtracts inward flux from outward flux."
+          "body": ["PDF page 7 measures barrier location $\\delta$ from the inside: zero is the inner boundary and one the outer boundary. For a positive ion, positive inside voltage lowers the outward activation barrier and raises the inward barrier. The rate exponents below encode these opposite electrical effects.", "For a calculation, form the dimensionless voltage $zFV_m/(RT)$, apply the appropriate location factor, then calculate both crossing coefficients. Multiply by partitioning and source-side concentration to obtain fluxes. Signed outward current density is $zF(J_{out}-J_{in})$; an inward excess gives negative current for a cation."]
         },
         {
           "type": "figure",
@@ -1034,11 +1190,11 @@ const content = {
           "options": [
             {
               "text": "At the outer membrane boundary",
-              "feedback": "Correct. At the outer membrane boundary."
+              "feedback": "Location is measured from inside, so one is the outer boundary."
             },
             {
               "text": "At the inner membrane boundary",
-              "feedback": "Use this distinction: At the outer membrane boundary."
+              "feedback": "The inner boundary is location zero in the source convention."
             }
           ],
           "hints": [
@@ -1052,6 +1208,32 @@ const content = {
           "modelAnswer": [
             "At the outer membrane boundary."
           ]
+        },
+        {
+          "id": "L06-tilted-barrier-starter",
+          "type": "mc",
+          "difficulty": "easy",
+          "progressionAdded": true,
+          "source": "L06 PDF 7",
+          "prompt": "For a positive ion and a barrier away from the inner boundary, what does positive inside voltage do to the outward activation barrier?",
+          "options": [
+            {
+              "text": "It lowers the outward activation barrier",
+              "feedback": "Positive inside voltage favors outward movement of positive charge."
+            },
+            {
+              "text": "It raises the outward activation barrier",
+              "feedback": "Positive inside voltage opposes inward, rather than outward, cation movement."
+            },
+            {
+              "text": "It leaves the outward barrier unaffected",
+              "feedback": "The outward barrier changes with voltage except at the inner-boundary limiting location."
+            }
+          ],
+          "correct": 0,
+          "modelAnswer": [
+            "Positive inside voltage favors outward movement of positive charge."
+          ]
         }
       ]
     },
@@ -1063,7 +1245,7 @@ const content = {
       "blocks": [
         {
           "type": "text",
-          "body": "For positive ions, an outer barrier makes the outward term strongly voltage-dependent. An inner barrier makes the inward term strongly voltage-dependent. Making voltage more negative then increases inward flux. A central barrier is least asymmetric in the source’s comparison, but is not generally a linear resistor."
+          "body": ["For positive ions, an outer barrier makes outward crossing strongly voltage-dependent, whereas an inner barrier makes inward crossing strongly voltage-dependent. On PDF page 8, making voltage more negative increases inward flux for the inner-barrier case. The phrase “inward ion flux decreases” requires this explicit voltage-direction qualification.", "A central barrier gives the least asymmetric curve in the displayed comparison, not a generally linear resistor. Use the location-dependent exponents from the preceding section to predict which directional flux changes most. Curvature describes a transport bias and does not by itself establish dynamic opening."]
         },
         {
           "type": "figure",
@@ -1092,11 +1274,11 @@ const content = {
           "options": [
             {
               "text": "The extracellular membrane margin",
-              "feedback": "Use this distinction: The intracellular membrane margin."
+              "feedback": "The outer boundary gives the source outward-rectifying form for cations."
             },
             {
               "text": "The intracellular membrane margin",
-              "feedback": "Correct. The intracellular membrane margin."
+              "feedback": "The inner barrier makes inward crossing strongly voltage-dependent."
             }
           ],
           "hints": [
@@ -1110,6 +1292,32 @@ const content = {
           "modelAnswer": [
             "The intracellular membrane margin."
           ]
+        },
+        {
+          "id": "L06-position-starter",
+          "type": "mc",
+          "difficulty": "easy",
+          "progressionAdded": true,
+          "source": "L06 PDF 8",
+          "prompt": "Which boundary location gives the source outward-rectifying barrier model for positive ions?",
+          "options": [
+            {
+              "text": "A barrier at the intracellular boundary",
+              "feedback": "At the inner boundary, inward crossing has the full voltage-dependent factor."
+            },
+            {
+              "text": "A barrier at the membrane central plane",
+              "feedback": "The central barrier gives the least asymmetric source comparison, not the outer-boundary form."
+            },
+            {
+              "text": "A barrier at the extracellular boundary",
+              "feedback": "At the outer boundary, outward crossing has the full voltage-dependent factor."
+            }
+          ],
+          "correct": 2,
+          "modelAnswer": [
+            "At the outer boundary, outward crossing has the full voltage-dependent factor."
+          ]
         }
       ]
     },
@@ -1121,7 +1329,7 @@ const content = {
       "blocks": [
         {
           "type": "text",
-          "body": "At fixed barrier location the current depends on both concentrations, not only their ratio. Holding inside fixed differs from holding outside fixed. Unlike GHK, the barrier model can give either rectification direction at either reversal sign. A nonlinear curve alone cannot uniquely locate a barrier."
+          "body": ["At fixed barrier location, current depends on both absolute concentrations. PDF page 9 compares varying inside concentration with outside fixed against varying outside with inside fixed; the same concentration ratio need not give the same current magnitude. Scaling both concentrations together scales both directional fluxes.", "Selective reversal is set by the concentration ratio because it marks equal inward and outward fluxes. Barrier position can change curve shape without changing that balance voltage. Unlike the fixed-permeability GHK constraint, barrier permeation permits either rectification direction at either reversal sign, so a nonlinear curve alone cannot locate a unique barrier."]
         },
         {
           "type": "figure",
@@ -1150,11 +1358,11 @@ const content = {
           "options": [
             {
               "text": "Which absolute concentration was held fixed",
-              "feedback": "Correct. Which absolute concentration was held fixed."
+              "feedback": "Current magnitude depends on absolute concentrations as well as their ratio."
             },
             {
-              "text": "Only the number of points on the voltage axis",
-              "feedback": "Use this distinction: Which absolute concentration was held fixed."
+              "text": "Only the ratio of the two ion concentrations",
+              "feedback": "A ratio alone does not specify the absolute concentrations that set flux magnitude."
             }
           ],
           "hints": [
@@ -1168,6 +1376,32 @@ const content = {
           "modelAnswer": [
             "Which absolute concentration was held fixed."
           ]
+        },
+        {
+          "id": "L06-concentrations-starter",
+          "type": "mc",
+          "difficulty": "easy",
+          "progressionAdded": true,
+          "source": "L06 PDF 9",
+          "prompt": "What concentration property sets selective reversal in this barrier model?",
+          "options": [
+            {
+              "text": "The difference of the two concentrations",
+              "feedback": "A concentration difference alone does not specify the ratio needed for reversal."
+            },
+            {
+              "text": "The ratio of the two ion concentrations",
+              "feedback": "Reversal balances directional fluxes and depends on their concentration ratio."
+            },
+            {
+              "text": "The sum of the two ion concentrations",
+              "feedback": "Absolute concentration scale changes current magnitude, not the selective reversal at a fixed ratio."
+            }
+          ],
+          "correct": 1,
+          "modelAnswer": [
+            "Reversal balances directional fluxes and depends on their concentration ratio."
+          ]
         }
       ]
     },
@@ -1179,7 +1413,7 @@ const content = {
       "blocks": [
         {
           "type": "text",
-          "body": "The sodium example includes an entry diffusion barrier, a binding well and a larger selectivity-filter barrier, followed by additional barriers. A well describes favorable binding; it is not a negative transport rate. Similar rate-limiting heights defeat a single-dominant-barrier approximation."
+          "body": ["PDF page 10 follows sodium through an entry diffusion barrier, an attractive binding well, a larger selectivity-filter barrier and two further barriers. Peaks oppose passage; a well is a favorable binding location. Its negative relative energy is not a negative crossing rate.", "The highest barrier motivates a single rate-limiting-step approximation only when it dominates the pathway. Several comparable barriers and interacting binding sites require a fuller account. Read the source energy profile as a sequence of physical obstacles and binding locations, rather than replacing all peaks by one arbitrary average."]
         },
         {
           "type": "figure",
@@ -1208,11 +1442,11 @@ const content = {
           "options": [
             {
               "text": "An impossible negative ion-crossing coefficient",
-              "feedback": "Use this distinction: An energetically favorable ion-binding location."
+              "feedback": "A well is a favorable binding location; crossing coefficients remain nonnegative."
             },
             {
               "text": "An energetically favorable ion-binding location",
-              "feedback": "Correct. An energetically favorable ion-binding location."
+              "feedback": "The energy minimum represents attraction and favorable binding."
             }
           ],
           "hints": [
@@ -1226,6 +1460,32 @@ const content = {
           "modelAnswer": [
             "An energetically favorable ion-binding location."
           ]
+        },
+        {
+          "id": "L06-multiple-starter",
+          "type": "mc",
+          "difficulty": "easy",
+          "progressionAdded": true,
+          "source": "L06 PDF 10",
+          "prompt": "Which part of the source sodium pathway is a binding well?",
+          "options": [
+            {
+              "text": "The attractive site near a charged group",
+              "feedback": "Electrostatic attraction creates a favorable binding location, shown as a well."
+            },
+            {
+              "text": "The narrow region of the selectivity filter",
+              "feedback": "The narrow filter is represented by an activation barrier, not the attractive well."
+            },
+            {
+              "text": "The entry obstacle from extracellular fluid",
+              "feedback": "The entry diffusion step is an obstacle to passage, shown as a barrier."
+            }
+          ],
+          "correct": 0,
+          "modelAnswer": [
+            "Electrostatic attraction creates a favorable binding location, shown as a well."
+          ]
         }
       ]
     },
@@ -1237,7 +1497,7 @@ const content = {
       "blocks": [
         {
           "type": "text",
-          "body": "The gate model adds time-dependent channel opening. Its barrier describes movement of gating particles within channel proteins, distinct from an ion crossing the pore. Gates control access to aqueous pores. Both permeation and gating can contribute to actual current."
+          "body": ["The gate model on PDF page 11 adds a state that changes over time. Voltage-sensitive charges move within channel proteins and control access to aqueous pores. Here the barrier concerns movement of gating particles, whereas the earlier barrier model concerned permeating ions crossing the pore.", "This distinction explains why a static permeation model cannot describe a delayed change in conducting fraction at held voltage. Actual current can involve both mechanisms: the pore determines current when open, while gating determines how many channels contribute at a given time."]
         },
         {
           "type": "figure",
@@ -1266,11 +1526,11 @@ const content = {
           "options": [
             {
               "text": "A gating particle moving within the channel",
-              "feedback": "Correct. A gating particle moving within the channel."
+              "feedback": "This barrier describes a state-changing gating particle within the protein."
             },
             {
-              "text": "A recording electrode moving outside the channel",
-              "feedback": "Use this distinction: A gating particle moving within the channel."
+              "text": "A permeating ion moving through the open channel",
+              "feedback": "That describes the permeating ion, which crosses a different energy barrier."
             }
           ],
           "hints": [
@@ -1283,6 +1543,32 @@ const content = {
           ],
           "modelAnswer": [
             "A gating particle moving within the channel."
+          ]
+        },
+        {
+          "id": "L06-gates-starter",
+          "type": "mc",
+          "difficulty": "easy",
+          "progressionAdded": true,
+          "source": "L06 PDF 11",
+          "prompt": "In the gate model, what do voltage-sensitive charges control?",
+          "options": [
+            {
+              "text": "Concentration of ions in the outer solution",
+              "feedback": "Gating charge movement controls channel state, not the bulk external ion concentration."
+            },
+            {
+              "text": "Valence of ions crossing the open channel",
+              "feedback": "Gating does not change the charge carried by a permeating ion."
+            },
+            {
+              "text": "Access to the aqueous conducting pore",
+              "feedback": "Gating charge movement changes channel state and controls pore availability."
+            }
+          ],
+          "correct": 2,
+          "modelAnswer": [
+            "Gating charge movement changes channel state and controls pore availability."
           ]
         }
       ],
@@ -1300,7 +1586,7 @@ const content = {
       "blocks": [
         {
           "type": "text",
-          "body": "Opening and closing have voltage-dependent rates. The source assumes a linear current–voltage relation for an already open channel. A population can still have nonlinear current because the fraction open changes with voltage and time."
+          "body": ["PDF page 12 assumes voltage-dependent opening and closing with first-order transitions. An already open channel is taken to be Ohmic: doubling its driving force doubles its current. This assumption applies to the open pore, not to the whole population at all voltages and times.", "The population current can still be nonlinear because its conducting fraction changes. Separate open-channel conductance, driving force and open fraction when explaining a trace. Voltage controls the transition rates; a finite relaxation of the state after a step is different from an immediate change in driving force."]
         },
         {
           "type": "figure",
@@ -1329,11 +1615,11 @@ const content = {
           "options": [
             {
               "text": "Yes, all population currents must remain linear",
-              "feedback": "Use this distinction: No, the fraction open can change with voltage."
+              "feedback": "The open fraction can vary even when each open pore is Ohmic."
             },
             {
               "text": "No, the fraction open can change with voltage",
-              "feedback": "Correct. No, the fraction open can change with voltage."
+              "feedback": "Voltage-dependent opening makes the population nonlinear despite linear open pores."
             }
           ],
           "hints": [
@@ -1347,6 +1633,32 @@ const content = {
           "modelAnswer": [
             "No, the fraction open can change with voltage."
           ]
+        },
+        {
+          "id": "L06-assumptions-starter",
+          "type": "mc",
+          "difficulty": "easy",
+          "progressionAdded": true,
+          "source": "L06 PDF 12",
+          "prompt": "For an already open Ohmic pore, current is proportional to what?",
+          "options": [
+            {
+              "text": "Voltage measured from the command baseline",
+              "feedback": "The command baseline need not equal the ionic reversal potential."
+            },
+            {
+              "text": "Voltage measured from the reversal potential",
+              "feedback": "The open-pore driving force is voltage relative to reversal."
+            },
+            {
+              "text": "Voltage measured from the resting potential",
+              "feedback": "Rest is not generally reversal for the selected ionic current."
+            }
+          ],
+          "correct": 1,
+          "modelAnswer": [
+            "The open-pore driving force is voltage relative to reversal."
+          ]
         }
       ]
     },
@@ -1358,7 +1670,7 @@ const content = {
       "blocks": [
         {
           "type": "text",
-          "body": "$y$ is the fraction in the permissive state and $1-y$ the non-permissive fraction. Opening transitions add $\\alpha(1-y)$; closing transitions remove $\\beta y$. A permissive particle is not necessarily an open whole channel."
+          "body": ["On PDF page 13, $y$ is the fraction of gating particles in the permissive state and $1-y$ is the available non-permissive fraction. Opening adds $\\alpha(1-y)$ and closing removes $\\beta y$. The derivative below is their difference; rates have inverse-time units, while fractions are dimensionless.", "To determine the direction of change, compare the two transition flows rather than the rate coefficients alone. At steady state they balance even though particles continue switching. A permissive particle need not mean an open whole channel if several particles must all be permissive."]
         },
         {
           "type": "figure",
@@ -1447,11 +1759,11 @@ const content = {
           "options": [
             {
               "text": "$\\beta y$, the closing-rate term",
-              "feedback": "Correct. $\\beta y$, the closing-rate term."
+              "feedback": "Closing removes the fraction already permissive, at rate $\\beta y$."
             },
             {
               "text": "$\\alpha(1-y)$, the opening-rate term",
-              "feedback": "Use this distinction: $\\beta y$, the closing-rate term."
+              "feedback": "Opening adds permissive particles from the available non-permissive fraction."
             }
           ],
           "hints": [
@@ -1465,6 +1777,32 @@ const content = {
           "modelAnswer": [
             "$\\beta y$, the closing-rate term."
           ]
+        },
+        {
+          "id": "L06-balance-starter",
+          "type": "mc",
+          "difficulty": "easy",
+          "progressionAdded": true,
+          "source": "L06 PDF 13",
+          "prompt": "What does the fraction $1-y$ represent in the two-state particle model?",
+          "options": [
+            {
+              "text": "Particles in the non-permissive state",
+              "feedback": "The two fractions sum to one; the complement is available for opening transitions."
+            },
+            {
+              "text": "Particles in the permissive state",
+              "feedback": "The permissive fraction is $y$, not its complement."
+            },
+            {
+              "text": "Channels in the conducting state",
+              "feedback": "A particle-state fraction need not equal the whole-channel open fraction."
+            }
+          ],
+          "correct": 0,
+          "modelAnswer": [
+            "The two fractions sum to one; the complement is available for opening transitions."
+          ]
         }
       ]
     },
@@ -1476,7 +1814,7 @@ const content = {
       "blocks": [
         {
           "type": "text",
-          "body": "For the source depolarization-activated particle, a more positive voltage favors the permissive state. Depolarization need not make inside voltage positive; a less negative value also counts. Hyperpolarization favors the opposite transition in this example, not in every channel type."
+          "body": ["For the positively charged, depolarization-activated particle on PDF page 14, a more positive membrane voltage lowers the barrier toward the permissive state. Hyperpolarization favors the reverse transition in this example. The electrical effect depends on the modeled gating charge and state assignment, not merely the permeating ion.", "Depolarization means a change toward a more positive voltage, including a change between two negative values. It need not cross zero. Do not generalize this particular activation direction to every channel; the next source curves also include channels activated by hyperpolarization."]
         },
         {
           "type": "figure",
@@ -1505,11 +1843,11 @@ const content = {
           "options": [
             {
               "text": "Hyperpolarization unless voltage crosses zero",
-              "feedback": "Use this distinction: Depolarization even without crossing zero."
+              "feedback": "A more positive change is depolarization even between negative voltages."
             },
             {
               "text": "Depolarization even without crossing zero",
-              "feedback": "Correct. Depolarization even without crossing zero."
+              "feedback": "Depolarization describes a direction of change, not a requirement to cross zero."
             }
           ],
           "hints": [
@@ -1523,6 +1861,32 @@ const content = {
           "modelAnswer": [
             "Depolarization even without crossing zero."
           ]
+        },
+        {
+          "id": "L06-polarity-starter",
+          "type": "mc",
+          "difficulty": "easy",
+          "progressionAdded": true,
+          "source": "L06 PDF 14",
+          "prompt": "For the illustrated positive gating charge, depolarization favors which transition?",
+          "options": [
+            {
+              "text": "Movement toward the non-permissive state",
+              "feedback": "That reverse transition is favored by hyperpolarization in this example."
+            },
+            {
+              "text": "Movement of the ion through the open pore",
+              "feedback": "This energy diagram describes a gating particle, not the permeating ion."
+            },
+            {
+              "text": "Movement toward the permissive state",
+              "feedback": "The illustrated voltage change lowers the barrier toward the permissive state."
+            }
+          ],
+          "correct": 2,
+          "modelAnswer": [
+            "The illustrated voltage change lowers the barrier toward the permissive state."
+          ]
         }
       ]
     },
@@ -1534,7 +1898,7 @@ const content = {
       "blocks": [
         {
           "type": "text",
-          "body": "At fixed voltage, steady opening and closing fluxes balance. Barrier location affects both rates and their sum. It cancels from the steady fraction when the zero-voltage coefficients stay fixed. Equal baseline rates give the symmetric logistic special case."
+          "body": ["At fixed voltage, balance opening and closing to obtain $y_\\infty=\\alpha/(\\alpha+\\beta)$. PDF page 15 gives exponential voltage-dependent rates; calculate them with a dimensionless electrical-energy exponent before taking their ratio. Equal zero-voltage coefficients give the symmetric logistic special case, not a requirement for the general relation.", "With baseline coefficients fixed, barrier location cancels from the steady fraction but affects the rate sum and response speed. Thus an unchanged activation curve does not imply unchanged kinetics. Combining steady activation with $\\tau=1/(\\alpha+\\beta)$ lets you infer both rates rather than just their ratio."]
         },
         {
           "type": "figure",
@@ -1886,11 +2250,11 @@ const content = {
           "options": [
             {
               "text": "The approach speed without changing the steady fraction",
-              "feedback": "Correct. The approach speed without changing the steady fraction."
+              "feedback": "Location changes the rate sum while cancelling from the steady ratio at fixed baselines."
             },
             {
               "text": "The steady fraction without changing either crossing rate",
-              "feedback": "Use this distinction: The approach speed without changing the steady fraction."
+              "feedback": "A changed steady ratio requires more than moving the barrier with baseline coefficients fixed."
             }
           ],
           "hints": [
@@ -1904,6 +2268,32 @@ const content = {
           "modelAnswer": [
             "The approach speed without changing the steady fraction."
           ]
+        },
+        {
+          "id": "L06-steady-starter",
+          "type": "mc",
+          "difficulty": "easy",
+          "progressionAdded": true,
+          "source": "L06 PDF 15",
+          "prompt": "At steady activation, which transition flows balance?",
+          "options": [
+            {
+              "text": "Ionic and capacitive membrane currents",
+              "feedback": "Current balance is distinct from the two-state particle balance defining activation."
+            },
+            {
+              "text": "Opening and closing particle flows",
+              "feedback": "Steady activation means opening replenishes the permissive particles lost by closing."
+            },
+            {
+              "text": "Inward and outward permeating ion fluxes",
+              "feedback": "Ionic flux balance defines reversal, not the steady fraction of gating particles."
+            }
+          ],
+          "correct": 1,
+          "modelAnswer": [
+            "Steady activation means opening replenishes the permissive particles lost by closing."
+          ]
         }
       ]
     },
@@ -1915,7 +2305,7 @@ const content = {
       "blocks": [
         {
           "type": "text",
-          "body": "A rising steady activation curve indicates depolarization activation; a falling curve indicates hyperpolarization activation. Read the permissive-state convention first. A rising curve alone does not tell the ionic current direction, which also needs reversal and voltage."
+          "body": ["PDF page 16 plots steady permissive probability against voltage. A rising curve means depolarization activation; a falling curve means hyperpolarization activation. Read the state definition and voltage axis before assigning a direction. These curves describe the final fraction after sufficient time at each voltage.", "Steady activation alone gives neither the relaxation speed nor ionic current direction. The former needs transition rates or a time constant; the latter also needs voltage relative to reversal. A channel can become more permissive while its current changes sign because the driving force crosses reversal."]
         },
         {
           "type": "figure",
@@ -1944,11 +2334,11 @@ const content = {
           "options": [
             {
               "text": "Steady activation rises as voltage becomes more positive",
-              "feedback": "Use this distinction: Steady activation rises as voltage becomes more negative."
+              "feedback": "A rising curve with positive voltage describes depolarization activation."
             },
             {
               "text": "Steady activation rises as voltage becomes more negative",
-              "feedback": "Correct. Steady activation rises as voltage becomes more negative."
+              "feedback": "A higher steady fraction at more negative voltage defines hyperpolarization activation."
             }
           ],
           "hints": [
@@ -1962,6 +2352,32 @@ const content = {
           "modelAnswer": [
             "Steady activation rises as voltage becomes more negative."
           ]
+        },
+        {
+          "id": "L06-activation-starter",
+          "type": "mc",
+          "difficulty": "easy",
+          "progressionAdded": true,
+          "source": "L06 PDF 16",
+          "prompt": "What does a steady activation curve show at each held voltage?",
+          "options": [
+            {
+              "text": "The permissive fraction after relaxation",
+              "feedback": "The curve gives the final particle-state fraction after sufficient time at that voltage."
+            },
+            {
+              "text": "The permissive fraction before relaxation",
+              "feedback": "The initial fraction depends on the preceding holding condition."
+            },
+            {
+              "text": "The ionic current after full relaxation",
+              "feedback": "Current also requires a permeation relation and driving force; activation is a fraction."
+            }
+          ],
+          "correct": 0,
+          "modelAnswer": [
+            "The curve gives the final particle-state fraction after sufficient time at that voltage."
+          ]
         }
       ]
     },
@@ -1973,7 +2389,7 @@ const content = {
       "blocks": [
         {
           "type": "text",
-          "body": "After a voltage step, fixed rates give an exponential relaxation from initial to steady activation. The time constant is the reciprocal rate sum. Activation remains continuous at the step; ionic current can jump because its driving force changes."
+          "body": ["After a voltage step, use the rates at the new held voltage. PDF page 17 gives exponential relaxation from initial fraction $y_0$ toward $y_\\infty$, with $\\tau=1/(\\alpha+\\beta)$. Keep time and inverse-rate units consistent. At one time constant the remaining distance to steady state is reduced by a factor of $e$.", "The fraction is continuous at the step and approaches, rather than overshoots, the new steady value in this model. Ionic current can nevertheless jump because driving force changes immediately. Sketch the initial value, final asymptote and approach direction before evaluating a time point with the explorer below."]
         },
         {
           "type": "figure",
@@ -2133,11 +2549,11 @@ const content = {
           "options": [
             {
               "text": "The gating variable across the voltage step",
-              "feedback": "Correct. The gating variable across the voltage step."
+              "feedback": "Finite transition rates keep the particle fraction continuous."
             },
             {
               "text": "The current across every voltage-clamp step",
-              "feedback": "Use this distinction: The gating variable across the voltage step."
+              "feedback": "Current can jump because driving force changes while the gate fraction stays continuous."
             }
           ],
           "hints": [
@@ -2151,6 +2567,32 @@ const content = {
           "modelAnswer": [
             "The gating variable across the voltage step."
           ]
+        },
+        {
+          "id": "L06-kinetics-starter",
+          "type": "mc",
+          "difficulty": "easy",
+          "progressionAdded": true,
+          "source": "L06 PDF 17",
+          "prompt": "What does the time constant describe in first-order gating?",
+          "options": [
+            {
+              "text": "The size of the final steady activation",
+              "feedback": "The steady fraction depends on the rate ratio; the time constant depends on the rate sum."
+            },
+            {
+              "text": "The voltage where ionic current reverses",
+              "feedback": "Reversal concerns driving force and ion concentrations, not the relaxation timescale."
+            },
+            {
+              "text": "The timescale of approach to steady activation",
+              "feedback": "The time constant sets how quickly the initial fraction relaxes toward its new steady value."
+            }
+          ],
+          "correct": 2,
+          "modelAnswer": [
+            "The time constant sets how quickly the initial fraction relaxes toward its new steady value."
+          ]
         }
       ]
     },
@@ -2162,7 +2604,7 @@ const content = {
       "blocks": [
         {
           "type": "text",
-          "body": "If identical independent particles must all be permissive, whole-channel open probability is $Y=y^P$. It can rise with an initial delay even when the particle probability is a simple exponential. Independence and the all-required rule are essential."
+          "body": ["If $P$ identical independent particles must all be permissive, PDF page 17 multiplies their probabilities: $Y=y^P$. First calculate the single-particle relaxation, then raise that entire fraction to the particle count. Applying the power only to a rate or exponential term changes the model.", "For several required particles, whole-channel opening is less likely than one particle being permissive and can show a delayed rise. To obtain population current, multiply the resulting open fraction by maximum conductance and driving force. Independence and the all-required rule are essential; the power law is not universal."]
         },
         {
           "type": "figure",
@@ -2250,11 +2692,11 @@ const content = {
           "options": [
             {
               "text": "The sum of their permissive probabilities",
-              "feedback": "Use this distinction: The product of their permissive probabilities."
+              "feedback": "Summing counts alternatives; all-required independent events require multiplication."
             },
             {
               "text": "The product of their permissive probabilities",
-              "feedback": "Correct. The product of their permissive probabilities."
+              "feedback": "Independence lets the all-required probabilities multiply."
             }
           ],
           "hints": [
@@ -2268,6 +2710,32 @@ const content = {
           "modelAnswer": [
             "The product of their permissive probabilities."
           ]
+        },
+        {
+          "id": "L06-particles-starter",
+          "type": "mc",
+          "difficulty": "easy",
+          "progressionAdded": true,
+          "source": "L06 PDF 17",
+          "prompt": "Which condition is required for the whole-channel rule $Y=y^P$?",
+          "options": [
+            {
+              "text": "All identical dependent particles must be permissive",
+              "feedback": "Dependence prevents multiplying identical marginal probabilities without further information."
+            },
+            {
+              "text": "All identical independent particles must be permissive",
+              "feedback": "The product rule applies when every independent particle must be permissive for opening."
+            },
+            {
+              "text": "Any identical independent particle may be permissive",
+              "feedback": "An any-one-suffices rule needs a different probability expression."
+            }
+          ],
+          "correct": 1,
+          "modelAnswer": [
+            "The product rule applies when every independent particle must be permissive for opening."
+          ]
         }
       ]
     },
@@ -2279,7 +2747,7 @@ const content = {
       "blocks": [
         {
           "type": "text",
-          "body": "Concentration gradients, barrier profiles and dynamic gating can coexist. Static permeation relations do not themselves track a changing gate population. Gate dynamics supply explicit time dependence. This lecture introduces general gating, not the full channel-specific HH equations."
+          "body": ["PDF page 18 combines three sources of nonlinearity: concentration gradients, the positions of permeation barriers, and voltage-dependent transitions between gating states. Constant-field and static barrier relations describe permeation at specified conditions. The gate model adds explicit evolution of the conducting fraction at fixed voltage.", "A useful explanation names the observation and the mechanism it requires. Curvature alone can have several explanations; delayed activation needs a changing state. These mechanisms can coexist in one channel. This lecture introduces general gating logic, while channel-specific Hodgkin–Huxley equations belong to the following lecture."]
         },
         {
           "type": "figure",
@@ -2308,11 +2776,11 @@ const content = {
           "options": [
             {
               "text": "Time evolution of the channel state",
-              "feedback": "Correct. Time evolution of the channel state."
+              "feedback": "A changing state carries the effect of the earlier holding condition."
             },
             {
               "text": "A fixed ion concentration gradient",
-              "feedback": "Use this distinction: Time evolution of the channel state."
+              "feedback": "A fixed gradient curves permeation but adds no dynamic state memory."
             }
           ],
           "hints": [
@@ -2326,6 +2794,32 @@ const content = {
           "modelAnswer": [
             "Time evolution of the channel state."
           ]
+        },
+        {
+          "id": "L06-summary-starter",
+          "type": "mc",
+          "difficulty": "easy",
+          "progressionAdded": true,
+          "source": "L06 PDF 18",
+          "prompt": "How can the three mechanisms contribute to a real channel?",
+          "options": [
+            {
+              "text": "They can act together in the same channel",
+              "feedback": "Concentration gradients, pore barriers and dynamic gating can all contribute."
+            },
+            {
+              "text": "They must act in separate channel populations",
+              "feedback": "The models describe different aspects and are not restricted to separate populations."
+            },
+            {
+              "text": "They must act in separate voltage intervals",
+              "feedback": "Several mechanisms can contribute at the same voltage, not just in separate intervals."
+            }
+          ],
+          "correct": 0,
+          "modelAnswer": [
+            "Concentration gradients, pore barriers and dynamic gating can all contribute."
+          ]
         }
       ]
     },
@@ -2337,7 +2831,7 @@ const content = {
       "blocks": [
         {
           "type": "text",
-          "body": "Choose a model by the question being asked. Concentration-gradient rectification supports constant-field or barrier accounts; delayed activation needs a dynamic gate. Model labels are not mutually exclusive explanations of all behavior. Changing concentration with fixed channel number still changes permeation and reversal."
+          "body": ["The group work on PDF pages 19–21 asks which model directly explains each observation, not which single label describes every aspect of a real channel. Fixed-permeability concentration effects support constant-field permeation; barrier height or position supports barrier permeation; switching and delayed conductance require dynamic gates.", "All three families can give nonlinear current–voltage behavior. The table’s “indirectly” means a gate model controls access but still needs a permeation/current relation and reversal to calculate ionic current. Compare explicit time dependence and the moving object, ion versus gating particle, before claiming that curvature uniquely identifies a mechanism."]
         },
         {
           "type": "figure",
@@ -2366,11 +2860,11 @@ const content = {
           "options": [
             {
               "text": "Yes, every nonlinear current curve proves gating",
-              "feedback": "Use this distinction: No, static permeation can also be nonlinear."
+              "feedback": "Curvature also arises from concentration gradients or fixed pore barriers."
             },
             {
               "text": "No, static permeation can also be nonlinear",
-              "feedback": "Correct. No, static permeation can also be nonlinear."
+              "feedback": "Static permeation can be nonlinear without dynamic opening and closing."
             }
           ],
           "hints": [
@@ -2384,6 +2878,32 @@ const content = {
           "modelAnswer": [
             "No, static permeation can also be nonlinear."
           ]
+        },
+        {
+          "id": "L06-model-audit-starter",
+          "type": "mc",
+          "difficulty": "easy",
+          "progressionAdded": true,
+          "source": "L06 PDF 19–21",
+          "prompt": "In the comparison table, why does a gate model describe permeation only indirectly?",
+          "options": [
+            {
+              "text": "It sets ion valence but needs a state relation",
+              "feedback": "The gate model describes states; it does not determine permeating-ion valence."
+            },
+            {
+              "text": "It sets ion gradients but needs a pore fraction",
+              "feedback": "Gating does not specify the bulk concentration gradients that drive permeation."
+            },
+            {
+              "text": "It sets pore access but needs a current relation",
+              "feedback": "Opening probability controls availability; a separate open-pore relation supplies ionic current."
+            }
+          ],
+          "correct": 2,
+          "modelAnswer": [
+            "Opening probability controls availability; a separate open-pore relation supplies ionic current."
+          ]
         }
       ]
     },
@@ -2395,7 +2915,7 @@ const content = {
       "blocks": [
         {
           "type": "text",
-          "body": "The supplied trace has a rapid jump followed by slower inward activation at a more negative voltage. Interpreting the jump as pure leak requires initially negligible activation and exclusion of the capacitive transient. A nonzero initial gate fraction can produce an immediate gated-current jump."
+          "body": ["Exercise 6 problem 1 controls membrane voltage and measures total current over time. A step to a more negative voltage gives a rapid jump followed by slower inward activation, consistent with the falling steady activation curve. At the new held voltage, subtract leak before dividing by the gating fraction to infer fully activated current.", "The solving instructions identify the immediate component as leak only when initial activation is negligible and the capacitive transient is excluded. Finite-rate gating keeps $y$ continuous, but pre-existing open channels can change current instantly with driving force. Use the relaxation law for later activation and then recombine leak and gated current."]
         },
         {
           "type": "figure",
@@ -2547,11 +3067,11 @@ const content = {
           "options": [
             {
               "text": "Initial activation and the capacitive transient",
-              "feedback": "Correct. Initial activation and the capacitive transient."
+              "feedback": "Pre-existing open channels and capacitance can contribute to the immediate response."
             },
             {
               "text": "Only the final inward-current amplitude",
-              "feedback": "Use this distinction: Initial activation and the capacitive transient."
+              "feedback": "A late amplitude alone does not separate early gated, leak and capacitive contributions."
             }
           ],
           "hints": [
@@ -2564,6 +3084,32 @@ const content = {
           ],
           "modelAnswer": [
             "Initial activation and the capacitive transient."
+          ]
+        },
+        {
+          "id": "L06-clamp-starter",
+          "type": "mc",
+          "difficulty": "easy",
+          "progressionAdded": true,
+          "source": "Exercise 6 p1; L06 PDF17",
+          "prompt": "In Exercise 6 voltage clamp, which quantity is imposed and which is recorded?",
+          "options": [
+            {
+              "text": "Conductance is imposed and current is recorded",
+              "feedback": "Conductance is inferred from the response; it is not the clamp command."
+            },
+            {
+              "text": "Voltage is imposed and current is recorded",
+              "feedback": "Voltage clamp holds the command voltage while measuring the required membrane current."
+            },
+            {
+              "text": "Current is imposed and voltage is recorded",
+              "feedback": "That describes current clamp, rather than the exercise voltage-clamp protocol."
+            }
+          ],
+          "correct": 1,
+          "modelAnswer": [
+            "Voltage clamp holds the command voltage while measuring the required membrane current."
           ]
         }
       ],
@@ -2581,7 +3127,7 @@ const content = {
       "blocks": [
         {
           "type": "text",
-          "body": "Use reversal as the chord reference, $G=I/(V-E_{rev})$. This differs from the local differential slope. Infer the concentration ratio from reversal only for the specified selective ion and temperature. Approximate figure readings support mechanism consistency, not unique model identification."
+          "body": ["Exercise 6 problem 2 compares currents at controlled voltages. Locate the zero-current reversal, then calculate chord conductance from $G=I/(V-E_{rev})$. This is a line from reversal to the measured point, not the local differential slope. Compare conductances, not just current amplitudes, to assess rectification.", "For the specified selective monovalent ion at $20\\,^{\\circ}\\mathrm C$, infer the inside/outside ratio using the supplied $58\\,\\mathrm{mV}$ Nernst shortcut below. Treat graph readings as approximate. A positive reversal with inward rectification is GHK-compatible and can also fit a suitable barrier model; neither compatibility nor curvature proves a unique mechanism."]
         },
         {
           "type": "figure",
@@ -2739,11 +3285,11 @@ const content = {
           "options": [
             {
               "text": "Membrane voltage minus zero volts in all cases",
-              "feedback": "Use this distinction: Membrane voltage minus reversal potential."
+              "feedback": "Zero is the correct reference only if reversal itself is zero."
             },
             {
               "text": "Membrane voltage minus reversal potential",
-              "feedback": "Correct. Membrane voltage minus reversal potential."
+              "feedback": "The chord denominator is the driving force relative to ionic reversal."
             }
           ],
           "hints": [
@@ -2756,6 +3302,32 @@ const content = {
           ],
           "modelAnswer": [
             "Membrane voltage minus reversal potential."
+          ]
+        },
+        {
+          "id": "L06-chord-starter",
+          "type": "mc",
+          "difficulty": "easy",
+          "progressionAdded": true,
+          "source": "Exercise 6 p2",
+          "prompt": "Geometrically, which line defines chord conductance at a measured point?",
+          "options": [
+            {
+              "text": "The line from reversal to that measured point",
+              "feedback": "The chord uses current divided by voltage measured from reversal."
+            },
+            {
+              "text": "The tangent through that measured curve point",
+              "feedback": "The tangent gives local differential slope conductance, not chord conductance."
+            },
+            {
+              "text": "The line from resting voltage to that point",
+              "feedback": "The chord reference is ionic reversal, which need not equal resting voltage."
+            }
+          ],
+          "correct": 0,
+          "modelAnswer": [
+            "The chord uses current divided by voltage measured from reversal."
           ]
         }
       ]
@@ -3393,6 +3965,7 @@ const content = {
     },
     {
       "id": "L06-direct-outflux",
+      "practice": "extra",
       "sectionId": "independence",
       "difficulty": "easy",
       "type": "multiStepCalc",
@@ -3666,6 +4239,7 @@ const content = {
     },
     {
       "id": "L06-direct-flux-ratio",
+      "practice": "extra",
       "sectionId": "zero-barrier",
       "difficulty": "easy",
       "type": "multiStepCalc",
@@ -3767,6 +4341,7 @@ const content = {
     },
     {
       "id": "L06-direct-inward-rate",
+      "practice": "extra",
       "sectionId": "tilted-barrier",
       "difficulty": "easy",
       "type": "multiStepCalc",
@@ -4528,6 +5103,7 @@ const content = {
     },
     {
       "id": "L06-direct-alpha",
+      "practice": "extra",
       "sectionId": "steady",
       "difficulty": "easy",
       "type": "multiStepCalc",
@@ -4668,6 +5244,7 @@ const content = {
     },
     {
       "id": "L06-direct-beta",
+      "practice": "extra",
       "sectionId": "steady",
       "difficulty": "easy",
       "type": "multiStepCalc",
@@ -5136,6 +5713,7 @@ const content = {
     },
     {
       "id": "L06-direct-tau",
+      "practice": "extra",
       "sectionId": "kinetics",
       "difficulty": "easy",
       "type": "multiStepCalc",
@@ -5606,6 +6184,7 @@ const content = {
     },
     {
       "id": "L06-group-phenomena",
+      "practice": "extra",
       "sectionId": "model-audit",
       "difficulty": "easy",
       "type": "written",
@@ -5651,6 +6230,7 @@ const content = {
     },
     {
       "id": "L06-group-features",
+      "practice": "extra",
       "sectionId": "model-audit",
       "difficulty": "easy",
       "type": "written",

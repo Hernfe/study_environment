@@ -63,3 +63,43 @@ Bank types: {"trueFalse":16,"multiStepCalc":26,"written":27,"classify":1,"derive
 | PDF19 task4, PDF21 | Gradients, barriers, voltage/time dependence, opening/closing, AP explanation and direct/indirect permeation | L06-group-features; L06-group-synthesis | A2, B2, C2 |
 
 The sodium/potassium examples are qualitative model-identification observations supplied in group work. Channel-specific kinetic equations and exponents remain later lecture material. The three mocks prominently assess L06 and require no later lecture.
+
+
+## L06 easy-MCQ progression, 12 November 2026
+
+All 22 sections now begin practice with two easy MCQs after the preserved visible theory, source figures and formula explorers. Existing drills follow, then core easy application/numeric, medium and hard questions independently in each section. Optional practice remains last and closed; there is no completion gate.
+
+Reused 22 checks and added 22 complementary recall checks, 44 total. Two checks cover distinct definitions or roles in these narrowly divided segments without repeating later calculations and written reasoning; no section needs a below-two exception. Existing two-option checks retain IDs, correct answers/indices and option positions. All now have explanatory feedback. Three weak distractors were replaced in place: barrier contrasts ion permeation with gate movement, concentrations contrasts absolute values with ratio alone, gates contrasts gate movement with ion passage. New checks have three plausible options and alone carry `progressionAdded: true`.
+
+| Section | Source | Reused | Added | Total |
+|---|---|---:|---:|---:|
+| overview | L06 PDF 1,18 | 1 | 1 | 2 |
+| rectification | L06 PDF 2 | 1 | 1 | 2 |
+| constant-field | L06 PDF 3 | 1 | 1 | 2 |
+| barrier | L06 PDF 4 | 1 | 1 | 2 |
+| independence | L06 PDF 5 | 1 | 1 | 2 |
+| zero-barrier | L06 PDF 6 | 1 | 1 | 2 |
+| tilted-barrier | L06 PDF 7 | 1 | 1 | 2 |
+| position | L06 PDF 8 | 1 | 1 | 2 |
+| concentrations | L06 PDF 9 | 1 | 1 | 2 |
+| multiple | L06 PDF 10 | 1 | 1 | 2 |
+| gates | L06 PDF 11 | 1 | 1 | 2 |
+| assumptions | L06 PDF 12 | 1 | 1 | 2 |
+| balance | L06 PDF 13 | 1 | 1 | 2 |
+| polarity | L06 PDF 14 | 1 | 1 | 2 |
+| steady | L06 PDF 15 | 1 | 1 | 2 |
+| activation | L06 PDF 16 | 1 | 1 | 2 |
+| kinetics | L06 PDF 17 | 1 | 1 | 2 |
+| particles | L06 PDF 17 | 1 | 1 | 2 |
+| summary | L06 PDF 18 | 1 | 1 | 2 |
+| model-audit | L06 PDF 19–21 | 1 | 1 | 2 |
+| clamp | Exercise 6 p1; L06 PDF17 | 1 | 1 | 2 |
+| chord | Exercise 6 p2 | 1 | 1 | 2 |
+
+New IDs are `L06-<section>-starter`. Each new check asks a single taught identification/role question and cites its source. No existing numeric/application item was relabelled. Full-deck and Exercise6/instructions source sheets and official guidance were rechecked; existing scope qualifications remain in force. No new graph measurements, unavailable textbook claims, HH-specific equations, assets or videos.
+
+Preserved exactly: section IDs/order/titles and every non-concept payload, all theory/visuals/formulas and 20 explorer/drill pairs, recap, 63 core plus 8 optional bank items with their IDs/numeric answers/rubrics, all three L06 mocks and all 27 complete lecture mocks course-wide. Course bank remains 609 core/80 optional. Earlier progression, other lectures, shared source and E4210 product are untouched.
+
+Correct positions across mixed two-/three-option checks: authored 19/18/7, seeded displayed 22/14/8; expected 18.333/18.333/7.333. Authored p=0.9775, displayed p=0.4029; zero length findings. Added items alone have authored positions 8/7/7. Mutation guards reject severe length cues and excessive position bias; manual content review checks one best answer and source/section alignment.
+
+Exact test commands/exits, preservation evidence, responsive browser results and exceptions are documented in `.codex-progression/L06-REPORT.md` and `L06/`. The interrupted run left no partial content expansion. LOCAL ONLY; other lecture expansion and cumulative final exams are outside this phase.

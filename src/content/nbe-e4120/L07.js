@@ -38,7 +38,7 @@ const content = {
       "blocks": [
         {
           "type": "text",
-          "body": "Follow the experimental chain: record an action potential, separate currents, test open-pore linearity, then fit gating kinetics. Use $V_m=V_{in}-V_{out}$ and positive outward ionic current."
+          "body": ["Lecture 7 builds an experimental argument: record an action potential, separate its ionic currents, test current through open channels, then fit the changing conducting fraction. The outline on PDF page 1 separates permeation from gating, so a nonlinear membrane response need not imply a nonlinear open pore.", "Use $V_m=V_{in}-V_{out}$ and positive outward ionic current. In each protocol below, identify what voltage or solution is controlled, what current is measured, and which assumption permits the next inference. The fitted conductances depend on both voltage and time."]
         },
         {
           "type": "figure",
@@ -62,16 +62,16 @@ const content = {
       "conceptQuiz": [
         {
           "id": "L07-overview-check",
-          "prompt": "What does HH model dynamically?",
+          "prompt": "Which conductance description belongs to the HH gate model?",
           "correct": 1,
           "options": [
             {
               "text": "Only time-independent membrane conductances",
-              "feedback": "Use this distinction: Voltage- and time-dependent ionic conductances."
+              "feedback": "Fixed conductances omit the dynamic gating that underlies excitability."
             },
             {
               "text": "Voltage- and time-dependent ionic conductances",
-              "feedback": "Correct. Voltage- and time-dependent ionic conductances."
+              "feedback": "HH conductances change with voltage and time as channel gating changes."
             }
           ],
           "hints": [
@@ -84,6 +84,32 @@ const content = {
           ],
           "modelAnswer": [
             "Voltage- and time-dependent ionic conductances."
+          ]
+        },
+        {
+          "id": "L07-overview-starter",
+          "type": "mc",
+          "difficulty": "easy",
+          "progressionAdded": true,
+          "source": "L07 PDF 1",
+          "prompt": "Which distinction organizes the experimental approach?",
+          "options": [
+            {
+              "text": "Ion permeation versus channel gating",
+              "feedback": "Permeation describes current through open pores; gating describes changes in the conducting fraction."
+            },
+            {
+              "text": "Ion permeation versus channel abundance",
+              "feedback": "Abundance can affect current, but the outline separates open-pore flow from gating."
+            },
+            {
+              "text": "Channel gating versus channel abundance",
+              "feedback": "The outline tests permeation separately from gating, rather than studying trafficking."
+            }
+          ],
+          "correct": 0,
+          "modelAnswer": [
+            "Permeation describes current through open pores; gating describes changes in the conducting fraction."
           ]
         }
       ],
@@ -101,7 +127,7 @@ const content = {
       "blocks": [
         {
           "type": "text",
-          "body": "The giant axon permits electrode insertion. The supplied excerpt describes a silver wire inside the electrode and a smaller action potential near the injured cut end. The original article is absent; exact resting voltage and stimulation details cannot be recovered reliably here."
+          "body": ["The squid giant axon is large enough for intracellular electrode insertion. PDF page 2 shows an action potential crossing zero: the inside briefly becomes positive relative to the outside. The excerpt describes a silver wire inside the electrode and increasing amplitude as the electrode moves away from the injured cut end.", "Electrode position therefore affects the recorded signal and its interpretation. Compare the trace with its voltage and time scales, distinguishing peak voltage from peak-to-rest amplitude. The original article is absent, so exact resting voltage and stimulation details cannot be recovered reliably from this excerpt."]
         },
         {
           "type": "figure",
@@ -125,16 +151,16 @@ const content = {
       "conceptQuiz": [
         {
           "id": "L07-recording-check",
-          "prompt": "What does an overshoot establish?",
+          "prompt": "Which membrane polarity defines the overshoot in an intracellular record?",
           "correct": 0,
           "options": [
             {
               "text": "Inside becomes positive relative to outside",
-              "feedback": "Correct. Inside becomes positive relative to outside."
+              "feedback": "Overshoot means the inside briefly becomes positive relative to the outside."
             },
             {
               "text": "Inside stays negative relative to outside",
-              "feedback": "Use this distinction: Inside becomes positive relative to outside."
+              "feedback": "Remaining negative is depolarization without overshoot."
             }
           ],
           "hints": [
@@ -148,6 +174,32 @@ const content = {
           "modelAnswer": [
             "Inside becomes positive relative to outside."
           ]
+        },
+        {
+          "id": "L07-recording-starter",
+          "type": "mc",
+          "difficulty": "easy",
+          "progressionAdded": true,
+          "source": "L07 PDF 2",
+          "prompt": "What made the giant axon suitable for intracellular recording?",
+          "options": [
+            {
+              "text": "Its large diameter ensured uniform membrane voltage",
+              "feedback": "Large diameter aids access; it does not by itself guarantee spatially uniform voltage."
+            },
+            {
+              "text": "Its large diameter allowed electrode insertion",
+              "feedback": "The large axon permitted an electrode to be placed inside."
+            },
+            {
+              "text": "Its large diameter eliminated electrode injury",
+              "feedback": "A large diameter permits insertion but does not eliminate injury near the cut end."
+            }
+          ],
+          "correct": 1,
+          "modelAnswer": [
+            "The large axon permitted an electrode to be placed inside."
+          ]
         }
       ]
     },
@@ -159,7 +211,7 @@ const content = {
       "blocks": [
         {
           "type": "text",
-          "body": "HH describes ionic mechanisms of excitability and predicts waveform, refractoriness, accommodation and propagation. The historical Nobel recognition is context. A matching waveform supports a model but does not uniquely identify its molecular mechanism."
+          "body": ["PDF pages 3–4 connect squid voltage-clamp experiments to a mathematical description of voltage- and time-dependent conductances. The comparison shows that the model reproduces the action-potential waveform; refractoriness, accommodation and propagation are further predictions listed by the lecture. Historical recognition is context rather than a mechanism.", "The experimental strategy first measures currents at controlled voltages, then uses their fitted conductances to explain excitability. Matching a waveform supports predictive usefulness but does not uniquely identify molecular structure. Keep this distinction when explaining what a successful phenomenological model establishes."]
         },
         {
           "type": "figure",
@@ -183,16 +235,16 @@ const content = {
       "conceptQuiz": [
         {
           "id": "L07-model-check",
-          "prompt": "What was central to building the model?",
+          "prompt": "Which experimental preparation underlies the HH conductance model?",
           "correct": 0,
           "options": [
             {
               "text": "Squid axon recordings under voltage clamp",
-              "feedback": "Correct. Squid axon recordings under voltage clamp."
+              "feedback": "Voltage clamp separated the time and voltage dependencies of squid ionic currents."
             },
             {
               "text": "Squid axon recordings without voltage control",
-              "feedback": "Use this distinction: Squid axon recordings under voltage clamp."
+              "feedback": "Without voltage control, voltage and gating change together during the spike."
             }
           ],
           "hints": [
@@ -206,6 +258,32 @@ const content = {
           "modelAnswer": [
             "Squid axon recordings under voltage clamp."
           ]
+        },
+        {
+          "id": "L07-model-starter",
+          "type": "mc",
+          "difficulty": "easy",
+          "progressionAdded": true,
+          "source": "L07 PDF 3–4",
+          "prompt": "Which result is a prediction of the HH model?",
+          "options": [
+            {
+              "text": "The composition of a recording electrode",
+              "feedback": "Electrode composition is an experimental detail, not a predicted electrical behavior."
+            },
+            {
+              "text": "The diameter of an experimental axon",
+              "feedback": "Axon geometry is a preparation property, not the predicted waveform."
+            },
+            {
+              "text": "The waveform of an action potential",
+              "feedback": "The model predicts electrical behavior, including the action-potential waveform."
+            }
+          ],
+          "correct": 2,
+          "modelAnswer": [
+            "The model predicts electrical behavior, including the action-potential waveform."
+          ]
         }
       ]
     },
@@ -217,7 +295,7 @@ const content = {
       "blocks": [
         {
           "type": "text",
-          "body": "Bernstein’s transient loss of selectivity predicted a peak no higher than zero. The recorded overshoot and dependence on external sodium supported a selective increase in sodium conductance. Repolarization is followed by afterhyperpolarization."
+          "body": ["Bernstein’s loss-of-selectivity hypothesis predicted that excitation would drive membrane voltage toward zero without a positive peak. PDF page 5 instead shows an overshoot, followed by repolarization and an afterhyperpolarization. A positive peak contradicts that zero-peak prediction; merely returning below zero does not.", "The known dependence of action-potential amplitude on external sodium suggested a selective increase in sodium conductance. An overall conductance increase alone could not identify the ion. The concentration and clamp experiments that follow test this sodium hypothesis rather than inferring selectivity from waveform shape alone."]
         },
         {
           "type": "figure",
@@ -241,16 +319,16 @@ const content = {
       "conceptQuiz": [
         {
           "id": "L07-overshoot-check",
-          "prompt": "What contradicts the zero-peak prediction?",
+          "prompt": "Which recorded feature rules out the historical zero-peak prediction?",
           "correct": 1,
           "options": [
             {
               "text": "The action potential returns below zero voltage",
-              "feedback": "Use this distinction: The action potential crosses above zero voltage."
+              "feedback": "Returning below zero is compatible with both theories; the positive peak distinguishes them."
             },
             {
               "text": "The action potential crosses above zero voltage",
-              "feedback": "Correct. The action potential crosses above zero voltage."
+              "feedback": "Crossing zero contradicts a theory whose peak cannot exceed zero."
             }
           ],
           "hints": [
@@ -264,6 +342,32 @@ const content = {
           "modelAnswer": [
             "The action potential crosses above zero voltage."
           ]
+        },
+        {
+          "id": "L07-overshoot-starter",
+          "type": "mc",
+          "difficulty": "easy",
+          "progressionAdded": true,
+          "source": "L07 PDF 5",
+          "prompt": "In the loss-of-selectivity theory, where should voltage approach during excitation?",
+          "options": [
+            {
+              "text": "Toward zero membrane voltage",
+              "feedback": "The historical theory predicted loss of selectivity and an approach toward zero."
+            },
+            {
+              "text": "Toward sodium equilibrium voltage",
+              "feedback": "Approach toward sodium reversal instead supports a selective sodium mechanism."
+            },
+            {
+              "text": "Toward potassium equilibrium voltage",
+              "feedback": "Potassium selectivity describes the resting premise, not its proposed loss during excitation."
+            }
+          ],
+          "correct": 0,
+          "modelAnswer": [
+            "The historical theory predicted loss of selectivity and an approach toward zero."
+          ]
         }
       ]
     },
@@ -275,7 +379,7 @@ const content = {
       "blocks": [
         {
           "type": "text",
-          "body": "In the shown experiment lowering external sodium reduces the peak and slows the upstroke with little resting/afterpotential change. Lowering potassium makes its equilibrium potential more negative and affects rest and afterpotential. These are context-dependent observations."
+          "body": ["PDF page 6 changes outside ion concentration and measures the action-potential waveform. Lower outside sodium lowers sodium reversal, reducing inward driving force at the same sub-reversal voltage. The illustrated peak falls and the upstroke slows, with little resting or afterpotential change. These last observations are preparation-specific, not universal independence from sodium.", "Lower outside potassium makes potassium reversal more negative, shifting rest and especially the afterpotential. Use the logarithmic reversal-shift explorer below with inside concentration fixed. A concentration manipulation changes driving force; it should not automatically be described as a change in channel number or maximum conductance."]
         },
         {
           "type": "figure",
@@ -383,16 +487,16 @@ const content = {
       "conceptQuiz": [
         {
           "id": "L07-ions-check",
-          "prompt": "Which manipulation directly reduces sodium driving force?",
+          "prompt": "Below sodium reversal, which change weakens inward driving force at fixed voltage?",
           "correct": 1,
           "options": [
             {
               "text": "Raising outside sodium at fixed inside sodium",
-              "feedback": "Use this distinction: Lowering outside sodium at fixed inside sodium."
+              "feedback": "Raising external sodium moves reversal upward and strengthens inward drive at the same voltage."
             },
             {
               "text": "Lowering outside sodium at fixed inside sodium",
-              "feedback": "Correct. Lowering outside sodium at fixed inside sodium."
+              "feedback": "Lower external sodium lowers its reversal and weakens inward drive while voltage remains below reversal."
             }
           ],
           "hints": [
@@ -406,6 +510,32 @@ const content = {
           "modelAnswer": [
             "Lowering outside sodium at fixed inside sodium."
           ]
+        },
+        {
+          "id": "L07-ions-starter",
+          "type": "mc",
+          "difficulty": "easy",
+          "progressionAdded": true,
+          "source": "L07 PDF 6",
+          "prompt": "Which feature is especially sensitive to external sodium in the illustrated experiment?",
+          "options": [
+            {
+              "text": "The trough after the action potential",
+              "feedback": "The illustrated afterpotential is more sensitive to potassium than to sodium reduction."
+            },
+            {
+              "text": "The peak of the action potential",
+              "feedback": "The source sodium reduction lowers the peak and slows the rise."
+            },
+            {
+              "text": "The baseline before the action potential",
+              "feedback": "The illustrated resting baseline changes little; this is not a universal sodium-independence rule."
+            }
+          ],
+          "correct": 1,
+          "modelAnswer": [
+            "The source sodium reduction lowers the peak and slows the rise."
+          ]
         }
       ]
     },
@@ -417,7 +547,7 @@ const content = {
       "blocks": [
         {
           "type": "text",
-          "body": "One electrode measures voltage; another injects current. Feedback compares measured voltage with command voltage. At a constant plateau capacitive current is absent. Positive inward injection balances positive outward ionic current; recorded display polarity must be specified."
+          "body": ["In two-electrode voltage clamp, one electrode measures membrane voltage and another injects current. Negative feedback compares measured voltage with command voltage and corrects the difference. PDF page 7 uses held voltages to reveal current time courses, then different commands to reveal voltage dependence.", "On a constant plateau capacitive current is absent: positive inward injection balances positive outward ionic current. State the amplifier display polarity before interpreting a trace. During the voltage transition the measured signal also includes capacitive current; background leak must be retained or corrected explicitly before attributing the signal to a particular ion."]
         },
         {
           "type": "figure",
@@ -441,16 +571,16 @@ const content = {
       "conceptQuiz": [
         {
           "id": "L07-tevc-check",
-          "prompt": "Which quantity does a voltage clamp control?",
+          "prompt": "Which pair describes the controlled and measured quantities in TEVC?",
           "correct": 1,
           "options": [
             {
               "text": "Membrane current while measuring resulting voltage",
-              "feedback": "Use this distinction: Membrane voltage while measuring required current."
+              "feedback": "This describes current clamp, which measures voltage responses to imposed current."
             },
             {
               "text": "Membrane voltage while measuring required current",
-              "feedback": "Correct. Membrane voltage while measuring required current."
+              "feedback": "Voltage is controlled; the balancing current is measured, with transients treated separately."
             }
           ],
           "hints": [
@@ -464,6 +594,32 @@ const content = {
           "modelAnswer": [
             "Membrane voltage while measuring required current."
           ]
+        },
+        {
+          "id": "L07-tevc-starter",
+          "type": "mc",
+          "difficulty": "easy",
+          "progressionAdded": true,
+          "source": "L07 PDF 7",
+          "prompt": "What does the feedback circuit continuously compare?",
+          "options": [
+            {
+              "text": "Measured current and command voltage",
+              "feedback": "Current is adjusted to correct voltage error; it is not compared directly with voltage."
+            },
+            {
+              "text": "Measured voltage and injected current",
+              "feedback": "The feedback comparison uses two voltages, not voltage and current."
+            },
+            {
+              "text": "Measured voltage and command voltage",
+              "feedback": "The voltage error determines the compensating injected current."
+            }
+          ],
+          "correct": 2,
+          "modelAnswer": [
+            "The voltage error determines the compensating injected current."
+          ]
         }
       ]
     },
@@ -475,7 +631,7 @@ const content = {
       "blocks": [
         {
           "type": "text",
-          "body": "A depolarizing clamp step reveals early transient inward and late sustained outward current. Their different reversals support distinct ionic components. Direction alone does not identify an ion, because each component reverses as driving force changes."
+          "body": ["PDF page 8 applies different voltage steps and records an early transient current followed by a late sustained current. The early component reverses near sodium reversal; it is inward below that voltage and outward above it. The late component has a different, more negative reversal, consistent with potassium.", "Different kinetics and reversals support distinct ionic components. Current direction alone cannot identify the ion, since sodium can also carry outward current when its driving force reverses. Exclude the initial capacitive transient and compare the same early or late measurement window across voltages."]
         },
         {
           "type": "figure",
@@ -499,16 +655,16 @@ const content = {
       "conceptQuiz": [
         {
           "id": "L07-components-check",
-          "prompt": "Can sodium current become outward?",
+          "prompt": "Can a selective sodium current flow outward when the membrane voltage changes?",
           "correct": 1,
           "options": [
             {
               "text": "No, regardless of its reversal potential",
-              "feedback": "Use this distinction: Yes, above its selective reversal potential."
+              "feedback": "Current direction depends on driving force; sodium current is not always inward."
             },
             {
               "text": "Yes, above its selective reversal potential",
-              "feedback": "Correct. Yes, above its selective reversal potential."
+              "feedback": "Above sodium reversal, positive driving force gives outward sodium current through open channels."
             }
           ],
           "hints": [
@@ -522,6 +678,32 @@ const content = {
           "modelAnswer": [
             "Yes, above its selective reversal potential."
           ]
+        },
+        {
+          "id": "L07-components-starter",
+          "type": "mc",
+          "difficulty": "easy",
+          "progressionAdded": true,
+          "source": "L07 PDF 8",
+          "prompt": "Which time course describes the late potassium component in the taught clamp?",
+          "options": [
+            {
+              "text": "Delayed activation with sustained current",
+              "feedback": "The late potassium component activates slowly and remains sustained."
+            },
+            {
+              "text": "Rapid activation with transient current",
+              "feedback": "Rapid transient activation characterizes the early sodium component here."
+            },
+            {
+              "text": "Delayed activation with transient current",
+              "feedback": "The taught late component is sustained, unlike sodium inactivation."
+            }
+          ],
+          "correct": 0,
+          "modelAnswer": [
+            "The late potassium component activates slowly and remains sustained."
+          ]
         }
       ]
     },
@@ -533,7 +715,7 @@ const content = {
       "blocks": [
         {
           "type": "text",
-          "body": "Construct a current–voltage relation and compare its zero-current potential with candidate Nernst potentials. Equality identifies a selective component only under the stated single-ion assumption. At reversal open channels can carry zero net current."
+          "body": ["To identify a selective current, apply several clamp voltages, measure the isolated component and locate its zero crossing in the current–voltage relation. PDF page 9 compares this reversal with candidate Nernst potentials. Under a single-permeant-ion assumption, the two potentials coincide.", "At reversal, open channels carry zero net current because inward and outward contributions balance. Zero current therefore does not prove closure. Changing the candidate ion’s concentration and observing the expected reversal shift strengthens identification; unresolved mixtures and background current can make a total-current zero misleading."]
         },
         {
           "type": "figure",
@@ -557,16 +739,16 @@ const content = {
       "conceptQuiz": [
         {
           "id": "L07-reversal-check",
-          "prompt": "What vanishes at a selective reversal?",
+          "prompt": "At selective reversal, which quantity is zero despite possible channel opening?",
           "correct": 0,
           "options": [
             {
               "text": "Net current through the selective open channel",
-              "feedback": "Correct. Net current through the selective open channel."
+              "feedback": "At reversal, the electrochemical driving force and net selective current vanish."
             },
             {
               "text": "The probability that the selective channel opens",
-              "feedback": "Use this distinction: Net current through the selective open channel."
+              "feedback": "Channels may remain open at reversal; zero current does not establish gate closure."
             }
           ],
           "hints": [
@@ -580,6 +762,32 @@ const content = {
           "modelAnswer": [
             "Net current through the selective open channel."
           ]
+        },
+        {
+          "id": "L07-reversal-starter",
+          "type": "mc",
+          "difficulty": "easy",
+          "progressionAdded": true,
+          "source": "L07 PDF 9",
+          "prompt": "Which comparison helps identify a selective current?",
+          "options": [
+            {
+              "text": "Its reversal and candidate activation time constants",
+              "feedback": "Activation time constants describe speed, not ionic equilibrium voltage."
+            },
+            {
+              "text": "Its reversal and candidate equilibrium potentials",
+              "feedback": "A selective reversal can be compared with the Nernst potential of a candidate ion."
+            },
+            {
+              "text": "Its peak time and candidate equilibrium potentials",
+              "feedback": "Peak time measures kinetics, not the voltage at which driving force vanishes."
+            }
+          ],
+          "correct": 1,
+          "modelAnswer": [
+            "A selective reversal can be compared with the Nernst potential of a candidate ion."
+          ]
         }
       ]
     },
@@ -591,7 +799,7 @@ const content = {
       "blocks": [
         {
           "type": "text",
-          "body": "Change external sodium while keeping potassium and voltage protocol fixed. In the solution whose sodium reversal equals the test voltage, sodium current vanishes. Subtract this reference current only if potassium, leak and gating conditions remain comparable."
+          "body": ["PDF page 10 holds potassium concentration and the voltage protocol fixed while changing external sodium. Lower external sodium lowers its reversal. The same test voltage can then lie below, at or above sodium reversal, producing inward, zero or outward sodium current without changing the current’s ionic identity.", "When sodium reversal equals the test voltage, corrected current supplies a potassium reference. Subtract that signed reference from control to recover sodium, as below. This inference requires comparable potassium, leak and gating conditions; remove capacitive artifacts and correct background consistently rather than subtracting unsigned amplitudes."]
         },
         {
           "type": "figure",
@@ -674,16 +882,16 @@ const content = {
       "conceptQuiz": [
         {
           "id": "L07-concentration-check",
-          "prompt": "What is required for reference subtraction?",
+          "prompt": "Which condition makes subtracting the reference current interpretable?",
           "correct": 0,
           "options": [
             {
               "text": "Other current components stay comparable",
-              "feedback": "Correct. Other current components stay comparable."
+              "feedback": "Subtraction isolates sodium only if the retained potassium and background components remain matched."
             },
             {
               "text": "All current components change independently",
-              "feedback": "Use this distinction: Other current components stay comparable."
+              "feedback": "Independent changes in other components would contaminate the subtracted sodium current."
             }
           ],
           "hints": [
@@ -697,6 +905,32 @@ const content = {
           "modelAnswer": [
             "Other current components stay comparable."
           ]
+        },
+        {
+          "id": "L07-concentration-starter",
+          "type": "mc",
+          "difficulty": "easy",
+          "progressionAdded": true,
+          "source": "L07 PDF 10",
+          "prompt": "What is deliberately held constant across the sodium-concentration solutions?",
+          "options": [
+            {
+              "text": "The external sodium concentration",
+              "feedback": "Sodium concentration is deliberately varied to shift its reversal."
+            },
+            {
+              "text": "The sodium equilibrium potential",
+              "feedback": "Sodium reversal shifts with the changed sodium concentration."
+            },
+            {
+              "text": "The external potassium concentration",
+              "feedback": "Keeping potassium conditions matched supports subtraction of its unchanged component."
+            }
+          ],
+          "correct": 2,
+          "modelAnswer": [
+            "Keeping potassium conditions matched supports subtraction of its unchanged component."
+          ]
         }
       ]
     },
@@ -708,7 +942,7 @@ const content = {
       "blocks": [
         {
           "type": "text",
-          "body": "Choline does not pass the sodium channels in the source experiment. Corrected remaining current isolates potassium; normal minus sodium-free gives sodium. Sodium activates and inactivates rapidly; potassium activates more slowly with delay."
+          "body": ["PDF page 11 replaces outside sodium with choline, which cannot pass the sodium channels in this experiment. With matched voltage steps, the corrected remaining current supplies a potassium trace. Control minus sodium-free current then isolates sodium; keep the signs of both traces during subtraction.", "The separated sodium current activates rapidly and then inactivates, while potassium activation is delayed and slower. These time courses explain how a small net current can conceal opposing components. Attribution assumes substitution has not changed potassium or the background signal; resolve capacitive transients before interpreting ionic kinetics."]
         },
         {
           "type": "figure",
@@ -732,16 +966,16 @@ const content = {
       "conceptQuiz": [
         {
           "id": "L07-substitution-check",
-          "prompt": "Which operation isolates sodium current?",
+          "prompt": "Which signed difference gives sodium current in the choline protocol?",
           "correct": 1,
           "options": [
             {
               "text": "Sodium-free current minus normal current",
-              "feedback": "Use this distinction: Normal current minus sodium-free current."
+              "feedback": "Reversing the subtraction reverses the inferred sodium-current sign."
             },
             {
               "text": "Normal current minus sodium-free current",
-              "feedback": "Correct. Normal current minus sodium-free current."
+              "feedback": "Normal minus sodium-free current removes the matched non-sodium component while preserving sodium sign."
             }
           ],
           "hints": [
@@ -755,6 +989,32 @@ const content = {
           "modelAnswer": [
             "Normal current minus sodium-free current."
           ]
+        },
+        {
+          "id": "L07-substitution-starter",
+          "type": "mc",
+          "difficulty": "easy",
+          "progressionAdded": true,
+          "source": "L07 PDF 11",
+          "prompt": "Why is choline used in the substitution experiment?",
+          "options": [
+            {
+              "text": "It replaces sodium without passing its channels",
+              "feedback": "Choline replaces external sodium but does not carry current through sodium channels."
+            },
+            {
+              "text": "It replaces potassium without passing its channels",
+              "feedback": "This protocol changes external sodium, not potassium."
+            },
+            {
+              "text": "It replaces sodium while carrying its channel current",
+              "feedback": "If the replacement carried the same current, it would not remove the sodium component."
+            }
+          ],
+          "correct": 0,
+          "modelAnswer": [
+            "Choline replaces external sodium but does not carry current through sodium channels."
+          ]
         }
       ]
     },
@@ -766,7 +1026,7 @@ const content = {
       "blocks": [
         {
           "type": "text",
-          "body": "In the source protocol TTX blocks sodium current and TEA blocks potassium current. Interpret the remaining component after accounting for leak and capacitive artifacts. Historical HH ion substitution preceded this pharmacological separation."
+          "body": ["PDF page 12 repeats voltage steps in control and selective blockers. TTX removes the taught sodium component, leaving potassium; TEA removes potassium, revealing sodium. Compare the time course and reversal of the residual with the expected component rather than assigning identity from inward or outward sign alone.", "Keep voltage history and solutions matched and account for leak and capacitive artifacts. An unexpected inward residual after TTX requires checking these backgrounds and block effectiveness before proposing another current. This pharmacological separation came after the historical HH substitution experiments; it provides a complementary test."]
         },
         {
           "type": "figure",
@@ -790,16 +1050,16 @@ const content = {
       "conceptQuiz": [
         {
           "id": "L07-blockers-check",
-          "prompt": "Which component remains after selective TTX?",
+          "prompt": "After TTX and background correction, which ionic current remains?",
           "correct": 1,
           "options": [
             {
               "text": "Sodium current after background correction",
-              "feedback": "Use this distinction: Potassium current after background correction."
+              "feedback": "Sodium is the blocked component; it is not the retained current."
             },
             {
               "text": "Potassium current after background correction",
-              "feedback": "Correct. Potassium current after background correction."
+              "feedback": "TTX removes sodium in this preparation, leaving potassium after background correction."
             }
           ],
           "hints": [
@@ -813,6 +1073,32 @@ const content = {
           "modelAnswer": [
             "Potassium current after background correction."
           ]
+        },
+        {
+          "id": "L07-blockers-starter",
+          "type": "mc",
+          "difficulty": "easy",
+          "progressionAdded": true,
+          "source": "L07 PDF 12",
+          "prompt": "Which component remains with selective TEA after background correction?",
+          "options": [
+            {
+              "text": "The capacitive component of membrane current",
+              "feedback": "Capacitance is a transient to resolve or correct, not the retained ionic component."
+            },
+            {
+              "text": "The sodium component of membrane current",
+              "feedback": "TEA blocks the taught potassium component, leaving sodium."
+            },
+            {
+              "text": "The potassium component of membrane current",
+              "feedback": "Potassium is the blocked component in the taught TEA protocol."
+            }
+          ],
+          "correct": 1,
+          "modelAnswer": [
+            "TEA blocks the taught potassium component, leaving sodium."
+          ]
         }
       ]
     },
@@ -824,7 +1110,7 @@ const content = {
       "blocks": [
         {
           "type": "text",
-          "body": "Activate at the first voltage, then jump to test voltages. Measure the rapid ionic response before gating changes appreciably, with capacitive transients resolved. Repeat with the same activation history. This tests permeation at approximately fixed conductance."
+          "body": ["PDF page 13 first activates channels at a conditioning voltage, then jumps to several test voltages. Measure the rapid ionic response before gates have time to change appreciably. Repeating the same conditioning voltage and duration makes the initial gating state comparable across trials.", "The controlled change is driving force, and the measured response is the immediate ionic current. Capacitive transients must be resolved without waiting long enough for substantial gating changes. This short-window approximation tests permeation at fixed conductance; later currents also contain the response of gates to the new voltage."]
         },
         {
           "type": "figure",
@@ -848,16 +1134,16 @@ const content = {
       "conceptQuiz": [
         {
           "id": "L07-instant-protocol-check",
-          "prompt": "What must remain approximately fixed?",
+          "prompt": "During an instantaneous comparison, which property should be unchanged?",
           "correct": 0,
           "options": [
             {
               "text": "The gating state during the rapid comparison",
-              "feedback": "Correct. The gating state during the rapid comparison."
+              "feedback": "The rapid comparison samples the same gating state before it can appreciably relax."
             },
             {
               "text": "The driving force during the voltage change",
-              "feedback": "Use this distinction: The gating state during the rapid comparison."
+              "feedback": "The voltage step deliberately changes driving force; gating is the approximately fixed quantity."
             }
           ],
           "hints": [
@@ -870,6 +1156,32 @@ const content = {
           ],
           "modelAnswer": [
             "The gating state during the rapid comparison."
+          ]
+        },
+        {
+          "id": "L07-instant-protocol-starter",
+          "type": "mc",
+          "difficulty": "easy",
+          "progressionAdded": true,
+          "source": "L07 PDF 13",
+          "prompt": "When is the second-step ionic current sampled?",
+          "options": [
+            {
+              "text": "After gating reaches steady state, after resolving capacitance",
+              "feedback": "Waiting for steady gating defeats the fixed-state comparison."
+            },
+            {
+              "text": "Before resolving capacitance, after gating reaches steady state",
+              "feedback": "Unresolved capacitance contaminates the ionic current measurement."
+            },
+            {
+              "text": "Before appreciable gating change, after resolving capacitance",
+              "feedback": "The useful interval excludes capacitance while keeping gating approximately fixed."
+            }
+          ],
+          "correct": 2,
+          "modelAnswer": [
+            "The useful interval excludes capacitance while keeping gating approximately fixed."
           ]
         }
       ],
@@ -887,7 +1199,7 @@ const content = {
       "blocks": [
         {
           "type": "text",
-          "body": "Subtract the two Ohmic currents at fixed gating. The reversal terms cancel, leaving $\\Delta I=g\\Delta V$. A current jump can occur without an instantaneous gate change. The slope requires a nonzero voltage difference."
+          "body": ["At fixed gating, write an Ohmic current at each voltage using the same conductance and reversal. Subtraction cancels reversal and gives $\\Delta I=g\\Delta V$, the result on PDF page 14. Thus current can jump immediately because driving force changes while the gating variables remain continuous.", "Use signed differences in the same order to infer the slope with the explorers below. A nonzero voltage difference is required. Check an inferred immediate current independently with the chord law at the new voltage; both routes assume unchanged gating and exclude the capacitive transient."]
         },
         {
           "type": "figure",
@@ -1028,16 +1340,16 @@ const content = {
       "conceptQuiz": [
         {
           "id": "L07-instant-law-check",
-          "prompt": "What does the instantaneous slope measure?",
+          "prompt": "Which conductance is represented by the instantaneous line slope?",
           "correct": 0,
           "options": [
             {
               "text": "Conductance at the fixed gating state",
-              "feedback": "Correct. Conductance at the fixed gating state."
+              "feedback": "The line slope measures conductance for the gating state prepared by the conditioning step."
             },
             {
               "text": "Conductance after every gate equilibrates",
-              "feedback": "Use this distinction: Conductance at the fixed gating state."
+              "feedback": "Equilibrating at each test voltage would mix different gating states into the curve."
             }
           ],
           "hints": [
@@ -1051,6 +1363,32 @@ const content = {
           "modelAnswer": [
             "Conductance at the fixed gating state."
           ]
+        },
+        {
+          "id": "L07-instant-law-starter",
+          "type": "mc",
+          "difficulty": "easy",
+          "progressionAdded": true,
+          "source": "L07 PDF 14",
+          "prompt": "Which quantity cancels in the fixed-gating current difference?",
+          "options": [
+            {
+              "text": "The shared ionic reversal potential",
+              "feedback": "Subtracting two currents with the same conductance and reversal removes the reversal term."
+            },
+            {
+              "text": "The imposed change in membrane voltage",
+              "feedback": "The voltage difference remains and sets the current jump."
+            },
+            {
+              "text": "The shared open-channel conductance",
+              "feedback": "Conductance remains as the proportionality factor between the two differences."
+            }
+          ],
+          "correct": 0,
+          "modelAnswer": [
+            "Subtracting two currents with the same conductance and reversal removes the reversal term."
+          ]
         }
       ]
     },
@@ -1062,7 +1400,7 @@ const content = {
       "blocks": [
         {
           "type": "text",
-          "body": "The peak curve combines voltage-dependent gating and driving force. A line measured at fixed initial gating intersects it at the conditioning voltage and at sodium reversal. The line’s slope supports an Ohmic open pore; it does not make the entire membrane linear."
+          "body": ["On PDF pages 15–16, the peak sodium curve changes both driving force and gating as conditioning voltage varies. It can therefore be nonlinear. The instantaneous line instead starts from the same activated state and varies test voltage before gating changes; its slope measures that state’s conductance.", "The curves intersect at the conditioning voltage, where no second step occurs, and at sodium reversal, where driving force vanishes. Read these intersections before interpreting curvature. A straight instantaneous line supports Ohmic open-channel current, while leaving voltage-dependent population activation fully compatible with a nonlinear peak curve."]
         },
         {
           "type": "figure",
@@ -1086,16 +1424,16 @@ const content = {
       "conceptQuiz": [
         {
           "id": "L07-sodium-iv-check",
-          "prompt": "Why can the peak relation be nonlinear?",
+          "prompt": "Which gating explanation accounts for a curved sodium peak-current relation?",
           "correct": 1,
           "options": [
             {
               "text": "Every open pore must have nonlinear permeation",
-              "feedback": "Use this distinction: Different voltages recruit different gating states."
+              "feedback": "A nonlinear peak curve does not require nonlinear open-pore flow; the instantaneous line can be straight."
             },
             {
               "text": "Different voltages recruit different gating states",
-              "feedback": "Correct. Different voltages recruit different gating states."
+              "feedback": "Peak measurements at different voltages have different activation states and driving forces."
             }
           ],
           "hints": [
@@ -1109,6 +1447,32 @@ const content = {
           "modelAnswer": [
             "Different voltages recruit different gating states."
           ]
+        },
+        {
+          "id": "L07-sodium-iv-starter",
+          "type": "mc",
+          "difficulty": "easy",
+          "progressionAdded": true,
+          "source": "L07 PDF 15–16",
+          "prompt": "What is kept the same within one instantaneous sodium line?",
+          "options": [
+            {
+              "text": "The final steady activation at every measurement",
+              "feedback": "The protocol samples before gating equilibrates at each new voltage."
+            },
+            {
+              "text": "The preceding conditioning voltage and duration",
+              "feedback": "Matched conditioning prepares the same gating state before different rapid test voltages."
+            },
+            {
+              "text": "The final test voltage at every measurement",
+              "feedback": "Test voltage must vary to trace a current–voltage line."
+            }
+          ],
+          "correct": 1,
+          "modelAnswer": [
+            "Matched conditioning prepares the same gating state before different rapid test voltages."
+          ]
         }
       ]
     },
@@ -1120,7 +1484,7 @@ const content = {
       "blocks": [
         {
           "type": "text",
-          "body": "Potassium instantaneous currents also form a line at fixed gating. Its zero is potassium reversal. The activating current–voltage curve remains nonlinear because gating varies with the conditioning voltage."
+          "body": ["PDF page 17 applies the same two-step test to potassium. With conditioning history fixed, instantaneous current varies linearly with test voltage and crosses zero at potassium reversal. Its slope is conductance for that gating state, not a universal conductance for every conditioning voltage.", "The activating current–voltage curve remains nonlinear because the open fraction changes with voltage. Its intersections with the instantaneous line occur at the conditioning voltage and potassium reversal. Compare these protocols with sodium, keeping each ion’s own reversal and excluding the initial capacitive response."]
         },
         {
           "type": "figure",
@@ -1144,16 +1508,16 @@ const content = {
       "conceptQuiz": [
         {
           "id": "L07-potassium-iv-check",
-          "prompt": "What does a straight instantaneous relation support?",
+          "prompt": "Which proportionality describes a straight potassium instantaneous relation?",
           "correct": 0,
           "options": [
             {
               "text": "Current proportional to fixed-gating driving force",
-              "feedback": "Correct. Current proportional to fixed-gating driving force."
+              "feedback": "At fixed gating, open-potassium current is proportional to its driving force."
             },
             {
               "text": "Current independent of fixed-gating driving force",
-              "feedback": "Use this distinction: Current proportional to fixed-gating driving force."
+              "feedback": "A straight line with nonzero slope means current changes with driving force."
             }
           ],
           "hints": [
@@ -1167,6 +1531,32 @@ const content = {
           "modelAnswer": [
             "Current proportional to fixed-gating driving force."
           ]
+        },
+        {
+          "id": "L07-potassium-iv-starter",
+          "type": "mc",
+          "difficulty": "easy",
+          "progressionAdded": true,
+          "source": "L07 PDF 17",
+          "prompt": "Where does an open-potassium current line cross zero current?",
+          "options": [
+            {
+              "text": "At the conditioning membrane potential",
+              "feedback": "The conditioning voltage sets gating; it need not produce zero current."
+            },
+            {
+              "text": "At the sodium equilibrium potential",
+              "feedback": "Sodium reversal does not set zero current through a potassium-selective pore."
+            },
+            {
+              "text": "At the potassium equilibrium potential",
+              "feedback": "For a selective potassium component, zero driving force occurs at potassium reversal."
+            }
+          ],
+          "correct": 2,
+          "modelAnswer": [
+            "For a selective potassium component, zero driving force occurs at potassium reversal."
+          ]
         }
       ]
     },
@@ -1178,7 +1568,7 @@ const content = {
       "blocks": [
         {
           "type": "text",
-          "body": "Divide each corrected ionic current by its own driving force. This separates current changes due to gating from changes due to voltage. A zero current at reversal cannot by itself determine conductance; division there is undefined."
+          "body": ["PDF page 18 converts separated sodium and potassium currents into conductances using each ion’s own driving force. Calculate the signed voltage difference first, then divide signed current by it. For an Ohmic component the resulting conductance is nonnegative even when current is inward.", "At held voltage, the conductance trace exposes gating kinetics instead of confusing them with a changing driving force. At reversal the chord calculation is undefined: zero current alone does not determine conductance. Use a nonzero driving force or the fixed-gating slope method, with background currents corrected."]
         },
         {
           "type": "figure",
@@ -1331,16 +1721,16 @@ const content = {
       "conceptQuiz": [
         {
           "id": "L07-conductance-check",
-          "prompt": "Can zero current at reversal determine conductance?",
+          "prompt": "Can a zero-current measurement at reversal alone establish zero conductance?",
           "correct": 0,
           "options": [
             {
               "text": "No, a nonzero driving-force measurement is needed",
-              "feedback": "Correct. No, a nonzero driving-force measurement is needed."
+              "feedback": "At reversal, zero net current can coexist with open channels; use a nonzero driving force to infer conductance."
             },
             {
               "text": "Yes, zero current always means zero conductance",
-              "feedback": "Use this distinction: No, a nonzero driving-force measurement is needed."
+              "feedback": "Zero current can reflect zero driving force rather than zero conductance."
             }
           ],
           "hints": [
@@ -1354,6 +1744,32 @@ const content = {
           "modelAnswer": [
             "No, a nonzero driving-force measurement is needed."
           ]
+        },
+        {
+          "id": "L07-conductance-starter",
+          "type": "mc",
+          "difficulty": "easy",
+          "progressionAdded": true,
+          "source": "L07 PDF 18",
+          "prompt": "Which data point cannot determine conductance by direct current division?",
+          "options": [
+            {
+              "text": "A measurement exactly at ionic reversal",
+              "feedback": "At reversal, both net current and driving force are zero, so direct division is undefined."
+            },
+            {
+              "text": "A measurement above the ionic reversal",
+              "feedback": "Above reversal a nonzero driving force permits division after component separation."
+            },
+            {
+              "text": "A measurement below the ionic reversal",
+              "feedback": "Below reversal current and driving force can both be negative while conductance is positive."
+            }
+          ],
+          "correct": 0,
+          "modelAnswer": [
+            "At reversal, both net current and driving force are zero, so direct division is undefined."
+          ]
         }
       ]
     },
@@ -1365,7 +1781,7 @@ const content = {
       "blocks": [
         {
           "type": "text",
-          "body": "Charged protein regions move in the electric field and alter channel conformation. The HH variables describe probabilities phenomenologically. The membrane field acts on gating charge, while permeating ions move through the pore."
+          "body": ["PDF page 19 distinguishes permeating ions from voltage sensors. Positively charged regions of channel protein respond to the membrane electric field and move, causing conformational changes that regulate access to an aqueous pore. The voltage-sensitive object need not be the ion carrying the current.", "HH represents this control with hypothetical gating particles and probability variables, rather than a literal structural movie. Voltage changes the transition tendencies, and time is needed for the conducting fraction to respond. This separates an immediate driving-force change through already open pores from a slower gating response."]
         },
         {
           "type": "figure",
@@ -1389,16 +1805,16 @@ const content = {
       "conceptQuiz": [
         {
           "id": "L07-sensors-check",
-          "prompt": "What does a voltage sensor respond to?",
+          "prompt": "Which mechanism links membrane voltage to channel conformation?",
           "correct": 0,
           "options": [
             {
               "text": "The electric field across the membrane",
-              "feedback": "Correct. The electric field across the membrane."
+              "feedback": "The membrane electric field acts on charged protein sensor regions."
             },
             {
-              "text": "The recording electrode’s metal composition",
-              "feedback": "Use this distinction: The electric field across the membrane."
+              "text": "The concentration gradient through the pore",
+              "feedback": "The concentration gradient drives permeation; the electric field acts on the charged protein sensor."
             }
           ],
           "hints": [
@@ -1411,6 +1827,32 @@ const content = {
           ],
           "modelAnswer": [
             "The electric field across the membrane."
+          ]
+        },
+        {
+          "id": "L07-sensors-starter",
+          "type": "mc",
+          "difficulty": "easy",
+          "progressionAdded": true,
+          "source": "L07 PDF 19",
+          "prompt": "What is a molecular voltage sensor in this lecture?",
+          "options": [
+            {
+              "text": "An electrode monitoring membrane voltage",
+              "feedback": "An electrode measures voltage externally to the gating mechanism."
+            },
+            {
+              "text": "A charged region of channel protein",
+              "feedback": "Charged protein regions move in the membrane field and influence channel conformation."
+            },
+            {
+              "text": "A dissolved ion crossing the channel pore",
+              "feedback": "Permeating ions carry ionic current; they are not the channel protein sensor."
+            }
+          ],
+          "correct": 1,
+          "modelAnswer": [
+            "Charged protein regions move in the membrane field and influence channel conformation."
           ]
         }
       ],
@@ -1428,7 +1870,7 @@ const content = {
       "blocks": [
         {
           "type": "text",
-          "body": "Potassium uses activation variable $n$. Sodium uses activation $m$ and availability $h$. All required gates must be permissive for conduction. A larger $h$ means less inactivation, not more inactivation."
+          "body": ["PDF page 20 assigns potassium activation to $n$, sodium activation to $m$, and sodium availability to $h$. Each variable is the probability that its particle is permissive. All required factors must be permissive for a channel to conduct, so particle probability is not automatically whole-channel open probability.", "A larger $h$ means more sodium channels remain available, hence less inactivation. Depolarization can increase activation while reducing availability. Keep these opposite roles separate when explaining a transient sodium current; an activation factor alone cannot establish that the pore is conducting."]
         },
         {
           "type": "figure",
@@ -1452,16 +1894,16 @@ const content = {
       "conceptQuiz": [
         {
           "id": "L07-gates-check",
-          "prompt": "Which variable represents sodium availability?",
+          "prompt": "Which variable describes permissive sodium inactivation gating?",
           "correct": 1,
           "options": [
             {
               "text": "$n$, the permissive potassium probability",
-              "feedback": "Use this distinction: $h$, the permissive inactivation probability."
+              "feedback": "The variable $n$ describes potassium activation, not sodium availability."
             },
             {
               "text": "$h$, the permissive inactivation probability",
-              "feedback": "Correct. $h$, the permissive inactivation probability."
+              "feedback": "The permissive sodium inactivation variable is $h$; larger values mean greater availability."
             }
           ],
           "hints": [
@@ -1475,6 +1917,32 @@ const content = {
           "modelAnswer": [
             "$h$, the permissive inactivation probability."
           ]
+        },
+        {
+          "id": "L07-gates-starter",
+          "type": "mc",
+          "difficulty": "easy",
+          "progressionAdded": true,
+          "source": "L07 PDF 20",
+          "prompt": "What does a single gating variable represent?",
+          "options": [
+            {
+              "text": "Probability of a permeating ion species",
+              "feedback": "Ion species determines selectivity; a gating variable describes a channel state."
+            },
+            {
+              "text": "Fraction of the maximal ionic driving force",
+              "feedback": "Driving force is a voltage difference, separate from gating probability."
+            },
+            {
+              "text": "Probability of a permissive particle state",
+              "feedback": "The variables describe permissive-state probabilities, not ion identity or driving force."
+            }
+          ],
+          "correct": 2,
+          "modelAnswer": [
+            "The variables describe permissive-state probabilities, not ion identity or driving force."
+          ]
         }
       ]
     },
@@ -1486,7 +1954,7 @@ const content = {
       "blocks": [
         {
           "type": "text",
-          "body": "Closed channels are nonconducting but available for activation. Open channels can conduct when driving force is nonzero. Inactivated channels are temporarily unavailable. Deactivation and recovery from inactivation are different transitions."
+          "body": ["PDF page 21 separates three functional states. A closed channel is nonconducting but available for activation. An open channel permits ion passage, with net current set by driving force. An inactivated channel is nonconducting and temporarily unavailable for activation.", "Deactivation returns an activated channel toward the closed state; recovery from inactivation restores availability. These are different transitions, although both may accompany repolarization. A zero-current recording cannot distinguish all three states: even an open channel has zero net current at reversal. Use voltage history and a test pulse to assess availability."]
         },
         {
           "type": "figure",
@@ -1510,16 +1978,16 @@ const content = {
       "conceptQuiz": [
         {
           "id": "L07-states-check",
-          "prompt": "Which state is unavailable for immediate activation?",
+          "prompt": "Which named state is nonconducting and temporarily unavailable?",
           "correct": 1,
           "options": [
             {
               "text": "The closed but available channel state",
-              "feedback": "Use this distinction: The inactivated nonconducting state."
+              "feedback": "A closed channel is nonconducting but remains available for activation."
             },
             {
               "text": "The inactivated nonconducting state",
-              "feedback": "Correct. The inactivated nonconducting state."
+              "feedback": "Inactivation makes the channel temporarily unavailable for activation."
             }
           ],
           "hints": [
@@ -1533,6 +2001,32 @@ const content = {
           "modelAnswer": [
             "The inactivated nonconducting state."
           ]
+        },
+        {
+          "id": "L07-states-starter",
+          "type": "mc",
+          "difficulty": "easy",
+          "progressionAdded": true,
+          "source": "L07 PDF 21",
+          "prompt": "Which transition is called deactivation?",
+          "options": [
+            {
+              "text": "Open to closed but still available",
+              "feedback": "Deactivation closes an activated channel without the defining unavailability of inactivation."
+            },
+            {
+              "text": "Open to inactivated and unavailable",
+              "feedback": "This is inactivation, which reduces availability."
+            },
+            {
+              "text": "Inactivated to closed and available",
+              "feedback": "This is recovery from inactivation, restoring availability."
+            }
+          ],
+          "correct": 0,
+          "modelAnswer": [
+            "Deactivation closes an activated channel without the defining unavailability of inactivation."
+          ]
         }
       ]
     },
@@ -1544,7 +2038,7 @@ const content = {
       "blocks": [
         {
           "type": "text",
-          "body": "Longer depolarizing prepulses reduce the subsequent test sodium current. Holding/test voltage and other conditions must be controlled. Falling availability contributes to loss of inward current during repolarization, alongside potassium activation."
+          "body": ["PDF page 22 varies the duration of a depolarizing prepulse, then measures sodium current during a fixed test pulse. Longer prepulses reduce the subsequent inward response, supporting time-dependent loss of availability during depolarization. Hold prepulse amplitude, test voltage and starting history constant to isolate duration.", "At matched test driving force, a smaller corrected response indicates fewer available channels rather than a reversal shift. Check leak and capacitive artifacts before comparing amplitudes. Inactivation reduces inward sodium current and contributes to repolarization alongside potassium activation; it is distinct from closing the activation gate."]
         },
         {
           "type": "figure",
@@ -1568,16 +2062,16 @@ const content = {
       "conceptQuiz": [
         {
           "id": "L07-inactivation-check",
-          "prompt": "What does a longer depolarizing prepulse reduce?",
+          "prompt": "Which sodium property does the duration-dependent prepulse test probe?",
           "correct": 0,
           "options": [
             {
               "text": "Sodium availability during the later test pulse",
-              "feedback": "Correct. Sodium availability during the later test pulse."
+              "feedback": "Longer prepulses reduce the available sodium fraction, reducing current in the same test pulse."
             },
             {
               "text": "Sodium reversal during the later test pulse",
-              "feedback": "Use this distinction: Sodium availability during the later test pulse."
+              "feedback": "The fixed-solution duration comparison tests availability, not a shift of sodium reversal."
             }
           ],
           "hints": [
@@ -1591,6 +2085,32 @@ const content = {
           "modelAnswer": [
             "Sodium availability during the later test pulse."
           ]
+        },
+        {
+          "id": "L07-inactivation-starter",
+          "type": "mc",
+          "difficulty": "easy",
+          "progressionAdded": true,
+          "source": "L07 PDF 22",
+          "prompt": "What changes in the taught prepulse experiment?",
+          "options": [
+            {
+              "text": "Sodium concentration before an unchanged test pulse",
+              "feedback": "The taught comparison varies time, not external sodium concentration."
+            },
+            {
+              "text": "Prepulse duration before an unchanged test pulse",
+              "feedback": "Duration is varied while the test pulse is held fixed to probe developing inactivation."
+            },
+            {
+              "text": "Test voltage after an unchanged prepulse duration",
+              "feedback": "Changing test voltage also changes driving force and activation, confounding this comparison."
+            }
+          ],
+          "correct": 1,
+          "modelAnswer": [
+            "Duration is varied while the test pulse is held fixed to probe developing inactivation."
+          ]
         }
       ]
     },
@@ -1602,7 +2122,7 @@ const content = {
       "blocks": [
         {
           "type": "text",
-          "body": "Conductance is maximum conductance times open probability. Independent all-required particles multiply their probabilities: potassium uses $n^4$, sodium $m^3h$. Check both starting and limiting values before trusting a printed relaxation equation."
+          "body": ["PDF page 23 models conductance as maximum conductance times open fraction. Independent all-required particle probabilities multiply: four potassium activation factors give $n^4$, while three sodium activation factors and availability give $m^3h$. The explorers below turn these fractions into conductance; maximum conductance is not the instantaneous value.", "Calculate particle probabilities first, then apply the powers and product. A permissive activation particle does not guarantee an open sodium channel. The printed relaxation on this page swaps its endpoints; use the consistent initial-to-steady relaxation derived on pages 25–27 and check both limits."]
         },
         {
           "type": "figure",
@@ -1859,16 +2379,16 @@ const content = {
       "conceptQuiz": [
         {
           "id": "L07-products-check",
-          "prompt": "Does a permissive sodium activation particle imply an open channel?",
+          "prompt": "Is one permissive particle sufficient when other particles are required?",
           "correct": 1,
           "options": [
             {
               "text": "Yes, one permissive particle guarantees conduction",
-              "feedback": "Use this distinction: No, other required particles must be permissive."
+              "feedback": "An all-required model cannot conduct merely because one factor is permissive."
             },
             {
               "text": "No, other required particles must be permissive",
-              "feedback": "Correct. No, other required particles must be permissive."
+              "feedback": "All required particles must be permissive, so one permissive particle alone cannot ensure conduction."
             }
           ],
           "hints": [
@@ -1882,6 +2402,32 @@ const content = {
           "modelAnswer": [
             "No, other required particles must be permissive."
           ]
+        },
+        {
+          "id": "L07-products-starter",
+          "type": "mc",
+          "difficulty": "easy",
+          "progressionAdded": true,
+          "source": "L07 PDF 23",
+          "prompt": "Which factor sets the conductance when all HH particles are permissive?",
+          "options": [
+            {
+              "text": "The ionic equilibrium voltage parameter",
+              "feedback": "Reversal sets driving force, not the maximal conductance scale."
+            },
+            {
+              "text": "The particle relaxation time parameter",
+              "feedback": "Time constants set kinetics, not the conductance when all particles are permissive."
+            },
+            {
+              "text": "The maximal conductance parameter",
+              "feedback": "With the gating product equal to one, conductance equals its maximum."
+            }
+          ],
+          "correct": 2,
+          "modelAnswer": [
+            "With the gating product equal to one, conductance equals its maximum."
+          ]
         }
       ]
     },
@@ -1893,7 +2439,7 @@ const content = {
       "blocks": [
         {
           "type": "text",
-          "body": "The fits use three activation particles plus availability for sodium and four activation particles for potassium. Potassium channels have four sensor-bearing subunits; sodium has four domains, with the fourth strongly coupled to inactivation. The phenomenology is not a literal count of hinged gates."
+          "body": ["PDF page 24 uses four potassium activation particles and three sodium activation particles plus availability to fit conductance time courses. Its explicit boxed equations assign $n^4$ to potassium and $m^3h$ to sodium; the nearby summary sentence reverses their order.", "The structural comparison shows four sensor-bearing potassium subunits and four sodium domains, with the fourth sodium domain strongly coupled to inactivation. These observations support a structural interpretation, but the fitted powers are phenomenological. They do not establish four literal independent hinged gates or equate a single particle probability with channel opening."]
         },
         {
           "type": "figure",
@@ -1917,16 +2463,16 @@ const content = {
       "conceptQuiz": [
         {
           "id": "L07-structure-check",
-          "prompt": "Which fitted probability belongs to potassium?",
+          "prompt": "Which gating product belongs to potassium rather than sodium?",
           "correct": 1,
           "options": [
             {
               "text": "$m^3h$, activation and availability factors",
-              "feedback": "Use this distinction: $n^4$, four all-required activation factors."
+              "feedback": "The product $m^3h$ describes sodium activation and availability."
             },
             {
               "text": "$n^4$, four all-required activation factors",
-              "feedback": "Correct. $n^4$, four all-required activation factors."
+              "feedback": "Potassium conductance uses four all-required activation factors, giving $n^4$."
             }
           ],
           "hints": [
@@ -1940,6 +2486,32 @@ const content = {
           "modelAnswer": [
             "$n^4$, four all-required activation factors."
           ]
+        },
+        {
+          "id": "L07-structure-starter",
+          "type": "mc",
+          "difficulty": "easy",
+          "progressionAdded": true,
+          "source": "L07 PDF 24",
+          "prompt": "What does the fourth power in the potassium fit describe?",
+          "options": [
+            {
+              "text": "Four all-required permissive factors",
+              "feedback": "The fit multiplies four independent identical permissive probabilities."
+            },
+            {
+              "text": "Four alternative conducting ion species",
+              "feedback": "The exponent describes gating factors, not the number of ion species."
+            },
+            {
+              "text": "Four sequential permeating potassium ions",
+              "feedback": "The exponent is not a count of ions traversing the pore."
+            }
+          ],
+          "correct": 0,
+          "modelAnswer": [
+            "The fit multiplies four independent identical permissive probabilities."
+          ]
         }
       ]
     },
@@ -1951,7 +2523,7 @@ const content = {
       "blocks": [
         {
           "type": "text",
-          "body": "Permissive probability gains opening transitions and loses closing transitions. At fixed voltage both rates are constant. Balance defines the steady fraction and the reciprocal rate sum defines the time constant. Integration retains the initial condition."
+          "body": ["On PDF page 25, permissive probability $y$ gains transitions from the non-permissive fraction at rate $\\alpha(1-y)$ and loses them at $\\beta y$. At fixed voltage the rate coefficients are constant. Set the derivative to zero to obtain steady probability; the reciprocal rate sum gives the time constant below.", "Steady state means balanced transition flows, not that particles stop switching. A larger rate sum speeds relaxation even if the steady fraction is unchanged. Keep rates and time in reciprocal units, and retain the initial condition when integrating; endpoint checks expose the page 23 printing error."]
         },
         {
           "type": "figure",
@@ -2157,16 +2729,16 @@ const content = {
       "conceptQuiz": [
         {
           "id": "L07-balance-check",
-          "prompt": "Which term removes permissive probability?",
+          "prompt": "Which term removes permissive probability in the first-order balance?",
           "correct": 0,
           "options": [
             {
               "text": "$\\beta y$, the closing flux",
-              "feedback": "Correct. $\\beta y$, the closing flux."
+              "feedback": "The term $\\beta y$ removes probability from the permissive state."
             },
             {
               "text": "$\\alpha(1-y)$, the opening flux",
-              "feedback": "Use this distinction: $\\beta y$, the closing flux."
+              "feedback": "The term $\\alpha(1-y)$ adds permissive probability from the nonpermissive pool."
             }
           ],
           "hints": [
@@ -2180,6 +2752,32 @@ const content = {
           "modelAnswer": [
             "$\\beta y$, the closing flux."
           ]
+        },
+        {
+          "id": "L07-balance-starter",
+          "type": "mc",
+          "difficulty": "easy",
+          "progressionAdded": true,
+          "source": "L07 PDF 25",
+          "prompt": "At fixed voltage, which quantity describes the speed of particle relaxation?",
+          "options": [
+            {
+              "text": "The particle initial probability",
+              "feedback": "Initial probability sets the starting point, not the relaxation speed."
+            },
+            {
+              "text": "The particle time constant",
+              "feedback": "The time constant sets the rate of approach toward steady state."
+            },
+            {
+              "text": "The particle steady probability",
+              "feedback": "Steady probability sets the endpoint, not how quickly it is reached."
+            }
+          ],
+          "correct": 1,
+          "modelAnswer": [
+            "The time constant sets the rate of approach toward steady state."
+          ]
         }
       ]
     },
@@ -2191,7 +2789,7 @@ const content = {
       "blocks": [
         {
           "type": "text",
-          "body": "Each of $m,n,h$ approaches its own steady probability with its own time constant. The same equation allows growth or decay. A voltage step changes the rates immediately, while finite-rate gating variables remain continuous."
+          "body": ["PDF page 26 applies the same first-order relaxation to $m$, $n$ and $h$, each with its own initial value, steady value and time constant. Use the rates at the new held voltage. The explorer below allows either growth or decay, depending on which side of steady state the initial probability lies.", "At zero elapsed time the probability equals its initial value; at long times it approaches the new steady value. Finite-rate gating variables remain continuous across a voltage step, although current can jump with driving force. Do not replace all three time constants by a single membrane charging time."]
         },
         {
           "type": "figure",
@@ -2288,16 +2886,16 @@ const content = {
       "conceptQuiz": [
         {
           "id": "L07-relaxation-check",
-          "prompt": "Which quantity stays continuous across an ideal voltage step?",
+          "prompt": "Which quantity remains continuous across a sudden voltage step?",
           "correct": 0,
           "options": [
             {
               "text": "The finite-rate gating probability",
-              "feedback": "Correct. The finite-rate gating probability."
+              "feedback": "Finite transition rates keep particle probability continuous when voltage changes suddenly."
             },
             {
               "text": "Every ionic current component",
-              "feedback": "Use this distinction: The finite-rate gating probability."
+              "feedback": "Ionic current can jump because driving force changes even while gating probability is continuous."
             }
           ],
           "hints": [
@@ -2311,6 +2909,32 @@ const content = {
           "modelAnswer": [
             "The finite-rate gating probability."
           ]
+        },
+        {
+          "id": "L07-relaxation-starter",
+          "type": "mc",
+          "difficulty": "easy",
+          "progressionAdded": true,
+          "source": "L07 PDF 26",
+          "prompt": "Which condition permits the single-exponential particle solution?",
+          "options": [
+            {
+              "text": "Voltage changes while transition rates equilibrate",
+              "feedback": "Changing voltage generally changes rates, so one fixed-rate exponential no longer applies."
+            },
+            {
+              "text": "Voltage stays fixed while transition rates drift",
+              "feedback": "Rate drift violates the constant-coefficient solution even if voltage stays fixed."
+            },
+            {
+              "text": "Voltage and transition rates remain constant",
+              "feedback": "The stated solution assumes constant rates at a fixed voltage."
+            }
+          ],
+          "correct": 2,
+          "modelAnswer": [
+            "The stated solution assumes constant rates at a fixed voltage."
+          ]
         }
       ]
     },
@@ -2322,7 +2946,7 @@ const content = {
       "blocks": [
         {
           "type": "text",
-          "body": "Raising activation to a power produces delayed conductance onset. Sodium rises and falls as fast activation competes with slower inactivation. The simplified sodium expression assumes negligible initial activation and final availability; those are approximations, not universal boundaries."
+          "body": ["PDF page 27 combines particle relaxations to obtain conductance time courses. Raising activation to a power produces delayed onset; sodium then falls as fast activation competes with slower loss of availability. Potassium activation rises more slowly. These conductance traces differ from the single-particle exponentials.", "For a calculation, relax $m$ and $h$ separately, form $m^3h$, multiply by maximum conductance, then by signed driving force. The simplified sodium expression assumes negligible initial activation and final availability; use the general relaxation when these are nonzero. After repolarization, activation falls while availability recovers."]
         },
         {
           "type": "figure",
@@ -2346,16 +2970,16 @@ const content = {
       "conceptQuiz": [
         {
           "id": "L07-time-courses-check",
-          "prompt": "Why can sodium conductance be transient?",
+          "prompt": "Which competing changes explain a sodium conductance transient?",
           "correct": 0,
           "options": [
             {
               "text": "Activation grows while availability declines",
-              "feedback": "Correct. Activation grows while availability declines."
+              "feedback": "Rapidly increasing activation and slower loss of availability produce the sodium transient."
             },
             {
               "text": "Activation and availability both stay fixed",
-              "feedback": "Use this distinction: Activation grows while availability declines."
+              "feedback": "Fixed activation and availability cannot explain a changing conductance under a fixed clamp."
             }
           ],
           "hints": [
@@ -2369,6 +2993,32 @@ const content = {
           "modelAnswer": [
             "Activation grows while availability declines."
           ]
+        },
+        {
+          "id": "L07-time-courses-starter",
+          "type": "mc",
+          "difficulty": "easy",
+          "progressionAdded": true,
+          "source": "L07 PDF 27",
+          "prompt": "Which combination describes the taught transient sodium conductance?",
+          "options": [
+            {
+              "text": "Rapid activation followed by reduced availability",
+              "feedback": "Rising activation opens channels, then falling availability reduces conductance."
+            },
+            {
+              "text": "Slow activation followed by increased availability",
+              "feedback": "Increasing availability would not supply the taught inactivation-driven decline."
+            },
+            {
+              "text": "Rapid activation followed by fixed availability",
+              "feedback": "Fixed availability omits the inactivation underlying the transient."
+            }
+          ],
+          "correct": 0,
+          "modelAnswer": [
+            "Rising activation opens channels, then falling availability reduces conductance."
+          ]
         }
       ]
     },
@@ -2380,7 +3030,7 @@ const content = {
       "blocks": [
         {
           "type": "text",
-          "body": "Fit potassium steady conductance and its time course to obtain steady activation and time constant. Take a fourth root of the conductance fraction. Exponential barrier rates explain polarity, but the later empirical squid fit is a distinct fitted rate description."
+          "body": ["PDF page 28 fits potassium conductance at held voltages. Divide steady conductance by maximum conductance and take the fourth root to recover steady particle activation. Fit the full fourth-power time course to infer the particle time constant; a single conductance exponential misses the delayed onset.", "The barrier-rate explorers below use dimensionless electrical bias $q=zFV_m/(RT)$ and barrier-position parameter $\\gamma$. Activation opening and closing have opposite voltage polarities; availability reverses those roles. These exponential barrier models explain polarity, while the later empirical squid laws are a distinct fitted description."]
         },
         {
           "type": "figure",
@@ -2618,7 +3268,7 @@ const content = {
               "meaning": "Dimensionless charge-voltage energy in the stated model."
             }
           ],
-          "reads": "Availability has opposite voltage polarity to activation. The specific squid values $\alpha_h=0.07e^{-U/20}$ and $\beta_h=1/(1+e^{(30-U)/10})$ are the empirical fit of this Boltzmann form to H&H 1952 squid axon data.",
+          "reads": "Availability has opposite voltage polarity to activation. These barrier rates and the later empirical squid laws are distinct fitted descriptions.",
           "assumes": "Here $q=zFV_m/(RT)$ is stated dimensionless; baseline and voltage share a fixed origin.",
           "variants": [],
           "drill": {
@@ -2720,16 +3370,16 @@ const content = {
       "conceptQuiz": [
         {
           "id": "L07-fit-check",
-          "prompt": "How is potassium steady activation obtained?",
+          "prompt": "Which operation recovers a particle probability from normalized potassium conductance?",
           "correct": 1,
           "options": [
             {
               "text": "Fourth power of the normalized conductance",
-              "feedback": "Use this distinction: Fourth root of the normalized conductance."
+              "feedback": "Taking another fourth power compounds the exponent instead of recovering particle probability."
             },
             {
               "text": "Fourth root of the normalized conductance",
-              "feedback": "Correct. Fourth root of the normalized conductance."
+              "feedback": "Conductance is proportional to the fourth power of potassium particle probability, so invert with a fourth root."
             }
           ],
           "hints": [
@@ -2743,6 +3393,32 @@ const content = {
           "modelAnswer": [
             "Fourth root of the normalized conductance."
           ]
+        },
+        {
+          "id": "L07-fit-starter",
+          "type": "mc",
+          "difficulty": "easy",
+          "progressionAdded": true,
+          "source": "L07 PDF 28",
+          "prompt": "Which recording feature is needed to fit a particle time constant?",
+          "options": [
+            {
+              "text": "The reversal voltage at each sodium concentration",
+              "feedback": "Reversal shifts identify ionic driving force, not particle relaxation time."
+            },
+            {
+              "text": "The time course of conductance after a voltage step",
+              "feedback": "A relaxation time requires time-resolved data, with the appropriate gating-power model."
+            },
+            {
+              "text": "The final conductance at each steady voltage only",
+              "feedback": "Steady values constrain endpoints but do not determine transition speed."
+            }
+          ],
+          "correct": 1,
+          "modelAnswer": [
+            "A relaxation time requires time-resolved data, with the appropriate gating-power model."
+          ]
         }
       ]
     },
@@ -2754,7 +3430,7 @@ const content = {
       "blocks": [
         {
           "type": "text",
-          "body": "Steady activation for $m$ and $n$ increases with depolarization; steady availability $h$ decreases. Time constants need not vary monotonically. Probability and time use different axes. These source plots use absolute membrane voltage."
+          "body": ["PDF page 29 plots steady probabilities and time constants against absolute membrane voltage, using different vertical axes. Sodium and potassium activation increase with depolarization, while sodium availability decreases. Read the axis belonging to each curve before comparing amplitudes; probability and time are different quantities.", "Time constants can vary nonmonotonically even when steady activation changes monotonically. A high steady fraction says where the particle will settle, not how quickly it arrives or which direction ions flow. Speed requires the time constant, and current direction additionally requires the ion’s reversal."]
         },
         {
           "type": "figure",
@@ -2778,16 +3454,16 @@ const content = {
       "conceptQuiz": [
         {
           "id": "L07-steady-curves-check",
-          "prompt": "Which curve decreases during steady depolarization?",
+          "prompt": "Which gating property falls on depolarization in the source steady curves?",
           "correct": 0,
           "options": [
             {
               "text": "Sodium availability rather than sodium activation",
-              "feedback": "Correct. Sodium availability rather than sodium activation."
+              "feedback": "Steady sodium availability decreases as depolarization favors inactivation."
             },
             {
               "text": "Sodium activation rather than sodium availability",
-              "feedback": "Use this distinction: Sodium availability rather than sodium activation."
+              "feedback": "Sodium activation increases with depolarization; the falling curve is availability."
             }
           ],
           "hints": [
@@ -2801,6 +3477,32 @@ const content = {
           "modelAnswer": [
             "Sodium availability rather than sodium activation."
           ]
+        },
+        {
+          "id": "L07-steady-curves-starter",
+          "type": "mc",
+          "difficulty": "easy",
+          "progressionAdded": true,
+          "source": "L07 PDF 29",
+          "prompt": "What happens to steady sodium availability as voltage depolarizes in the source curves?",
+          "options": [
+            {
+              "text": "It increases toward a higher probability",
+              "feedback": "This is the direction of activation, not steady sodium availability."
+            },
+            {
+              "text": "It stays at the initial probability",
+              "feedback": "A steady curve varies with voltage; it is not fixed by the initial state."
+            },
+            {
+              "text": "It decreases toward a lower probability",
+              "feedback": "The availability curve falls with depolarization, unlike the activation curves."
+            }
+          ],
+          "correct": 2,
+          "modelAnswer": [
+            "The availability curve falls with depolarization, unlike the activation curves."
+          ]
         }
       ]
     },
@@ -2812,7 +3514,7 @@ const content = {
       "blocks": [
         {
           "type": "text",
-          "body": "The steady fraction fixes the forward/backward ratio; the time constant fixes their sum. Together they identify both rates at that voltage. A steady curve alone cannot identify transition speed."
+          "body": ["PDF page 30 recovers transition rates from two independent features of a clamp fit. Steady permissive probability fixes the ratio of opening to the total rate; the time constant fixes the total rate. Together they give $\\alpha=y_\\infty/\\tau$ and $\\beta=(1-y_\\infty)/\\tau$.", "Convert the time constant to a consistent time unit before calculating rates. Check that their sum recovers the reciprocal time constant and their ratio recovers steady probability. A steady activation curve alone cannot determine speed: proportionally scaling both rates leaves that curve unchanged. Use particle, not whole-channel, probability."]
         },
         {
           "type": "figure",
@@ -2953,16 +3655,16 @@ const content = {
       "conceptQuiz": [
         {
           "id": "L07-infer-check",
-          "prompt": "What extra datum identifies rates beyond a steady fraction?",
+          "prompt": "Besides steady probability, what is needed to recover both transition rates?",
           "correct": 0,
           "options": [
             {
               "text": "The relaxation time constant at that voltage",
-              "feedback": "Correct. The relaxation time constant at that voltage."
+              "feedback": "The time constant gives the rate sum; steady probability gives the forward fraction of that sum."
             },
             {
               "text": "The ionic reversal potential at that voltage",
-              "feedback": "Use this distinction: The relaxation time constant at that voltage."
+              "feedback": "Ionic reversal constrains driving force but does not determine particle transition speed."
             }
           ],
           "hints": [
@@ -2976,6 +3678,32 @@ const content = {
           "modelAnswer": [
             "The relaxation time constant at that voltage."
           ]
+        },
+        {
+          "id": "L07-infer-starter",
+          "type": "mc",
+          "difficulty": "easy",
+          "progressionAdded": true,
+          "source": "L07 PDF 30",
+          "prompt": "Which units belong to a forward or backward transition rate?",
+          "options": [
+            {
+              "text": "Inverse time for both transition rates",
+              "feedback": "Rates multiply probabilities to give probability change per unit time."
+            },
+            {
+              "text": "Time for both transition rates",
+              "feedback": "Time is the unit of a time constant, not a transition rate."
+            },
+            {
+              "text": "Probability for both transition rates",
+              "feedback": "Gating variables are probabilities; their transition rates have inverse-time units."
+            }
+          ],
+          "correct": 0,
+          "modelAnswer": [
+            "Rates multiply probabilities to give probability change per unit time."
+          ]
         }
       ]
     },
@@ -2987,7 +3715,7 @@ const content = {
       "blocks": [
         {
           "type": "text",
-          "body": "Use $U=V_m-V_{rest}$ in the six empirical source laws, with the numerical argument in millivolts and rates per millisecond. These are rest-relative laws, unlike the absolute-voltage graph axes. The apparent zero-over-zero points have finite limits. No temperature extrapolation is assumed."
+          "body": ["PDF page 31 fits six squid transition rates. Use rest-relative depolarization $U=V_m-V_{rest}$, inserting its numerical value in millivolts into the displayed laws. Their outputs are per millisecond; multiply by a thousand for per second. The preceding plots instead label absolute membrane voltage.", "The apparent zero-over-zero points in the two activation laws have finite limits, not zero rates. Convert the voltage origin before evaluating a law, then combine paired rates to obtain steady probability and time constant. Retain the source squid fit temperature; no temperature extrapolation is taught here."]
         },
         {
           "type": "figure",
@@ -3324,16 +4052,16 @@ const content = {
       "conceptQuiz": [
         {
           "id": "L07-empirical-check",
-          "prompt": "Which input belongs in the unshifted empirical laws?",
+          "prompt": "Which voltage origin is required by the source empirical squid coefficients?",
           "correct": 1,
           "options": [
             {
               "text": "Absolute inside voltage relative to the outside",
-              "feedback": "Use this distinction: Depolarization relative to the resting potential."
+              "feedback": "Using absolute negative membrane voltage without shifting the origin changes the fitted rates."
             },
             {
               "text": "Depolarization relative to the resting potential",
-              "feedback": "Correct. Depolarization relative to the resting potential."
+              "feedback": "The empirical coefficients use depolarization from rest, not the absolute inside-minus-outside voltage."
             }
           ],
           "hints": [
@@ -3347,6 +4075,32 @@ const content = {
           "modelAnswer": [
             "Depolarization relative to the resting potential."
           ]
+        },
+        {
+          "id": "L07-empirical-starter",
+          "type": "mc",
+          "difficulty": "easy",
+          "progressionAdded": true,
+          "source": "L07 PDF 31",
+          "prompt": "Which temperature qualification belongs to the empirical squid rate laws?",
+          "options": [
+            {
+              "text": "Use a new temperature as a shift of voltage origin",
+              "feedback": "Temperature dependence and voltage origin are different conventions."
+            },
+            {
+              "text": "Use the fitted temperature without assumed rescaling",
+              "feedback": "The source fit is temperature-specific; this lecture supplies no extrapolation rule."
+            },
+            {
+              "text": "Use any temperature without changing the rate laws",
+              "feedback": "Unchanged coefficients at arbitrary temperature are not justified by the source."
+            }
+          ],
+          "correct": 1,
+          "modelAnswer": [
+            "The source fit is temperature-specific; this lecture supplies no extrapolation rule."
+          ]
         }
       ]
     },
@@ -3358,7 +4112,7 @@ const content = {
       "blocks": [
         {
           "type": "text",
-          "body": "Connect concentration to reversal, rest, availability and excitability. Mild potassium elevation can increase excitability; sustained strong depolarization lowers sodium availability and can reduce it. A particle probability is not a channel open fraction."
+          "body": ["PDF pages 32–33 connect concentration, reversal and excitability. Increased external potassium makes potassium reversal less negative and depolarizes rest. Mild elevation may increase excitability, but strong sustained depolarization reduces sodium availability and can suppress excitation. Lower outside sodium reduces inward driving force and the action-potential peak.", "Trace that causal chain rather than assuming depolarization always increases excitability. For the probability tasks, obtain steady particle probability from the rate ratio, then use the required power or product to obtain conducting fraction. A high sodium activation probability alone does not overcome low availability."]
         },
         {
           "type": "figure",
@@ -3382,16 +4136,16 @@ const content = {
       "conceptQuiz": [
         {
           "id": "L07-group-check",
-          "prompt": "Does strong depolarization always increase excitability?",
+          "prompt": "Does sustained potassium-induced depolarization necessarily increase excitability?",
           "correct": 1,
           "options": [
             {
               "text": "Yes, depolarization always increases availability",
-              "feedback": "Use this distinction: No, sustained inactivation can reduce availability."
+              "feedback": "Depolarization does not always increase excitability; sustained inactivation can limit available sodium channels."
             },
             {
               "text": "No, sustained inactivation can reduce availability",
-              "feedback": "Correct. No, sustained inactivation can reduce availability."
+              "feedback": "Sustained depolarization can reduce sodium availability through inactivation and lower excitability."
             }
           ],
           "hints": [
@@ -3404,6 +4158,32 @@ const content = {
           ],
           "modelAnswer": [
             "No, sustained inactivation can reduce availability."
+          ]
+        },
+        {
+          "id": "L07-group-starter",
+          "type": "mc",
+          "difficulty": "easy",
+          "progressionAdded": true,
+          "source": "L07 PDF 32–33",
+          "prompt": "Which HH variable represents sodium availability in the group-work curves?",
+          "options": [
+            {
+              "text": "$m$, the permissive activation variable",
+              "feedback": "This factor represents sodium activation, not availability."
+            },
+            {
+              "text": "$n$, the permissive activation variable",
+              "feedback": "This factor represents potassium activation, not sodium availability."
+            },
+            {
+              "text": "$h$, the permissive inactivation variable",
+              "feedback": "Sodium availability is represented by the permissive inactivation factor."
+            }
+          ],
+          "correct": 2,
+          "modelAnswer": [
+            "Sodium availability is represented by the permissive inactivation factor."
           ]
         }
       ]
@@ -4629,6 +5409,7 @@ const content = {
     },
     {
       "id": "L07-direct-gna",
+      "practice": "extra",
       "sectionId": "products",
       "difficulty": "easy",
       "type": "multiStepCalc",
@@ -4995,6 +5776,7 @@ const content = {
     },
     {
       "id": "L07-direct-tau",
+      "practice": "extra",
       "sectionId": "balance",
       "difficulty": "easy",
       "type": "multiStepCalc",
@@ -5463,6 +6245,7 @@ const content = {
     },
     {
       "id": "L07-direct-barrier-close",
+      "practice": "extra",
       "sectionId": "fit",
       "difficulty": "easy",
       "type": "multiStepCalc",
@@ -5564,6 +6347,7 @@ const content = {
     },
     {
       "id": "L07-direct-availability-open",
+      "practice": "extra",
       "sectionId": "fit",
       "difficulty": "easy",
       "type": "multiStepCalc",
@@ -5665,6 +6449,7 @@ const content = {
     },
     {
       "id": "L07-direct-availability-close",
+      "practice": "extra",
       "sectionId": "fit",
       "difficulty": "easy",
       "type": "multiStepCalc",
@@ -5828,6 +6613,7 @@ const content = {
     },
     {
       "id": "L07-direct-forward",
+      "practice": "extra",
       "sectionId": "infer",
       "difficulty": "easy",
       "type": "multiStepCalc",
@@ -5913,6 +6699,7 @@ const content = {
     },
     {
       "id": "L07-direct-backward",
+      "practice": "extra",
       "sectionId": "infer",
       "difficulty": "easy",
       "type": "multiStepCalc",
@@ -8121,6 +8908,7 @@ const content = {
     },
     {
       "id": "L07-direct-bn",
+      "practice": "extra",
       "sectionId": "empirical",
       "difficulty": "medium",
       "type": "multiStepCalc",
@@ -8303,6 +9091,7 @@ const content = {
     },
     {
       "id": "L07-direct-bm",
+      "practice": "extra",
       "sectionId": "empirical",
       "difficulty": "medium",
       "type": "multiStepCalc",
@@ -8394,6 +9183,7 @@ const content = {
     },
     {
       "id": "L07-direct-ah",
+      "practice": "extra",
       "sectionId": "empirical",
       "difficulty": "medium",
       "type": "multiStepCalc",
@@ -8485,6 +9275,7 @@ const content = {
     },
     {
       "id": "L07-direct-bh",
+      "practice": "extra",
       "sectionId": "empirical",
       "difficulty": "medium",
       "type": "multiStepCalc",

@@ -35,7 +35,7 @@ const groups = {
   voltageGradient: { 'V/m': 1, 'mV/mm': 1 },
   curvature: { 'V/m2': 1 },
   permeability: { 'm/s': 1, 'cm/s': 0.01, 'um/ms': 1e-3, 'mm/ms': 1, 'm/ms': 1e3 },
-  scalar: { '': 1 },
+  scalar: { '': 1, '1': 1 },
 };
 const normalise = (s) => String(s).trim().replace(/[µμ]/g, 'u').replace(/Ω/g, 'ohm').replace(/²/g, '2').replace(/[·⋅]/g, '*');
 const units = new Map(Object.entries(groups).flatMap(([dimension, entries]) => Object.entries(entries).map(([name, scale]) => [name, { dimension, scale }])));
@@ -61,6 +61,24 @@ export function checkQuantity(text, answer) {
 // Python recomputation must use its own implementations, never these results.
 export function evaluateRelation(relation, p) {
   switch (relation) {
+    case 'binomialProb': {
+      const { n, k, p: probability } = p;
+      if (!Number.isSafeInteger(n) || !Number.isSafeInteger(k) || n < 0 || k < 0 || k > n || !Number.isFinite(probability) || probability < 0 || probability > 1) throw new Error('Integer channel counts and a probability from zero to one required.');
+      if (probability === 0) return k === 0 ? 1 : 0;
+      if (probability === 1) return k === n ? 1 : 0;
+      // Logarithms avoid overflowing the binomial coefficient before scaling.
+      let logCoefficient = 0;
+      for (let j = 1; j <= Math.min(k, n - k); j++) logCoefficient += Math.log(n - j + 1) - Math.log(j);
+      return Math.exp(logCoefficient + k * Math.log(probability) + (n - k) * Math.log1p(-probability));
+    }
+    case 'poissonProb': {
+      const { m, k } = p;
+      if (!Number.isFinite(m) || m < 0 || !Number.isSafeInteger(k) || k < 0) throw new Error('A nonnegative mean and integer open count required.');
+      if (m === 0) return k === 0 ? 1 : 0;
+      let logFactorial = 0;
+      for (let j = 2; j <= k; j++) logFactorial += Math.log(j);
+      return Math.exp(k * Math.log(m) - m - logFactorial);
+    }
     case 'hhBalance': {
       if (!(p.capacitance>0) || ![p.im,p.ionic,p.capacitance].every(Number.isFinite)) throw new Error('Finite currents and positive capacitance required.');
       return (p.im-p.ionic)/p.capacitance;
