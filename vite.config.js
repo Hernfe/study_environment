@@ -9,6 +9,16 @@ const root = fileURLToPath(new URL('./src', import.meta.url));
 // Content itself lives in src/content/<slug>/.
 const pages = {
   hub: 'index.html',
+  'nbe-e4070': 'courses/nbe-e4070/index.html',
+  'nbe-e4070-L01': 'courses/nbe-e4070/lectures/L01/index.html',
+  'nbe-e4070-L02': 'courses/nbe-e4070/lectures/L02/index.html',
+  'nbe-e4070-L03': 'courses/nbe-e4070/lectures/L03/index.html',
+  'nbe-e4070-L04': 'courses/nbe-e4070/lectures/L04/index.html',
+  'nbe-e4070-L05': 'courses/nbe-e4070/lectures/L05/index.html',
+  'nbe-e4070-L06': 'courses/nbe-e4070/lectures/L06/index.html',
+  'nbe-e4070-L07': 'courses/nbe-e4070/lectures/L07/index.html',
+  'nbe-e4070-L08': 'courses/nbe-e4070/lectures/L08/index.html',
+
   'nbe-e4120-L09': 'courses/nbe-e4120/lectures/L09/index.html',
   'nbe-e4120-L03': 'courses/nbe-e4120/lectures/L03/index.html',
   'nbe-e4120-L08': 'courses/nbe-e4120/lectures/L08/index.html',
@@ -29,6 +39,8 @@ const pages = {
   'nbe-e4210-L06': 'courses/nbe-e4210/lectures/L06/index.html',
   'nbe-e4210-L07': 'courses/nbe-e4210/lectures/L07/index.html',
   'nbe-e4210-L08': 'courses/nbe-e4210/lectures/L08/index.html',
+  'nbe-e4210-L09': 'courses/nbe-e4210/lectures/L09/index.html',
+  'nbe-e4210-L10': 'courses/nbe-e4210/lectures/L10/index.html',
 };
 
 export default defineConfig({

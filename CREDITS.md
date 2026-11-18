@@ -620,3 +620,63 @@ All panels are extracted from the supplied private course PDFs, attributed to th
 | `src/assets/figures/nbe-e4120/L09/ions-22.webp` | L09 teaching / source-based bank or mock practice | `source/nbe-e4120/lectures/Ephys-Lecture-9_1_2026-Ion_channels.pdf`, PDF p22 | Local supplied PDF; no public deck URL | Course/underlying figure copyright; attribution as printed on source slide; private study |
 
 L09 extraction note: `applications-04.webp` composes two rendered source rectangles, preserving PDF vector labels in the TTX table. `applications-07.webp` renders the source image together with its PDF mask and vector class labels. The recipe composites embedded transparency onto white where appropriate.
+
+## NBE-E4070 original learning diagrams
+
+| Asset / implementation | Used in | Source / original URL | Rights / attribution |
+|---|---|---|---|
+| `src/content/nbe-e4070/L01.js`, `spreadFigure` inline SVG | L01 mean and spread | Original hypothetical dot plot, drawn with d3 scaling; conceptual scope L01 statistics PDF p18; no external asset URL | Original project-authored code and toy values; no slide artwork, notebook output or measured observations copied |
+
+| `src/content/nbe-e4070/L02.js`, `spectrumFigure` inline SVG | L02 Fourier theory and sketch reference | Original hypothetical sum of two sinusoids and relative-power sketch, d3 scales/line; conceptual scope L02 PDF pp6–10; no external URL | Original project-authored code; no source artwork, observations or notebook output |
+| `src/content/nbe-e4070/L02.js`, `filterFigure` inline SVG | L02 filter theory | Original schematic sharp/smooth low-pass gain curves; conceptual scope L02 PDF pp17–19; no external URL | Original project-authored code; no source artwork or empirical filter response |
+
+
+### NBE-E4070 L03 original PCA geometry
+
+- File: inline `geometry` SVG in `src/content/nbe-e4070/L03.js`, basis-scores unit. Original code-generated hypothetical paired feature cloud and its rotated coordinates, d3 scales and labelled axes. Created for this study site, no external artwork, source-extracted figure or dataset values. Concept provenance: L03_PCA_I.pdf pp15–27; not a copied illustration. Original URL: none. Licence/attribution: original project-authored code, repository terms; no third-party artwork attribution required.
+
+
+### NBE-E4070 L04 original dendrogram
+
+- File: inline `tree` SVG in `src/content/nbe-e4070/L04.js`, hierarchy unit. Original project-authored schematic, d3 scale, four symbolic observations and invented merge heights in arbitrary units. Concept provenance: L04_clustering.pdf pp11–16. No external artwork, source-extracted image or dataset observations. Original URL: none. Licence/attribution: repository terms; no third-party artwork used.
+
+
+### NBE-E4070 L05 original diagrams
+
+- Inline `residual` and `sigmoid` SVGs in `src/content/nbe-e4070/L05.js`, linear-fit and logistic units. Original project-authored d3-scaled code diagrams, invented dimensionless/arbitrary-unit points and mathematical sigmoid, not copied source artwork or observations. Concept provenance: L05_regression.pdf pp7–8,12–14. Original URL: none. Licence/attribution: repository terms, no third-party artwork used.
+
+
+### NBE-E4070 L06 original axis map
+
+- Inline SVG in `src/content/nbe-e4070/L06.js`, neural-notebook unit: original project-authored symbolic reshape/axis diagram. Concept provenance: Exercise3 cells11/14/29. No source-extracted artwork, notebook plot, dataset observation or external asset URL. Rights/attribution: original code under repository terms.
+
+
+### NBE-E4070 L07 original ICA workflow
+
+- Inline symbolic SVG in `src/content/nbe-e4070/L07.js`, ICA unit. Original project-authored boxes, arrows and axis labels, conceptual provenance L07 PDF pp8–13. No source artwork, source observations or notebook output copied. No external URL. Rights/attribution: original code under repository terms.
+
+### NBE-E4210 L09 original diagrams
+
+All L09 diagrams are original inline SVG schematics in
+`src/content/nbe-e4210/L09.js`. The course slide PDF is a private
+course reference. No source image is embedded.
+
+| Diagram | Where used | Factual reference |
+|---|---|---|
+| HPA release pathway and unlabelled variant | HPA section and word-bank question | Slide 24 and Bear Fig. 22.3 |
+| Amygdala output pathways and blocked-PAG variant | Amygdala section and interpretation question | Slide 25 and Bear Fig. 22.5 |
+| Amygdala–hippocampus push–pull | Feedback section | Slides 27–29 and 44 |
+| GABA-A binding sites | Anxiety treatment section | Slides 31–32 |
+| NE and serotonin removal | Monoamine section | Slide 41 and Bear Fig. 22.11 |
+| Early tactile care | Maternal-care section | Slide 45 and Bear p. 767 |
+
+### NBE-E4210 L10
+
+The original local schematics in `src/content/nbe-e4210/L10.js` cover
+the visual relay (slides 5 and 32), lamination and subplate (13–20),
+guidance decisions (26), trophic competition (33), qualitative ocular
+dominance distributions (42), terminal stripes (43), NMDA coincidence
+(55–56), and activity-dependent receptor removal (57 and Bear, Connors
+and Paradiso, 4th ed., pp. 817–818). The graded visual relay and
+distribution questions reuse these schematics. The artwork uses no
+source slide images, measured data or third-party artwork.

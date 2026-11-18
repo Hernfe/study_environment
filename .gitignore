@@ -14,3 +14,12 @@ __pycache__/
 .tmp-pdf/
 .codex-away/
 run-codex-away.sh.bak
+
+# Local copies of private NBE-E4070 study material.
+/L04_clustering.pdf
+/L05_regression.pdf
+/L06_PCA_II.pdf
+/L07_advanced_methods.pdf
+/Exercise1_Statistics.ipynb
+/Exercise2_Fourier_PCA_Clustering.ipynb
+/Exercise3_High_Dimensional_PCA.ipynb
