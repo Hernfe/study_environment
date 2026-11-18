@@ -1,5 +1,5 @@
 import { el, paragraphs } from './dom.js';
-import { renderQuestion } from './lectureQuiz.js';
+import { formatPoints, renderQuestion } from './lectureQuiz.js';
 import { getPracticeState, savePracticeState } from './progress.js';
 import { renderVisual, renderVideo } from './visuals.js';
 import { renderTex } from './math.js';
@@ -21,20 +21,23 @@ export function renderMockExams(exams, { lectureId, reference, cumulative = fals
   const root = el('section', { class: 'section mock-exams', id: 'mock-exams' }, [el('h2', {}, cumulative ? 'Full-course mock exams' : 'Practice mock exams')]);
   for (const exam of exams || []) {
     const key = `mock:${lectureId}:${exam.id}`;
+    const paper = exam.format === 'paper';
     let state = getPracticeState(key);
     const body = el('div', cumulative ? { id: exam.id, class: 'final-mock' } : {});
     const persist = () => savePracticeState(key, state);
     const render = () => {
       body.replaceChildren();
-      const intro = el('div', {}, [el('h3', {}, exam.title), paragraphs(exam.coverage), el('p', { class: 'muted' }, 'Five practice questions. A calculator is allowed. Rubrics are practice criteria, not official exam weights.')]);
-      if (reference) intro.append(renderFormulaReference(reference.map((eq) => eq.replace(/^\$|\$$/g, '')), 'Official provided equation sheet. A calculator is allowed.'));
+      const intro = el('div', {}, [el('h3', {}, exam.title), paragraphs(exam.coverage), el('p', { class: 'muted' }, paper ? `${exam.questions.length} problems, one point each. Allow one hour and one handwritten A4 sheet. Mark your responses after submitting.` : 'Five practice questions. A calculator is allowed. Rubrics are practice criteria, not official exam weights.')]);
+      if (reference && !paper) intro.append(renderFormulaReference(reference.map((eq) => eq.replace(/^\$|\$$/g, '')), 'Official provided equation sheet. A calculator is allowed.'));
       body.append(intro);
       if (cumulative) {
         body.append(el('p', { class: 'notice' }, 'Practice marking: 10 points per question, 50 total, equally weighted by this site. Written/sketch work is self-reviewed. Calculations earn 6 points across independently checked stages plus 4 self-reviewed method points. After submission, enter your numeric results in the stage fields to check them. Corrected practice results can be revised. These are not official exam weights.'));
         if (state.history?.length) body.append(el('details', {}, [el('summary', {}, `${state.history.length} saved previous attempts`), ...state.history.map((attempt) => el('details', {}, [el('summary', {}, `${new Date(attempt.submittedAt).toLocaleString()}: ${attempt.mark ?? 0} / 50 practice points`), ...exam.questions.map((q, k) => el('div', {}, [el('h4', {}, `Question ${k + 1}`), paragraphs(attempt.answers?.[k] || 'No response saved.')]))]))]));
       }
       if (!state.mode) {
-        for (const [mode, label] of [['exam', 'Start real-exam practice'], ['practice', 'Start with hints and checks']]) {
+        const modes = [['exam', 'Start real-exam practice']];
+        if (!paper) modes.push(['practice', 'Start with hints and checks']);
+        for (const [mode, label] of modes) {
           body.append(el('button', { type: 'button', class: 'btn', onClick: () => { state = { ...(cumulative ? { history: state.history || [] } : {}), mode, submitted: false, answers: {}, review: {}, started: Date.now() }; persist(); render(); } }, label));
         }
         return;
@@ -44,8 +47,25 @@ export function renderMockExams(exams, { lectureId, reference, cumulative = fals
         const answer = el('textarea', { 'aria-label': `${exam.title}, question ${i + 1} response`, class: 'essay-input', readonly: state.submitted });
         answer.value = state.answers[i] || '';
         answer.addEventListener('input', () => { state.answers[i] = answer.value; persist(); });
-        body.append(el('article', { class: 'question' }, [el('h4', {}, `Question ${i + 1}`), paragraphs(question.prompt), cumulative && question.source ? el('p', { class: 'muted' }, `Source: ${question.source}`) : null, question.figure ? renderVisual(question.figure) : null, question.video ? renderVideo(question.video) : null, el('p', { class: 'muted' }, 'Write all parts and working here; make any requested sketch on paper.'), answer]));
-        if (state.submitted || state.mode === 'practice') {
+        const card = el('article', { class: 'question' }, [el('h4', {}, `Question ${i + 1}${paper ? ' (1 point)' : ''}`), paragraphs(question.prompt), cumulative && question.source ? el('p', { class: 'muted' }, `Source: ${question.source}`) : null, question.figure ? renderVisual(question.figure) : null, question.video ? renderVideo(question.video) : null, el('p', { class: 'muted' }, paper ? 'Record your response or write it on paper.' : 'Write all parts and working here; make any requested sketch on paper.'), answer]);
+        body.append(card);
+        if (paper && state.submitted) {
+          state.review ||= {};
+          const checked = state.review[i] || [];
+          const criteria = question.markScheme.map(({ points, text }, j) => {
+            const input = el('input', { type: 'checkbox', checked: checked.includes(j) });
+            input.addEventListener('change', () => {
+              state.review[i] = criteria.flatMap(({ input }, index) => input.checked ? [index] : []);
+              persist();
+              updateSummary();
+            });
+            return { input, node: el('label', { class: 'quantity-field' }, [input, `${formatPoints(points)} pt · ${text}`]) };
+          });
+          card.append(el('details', {}, [
+            el('summary', {}, 'Answer key and self-marking'),
+            ...criteria.map(({ node }) => node),
+          ]));
+        } else if (!paper && (state.submitted || state.mode === 'practice')) {
           const reviewCard = renderQuestion({ ...question, id: `${exam.id}-${question.id}` }, { lectureId: `${lectureId}-mocks-${state.started}`, initialResponse: state.answers[i], recordResult: false, onHint: (level) => {
             state.hints ||= {}; state.hints[i] = [...new Set([...(state.hints[i] || []), level])]; persist();
           }, onResult: (result) => {
@@ -75,7 +95,7 @@ export function renderMockExams(exams, { lectureId, reference, cumulative = fals
       });
       const status = el('p', { role: 'status' });
       if (!state.submitted) body.append(el('button', { type: 'button', class: 'btn btn-primary', onClick: () => {
-        const empty = exam.questions.map((_, i) => i).filter((i) => !state.answers[i]?.trim());
+        const empty = paper ? [] : exam.questions.map((_, i) => i).filter((i) => !state.answers[i]?.trim());
         if (empty.length) { status.textContent = `Still unanswered: ${empty.map((i) => i + 1).join(', ')}. Write an answer or explicitly enter “No answer” before submitting.`; return; }
         state.submitted = true; state.submittedAt = Date.now(); persist(); render();
       } }, 'Submit attempt'));
@@ -84,6 +104,12 @@ export function renderMockExams(exams, { lectureId, reference, cumulative = fals
       const summary = el('p', { class: 'notice', role: 'status' });
       body.append(summary);
       function updateSummary() {
+        if (paper) {
+          const score = exam.questions.reduce((total, q, i) => total +
+            (state.review?.[i] || []).reduce((subtotal, j) => subtotal + q.markScheme[j].points, 0), 0);
+          summary.textContent = state.submitted ? `Self-marked score ${formatPoints(score)} / ${exam.questions.length}` : '';
+          return;
+        }
         const values = Object.values(state.review || {});
         const automatic = values.filter((v) => v.kind === 'automatic');
         const self = values.filter((v) => v.kind === 'self');

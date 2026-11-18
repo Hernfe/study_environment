@@ -493,3 +493,18 @@ unless the problem itself is unusual.
 - Where a lecture has a quantity with a concentration dependence, write
   at least one "raise or lower this, which way does it shift?" item,
   as a `multiSelect` offering both directions.
+
+## Mini Exam 8 and the L10 practice papers
+
+The local two-page Chapter 21 key, `miniexam 8 solution-1.pdf`, is the
+latest verified example. It has ten one-point problems. Problems 1, 3,
+7 and 9 are single best answer. Problems 2 and 10 use classification.
+Problem 4 combines classification (four items at 0.15 each) with
+identification from examples (two at 0.2 each). Problem 5 divides a
+comparison into four equal parts. Problem 6 asks for two brief
+explanations, and Problem 8 matches two examples to two hypotheses.
+
+This preserves the short-response and one-step application model from
+Mini Exam 7. L10 has a separate graded lecture bank and three ten-point
+practice papers with an answer key for self-marking. These are original
+Chapter 23 practice questions. Mini Exam 8 supplies format, not scope.

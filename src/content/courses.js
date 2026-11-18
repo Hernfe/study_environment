@@ -23,4 +23,10 @@ export const courses = [
     status: 'active',
     summary: 'One study guide per lecture, with concept checks and a graded lecture quiz. Weekly one-hour paper mini-exams: multiple choice, classification, matching, labelling and true or false, one handwritten A4 cheat sheet allowed.',
   },
+  {
+    slug: 'nbe-e4070', code: 'NBE-E4070', title: 'Basics of Biomedical Data Analysis',
+    term: 'Autumn 2026', status: 'active', examLabel: 'Oral exam',
+    learningMode: 'topic-study',
+    summary: 'Methods, interpretation and own-code explanation. Study L01–L07 or choose an interim 15-minute oral practice session.',
+  },
 ];

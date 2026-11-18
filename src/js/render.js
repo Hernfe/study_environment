@@ -97,6 +97,7 @@ function renderToc(content) {
     ].filter(Boolean)),
     ...(content.recap ? [{ id: 'recap', title: 'Recap card' }] : []),
     { id: 'lecture-quiz', title: 'Lecture quiz' },
+    ...(content.mockExams?.some(exam => exam.format === 'paper') ? [{ id: 'mock-exams', title: 'Practice mini-exams' }] : []),
   ];
   const nav = el('nav', { class: 'toc', 'aria-label': 'Contents' }, [
     el('p', { class: 'toc-title' }, 'Contents'),

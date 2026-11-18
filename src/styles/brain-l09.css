@@ -1,0 +1,12 @@
+/* Keep L09's side-by-side mechanism comparisons readable on phones. */
+@media (max-width: 36rem) {
+  .block-compare-table th,
+  .block-compare-table td {
+    padding-inline: 0.375rem;
+    overflow-wrap: anywhere;
+  }
+
+  .block-compare-table th[scope='row'] {
+    white-space: normal;
+  }
+}

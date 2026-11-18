@@ -1501,3 +1501,59 @@ The earlier framework-only note above is historical. L01-L09 now provide
 `progressionAdded: true`. The bank remains 609 core and 80 optional items;
 27 lecture mocks coexist with the five independent cumulative mocks.
 The progression and cumulative storage contracts above remain unchanged.
+
+## Opt-in topic study course (NBE-E4070)
+
+`learningMode: 'topic-study'` content uses the separate `topicCourse.js`
+entry and reusable `studyUnits.js`. Existing `lecture.js`, `renderLecture`,
+review queues and their progress keys are unchanged. Course shells use
+`/js/topicCourse.js`; E4070 source labels resolve through its metadata-only
+`sources.js`, never through file imports. L01–L07 currently supply complete topic-study content;
+registry `built: false` routes show explicit pending status. The interim L08
+module uses `learningMode: 'oral-practice'` with `meta`, an empty
+`lectureQuiz` and at least three `sessions`. Each session has a stable
+`id`, `title`, `scenario` and four `questions` in the response format below,
+ordered as method choice, method explanation, interpretation and code defense.
+
+Content has `meta`, `intro: string[]`, `sections`, `finalWritten` and an empty
+`lectureQuiz`. Each topic has stable `id`, `title`, `priority`, `sources`,
+standard `blocks` and 2–4 standard easy `conceptQuiz` questions. Optional
+`codeUnderstanding` follows those MCQs. Final substantial written responses
+are rendered after every topic. Each MCQ also has source refs.
+
+Response shape: `{ id, kind: 'code'|'written', title, prompt, sources,
+rubric: [{ id, text, accept }], modelAnswer: string[], pitfalls: string[],
+code?, codeContext? }`. Code is plain text, never executed. `codeContext`
+identifies real notebook excerpts versus sample code, import context, axes
+and missing-data limits. Source refs are `{ source, pages? , cell? }`, using
+one-based PDF page strings and zero-based JSON cell indices. Source metadata
+supports `status: 'pending'` for absent Exercise4 and L08 inputs.
+
+Drafts and explicit self-review snapshots use guarded practice storage at
+`nbe:<course>:practice:study:<lecture>:<response.id>`. The record is
+`{ text, criteria: { [criterion.id]: boolean }, history: [{ at, text, met }] }`.
+Editing saves the draft and clears checklist selections for the previous text.
+Only Save self-review attempt archives
+a snapshot. Reload does not create attempts. IDs and rubric criterion IDs
+must remain stable. Models and checklists are optional and never gated on
+writing. Checkbox counts are self-reported practice coverage, not automatic
+semantic grading. Attempts and drafts render as text. Blocked storage keeps
+practice usable and reports that it cannot persist.
+
+Easy MCQs reuse seeded authored-option shuffle and `bestGuess` persistence,
+with a separate E4070 namespace. No old course keys are migrated or pruned.
+`rubricFeedback.js` provides a disabled boundary and mocked validation only.
+No live adapter or public endpoint is configured. See local
+`.codex-nbe4070/AI-REVIEW.md` for requirements before any future activation.
+
+For topic-study and oral-practice content, the maths lint excludes the exact `code` snippet field. Notebook identifiers such as `n_init` remain literal code; prose, prompts, feedback and rubrics still undergo maths checks.
+
+### Paper mock exams
+
+For NBE-E4210, a lecture may set `format: 'paper'` on a `mockExams`
+entry. Each paper contains ten questions, each with a stable `id`,
+a `prompt` (one string or several paragraphs), optional `figure`, and
+a `markScheme` array of `{ points, text }` criteria totalling one point.
+The answer key and self-marking appear after submission. Students can
+answer on paper or save responses in the page. Self-marking can be
+revised and is persisted separately from lecture quiz results.

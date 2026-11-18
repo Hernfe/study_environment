@@ -1,0 +1,25 @@
+# Formula and axis conventions, audit only
+
+These are source-scope constraints for later content, not implemented formula explorers or verified exercise solutions. Use KaTeX when publishing. Learning emphasis is reasoning and explanation, not a formula-drill quota from another course. Symbols below are source notation; units depend on the named data, not arbitrary biomedical defaults.
+
+| Lecture / PDF pages | Relation / symbols | Axes, units and convention | Learning scope |
+|---|---|---|---|
+| L01 17–19 | mean = sum(x_i)/N; variance = sum((x_i−mean)²)/N; SD = sqrt(variance) | N observations, x in measurement units; variance squared units | Core calculation/interpretation; population definition |
+| L01 20–26 | SEM = SD/sqrt(N); CI = mean ± t_(N−1) SEM | Mean/SD/SEM/CI have same measurement units; t dimensionless; sample variance N−1 appears p26 | Core; declare sample convention; t≈2 approximate |
+| L01 27–34 | t = difference in estimated means / SE of difference | Dimensionless statistic; paired versus independent changes SE; not individual SD | Core interpretation and software selection, no absent derivation |
+| L01 39–40 | Bonferroni alpha/m; 1−(1−alpha)^m for independent tests | m tests, dimensionless alpha; independence needed for displayed family probability | Understand multiple testing; FDR mention only |
+| L02 7–11 | DFT coefficient k = sum_n x_n[cos(2πkn/N)−i sin(2πkn/N)]; S(k)=abs(coefficient)² | n sample index, k frequency index, N input length; coefficients amplitude/phase; Hz requires fs; displayed spectrum unnormalized | Core definition/interpretation; FFT computes DFT |
+| L02 15–19 | Restrict frequency components then inverse basis reconstruction | Declare DFT inverse normalization; sharp rectangular truncation can ring | Understand, no unverified numeric inverse recipe |
+| L02 24–25, 30, 37–43 | Wavelet projections; sampling at least twice maximum signal frequency in source simplification | Time × frequency/scale map; coefficients are not automatically power; Hz versus scale depends on wavelet and fs | Core wavelet/spectrogram interpretation; sampling support in supplement |
+| L03 18–27,31 | covariance = sum centered paired products/N; Xc=X−feature means; C=E D Eᵀ; Z=EᵀXc | Xc F×S (features×samples), C F×F, E F×F unit orthogonal columns, Z F×S; normalized eigenvalues variance units | Core load-bearing shape/centering/projection; p31 product omits divisor |
+| L04 6,8,17 | X approximately centroids × assignments; nearest centroid then mean update | Diagram X F×S, centroids F×K, one-hot assignments K×S; algorithm input S×F | Core shapes and alternating steps; no global optimum claim |
+| L05 7–11 | yhat_i = theta*x_i+beta; MSE=mean((y−yhat)²) | theta output/input units, beta output units, residual output units; theta slope and beta intercept, correctly labelled visually on p7 (audit text extraction order had suggested otherwise) | Core prediction/fitting; p9 fixed-intercept example limited |
+| L05 13 | log(p/(1−p)) = theta dot x + beta; binary negative log likelihood | p dimensionless probability; features×samples slide convention; one prediction per sample | Core interpretation; binary equation only, no invented multiclass loss |
+| L05 24–29 | MSE + lambda*sum(theta_j²) or lambda*sum(abs(theta_j)); PCA scores then regression | Lambda trade-off with units determined by convention; p input features, N samples; beta not in displayed penalty | Core penalties/validation, no optimizer derivation |
+| L06 13,18–22 | Xc=U S Vᵀ; feature-row PCA E=U, scores=S Vᵀ; outer product sum | Economy rank r: U F×r, S r×r, Vᵀ r×samples; covariance eigenvalue=s_j²/divisor, not s_j or always s_j² | Understand SVD link; source omits divisor and p20 reverses E orientation |
+| L06 16–19 | Periodic stationary covariance circulant, diagonalized by Fourier | Fixed sinusoidal basis; complex case uses conjugate transpose; not every finite empirical covariance circulant | Conditional connection, no blanket equivalence |
+| L06 23–25 | Pearson R=Cov(X,Y)/(SD_X SD_Y); z-score=(X−mean)/SD | Dimensionless correlation, requires nonzero SD; declare feature scaling and normalization | Core correlation; understand standardized PCA |
+| L07 8–13 | x=A s; decompose mixing, whiten, find non-Gaussian rotation | Taught square microphone/source example; observations sensor×time, demixed signals source×time; scale/permutation not biological labels | Conceptual; ambiguous “eigenvalues S” must not become wrong whitening divisor |
+| L07 18–19 | a_i^l=ReLU(sum_j w_ij a_j^(l−1)); yhat=net(x); L=norm(yhat−y)_2 (Euclidean norm; subscript, not square, visually verified L07 phase); w_new=w−epsilon*dL/dw | Layer input/output sizes explicit if a later hypothetical is used; epsilon learning rate, no supplied network numerical weights | Explain layer/training terms; no required backprop proof |
+
+Notebook-specific shapes and pitfalls are in [NOTEBOOKS.md](NOTEBOOKS.md). No dataset-derived arithmetic was executed or certified in this phase. Any later numerical toy example must be explicitly hypothetical and independently computed.

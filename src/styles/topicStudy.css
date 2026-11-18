@@ -1,0 +1,15 @@
+/* Only loaded on opt-in topic study routes. */
+.topic-study .study-unit, .topic-study #final-written { margin-block: 3rem; }
+.topic-study .study-nav { border-block: 1px solid var(--c-border); padding-block: 1rem; }
+.topic-study .study-sources { font-size: .875rem; overflow-wrap: anywhere; }
+.topic-study .study-response { margin-block: 2rem; }
+.topic-study .study-response textarea { width: 100%; min-height: 9rem; box-sizing: border-box; }
+.topic-study .study-criterion { margin-block: 1rem; }
+.topic-study .study-criterion p { margin-top: .25rem; }
+.topic-study .study-criterion input { width: 1.2rem; height: 1.2rem; }
+.topic-study .study-code { margin: 1rem 0; min-width: 0; }
+.topic-study .study-code pre { max-width: 100%; overflow-x: auto; padding: 1rem; border: 1px solid var(--c-border); font-size: .875rem; }
+.topic-study .study-answer { white-space: pre-wrap; overflow-wrap: anywhere; font-family: inherit; }
+.topic-study .study-rubric, .topic-study .study-history { margin-block: 1rem; }
+.topic-study .study-rubric[open] { padding-bottom: 1rem; }
+.topic-study .study-theory > * { min-width: 0; }

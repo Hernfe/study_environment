@@ -64,8 +64,10 @@ const LEGACY_PREFIX = 'nbe4210:';
 const LEGACY_COURSE = 'nbe-e4210';
 const MIGRATED = SITE + 'migrated:nbe4210';
 
-export function migrateLegacyKeys(storage = globalThis.localStorage) {
+export function migrateLegacyKeys(storage) {
   try {
+    // Access can throw when browser storage is blocked. Keep it inside the guard.
+    if (storage === undefined) storage = globalThis.localStorage;
     if (!storage || storage.getItem(MIGRATED)) return 0;
     const keys = [];
     for (let i = 0; i < storage.length; i += 1) {

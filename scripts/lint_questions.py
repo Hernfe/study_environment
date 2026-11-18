@@ -135,6 +135,8 @@ TYPES = {"mc", "essay", "label", "order", "calc", "trueFalse", "fillBlank", "cli
 #   pending   {lecture: set of min_mix names}: minimums reported as the
 #             advisory mix-todo for a lecture built before they existed
 COURSE_RULES = {
+    # E4070 has source-grounded topic units and final free-text rubrics, no E4210 mix.
+    "nbe-e4070": {"count": None, "order": "gate", "target": None, "essays": None, "min_mix": [], "pending": {}},
     "nbe-e4120": {"count": None, "order": "gate", "target": None, "essays": None, "min_mix": [], "pending": {}},
     # docs/exam-format.md and docs/PEDAGOGY.md section 2 (Mini Exams 1-4).
     "nbe-e4210": {
@@ -842,6 +844,9 @@ def texts(content):
     """Every student-facing string, for the maths check."""
     def collect(value, key=""):
         if isinstance(value, str):
+            # Exact notebook code is rendered as text, never mathematical prose.
+            if content.get("learningMode") in {"topic-study", "oral-practice"} and key == "code":
+                return
             if key not in {"id", "src", "poster", "type", "name", "tex", "file", "math", "expression", "sectionId", "lectureId", "difficulty",
                            "site", "affected", "svg", "formulaReference", "interactiveTex"}:
                 yield value
@@ -902,9 +907,96 @@ def check_sections(content, corpus, lecture_id):
     return out
 
 
+
+def check_topic_study(content):
+    """Opt-in topic-study contract; never changes existing course validation."""
+    mode = content.get('learningMode')
+    if mode not in {'topic-study', 'oral-practice'}:
+        return []
+    out, ids = [], set()
+    def error(where, message):
+        out.append(('error', where, message))
+    def identity(obj, where):
+        value = obj.get('id')
+        if not isinstance(value, str) or not value.strip() or value in ids:
+            error(where, 'topic-study IDs must be nonempty and unique, including rubric criteria')
+        else:
+            ids.add(value)
+    def references(obj, where):
+        refs = obj.get('sources')
+        if not isinstance(refs, list) or not refs:
+            error(where, 'topic-study content requires source references')
+            return
+        for ref in refs:
+            if not isinstance(ref, dict) or not ref.get('source') or not (ref.get('pages') or
+                    (isinstance(ref.get('cell'), int) and not isinstance(ref.get('cell'), bool) and ref['cell'] >= 0)):
+                error(where, 'source reference requires an identity and PDF pages or a zero-based cell')
+    responses = []
+    if mode == 'oral-practice':
+        sessions = content.get('sessions')
+        if not isinstance(sessions, list) or len(sessions) < 3:
+            error('sessions', 'oral practice requires at least three sessions')
+        for session in sessions if isinstance(sessions, list) else []:
+            if not isinstance(session, dict):
+                error('sessions', 'oral practice sessions must be objects')
+                continue
+            where = 'session ' + str(session.get('id'))
+            identity(session, where)
+            questions = session.get('questions')
+            if not session.get('title') or not session.get('scenario') or not isinstance(questions, list):
+                error(where, 'session requires a title, scenario and prompts')
+                continue
+            kinds = [q.get('kind') for q in questions if isinstance(q, dict)]
+            if kinds != ['written', 'written', 'written', 'code']:
+                error(where, 'session requires method choice, explanation, interpretation and code defense in order')
+            responses.extend(questions)
+    for section in content.get('sections', []):
+        where = 'topic ' + str(section.get('id'))
+        identity(section, where)
+        references(section, where)
+        if not section.get('blocks') or not 2 <= len(section.get('conceptQuiz', [])) <= 4:
+            error(where, 'topic-study units require theory and 2 to 4 easy MCQs')
+        for q in section.get('conceptQuiz', []):
+            identity(q, where)
+            references(q, where)
+            options, correct = q.get('options', []), q.get('correct')
+            if len(options) < 3 or not isinstance(correct, int) or isinstance(correct, bool) or not 0 <= correct < len(options):
+                error(where, 'topic-study MCQ requires at least three options and a valid correct index')
+        responses += section.get('codeUnderstanding', [])
+    final = content.get('finalWritten')
+    if mode == 'topic-study' and (not isinstance(final, list) or not final):
+        error('finalWritten', 'topic-study lecture requires final free-text practice')
+    if isinstance(final, list):
+        responses += final
+    for q in responses:
+        if not isinstance(q, dict):
+            error('response', 'response must be an object')
+            continue
+        where = 'response ' + str(q.get('id'))
+        identity(q, where)
+        references(q, where)
+        if q.get('kind') not in {'code', 'written'} or not all(q.get(k) for k in ('title', 'prompt', 'modelAnswer', 'pitfalls')):
+            error(where, 'response requires kind, title, prompt, model answer and pitfalls')
+        if q.get('kind') == 'code' and not (q.get('code') and q.get('codeContext')):
+            error(where, 'code response requires a snippet and source/import/axis context')
+        rubric = q.get('rubric')
+        if not isinstance(rubric, list) or not rubric:
+            error(where, 'response requires a nonempty self-review rubric')
+            continue
+        for criterion in rubric:
+            if not isinstance(criterion, dict):
+                error(where, 'rubric criteria must be objects')
+                continue
+            identity(criterion, where)
+            if not all(isinstance(criterion.get(key), str) and criterion[key].strip() for key in ('text', 'accept')):
+                error(where, 'rubric requires a distinct criterion and acceptable equivalent wording')
+    return out
+
+
 def lint(lecture_id, content, corpus):
     findings = []
     findings += check_sections(content, corpus, lecture_id)
+    findings += check_topic_study(content)
     if lecture_id.startswith('nbe-e4120/'):
         for question in content.get('lectureQuiz', []):
             if 'practice' in question and (question['practice'] != 'extra' or not content.get('segmentedPractice')):
@@ -921,6 +1013,18 @@ def lint(lecture_id, content, corpus):
                 findings.append(('error', 'mock ' + exam.get('id', '?'), 'mock must preserve short-answer, explanation, two calculations, methods/interpretation order'))
 
     for exam in content.get('mockExams', []):
+        if exam.get('format') == 'paper' and lecture_id.startswith('nbe-e4210/'):
+            questions = exam.get('questions', [])
+            where = 'mock ' + exam.get('id', '?')
+            if len(questions) != 10:
+                findings.append(('error', where, 'paper mock must contain ten questions'))
+            for question in questions:
+                criteria = question.get('markScheme', [])
+                if not question.get('id') or not question.get('prompt') or not criteria or any(
+                    not plain(item.get('text')) or not is_number(item.get('points')) for item in criteria
+                ) or abs(sum(item['points'] for item in criteria) - 1) > 1e-9:
+                    findings.append(('error', where, 'each paper question needs an id, prompt, and marking criteria worth one point'))
+            continue
         if len(exam.get('questions', [])) != 5:
             findings.append(('error', 'mock ' + exam.get('id', '?'), 'mock must contain exactly five questions'))
         for question in exam.get('questions', []):
