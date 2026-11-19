@@ -7,7 +7,7 @@ export function isExtraPractice(question) {
   return currentCourse() === 'nbe-e4120' && question.practice === 'extra';
 }
 
-export function renderSectionPractice(questions, renderQuestion) {
+export function renderSectionPractice(questions, renderQuestion, optionalInline = [], renderInline) {
   const tiers = (items, heading = 'h3') => ['easy', 'medium', 'hard'].flatMap((tier) => {
     const group = items.filter((q) => q.difficulty === tier);
     // Stable partition; do not mutate canonical arrays or change saved IDs.
@@ -18,14 +18,14 @@ export function renderSectionPractice(questions, renderQuestion) {
   });
   const core = questions.filter((q) => !isExtraPractice(q));
   const extra = questions.filter(isExtraPractice);
-  if (!extra.length) return tiers(core);
+  if (!extra.length && !optionalInline.length) return tiers(core);
   return [
-    el('h3', {}, `Core practice (${core.length})`),
+    core.length ? el('h3', {}, `Core practice (${core.length})`) : null,
     ...tiers(core, 'h4'),
     el('details', { class: 'extra-practice reveal' }, [
-      el('summary', {}, `Extra practice (${extra.length}, optional)`),
-      el('p', { class: 'muted' }, 'Additional repetition. Attempts and hints are saved as usual; attempted questions can return in course review.'),
-      ...tiers(extra),
+      el('summary', {}, `Extra practice (${extra.length + optionalInline.length}, optional)`),
+      renderInline?.(optionalInline),
+      ...tiers(extra, 'h4'),
     ]),
   ];
 }

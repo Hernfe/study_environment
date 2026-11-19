@@ -139,7 +139,7 @@ export function renderWritten(question, report, { restore = {}, save = () => {} 
 }
 
 // A caller may place drills after its easy concept checks without rebuilding them.
-export function renderFormula(formula, { drills } = {}) {
+export function renderFormula(formula, { drills, includeDrill = true } = {}) {
   const panel = el('div', { class: 'symbol-description', role: 'status' }, 'Focus or tap a symbol to read its meaning.');
   let inlineTargets = [];
   const targets = formula.symbols.map((symbol, i) => {
@@ -175,19 +175,6 @@ export function renderFormula(formula, { drills } = {}) {
     });
     live.append(output, equation); update();
   }
-  const drill = formula.drill;
-  const input = el('input', { type: 'text', inputmode: 'decimal', 'aria-label': `${formula.name} drill answer` });
-  const feedback = el('p', { role: 'status' });
-  let attempts = 0;
-  const solution = disclosure('Show drill solution', [renderTex(drill.tex, { display: true }), workedAnswerBlocks(drill.modelAnswer)]);
-  const check = () => {
-    const result = checkQuantity(input.value, drill.answer);
-    if (result.error) { feedback.textContent = result.error; return; }
-    attempts += 1;
-    feedback.textContent = result.correct ? 'Correct. Open the solution to compare the substitution.' : drill.error;
-    if (result.correct || attempts >= 2) solution.open = true;
-  };
-  input.addEventListener('keydown', (e) => { if (e.key === 'Enter') { e.preventDefault(); check(); } });
   const inlineEquation = formula.interactiveTex ? renderTex(formula.interactiveTex, { display: true, symbolClasses: true }) : null;
   if (inlineEquation) {
     inlineEquation.classList.add('interactive-equation');
@@ -209,8 +196,8 @@ export function renderFormula(formula, { drills } = {}) {
   const expression = inlineEquation || (formula.tokens
     ? el('div', { class: 'formula-symbols formula-expression', 'aria-label': formula.name }, formula.tokens.map((token) => token.symbol !== undefined ? targets[token.symbol] : renderTex(token.tex)))
     : el('div', {}, [renderTex(formula.tex, { display: true }), el('div', { class: 'formula-symbols', 'aria-label': 'Formula symbols' }, targets)]));
-  const drillNode = el('div', { class: 'formula-drill' }, [el('h4', {}, 'Single-step drill'), paragraphs(drill.prompt), renderHints(drill.hints, (level) => { const key = `drill:${formula.id}`; const state = getPracticeState(key); savePracticeState(key, { ...state, hints: [...new Set([...(state.hints || []), level])] }); }), input, ` ${drill.answer.unit || ''} `, button('Check drill', check), feedback, solution]);
-  if (drills) {
+  const drillNode = includeDrill && formula.drill ? renderFormulaDrill(formula) : null;
+  if (drills && drillNode) {
     drillNode.dataset.formula = formula.id;
     drillNode.querySelector('h4').textContent = `${formula.name}: single-step drill`;
     drills.push(drillNode);
@@ -221,4 +208,21 @@ export function renderFormula(formula, { drills } = {}) {
     ...(formula.variants || []).map((v) => el('div', {}, [renderTex(v.tex, { display: true }), paragraphs(v.note)])), live,
     drills ? null : drillNode,
   ]);
+}
+
+function renderFormulaDrill(formula) {
+  const drill = formula.drill;
+  const input = el('input', { type: 'text', inputmode: 'decimal', 'aria-label': `${formula.name} drill answer` });
+  const feedback = el('p', { role: 'status' });
+  let attempts = 0;
+  const solution = disclosure('Show drill solution', [renderTex(drill.tex, { display: true }), workedAnswerBlocks(drill.modelAnswer)]);
+  const check = () => {
+    const result = checkQuantity(input.value, drill.answer);
+    if (result.error) { feedback.textContent = result.error; return; }
+    attempts += 1;
+    feedback.textContent = result.correct ? 'Correct. Open the solution to compare the substitution.' : drill.error;
+    if (result.correct || attempts >= 2) solution.open = true;
+  };
+  input.addEventListener('keydown', (e) => { if (e.key === 'Enter') { e.preventDefault(); check(); } });
+  return el('div', { class: 'formula-drill' }, [el('h4', {}, 'Single-step drill'), paragraphs(drill.prompt), renderHints(drill.hints, (level) => { const key = `drill:${formula.id}`; const state = getPracticeState(key); savePracticeState(key, { ...state, hints: [...new Set([...(state.hints || []), level])] }); }), input, ` ${drill.answer.unit || ''} `, button('Check drill', check), feedback, solution]);
 }

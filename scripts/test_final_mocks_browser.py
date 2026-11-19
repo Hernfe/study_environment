@@ -66,7 +66,7 @@ with sync_playwright() as p:
   assert 'Practice mark: 50 / 50' in card.inner_text(),card.inner_text()[-1800:]
   page.reload();page.locator('.final-mock').first.wait_for()
   assert 'Practice mark: 50 / 50' in card.inner_text()
-  assert card.locator('input[type=checkbox]:checked').count()==23
+  assert card.locator('input[type=checkbox]:checked').count()==sum(len(q.get('markScheme', []))+len(q.get('methodCriteria', [])) for q in exam['questions'])
   model=card.get_by_text('Question 3: full worked model and method checklist',exact=True).locator('..')
   model.locator('summary').click()
   for theme in ['light','dark']:

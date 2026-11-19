@@ -2630,3 +2630,10 @@ p.block-link {
 
 /* Opt-in source plots retain readable axes at narrow viewports. */
 .hotspots-scroll { width: 100%; max-width: 100%; overflow-x: auto; }
+
+.relevant-video iframe {
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  border: 0;
+}

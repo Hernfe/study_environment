@@ -19,6 +19,7 @@ const pages = {
   'nbe-e4070-L07': 'courses/nbe-e4070/lectures/L07/index.html',
   'nbe-e4070-L08': 'courses/nbe-e4070/lectures/L08/index.html',
 
+  'nbe-e4120-L10': 'courses/nbe-e4120/lectures/L10/index.html',
   'nbe-e4120-L09': 'courses/nbe-e4120/lectures/L09/index.html',
   'nbe-e4120-L03': 'courses/nbe-e4120/lectures/L03/index.html',
   'nbe-e4120-L08': 'courses/nbe-e4120/lectures/L08/index.html',

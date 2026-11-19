@@ -1417,16 +1417,17 @@ L09 numeric correction: A/F and pA/pF are accepted as equivalent voltage-slope u
 
 ### NBE-E4120 core and extra practice
 
-On NBE-E4120 segmented lecture pages only, a bank question may set
-`practice: 'extra'`. Omit the field for core questions. Keep extra questions
-in `lectureQuiz`, with the original IDs, order, hints, solutions and numeric
-verification metadata. Each affected section renders core by difficulty,
-then one native, initially closed `Extra practice` details panel containing
-extras by difficulty. Theory, figures, formula explorers and inline checks
-remain visible. Other courses ignore this field.
+On NBE-E4120 segmented lecture pages, a bank question may set
+`practice: 'extra'`. A section's `conceptQuiz` item may also set this field
+when the lecture uses `standardPractice: 'mc-only'`. Omit the field for core
+questions. Keep extra items in their original arrays with their IDs, options,
+hints and solutions. Each affected section renders its core checks and bank
+questions first. The initially closed `Extra practice` panel renders the
+remaining MCQs with their original controls and feedback.
 
-Unattempted extras are excluded from normal course review. A saved attempt
+Unattempted bank extras are excluded from normal course review. A saved attempt
 or hint opts the question into review under the existing bucket rules.
+Inline checks stay in their sections.
 Drafts and results retain their existing storage keys; hiding or closing
 extra practice never deletes progress. Mocks do not use this grouping.
 
@@ -1557,3 +1558,39 @@ a `markScheme` array of `{ points, text }` criteria totalling one point.
 The answer key and self-marking appear after submission. Students can
 answer on paper or save responses in the page. Self-marking can be
 revised and is persisted separately from lecture quiz results.
+
+## MCQ-only standard practice and optional section resources
+
+Set `standardPractice: 'mc-only'` on a lecture once its standard practice
+has been migrated. Section checks, the lecture bank and course review
+then accept single-answer `mc` questions with two to four choices, a
+zero-based `correct` index and nonempty text and feedback for each
+choice. Inline concept quizzes may omit `type`. Formula explorers stay
+interactive and numeric drills are hidden in standard practice. Keep
+written, numeric and other assessment formats in `mockExams`. Review
+and rendering filter the existing arrays without changing the saved
+IDs. A lecture without the policy keeps its usual practice formats.
+
+When moving an existing regular question into a mock, list its old ID
+in `retiredPracticeIds` to preserve any saved regular-practice result.
+The mock uses its own saved attempt state.
+
+An optional `overview: { estimate, equations, pitfalls }` presents the
+lecture objectives as a concept map. The three fields are text, and
+`equations` supports inline TeX. A short `recap.takeaways` array can pair
+the opening outcomes checklist with a closing recap. In this mode the
+overview displays the estimate and objectives, and the recap's longer
+terms, equations and conventions appear in a closed reference panel.
+Set `collapseFormulaExplorers: true` to
+group each section's explorers in a closed disclosure. A direct link
+to an explorer opens its disclosure.
+
+Within `section.blocks`, `{ type: 'optionalInfo', title, body }` renders
+a collapsed disclosure. It can use nested `blocks` in place of `body`.
+Omit this block from core workload estimates.
+
+Use `{ type: 'relevantVideo', videoId, title, topic, channel }` as the
+first block of the section that teaches the topic. Supply the verified
+standalone YouTube video's 11-character ID. The learner can open the
+privacy-enhanced player on demand or use the persistent YouTube link.
+The rest of the section must be usable independently.

@@ -680,3 +680,9 @@ dominance distributions (42), terminal stripes (43), NMDA coincidence
 and Paradiso, 4th ed., pp. 817–818). The graded visual relay and
 distribution questions reuse these schematics. The artwork uses no
 source slide images, measured data or third-party artwork.
+
+- `src/assets/figures/nbe-e4120/L10/katz-release.webp` — NBE-E4120 L10, Katz’s quantal experiment. Cropped from the supplied instructor deck, slide 31, preserving the original traces and axes. Original figure rights remain with the source rights holder.
+
+### NBE-E4120 optional clips
+
+- L07 gating variables. [Hodgkin-Huxley Model of Voltage-Gated Channels Explained](https://www.youtube.com/watch?v=no_1cElnSIQ), Science With Tal. YouTube playback uses the creator’s hosted video.

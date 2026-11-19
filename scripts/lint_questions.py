@@ -848,7 +848,7 @@ def texts(content):
             if content.get("learningMode") in {"topic-study", "oral-practice"} and key == "code":
                 return
             if key not in {"id", "src", "poster", "type", "name", "tex", "file", "math", "expression", "sectionId", "lectureId", "difficulty",
-                           "site", "affected", "svg", "formulaReference", "interactiveTex"}:
+                           "site", "affected", "svg", "formulaReference", "interactiveTex", "videoId", "retiredPracticeIds"}:
                 yield value
         elif isinstance(value, list):
             for v in value:

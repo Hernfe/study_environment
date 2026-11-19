@@ -14,8 +14,8 @@ const content = {
   "objectives": [
     "Choose and test lumped, distributed and compartment representations.",
     "Explain graded integration, local dendritic spikes and backpropagation.",
-    "Derive and audit conductance matching and finite equivalent-cylinder conditions.",
-    "Infer geometry and somatic loads with consistent signs, units and boundary conditions."
+    "Check diameter matching and equal electrotonic paths before reducing a tree.",
+    "Use terminal conditions to infer attenuation and somatic load."
   ],
   "prerequisites": [
     {
@@ -29,11 +29,18 @@ const content = {
       "sectionId": "speed"
     }
   ],
+  "overview": {
+    "estimate": "Core route: read the main sections and answer 24 core questions. Formula explorers, videos, extra practice and mocks are optional.",
+    "equations": "$\\tau_m=R_m C_m$ · $\\lambda=\\sqrt{d R_m/(4R_i)}$ · $d_P^{3/2}=\\sum_j d_j^{3/2}$ · $G_N=G_\\infty\\tanh L$ · $\\theta=2\\lambda/\\tau_m$",
+    "pitfalls": "Check complete electrotonic paths as well as diameters. A sealed tip has zero axial current and can retain a voltage increment."
+  },
+  "standardPractice": "mc-only",
+  "collapseFormulaExplorers": true,
   "segmentedPractice": true,
   "sections": [
     {
       "id": "overview",
-      "title": "Overview: model, integrate, reduce",
+      "title": "Choosing a cell model",
       "keyTerms": [
         "dendritic"
       ],
@@ -41,7 +48,7 @@ const content = {
       "blocks": [
         {
           "type": "text",
-          "body": ["Choose a model for the electrical behavior under study, then test what its simplifications discard. This lecture moves from a single cell voltage to coupled compartments, dendritic integration and an equivalent cylinder (PDF pages 1–3). A model that captures charging need not capture spatial attenuation.", "Use $V=V_m-V_{rest}$ in passive cable formulas. Positive supplied current depolarizes; positive ionic current is outward. First identify the stimulus and recording site, then decide whether one voltage is sufficient or whether axial current and branch loads must be represented."]
+          "body": ["Choose one voltage for an electrically compact cell. Use coupled compartments or a cable when voltage varies across the cell. In passive cable formulas, $V=V_m-V_{rest}$. Positive injected current depolarizes, and positive ionic current is outward."]
         },
         {
           "type": "figure",
@@ -65,6 +72,7 @@ const content = {
       "conceptQuiz": [
         {
           "id": "L05-overview-check",
+          "practice": "extra",
           "prompt": "What does a useful cellular model preserve?",
           "correct": 0,
           "options": [
@@ -91,6 +99,7 @@ const content = {
         },
         {
           "id": "L05-overview-starter",
+          "practice": "extra",
           "type": "mc",
           "difficulty": "easy",
           "progressionAdded": true,
@@ -111,6 +120,7 @@ const content = {
               "feedback": "A lumped RC model still includes membrane resistance."
             }
           ],
+          "hints": [{ "body": "Compare what the one-compartment model can describe across space and across time." }],
           "modelAnswer": [
             "One compartment assigns a single voltage to the cell."
           ]
@@ -124,7 +134,7 @@ const content = {
     },
     {
       "id": "functional",
-      "title": "Functional model classes",
+      "title": "Model functions",
       "keyTerms": [
         "conductance"
       ],
@@ -132,24 +142,31 @@ const content = {
       "blocks": [
         {
           "type": "text",
-          "body": ["Ohm and parallel-conductance models relate ionic current to signed driving force, $I_i=g_i(V_m-E_i)$. A negative result means inward current under the outward-positive convention. An RC model adds charge storage and time dependence; core conductor and cable models add spatial spread (PDF page 2).", "Choose by the response you need to explain. A steady ionic current does not require a spatial model, but distance-dependent attenuation does. GHK describes concentration and permeability effects; HH describes active spike generation. Their names do not make their assumptions interchangeable with a fixed passive circuit."]
+          "body": ["Use $I_i=g_i(V_m-E_i)$ for an Ohmic ionic current. Add capacitance for charging and axial resistance for spatial spread. GHK relates voltage and current to concentrations and permeabilities. HH adds voltage-dependent gating to explain spikes."]
         },
         {
-          "type": "figure",
-          "visual": {
-            "type": "widget",
-            "name": "image-hotspots",
-            "caption": "Lecture 5, PDF page 3. Equivalent circuits and progressive simplification from branching dendrite to cylinder. Original labels, axes and scale bars retained.",
-            "fallbackAlt": "Lecture 5, PDF page 3. Equivalent circuits and progressive simplification from branching dendrite to cylinder. Original labels, axes and scale bars retained.",
-            "props": {
-              "src": new URL('../../assets/figures/nbe-e4120/L05/models.webp', import.meta.url).href,
-              "alt": "Lecture 5, PDF page 3. Equivalent circuits and progressive simplification from branching dendrite to cylinder. Original labels, axes and scale bars retained.",
-              "aspect": 0.5477741585233442,
-              "quiz": false,
-              "layout": "stack",
-              "regions": []
+          "type": "optionalInfo",
+          "title": "Source figure and context",
+          "blocks": [
+            { "type": "text", "body": "A linear cable combines Ohmic membrane leak with axial current. The core conductor model also allows the extracellular path to contribute resistance." },
+            {
+              "type": "figure",
+              "visual": {
+                "type": "widget",
+                "name": "image-hotspots",
+                "caption": "Lecture 5, PDF page 3. Equivalent circuits and progressive simplification from branching dendrite to cylinder. Original labels, axes and scale bars retained.",
+                "fallbackAlt": "Lecture 5, PDF page 3. Equivalent circuits and progressive simplification from branching dendrite to cylinder. Original labels, axes and scale bars retained.",
+                "props": {
+                  "src": new URL('../../assets/figures/nbe-e4120/L05/models.webp', import.meta.url).href,
+                  "alt": "Lecture 5, PDF page 3. Equivalent circuits and progressive simplification from branching dendrite to cylinder. Original labels, axes and scale bars retained.",
+                  "aspect": 0.5477741585233442,
+                  "quiz": false,
+                  "layout": "stack",
+                  "regions": []
+                }
+              }
             }
-          }
+          ]
         }
       ],
       "formulas": [
@@ -247,6 +264,7 @@ const content = {
         },
         {
           "id": "L05-functional-starter",
+          "practice": "extra",
           "type": "mc",
           "difficulty": "easy",
           "progressionAdded": true,
@@ -267,6 +285,7 @@ const content = {
               "feedback": "Axial resistance represents longitudinal current flow."
             }
           ],
+          "hints": [{ "body": "Think of the circuit element whose charge depends on voltage." }],
           "modelAnswer": [
             "Capacitance stores charge and introduces time dependence."
           ]
@@ -275,7 +294,7 @@ const content = {
     },
     {
       "id": "structure",
-      "title": "Structural representations",
+      "title": "Model geometry",
       "keyTerms": [
         "isopotential",
         "compartment"
@@ -284,30 +303,38 @@ const content = {
       "blocks": [
         {
           "type": "text",
-          "body": ["Equivalent circuits replace biological components with electrical elements. Ball-and-stick separates the soma from an elongated dendrite. A single compartment is isopotential, so it has one voltage at each instant; connected compartments approximate a distributed cable while allowing different local voltages (PDF page 3).", "Adjacent compartments exchange longitudinal current through resistive connections, while each membrane stores charge and carries ionic current. Collapsing them into one compartment removes internal distance and delay. Functional classification describes the behavior modeled; structural classification describes how the cell is represented."]
+          "body": ["Ball-and-stick models separate soma and dendrite. A cable distributes membrane leak and capacitance along its length. Coupled isopotential compartments approximate that cable, allowing a separate voltage at each location."]
         },
         {
-          "type": "figure",
-          "visual": {
-            "type": "widget",
-            "name": "image-hotspots",
-            "caption": "Lecture 5, PDF page 3. Equivalent circuits and progressive simplification from branching dendrite to cylinder. Original labels, axes and scale bars retained.",
-            "fallbackAlt": "Lecture 5, PDF page 3. Equivalent circuits and progressive simplification from branching dendrite to cylinder. Original labels, axes and scale bars retained.",
-            "props": {
-              "src": new URL('../../assets/figures/nbe-e4120/L05/models.webp', import.meta.url).href,
-              "alt": "Lecture 5, PDF page 3. Equivalent circuits and progressive simplification from branching dendrite to cylinder. Original labels, axes and scale bars retained.",
-              "aspect": 0.5477741585233442,
-              "quiz": false,
-              "layout": "stack",
-              "regions": []
+          "type": "optionalInfo",
+          "title": "Source figure and context",
+          "blocks": [
+            { "type": "text", "body": "Source diagram for this model." },
+            {
+              "type": "figure",
+              "visual": {
+                "type": "widget",
+                "name": "image-hotspots",
+                "caption": "Lecture 5, PDF page 3. Equivalent circuits and progressive simplification from branching dendrite to cylinder. Original labels, axes and scale bars retained.",
+                "fallbackAlt": "Lecture 5, PDF page 3. Equivalent circuits and progressive simplification from branching dendrite to cylinder. Original labels, axes and scale bars retained.",
+                "props": {
+                  "src": new URL('../../assets/figures/nbe-e4120/L05/models.webp', import.meta.url).href,
+                  "alt": "Lecture 5, PDF page 3. Equivalent circuits and progressive simplification from branching dendrite to cylinder. Original labels, axes and scale bars retained.",
+                  "aspect": 0.5477741585233442,
+                  "quiz": false,
+                  "layout": "stack",
+                  "regions": []
+                }
+              }
             }
-          }
+          ]
         }
       ],
       "formulas": [],
       "conceptQuiz": [
         {
           "id": "L05-structure-check",
+          "practice": "extra",
           "prompt": "What couples adjacent electrical compartments?",
           "correct": 0,
           "options": [
@@ -334,6 +361,7 @@ const content = {
         },
         {
           "id": "L05-structure-starter",
+          "practice": "extra",
           "type": "mc",
           "difficulty": "easy",
           "progressionAdded": true,
@@ -354,6 +382,7 @@ const content = {
               "feedback": "Correct. The ball represents soma and the stick represents dendrite."
             }
           ],
+          "hints": [{ "body": "Relate the two geometric shapes to parts of a neuron." }],
           "modelAnswer": [
             "The ball represents soma and the stick represents dendrite."
           ]
@@ -362,13 +391,13 @@ const content = {
     },
     {
       "id": "lumped",
-      "title": "Test the lumped approximation",
+      "title": "Lumped cells",
       "keyTerms": [],
       "source": "L05 PDF 4",
       "blocks": [
         {
           "type": "text",
-          "body": ["A lumped cell has negligible internal voltage differences for the stimulus and timescale under study. The source tests this by injecting current and recording membrane voltage at two intracellular sites. Matching responses support an isopotential approximation for those conditions (PDF page 4).", "Compare the complete aligned traces, including their early rise, not just their final values. Matching steady responses with different early transients would support only a steady approximation. Keep injection and recording conditions comparable; physical smallness or agreement at two sites alone does not prove uniformity everywhere under every stimulus."]
+          "body": ["Inject current and record at two intracellular sites. Matching aligned traces support an isopotential approximation for that stimulus and timescale. Matching plateaus alone establish agreement only at steady state."]
         },
         {
           "type": "figure",
@@ -418,6 +447,7 @@ const content = {
         },
         {
           "id": "L05-lumped-starter",
+          "practice": "extra",
           "type": "mc",
           "difficulty": "easy",
           "progressionAdded": true,
@@ -438,6 +468,7 @@ const content = {
               "feedback": "Separate patch voltages belong to a distributed representation."
             }
           ],
+          "hints": [{ "body": "Recall what an isopotential interior implies for two recording sites." }],
           "modelAnswer": [
             "The isopotential approximation uses one cell voltage."
           ]
@@ -446,13 +477,13 @@ const content = {
     },
     {
       "id": "distributed",
-      "title": "Distributed properties and source distance",
+      "title": "Distributed cables",
       "keyTerms": [],
       "source": "L05 PDF 5",
       "blocks": [
         {
           "type": "text",
-          "body": ["The frog neuromuscular panel compares voltage responses at increasing distances from a localized stimulation site. More distant responses are smaller and later: one whole-cell voltage cannot describe this spatial variation (PDF page 5). A distributed model retains membrane properties along the cell and longitudinal current between positions.", "Read distance, amplitude and time together. To attribute a change to separation, keep the stimulation condition comparable and identify the recording position. A small remote potential need not mean a weak local input. These are supplied teaching traces; they do not establish a unique cable parameter without further assumptions."]
+          "body": ["In the frog recording, greater stimulus-to-electrode distance gives a smaller, later response. A distributed cable preserves this spatial variation. Compare traces with the stimulus held fixed."]
         },
         {
           "type": "figure",
@@ -502,6 +533,7 @@ const content = {
         },
         {
           "id": "L05-distributed-starter",
+          "practice": "extra",
           "type": "mc",
           "difficulty": "easy",
           "progressionAdded": true,
@@ -522,6 +554,7 @@ const content = {
               "feedback": "Time dependence alone is already possible in one RC compartment."
             }
           ],
+          "hints": [{ "body": "Ask whether recordings at two positions can have different voltages." }],
           "modelAnswer": [
             "A distributed model retains spatial voltage variation."
           ]
@@ -530,7 +563,7 @@ const content = {
     },
     {
       "id": "one",
-      "title": "One compartment: temporal filtering",
+      "title": "One compartment",
       "keyTerms": [
         "compartment"
       ],
@@ -538,7 +571,7 @@ const content = {
       "blocks": [
         {
           "type": "text",
-          "body": ["For one passive compartment, $I=C\\,dV/dt+V/R$: supplied current divides between charging capacitance and membrane leak. Here $R$ and $C$ describe the whole compartment and $V$ is relative to rest. The explorers below give the slope and charging/discharging responses (PDF page 6).", "A maintained step approaches a steady increment as capacitive current falls to zero. After switch-off, the signed increment relaxes toward zero with time constant $RC$; a negative increment approaches rest from below. This representation filters in time but cannot generate an internal spatial delay because it contains only one voltage."]
+          "body": ["For a passive compartment, $I=C\\,dV/dt+V/R$, with whole-compartment $R$ and $C$. From rest a constant current step gives $V(t)=IR(1-e^{-t/(RC)})$. After switch-off, $V(t)=V_0e^{-t/(RC)}$, where $V_0$ is the increment at switch-off. One compartment filters in time and has a single voltage throughout."]
         },
         {
           "type": "figure",
@@ -770,6 +803,7 @@ const content = {
       "conceptQuiz": [
         {
           "id": "L05-one-check",
+          "practice": "extra",
           "prompt": "Which current vanishes at a constant voltage?",
           "correct": 1,
           "options": [
@@ -796,6 +830,7 @@ const content = {
         },
         {
           "id": "L05-one-starter",
+          "practice": "extra",
           "type": "mc",
           "difficulty": "easy",
           "progressionAdded": true,
@@ -816,6 +851,7 @@ const content = {
               "feedback": "Correct. The passive voltage increment decays toward zero after switch-off."
             }
           ],
+          "hints": [{ "body": "The voltage in the question is measured relative to rest." }],
           "modelAnswer": [
             "The passive voltage increment decays toward zero after switch-off."
           ]
@@ -824,7 +860,7 @@ const content = {
     },
     {
       "id": "two",
-      "title": "Two compartments: coupling and current division",
+      "title": "Two coupled compartments",
       "keyTerms": [
         "conductance",
         "compartment"
@@ -833,7 +869,7 @@ const content = {
       "blocks": [
         {
           "type": "text",
-          "body": ["Current supplied to compartment A divides between its membrane capacitance, leak and the axial resistance leading to B. Axial current follows the voltage difference: $(V_A-V_B)/R_{axial}$. B also charges and leaks, so its response is attenuated, delayed and broadened (PDF page 7).", "At steady state capacitive current vanishes, but different compartment voltages and axial current can remain. Ideal prescribed current injection does not itself open channels. A separately specified conductance increase lowers local resistance and can shorten the local charging timescale; do not silently change membrane parameters when interpreting a passive current step."]
+          "body": ["Current into A divides between charging, leak and flow to B, with $I_{A\\to B}=(V_A-V_B)/R_{axial}$. B also charges and leaks, broadening and delaying a transient. At steady state, capacitive current vanishes and axial current can persist. Keep conductances fixed for an ideal passive current step."]
         },
         {
           "type": "figure",
@@ -883,6 +919,7 @@ const content = {
         },
         {
           "id": "L05-two-starter",
+          "practice": "extra",
           "type": "mc",
           "difficulty": "easy",
           "progressionAdded": true,
@@ -903,6 +940,7 @@ const content = {
               "feedback": "Area affects electrical parameters; axial current is driven by voltage difference."
             }
           ],
+          "hints": [{ "body": "Apply Ohm’s law to the resistor linking the compartments." }],
           "modelAnswer": [
             "Axial current follows the voltage difference across axial resistance."
           ]
@@ -911,13 +949,20 @@ const content = {
     },
     {
       "id": "chemical",
-      "title": "Chemical transmission sequence",
+      "title": "Chemical transmission",
       "keyTerms": [],
       "source": "L05 PDF 9",
       "blocks": [
         {
+          "type": "relevantVideo",
+          "videoId": "XYwl7xpyu2o",
+          "title": "Electrical vs Chemical Synapse Explained (Gap Junctions) | Clip",
+          "topic": "Gap-junction current, vesicle release and postsynaptic receptors",
+          "channel": "Science With Tal"
+        },
+        {
           "type": "text",
-          "body": ["A presynaptic action potential opens calcium channels. $\\mathrm{Ca}^{2+}$ entry triggers vesicle release; transmitter crosses the cleft and binds postsynaptic receptors. Opening postsynaptic ion channels changes local voltage, which then spreads along the receiving cell (PDF page 9).", "Keep the sequence and locations distinct: calcium enters the presynaptic terminal, whereas transmitter carries the chemical signal across the cleft. Postsynaptic ionic current produces a graded response rather than simply copying the presynaptic spike. This is the introductory transmission sequence; detailed release kinetics and later synaptic physiology are not needed here."]
+          "body": ["Electrical synapses pass current directly through gap junctions. In chemical transmission, a presynaptic spike opens calcium channels. Calcium entry triggers vesicle fusion, then transmitter crosses the cleft and binds postsynaptic receptors. Receptor activation changes postsynaptic current and produces a graded voltage response."]
         },
         {
           "type": "figure",
@@ -941,6 +986,7 @@ const content = {
       "conceptQuiz": [
         {
           "id": "L05-chemical-check",
+          "practice": "extra",
           "prompt": "What crosses the synaptic cleft in this sequence?",
           "correct": 1,
           "options": [
@@ -967,6 +1013,7 @@ const content = {
         },
         {
           "id": "L05-chemical-starter",
+          "practice": "extra",
           "type": "mc",
           "difficulty": "easy",
           "progressionAdded": true,
@@ -987,6 +1034,7 @@ const content = {
               "feedback": "Transmitter binds receptors after release; it does not trigger presynaptic release this way."
             }
           ],
+          "hints": [{ "body": "Follow the events immediately after the presynaptic spike." }],
           "modelAnswer": [
             "Presynaptic calcium entry triggers transmitter release."
           ]
@@ -1000,7 +1048,7 @@ const content = {
     },
     {
       "id": "receptors",
-      "title": "Receptors and miniature potentials",
+      "title": "Receptors and quantal events",
       "keyTerms": [
         "ionotropic",
         "metabotropic"
@@ -1009,7 +1057,7 @@ const content = {
       "blocks": [
         {
           "type": "text",
-          "body": ["Ionotropic receptors are ligand-gated ion channels; metabotropic receptors act through intermediate molecules. One released vesicle produces a miniature postsynaptic event, while multiple release events contribute to a compound graded response. These distinctions concern receptor mechanism and release units, respectively (PDF page 10).", "A miniature event is not a miniature action potential: its amplitude is graded, and a compound response need not cross spike threshold. Interpret excitation or inhibition using the postsynaptic reversal potential and threshold. The size of a somatic response also depends on dendritic transfer, so it cannot by itself count released vesicles."]
+          "body": ["Ionotropic receptors are ligand-gated channels. Metabotropic receptors act via intracellular intermediates. Release of one vesicle can produce a miniature graded response, and multiple quanta contribute to a compound response. Reversal potential relative to voltage sets current direction. Assess excitation or inhibition by the effect on reaching spike threshold."]
         },
         {
           "type": "figure",
@@ -1059,6 +1107,7 @@ const content = {
         },
         {
           "id": "L05-receptors-starter",
+          "practice": "extra",
           "type": "mc",
           "difficulty": "easy",
           "progressionAdded": true,
@@ -1079,6 +1128,7 @@ const content = {
               "feedback": "Correct. One released vesicle produces a miniature postsynaptic event."
             }
           ],
+          "hints": [{ "body": "Identify the discrete object that fuses with the presynaptic membrane." }],
           "modelAnswer": [
             "One released vesicle produces a miniature postsynaptic event."
           ]
@@ -1087,13 +1137,13 @@ const content = {
     },
     {
       "id": "graded",
-      "title": "Graded integration and axonal threshold",
+      "title": "Graded integration",
       "keyTerms": [],
       "source": "L05 PDF 11",
       "blocks": [
         {
           "type": "text",
-          "body": ["Postsynaptic potentials are graded local responses. Passive membrane properties and geometry attenuate and filter them as they spread toward the soma. Their overlapping contributions can bring the axon hillock to threshold, but summation does not guarantee a spike (PDF page 11).", "Compare contributions at the same place and time rather than adding separate local peaks. Below threshold the response can remain passive. Axonal spike propagation adds active regeneration to passive spread; myelinated propagation is saltatory and nondecremental. A later local dendritic spike therefore needs to be distinguished from both passive summation and an axonally initiated event."]
+          "body": ["Dendritic inputs generate local graded potentials. Geometry and membrane properties filter their spread, and overlapping responses can bring the axon initial segment to threshold. Add small passive responses at the same place and time. Axonal spikes regenerate through active conductances."]
         },
         {
           "type": "figure",
@@ -1117,6 +1167,7 @@ const content = {
       "conceptQuiz": [
         {
           "id": "L05-graded-check",
+          "practice": "extra",
           "prompt": "Where can summed input initiate an axonal spike?",
           "correct": 1,
           "options": [
@@ -1143,6 +1194,7 @@ const content = {
         },
         {
           "id": "L05-graded-starter",
+          "practice": "extra",
           "type": "mc",
           "difficulty": "easy",
           "progressionAdded": true,
@@ -1163,6 +1215,7 @@ const content = {
               "feedback": "A local postsynaptic input does not clamp the whole cell voltage."
             }
           ],
+          "hints": [{ "body": "Follow a subthreshold signal as it spreads through a dendrite." }],
           "modelAnswer": [
             "Passive membrane and geometry attenuate and filter the response."
           ]
@@ -1171,7 +1224,7 @@ const content = {
     },
     {
       "id": "dendritic",
-      "title": "Local dendritic spikes",
+      "title": "Dendritic spikes",
       "keyTerms": [
         "dendritic"
       ],
@@ -1179,7 +1232,7 @@ const content = {
       "blocks": [
         {
           "type": "text",
-          "body": ["Dendritic input can recruit voltage-gated $\\mathrm{Na}^{+}$ and $\\mathrm{Ca}^{2+}$ channels to produce a local regenerative spike; potassium channels also shape excitability. Unlike passive filtering, this is a nonlinear response. The source contrasts sodium and calcium events with purely passive integration (PDF pages 12–13).", "A dendritic spike may remain localized, reach the soma or help bring the axon hillock to threshold. Its presence alone does not prove an axonal output spike. Identify initiation and recording locations when comparing traces. Such events can alter input influence and participate in plasticity, but detailed plasticity and channel kinetics are outside this section."]
+          "body": ["Strong local input can recruit voltage-gated sodium or calcium channels and generate a dendritic spike. Potassium conductances shape excitability. The spike may stay local or help trigger axonal firing."]
         },
         {
           "type": "figure",
@@ -1229,6 +1282,7 @@ const content = {
         },
         {
           "id": "L05-dendritic-starter",
+          "practice": "extra",
           "type": "mc",
           "difficulty": "easy",
           "progressionAdded": true,
@@ -1249,6 +1303,7 @@ const content = {
               "feedback": "Capacitive charging also occurs during passive responses."
             }
           ],
+          "hints": [{ "body": "Ask what lets a local depolarization recruit additional inward current." }],
           "modelAnswer": [
             "Voltage-gated channels provide the local regenerative response."
           ]
@@ -1257,7 +1312,7 @@ const content = {
     },
     {
       "id": "backprop",
-      "title": "Backpropagating action potentials",
+      "title": "Backpropagation",
       "keyTerms": [
         "dendritic"
       ],
@@ -1265,7 +1320,7 @@ const content = {
       "blocks": [
         {
           "type": "text",
-          "body": ["An action potential initiated in the axon can invade the soma and dendrites. The source compares traces at known locations: axonal arrival precedes somatic and dendritic invasion. Backpropagating amplitude typically weakens with distance because passive properties and voltage-gated channel distribution both matter (PDF page 14).", "Distinguish this sequence from a spike initiated locally in a dendrite. Align traces to the same stimulus and use their locations and onset order; amplitude alone does not locate the origin. A smaller dendritic waveform does not establish a purely passive membrane, nor do the schematic traces justify an invented numerical latency."]
+          "body": ["An axonally initiated spike can invade the soma and dendrites. Use aligned onset times at known recording sites to infer origin. Backpropagating spikes often weaken with distance because of passive spread and varying channel density."]
         },
         {
           "type": "figure",
@@ -1315,6 +1370,7 @@ const content = {
         },
         {
           "id": "L05-backprop-starter",
+          "practice": "extra",
           "type": "mc",
           "difficulty": "easy",
           "progressionAdded": true,
@@ -1335,6 +1391,7 @@ const content = {
               "feedback": "Correct. Passive properties and channel distribution influence the weakening."
             }
           ],
+          "hints": [{ "body": "Compare the peak at successive dendritic recording sites." }],
           "modelAnswer": [
             "Passive properties and channel distribution influence the weakening."
           ]
@@ -1343,7 +1400,7 @@ const content = {
     },
     {
       "id": "atype",
-      "title": "A-type potassium and echo suppression",
+      "title": "A-type potassium current",
       "keyTerms": [
         "backpropagation",
         "dendritic"
@@ -1352,30 +1409,38 @@ const content = {
       "blocks": [
         {
           "type": "text",
-          "body": ["Dendritic A-type $\\mathrm{K}^{+}$ channels carry outward current that opposes depolarization and helps return voltage toward rest. The taught increasing dendritic density damps backpropagating excitation and limits repeated activation by a spike’s own echo (PDF page 15). This is a source example, not a universal distribution.", "Reducing this outward influence can permit stronger dendritic invasion, but does not guarantee repetitive firing. Compare the same stimulus, baseline and recording sites before and after changing the damping condition. Other conductances and geometry still affect the response, so a larger waveform alone does not identify which channel changed."]
+          "body": ["Outward A-type potassium current can damp dendritic invasion and limit re-excitation. Reducing it can increase invasion, with the outcome also depending on geometry and other conductances."]
         },
         {
-          "type": "figure",
-          "visual": {
-            "type": "widget",
-            "name": "image-hotspots",
-            "caption": "Lecture 5, PDF page 15. Source compares passive integration, local dendritic initiation and axonal backpropagation. Original labels, axes and scale bars retained.",
-            "fallbackAlt": "Lecture 5, PDF page 15. Source compares passive integration, local dendritic initiation and axonal backpropagation. Original labels, axes and scale bars retained.",
-            "props": {
-              "src": new URL('../../assets/figures/nbe-e4120/L05/echo.webp', import.meta.url).href,
-              "alt": "Lecture 5, PDF page 15. Source compares passive integration, local dendritic initiation and axonal backpropagation. Original labels, axes and scale bars retained.",
-              "aspect": 0.7010968921389397,
-              "quiz": false,
-              "layout": "stack",
-              "regions": []
+          "type": "optionalInfo",
+          "title": "Source figure and context",
+          "blocks": [
+            { "type": "text", "body": "The source illustrates an increasing density of A-type channels with dendritic distance. The distribution varies across cells." },
+            {
+              "type": "figure",
+              "visual": {
+                "type": "widget",
+                "name": "image-hotspots",
+                "caption": "Lecture 5, PDF page 15. Source compares passive integration, local dendritic initiation and axonal backpropagation. Original labels, axes and scale bars retained.",
+                "fallbackAlt": "Lecture 5, PDF page 15. Source compares passive integration, local dendritic initiation and axonal backpropagation. Original labels, axes and scale bars retained.",
+                "props": {
+                  "src": new URL('../../assets/figures/nbe-e4120/L05/echo.webp', import.meta.url).href,
+                  "alt": "Lecture 5, PDF page 15. Source compares passive integration, local dendritic initiation and axonal backpropagation. Original labels, axes and scale bars retained.",
+                  "aspect": 0.7010968921389397,
+                  "quiz": false,
+                  "layout": "stack",
+                  "regions": []
+                }
+              }
             }
-          }
+          ]
         }
       ],
       "formulas": [],
       "conceptQuiz": [
         {
           "id": "L05-atype-check",
+          "practice": "extra",
           "prompt": "Which direction is potassium current during repolarizing efflux?",
           "correct": 0,
           "options": [
@@ -1402,6 +1467,7 @@ const content = {
         },
         {
           "id": "L05-atype-starter",
+          "practice": "extra",
           "type": "mc",
           "difficulty": "easy",
           "progressionAdded": true,
@@ -1422,6 +1488,7 @@ const content = {
               "feedback": "Vesicle release is triggered by presynaptic calcium entry."
             }
           ],
+          "hints": [{ "body": "Use the direction of potassium current in the source example." }],
           "modelAnswer": [
             "Outward potassium current opposes depolarization and limits repeated excitation."
           ]
@@ -1430,7 +1497,7 @@ const content = {
     },
     {
       "id": "morphology",
-      "title": "Dendritic trees and spatial organization",
+      "title": "Dendritic routes",
       "keyTerms": [
         "conductance"
       ],
@@ -1438,24 +1505,31 @@ const content = {
       "blocks": [
         {
           "type": "text",
-          "body": ["Dendrites are thin membrane tubes that branch repeatedly, receiving inputs over trees with markedly different shapes. Activated synapses change local conductance; voltage then spreads along geometry-dependent routes toward other branches and the soma (PDF pages 16–17). The source images illustrate diversity rather than one universal tree.", "Compare a complete input-to-recording route, not the summed physical length of every branch. Thin segments have shorter length constants at common material properties and can be electrically more remote despite modest physical length. Branch loads also matter, so physical distance alone cannot explain every difference in somatic response."]
+          "body": ["Dendrites receive inputs across branching trees. To estimate somatic influence, follow the input-to-soma route and consider its electrical length and branch loads."]
         },
         {
-          "type": "figure",
-          "visual": {
-            "type": "widget",
-            "name": "image-hotspots",
-            "caption": "Lecture 5, PDF page 16. Four neuronal dendritic morphologies with source scale bars. Original labels, axes and scale bars retained.",
-            "fallbackAlt": "Lecture 5, PDF page 16. Four neuronal dendritic morphologies with source scale bars. Original labels, axes and scale bars retained.",
-            "props": {
-              "src": new URL('../../assets/figures/nbe-e4120/L05/trees.webp', import.meta.url).href,
-              "alt": "Lecture 5, PDF page 16. Four neuronal dendritic morphologies with source scale bars. Original labels, axes and scale bars retained.",
-              "aspect": 1.0465116279069768,
-              "quiz": false,
-              "layout": "stack",
-              "regions": []
+          "type": "optionalInfo",
+          "title": "Source figure and context",
+          "blocks": [
+            { "type": "text", "body": "The source compares several cell types to show how widely dendritic geometry varies." },
+            {
+              "type": "figure",
+              "visual": {
+                "type": "widget",
+                "name": "image-hotspots",
+                "caption": "Lecture 5, PDF page 16. Four neuronal dendritic morphologies with source scale bars. Original labels, axes and scale bars retained.",
+                "fallbackAlt": "Lecture 5, PDF page 16. Four neuronal dendritic morphologies with source scale bars. Original labels, axes and scale bars retained.",
+                "props": {
+                  "src": new URL('../../assets/figures/nbe-e4120/L05/trees.webp', import.meta.url).href,
+                  "alt": "Lecture 5, PDF page 16. Four neuronal dendritic morphologies with source scale bars. Original labels, axes and scale bars retained.",
+                  "aspect": 1.0465116279069768,
+                  "quiz": false,
+                  "layout": "stack",
+                  "regions": []
+                }
+              }
             }
-          }
+          ]
         }
       ],
       "formulas": [],
@@ -1488,6 +1562,7 @@ const content = {
         },
         {
           "id": "L05-morphology-starter",
+          "practice": "extra",
           "type": "mc",
           "difficulty": "easy",
           "progressionAdded": true,
@@ -1508,6 +1583,7 @@ const content = {
               "feedback": "Greater diameter increases the length constant at fixed material properties."
             }
           ],
+          "hints": [{ "body": "Keep material properties fixed and inspect diameter in the length-constant formula." }],
           "modelAnswer": [
             "The length constant increases with the square root of diameter."
           ]
@@ -1516,7 +1592,7 @@ const content = {
     },
     {
       "id": "equivalent",
-      "title": "Why use an equivalent cylinder?",
+      "title": "Equivalent cylinder",
       "keyTerms": [
         "dendritic"
       ],
@@ -1524,24 +1600,31 @@ const content = {
       "blocks": [
         {
           "type": "text",
-          "body": ["Rall reduction replaces a branching dendritic tree with an equivalent cylinder attached to a lumped soma. The aim is to preserve the electrical behavior allowed by the assumptions, making spread and damping of synaptic responses tractable without keeping every anatomical branch (PDF page 18).", "This gives a ball-and-stick representation, not a claim that branching anatomy is absent. Historical somatic access motivated the model; the slide does not establish that modern dendritic recording is impossible. Before using a reduction, check conductance matching, material properties and terminal conditions rather than assuming any tree has an equivalent cylinder."]
+          "body": ["Rall reduction replaces a tree with a cylinder connected to the lumped soma. It preserves the passive load under the matching conditions below and provides a tractable model for somatic integration."]
         },
         {
-          "type": "figure",
-          "visual": {
-            "type": "widget",
-            "name": "image-hotspots",
-            "caption": "Lecture 5, PDF page 18. Progressive neuronal simplification into a soma and equivalent dendritic cylinder. Original labels, axes and scale bars retained.",
-            "fallbackAlt": "Lecture 5, PDF page 18. Progressive neuronal simplification into a soma and equivalent dendritic cylinder. Original labels, axes and scale bars retained.",
-            "props": {
-              "src": new URL('../../assets/figures/nbe-e4120/L05/equivalent.webp', import.meta.url).href,
-              "alt": "Lecture 5, PDF page 18. Progressive neuronal simplification into a soma and equivalent dendritic cylinder. Original labels, axes and scale bars retained.",
-              "aspect": 1.9017341040462428,
-              "quiz": false,
-              "layout": "stack",
-              "regions": []
+          "type": "optionalInfo",
+          "title": "Source figure and context",
+          "blocks": [
+            { "type": "text", "body": "Historically, somatic microelectrode measurements motivated models of dendritic inputs that were difficult to measure directly." },
+            {
+              "type": "figure",
+              "visual": {
+                "type": "widget",
+                "name": "image-hotspots",
+                "caption": "Lecture 5, PDF page 18. Progressive neuronal simplification into a soma and equivalent dendritic cylinder. Original labels, axes and scale bars retained.",
+                "fallbackAlt": "Lecture 5, PDF page 18. Progressive neuronal simplification into a soma and equivalent dendritic cylinder. Original labels, axes and scale bars retained.",
+                "props": {
+                  "src": new URL('../../assets/figures/nbe-e4120/L05/equivalent.webp', import.meta.url).href,
+                  "alt": "Lecture 5, PDF page 18. Progressive neuronal simplification into a soma and equivalent dendritic cylinder. Original labels, axes and scale bars retained.",
+                  "aspect": 1.9017341040462428,
+                  "quiz": false,
+                  "layout": "stack",
+                  "regions": []
+                }
+              }
             }
-          }
+          ]
         }
       ],
       "formulas": [],
@@ -1574,6 +1657,7 @@ const content = {
         },
         {
           "id": "L05-equivalent-starter",
+          "practice": "extra",
           "type": "mc",
           "difficulty": "easy",
           "progressionAdded": true,
@@ -1594,6 +1678,7 @@ const content = {
               "feedback": "Correct. A lumped soma is attached to the equivalent dendritic cylinder."
             }
           ],
+          "hints": [{ "body": "Apply the isopotential assumption to the cell body." }],
           "modelAnswer": [
             "A lumped soma is attached to the equivalent dendritic cylinder."
           ]
@@ -1602,7 +1687,7 @@ const content = {
     },
     {
       "id": "distance",
-      "title": "Interpret inputs to compartments one, five and nine",
+      "title": "Somatic filtering",
       "keyTerms": [
         "compartment"
       ],
@@ -1610,7 +1695,7 @@ const content = {
       "blocks": [
         {
           "type": "text",
-          "body": ["The source holds the recording at the soma, compartment one, while activating inputs at compartments one, five or nine. More distant inputs produce smaller, broader and more delayed somatic responses in this model (PDF page 19). Changing input location is different from moving the recording electrode.", "To isolate transfer effects, compare equal local input waveforms with the same baseline, membrane properties and recording site. A small somatic peak may reflect distance rather than weaker local activation. Matching remote peak size by strengthening an input does not guarantee matching delay or width. Read the supplied model curves qualitatively without inventing calibrated measurements."]
+          "body": ["With recording fixed at compartment 1, equal model inputs at compartments 5 and 9 give smaller, later and broader somatic responses than input at 1. A small recorded peak can reflect filtering of a strong distal input."]
         },
         {
           "type": "figure",
@@ -1660,6 +1745,7 @@ const content = {
         },
         {
           "id": "L05-distance-starter",
+          "practice": "extra",
           "type": "mc",
           "difficulty": "easy",
           "progressionAdded": true,
@@ -1680,6 +1766,7 @@ const content = {
               "feedback": "This panel compares input locations, not a change of terminal boundary."
             }
           ],
+          "hints": [{ "body": "Separate the injection locations from the fixed recording location." }],
           "modelAnswer": [
             "Inputs at compartments one, five and nine are compared at the soma."
           ]
@@ -1688,7 +1775,7 @@ const content = {
     },
     {
       "id": "matching",
-      "title": "Conductance matching at a branch",
+      "title": "The three-halves rule",
       "keyTerms": [
         "conductance"
       ],
@@ -1696,7 +1783,7 @@ const content = {
       "blocks": [
         {
           "type": "text",
-          "body": ["At a branch point the voltage is shared and daughter currents add. With common passive material parameters, each semi-infinite input conductance is $G=Kd^{3/2}$, where $d$ is diameter and $K$ is the common material prefactor. Current conservation therefore gives $d_P^{3/2}=\\sum d_D^{3/2}$ (PDF page 20).", "Cancel the common prefactor, sum daughter powers and only then take the inverse power to find the parent. For a missing daughter, subtract the known powers first and check that the remainder is positive. Matching cross-sectional areas uses a different exponent and does not preserve this electrical load."]
+          "body": ["The branch point shares a voltage. Daughter currents and input conductances add. With common material properties and matched terminal factors, $G\\propto d^{3/2}$, so $d_P^{3/2}=\\sum_j d_j^{3/2}$. Add the daughter powers before taking the $2/3$ power. For an unknown daughter, subtract the known powers first."]
         },
         {
           "type": "figure",
@@ -1775,6 +1862,7 @@ const content = {
       "conceptQuiz": [
         {
           "id": "L05-matching-check",
+          "practice": "extra",
           "prompt": "Which branch quantity adds in parallel?",
           "correct": 0,
           "options": [
@@ -1801,6 +1889,7 @@ const content = {
         },
         {
           "id": "L05-matching-starter",
+          "practice": "extra",
           "type": "mc",
           "difficulty": "easy",
           "progressionAdded": true,
@@ -1821,6 +1910,7 @@ const content = {
               "feedback": "The square-root dependence belongs to the length constant, not the branch diameter sum."
             }
           ],
+          "hints": [{ "body": "Relate the diameter dependence to one-arm input conductance." }],
           "modelAnswer": [
             "Parent diameter to this power equals the sum for daughters."
           ]
@@ -1829,7 +1919,7 @@ const content = {
     },
     {
       "id": "assumptions",
-      "title": "Rall assumptions and model limits",
+      "title": "Rall conditions",
       "keyTerms": [
         "isopotential",
         "electrotonic"
@@ -1838,7 +1928,7 @@ const content = {
       "blocks": [
         {
           "type": "text",
-          "body": ["Rall reduction assumes linear passive membrane, common constant $R_i$, $R_m$ and $C_m$, negligible extracellular resistivity and an isopotential soma. Branch diameters must match conductances. A finite sealed reduction additionally needs equal complete soma-to-tip electrotonic paths (PDF page 21; finite extension on page 28).", "Check these conditions separately: matching every measured diameter does not establish equal terminal paths. Changing membrane resistance in one branch changes its spatial and temporal scales and breaks the common-material premise. The source’s “radial current zero” means negligible transverse cytoplasmic voltage gradient, not absence of transmembrane leak or capacitive current."]
+          "body": ["Check linear passive membrane, common $R_m$, $R_i$ and $C_m$, negligible extracellular resistance and an isopotential soma. Check diameter matching at every node. For finite trees, also require sealed tips at equal soma-to-tip electrotonic lengths."]
         },
         {
           "type": "figure",
@@ -1862,6 +1952,7 @@ const content = {
       "conceptQuiz": [
         {
           "id": "L05-assumptions-check",
+          "practice": "extra",
           "prompt": "What must agree for the finite sealed reduction?",
           "correct": 1,
           "options": [
@@ -1888,6 +1979,7 @@ const content = {
         },
         {
           "id": "L05-assumptions-starter",
+          "practice": "extra",
           "type": "mc",
           "difficulty": "easy",
           "progressionAdded": true,
@@ -1908,6 +2000,7 @@ const content = {
               "feedback": "Correct. The reduction assumes linear membrane and common fixed material parameters."
             }
           ],
+          "hints": [{ "body": "Decide whether conductance changes with voltage in a passive linear cable." }],
           "modelAnswer": [
             "The reduction assumes linear membrane and common fixed material parameters."
           ]
@@ -1916,13 +2009,13 @@ const content = {
     },
     {
       "id": "semi",
-      "title": "One-arm semi-infinite conductance",
+      "title": "One-arm input load",
       "keyTerms": [],
       "source": "L05 PDF 22",
       "blocks": [
         {
           "type": "text",
-          "body": ["An end-driven semi-infinite arm has $R_\\infty=r_i\\lambda$ and reciprocal conductance $G_\\infty=\\pi d^{3/2}/(2\\sqrt{R_iR_m})$. Here $r_i$ is axial resistance per length, whereas $R_i$ is material resistivity; $R_m$ is specific membrane resistance (PDF page 22). Use consistent SI quantities in the explorers below.", "The slide mixes a two-sided resistance factor with its correct one-arm diameter expression. Keep the one-arm convention for daughter branches. Two identical arms at an infinite-cable injection site instead share total current in parallel. Check that resistance times conductance equals one before applying the branch law."]
+          "body": ["For one end-driven semi-infinite arm, $R_\\infty=r_i\\lambda$ and $G_\\infty=\\pi d^{3/2}/(2\\sqrt{R_iR_m})$. Here $r_i$ is axial resistance per length, $R_i$ is cytoplasmic resistivity and $R_m$ is specific membrane resistance. The resistance at the origin of two identical arms in parallel is half the one-arm value."]
         },
         {
           "type": "figure",
@@ -1940,6 +2033,11 @@ const content = {
               "regions": []
             }
           }
+        },
+        {
+          "type": "optionalInfo",
+          "title": "Extra detail",
+          "body": "PDF p22 gives the correct one-arm diameter expression but mixes in the two-sided resistance prefactor. At a two-sided injection site, use the total current split across both arms."
         }
       ],
       "formulas": [
@@ -2102,6 +2200,7 @@ const content = {
         },
         {
           "id": "L05-semi-starter",
+          "practice": "extra",
           "type": "mc",
           "difficulty": "easy",
           "progressionAdded": true,
@@ -2122,6 +2221,7 @@ const content = {
               "feedback": "The arm conductance is distinct from a separately attached soma load."
             }
           ],
+          "hints": [{ "body": "Hold the material prefactor constant in the input conductance expression." }],
           "modelAnswer": [
             "Conductance scales with diameter to the three-halves power."
           ]
@@ -2130,7 +2230,7 @@ const content = {
     },
     {
       "id": "recursive",
-      "title": "Recursive daughter replacement",
+      "title": "Reducing a tree",
       "keyTerms": [
         "conductance"
       ],
@@ -2138,24 +2238,31 @@ const content = {
       "blocks": [
         {
           "type": "text",
-          "body": ["Daughter input conductances add because their origins share a branch voltage. Replace the most distal matched daughters first, then work back through successive parent nodes toward the soma. At each replacement, sum each distinct daughter’s three-halves diameter power exactly once (PDF pages 23–25).", "The source repeats a daughter index in its final equation; the second term must refer to the other daughter. A semi-infinite continuation presents the same input load after removing a finite piece. A finite tree also needs compatible terminal paths and boundary conditions: one locally matching node cannot certify the entire reduction."]
+          "body": ["Start at the most distal matched daughters. Replace their parallel load with the parent continuation, then repeat toward the soma. Count each daughter once."]
         },
         {
-          "type": "figure",
-          "visual": {
-            "type": "widget",
-            "name": "image-hotspots",
-            "caption": "Lecture 5, PDF page 24. A branching tree and its reduced distal equivalent continuations. Original labels, axes and scale bars retained.",
-            "fallbackAlt": "Lecture 5, PDF page 24. A branching tree and its reduced distal equivalent continuations. Original labels, axes and scale bars retained.",
-            "props": {
-              "src": new URL('../../assets/figures/nbe-e4120/L05/replace.webp', import.meta.url).href,
-              "alt": "Lecture 5, PDF page 24. A branching tree and its reduced distal equivalent continuations. Original labels, axes and scale bars retained.",
-              "aspect": 0.9577836411609498,
-              "quiz": false,
-              "layout": "stack",
-              "regions": []
+          "type": "optionalInfo",
+          "title": "Source figure and context",
+          "blocks": [
+            { "type": "text", "body": "Source diagram for this model." },
+            {
+              "type": "figure",
+              "visual": {
+                "type": "widget",
+                "name": "image-hotspots",
+                "caption": "Lecture 5, PDF page 24. A branching tree and its reduced distal equivalent continuations. Original labels, axes and scale bars retained.",
+                "fallbackAlt": "Lecture 5, PDF page 24. A branching tree and its reduced distal equivalent continuations. Original labels, axes and scale bars retained.",
+                "props": {
+                  "src": new URL('../../assets/figures/nbe-e4120/L05/replace.webp', import.meta.url).href,
+                  "alt": "Lecture 5, PDF page 24. A branching tree and its reduced distal equivalent continuations. Original labels, axes and scale bars retained.",
+                  "aspect": 0.9577836411609498,
+                  "quiz": false,
+                  "layout": "stack",
+                  "regions": []
+                }
+              }
             }
-          }
+          ]
         }
       ],
       "formulas": [
@@ -2221,6 +2328,7 @@ const content = {
       "conceptQuiz": [
         {
           "id": "L05-recursive-check",
+          "practice": "extra",
           "prompt": "Which direction simplifies a branching tree recursively?",
           "correct": 1,
           "options": [
@@ -2247,6 +2355,7 @@ const content = {
         },
         {
           "id": "L05-recursive-starter",
+          "practice": "extra",
           "type": "mc",
           "difficulty": "easy",
           "progressionAdded": true,
@@ -2267,6 +2376,7 @@ const content = {
               "feedback": "Resistances add in series; daughters at a shared voltage are parallel loads."
             }
           ],
+          "hints": [{ "body": "Both daughters begin at the same branch voltage." }],
           "modelAnswer": [
             "Parallel daughters share voltage and their currents add."
           ]
@@ -2275,7 +2385,7 @@ const content = {
     },
     {
       "id": "stems",
-      "title": "Several stems and biological limits",
+      "title": "Stems in parallel",
       "keyTerms": [
         "conductance",
         "electrotonic"
@@ -2284,24 +2394,31 @@ const content = {
       "blocks": [
         {
           "type": "text",
-          "body": ["Several dendritic trees attached to an isopotential soma contribute parallel input conductances. With common material properties, semi-infinite stem diameters combine by summing their three-halves powers and taking the inverse power. A finite sealed reduction also requires matching electrotonic endpoints (PDF page 26; finite qualification on page 31).", "For unequal finite lengths, calculate each stem’s conductance with its own terminal factor before adding; a diameter-only sum loses that information. Some neuronal trees approximate the assumptions, while cortical and hippocampal pyramidal trees need not. Biological resemblance to the sketch is therefore insufficient evidence of exact electrical equivalence."]
+          "body": ["Combine stem loads in parallel. The equivalent diameter is $(\\sum_j d_j^{3/2})^{2/3}$ for shared material parameters and semi-infinite arms or equal-length sealed arms in electrotonic units. With unequal lengths, add the separately corrected conductances."]
         },
         {
-          "type": "figure",
-          "visual": {
-            "type": "widget",
-            "name": "image-hotspots",
-            "caption": "Lecture 5, PDF page 26. Multiple dendritic stems reduced under matching electrical assumptions. Original labels, axes and scale bars retained.",
-            "fallbackAlt": "Lecture 5, PDF page 26. Multiple dendritic stems reduced under matching electrical assumptions. Original labels, axes and scale bars retained.",
-            "props": {
-              "src": new URL('../../assets/figures/nbe-e4120/L05/stems.webp', import.meta.url).href,
-              "alt": "Lecture 5, PDF page 26. Multiple dendritic stems reduced under matching electrical assumptions. Original labels, axes and scale bars retained.",
-              "aspect": 1.9017341040462428,
-              "quiz": false,
-              "layout": "stack",
-              "regions": []
+          "type": "optionalInfo",
+          "title": "Source figure and context",
+          "blocks": [
+            { "type": "text", "body": "Source diagram for this model." },
+            {
+              "type": "figure",
+              "visual": {
+                "type": "widget",
+                "name": "image-hotspots",
+                "caption": "Lecture 5, PDF page 26. Multiple dendritic stems reduced under matching electrical assumptions. Original labels, axes and scale bars retained.",
+                "fallbackAlt": "Lecture 5, PDF page 26. Multiple dendritic stems reduced under matching electrical assumptions. Original labels, axes and scale bars retained.",
+                "props": {
+                  "src": new URL('../../assets/figures/nbe-e4120/L05/stems.webp', import.meta.url).href,
+                  "alt": "Lecture 5, PDF page 26. Multiple dendritic stems reduced under matching electrical assumptions. Original labels, axes and scale bars retained.",
+                  "aspect": 1.9017341040462428,
+                  "quiz": false,
+                  "layout": "stack",
+                  "regions": []
+                }
+              }
             }
-          }
+          ]
         }
       ],
       "formulas": [
@@ -2364,6 +2481,7 @@ const content = {
       "conceptQuiz": [
         {
           "id": "L05-stems-check",
+          "practice": "extra",
           "prompt": "Does the rule apply exactly to every biological tree?",
           "correct": 0,
           "options": [
@@ -2390,6 +2508,7 @@ const content = {
         },
         {
           "id": "L05-stems-starter",
+          "practice": "extra",
           "type": "mc",
           "difficulty": "easy",
           "progressionAdded": true,
@@ -2410,6 +2529,7 @@ const content = {
               "feedback": "Correct. Stems attached to the soma load it in parallel."
             }
           ],
+          "hints": [{ "body": "The stems share the somatic voltage and carry separate currents." }],
           "modelAnswer": [
             "Stems attached to the soma load it in parallel."
           ]
@@ -2418,13 +2538,13 @@ const content = {
     },
     {
       "id": "boundaries",
-      "title": "Attenuation and sealed-tip inference",
+      "title": "Terminal conditions",
       "keyTerms": [],
       "source": "L05 PDF 27",
       "blocks": [
         {
           "type": "text",
-          "body": ["At equal origin voltage, sealed, infinite and open cables have different steady attenuation. A sealed tip has zero axial current and retains fraction $1/\\cosh L$ of the origin increment. An open tip is short-circuited to rest; the infinite profile decays exponentially (PDF page 27).", "Here $L=\\ell/\\lambda$ is dimensionless. Convert a percentage loss into the fraction remaining before using the inverse explorer. Compare curves at the same position and with the same controlled origin voltage. Equal origin voltage does not imply equal injected current because the input resistances differ."]
+          "body": ["At fixed origin increment $V_0$, the steady profiles are $V_0e^{-X}$ for an infinite cable on the $X\\ge0$ side, $V_0\\cosh(L-X)/\\cosh L$ for a sealed tip and $V_0\\sinh(L-X)/\\sinh L$ for a tip shorted to rest (called open in the slides). The sealed tip has zero axial current. For a remaining fraction $f=V(L)/V_0$, infer $L=\\operatorname{acosh}(1/f)$."]
         },
         {
           "type": "figure",
@@ -2567,7 +2687,7 @@ const content = {
       "conceptQuiz": [
         {
           "id": "L05-boundaries-check",
-          "prompt": "Which endpoint has zero axial current?",
+          "prompt": "Which boundary models a dendritic tip with finite voltage and no axial current leaving it?",
           "correct": 1,
           "options": [
             {
@@ -2593,6 +2713,7 @@ const content = {
         },
         {
           "id": "L05-boundaries-starter",
+          "practice": "extra",
           "type": "mc",
           "difficulty": "easy",
           "progressionAdded": true,
@@ -2613,6 +2734,7 @@ const content = {
               "feedback": "A matched continuation behaves like the remaining semi-infinite cable."
             }
           ],
+          "hints": [{ "body": "Distinguish fixing voltage from fixing axial current." }],
           "modelAnswer": [
             "The taught open boundary fixes the terminal increment to zero."
           ]
@@ -2621,7 +2743,7 @@ const content = {
     },
     {
       "id": "finite",
-      "title": "Finite sealed input conductance",
+      "title": "Finite sealed load",
       "keyTerms": [
         "conductance"
       ],
@@ -2629,7 +2751,7 @@ const content = {
       "blocks": [
         {
           "type": "text",
-          "body": ["For a finite sealed cylinder, $G_N=G_\\infty\\tanh L$ and $R_N=R_\\infty\\coth L$. Length $L$ is electrotonic; the infinite reference is one end-driven arm. The finite-tree construction requires sealed tips and equal total soma-to-tip electrotonic paths (PDF page 28).", "A short sealed cylinder has less input conductance and more resistance than its semi-infinite continuation. As length grows, the terminal correction tends to one. To infer geometry, find length from terminal attenuation, recover the length constant from physical length, then use the material parameters for diameter and conductance. Check units and reciprocal consistency."]
+          "body": ["A finite sealed arm has $G_N=G_\\infty\\tanh L$ and $R_N=R_\\infty\\coth L$. Relative to one semi-infinite arm, a short sealed arm draws less steady current at the same origin voltage. The correction approaches one as $L$ grows."]
         },
         {
           "type": "figure",
@@ -2647,6 +2769,11 @@ const content = {
               "regions": []
             }
           }
+        },
+        {
+          "type": "optionalInfo",
+          "title": "Extra detail",
+          "body": "As a geometry workflow, infer electrotonic length from tip attenuation, undo the terminal factor in the input load, and then recover diameter from the one-arm relation."
         }
       ],
       "formulas": [
@@ -2798,6 +2925,7 @@ const content = {
         },
         {
           "id": "L05-finite-starter",
+          "practice": "extra",
           "type": "mc",
           "difficulty": "easy",
           "progressionAdded": true,
@@ -2818,6 +2946,7 @@ const content = {
               "feedback": "The cotangent factor multiplies resistance, not conductance."
             }
           ],
+          "hints": [{ "body": "Use the terminal correction for conductance, the reciprocal of resistance." }],
           "modelAnswer": [
             "Finite sealed conductance uses the factor tanh of electrotonic length."
           ]
@@ -2826,13 +2955,13 @@ const content = {
     },
     {
       "id": "paths",
-      "title": "Add electrotonic lengths along each path",
+      "title": "Electrotonic paths",
       "keyTerms": [],
       "source": "L05 PDF 29",
       "blocks": [
         {
           "type": "text",
-          "body": ["Compute each segment’s own length constant from $\\lambda=\\sqrt{R_md/(4R_i)}$, then sum $\\ell/\\lambda$ along one complete soma-to-tip route. Physical segment length $\\ell$ and diameter $d$ must use compatible units. Shared proximal segments belong in each route that passes through them (PDF page 29).", "Compare complete route totals across all tips. Equal physical path lengths can have different electrotonic lengths when their diameters differ. Local diameter matching and equal total paths are independent tests; neither implies the other. Use the explorers to separate geometry conversion from route addition before auditing the whole tree."]
+          "body": ["For a cylindrical segment, $\\lambda=\\sqrt{dR_m/(4R_i)}$, with diameter $d$. Use consistent length units, then sum $L=\\sum_j\\ell_j/\\lambda_j$ separately along each soma-to-tip route. Physical lengths alone cannot establish a match."]
         },
         {
           "type": "figure",
@@ -2987,6 +3116,7 @@ const content = {
       "conceptQuiz": [
         {
           "id": "L05-paths-check",
+          "practice": "extra",
           "prompt": "What should be added along a path?",
           "correct": 1,
           "options": [
@@ -3013,6 +3143,7 @@ const content = {
         },
         {
           "id": "L05-paths-starter",
+          "practice": "extra",
           "type": "mc",
           "difficulty": "easy",
           "progressionAdded": true,
@@ -3033,6 +3164,7 @@ const content = {
               "feedback": "Correct. Add the local electrotonic lengths encountered from soma to that tip."
             }
           ],
+          "hints": [{ "body": "Follow the single route to the selected terminal." }],
           "modelAnswer": [
             "Add the local electrotonic lengths encountered from soma to that tip."
           ]
@@ -3041,7 +3173,7 @@ const content = {
     },
     {
       "id": "tree-example",
-      "title": "Audit every node of a tree",
+      "title": "Audit a finite tree",
       "keyTerms": [
         "electrotonic"
       ],
@@ -3049,7 +3181,7 @@ const content = {
       "blocks": [
         {
           "type": "text",
-          "body": ["The source worked tree checks the three-halves law at distal and proximal branch nodes separately. Start with each node’s immediate daughters, compare their summed powers with the parent, then replace the matched subtree and continue toward the soma (PDF page 30). Do not sum every descendant again at a proximal node.", "Printed diameters are rounded, so approximate equality need not be exact. Even successful node checks do not prove a finite sealed equivalent cylinder: compare complete electrotonic paths and material properties too. The example establishes a local matching calculation; it does not remove the terminal assumptions taught in the preceding sections."]
+          "body": ["Audit each node for diameter matching, then compare every full electrotonic route. In Exercise 5, the branch point nearly matches, but the unequal routes rule out exact finite reduction."]
         },
         {
           "type": "figure",
@@ -3073,6 +3205,7 @@ const content = {
       "conceptQuiz": [
         {
           "id": "L05-tree-example-check",
+          "practice": "extra",
           "prompt": "What does one matched node establish?",
           "correct": 0,
           "options": [
@@ -3099,6 +3232,7 @@ const content = {
         },
         {
           "id": "L05-tree-example-starter",
+          "practice": "extra",
           "type": "mc",
           "difficulty": "easy",
           "progressionAdded": true,
@@ -3119,6 +3253,7 @@ const content = {
               "feedback": "Proximal nodes must also satisfy local matching."
             }
           ],
+          "hints": [{ "body": "Local branch matching is tested separately from complete path length." }],
           "modelAnswer": [
             "A match at one node does not establish matches at the others."
           ]
@@ -3127,7 +3262,7 @@ const content = {
     },
     {
       "id": "soma",
-      "title": "Dendritic load and the lumped soma",
+      "title": "Soma and dendritic load",
       "keyTerms": [
         "dendritic"
       ],
@@ -3135,7 +3270,7 @@ const content = {
       "blocks": [
         {
           "type": "text",
-          "body": ["At steady state, somatic and dendritic conductances are parallel loads: $G_N=G_D+G_S$. The ratio $\\rho=G_D/G_S$ compares dendritic load with soma load and can exceed one. The dendritic fraction of total supplied steady current is instead $\\rho/(1+\\rho)$ (PDF page 31).", "Infer total conductance from supplied current divided by the somatic voltage increment, then subtract the known somatic conductance. Use an increment relative to rest, not absolute membrane voltage. The fraction is bounded between zero and one; the ratio is not. Rising-edge capacitive currents require dynamic current balance rather than this static division."]
+          "body": ["At steady state the soma and dendrites are parallel loads, with $G_N=G_S+G_D$. The load ratio $\\rho=G_D/G_S$ gives dendritic current fraction $G_D/G_N=\\rho/(1+\\rho)$. For a uniform spherical soma, use $G_S=\\pi d_S^2/R_{m,S}$."]
         },
         {
           "type": "figure",
@@ -3360,6 +3495,7 @@ const content = {
         },
         {
           "id": "L05-soma-starter",
+          "practice": "extra",
           "type": "mc",
           "difficulty": "easy",
           "progressionAdded": true,
@@ -3380,6 +3516,7 @@ const content = {
               "feedback": "Dendrites add a load rather than subtracting somatic conductance."
             }
           ],
+          "hints": [{ "body": "Treat the two loads as parallel paths from the same soma voltage." }],
           "modelAnswer": [
             "Soma and dendrites share voltage and act as parallel steady loads."
           ]
@@ -3388,13 +3525,13 @@ const content = {
     },
     {
       "id": "step-input",
-      "title": "Somatic responses to step pulses",
+      "title": "Step responses",
       "keyTerms": [],
       "source": "L05 PDF 32",
       "blocks": [
         {
           "type": "text",
-          "body": ["The supplied ball-and-stick simulation varies current-injection location while recording voltage at the soma. Distal inputs produce smaller, delayed and broader somatic responses because intervening segments must charge their capacitances. Compare aligned stimuli and the full time course rather than peak amplitude alone (PDF page 32).", "Late relaxation can share a common slow mode in this passive model. This does not mean identical entire waveforms, local peaks or a single decay time for every early component. To test location effects, hold input waveform, membrane state and recording site fixed. These are model outputs, not newly measured experimental traces."]
+          "body": ["For the model step responses, compare somatic peak, delay and width at fixed recording location. Distal input charges intervening membrane, producing a smaller and slower somatic response."]
         },
         {
           "type": "figure",
@@ -3418,6 +3555,7 @@ const content = {
       "conceptQuiz": [
         {
           "id": "L05-step-input-check",
+          "practice": "extra",
           "prompt": "What can a shared late decay establish?",
           "correct": 0,
           "options": [
@@ -3444,6 +3582,7 @@ const content = {
         },
         {
           "id": "L05-step-input-starter",
+          "practice": "extra",
           "type": "mc",
           "difficulty": "easy",
           "progressionAdded": true,
@@ -3464,6 +3603,7 @@ const content = {
               "feedback": "Correct. Successive capacitive charging contributes to slowing and delay."
             }
           ],
+          "hints": [{ "body": "Think of the element that temporarily stores charge during a voltage change." }],
           "modelAnswer": [
             "Successive capacitive charging contributes to slowing and delay."
           ]
@@ -3472,7 +3612,7 @@ const content = {
     },
     {
       "id": "conductance-input",
-      "title": "Synaptic conductance versus rectangular current",
+      "title": "Synaptic conductance",
       "keyTerms": [
         "conductance"
       ],
@@ -3480,7 +3620,7 @@ const content = {
       "blocks": [
         {
           "type": "text",
-          "body": ["The slide describes a brief alpha-like conductance input, while its source figure retains an input-current label. Read the shape qualitatively: somatic responses become smaller, slower and later for more distal input. No analytic alpha law or calibrated conductance follows from that axis (PDF page 33).", "A conductance-driven current also depends on local driving force, whereas an ideal rectangular current is prescribed. Compare small responses at a fixed recording site and baseline, align input times and inspect full waveforms. Passive current responses can be added pointwise; changing conductance can violate that superposition even before a spike occurs."]
+          "body": ["A synapse changes conductance. Its outward-positive current is $I_{syn}=g_{syn}(t)(V_m-E_{syn})$. A conductance waveform with changing driving force can prevent exact summation even below spike threshold."]
         },
         {
           "type": "figure",
@@ -3498,6 +3638,11 @@ const content = {
               "regions": []
             }
           }
+        },
+        {
+          "type": "optionalInfo",
+          "title": "Extra detail",
+          "body": "The source uses an alpha-shaped conductance pulse to approximate the time course of a synaptic conductance."
         }
       ],
       "formulas": [],
@@ -3530,6 +3675,7 @@ const content = {
         },
         {
           "id": "L05-conductance-input-starter",
+          "practice": "extra",
           "type": "mc",
           "difficulty": "easy",
           "progressionAdded": true,
@@ -3550,6 +3696,7 @@ const content = {
               "feedback": "The example concerns a local input and resulting voltage response, not a whole-cell voltage command."
             }
           ],
+          "hints": [{ "body": "Ask whether a synapse controls conductance or directly prescribes current." }],
           "modelAnswer": [
             "A synaptic event changes local conductance rather than prescribing a rectangular current."
           ]
@@ -3558,13 +3705,13 @@ const content = {
     },
     {
       "id": "exercise",
-      "title": "Exercise extension: scales and characteristic timing",
+      "title": "Exercise 5 timing",
       "keyTerms": [],
       "source": "Exercise 5 p1–2, answers p1–2; L04 PDF2; L05 PDF29",
       "blocks": [
         {
           "type": "text",
-          "body": ["Exercise 5 combines local geometry, $\\tau_m=R_mC_m$, route lengths and characteristic timing. Use $\\theta=2\\lambda/\\tau_m$ and estimate transit as physical length divided by this speed. With diameter, axial resistivity and capacitance fixed, speed scales inversely with the square root of membrane resistance (Exercise 5 pages 1–2; L04 PDF page 2).", "Retuning one branch resistance changes both length and time constants and can break common-material Rall conditions. Matching estimated transit times does not establish identical EPSP peak latency or waveform. Audit rounded diameter matches separately from unequal terminal paths. For problem 2, use the assignment’s fourth diameter; the supplied answer substitutes a different value."]
+          "body": ["Use $\\tau_m=R_mC_m$ and the assigned characteristic speed $\\theta=2\\lambda/\\tau_m$. Estimate each unshared route’s transit as $\\ell/\\theta$. With $d$, $R_i$ and $C_m$ fixed, $R_{m,new}=R_{m,old}(\\theta_{old}/\\theta_{new})^2$. Equal transit estimates may still give different EPSP peak times. In problem 2, use the assigned fourth diameter $5\\,\\mu\\mathrm{m}$."]
         },
         {
           "type": "figure",
@@ -3828,6 +3975,7 @@ const content = {
       "conceptQuiz": [
         {
           "id": "L05-exercise-check",
+          "practice": "extra",
           "prompt": "Does equal estimated transit prove identical EPSP arrival?",
           "correct": 0,
           "options": [
@@ -3854,6 +4002,7 @@ const content = {
         },
         {
           "id": "L05-exercise-starter",
+          "practice": "extra",
           "type": "mc",
           "difficulty": "easy",
           "progressionAdded": true,
@@ -3874,6 +4023,7 @@ const content = {
               "feedback": "This is a passive cable estimate, not active spike propagation."
             }
           ],
+          "hints": [{ "body": "Compare an estimated transit time with the full shape of an EPSP." }],
           "modelAnswer": [
             "This convention estimates transit; it does not determine a full transient waveform."
           ]
@@ -3882,6 +4032,7 @@ const content = {
     }
   ],
   "recap": {
+    "takeaways": ["Choose a compartment or a distributed tree from the size of the axial voltage drop.", "Check the daughter diameter rule, electrotonic lengths and tip conditions before reducing a tree.", "A synaptic conductance changes both driving current and the local electrical load."],
     "intro": "Practice reference. The calculator and official equation sheet are confirmed. Open-book status and official problem weights are unconfirmed.",
     "terms": [
       {
@@ -4070,6 +4221,68 @@ const content = {
     ]
   },
   "lectureQuiz": [
+    {
+      "id": "L05-core-synapse-type",
+      "type": "mc",
+      "difficulty": "easy",
+      "sectionId": "chemical",
+      "prompt": "Which mechanism carries the signal across a chemical synapse?",
+      "options": [
+        {
+          "text": "Transmitter diffuses across a cleft",
+          "feedback": "Vesicles release transmitter, which binds receptors on the receiving cell."
+        },
+        {
+          "text": "Ions flow through gap junctions",
+          "feedback": "Gap junctions carry current between cells at electrical synapses."
+        }
+      ],
+      "correct": 0,
+      "hints": [
+        {
+          "body": "Calcium enters the presynaptic terminal and triggers vesicular release."
+        },
+        {
+          "body": "Follow the substance that leaves the vesicle after fusion."
+        }
+      ],
+      "modelAnswer": [
+        "Vesicles release transmitter, which binds receptors on the receiving cell."
+      ]
+    },
+    {
+      "id": "L05-core-sealed-condition",
+      "type": "mc",
+      "difficulty": "easy",
+      "sectionId": "assumptions",
+      "prompt": "What vanishes at a sealed cable tip?",
+      "options": [
+        {
+          "text": "Voltage increment at the tip",
+          "feedback": "A tip held at rest has zero voltage increment."
+        },
+        {
+          "text": "Current at the stimulus site",
+          "feedback": "An injected current still enters at the origin."
+        },
+        {
+          "text": "Axial current at the tip",
+          "feedback": "No axial current crosses the sealed boundary."
+        }
+      ],
+      "correct": 2,
+      "hints": [
+        {
+          "body": "A sealed tip imposes a zero voltage gradient."
+        },
+        {
+          "body": "Apply the no-flow condition at the distal boundary."
+        }
+      ],
+      "modelAnswer": [
+        "No axial current crosses the sealed boundary."
+      ]
+    },
     {
       "id": "L05-functional-facts",
       "sectionId": "functional",
@@ -6861,6 +7074,375 @@ const content = {
       "source": "Exercise 5 p1–2, answers p1–2; L04 PDF2; L05 PDF29"
     },
     {
+      "id": "L05-core-trace-test",
+      "type": "mc",
+      "difficulty": "medium",
+      "sectionId": "lumped",
+      "prompt": "Two recording sites have equal plateaus but different rising phases during the same current step. What does this support?",
+      "options": [
+        {
+          "text": "A lumped approximation for the rising phase",
+          "feedback": "The rising voltages differ between sites."
+        },
+        {
+          "text": "A lumped approximation for steady state",
+          "feedback": "The common plateau supports one voltage after the transient has decayed."
+        },
+        {
+          "text": "A lumped approximation for the full step",
+          "feedback": "Different rising phases require resolving spatial differences during the transient."
+        }
+      ],
+      "correct": 1,
+      "hints": [
+        {
+          "body": "Compare the traces at equal times after step onset."
+        },
+        {
+          "body": "Compare the early voltage difference with the late voltage difference."
+        }
+      ],
+      "modelAnswer": [
+        "The common plateau supports one voltage after the transient has decayed."
+      ]
+    },
+    {
+      "id": "L05-core-axial-direction",
+      "type": "mc",
+      "difficulty": "medium",
+      "sectionId": "two",
+      "prompt": "With $V_A=-60\\,\\mathrm{mV}$ and $V_B=-50\\,\\mathrm{mV}$, which way does positive charge flow through the axial resistor?",
+      "options": [
+        {
+          "text": "From B to A",
+          "feedback": "B is at the higher potential."
+        },
+        {
+          "text": "From A to B",
+          "feedback": "A is more negative than B, so the A-to-B current is negative."
+        },
+        {
+          "text": "There is no axial flow",
+          "feedback": "A nonzero voltage difference drives axial current."
+        }
+      ],
+      "correct": 0,
+      "hints": [
+        {
+          "body": "Use the signed voltage difference across the resistor."
+        },
+        {
+          "body": "Positive charge moves toward the lower electric potential."
+        }
+      ],
+      "modelAnswer": [
+        "B is at the higher potential."
+      ]
+    },
+    {
+      "id": "L05-core-driving-force",
+      "type": "mc",
+      "difficulty": "medium",
+      "sectionId": "receptors",
+      "prompt": "An ionotropic synapse opens with $V_m=-65\\,\\mathrm{mV}$ and $E_{syn}=-20\\,\\mathrm{mV}$. What is the initial net synaptic current?",
+      "options": [
+        {
+          "text": "Outward and hyperpolarizing",
+          "feedback": "An outward current would require voltage above this reversal potential."
+        },
+        {
+          "text": "Zero at channel opening",
+          "feedback": "The starting voltage and reversal potential differ."
+        },
+        {
+          "text": "Inward and depolarizing",
+          "feedback": "The driving force is negative, so the inward current drives voltage toward the more positive reversal potential."
+        }
+      ],
+      "correct": 2,
+      "hints": [
+        {
+          "body": "Evaluate $V_m-E_{syn}$ just as the channels open."
+        },
+        {
+          "body": "With positive conductance, a negative driving force gives inward current."
+        }
+      ],
+      "modelAnswer": [
+        "The driving force is negative, so the inward current drives voltage toward the more positive reversal potential."
+      ]
+    },
+    {
+      "id": "L05-core-spike-origin",
+      "practice": "extra",
+      "type": "mc",
+      "difficulty": "medium",
+      "sectionId": "backprop",
+      "prompt": "An aligned recording shows the spike first at the axon, then the soma, then a dendrite. Which process fits this order?",
+      "options": [
+        {
+          "text": "A somatic spike spreading both ways",
+          "feedback": "This would require somatic onset ahead of the axonal recording."
+        },
+        {
+          "text": "An axonal spike invading the dendrite",
+          "feedback": "The axonal onset precedes somatic and dendritic onset."
+        },
+        {
+          "text": "A dendritic spike driving axonal firing",
+          "feedback": "This would require the dendritic event to lead the axonal onset."
+        }
+      ],
+      "correct": 1,
+      "hints": [
+        {
+          "body": "Use onset order at known sites to identify likely propagation direction."
+        },
+        {
+          "body": "A signal invading from the axon should reach the axonal site first."
+        }
+      ],
+      "modelAnswer": [
+        "The axonal onset precedes somatic and dendritic onset."
+      ]
+    },
+    {
+      "id": "L05-core-filtered-trace",
+      "practice": "extra",
+      "type": "mc",
+      "difficulty": "medium",
+      "sectionId": "distance",
+      "prompt": "At a fixed somatic electrode, the same small current waveform is injected first near the soma and then farther away along a passive dendrite. Which somatic response usually comes from the farther site?",
+      "options": [
+        {
+          "text": "The smaller, later, broader response",
+          "feedback": "Additional membrane leak and charging attenuate and broaden transfer."
+        },
+        {
+          "text": "The smaller, earlier, narrower response",
+          "feedback": "Leak lowers amplitude, but charging delays and broadens the response."
+        },
+        {
+          "text": "The larger, later, broader response",
+          "feedback": "A longer passive transfer path usually attenuates the peak."
+        }
+      ],
+      "correct": 0,
+      "hints": [
+        {
+          "body": "Compare the stimulus-to-recording routes with input waveform held fixed."
+        },
+        {
+          "body": "Charging each intervening segment filters fast changes as the signal spreads."
+        }
+      ],
+      "modelAnswer": [
+        "Additional membrane leak and charging attenuate and broaden transfer."
+      ]
+    },
+    {
+      "id": "L05-core-equal-daughters",
+      "type": "mc",
+      "difficulty": "medium",
+      "sectionId": "matching",
+      "prompt": "Two identical daughter cables of diameter $d$ have common passive properties and semi-infinite loads. Which parent diameter matches them?",
+      "options": [
+        {
+          "text": "$2^{1/2}d$",
+          "feedback": "This would match cross-sectional area."
+        },
+        {
+          "text": "$2^{3/2}d$",
+          "feedback": "Apply the inverse exponent after summing the conductance proxies."
+        },
+        {
+          "text": "$2^{2/3}d$",
+          "feedback": "Summing $2d^{3/2}$ and taking the $2/3$ power gives this diameter."
+        }
+      ],
+      "correct": 2,
+      "hints": [
+        {
+          "body": "Sum the daughter diameter powers before solving for the parent diameter."
+        },
+        {
+          "body": "Solve $d_P^{3/2}=2d^{3/2}$ for $d_P$."
+        }
+      ],
+      "modelAnswer": [
+        "Summing $2d^{3/2}$ and taking the $2/3$ power gives this diameter."
+      ]
+    },
+    {
+      "id": "L05-core-remaining",
+      "practice": "extra",
+      "type": "mc",
+      "difficulty": "medium",
+      "sectionId": "boundaries",
+      "prompt": "A sealed tip retains $50\\%$ of the steady origin increment. What is $\\cosh L$?",
+      "options": [
+        {
+          "text": "$1$",
+          "feedback": "This would mean the entire origin increment is retained."
+        },
+        {
+          "text": "$2$",
+          "feedback": "The remaining fraction is $1/\\cosh L$, so invert $0.5$."
+        },
+        {
+          "text": "$0.5$",
+          "feedback": "This is the retained fraction itself."
+        }
+      ],
+      "correct": 1,
+      "hints": [
+        {
+          "body": "Use the sealed-end profile at the terminal position."
+        },
+        {
+          "body": "Substitute $0.5$ for the ratio $V(L)/V_0$."
+        }
+      ],
+      "modelAnswer": [
+        "The remaining fraction is $1/\\cosh L$, so invert $0.5$."
+      ]
+    },
+    {
+      "id": "L05-core-compare-load",
+      "practice": "extra",
+      "type": "mc",
+      "difficulty": "medium",
+      "sectionId": "finite",
+      "prompt": "How does the steady input conductance of a finite sealed arm compare with its semi-infinite continuation of the same diameter?",
+      "options": [
+        {
+          "text": "It equals the infinite value times $\\tanh L$.",
+          "feedback": "The finite sealed profile gives $G_N=G_\\infty\\tanh L$."
+        },
+        {
+          "text": "It is higher by a factor of $\\coth L$.",
+          "feedback": "The reciprocal factor applies to input resistance."
+        },
+        {
+          "text": "It is equal at every finite length.",
+          "feedback": "The loads converge only in the large-length limit."
+        }
+      ],
+      "correct": 0,
+      "hints": [
+        {
+          "body": "Choose the terminal factor for conductance."
+        },
+        {
+          "body": "For positive finite length, $\\tanh L$ lies between zero and one."
+        }
+      ],
+      "modelAnswer": [
+        "The finite sealed profile gives $G_N=G_\\infty\\tanh L$."
+      ]
+    },
+    {
+      "id": "L05-core-unequal-paths",
+      "type": "mc",
+      "difficulty": "medium",
+      "sectionId": "paths",
+      "prompt": "Every branch point passes the diameter rule. With sealed tips, the full paths have different electrotonic lengths. What follows?",
+      "options": [
+        {
+          "text": "The exact finite reduction holds.",
+          "feedback": "Local diameter matches alone cannot establish equal terminal paths."
+        },
+        {
+          "text": "The tree is equivalent to an infinite cable.",
+          "feedback": "A match at each branch does not remove the finite terminations."
+        },
+        {
+          "text": "The exact finite reduction fails.",
+          "feedback": "Equal complete routes are a separate condition."
+        }
+      ],
+      "correct": 2,
+      "hints": [
+        {
+          "body": "Check the local diameter and full path conditions separately."
+        },
+        {
+          "body": "Measure the paths from the same origin and compare their dimensionless totals."
+        }
+      ],
+      "modelAnswer": [
+        "Equal complete routes are a separate condition."
+      ]
+    },
+    {
+      "id": "L05-core-load-fraction",
+      "practice": "extra",
+      "type": "mc",
+      "difficulty": "medium",
+      "sectionId": "soma",
+      "prompt": "If the dendritic load is twice the somatic load, what fraction of the steady injected somatic current enters the tree?",
+      "options": [
+        {
+          "text": "One third",
+          "feedback": "This is the fraction crossing the somatic membrane."
+        },
+        {
+          "text": "Two thirds",
+          "feedback": "The tree contributes two of the three conductance units in parallel."
+        },
+        {
+          "text": "One half",
+          "feedback": "This would apply to equal dendritic and somatic loads."
+        }
+      ],
+      "correct": 1,
+      "hints": [
+        {
+          "body": "Divide the dendritic load by the total load."
+        },
+        {
+          "body": "Set the somatic load to one unit and the dendritic load to two units."
+        }
+      ],
+      "modelAnswer": [
+        "The tree contributes two of the three conductance units in parallel."
+      ]
+    },
+    {
+      "id": "L05-core-input-type",
+      "practice": "extra",
+      "type": "mc",
+      "difficulty": "medium",
+      "sectionId": "conductance-input",
+      "prompt": "Why can two brief synaptic conductance inputs fail to sum exactly even below spike threshold?",
+      "options": [
+        {
+          "text": "Each input can alter the other’s driving force.",
+          "feedback": "Both currents depend on the shared changing voltage."
+        },
+        {
+          "text": "Each input fixes the other’s driving force.",
+          "feedback": "Fixed driving force would instead support an approximately linear response."
+        },
+        {
+          "text": "Each input removes capacitive current.",
+          "feedback": "Membrane capacitance still contributes while voltage changes."
+        }
+      ],
+      "correct": 0,
+      "hints": [
+        {
+          "body": "Relate local synaptic current to conductance and driving force."
+        },
+        {
+          "body": "The first input can move voltage away from the second input’s reversal potential."
+        }
+      ],
+      "modelAnswer": [
+        "Both currents depend on the shared changing voltage."
+      ]
+    },
+    {
       "id": "L05-functional-reason",
       "sectionId": "functional",
       "difficulty": "medium",
@@ -7816,6 +8398,72 @@ const content = {
           "regions": []
         }
       }
+    },
+    {
+      "id": "L05-core-parallel-finite",
+      "type": "mc",
+      "difficulty": "hard",
+      "sectionId": "stems",
+      "prompt": "Two sealed stems have identical material properties and diameter. Their terminal factors are $\\tanh L_1=0.2$ and $\\tanh L_2=0.6$. The somatic conductance equals one stem’s semi-infinite conductance. What fraction of steady injected somatic current enters the pair?",
+      "options": [
+        {
+          "text": "$4/5$",
+          "feedback": "This is the ratio to somatic conductance only."
+        },
+        {
+          "text": "$2/3$",
+          "feedback": "This treats both finite stems as semi-infinite."
+        },
+        {
+          "text": "$4/9$",
+          "feedback": "The stems contribute $0.8$ conductance units and the soma contributes one, giving $0.8/1.8$."
+        }
+      ],
+      "correct": 2,
+      "hints": [
+        {
+          "body": "Correct each stem load for its terminal condition, then divide their sum by the total load."
+        },
+        {
+          "body": "Express both corrected loads and the soma load in units of one infinite stem conductance."
+        }
+      ],
+      "modelAnswer": [
+        "The stems contribute $0.8$ conductance units and the soma contributes one, giving $0.8/1.8$."
+      ]
+    },
+    {
+      "id": "L05-core-retune-branch",
+      "type": "mc",
+      "difficulty": "hard",
+      "sectionId": "exercise",
+      "prompt": "Two passive branches have equal characteristic speed and material parameters. Branch A is twice as long as B. To match estimated transit times, what should happen to A’s $R_m$ with its diameter, $R_i$ and $C_m$ held fixed?",
+      "options": [
+        {
+          "text": "Increase to four times.",
+          "feedback": "This would halve speed and increase the delay."
+        },
+        {
+          "text": "Decrease to one quarter.",
+          "feedback": "A needs double the speed, and speed scales as $1/\\sqrt{R_m}$."
+        },
+        {
+          "text": "Decrease to one half.",
+          "feedback": "Halving $R_m$ raises speed by only $\\sqrt{2}$."
+        }
+      ],
+      "correct": 1,
+      "hints": [
+        {
+          "body": "Find the speed required for equal transit, then use the resistance scaling."
+        },
+        {
+          "body": "Use $R_{m,new}/R_{m,old}=(\\theta_{old}/\\theta_{new})^2$."
+        }
+      ],
+      "modelAnswer": [
+        "A needs double the speed, and speed scales as $1/\\sqrt{R_m}$."
+      ]
     },
     {
       "id": "L05-lumped-reason",
@@ -9536,6 +10184,7 @@ const content = {
       "questions": [
         {
           "id": "L05-a1",
+          "role": "concepts",
           "type": "written",
           "difficulty": "medium",
           "prompt": "a) Distinguish lumped from distributed parameters. b) Define conductance matching. c) Define a miniature postsynaptic potential. Answer each in 1–3 sentences.",
@@ -9568,6 +10217,7 @@ const content = {
         },
         {
           "id": "L05-a2",
+          "role": "explanation",
           "type": "written",
           "difficulty": "medium",
           "prompt": "Explain how a dendritic tree can be replaced by a finite cylinder attached to a lumped soma. Sketch the equivalent circuit, derive the branch law and state the conditions that can make the reduction fail.",
@@ -9612,6 +10262,7 @@ const content = {
         },
         {
           "id": "L05-a3",
+          "role": "calculation",
           "sectionId": "finite",
           "difficulty": "hard",
           "type": "multiStepCalc",
@@ -9830,6 +10481,7 @@ const content = {
         },
         {
           "id": "L05-a4",
+          "role": "calculation",
           "sectionId": "soma",
           "difficulty": "hard",
           "type": "multiStepCalc",
@@ -10052,9 +10704,10 @@ const content = {
         },
         {
           "id": "L05-a5",
+          "role": "methods",
           "type": "written",
           "difficulty": "medium",
-          "prompt": "Read the source compartment-response panel. Identify input and recording sites, explain amplitude/width/latency changes and propose a control before attributing a small somatic response to a weak synapse.",
+          "prompt": "Read the source compartment-response panel. Identify input and recording sites, explain amplitude/width/latency changes and propose a control before attributing a small somatic response to a weak synapse. What measurement would justify splitting the dendrite into multiple compartments?",
           "markScheme": [
             {
               "text": "The recording remains at compartment one, the soma."
@@ -10070,14 +10723,16 @@ const content = {
             },
             {
               "text": "A somatic peak alone does not uniquely identify local synaptic strength."
-            }
+            },
+            { "text": "A reproducible site-dependent amplitude or latency under a matched passive stimulus demonstrates spatial structure a single compartment cannot represent." }
           ],
           "modelAnswer": [
             "The recording remains at compartment one, the soma.",
             "Inputs are at one, five or nine.",
             "Distal inputs are smaller, broader and delayed at the soma.",
             "Control input amplitude/waveform and baseline before comparing transfer.",
-            "A somatic peak alone does not uniquely identify local synaptic strength."
+            "A somatic peak alone does not uniquely identify local synaptic strength.",
+            "A reproducible site-dependent amplitude or latency under a matched passive stimulus demonstrates spatial structure a single compartment cannot represent."
           ],
           "hints": [
             {
@@ -10113,6 +10768,7 @@ const content = {
       "questions": [
         {
           "id": "L05-b1",
+          "role": "concepts",
           "type": "written",
           "difficulty": "medium",
           "prompt": "a) Define electrotonic path length. b) Distinguish a current source from a synaptic conductance. c) State the one-arm input resistance convention.",
@@ -10145,6 +10801,7 @@ const content = {
         },
         {
           "id": "L05-b2",
+          "role": "explanation",
           "type": "written",
           "difficulty": "medium",
           "prompt": "A tree has approximately matched local diameters. Explain why this does not establish finite-cylinder equivalence. Sketch two paths and explain the additional tests, including what changes if one branch alone changes membrane resistance.",
@@ -10189,6 +10846,7 @@ const content = {
         },
         {
           "id": "L05-b3",
+          "role": "calculation",
           "sectionId": "paths",
           "difficulty": "hard",
           "type": "multiStepCalc",
@@ -10471,6 +11129,7 @@ const content = {
         },
         {
           "id": "L05-b4",
+          "role": "calculation",
           "sectionId": "exercise",
           "difficulty": "hard",
           "type": "multiStepCalc",
@@ -10703,9 +11362,10 @@ const content = {
         },
         {
           "id": "L05-b5",
+          "role": "methods",
           "type": "written",
           "difficulty": "medium",
-          "prompt": "Compare the source step-pulse panel with the alpha-like conductance panel. Design a small-response somatic recording comparison and explain the limits of waveform addition.",
+          "prompt": "Compare the source step-pulse panel with the alpha-like conductance panel. Design a small-response somatic recording comparison and explain the limits of waveform addition. How would an ionotropic synaptic response differ mechanistically from a metabotropic one in interpreting the experiment?",
           "markScheme": [
             {
               "text": "Keep the recording site and input location controlled."
@@ -10721,14 +11381,16 @@ const content = {
             },
             {
               "text": "Large conductance changes or active channels can invalidate current-source superposition."
-            }
+            },
+            { "text": "Ionotropic receptors directly gate an ion pathway. Metabotropic receptors change a downstream process through signaling, so the waveform can include extra kinetics." }
           ],
           "modelAnswer": [
             "Keep the recording site and input location controlled.",
             "The source panels depict model responses, not new recordings.",
             "Compare full voltage waveforms, including width and delay.",
             "A fixed current pulse differs from voltage-dependent conductance current.",
-            "Large conductance changes or active channels can invalidate current-source superposition."
+            "Large conductance changes or active channels can invalidate current-source superposition.",
+            "Ionotropic receptors directly gate an ion pathway. Metabotropic receptors change a downstream process through signaling, so the waveform can include extra kinetics."
           ],
           "hints": [
             {
@@ -10764,6 +11426,7 @@ const content = {
       "questions": [
         {
           "id": "L05-c1",
+          "role": "concepts",
           "type": "written",
           "difficulty": "medium",
           "prompt": "a) Compare ionotropic and metabotropic receptors. b) Distinguish local dendritic spikes from backpropagating spikes. c) Define the dendritic-to-somatic load ratio.",
@@ -10796,6 +11459,7 @@ const content = {
         },
         {
           "id": "L05-c2",
+          "role": "explanation",
           "type": "written",
           "difficulty": "medium",
           "prompt": "Explain how a local input can remain graded, initiate a local dendritic spike or trigger an axonal spike. Sketch the three cases and explain potassium-dependent damping of backpropagating excitation.",
@@ -10840,6 +11504,7 @@ const content = {
         },
         {
           "id": "L05-c3",
+          "role": "calculation",
           "sectionId": "matching",
           "difficulty": "medium",
           "type": "multiStepCalc",
@@ -10957,6 +11622,7 @@ const content = {
         },
         {
           "id": "L05-c4",
+          "role": "calculation",
           "sectionId": "stems",
           "difficulty": "hard",
           "type": "multiStepCalc",
@@ -11163,9 +11829,10 @@ const content = {
         },
         {
           "id": "L05-c5",
+          "role": "methods",
           "type": "written",
           "difficulty": "medium",
-          "prompt": "Interpret the source backpropagation panel. State how recording location and origin of the spike affect the inference. Propose a controlled comparison testing whether stronger dendritic invasion follows reduced potassium damping, and give a limitation.",
+          "prompt": "Interpret the source backpropagation panel. State how recording location and origin of the spike affect the inference. Propose a controlled comparison testing whether stronger dendritic invasion follows reduced potassium damping, and give a limitation. Which observation distinguishes a locally initiated dendritic event from a backpropagating spike?",
           "markScheme": [
             {
               "text": "Identify axonal initiation before somatic/dendritic invasion."
@@ -11181,14 +11848,16 @@ const content = {
             },
             {
               "text": "Amplitude alone does not establish origin, kinetics or repetitive echo; no numerical latency is invented."
-            }
+            },
+            { "text": "Compare onset at dendritic and axonal or somatic sites under the same stimulus. Earlier local onset can support dendritic initiation, whereas arrival after the axonal spike supports backpropagation." }
           ],
           "modelAnswer": [
             "Identify axonal initiation before somatic/dendritic invasion.",
             "Compare aligned axonal, somatic and dendritic traces with known locations.",
             "Hold stimulus and baseline controlled before changing the damping condition.",
             "Reduced outward influence can permit stronger invasion, depending on other properties.",
-            "Amplitude alone does not establish origin, kinetics or repetitive echo; no numerical latency is invented."
+            "Amplitude alone does not establish origin, kinetics or repetitive echo; no numerical latency is invented.",
+            "Compare onset at dendritic and axonal or somatic sites under the same stimulus. Earlier local onset can support dendritic initiation, whereas arrival after the axonal spike supports backpropagation."
           ],
           "hints": [
             {

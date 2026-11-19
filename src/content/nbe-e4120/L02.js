@@ -11,10 +11,16 @@ const content = {
     "examDate": "2026-11-30",
     "examLabel": "Final exam"
   },
+  "overview": {
+    "estimate": "Core route: read the main sections and answer 24 core questions. Formula explorers, videos, extra practice and mocks are optional.",
+    "equations": "Core equations include Nernst $E_i=(RT/z_iF)\\ln(C_o/C_i)$, $V_m=\\sum_i g_i E_i/\\sum_i g_i$, $I_i=g_i(V_m-E_i)$, and $I_C=C\\,dV_m/dt$.",
+    "pitfalls": "Use signed valence in Nernst and reverse the chloride concentrations in GHK. Zero current through one pathway and zero total membrane current describe different conditions."
+  },
   "objectives": [
-    "Separate ion equilibrium, channel reversal and resting steady state.",
-    "Calculate permeability, GHK voltage, capacitive charge and ionic currents.",
-    "Interpret clamp isolation, nonlinear IV curves and conductance-weighted models."
+    "Choose Nernst for one ion and GHK for a mixed-ion resting membrane.",
+    "Predict how gradients and permeability shifts change resting voltage.",
+    "Distinguish local graded signals from regenerated spikes and read clamp traces.",
+    "Use the parallel circuit to relate voltage, charge and ionic current."
   ],
   "prerequisites": [
     {
@@ -24,6 +30,8 @@ const content = {
     }
   ],
   "segmentedPractice": true,
+  "standardPractice": "mc-only",
+  "collapseFormulaExplorers": true,
   "sections": [
     {
       "id": "equilibrium",
@@ -32,8 +40,17 @@ const content = {
       "source": "L02 PDF 2",
       "blocks": [
         {
+          "type": "relevantVideo",
+          "videoId": "rJSJWosBJg0",
+          "title": "Nernst Equation And The Electrochemical Gradient Explained | Clip",
+          "topic": "Electrochemical gradients and equilibrium voltage for individual ions.",
+          "channel": "Science With Tal"
+        },
+        {
           "type": "text",
-          "body": ["Ion equilibrium requires zero net flux of each permeant species. With only one permeant ion and no pump current, the membrane settles at that ion’s Nernst potential. In Donnan equilibrium, the permeant ions share the same equilibrium voltage despite unequal concentrations.", "A resting cell instead has balanced total current; individual ionic currents can oppose one another. Use $V_m=V_{in}-V_{out}$ and positive outward conventional current throughout. The distinction in PDF page 2 explains why rest need not equal any one Nernst potential."]
+          "body": [
+            "Use $V_m=V_{\\mathrm{in}}-V_{\\mathrm{out}}$ and positive outward current. Nernst gives one ion’s zero-flux voltage, $E_i=(RT/z_iF)\\ln(C_o/C_i)$. Use signed valence $z_i$, absolute temperature $T$, and matching concentration units. In Donnan equilibrium, each permeant ion has zero net flux at a shared voltage."
+          ]
         },
         {
           "type": "figure",
@@ -130,6 +147,7 @@ const content = {
       "conceptQuiz": [
         {
           "id": "L02-equilibrium-check",
+          "practice": "extra",
           "prompt": "What is required for equilibrium of each permeant ion?",
           "correct": 0,
           "options": [
@@ -156,6 +174,7 @@ const content = {
         },
         {
           "id": "L02-equilibrium-starter",
+          "practice": "extra",
           "type": "mc",
           "difficulty": "easy",
           "progressionAdded": true,
@@ -198,7 +217,9 @@ const content = {
       "blocks": [
         {
           "type": "text",
-          "body": ["A sudden fall in outside chloride first changes its Nernst potential while inside concentration is still unchanged. Because chloride has negative valence, this shift is toward a less negative voltage, producing the initial depolarization in the source trace.", "Chloride and potassium then redistribute outward and voltage slowly recovers. Restoring outside chloride now produces a transient hyperpolarization, followed by inward redistribution. PDF pages 3–4 include water movement while treating potassium concentrations as effectively fixed; do not combine that approximation with an exact fixed-volume calculation."]
+          "body": [
+            "Lowering outside chloride makes $E_{\\mathrm{Cl}}$ less negative and initially depolarizes the muscle. Potassium and chloride then redistribute outward. Restoring outside chloride briefly hyperpolarizes the cell before inward redistribution."
+          ]
         },
         {
           "type": "figure",
@@ -216,12 +237,20 @@ const content = {
               "regions": []
             }
           }
+        },
+        {
+          "type": "optionalInfo",
+          "title": "Extra detail",
+          "body": [
+            "The source sequence includes water movement and treats potassium concentrations as effectively fixed. An exact calculation requires a consistent volume and solute balance."
+          ]
         }
       ],
       "formulas": [],
       "conceptQuiz": [
         {
           "id": "L02-chloride-check",
+          "practice": "extra",
           "prompt": "What follows a sudden extracellular chloride reduction in the source example?",
           "correct": 1,
           "options": [
@@ -248,6 +277,7 @@ const content = {
         },
         {
           "id": "L02-chloride-starter",
+          "practice": "extra",
           "type": "mc",
           "difficulty": "easy",
           "progressionAdded": true,
@@ -290,7 +320,9 @@ const content = {
       "blocks": [
         {
           "type": "text",
-          "body": ["Permeability combines diffusion within the membrane, partition from water into membrane, and membrane thickness. For a homogeneous membrane with a linear concentration profile, $P=D^*\\beta/l$: faster diffusion or greater partition increases permeability, whereas a thicker barrier reduces it.", "In $J=-P\\Delta C$, define the concentration difference and spatial direction before assigning flux sign. Permeability itself is positive. PDF page 5 also relates it to mobility and temperature; proportional temperature scaling assumes mobility, partition and thickness remain fixed."]
+          "body": [
+            "For a homogeneous membrane, $P=D^*\\beta/l$: diffusion within the membrane ($D^*$) and partition into it ($\\beta$) raise permeability, while thickness ($l$) reduces it. In the diffusion-only relation $J=-P\\Delta C$, define the positive direction before assigning the concentration difference."
+          ]
         },
         {
           "type": "figure",
@@ -545,6 +577,7 @@ const content = {
         },
         {
           "id": "L02-permeability-starter",
+          "practice": "extra",
           "type": "mc",
           "difficulty": "easy",
           "progressionAdded": true,
@@ -587,7 +620,15 @@ const content = {
       "blocks": [
         {
           "type": "text",
-          "body": ["The GHK voltage equation finds the voltage at zero total ionic current for potassium, sodium and chloride. It assumes independent ions obeying electrodiffusion through a constant electric field, so voltage varies linearly across membrane thickness.", "Weight each concentration by its relative permeability before summing. Chloride’s negative valence reverses its inside/outside placement compared with the cations. Multiplying every permeability by the same factor leaves voltage unchanged. With only potassium permeant, the equation reduces to potassium Nernst, as implied by PDF page 6."]
+          "body": [
+            "Use GHK voltage for independent monovalent ions moving by electrodiffusion in a constant field, at zero total ionic current. Weight outside cations and inside chloride in the numerator, and the opposite sides in the denominator. Only relative permeabilities matter. With one permeant ion, use Nernst."
+          ]
+        },
+        {
+          "type": "math",
+          "title": "GHK resting voltage",
+          "tex": "V_m=\\frac{RT}{F}\\ln\\frac{P_K[K]_o+P_{Na}[Na]_o+P_{Cl}[Cl]_i}{P_K[K]_i+P_{Na}[Na]_i+P_{Cl}[Cl]_o}",
+          "label": "Use relative permeabilities $P$ and concentrations in the same units. Subscripts $o$ and $i$ mark outside and inside."
         },
         {
           "type": "figure",
@@ -728,6 +769,7 @@ const content = {
         },
         {
           "id": "L02-ghk-starter",
+          "practice": "extra",
           "type": "mc",
           "difficulty": "easy",
           "progressionAdded": true,
@@ -770,7 +812,9 @@ const content = {
       "blocks": [
         {
           "type": "text",
-          "body": ["Rectification means current flows more readily in one direction than the other. The constant-field curves in PDF pages 7–8 show that unequal concentrations can produce a nonlinear current–voltage relation even when permeability is constant. Equal concentrations give the linear case.", "For the illustrated cation, higher outside concentration favors inward current; higher inside concentration favors outward current. The formula below gives current density with SI permeability and concentrations. Real rectifier recordings may also involve voltage-dependent channel availability; curve shape alone cannot identify the mechanism."]
+          "body": [
+            "Use the GHK current equation for one ion’s current density at a given voltage. Unequal concentrations can produce rectification even at constant permeability. Equal concentrations give a straight I–V relation. Use the continuous limit at zero voltage and multiply current density by uniform patch area for current."
+          ]
         },
         {
           "type": "figure",
@@ -788,6 +832,13 @@ const content = {
               "regions": []
             }
           }
+        },
+        {
+          "type": "optionalInfo",
+          "title": "Extra detail",
+          "body": [
+            "Real rectifier traces may also reflect changing channel availability. Curve shape alone leaves the mechanism uncertain."
+          ]
         }
       ],
       "formulas": [
@@ -888,6 +939,7 @@ const content = {
       "conceptQuiz": [
         {
           "id": "L02-rectification-check",
+          "practice": "extra",
           "prompt": "What does inward rectification mean?",
           "correct": 0,
           "options": [
@@ -914,6 +966,7 @@ const content = {
         },
         {
           "id": "L02-rectification-starter",
+          "practice": "extra",
           "type": "mc",
           "difficulty": "easy",
           "progressionAdded": true,
@@ -956,7 +1009,9 @@ const content = {
       "blocks": [
         {
           "type": "text",
-          "body": ["The squid example compares potassium-only Nernst with GHK using the same ion concentrations. Potassium permeability dominates at rest, but sodium and chloride still contribute to the weighted concentration sums. Thus resting voltage need not equal potassium equilibrium voltage.", "As outside potassium increases, its term increasingly dominates the GHK numerator, bringing the curves closer in the plotted range. This convergence does not mean other permeabilities vanish. PDF page 9 supplies the concentrations and relative permeabilities; keep the stated temperature shortcut when comparing predictions."]
+          "body": [
+            "The squid resting membrane is most permeable to potassium. Raising outside potassium makes $E_{\\mathrm K}$ and the GHK prediction less negative in the source example. The curves approach each other as the potassium term dominates the GHK numerator."
+          ]
         },
         {
           "type": "figure",
@@ -1006,6 +1061,7 @@ const content = {
         },
         {
           "id": "L02-potassium-starter",
+          "practice": "extra",
           "type": "mc",
           "difficulty": "easy",
           "progressionAdded": true,
@@ -1048,7 +1104,9 @@ const content = {
       "blocks": [
         {
           "type": "text",
-          "body": ["Resting potential is a relatively stable voltage in the absence of an external stimulus. It is a steady state, not electrical inactivity: open channels carry currents and pumps maintain the gradients that those currents would otherwise dissipate.", "Concentrations set ionic equilibrium potentials, while relative permeabilities determine their influence on voltage. Potassium usually has the largest influence. PDF page 10 includes both channels and pumps; the passive GHK equation represents the stated ionic-current balance and does not separately calculate electrogenic pump current."]
+          "body": [
+            "At unstimulated rest, membrane voltage is stable and all membrane currents sum to zero. Individual currents can persist. Pumps maintain the gradients; passive GHK assumes the modeled ionic currents balance without an additional pump-current term."
+          ]
         },
         {
           "type": "figure",
@@ -1098,6 +1156,7 @@ const content = {
         },
         {
           "id": "L02-resting-starter",
+          "practice": "extra",
           "type": "mc",
           "difficulty": "easy",
           "progressionAdded": true,
@@ -1140,7 +1199,9 @@ const content = {
       "blocks": [
         {
           "type": "text",
-          "body": ["A membrane voltage requires charge separation near its surfaces, rather than a large change in bulk ion concentration. For a spherical cell, use radius to find area, multiply by specific capacitance to obtain total capacitance, then use $\\Delta Q=C\\Delta V$. Divide the charge magnitude by the elementary charge for a monovalent ion count.", "Distinguish the signed charge at a negative voltage from the positive charging increment during depolarization. Depolarization is movement toward a more positive voltage; repolarization returns toward rest, and hyperpolarization goes below rest. PDF page 11 and Exercise2 P1 supply this reasoning chain."]
+          "body": [
+            "Exercise 2 uses $A=4\\pi r^2$, then $C=C_sA$ and $\\Delta Q=C\\Delta V$. Divide $|\\Delta Q|$ by elementary charge $e$ to count monovalent ions. A small charge separation can change voltage with little effect on bulk concentrations. Depolarization moves voltage more positive, repolarization returns toward rest, and hyperpolarization goes below rest."
+          ]
         },
         {
           "type": "figure",
@@ -1390,6 +1451,7 @@ const content = {
       "conceptQuiz": [
         {
           "id": "L02-charge-check",
+          "practice": "extra",
           "prompt": "Which term describes a voltage becoming more positive than rest?",
           "correct": 1,
           "options": [
@@ -1416,6 +1478,7 @@ const content = {
         },
         {
           "id": "L02-charge-starter",
+          "practice": "extra",
           "type": "mc",
           "difficulty": "easy",
           "progressionAdded": true,
@@ -1458,7 +1521,9 @@ const content = {
       "blocks": [
         {
           "type": "text",
-          "body": ["Resting voltage varies between cell types because their ion gradients, channels and pumps differ. Voltage also participates in nonexcitable-cell functions, including cell-volume control, proliferation and wound healing; a cell need not fire spikes for its membrane voltage to matter.", "The sodium/potassium pump moves three sodium ions out for every two potassium ions in. That net outward positive charge directly favors hyperpolarization, while gradient maintenance supports channel currents over time. PDF page 12 distinguishes this pump contribution from rapid changes in membrane permeability."]
+          "body": [
+            "The sodium–potassium pump moves three sodium ions out and two potassium ions in per cycle. This net outward positive charge favors hyperpolarization. Gradients, channels and pumps vary across cells, so resting voltages vary too."
+          ]
         },
         {
           "type": "figure",
@@ -1476,6 +1541,13 @@ const content = {
               "regions": []
             }
           }
+        },
+        {
+          "type": "optionalInfo",
+          "title": "Extra detail",
+          "body": [
+            "Membrane voltage can also participate in cell-volume control, proliferation and wound healing in nonexcitable cells."
+          ]
         }
       ],
       "formulas": [],
@@ -1508,6 +1580,7 @@ const content = {
         },
         {
           "id": "L02-resting-functions-starter",
+          "practice": "extra",
           "type": "mc",
           "difficulty": "easy",
           "progressionAdded": true,
@@ -1550,7 +1623,9 @@ const content = {
       "blocks": [
         {
           "type": "text",
-          "body": ["In the PDF page 13 warm-up, only sodium permeability changes initially. Since concentrations and temperature are fixed, individual Nernst potentials stay fixed. Increasing sodium’s relative permeability gives its concentration ratio more influence in GHK and moves voltage toward sodium equilibrium.", "For the taught resting gradients this predicts depolarization. Recalculate both weighted sums rather than multiplying voltage by the permeability change. The immediate prediction does not establish long-term concentrations: sustained ionic flux and pump action would need to be considered separately."]
+          "body": [
+            "Increasing sodium permeability at fixed concentrations leaves every Nernst potential unchanged. In the source example, sodium gets more weight in GHK and the membrane depolarizes toward $E_{\\mathrm{Na}}$. Recompute both concentration sums."
+          ]
         },
         {
           "type": "figure",
@@ -1574,6 +1649,7 @@ const content = {
       "conceptQuiz": [
         {
           "id": "L02-mutation-check",
+          "practice": "extra",
           "prompt": "What initially changes after selective sodium permeability rises?",
           "correct": 1,
           "options": [
@@ -1600,6 +1676,7 @@ const content = {
         },
         {
           "id": "L02-mutation-starter",
+          "practice": "extra",
           "type": "mc",
           "difficulty": "easy",
           "progressionAdded": true,
@@ -1642,7 +1719,9 @@ const content = {
       "blocks": [
         {
           "type": "text",
-          "body": ["The diagram in PDF page 14 links neuronal structure to signal location. Dendrites and their spines form the main receiving region, where graded signals occur. The soma is the central cell body, and the axon hillock is the spike-origin region identified in this lecture.", "The axon transmits by propagating regenerated action potentials toward presynaptic terminals. Use location and function together when identifying a part: local receiving signals and long-distance regenerated signals have different roles. Detailed synaptic transmission is outside this lecture’s treatment."]
+          "body": [
+            "Dendrites receive signals and the soma integrates input. Spikes initiate in the axon initial segment near the hillock, regenerate along the axon, and reach the presynaptic terminals."
+          ]
         },
         {
           "type": "figure",
@@ -1692,6 +1771,7 @@ const content = {
         },
         {
           "id": "L02-neuron-starter",
+          "practice": "extra",
           "type": "mc",
           "difficulty": "easy",
           "progressionAdded": true,
@@ -1734,7 +1814,9 @@ const content = {
       "blocks": [
         {
           "type": "text",
-          "body": ["Graded potentials encode stimulus strength through amplitude. They have no spike threshold, can summate, and decrease as they spread from their origin. The source examples include receptor responses and local neuronal signals.", "Action potentials cross a threshold and regenerate over long distances. Stronger stimulation is represented by firing frequency rather than larger individual spikes; spikes do not summate as graded responses do. PDF page 15 also includes mixed calcium-based responses, so the two modes are useful contrasts rather than an exhaustive classification of every waveform."]
+          "body": [
+            "Graded signals encode stimulus strength in amplitude, can summate and decay as they spread. Spikes require threshold, regenerate along the axon and do not summate. Stronger stimuli can increase firing frequency."
+          ]
         },
         {
           "type": "figure",
@@ -1784,6 +1866,7 @@ const content = {
         },
         {
           "id": "L02-signalling-starter",
+          "practice": "extra",
           "type": "mc",
           "difficulty": "easy",
           "progressionAdded": true,
@@ -1826,7 +1909,9 @@ const content = {
       "blocks": [
         {
           "type": "text",
-          "body": ["The intracellular squid recording in PDF page 16 measures voltage through time. It shows a rapid rise past zero, an overshoot approaching sodium equilibrium, repolarization, and an afterhyperpolarization below the preceding resting level.", "A large increase in membrane conductance supported a permeability-change explanation, and dependence on outside sodium suggested sodium involvement. Voltage and total conductance alone could not identify each ionic current. The next clamp experiments control voltage and measure current to test that interpretation; the voltage trace itself is not a separated sodium or potassium recording."]
+          "body": [
+            "Rapidly rising sodium conductance depolarizes the squid axon toward $E_{\\mathrm{Na}}$. Sodium inactivation and delayed potassium activation repolarize it. Potassium conductance that persists after the spike can drive the afterhyperpolarization. The voltage trace shows these phases; clamp separates the currents."
+          ]
         },
         {
           "type": "figure",
@@ -1876,6 +1961,7 @@ const content = {
         },
         {
           "id": "L02-action-potential-starter",
+          "practice": "extra",
           "type": "mc",
           "difficulty": "easy",
           "progressionAdded": true,
@@ -1918,7 +2004,9 @@ const content = {
       "blocks": [
         {
           "type": "text",
-          "body": ["Voltage clamp holds membrane voltage at a chosen command and records the current required to maintain it. Following the taught depolarizing step, the early ionic current is inward and transient; the delayed potassium current is outward and sustained. Sodium activates rapidly and then inactivates even while voltage remains depolarized.", "Replacing outside sodium with impermeant choline removes its contribution in the source protocol. Subtract the remaining potassium trace from control at matched voltage and time. PDF pages 17–18 and Exercise2 P2 require this matching; late-current comparisons also depend on comparable potassium conductance."]
+          "body": [
+            "Voltage clamp controls voltage and measures current. In the source step, early inward sodium current activates and inactivates quickly, followed by delayed outward potassium current. Replace outside sodium with choline and subtract the residual at matched voltage and time. Exercise 2 uses the sodium reversal shift to infer an outside concentration ratio at fixed inside concentration and temperature. A smaller late outward current at matched voltage and time suggests higher outside potassium if potassium conductance is unchanged."
+          ]
         },
         {
           "type": "figure",
@@ -1936,6 +2024,13 @@ const content = {
               "regions": []
             }
           }
+        },
+        {
+          "type": "optionalInfo",
+          "title": "Extra detail",
+          "body": [
+            "A reversal read from a trace gives an approximate concentration ratio. Check the voltage steps that bracket the change of current sign."
+          ]
         }
       ],
       "formulas": [
@@ -2039,6 +2134,7 @@ const content = {
         },
         {
           "id": "L02-clamp-starter",
+          "practice": "extra",
           "type": "mc",
           "difficulty": "easy",
           "progressionAdded": true,
@@ -2081,7 +2177,9 @@ const content = {
       "blocks": [
         {
           "type": "text",
-          "body": ["In the squid protocol of PDF page 19, TTX blocks sodium current, leaving potassium current, while TEA blocks potassium current, leaving sodium current. Compare the time courses as well as signs: sodium rapidly activates and inactivates, whereas potassium activates more slowly.", "For subtraction, use control minus blocker residual at the same command voltage and sampling time. Attribution assumes selective, complete block and unchanged remaining currents. A smaller current alone does not prove a changed gradient or conductance. The optional squid video on PDF page 20 supplies context and is not needed for practice."]
+          "body": [
+            "In the source protocol, TTX blocks sodium current and TEA blocks potassium current. Subtract the residual from control at matched voltage and time. The inference assumes selective, complete block and unchanged remaining currents."
+          ]
         },
         {
           "type": "figure",
@@ -2137,6 +2235,7 @@ const content = {
         },
         {
           "id": "L02-blockers-starter",
+          "practice": "extra",
           "type": "mc",
           "difficulty": "easy",
           "progressionAdded": true,
@@ -2179,7 +2278,9 @@ const content = {
       "blocks": [
         {
           "type": "text",
-          "body": ["The equivalent circuit places a capacitor in parallel with conducting ionic branches. Each branch has a conductance and a battery representing its electrochemical reversal potential. Total membrane current combines ionic current with capacitive current, which depends on the rate of voltage change.", "Use total capacitance with total current, or specific capacitance with current density. Area converts between them; specific resistance and conductance have reciprocal area conventions. PDF page 22 provides the model. An applied-current balance must also state its reference direction before being combined with positive outward membrane currents."]
+          "body": [
+            "The membrane capacitor is parallel to ionic branches, each with a conductance and a battery for its reversal potential. Use $I_m=I_C+I_i$ with $I_C=C\\,dV_m/dt$. Pair total capacitance with total current, or specific capacitance with current density."
+          ]
         },
         {
           "type": "figure",
@@ -2352,6 +2453,7 @@ const content = {
         },
         {
           "id": "L02-circuit-starter",
+          "practice": "extra",
           "type": "mc",
           "difficulty": "easy",
           "progressionAdded": true,
@@ -2399,7 +2501,9 @@ const content = {
       "blocks": [
         {
           "type": "text",
-          "body": ["An equilibrium potential belongs to a particular ion and marks zero net movement of that species. A reversal potential belongs to a conducting pathway and marks zero net current through it. For a single-ion selective passive pathway, these voltages coincide.", "A mixed-ion pathway can reverse while its component ionic currents cancel. Rest belongs to the whole membrane steady state and need not equal that pathway’s reversal. PDF page 23 combines these ideas; its conductance-weighted expression needs the zero-current conditions made explicit in the parallel-model section below."]
+          "body": [
+            "Ion equilibrium means zero net flux of one ion. Channel reversal means zero net current through that pathway. They coincide for a passive single-ion channel. For a mixed channel, currents can cancel at reversal. Whole-cell rest balances all membrane currents."
+          ]
         },
         {
           "type": "figure",
@@ -2449,6 +2553,7 @@ const content = {
         },
         {
           "id": "L02-reversal-starter",
+          "practice": "extra",
           "type": "mc",
           "difficulty": "easy",
           "progressionAdded": true,
@@ -2491,7 +2596,9 @@ const content = {
       "blocks": [
         {
           "type": "text",
-          "body": ["For an ohmic branch, $I_i=g_i(V_m-E_i)$: conductance multiplies the driving force, not voltage alone. With positive conductance, voltage above reversal gives positive outward conventional current; below reversal gives negative inward current. At reversal the net branch current is zero even if channels conduct.", "Chloride particle motion is opposite to conventional current because chloride is negative. Parallel ionic conductances add. PDF page 24 contrasts a linear membrane with constant conductance against conductances that vary with voltage and time; specify the operating conditions before comparing currents."]
+          "body": [
+            "For an ohmic branch, $I_i=g_i(V_m-E_i)$. Above reversal, current is positive and outward for positive conductance. Chloride particles move opposite to conventional current. Parallel conductances add at the same voltage and time; voltage-dependent conductance can make the I–V curve nonlinear."
+          ]
         },
         {
           "type": "figure",
@@ -2664,6 +2771,7 @@ const content = {
         },
         {
           "id": "L02-conductance-starter",
+          "practice": "extra",
           "type": "mc",
           "difficulty": "easy",
           "progressionAdded": true,
@@ -2706,7 +2814,9 @@ const content = {
       "blocks": [
         {
           "type": "text",
-          "body": ["Chord conductance is the current change divided by voltage change between two specified points. Taking reversal as the reference gives $I/(V_m-E)$. Slope conductance is the local derivative $dI/dV$, describing the response to a small voltage perturbation at the operating point.", "On the nonlinear curve in PDF page 25, current can decrease as voltage increases while current and driving force still share a sign. Thus negative slope can coexist with positive chord conductance. Use a tangent for the local slope and a line to the reference point for the chord."]
+          "body": [
+            "Slope is the local tangent $dI/dV$. Chord is the secant between two points, or $I/(V_m-E_{\\mathrm{rev}})$ using reversal as the reference. A falling curve can have negative slope and positive chord."
+          ]
         },
         {
           "type": "figure",
@@ -2879,6 +2989,7 @@ const content = {
         },
         {
           "id": "L02-slope-starter",
+          "practice": "extra",
           "type": "mc",
           "difficulty": "easy",
           "progressionAdded": true,
@@ -2921,7 +3032,9 @@ const content = {
       "blocks": [
         {
           "type": "text",
-          "body": ["Each passive branch contributes conductance times its own driving force. Add these ionic currents and the capacitive current to form the membrane-current balance. When voltage is stationary, capacitive current vanishes; when net current is also zero with no other current source, solving the balance gives the conductance-weighted voltage.", "The voltage lies between the branch equilibrium potentials for positive conductances, yet opposite ionic currents can persist. PDF page 26 also mentions an action-potential peak: zero voltage derivative alone does not establish zero applied current during an injected-current pulse."]
+          "body": [
+            "Use $V_m=\\sum_i g_i E_i/\\sum_i g_i$ when voltage is stationary, the passive branches balance, and there is no unaccounted pump or applied current. Use each conductance at the operating voltage and time. An action-potential peak establishes only $dV_m/dt=0$."
+          ]
         },
         {
           "type": "figure",
@@ -3058,6 +3171,7 @@ const content = {
         },
         {
           "id": "L02-parallel-starter",
+          "practice": "extra",
           "type": "mc",
           "difficulty": "easy",
           "progressionAdded": true,
@@ -3100,7 +3214,9 @@ const content = {
       "blocks": [
         {
           "type": "text",
-          "body": ["To construct an IV curve, clamp a series of command voltages and record current at each one. Choose peak or steady-state current consistently; mixing sampling rules can create a misleading curve because channel availability changes with time. Plot the chosen current against command voltage.", "PDF page 27 shows isolation through blockers, solutions or voltage protocols. State which component remains before interpreting reversal or conductance. Current clamp is the alternative mode: impose current and measure voltage. Its voltage response is not directly the same measurement as a voltage-clamp ionic-current trace."]
+          "body": [
+            "For an I–V curve, step the voltage and plot peak or steady-state current against command voltage. Use the same sampling rule and isolate the component before interpreting reversal. Current clamp instead imposes current and measures voltage."
+          ]
         },
         {
           "type": "figure",
@@ -3150,6 +3266,7 @@ const content = {
         },
         {
           "id": "L02-iv-starter",
+          "practice": "extra",
           "type": "mc",
           "difficulty": "easy",
           "progressionAdded": true,
@@ -3192,7 +3309,9 @@ const content = {
       "blocks": [
         {
           "type": "text",
-          "body": ["In PDF page 28, nifedipine blocks L-type calcium current and leaves the T-type residual. Subtract residual from control at matched voltage and time to isolate L-type current, assuming selective block and unchanged T-type current.", "Current reflects both channel conductance and driving force. Divide isolated current by $V_m-V_{rev}$, then normalize by maximum conductance to estimate fractional activation. A large inward current need not mark maximal activation. Near reversal, small driving force makes this inference sensitive to error; zero current there does not establish that channels are closed."]
+          "body": [
+            "Nifedipine leaves T-type calcium current in the source example. With selective block, subtract residual from control for L-type current, divide by driving force, then normalize by $g_{\\max}$. Near reversal, small driving force makes this estimate unreliable even with open channels."
+          ]
         },
         {
           "type": "figure",
@@ -3310,6 +3429,7 @@ const content = {
       "conceptQuiz": [
         {
           "id": "L02-calcium-check",
+          "practice": "extra",
           "prompt": "What remains after L-type block by nifedipine in this example?",
           "correct": 1,
           "options": [
@@ -3336,6 +3456,7 @@ const content = {
         },
         {
           "id": "L02-calcium-starter",
+          "practice": "extra",
           "type": "mc",
           "difficulty": "easy",
           "progressionAdded": true,
@@ -3372,6 +3493,7 @@ const content = {
     }
   ],
   "recap": {
+    "takeaways": ["Choose a single-ion equilibrium equation, a permeability model, or a conductance balance from the givens.", "At a reversal, a branch can be conductive even when its current is zero.", "Use clamp steps to separate capacitive transients from ionic currents."],
     "intro": "Practice reference. The official equation sheet and calculator are confirmed; open-book status is not established.",
     "terms": [
       {
@@ -7252,6 +7374,7 @@ const content = {
       "questions": [
         {
           "id": "a1",
+          "role": "concepts",
           "type": "written",
           "difficulty": "medium",
           "prompt": "a) Distinguish equilibrium from steady state. b) Define permeability. c) Define depolarization and hyperpolarization. Answer each in 1–3 sentences.",
@@ -7284,6 +7407,7 @@ const content = {
         },
         {
           "id": "a2",
+          "role": "explanation",
           "type": "written",
           "difficulty": "medium",
           "prompt": "Explain and sketch why a membrane can have a stable resting voltage while sodium and potassium continue to cross. Label directions and distinguish pumps from passive pathways.",
@@ -7320,6 +7444,7 @@ const content = {
         },
         {
           "id": "a3",
+          "role": "calculation",
           "sectionId": "charge",
           "difficulty": "hard",
           "type": "multiStepCalc",
@@ -7521,6 +7646,7 @@ const content = {
         },
         {
           "id": "a4",
+          "role": "calculation",
           "sectionId": "potassium",
           "difficulty": "medium",
           "type": "multiStepCalc",
@@ -7614,9 +7740,10 @@ const content = {
         },
         {
           "id": "a5",
+          "role": "methods",
           "type": "written",
           "difficulty": "medium",
-          "prompt": "Interpret the source voltage-clamp traces. Identify the command, early inward and late outward components; design an ion-replacement control and subtraction.",
+          "prompt": "Interpret the source voltage-clamp traces. Identify the command, early inward and late outward components; design an ion-replacement control and subtraction. Why does the action potential waveform alone fail to identify which ion carries each phase?",
           "markScheme": [
             {
               "text": "Voltage is controlled; current is recorded."
@@ -7629,13 +7756,15 @@ const content = {
             },
             {
               "text": "Control minus residual isolates sodium if other currents remain unchanged."
-            }
+            },
+            { "text": "Voltage reflects the combined capacitive and ionic current balance. Compare separated clamp currents and their reversal shifts under ion substitution." }
           ],
           "modelAnswer": [
             "Voltage is controlled; current is recorded.",
             "Sodium is early transient inward; potassium is delayed sustained outward.",
             "Replace outside sodium by impermeant choline and compare matched time/voltage.",
-            "Control minus residual isolates sodium if other currents remain unchanged."
+            "Control minus residual isolates sodium if other currents remain unchanged.",
+            "Voltage reflects the combined capacitive and ionic current balance. Compare separated clamp currents and their reversal shifts under ion substitution."
           ],
           "hints": [
             {
@@ -7671,6 +7800,7 @@ const content = {
       "questions": [
         {
           "id": "b1",
+          "role": "concepts",
           "type": "written",
           "difficulty": "medium",
           "prompt": "a) Distinguish equilibrium, channel reversal and whole-cell rest. b) What do TTX and TEA leave? c) What is slope conductance?",
@@ -7703,6 +7833,7 @@ const content = {
         },
         {
           "id": "b2",
+          "role": "explanation",
           "type": "written",
           "difficulty": "medium",
           "prompt": "Sketch weak and strong stimulus responses in a graded receptor and a spiking axon. Explain threshold, summation, coding and spread.",
@@ -7739,6 +7870,7 @@ const content = {
         },
         {
           "id": "b3",
+          "role": "calculation",
           "sectionId": "clamp",
           "difficulty": "medium",
           "type": "multiStepCalc",
@@ -7822,6 +7954,7 @@ const content = {
         },
         {
           "id": "b4",
+          "role": "calculation",
           "sectionId": "calcium",
           "difficulty": "hard",
           "type": "multiStepCalc",
@@ -7951,9 +8084,10 @@ const content = {
         },
         {
           "id": "b5",
+          "role": "methods",
           "type": "written",
           "difficulty": "medium",
-          "prompt": "Use the calcium source figure to design an L-type activation curve. Include isolation, sampling, driving-force correction and a limitation near reversal.",
+          "prompt": "Use the calcium source figure to design an L-type activation curve. Include isolation, sampling, driving-force correction and a limitation near reversal. How would you handle a pipette-to-bath junction potential when estimating the voltage dependence?",
           "markScheme": [
             {
               "text": "Record matched voltage-clamp currents before and after nifedipine."
@@ -7966,13 +8100,15 @@ const content = {
             },
             {
               "text": "At reversal current cannot identify conductance by division; current maximum is not activation maximum."
-            }
+            },
+            { "text": "Measure or estimate the junction potential for the solutions used and correct the voltage axis with the stated sign convention before interpreting activation or reversal." }
           ],
           "modelAnswer": [
             "Record matched voltage-clamp currents before and after nifedipine.",
             "Residual is T-type; control minus residual isolates L-type under unchanged-component assumptions.",
             "Use consistent sampling, divide by voltage minus reversal and normalize conductance.",
-            "At reversal current cannot identify conductance by division; current maximum is not activation maximum."
+            "At reversal current cannot identify conductance by division; current maximum is not activation maximum.",
+            "Measure or estimate the junction potential for the solutions used and correct the voltage axis with the stated sign convention before interpreting activation or reversal."
           ],
           "hints": [
             {
@@ -8008,6 +8144,7 @@ const content = {
       "questions": [
         {
           "id": "c1",
+          "role": "concepts",
           "type": "written",
           "difficulty": "medium",
           "prompt": "a) State the GHK assumptions. b) What does inward rectification mean? c) Distinguish specific from total capacitance.",
@@ -8040,6 +8177,7 @@ const content = {
         },
         {
           "id": "c2",
+          "role": "explanation",
           "type": "written",
           "difficulty": "medium",
           "prompt": "Explain the chloride source perturbation sequence with a labelled voltage sketch. Discuss the immediate versus delayed causes and why an exact calculation needs volume assumptions.",
@@ -8076,6 +8214,7 @@ const content = {
         },
         {
           "id": "c3",
+          "role": "calculation",
           "sectionId": "mutation",
           "difficulty": "hard",
           "type": "multiStepCalc",
@@ -8198,6 +8337,7 @@ const content = {
         },
         {
           "id": "c4",
+          "role": "calculation",
           "sectionId": "parallel",
           "difficulty": "hard",
           "type": "multiStepCalc",
@@ -8331,9 +8471,10 @@ const content = {
         },
         {
           "id": "c5",
+          "role": "methods",
           "type": "written",
           "difficulty": "medium",
-          "prompt": "Use the nonlinear source IV curve: distinguish chord and slope, explain positive chord with negative slope, and propose controls before attributing an altered current to a concentration change.",
+          "prompt": "Use the nonlinear source IV curve: distinguish chord and slope, explain positive chord with negative slope, and propose controls before attributing an altered current to a concentration change. How can a fixed-permeability pore yield a curved current–voltage relation?",
           "markScheme": [
             {
               "text": "Chord uses a secant to reversal; slope uses a local tangent."
@@ -8346,13 +8487,15 @@ const content = {
             },
             {
               "text": "A changed conductance can mimic a changed driving force, so amplitude alone is insufficient."
-            }
+            },
+            { "text": "Under the constant-field model unequal concentrations can produce different conductance on opposing sides of reversal even at fixed permeability." }
           ],
           "modelAnswer": [
             "Chord uses a secant to reversal; slope uses a local tangent.",
             "Current and driving force can retain the same sign while current decreases locally with voltage.",
             "Compare matched voltage and time and isolate the pathway.",
-            "A changed conductance can mimic a changed driving force, so amplitude alone is insufficient."
+            "A changed conductance can mimic a changed driving force, so amplitude alone is insufficient.",
+            "Under the constant-field model unequal concentrations can produce different conductance on opposing sides of reversal even at fixed permeability."
           ],
           "hints": [
             {
@@ -8383,6 +8526,117 @@ const content = {
     }
   ]
 };
+// Keep the earlier bank IDs available for saved records and numeric validation.
+// The MCQ-only policy presents only these compatible items during regular practice.
+function practiceMc(id, sectionId, difficulty, prompt, hints, choices) {
+  const [correctChoice] = choices;
+  return {
+    id: `L02-core-${id}`,
+    sectionId,
+    difficulty,
+    type: 'mc',
+    prompt,
+    hints: hints.map(body => ({ body })),
+    options: choices.map(([text, feedback]) => ({ text, feedback })),
+    correct: 0,
+    modelAnswer: [correctChoice[1]],
+  };
+}
+
+content.lectureQuiz.push(
+  practiceMc('choose-nernst', 'equilibrium', 'easy',
+    'Which equation gives the equilibrium voltage of a single ion?',
+    ["Start from the zero-net-flux condition.", "Look for one concentration ratio with a signed valence."], [
+      ['Single-ion Nernst equation', 'Nernst gives the voltage where net flux of that ion is zero.'],
+      ['GHK current equation', 'GHK current gives current density at a specified voltage and requires further work to find its zero.'],
+      ['Capacitor charge equation', 'The capacitor equation relates stored charge to voltage and has no concentration term.'],
+    ]),
+  practiceMc('chloride-valence', 'equilibrium', 'medium',
+    'Outside chloride exceeds inside chloride. What sign does its Nernst potential have?',
+    ["What sign is the logarithm of a ratio greater than one?", "Multiply by the sign of the valence for chloride."], [
+      ['Negative', 'The logarithm is positive and chloride has negative valence, giving a negative voltage.'],
+      ['Positive', 'The logarithm is positive, but chloride valence reverses its sign.'],
+      ['Zero', 'Zero would require equal concentrations in this model.'],
+    ]),
+  practiceMc('potassium-shift', 'potassium', 'medium',
+    'Outside potassium rises while the other concentrations and permeabilities stay fixed. What happens to the GHK resting voltage?',
+    ["Find the weighted outside potassium term.", "Only the numerator increases, so consider how the logarithm responds."], [
+      ['It becomes more positive', 'Outside potassium increases the numerator while the denominator stays fixed. The logarithm increases.'],
+      ['It becomes more negative', 'Outside potassium enters the numerator, so increasing it raises voltage.'],
+      ['It stays at the same value', 'The conductance or permeability can stay fixed while the concentration gradient changes.'],
+    ]),
+  practiceMc('charge-scale', 'charge', 'medium',
+    'Two spherical cells have the same specific membrane capacitance. For the same voltage step, how much charge does the cell with twice the radius require?',
+    ["Use the link between charge and total capacitance.", "Total capacitance scales with spherical area, which is proportional to radius squared."], [
+      ['Four times as much', 'Area grows with the square of radius, so total capacitance and charge both quadruple.'],
+      ['Twice as much', 'Area grows with radius squared, giving a factor of four.'],
+      ['Eight times as much', 'Volume grows eightfold, but capacitance here scales with surface area.'],
+    ]),
+  practiceMc('permeability-shift', 'mutation', 'medium',
+    'In the mixed-ion resting example, only sodium permeability increases. Which quantity changes immediately?',
+    ["Identify which inputs appear in Nernst.", "GHK also uses relative permeabilities in both concentration sums."], [
+      ['The GHK resting voltage', 'Sodium receives more weight in the GHK concentration sums, changing the predicted resting voltage.'],
+      ['The sodium Nernst voltage', 'Sodium Nernst voltage is unchanged because its concentration ratio and temperature are fixed.'],
+      ['The potassium Nernst voltage', 'The potassium concentration ratio is also unchanged.'],
+    ]),
+  practiceMc('reversal-ratio', 'clamp', 'medium',
+    'At fixed temperature and inside sodium, the early sodium current reverses at a more positive voltage in bath A than in bath B. Which inference follows?',
+    ["Treat the isolated sodium reversal as a sodium Nernst potential.", "At fixed inside concentration, a more positive sodium reversal means a larger outside-to-inside ratio."], [
+      ['Bath A has more outside sodium', 'A higher sodium reversal means a larger outside-to-inside sodium ratio.'],
+      ['Bath A has less outside sodium', 'Lowering outside sodium would decrease its equilibrium voltage.'],
+      ['The baths have equal outside sodium', 'Equal outside concentrations at fixed inside sodium and temperature would give equal reversals.'],
+    ]),
+  practiceMc('late-potassium', 'action-potential', 'medium',
+    'Sodium channels have inactivated and potassium conductance remains elevated after a spike. What best explains the voltage falling below its resting level?',
+    ["Which channel still conducts after sodium inactivates?", "Compare potassium equilibrium with the resting voltage."], [
+      ['Potassium current pulls voltage toward potassium equilibrium', 'Persistent outward potassium current pulls voltage toward potassium equilibrium, which is below rest in this example.'],
+      ['Sodium current pulls voltage toward sodium equilibrium', 'Sodium is largely inactivated and its equilibrium voltage is above rest.'],
+      ['The capacitor sets a new equilibrium below rest', 'Capacitance governs how fast voltage changes; the conducting pathways set the direction of change.'],
+    ]),
+  practiceMc('capacitive-plateau', 'circuit', 'medium',
+    'At a stable voltage-clamp plateau, what happens to capacitive current?',
+    ["The plateau follows the voltage transition.", "Evaluate the voltage derivative in the capacitive-current equation."], [
+      ['It falls to zero at the plateau', 'At the plateau the voltage derivative is zero. Ionic currents can still flow.'],
+      ['It stays at its transient peak', 'The transient comes from changing voltage. Voltage is constant at the plateau.'],
+      ['It equals the net ionic current', 'At a plateau capacitive current vanishes regardless of the ionic current.'],
+    ]),
+  practiceMc('chloride-direction', 'conductance', 'medium',
+    String.raw`A passive chloride pathway carries positive conventional current at $V_m>E_{\mathrm{Cl}}$. Which way do chloride ions move?`,
+    ["Start with the direction assigned to positive current.", "Chloride has negative charge, so its movement is opposite to conventional current."], [
+      ['Into the cell', 'Negative chloride moving inward creates positive outward conventional current.'],
+      ['Out of the cell', 'Outward chloride movement would give negative conventional current.'],
+      ['No net movement', 'With finite conductance and nonzero driving force, net chloride flux is present.'],
+    ]),
+  practiceMc('negative-slope', 'slope', 'medium',
+    'At a voltage above reversal, outward current is positive but decreases on a small depolarizing step. What are the signs of local slope and chord to reversal?',
+    ["A tangent uses only the small step around the operating point.", "For the chord, compare the sign of current with the sign of voltage minus reversal."], [
+      ['Slope negative, chord positive', 'The small current change is negative, while current and driving force are both positive.'],
+      ['Slope positive, chord negative', 'Current falls with voltage, and the line from reversal rises to the operating point.'],
+      ['Slope positive, chord positive', 'The chord is positive, but the local current change per voltage increase is negative.'],
+    ]),
+  practiceMc('parallel-balance', 'parallel', 'hard',
+    String.raw`Only two passive branches contribute at rest. Initially their conductances are equal, with $E_{\mathrm K}=-90\,\mathrm{mV}$ and $E_{\mathrm{Na}}=+30\,\mathrm{mV}$. Sodium conductance doubles. What is the new resting voltage and sodium current direction?`,
+    ["Use weights of one for potassium and two for sodium.", "Compare the resulting weighted mean with sodium reversal to get the current sign."], [
+      [String.raw`$-10\,\mathrm{mV}$, inward`, String.raw`The weighted mean is $(-90+2\times30)/3=-10\,\mathrm{mV}$. This is below sodium reversal, giving inward current.`],
+      [String.raw`$-10\,\mathrm{mV}$, outward`, 'The weighted mean is right. Sodium current is negative because voltage is below its reversal.'],
+      [String.raw`$-30\,\mathrm{mV}$, inward`, 'Sodium current is inward, but the voltage has moved above the original equal-weight mean.'],
+    ]),
+  practiceMc('calcium-activation', 'calcium', 'hard',
+    String.raw`At $-20\,\mathrm{mV}$, control and nifedipine residual currents are $-180$ and $-60\,\mathrm{pA}$. At $+10\,\mathrm{mV}$, they are $-100$ and $-20\,\mathrm{pA}$. Assume selective L-type block, unchanged residual pathways and L-type reversal at $+50\,\mathrm{mV}$. Where is L-type conductance larger?`,
+    ["Isolate L-type current by subtracting the nifedipine residual.", "Divide each isolated current by its own voltage minus reversal before comparing."], [
+      [String.raw`At $+10\,\mathrm{mV}$`, String.raw`The isolated conductances are $(-120)/(-70)\approx1.7\,\mathrm{nS}$ and $(-80)/(-40)=2\,\mathrm{nS}$. The second has smaller current magnitude but larger conductance.`],
+      [String.raw`At $-20\,\mathrm{mV}$`, 'The first step has larger isolated current magnitude but also larger driving force. Dividing gives the smaller conductance.'],
+      ['Equal at the two voltages', 'After isolation, the current-to-driving-force ratios differ.'],
+    ]),
+);
+
+const difficultyOrder = ['easy', 'medium', 'hard'];
+content.lectureQuiz.sort((a, b) => difficultyOrder.indexOf(a.difficulty) - difficultyOrder.indexOf(b.difficulty));
+
 content.formulaReference=equationSheet;
 content.formulaReferenceNote='Official exam information p4. Full-course reference; practice on this page requires only lectures 1–2.';
+const extraPracticeIds = new Set(['L02-core-charge-scale', 'L02-core-permeability-shift', 'L02-core-reversal-ratio', 'L02-core-negative-slope']);
+for (const question of content.lectureQuiz) {
+  if (extraPracticeIds.has(question.id)) question.practice = 'extra';
+}
 export default content;

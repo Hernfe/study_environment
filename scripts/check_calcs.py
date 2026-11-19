@@ -141,6 +141,8 @@ def compute(spec):
         result = a*k/(4*k+a)
         assert math.isclose((k+a-result)*(k-result), (k+result)**2, rel_tol=1e-10)
     elif relation == 'nernst': result = p['shortcut'] * math.log(p['outside'] / p['inside']) / math.log(10) / p['z']
+    elif relation == 'quantalFailure': result = -math.log(p['failures'] / p['trials'])
+    elif relation == 'quantalExpected': result = p['trials'] * math.exp(-p['m']) * p['m']**p['k'] / math.factorial(int(p['k']))
     elif relation == 'binomialProb':
         n, k_val, p_val = int(p['n']), int(p['k']), p['p']
         if not (0 <= p_val <= 1 and 0 <= k_val <= n): raise ValueError('Invalid binomial params')

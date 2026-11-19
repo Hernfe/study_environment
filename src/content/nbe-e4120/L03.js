@@ -11,10 +11,16 @@ const content = {
     "examDate": "2026-11-30",
     "examLabel": "Final exam"
   },
+  "overview": {
+    "estimate": "Core route: read the main sections and answer 24 core questions. Formula explorers, videos, extra practice and mocks are optional.",
+    "equations": "Core equations are $\\tau_m=R_mC_m$, $\\lambda=\\sqrt{r_m/r_i}$, $\\lambda^2\\partial_x^2 V=\\tau_m\\partial_t V+V$, and $V(x)=V_0e^{-|x|/\\lambda}$ for steady spread along an infinite cable.",
+    "pitfalls": "Use radius in the geometry formulas. Measure $V$ from rest and check the boundary conditions before using the exponential."
+  },
   "objectives": [
-    "Recognize passive responses and their recording protocol.",
-    "Derive the uniform cable equation with correct geometry, signs and dimensions.",
-    "Calculate and compare spatial attenuation, membrane timing and their limitations."
+    "Trace passive signals from dendritic input toward spike initiation.",
+    "Choose a lumped RC model or a distributed cable model.",
+    "Use current balance to explain the terms of the cable equation.",
+    "Predict spatial attenuation and local charging from separate scales."
   ],
   "prerequisites": [
     {
@@ -29,16 +35,20 @@ const content = {
     }
   ],
   "segmentedPractice": true,
+  "standardPractice": "mc-only",
+  "collapseFormulaExplorers": true,
   "sections": [
     {
       "id": "functions",
-      "title": "Overview: passive spread in a working neuron",
+      "title": "Passive spread in neurons",
       "keyTerms": [],
       "source": "L03 PDF 1–2",
       "blocks": [
         {
           "type": "text",
-          "body": ["Neurons generate intrinsic activity, receive inputs, integrate them with ongoing activity, encode output patterns and distribute outputs. Reception is mainly dendritic; integration spans dendrites, soma and the spike-initiation region. Passive spread connects these sites without regenerating an action potential (PDF pages 1–2).", "Electrotonic properties describe this passive spread. Membrane leak limits amplitude and capacitance stores charge, so a received signal need not reach an integrating site unchanged. Spatial spread uses $\\lambda$ and local timing uses $\\tau_m$. Throughout this lecture $V=V_m-V_{rest}$."]
+          "body": [
+            "Neurons generate intrinsic activity, receive inputs mainly on dendrites, integrate signals in dendrites, soma and the spike-initiation region, encode graded signals or spikes, and distribute outputs at axon terminals. Passive electrotonic spread carries graded signals from dendrites toward integration sites without regenerating a spike."
+          ]
         },
         {
           "type": "figure",
@@ -88,6 +98,7 @@ const content = {
         },
         {
           "id": "L03-functions-starter",
+          "practice": "extra",
           "type": "mc",
           "difficulty": "easy",
           "progressionAdded": true,
@@ -124,13 +135,15 @@ const content = {
     },
     {
       "id": "responses",
-      "title": "Two electrodes, passive responses and threshold",
+      "title": "Passive and active responses",
       "keyTerms": [],
       "source": "L03 PDF 3",
       "blocks": [
         {
           "type": "text",
-          "body": ["One microelectrode controls injected current while a second records membrane voltage. Compare voltage increments from the same baseline across current steps: small hyperpolarizing and depolarizing responses can be approximately proportional to the stimulus even in an excitable neuron (PDF page 3).", "When depolarization crosses threshold, permeability changes generate an active response and a single linear passive model no longer describes the trace. Use the current panel to identify the stimulus and the voltage panel to identify threshold crossing. Vary amplitude while keeping pulse duration and recording position fixed."]
+          "body": [
+            "One electrode injects current and a second records voltage. Compare small steps of equal duration at a fixed recording site. Approximately proportional voltage increments indicate passive spread. Crossing threshold can trigger a spike through voltage-dependent changes in permeability."
+          ]
         },
         {
           "type": "figure",
@@ -180,6 +193,7 @@ const content = {
         },
         {
           "id": "L03-responses-starter",
+          "practice": "extra",
           "type": "mc",
           "difficulty": "easy",
           "progressionAdded": true,
@@ -216,36 +230,45 @@ const content = {
     },
     {
       "id": "analogy",
-      "title": "A cable stores charge and loses signal",
+      "title": "Distributed resistance and storage",
       "keyTerms": [],
       "source": "L03 PDF 4–5",
       "blocks": [
         {
           "type": "text",
-          "body": ["The telegraph cable illustrates resistance and charge storage distributed along a conductor. Charging one end produces currents and voltages at the receiver, but a long cable changes the transmitted waveform. The useful analogy is electrical storage and signal decay, rather than the historical dates or map (PDF pages 4–5).", "In a neural cable, axial resistance opposes longitudinal current while membrane leak and capacitance divert it along the path. Passive spread therefore loses amplitude and changes timing. The analogy describes passive transmission; active membrane responses require the permeability changes introduced in the preceding section."]
+          "body": [
+            "Resistance and charge storage are distributed along a cable. Insulation separates the conducting core from its surroundings. A step applied at one end changes shape as it travels."
+          ]
         },
         {
-          "type": "figure",
-          "visual": {
-            "type": "widget",
-            "name": "image-hotspots",
-            "caption": "Lecture 3, PDF page 4. Source figure with original labels and axes retained.",
-            "fallbackAlt": "Lecture 3, PDF page 4. Source figure with original labels and axes retained.",
-            "props": {
-              "src": new URL('../../assets/figures/nbe-e4120/L03/analogy.webp', import.meta.url).href,
-              "alt": "Lecture 3, PDF page 4. Source figure with original labels and axes retained.",
-              "aspect": 3.124716553287982,
-              "quiz": false,
-              "layout": "stack",
-              "regions": []
+          "type": "detail",
+          "title": "Extra detail · Telegraph cable analogy",
+          "blocks": [
+            {
+              "type": "figure",
+              "visual": {
+                "type": "widget",
+                "name": "image-hotspots",
+                "caption": "Lecture 3, PDF page 4. Source figure with original labels and axes retained.",
+                "fallbackAlt": "Lecture 3, PDF page 4. Source figure with original labels and axes retained.",
+                "props": {
+                  "src": new URL('../../assets/figures/nbe-e4120/L03/analogy.webp', import.meta.url).href,
+                  "alt": "Lecture 3, PDF page 4. Source figure with original labels and axes retained.",
+                  "aspect": 3.124716553287982,
+                  "quiz": false,
+                  "layout": "stack",
+                  "regions": []
+                }
+              }
             }
-          }
+          ]
         }
       ],
       "formulas": [],
       "conceptQuiz": [
         {
           "id": "L03-analogy-check",
+          "practice": "extra",
           "prompt": "Which feature makes the analogy useful?",
           "correct": 0,
           "options": [
@@ -272,6 +295,7 @@ const content = {
         },
         {
           "id": "L03-analogy-starter",
+          "practice": "extra",
           "type": "mc",
           "difficulty": "easy",
           "progressionAdded": true,
@@ -308,13 +332,15 @@ const content = {
     },
     {
       "id": "filter",
-      "title": "Temporal and frequency-domain filtering",
+      "title": "RC filtering",
       "keyTerms": [],
       "source": "L03 PDF 6",
       "blocks": [
         {
           "type": "text",
-          "body": ["An RC membrane is a first-order low-pass filter: slow changes are followed more faithfully than rapid fluctuations. Its impulse response decays exponentially. With steady resistance fixed, greater capacitance prolongs that decay and suppresses faster changes more strongly (PDF page 6).", "The explorers below connect $\\tau_m=R_mC_m$ with $f_c=1/(2\\pi\\tau_m)$. Convert the time constant to seconds before finding frequency in hertz. A larger time constant means a lower corner frequency. Along a spatial cable, attenuation and delay add to this local membrane filtering."]
+          "body": [
+            "A passive RC membrane is a first-order low-pass filter. Faster fluctuations are attenuated more strongly. With $\\tau_m=R_mC_m$, the corner frequency is $f_c=1/(2\\pi\\tau_m)$. Use seconds for $\\tau_m$ to obtain hertz."
+          ]
         },
         {
           "type": "figure",
@@ -474,6 +500,7 @@ const content = {
         },
         {
           "id": "L03-filter-starter",
+          "practice": "extra",
           "type": "mc",
           "difficulty": "easy",
           "progressionAdded": true,
@@ -510,13 +537,15 @@ const content = {
     },
     {
       "id": "cylinders",
-      "title": "From a dendritic tree to cylindrical cables",
+      "title": "Model dendrites as cylinders",
       "keyTerms": [],
       "source": "L03 PDF 7",
       "blocks": [
         {
           "type": "text",
-          "body": ["A dendritic tree can be approximated by connected continuous cylinders. This retains paths between input and recording sites, allowing voltage to vary with position rather than assigning one voltage to the whole neuron. The source contrasts detailed trees with a simplified cylinder representation (PDF page 7).", "The purpose is to quantify attenuation and understand how spatially separated inputs contribute to integration. Cylinder radius and membrane properties determine the cable parameters developed below. NEURON is an application of this modelling approach; no software operation or simulated output is needed to interpret the supplied figures."]
+          "body": [
+            "Model branches as connected cylinders to retain the path between input and recording sites. This lets the model predict how attenuation changes each input’s contribution to integration."
+          ]
         },
         {
           "type": "figure",
@@ -540,6 +569,7 @@ const content = {
       "conceptQuiz": [
         {
           "id": "L03-cylinders-check",
+          "practice": "extra",
           "prompt": "What is the useful geometric approximation?",
           "correct": 0,
           "options": [
@@ -566,6 +596,7 @@ const content = {
         },
         {
           "id": "L03-cylinders-starter",
+          "practice": "extra",
           "type": "mc",
           "difficulty": "easy",
           "progressionAdded": true,
@@ -602,13 +633,15 @@ const content = {
     },
     {
       "id": "sphere",
-      "title": "The isopotential sphere",
+      "title": "Isopotential sphere",
       "keyTerms": [],
       "source": "L03 PDF 8",
       "blocks": [
         {
           "type": "text",
-          "body": ["An isopotential sphere has the same membrane voltage everywhere. In the ohmic approximation its specific membrane resistance is constant, so a uniform membrane can be represented by one parallel resistance–capacitance balance. All voltages here are increments relative to rest (PDF page 8).", "Divide total injected current by spherical surface area to obtain supplied current density. Use $A=4\\pi a^2$, where $a$ is radius, not diameter. This is membrane surface area, not the cross-section used for axial cable flow. A larger sphere receives less current per area for the same total injection."]
+          "body": [
+            "One voltage describes an isopotential cell. For a sphere with voltage-independent membrane resistance and radius $a$, divide total injected current $I_0$ by membrane area $A=4\\pi a^2$ to get current density."
+          ]
         },
         {
           "type": "figure",
@@ -768,6 +801,7 @@ const content = {
         },
         {
           "id": "L03-sphere-starter",
+          "practice": "extra",
           "type": "mc",
           "difficulty": "easy",
           "progressionAdded": true,
@@ -804,13 +838,15 @@ const content = {
     },
     {
       "id": "input",
-      "title": "Input resistance and the lumped step",
+      "title": "Input resistance and charging",
       "keyTerms": [],
       "source": "L03 PDF 8",
       "blocks": [
         {
           "type": "text",
-          "body": ["Input resistance is the steady voltage increment divided by total injected current. For the passive sphere, $R_{input}=R_m/A$: more membrane area provides more parallel leak paths and lowers input resistance when specific properties stay fixed (PDF page 8).", "For a current step, find area first, then input resistance and the final increment from Ohm’s law. The voltage approaches that value exponentially with $\\tau_m=R_mC_m$. Changing radius changes the final amplitude at fixed total current, but not this local time constant. The lumped sphere alone predicts no spatial attenuation."]
+          "body": [
+            "Use $R_{\\mathrm{input}}=V(\\infty)/I_0=R_m/A$ for a uniform passive sphere. From rest, a maintained step gives $V(t)=I_0R_{\\mathrm{input}}(1-e^{-t/\\tau_m})$. At fixed current and membrane properties, increasing area lowers the final voltage increment."
+          ]
         },
         {
           "type": "figure",
@@ -965,6 +1001,7 @@ const content = {
       "conceptQuiz": [
         {
           "id": "L03-input-check",
+          "practice": "extra",
           "prompt": "How is input resistance measured?",
           "correct": 0,
           "options": [
@@ -991,6 +1028,7 @@ const content = {
         },
         {
           "id": "L03-input-starter",
+          "practice": "extra",
           "type": "mc",
           "difficulty": "easy",
           "progressionAdded": true,
@@ -1027,13 +1065,15 @@ const content = {
     },
     {
       "id": "distributed",
-      "title": "Voltage differs along a real neuron",
+      "title": "Spatially varying voltage",
       "keyTerms": [],
       "source": "L03 PDF 9",
       "blocks": [
         {
           "type": "text",
-          "body": ["A non-isopotential neuron can have different voltages at different recording positions. Its distributed circuit places membrane resistance and capacitance in parallel at each segment, with longitudinal resistance connecting neighbouring segments. This adds a route for current absent from the single-voltage sphere (PDF page 9).", "The intracellular path and extracellular return path are distinct. Current can travel onward along the core or cross the local membrane, so local injection need not produce the same voltage everywhere. Geometry and membrane nonuniformity can also matter; the next section states the simplifying assumptions needed for a uniform linear cable."]
+          "body": [
+            "Different recording positions can have different voltages. A distributed model links parallel membrane RC branches with longitudinal resistances. This allows axial current between segments."
+          ]
         },
         {
           "type": "figure",
@@ -1083,6 +1123,7 @@ const content = {
         },
         {
           "id": "L03-distributed-starter",
+          "practice": "extra",
           "type": "mc",
           "difficulty": "easy",
           "progressionAdded": true,
@@ -1119,13 +1160,15 @@ const content = {
     },
     {
       "id": "assumptions",
-      "title": "Choose a reference and state the assumptions",
+      "title": "Uniform cable assumptions",
       "keyTerms": [],
       "source": "L03 PDF 10",
       "blocks": [
         {
           "type": "text",
-          "body": ["The initial linear model is an infinitely long cylinder of constant radius, with uniform passive parameters independent of voltage. Extracellular resistance is neglected. The voltage variable is $V=V_m-V_{rest}$, so zero response means the resting baseline, not zero absolute membrane voltage (PDF page 10).", "One-dimensional core flow assumes negligible radial voltage variation inside the cylinder; it does not remove transmembrane leak. Tapering, voltage-dependent responses or a nearby terminal each violate a different assumption. Check these before applying the uniform infinite-cable attenuation law to a real dendrite."]
+          "body": [
+            "Use $V=V_m-V_{\\mathrm{rest}}$. The basic model uses a uniform cylinder, constant passive parameters, negligible radial voltage gradients inside the core and negligible extracellular resistance. The infinite-cable solution assumes no ends. It can approximate a long cable away from terminals. Tapering, nearby terminals or voltage-dependent conductances require different assumptions."
+          ]
         },
         {
           "type": "figure",
@@ -1175,6 +1218,7 @@ const content = {
         },
         {
           "id": "L03-assumptions-starter",
+          "practice": "extra",
           "type": "mc",
           "difficulty": "easy",
           "progressionAdded": true,
@@ -1211,13 +1255,15 @@ const content = {
     },
     {
       "id": "compartments",
-      "title": "Current divides between membrane and axial paths",
+      "title": "Axial current and membrane current",
       "keyTerms": [],
       "source": "L03 PDF 11",
       "blocks": [
         {
           "type": "text",
-          "body": ["At an injected compartment, current divides into onward axial flow and membrane current. The membrane branch itself includes capacitive charging and resistive leak. Kirchhoff’s law requires accounting for these paths together, rather than assigning all injected current to the leak resistor (PDF page 11).", "At steady state voltage no longer changes, so capacitive current vanishes while leak and axial current can remain. Using a rest-relative voltage removes the resting battery from the increment equation. It does not assert that the cell’s absolute resting potential is zero."]
+          "body": [
+            "Kirchhoff’s current law balances the axial, leak and capacitive paths. At steady state the capacitive current vanishes. Axial and leak currents can still flow."
+          ]
         },
         {
           "type": "figure",
@@ -1241,6 +1287,7 @@ const content = {
       "conceptQuiz": [
         {
           "id": "L03-compartments-check",
+          "practice": "extra",
           "prompt": "Which branch carries no steady current?",
           "correct": 1,
           "options": [
@@ -1267,6 +1314,7 @@ const content = {
         },
         {
           "id": "L03-compartments-starter",
+          "practice": "extra",
           "type": "mc",
           "difficulty": "easy",
           "progressionAdded": true,
@@ -1303,13 +1351,15 @@ const content = {
     },
     {
       "id": "geometry",
-      "title": "Specific parameters versus per-length parameters",
+      "title": "Convert material to cable parameters",
       "keyTerms": [],
       "source": "L03 PDF 12",
       "blocks": [
         {
           "type": "text",
-          "body": ["Specific parameters describe membrane material or intracellular resistivity; lowercase cable parameters include cylinder geometry. Axial flow uses cross-section $\\pi a^2$, whereas membrane leak and storage use lateral area $2\\pi a\\ell$. Keep one length system throughout a conversion (PDF page 12).", "The explorers give resistance per length for $r_i$, resistance times length for $r_m$, and capacitance per length for $c_m$. A longer segment has greater axial resistance but lower membrane resistance because it adds parallel membrane area. Larger radius lowers axial resistance quadratically and membrane resistance-length only linearly."]
+          "body": [
+            "For radius $a$, use core area $\\pi a^2$ and membrane circumference $2\\pi a$. Convert intracellular resistivity $R_i$ to $r_i=R_i/(\\pi a^2)$, specific membrane resistance $R_m$ to $r_m=R_m/(2\\pi a)$, and specific capacitance $C_m$ to $c_m=2\\pi aC_m$. A segment of length $\\ell$ has axial resistance $r_i\\ell$, membrane resistance $r_m/\\ell$ and capacitance $c_m\\ell$."
+          ]
         },
         {
           "type": "figure",
@@ -1650,6 +1700,7 @@ const content = {
         },
         {
           "id": "L03-geometry-starter",
+          "practice": "extra",
           "type": "mc",
           "difficulty": "easy",
           "progressionAdded": true,
@@ -1686,13 +1737,15 @@ const content = {
     },
     {
       "id": "conservation",
-      "title": "From voltage gradient to current conservation",
+      "title": "Current conservation",
       "keyTerms": [],
       "source": "L03 PDF 13",
       "blocks": [
         {
           "type": "text",
-          "body": ["Take positive axial current along increasing $x$ and positive membrane current outward. Axial Ohm’s law gives a negative voltage gradient along positive axial flow. Outward membrane current removes charge from that flow, so axial current decreases with distance (PDF page 13).", "For a uniform cable, differentiating the voltage gradient and substituting current conservation cancels the two minus signs: voltage curvature is $r_i i_m$. Curvature, rather than voltage slope alone, expresses local current loss. Keep axial current distinct from membrane current per length when checking dimensions."]
+          "body": [
+            "With axial current positive toward increasing $x$ and membrane current positive outward, $\\partial_x V=-r_i i_i$ and $\\partial_x i_i=-i_m$ in a source-free interval. For uniform $r_i$, this gives $\\partial_x^2 V=r_i i_m$. Here $i_i$ is current and $i_m$ is current per length."
+          ]
         },
         {
           "type": "figure",
@@ -1871,6 +1924,7 @@ const content = {
         },
         {
           "id": "L03-conservation-starter",
+          "practice": "extra",
           "type": "mc",
           "difficulty": "easy",
           "progressionAdded": true,
@@ -1907,13 +1961,15 @@ const content = {
     },
     {
       "id": "equation",
-      "title": "Membrane balance and the linear cable equation",
+      "title": "Read the cable equation",
       "keyTerms": [],
       "source": "L03 PDF 14",
       "blocks": [
         {
           "type": "text",
-          "body": ["Membrane current per length combines capacitive charging and ohmic leak. Substitute this RC balance into the curvature relation to obtain $\\lambda^2\\partial_x^2V=\\tau_m\\partial_tV+V$ in a uniform source-free interval. Each term has voltage units (PDF page 14).", "The spatial term describes axial redistribution; the time term describes charge storage, and the local voltage term describes leak. Rearranging gives the local voltage slope. If spatial curvature is zero, a positive increment decays through leak. A rising increment therefore requires sufficient axial support or an explicit source."]
+          "body": [
+            "Substitute membrane current $i_m=c_m\\partial_t V+V/r_m$ into the curvature relation. The result is $\\lambda^2\\partial_x^2V=\\tau_m\\partial_t V+V$. Curvature represents axial redistribution, the time derivative represents charge storage, and the voltage term represents leak. With zero curvature and no injection, a positive increment decays."
+          ]
         },
         {
           "type": "figure",
@@ -2094,6 +2150,7 @@ const content = {
         },
         {
           "id": "L03-equation-starter",
+          "practice": "extra",
           "type": "mc",
           "difficulty": "easy",
           "progressionAdded": true,
@@ -2130,13 +2187,22 @@ const content = {
     },
     {
       "id": "length",
-      "title": "Length constant and external resistance",
+      "title": "Length constant",
       "keyTerms": [],
       "source": "L03 PDF 14",
       "blocks": [
         {
+          "type": "relevantVideo",
+          "videoId": "2VzAY8pEbEE",
+          "title": "Cable Theory Model of the Neuron And Analysis Of The Space Constant Lambda (With Derivations) | Clip",
+          "topic": "How membrane leak and axial resistance determine the space constant.",
+          "channel": "Science With Tal"
+        },
+        {
           "type": "text",
-          "body": ["The length constant compares membrane leakage with longitudinal resistance. With negligible extracellular resistance, it is the square root of $r_m/r_i$. If a longitudinal extracellular return resistance is retained, it adds to the intracellular resistance in the denominator and reduces spatial spread (PDF page 14).", "An equivalent definition equates a segment’s axial resistance with its membrane resistance. These are $r_i\\ell$ and $r_m/\\ell$, so equality occurs at $\\ell=\\lambda$. Do not equate the per-length parameters directly: their units differ. Larger membrane resistance favours spread; larger longitudinal resistance opposes it."]
+          "body": [
+            "Use $\\lambda=\\sqrt{r_m/r_i}$ with negligible extracellular resistance. If the uniform external return path has resistance per length $r_o$, use $\\sqrt{r_m/(r_i+r_o)}$. With $r_o=0$, a segment of length $\\lambda$ has equal axial and membrane resistances."
+          ]
         },
         {
           "type": "figure",
@@ -2252,6 +2318,7 @@ const content = {
         },
         {
           "id": "L03-length-starter",
+          "practice": "extra",
           "type": "mc",
           "difficulty": "easy",
           "progressionAdded": true,
@@ -2288,13 +2355,15 @@ const content = {
     },
     {
       "id": "pulse",
-      "title": "Read attenuation and temporal broadening",
+      "title": "Read a passive pulse",
       "keyTerms": [],
       "source": "L03 PDF 15",
       "blocks": [
         {
           "type": "text",
-          "body": ["The current panel specifies the controlled subthreshold pulse; voltage is measured at the labelled distances. More distant traces are smaller, delayed and rounded because current spreads axially while membrane leak dissipates it and capacitance stores charge. Read relative waveform changes rather than extracting precise values from these curves (PDF page 15).", "The distributed forcing term is $-r_mj_{inj}$ on the leak side of the cable equation, where $j_{inj}$ is injected current per length. It supports depolarization when moved to the evolution side. A point injection instead imposes a current jump. Distance-dependent filtering alone does not establish changed membrane material properties."]
+          "body": [
+            "Distant traces are smaller, delayed and broader. Compare them for the same subthreshold pulse. Distributed injection adds $-r_mj_{\\mathrm{inj}}$ to the leak side of the equation, with $j_{\\mathrm{inj}}$ in current per length. A point injection sets a jump in axial current."
+          ]
         },
         {
           "type": "figure",
@@ -2318,6 +2387,7 @@ const content = {
       "conceptQuiz": [
         {
           "id": "L03-pulse-check",
+          "practice": "extra",
           "prompt": "Which response corresponds to a more distant position in the source traces?",
           "correct": 0,
           "options": [
@@ -2344,6 +2414,7 @@ const content = {
         },
         {
           "id": "L03-pulse-starter",
+          "practice": "extra",
           "type": "mc",
           "difficulty": "easy",
           "progressionAdded": true,
@@ -2380,13 +2451,15 @@ const content = {
     },
     {
       "id": "decay",
-      "title": "Steady attenuation along an infinite cable",
+      "title": "Steady attenuation",
       "keyTerms": [],
       "source": "L03 PDF 16",
       "blocks": [
         {
           "type": "text",
-          "body": ["At steady state the capacitive current vanishes, but leak and axial current remain. For a symmetric infinite cable, the bounded spatial response is $V(x)=V_0e^{-|x|/\\lambda}$, where $V_0$ is the increment at the injection site (PDF page 16).", "One length constant leaves the inverse-e fraction of the origin response, not zero. Use the absolute distance for either side of injection and preserve the sign of the origin increment. To infer spread, compare the remote-to-origin ratio: a remote amplitude alone also depends on how strongly the origin was driven."]
+          "body": [
+            "For a uniform infinite cable with a steady point injection, $V(x)=V_0e^{-|x|/\\lambda}$, where $V_0$ is the signed origin increment. At $|x|=\\lambda$, about 37% remains. Compare remote-to-origin ratios to distinguish attenuation from injection strength."
+          ]
         },
         {
           "type": "figure",
@@ -2476,6 +2549,7 @@ const content = {
       "conceptQuiz": [
         {
           "id": "L03-decay-check",
+          "practice": "extra",
           "prompt": "What does steady state remove from the cable equation?",
           "correct": 1,
           "options": [
@@ -2502,6 +2576,7 @@ const content = {
         },
         {
           "id": "L03-decay-starter",
+          "practice": "extra",
           "type": "mc",
           "difficulty": "easy",
           "progressionAdded": true,
@@ -2538,13 +2613,15 @@ const content = {
     },
     {
       "id": "scaling",
-      "title": "Radius and resistivity control spatial spread",
+      "title": "How diameter affects spread",
       "keyTerms": [],
       "source": "L03 PDF 17",
       "blocks": [
         {
           "type": "text",
-          "body": ["With negligible extracellular resistance, $\\lambda=\\sqrt{R_ma/(2R_i)}$. Raising specific membrane resistance reduces leak, lowering intracellular resistivity eases axial flow, and increasing radius improves spread. The square root means a factor change in a parameter is not the same factor change in length constant (PDF page 17).", "Radius lowers axial resistance more strongly than membrane resistance-length because cross-section grows quadratically while circumference grows linearly. Keep material resistivity distinct from geometry-dependent resistance. Compare normalized spatial profiles or hold the origin voltage fixed when judging attenuation; greater absolute amplitude alone is insufficient."]
+          "body": [
+            "When external resistance is negligible, $\\lambda=\\sqrt{R_ma/(2R_i)}$. Higher membrane resistance, lower intracellular resistivity or larger diameter improves spread. Doubling diameter multiplies $\\lambda$ by $\\sqrt{2}$ at fixed material properties."
+          ]
         },
         {
           "type": "figure",
@@ -2659,6 +2736,7 @@ const content = {
         },
         {
           "id": "L03-scaling-starter",
+          "practice": "extra",
           "type": "mc",
           "difficulty": "easy",
           "progressionAdded": true,
@@ -2695,13 +2773,15 @@ const content = {
     },
     {
       "id": "distance",
-      "title": "Electrotonic distance is dimensionless",
+      "title": "Electrotonic distance",
       "keyTerms": [],
       "source": "L03 PDF 18",
       "blocks": [
         {
           "type": "text",
-          "body": ["Electrotonic distance $X=x/\\lambda$ expresses physical separation in units of the cable’s length constant. It is dimensionless only when both lengths use matching units. A long physical distance can be electrotonically short in a cable with a large length constant (PDF page 18).", "For geometry problems, first convert radius and specific properties consistently, then obtain per-length resistances and the length constant. Divide distance by that length before using the exponential attenuation law. In the symmetric infinite model attenuation depends on $|X|$, not on physical distance alone."]
+          "body": [
+            "$X=x/\\lambda$ is dimensionless. Use matching length units and insert $|X|$ in the symmetric attenuation law. For example, $x=4\\,\\mathrm{mm}$ with $\\lambda=1\\,\\mathrm{mm}$ gives $X=4$. The infinite-cable model then leaves $e^{-4}\\approx1.8\\%$ of the origin increment."
+          ]
         },
         {
           "type": "figure",
@@ -2784,6 +2864,7 @@ const content = {
       "conceptQuiz": [
         {
           "id": "L03-distance-check",
+          "practice": "extra",
           "prompt": "Which quantity is dimensionless?",
           "correct": 1,
           "options": [
@@ -2810,6 +2891,7 @@ const content = {
         },
         {
           "id": "L03-distance-starter",
+          "practice": "extra",
           "type": "mc",
           "difficulty": "easy",
           "progressionAdded": true,
@@ -2846,13 +2928,15 @@ const content = {
     },
     {
       "id": "time",
-      "title": "Charging, discharging and geometry cancellation",
+      "title": "Local membrane time constant",
       "keyTerms": [],
       "source": "L03 PDF 19",
       "blocks": [
         {
           "type": "text",
-          "body": ["The local membrane time constant is $r_mc_m=R_mC_m$: circumference cancels between membrane resistance-length and capacitance per length. It is therefore independent of radius when specific membrane properties remain fixed. Smaller time constants mean faster local charging and discharging (PDF page 19).", "Charging reaches about 63 percent of its final increment after one time constant; discharge retains about 37 percent of its starting increment and keeps its sign. A distant cable trace also reflects axial redistribution. Fitting every remote waveform with one local RC exponential cannot by itself establish a distance-dependent capacitance."]
+          "body": [
+            "$\\tau_m=r_mc_m=R_mC_m$. Radius cancels. A lumped step reaches 63% of its final increment after one time constant. Local discharge follows $V(t)=V_0 e^{-t/\\tau_m}$, leaving 37%. A distant transient also depends on axial flow."
+          ]
         },
         {
           "type": "figure",
@@ -2968,6 +3052,7 @@ const content = {
         },
         {
           "id": "L03-time-starter",
+          "practice": "extra",
           "type": "mc",
           "difficulty": "easy",
           "progressionAdded": true,
@@ -3004,13 +3089,15 @@ const content = {
     },
     {
       "id": "myelin",
-      "title": "Insulation: separate distance and time effects",
+      "title": "Insulation and passive spread",
       "keyTerms": [],
       "source": "L03 PDF 20",
       "blocks": [
         {
           "type": "text",
-          "body": ["Insulation raises effective membrane resistance and lowers capacitance. At fixed radius and intracellular resistivity, increased resistance enlarges the length constant and reduces attenuation for the same origin increment. This is the passive-spread point of the myelin example (PDF page 20).", "The local time constant is a product: it decreases only if the capacitance reduction outweighs the resistance increase. The slide’s faster-time claim therefore needs specified factors. Its broad profile is labelled as either a larger unmyelinated process or a smaller myelinated one, so profile width alone does not uniquely identify myelin."]
+          "body": [
+            "At fixed geometry, myelin increases $R_m$ and reduces $C_m$. Higher $R_m$ increases $\\lambda$. Local charging gets faster only if the product $R_mC_m$ falls."
+          ]
         },
         {
           "type": "figure",
@@ -3034,6 +3121,7 @@ const content = {
       "conceptQuiz": [
         {
           "id": "L03-myelin-check",
+          "practice": "extra",
           "prompt": "What determines whether local time constant decreases?",
           "correct": 1,
           "options": [
@@ -3060,6 +3148,7 @@ const content = {
         },
         {
           "id": "L03-myelin-starter",
+          "practice": "extra",
           "type": "mc",
           "difficulty": "easy",
           "progressionAdded": true,
@@ -3096,13 +3185,15 @@ const content = {
     },
     {
       "id": "boundaries",
-      "title": "Boundary conditions and temporal resolution",
+      "title": "When ends matter",
       "keyTerms": [],
       "source": "L03 PDF 21",
       "blocks": [
         {
           "type": "text",
-          "body": ["The cable equation needs boundary conditions, and a transient also needs an initial condition, before it specifies a waveform. A finite dendritic end constrains axial flow differently from an infinitely extended cable. Do not reuse the infinite exponential at a finite terminal without checking that assumption (PDF page 21).", "Electrotonically short paths better preserve amplitude and rapid changes. Long paths attenuate signals and broaden their timing through distributed storage and flow. Amplitude preservation and temporal resolution are related but distinct: a larger distant response does not by itself prove a faster local membrane time constant."]
+          "body": [
+            "Specify endpoint and source conditions before solving the cable equation. A transient also needs an initial condition. Check for nearby ends before applying the infinite-cable exponential. Electrotonically long paths broaden pulses."
+          ]
         },
         {
           "type": "figure",
@@ -3152,6 +3243,7 @@ const content = {
         },
         {
           "id": "L03-boundaries-starter",
+          "practice": "extra",
           "type": "mc",
           "difficulty": "easy",
           "progressionAdded": true,
@@ -3188,13 +3280,15 @@ const content = {
     },
     {
       "id": "normalization",
-      "title": "Normalized variables and the transient reference",
+      "title": "Normalize time and distance",
       "keyTerms": [],
       "source": "L03 PDF 22",
       "blocks": [
         {
           "type": "text",
-          "body": ["Normalized distance $X=|x|/\\lambda$ and time $T=t/\\tau_m$ separate spatial and temporal scales. Matching units cancel within each ratio. The transient depends on both variables, whereas the long-time spatial attenuation depends on distance alone (PDF page 22).", "The error-function expression is a reference, not a simulated trace. Its plot and definitions give $\\operatorname{erfc}(u)=1-\\operatorname{erf}(u)$: erf is odd, starts at zero and tends to one for positive large arguments; erfc starts at one and tends to zero. The retained minus between transient terms gives continuous onset and the steady exponential limit."]
+          "body": [
+            "Use $T=t/\\tau_m$ and $|X|=|x|/\\lambda$ for a symmetric transient. At steady state only distance remains in the attenuation law. The transient reference uses $\\operatorname{erfc}(u)=1-\\operatorname{erf}(u)$."
+          ]
         },
         {
           "type": "figure",
@@ -3330,6 +3424,7 @@ const content = {
         },
         {
           "id": "L03-normalization-starter",
+          "practice": "extra",
           "type": "mc",
           "difficulty": "easy",
           "progressionAdded": true,
@@ -3366,13 +3461,15 @@ const content = {
     },
     {
       "id": "synthesis",
-      "title": "Synthesis and what a cable simulation should demonstrate",
+      "title": "Choose a plot",
       "keyTerms": [],
       "source": "L03 PDF 23",
       "blocks": [
         {
           "type": "text",
-          "body": ["The summary separates spatial attenuation from temporal charging. High membrane resistance, low intracellular resistivity and larger radius promote spread, while the local membrane time constant depends on the product of specific resistance and capacitance. Increasing radius alone can improve spread without changing that product (PDF page 23).", "Sketch voltage against distance separately from voltage against time, naming the controlled input and baseline. A passive cable simulation should demonstrate leak, attenuation and delayed, broadened distant responses. No Exercise 3 file or simulator output is supplied, so these are theory-based predictions rather than certified simulation results."]
+          "body": [
+            "Use voltage versus distance for steady spatial attenuation. Use voltage versus time at a named recording site for charging or pulse broadening. Label the stimulus and baseline on either plot."
+          ]
         },
         {
           "type": "figure",
@@ -3396,6 +3493,7 @@ const content = {
       "conceptQuiz": [
         {
           "id": "L03-synthesis-check",
+          "practice": "extra",
           "prompt": "Which comparison isolates a spatial effect?",
           "correct": 0,
           "options": [
@@ -3422,6 +3520,7 @@ const content = {
         },
         {
           "id": "L03-synthesis-starter",
+          "practice": "extra",
           "type": "mc",
           "difficulty": "easy",
           "progressionAdded": true,
@@ -3458,6 +3557,7 @@ const content = {
     }
   ],
   "recap": {
+    "takeaways": ["Use spatial resolution when axial voltage drops matter.", "Membrane leak sets spatial attenuation with axial resistance. Capacitance adds temporal delay.", "Specify the geometry, coordinate, and boundary conditions before using a cable profile."],
     "intro": "Practice reference; supplied official equations and calculator are confirmed. Open-book status is unconfirmed.",
     "terms": [
       {
@@ -3632,6 +3732,40 @@ const content = {
     ]
   },
   "lectureQuiz": [
+    {
+      "id": "L03-rebalance-geometry-transient",
+      "type": "mc",
+      "difficulty": "hard",
+      "sectionId": "scaling",
+      "source": "L03 PDF pp10–15; official exam p4",
+      "prompt": "Synthetic practice scenario. Two passive cylindrical cables have the same specific membrane resistance and capacitance and the same axial resistivity. The second has larger diameter. What happens at the same physical distance for a maintained step if both are effectively infinite and their steady injection-site voltages are matched?",
+      "correct": 0,
+      "options": [
+        {
+          "text": "Steady attenuation is weaker and the local membrane time constant is unchanged.",
+          "feedback": "Larger diameter increases the length constant. The time constant is the product of the unchanged specific membrane parameters."
+        },
+        {
+          "text": "Steady attenuation is weaker and the local membrane time constant increases.",
+          "feedback": "The larger diameter increases the length constant, but the specified membrane parameters keep the time constant fixed."
+        },
+        {
+          "text": "Steady attenuation is stronger and the local membrane time constant is unchanged.",
+          "feedback": "The diameter increase reduces axial resistance per length enough to increase the length constant."
+        }
+      ],
+      "hints": [
+        {
+          "body": "Separate the spatial scale from the local membrane time scale."
+        },
+        {
+          "body": "Compare the diameter dependence of each quantity while holding the specific properties fixed."
+        }
+      ],
+      "modelAnswer": [
+        "The length constant grows with the square root of diameter under these assumptions, so the same distance is shorter in electrotonic units. The fixed specific resistance and capacitance leave the local membrane time constant unchanged."
+      ]
+    },
     {
       "id": "L03-functions-recall",
       "sectionId": "functions",
@@ -7549,6 +7683,7 @@ const content = {
       "questions": [
         {
           "id": "L03-a1",
+          "role": "concepts",
           "type": "written",
           "difficulty": "medium",
           "prompt": "a) Define electrotonic spread. b) Distinguish isopotential from non-isopotential. c) Define input resistance. Answer each in 1–3 sentences.",
@@ -7581,6 +7716,7 @@ const content = {
         },
         {
           "id": "L03-a2",
+          "role": "explanation",
           "type": "written",
           "difficulty": "medium",
           "prompt": "Explain the five neuronal functions and sketch how passive spread connects reception and integration. Contrast small passive depolarization with a threshold-crossing active response.",
@@ -7617,6 +7753,7 @@ const content = {
         },
         {
           "id": "L03-a3",
+          "role": "calculation",
           "sectionId": "decay",
           "difficulty": "hard",
           "type": "multiStepCalc",
@@ -7758,6 +7895,7 @@ const content = {
         },
         {
           "id": "L03-a4",
+          "role": "calculation",
           "sectionId": "input",
           "difficulty": "medium",
           "type": "multiStepCalc",
@@ -7911,9 +8049,10 @@ const content = {
         },
         {
           "id": "L03-a5",
+          "role": "methods",
           "type": "written",
           "difficulty": "medium",
-          "prompt": "Read the two-electrode source figure. Identify injection and recording, distinguish passive and active responses, and design an amplitude series to test linearity.",
+          "prompt": "Read the two-electrode source figure. Identify injection and recording, distinguish passive and active responses, and design an amplitude series to test linearity. Which equivalent-circuit current disappears after a small step reaches a steady voltage?",
           "markScheme": [
             {
               "text": "One electrode injects current; the other measures voltage."
@@ -7926,13 +8065,15 @@ const content = {
             },
             {
               "text": "Amplitude-dependent shape or spikes invalidate a constant passive model."
-            }
+            },
+            { "text": "Capacitive current vanishes when voltage stops changing. Membrane leak and axial current can still carry steady current." }
           ],
           "modelAnswer": [
             "One electrode injects current; the other measures voltage.",
             "Small steps evoke graded passive responses; threshold-crossing depolarizations evoke spikes.",
             "Hold duration/location fixed and compare scaled subthreshold responses.",
-            "Amplitude-dependent shape or spikes invalidate a constant passive model."
+            "Amplitude-dependent shape or spikes invalidate a constant passive model.",
+            "Capacitive current vanishes when voltage stops changing. Membrane leak and axial current can still carry steady current."
           ],
           "hints": [
             {
@@ -7968,6 +8109,7 @@ const content = {
       "questions": [
         {
           "id": "L03-b1",
+          "role": "concepts",
           "type": "written",
           "difficulty": "medium",
           "prompt": "a) Define the length constant. b) Define the membrane time constant. c) Distinguish specific resistivity from resistance per length.",
@@ -8000,6 +8142,7 @@ const content = {
         },
         {
           "id": "L03-b2",
+          "role": "explanation",
           "type": "written",
           "difficulty": "medium",
           "prompt": "Derive the passive cable equation with a compartment sketch. Explain which terms disappear at steady state, and why an external return resistance changes spatial spread.",
@@ -8040,6 +8183,7 @@ const content = {
         },
         {
           "id": "L03-b3",
+          "role": "calculation",
           "sectionId": "myelin",
           "difficulty": "medium",
           "type": "multiStepCalc",
@@ -8171,6 +8315,7 @@ const content = {
         },
         {
           "id": "L03-b4",
+          "role": "calculation",
           "sectionId": "length",
           "difficulty": "medium",
           "type": "multiStepCalc",
@@ -8287,9 +8432,10 @@ const content = {
         },
         {
           "id": "L03-b5",
+          "role": "methods",
           "type": "written",
           "difficulty": "medium",
-          "prompt": "Use the source distance-labelled pulse traces. Explain which waveform is most distant and why fitting all traces with one lumped RC exponential is inadequate. Specify one controlled comparison and one inference the plot alone cannot establish.",
+          "prompt": "Use the source distance-labelled pulse traces. Explain which waveform is most distant and why fitting all traces with one lumped RC exponential is inadequate. Specify one controlled comparison and one inference the plot alone cannot establish. How would increasing capacitance at unchanged steady resistance affect transmission of fast changes?",
           "markScheme": [
             {
               "text": "Farther responses are smaller, delayed and rounded."
@@ -8302,13 +8448,15 @@ const content = {
             },
             {
               "text": "Waveform differences alone do not establish different membrane capacitance or a specific active channel."
-            }
+            },
+            { "text": "The time constant increases, so fast inputs are filtered more heavily even when steady resistance is the same." }
           ],
           "modelAnswer": [
             "Farther responses are smaller, delayed and rounded.",
             "A distributed cable combines axial redistribution with local RC dynamics.",
             "Compare matched pulses at known distances while holding material parameters and geometry fixed.",
-            "Waveform differences alone do not establish different membrane capacitance or a specific active channel."
+            "Waveform differences alone do not establish different membrane capacitance or a specific active channel.",
+            "The time constant increases, so fast inputs are filtered more heavily even when steady resistance is the same."
           ],
           "hints": [
             {
@@ -8344,6 +8492,7 @@ const content = {
       "questions": [
         {
           "id": "L03-c1",
+          "role": "concepts",
           "type": "written",
           "difficulty": "medium",
           "prompt": "a) Define rest-relative voltage. b) List the uniform passive cable assumptions. c) Define normalized distance and time.",
@@ -8376,6 +8525,7 @@ const content = {
         },
         {
           "id": "L03-c2",
+          "role": "explanation",
           "type": "written",
           "difficulty": "medium",
           "prompt": "Sketch spatial attenuation and temporal responses for two uniform cables differing only in radius. Explain why greater spread does not imply a different local membrane time constant, and why boundary conditions still matter.",
@@ -8416,6 +8566,7 @@ const content = {
         },
         {
           "id": "L03-c3",
+          "role": "calculation",
           "sectionId": "distance",
           "difficulty": "hard",
           "type": "multiStepCalc",
@@ -8594,6 +8745,7 @@ const content = {
         },
         {
           "id": "L03-c4",
+          "role": "calculation",
           "sectionId": "equation",
           "difficulty": "hard",
           "type": "multiStepCalc",
@@ -8718,9 +8870,10 @@ const content = {
         },
         {
           "id": "L03-c5",
+          "role": "methods",
           "type": "written",
           "difficulty": "medium",
-          "prompt": "Design a passive cable experiment that distinguishes stronger supplied current from improved spatial spread. Use the source spatial profile, specify recordings and controls, and explain why a remote amplitude alone is insufficient.",
+          "prompt": "Design a passive cable experiment that distinguishes stronger supplied current from improved spatial spread. Use the source spatial profile, specify recordings and controls, and explain why a remote amplitude alone is insufficient. When is one recording site an inadequate test of the isopotential approximation?",
           "markScheme": [
             {
               "text": "Measure injection-site and remote steady voltage increments with the same subthreshold protocol."
@@ -8733,13 +8886,15 @@ const content = {
             },
             {
               "text": "A remote amplitude alone mixes origin amplitude and attenuation; do not claim a unique resistance change."
-            }
+            },
+            { "text": "A local trace cannot detect spatial gradients. Measure at a second location during a matched small stimulus to test whether voltage varies across the cable." }
           ],
           "modelAnswer": [
             "Measure injection-site and remote steady voltage increments with the same subthreshold protocol.",
             "Compare the remote-to-origin ratio to remove source-amplitude scaling.",
             "Record distance and hold geometry, baseline and boundary conditions fixed.",
-            "A remote amplitude alone mixes origin amplitude and attenuation; do not claim a unique resistance change."
+            "A remote amplitude alone mixes origin amplitude and attenuation; do not claim a unique resistance change.",
+            "A local trace cannot detect spatial gradients. Measure at a second location during a matched small stimulus to test whether voltage varies across the cable."
           ],
           "hints": [
             {
@@ -8770,6 +8925,91 @@ const content = {
     }
   ]
 };
+// Retain earlier practice data for saved progress and numerical checks.
+// Regular practice and review use the MCQ-only policy above.
+function practiceMc(id, sectionId, difficulty, prompt, hints, choices, correct) {
+  return {
+    id: `L03-core-${id}`,
+    sectionId,
+    type: 'mc',
+    difficulty,
+    prompt,
+    hints: hints.map(body => ({ body })),
+    options: choices.map(([text, feedback]) => ({ text, feedback })),
+    correct,
+    modelAnswer: [choices[correct][1]],
+  };
+}
+
+content.lectureQuiz.push(
+  practiceMc('sphere-resistance', 'input', 'easy',
+    'How do you obtain the input resistance of a uniform passive sphere from its specific membrane resistance?',
+    ['Input resistance uses total current.', 'The surface provides parallel leak paths.'], [
+      ['Divide by the membrane area', 'The larger membrane has more parallel leak paths, so input resistance is specific membrane resistance divided by area.'],
+      ['Multiply by the membrane area', 'Increasing membrane area adds parallel conductance, so the resistance falls.'],
+      ['Divide by the sphere volume', 'Membrane leak scales with surface area. The volume is irrelevant to this conversion.'],
+    ], 0),
+  practiceMc('length-marker', 'decay', 'easy',
+    'How much of the steady origin response remains one length constant away in a uniform infinite cable?',
+    ['Use the steady spatial law.', 'Evaluate the exponential at an exponent of minus one.'], [
+      ['About 63 percent', 'This is the fraction of the final voltage reached after one time constant during a lumped RC step.'],
+      ['About 37 percent', String.raw`The steady ratio is $e^{-1}\approx0.37$ at $|x|=\lambda$.`],
+      ['About 14 percent', 'This is the remaining fraction two length constants away.'],
+    ], 1),
+  practiceMc('corner-shift', 'filter', 'medium',
+    'A passive lumped membrane doubles its capacitance at fixed resistance. What happens to the corner frequency?',
+    ['Find the change in the resistance–capacitance product.', 'The corner frequency is inversely proportional to that product.'], [
+      ['It doubles', 'The time constant doubles. The corner frequency changes in the opposite direction.'],
+      ['It stays the same', 'Capacitance affects the corner frequency even when resistance stays fixed.'],
+      ['It halves', String.raw`Doubling capacitance doubles $\tau_m$, so $f_c=1/(2\pi\tau_m)$ halves.`],
+    ], 2),
+  practiceMc('model-choice', 'distributed', 'medium',
+    'Two sites on one dendrite settle at different voltage increments during a small sustained current step. Which model accounts for this observation?',
+    ['Compare the two voltages at the same time.', 'Choose a model that lets voltage vary between positions.'], [
+      ['A passive cable with axial resistance', 'Axial resistance allows a voltage drop along the dendrite while current supplies membrane leak.'],
+      ['A passive sphere with greater capacitance', 'Capacitance changes charging speed. A lumped sphere has only one voltage at any moment.'],
+      ['A passive sphere with greater input resistance', 'Input resistance changes the steady amplitude in the lumped model, which still assigns one voltage to both sites.'],
+    ], 0),
+  practiceMc('diameter-axial', 'geometry', 'medium',
+    'A cable segment doubles in diameter at fixed length and intracellular resistivity. What happens to its axial resistance?',
+    ['Use the cross-section for current along the core.', 'The core area scales with diameter squared.'], [
+      ['It falls to one half', 'The circumference doubles, but the conducting cross-section quadruples.'],
+      ['It falls to one quarter', 'Doubling diameter quadruples the core cross-sectional area. At fixed length and resistivity the axial resistance is one quarter as large.'],
+      ['It rises to four times its value', 'A larger cross-section decreases axial resistance.'],
+    ], 1),
+  practiceMc('curvature-balance', 'equation', 'medium',
+    'At a source-free location the rest-relative voltage is positive and its spatial curvature is zero. What does the cable equation predict at that instant?',
+    ['Drop the curvature term.', 'Compare the sign of the remaining voltage term with the sign of the time derivative.'], [
+      ['The voltage is rising', 'A rise above rest requires positive axial support or a local injection.'],
+      ['The voltage is constant', 'Zero curvature removes the axial term, leaving a nonzero leak term.'],
+      ['The voltage is falling', String.raw`With zero curvature, $\partial_tV=-V/\tau_m$. A positive increment therefore falls.`],
+    ], 2),
+  practiceMc('return-path', 'length', 'medium',
+    'External resistance per length rises from negligible to equal to the intracellular resistance per length. What is the new length constant relative to the original?',
+    ['Add the two longitudinal resistances per length.', 'The resistance sum enters under a square root.'], [
+      [String.raw`$1/\sqrt{2}$ times the original`, 'The denominator inside the square root doubles, so the length constant falls by a factor of the square root of two.'],
+      [String.raw`$1/2$ times the original`, 'The ratio inside the square root halves. Take the square root to obtain the new length constant.'],
+      [String.raw`$\sqrt{2}$ times the original`, 'The extra return resistance reduces spread, so the length constant must decrease.'],
+    ], 0),
+  practiceMc('compare-profiles', 'pulse', 'medium',
+    'With pulse amplitude and duration fixed, a distant recording has a lower, broader peak. Which interpretation is supported?',
+    ['Compare how the waveform changes along a passive cable.', 'The local capacitance need not change between sites.'], [
+      ['The distant membrane has greater specific capacitance', 'A broader distant trace can arise in a uniform cable, so the comparison does not establish greater specific capacitance.'],
+      ['Passive spread attenuates and broadens the pulse', 'Axial redistribution, membrane charge storage and leak can explain both changes in a uniform passive cable.'],
+      ['The distant site regenerates the input pulse', 'A smaller, broader response is consistent with passive filtering. Regeneration would require evidence of active processes.'],
+    ], 1),
+  practiceMc('insulation-tradeoff', 'myelin', 'hard',
+    String.raw`An ideal passive cable is insulated so $R_m$ quadruples and $C_m$ falls to one eighth, with radius and $R_i$ fixed and negligible external resistance. At twice the original length constant, what fraction of a fixed steady origin increment remains after the change, and what happens to local charging time?`,
+    ['Find the new length constant and time constant separately.', 'Express the recording distance in new length constants before applying the steady exponential.'], [
+      [String.raw`$e^{-2}$ remains and charging time halves`, 'The time constant halves, but that distance is now one new length constant.'],
+      [String.raw`$e^{-1}$ remains and charging time doubles`, 'The spatial fraction is right. The resistance–capacitance product changes by four times one eighth.'],
+      [String.raw`$e^{-1}$ remains and charging time halves`, String.raw`The new $\lambda$ doubles and the site is one new $\lambda$ away. The new $\tau_m$ is $4/8$ of the original.`],
+    ], 2),
+);
+
+const difficultyOrder = ['easy', 'medium', 'hard'];
+content.lectureQuiz.sort((a, b) => difficultyOrder.indexOf(a.difficulty) - difficultyOrder.indexOf(b.difficulty));
+
 content.formulaReference=equationSheet;
 content.formulaReferenceNote='Official exam PDF p4, full-course reference. This practice requires lectures 1–3 only.';
 export default content;

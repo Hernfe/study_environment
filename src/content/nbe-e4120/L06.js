@@ -12,10 +12,10 @@ const content = {
     "examLabel": "Final exam"
   },
   "objectives": [
-    "Distinguish concentration-gradient, barrier and gating sources of nonlinearity.",
-    "Predict directional flux and current using explicit voltage and valence conventions.",
-    "Infer steady activation, rates, time constants and whole-channel probabilities.",
-    "Interpret clamp traces and reversal-based conductance without overidentifying a mechanism."
+    "Recognize rectification by comparing conductance on either side of reversal.",
+    "Distinguish constant-field permeation and asymmetric barriers from voltage-dependent gating.",
+    "Use the rate ratio for steady activation and the rate sum for relaxation time.",
+    "Separate leak, gating and capacitance when reading a clamp step."
   ],
   "prerequisites": [
     {
@@ -33,36 +33,45 @@ const content = {
   "sections": [
     {
       "id": "overview",
-      "title": "Overview: permeation, barriers and gates",
+      "title": "Reading a nonlinear membrane",
       "keyTerms": [],
       "source": "L06 PDF 1",
       "blocks": [
         {
           "type": "text",
-          "body": ["Lecture 6 separates three questions: how ions permeate an open pore, which energy barrier limits passage, and how the fraction of conducting channels changes. A curved current–voltage relation alone does not prove that gates move. Concentration gradients or an asymmetric barrier can also produce curvature.", "The models introduced on PDF page 1 and compared on pages 18–21 can work together. Use $V_m=V_{in}-V_{out}$ and positive outward ionic current throughout. First identify whether the observation concerns static permeation or a time-dependent change in channel state."]
+          "body": [
+            "Separate three causes of a curved I–V relation: concentration asymmetry, voltage acting on a pore barrier, and voltage changing gate occupancy. Use $V_m=V_{in}-V_{out}$ and positive outward current."
+          ]
         },
         {
-          "type": "figure",
-          "visual": {
-            "type": "widget",
-            "name": "image-hotspots",
-            "caption": "Lecture 6, PDF page 21. Source comparison table for constant-field, barrier and gate models. Original labels, axes and scale bars retained.",
-            "fallbackAlt": "Lecture 6, PDF page 21. Source comparison table for constant-field, barrier and gate models. Original labels, axes and scale bars retained.",
-            "props": {
-              "src": new URL('../../assets/figures/nbe-e4120/L06/comparison.webp', import.meta.url).href,
-              "alt": "Lecture 6, PDF page 21. Source comparison table for constant-field, barrier and gate models. Original labels, axes and scale bars retained.",
-              "aspect": 1.99182156133829,
-              "quiz": false,
-              "layout": "stack",
-              "regions": []
+          "type": "detail",
+          "title": "Source comparison table",
+          "blocks": [
+            {
+              "type": "figure",
+              "visual": {
+                "type": "widget",
+                "name": "image-hotspots",
+                "caption": "Lecture 6, PDF page 21. Source comparison table for constant-field, barrier and gate models. Original labels, axes and scale bars retained.",
+                "fallbackAlt": "Lecture 6, PDF page 21. Source comparison table for constant-field, barrier and gate models. Original labels, axes and scale bars retained.",
+                "props": {
+                  "src": new URL('../../assets/figures/nbe-e4120/L06/comparison.webp', import.meta.url).href,
+                  "alt": "Lecture 6, PDF page 21. Source comparison table for constant-field, barrier and gate models. Original labels, axes and scale bars retained.",
+                  "aspect": 1.99182156133829,
+                  "quiz": false,
+                  "layout": "stack",
+                  "regions": []
+                }
+              }
             }
-          }
+          ]
         }
       ],
       "formulas": [],
       "conceptQuiz": [
         {
           "id": "L06-overview-check",
+          "practice": "extra",
           "prompt": "Which model explicitly tracks a changing gating state?",
           "correct": 0,
           "options": [
@@ -77,10 +86,7 @@ const content = {
           ],
           "hints": [
             {
-              "body": "Recall the distinction illustrated in this source figure."
-            },
-            {
-              "body": "Separate the controlled condition from the outcome in the prompt."
+              "body": "Look for a variable that remembers the initial state after a voltage step."
             }
           ],
           "modelAnswer": [
@@ -89,6 +95,7 @@ const content = {
         },
         {
           "id": "L06-overview-starter",
+          "practice": "extra",
           "type": "mc",
           "difficulty": "easy",
           "progressionAdded": true,
@@ -109,6 +116,11 @@ const content = {
             }
           ],
           "correct": 0,
+          "hints": [
+            {
+              "body": "Focus on ion passage after the gate is already open."
+            }
+          ],
           "modelAnswer": [
             "Permeation describes ion passage once the pore is available."
           ]
@@ -128,14 +140,16 @@ const content = {
       "blocks": [
         {
           "type": "text",
-          "body": ["Rectification means that current passes more easily in one direction: inward rectification favors inward current, outward rectification favors outward current. PDF page 2 also shows that linear behavior may hold only over a restricted voltage range; a membrane can rectify differently in different ranges.", "Locate reversal before comparing the two sides. Unequal current magnitudes at unequal driving forces do not by themselves establish unequal conductance. Distinguish curvature with voltage from a change over time at fixed voltage; these observations place different demands on a model."]
+          "body": [
+            "A constant conductance gives a straight I–V line through reversal. Inward rectification means a larger chord conductance for inward current. Outward rectification means the reverse. Compare relative to reversal rather than comparing raw current amplitudes at unequal driving forces."
+          ]
         },
         {
           "type": "figure",
           "visual": {
             "type": "widget",
             "name": "image-hotspots",
-            "caption": "Lecture 6, PDF page 2. Representative current–voltage relations with reversal reference and directional curvature. Original labels, axes and scale bars retained.",
+            "caption": "L06 p2. Compare inward and outward curvature relative to each reversal.",
             "fallbackAlt": "Lecture 6, PDF page 2. Representative current–voltage relations with reversal reference and directional curvature. Original labels, axes and scale bars retained.",
             "props": {
               "src": new URL('../../assets/figures/nbe-e4120/L06/rectification.webp', import.meta.url).href,
@@ -166,10 +180,7 @@ const content = {
           ],
           "hints": [
             {
-              "body": "Recall the distinction illustrated in this source figure."
-            },
-            {
-              "body": "Separate the controlled condition from the outcome in the prompt."
+              "body": "Compare the sides of reversal at the same magnitude of driving force."
             }
           ],
           "modelAnswer": [
@@ -178,6 +189,7 @@ const content = {
         },
         {
           "id": "L06-rectification-starter",
+          "practice": "extra",
           "type": "mc",
           "difficulty": "easy",
           "progressionAdded": true,
@@ -198,6 +210,11 @@ const content = {
             }
           ],
           "correct": 2,
+          "hints": [
+            {
+              "body": "Look for the voltage-axis intercept."
+            }
+          ],
           "modelAnswer": [
             "At reversal, inward and outward ionic contributions balance."
           ]
@@ -206,20 +223,32 @@ const content = {
     },
     {
       "id": "constant-field",
-      "title": "Constant-field current and its limits",
+      "title": "Constant-field current",
       "keyTerms": [],
       "source": "L06 PDF 3",
       "blocks": [
         {
+          "type": "math",
+          "title": "GHK current density",
+          "items": [
+            {
+              "tex": "j=P_m\\frac{z^2F^2V_m}{RT}\\frac{C_i-C_oe^{-zFV_m/(RT)}}{1-e^{-zFV_m/(RT)}}"
+            }
+          ],
+          "note": "Use for a single independently permeating ion in a uniform field at fixed permeability $P_m$. $C_i,C_o$ are inside and outside concentrations, $z$ is signed valence, and $T$ is absolute temperature. SI permeability and concentrations give current density $j$. Multiply by area for current. At $V_m=0$, use the limit $P_m zF(C_i-C_o)$."
+        },
+        {
           "type": "text",
-          "body": ["GHK assumes independent permeation through a uniform electric field with fixed permeability. Unequal concentrations can bend the current–voltage relation without any gates opening or closing. For the positive ion on PDF page 3, higher outside concentration gives positive reversal and inward rectification; higher inside gives the opposite pairing.", "Use the current-density explorer below with inside and outside concentrations in consistent SI units. Current density becomes total current only after multiplication by membrane area. An incompatible rectification/reversal pairing rules out this fixed-permeability account, but a compatible curve does not uniquely prove it."]
+          "body": [
+            "For a cation with $C_o>C_i$, GHK gives inward rectification and positive reversal. Reversing the gradient gives outward rectification and negative reversal. An incompatible pairing needs another mechanism."
+          ]
         },
         {
           "type": "figure",
           "visual": {
             "type": "widget",
             "name": "image-hotspots",
-            "caption": "Lecture 6, PDF page 3. GHK current family with concentration ratios and signed voltage/current axes. Original labels, axes and scale bars retained.",
+            "caption": "L06 p3. The concentration gradient sets both GHK curvature and reversal.",
             "fallbackAlt": "Lecture 6, PDF page 3. GHK current family with concentration ratios and signed voltage/current axes. Original labels, axes and scale bars retained.",
             "props": {
               "src": new URL('../../assets/figures/nbe-e4120/L06/ghk.webp', import.meta.url).href,
@@ -312,7 +341,7 @@ const content = {
                   "v": 0.025,
                   "inside": 120,
                   "outside": 12,
-                  "permeability": 2e-08
+                  "permeability": 2e-8
                 },
                 "displayScale": 1
               }
@@ -351,10 +380,7 @@ const content = {
           ],
           "hints": [
             {
-              "body": "Recall the distinction illustrated in this source figure."
-            },
-            {
-              "body": "Separate the controlled condition from the outcome in the prompt."
+              "body": "Fixed permeability still allows the ion supply on the two sides to differ."
             }
           ],
           "modelAnswer": [
@@ -363,6 +389,7 @@ const content = {
         },
         {
           "id": "L06-constant-field-starter",
+          "practice": "extra",
           "type": "mc",
           "difficulty": "easy",
           "progressionAdded": true,
@@ -383,6 +410,11 @@ const content = {
             }
           ],
           "correct": 1,
+          "hints": [
+            {
+              "body": "Think about the voltage drop along the path through the membrane."
+            }
+          ],
           "modelAnswer": [
             "The constant-field approximation uses a uniform transmembrane field."
           ]
@@ -397,14 +429,16 @@ const content = {
       "blocks": [
         {
           "type": "text",
-          "body": ["An energy barrier represents the energetic cost of ion passage through a pore. Local potential need not vary linearly because ions within the channel can alter the field. PDF page 4 distinguishes one dominant rate-limiting barrier from several comparable barriers, which require a richer model.", "The two crossing coefficients describe opposite directions over the barrier. Their values concern permeation through the pore, not the probability that a gate is open. A higher activation barrier slows crossing; the shape of a current–voltage curve therefore depends on the energetic pathway as well as concentrations."]
+          "body": [
+            "A pore barrier limits ion passage by imposing an activation energy. Use a single barrier when one step dominates the crossing rate. Several comparable barriers or interacting ions call for a richer model."
+          ]
         },
         {
           "type": "figure",
           "visual": {
             "type": "widget",
             "name": "image-hotspots",
-            "caption": "Lecture 6, PDF page 4. Zero-voltage energy barrier, outside/inside concentrations and partitioning. Original labels, axes and scale bars retained.",
+            "caption": "L06 p4. An ion crosses the dominant energy barrier along the pore.",
             "fallbackAlt": "Lecture 6, PDF page 4. Zero-voltage energy barrier, outside/inside concentrations and partitioning. Original labels, axes and scale bars retained.",
             "props": {
               "src": new URL('../../assets/figures/nbe-e4120/L06/barrier.webp', import.meta.url).href,
@@ -435,10 +469,7 @@ const content = {
           ],
           "hints": [
             {
-              "body": "Recall the distinction illustrated in this source figure."
-            },
-            {
-              "body": "Separate the controlled condition from the outcome in the prompt."
+              "body": "Follow the species that physically passes through the pore."
             }
           ],
           "modelAnswer": [
@@ -447,6 +478,7 @@ const content = {
         },
         {
           "id": "L06-barrier-starter",
+          "practice": "extra",
           "type": "mc",
           "difficulty": "easy",
           "progressionAdded": true,
@@ -467,6 +499,11 @@ const content = {
             }
           ],
           "correct": 0,
+          "hints": [
+            {
+              "body": "Ask which crossing step controls the total rate."
+            }
+          ],
           "modelAnswer": [
             "A dominant rate-limiting step can represent the main obstruction to passage."
           ]
@@ -480,25 +517,37 @@ const content = {
       "source": "L06 PDF 5",
       "blocks": [
         {
-          "type": "text",
-          "body": ["Independent passage means one ion does not alter another ion’s passage. PDF page 5 lists saturation of finite binding sites, flux coupling and interacting ions at multiple sites as limitations. The partition coefficient $\\beta_p$ is channel concentration divided by surrounding solution concentration, distinct from the later closing rate $\\beta$.", "Calculate each directional flux from its source side: inward uses outside concentration and outward uses inside concentration. Multiply crossing coefficient, partition coefficient and concentration, as in the explorers below. Keep both fluxes positive as directional magnitudes; subtract them only when forming signed net current."]
+          "type": "math",
+          "title": "Directional fluxes",
+          "items": [
+            {
+              "tex": "J_{in}=k_1\\beta_p C_o,\\qquad J_{out}=k_2\\beta_p C_i"
+            }
+          ],
+          "note": "The crossing coefficients $k_1,k_2$ multiply the supply-side concentration and the pore-to-solution partition coefficient $\\beta_p$. Saturation or coupled fluxes can invalidate independent passage."
         },
         {
-          "type": "figure",
-          "visual": {
-            "type": "widget",
-            "name": "image-hotspots",
-            "caption": "Lecture 6, PDF page 4. Zero-voltage energy barrier, outside/inside concentrations and partitioning. Original labels, axes and scale bars retained.",
-            "fallbackAlt": "Lecture 6, PDF page 4. Zero-voltage energy barrier, outside/inside concentrations and partitioning. Original labels, axes and scale bars retained.",
-            "props": {
-              "src": new URL('../../assets/figures/nbe-e4120/L06/barrier.webp', import.meta.url).href,
-              "alt": "Lecture 6, PDF page 4. Zero-voltage energy barrier, outside/inside concentrations and partitioning. Original labels, axes and scale bars retained.",
-              "aspect": 0.8329694323144105,
-              "quiz": false,
-              "layout": "stack",
-              "regions": []
+          "type": "detail",
+          "title": "Partition and independent passage",
+          "blocks": [
+            {
+              "type": "figure",
+              "visual": {
+                "type": "widget",
+                "name": "image-hotspots",
+                "caption": "Lecture 6, PDF page 4. Zero-voltage energy barrier, outside/inside concentrations and partitioning. Original labels, axes and scale bars retained.",
+                "fallbackAlt": "Lecture 6, PDF page 4. Zero-voltage energy barrier, outside/inside concentrations and partitioning. Original labels, axes and scale bars retained.",
+                "props": {
+                  "src": new URL('../../assets/figures/nbe-e4120/L06/barrier.webp', import.meta.url).href,
+                  "alt": "Lecture 6, PDF page 4. Zero-voltage energy barrier, outside/inside concentrations and partitioning. Original labels, axes and scale bars retained.",
+                  "aspect": 0.8329694323144105,
+                  "quiz": false,
+                  "layout": "stack",
+                  "regions": []
+                }
+              }
             }
-          }
+          ]
         }
       ],
       "formulas": [
@@ -538,13 +587,13 @@ const content = {
           "drill": {
             "prompt": "For the inward direction, use $k=2\\times10^{-6}\\,\\mathrm{m/s}$, $\\beta_p=0.25$ and source concentration $80\\,\\mathrm{mol/m^3}$. Find flux.",
             "answer": {
-              "value": 3.9999999999999996e-05,
+              "value": 0.000039999999999999996,
               "unit": "mol/m2/s",
-              "tolerance": 1.2e-07,
+              "tolerance": 1.2e-7,
               "verification": {
                 "relation": "product",
                 "inputs": {
-                  "a": 5e-07,
+                  "a": 5e-7,
                   "b": 80
                 },
                 "displayScale": 1
@@ -602,13 +651,13 @@ const content = {
           "drill": {
             "prompt": "For the outward direction, use $k=3\\times10^{-6}\\,\\mathrm{m/s}$, $\\beta_p=0.25$ and source concentration $100\\,\\mathrm{mol/m^3}$. Find flux.",
             "answer": {
-              "value": 7.500000000000001e-05,
+              "value": 0.00007500000000000001,
               "unit": "mol/m2/s",
-              "tolerance": 2.2500000000000002e-07,
+              "tolerance": 2.2500000000000002e-7,
               "verification": {
                 "relation": "product",
                 "inputs": {
-                  "a": 7.5e-07,
+                  "a": 7.5e-7,
                   "b": 100
                 },
                 "displayScale": 1
@@ -648,10 +697,7 @@ const content = {
           ],
           "hints": [
             {
-              "body": "Recall the distinction illustrated in this source figure."
-            },
-            {
-              "body": "Separate the controlled condition from the outcome in the prompt."
+              "body": "Ask whether ions crossing the pore can influence each other."
             }
           ],
           "modelAnswer": [
@@ -660,6 +706,7 @@ const content = {
         },
         {
           "id": "L06-independence-starter",
+          "practice": "extra",
           "type": "mc",
           "difficulty": "easy",
           "progressionAdded": true,
@@ -680,6 +727,11 @@ const content = {
             }
           ],
           "correct": 2,
+          "hints": [
+            {
+              "body": "Compare the concentration in the pore with the concentration supplying it."
+            }
+          ],
           "modelAnswer": [
             "Partitioning compares ion concentration inside the channel with the surrounding solution."
           ]
@@ -688,30 +740,45 @@ const content = {
     },
     {
       "id": "zero-barrier",
-      "title": "Symmetric barrier at zero voltage",
+      "title": "Barrier at zero voltage",
       "keyTerms": [],
       "source": "L06 PDF 6",
       "blocks": [
         {
-          "type": "text",
-          "body": ["At zero voltage the symmetric barrier on PDF page 6 gives equal crossing coefficients in both directions. The Arrhenius relation below makes crossing exponentially slower as activation energy increases relative to thermal energy. Its exponent is dimensionless; the prefactor and crossing coefficient have the same units.", "Equal coefficients do not mean equal fluxes: their ratio is still set by outside versus inside concentration when partitioning is common. Net flux vanishes only when the two directional contributions balance. This concentration argument also applies to neutral particles, for which voltage supplies no electrical bias."]
+          "type": "math",
+          "title": "Symmetric barrier at zero voltage",
+          "items": [
+            {
+              "tex": "k_0=Ae^{-\\Delta G_0/(RT)}"
+            },
+            {
+              "tex": "\\frac{J_{in}}{J_{out}}=\\frac{C_o}{C_i}"
+            }
+          ],
+          "note": "Higher activation energy $\\Delta G_0$ reduces the rate at fixed temperature and prefactor $A$. Equal directional coefficients still give unequal fluxes when the concentrations differ."
         },
         {
-          "type": "figure",
-          "visual": {
-            "type": "widget",
-            "name": "image-hotspots",
-            "caption": "Lecture 6, PDF page 4. Zero-voltage energy barrier, outside/inside concentrations and partitioning. Original labels, axes and scale bars retained.",
-            "fallbackAlt": "Lecture 6, PDF page 4. Zero-voltage energy barrier, outside/inside concentrations and partitioning. Original labels, axes and scale bars retained.",
-            "props": {
-              "src": new URL('../../assets/figures/nbe-e4120/L06/barrier.webp', import.meta.url).href,
-              "alt": "Lecture 6, PDF page 4. Zero-voltage energy barrier, outside/inside concentrations and partitioning. Original labels, axes and scale bars retained.",
-              "aspect": 0.8329694323144105,
-              "quiz": false,
-              "layout": "stack",
-              "regions": []
+          "type": "detail",
+          "title": "Zero-voltage energy profile",
+          "blocks": [
+            {
+              "type": "figure",
+              "visual": {
+                "type": "widget",
+                "name": "image-hotspots",
+                "caption": "Lecture 6, PDF page 4. Zero-voltage energy barrier, outside/inside concentrations and partitioning. Original labels, axes and scale bars retained.",
+                "fallbackAlt": "Lecture 6, PDF page 4. Zero-voltage energy barrier, outside/inside concentrations and partitioning. Original labels, axes and scale bars retained.",
+                "props": {
+                  "src": new URL('../../assets/figures/nbe-e4120/L06/barrier.webp', import.meta.url).href,
+                  "alt": "Lecture 6, PDF page 4. Zero-voltage energy barrier, outside/inside concentrations and partitioning. Original labels, axes and scale bars retained.",
+                  "aspect": 0.8329694323144105,
+                  "quiz": false,
+                  "layout": "stack",
+                  "regions": []
+                }
+              }
             }
-          }
+          ]
         }
       ],
       "formulas": [
@@ -757,9 +824,9 @@ const content = {
           "drill": {
             "prompt": "An effective prefactor is $0.002\\,\\mathrm{m/s}$ and the barrier is $4RT$. Find the zero-voltage crossing coefficient.",
             "answer": {
-              "value": 3.663127777746836e-05,
+              "value": 0.00003663127777746836,
               "unit": "m/s",
-              "tolerance": 1.0989383333240508e-07,
+              "tolerance": 1.0989383333240508e-7,
               "verification": {
                 "relation": "exponentialRate",
                 "inputs": {
@@ -853,7 +920,8 @@ const content = {
       "conceptQuiz": [
         {
           "id": "L06-zero-barrier-check",
-          "prompt": "When equal crossing coefficients yield equal directional fluxes",
+          "practice": "extra",
+          "prompt": "With equal crossing coefficients and common partitioning, when do the directional fluxes match?",
           "correct": 1,
           "options": [
             {
@@ -867,10 +935,7 @@ const content = {
           ],
           "hints": [
             {
-              "body": "Recall the distinction illustrated in this source figure."
-            },
-            {
-              "body": "Separate the controlled condition from the outcome in the prompt."
+              "body": "When the coefficients match, compare what multiplies them on the two sides."
             }
           ],
           "modelAnswer": [
@@ -879,6 +944,7 @@ const content = {
         },
         {
           "id": "L06-zero-barrier-starter",
+          "practice": "extra",
           "type": "mc",
           "difficulty": "easy",
           "progressionAdded": true,
@@ -899,6 +965,11 @@ const content = {
             }
           ],
           "correct": 1,
+          "hints": [
+            {
+              "body": "Read the sign of the activation energy in the exponential rate."
+            }
+          ],
           "modelAnswer": [
             "The negative Arrhenius exponent makes crossing slower at a higher barrier."
           ]
@@ -907,20 +978,32 @@ const content = {
     },
     {
       "id": "tilted-barrier",
-      "title": "Voltage tilts the permeation barrier",
+      "title": "Voltage and barrier height",
       "keyTerms": [],
       "source": "L06 PDF 7",
       "blocks": [
         {
-          "type": "text",
-          "body": ["PDF page 7 measures barrier location $\\delta$ from the inside: zero is the inner boundary and one the outer boundary. For a positive ion, positive inside voltage lowers the outward activation barrier and raises the inward barrier. The rate exponents below encode these opposite electrical effects.", "For a calculation, form the dimensionless voltage $zFV_m/(RT)$, apply the appropriate location factor, then calculate both crossing coefficients. Multiply by partitioning and source-side concentration to obtain fluxes. Signed outward current density is $zF(J_{out}-J_{in})$; an inward excess gives negative current for a cation."]
+          "type": "math",
+          "title": "Voltage tilts the barrier",
+          "items": [
+            {
+              "tex": "k_1=k_0e^{-(1-\\delta)zFV_m/(RT)}"
+            },
+            {
+              "tex": "k_2=k_0e^{\\delta zFV_m/(RT)}"
+            },
+            {
+              "tex": "j=zF(J_{out}-J_{in})"
+            }
+          ],
+          "note": "Measure $\\delta$ from the inside. For a positive ion, making the inside more positive lowers the outward activation energy by $\\delta zFV_m$ and raises the inward energy by $(1-\\delta)zFV_m$ relative to zero voltage. The net current uses outward minus inward flux."
         },
         {
           "type": "figure",
           "visual": {
             "type": "widget",
             "name": "image-hotspots",
-            "caption": "Lecture 6, PDF page 7. Zero-voltage and voltage-tilted permeation energy profiles. Original labels, axes and scale bars retained.",
+            "caption": "L06 p7. A voltage drop changes the activation energies measured from the two sides.",
             "fallbackAlt": "Lecture 6, PDF page 7. Zero-voltage and voltage-tilted permeation energy profiles. Original labels, axes and scale bars retained.",
             "props": {
               "src": new URL('../../assets/figures/nbe-e4120/L06/tilt.webp', import.meta.url).href,
@@ -994,13 +1077,13 @@ const content = {
           "drill": {
             "prompt": "Use $k_0=10^{-6}\\,\\mathrm{m/s}$, $\\delta=0.3$, $z=1$, $V_m=0.020\\,\\mathrm V$, $F=96485$, $R=8.314$ and $T=293\\,\\mathrm K$. Calculate the inward crossing coefficient.",
             "answer": {
-              "value": 5.743530287860968e-07,
+              "value": 5.743530287860968e-7,
               "unit": "m/s",
-              "tolerance": 1.7230590863582903e-09,
+              "tolerance": 1.7230590863582903e-9,
               "verification": {
                 "relation": "exponentialRate",
                 "inputs": {
-                  "base": 1e-06,
+                  "base": 0.000001,
                   "exponent": -0.5545110389892947
                 },
                 "displayScale": 1
@@ -1082,13 +1165,13 @@ const content = {
           "drill": {
             "prompt": "Use $k_0=10^{-6}\\,\\mathrm{m/s}$, $\\delta=0.3$, $z=1$, $V_m=0.020\\,\\mathrm V$, $F=96485$, $R=8.314$ and $T=293\\,\\mathrm K$. Calculate the outward crossing coefficient.",
             "answer": {
-              "value": 1.2682621634301293e-06,
+              "value": 0.0000012682621634301293,
               "unit": "m/s",
-              "tolerance": 3.804786490290388e-09,
+              "tolerance": 3.804786490290388e-9,
               "verification": {
                 "relation": "exponentialRate",
                 "inputs": {
-                  "base": 1e-06,
+                  "base": 0.000001,
                   "exponent": 0.23764758813826917
                 },
                 "displayScale": 1
@@ -1158,7 +1241,7 @@ const content = {
               "verification": {
                 "relation": "fluxCurrent",
                 "inputs": {
-                  "flux": -2e-06,
+                  "flux": -0.000002,
                   "z": 1,
                   "f": 96485
                 },
@@ -1185,6 +1268,7 @@ const content = {
       "conceptQuiz": [
         {
           "id": "L06-tilted-barrier-check",
+          "practice": "extra",
           "prompt": "Where is a barrier with location one?",
           "correct": 0,
           "options": [
@@ -1199,10 +1283,7 @@ const content = {
           ],
           "hints": [
             {
-              "body": "Recall the distinction illustrated in this source figure."
-            },
-            {
-              "body": "Separate the controlled condition from the outcome in the prompt."
+              "body": "Measure fractional distance from the inside surface."
             }
           ],
           "modelAnswer": [
@@ -1211,6 +1292,7 @@ const content = {
         },
         {
           "id": "L06-tilted-barrier-starter",
+          "practice": "extra",
           "type": "mc",
           "difficulty": "easy",
           "progressionAdded": true,
@@ -1231,6 +1313,11 @@ const content = {
             }
           ],
           "correct": 0,
+          "hints": [
+            {
+              "body": "For outward crossing the voltage correction to activation energy is $-\\delta zFV_m$."
+            }
+          ],
           "modelAnswer": [
             "Positive inside voltage favors outward movement of positive charge."
           ]
@@ -1239,20 +1326,22 @@ const content = {
     },
     {
       "id": "position",
-      "title": "Barrier position and rectification",
+      "title": "Barrier location",
       "keyTerms": [],
       "source": "L06 PDF 8",
       "blocks": [
         {
           "type": "text",
-          "body": ["For positive ions, an outer barrier makes outward crossing strongly voltage-dependent, whereas an inner barrier makes inward crossing strongly voltage-dependent. On PDF page 8, making voltage more negative increases inward flux for the inner-barrier case. The phrase “inward ion flux decreases” requires this explicit voltage-direction qualification.", "A central barrier gives the least asymmetric curve in the displayed comparison, not a generally linear resistor. Use the location-dependent exponents from the preceding section to predict which directional flux changes most. Curvature describes a transport bias and does not by itself establish dynamic opening."]
+          "body": [
+            "For a cation at an inner barrier ($\\delta=0$), inward crossing speeds up as voltage becomes more negative. At an outer barrier ($\\delta=1$), outward crossing speeds up as voltage becomes more positive. A central barrier shares the voltage dependence between both directions."
+          ]
         },
         {
           "type": "figure",
           "visual": {
             "type": "widget",
             "name": "image-hotspots",
-            "caption": "Lecture 6, PDF page 8. Outer and inner energy barrier profiles with their current–voltage curves. Original labels, axes and scale bars retained.",
+            "caption": "L06 p8. Outer and inner barriers favor opposite directions of rectification.",
             "fallbackAlt": "Lecture 6, PDF page 8. Outer and inner energy barrier profiles with their current–voltage curves. Original labels, axes and scale bars retained.",
             "props": {
               "src": new URL('../../assets/figures/nbe-e4120/L06/position.webp', import.meta.url).href,
@@ -1283,10 +1372,7 @@ const content = {
           ],
           "hints": [
             {
-              "body": "Recall the distinction illustrated in this source figure."
-            },
-            {
-              "body": "Separate the controlled condition from the outcome in the prompt."
+              "body": "The inner margin gives inward crossing the full voltage dependence in the single-barrier model."
             }
           ],
           "modelAnswer": [
@@ -1295,6 +1381,7 @@ const content = {
         },
         {
           "id": "L06-position-starter",
+          "practice": "extra",
           "type": "mc",
           "difficulty": "easy",
           "progressionAdded": true,
@@ -1315,6 +1402,11 @@ const content = {
             }
           ],
           "correct": 2,
+          "hints": [
+            {
+              "body": "Test $\\delta=0$ and $\\delta=1$ in the outward rate exponent."
+            }
+          ],
           "modelAnswer": [
             "At the outer boundary, outward crossing has the full voltage-dependent factor."
           ]
@@ -1323,41 +1415,49 @@ const content = {
     },
     {
       "id": "concentrations",
-      "title": "Concentration changes and model identifiability",
+      "title": "Concentration and reversal",
       "keyTerms": [],
       "source": "L06 PDF 9",
       "blocks": [
         {
           "type": "text",
-          "body": ["At fixed barrier location, current depends on both absolute concentrations. PDF page 9 compares varying inside concentration with outside fixed against varying outside with inside fixed; the same concentration ratio need not give the same current magnitude. Scaling both concentrations together scales both directional fluxes.", "Selective reversal is set by the concentration ratio because it marks equal inward and outward fluxes. Barrier position can change curve shape without changing that balance voltage. Unlike the fixed-permeability GHK constraint, barrier permeation permits either rectification direction at either reversal sign, so a nonlinear curve alone cannot locate a unique barrier."]
+          "body": [
+            "The concentration ratio sets selective reversal. Scaling both concentrations equally preserves reversal and scales current by the same factor at fixed permeability or crossing coefficients. Asymmetric barriers can pair either rectification direction with either reversal sign."
+          ]
         },
         {
-          "type": "figure",
-          "visual": {
-            "type": "widget",
-            "name": "image-hotspots",
-            "caption": "Lecture 6, PDF page 9. Fixed central barrier with different concentration ratios and separately fixed inside/outside concentration. Original labels, axes and scale bars retained.",
-            "fallbackAlt": "Lecture 6, PDF page 9. Fixed central barrier with different concentration ratios and separately fixed inside/outside concentration. Original labels, axes and scale bars retained.",
-            "props": {
-              "src": new URL('../../assets/figures/nbe-e4120/L06/concentrations.webp', import.meta.url).href,
-              "alt": "Lecture 6, PDF page 9. Fixed central barrier with different concentration ratios and separately fixed inside/outside concentration. Original labels, axes and scale bars retained.",
-              "aspect": 1.6971894832275611,
-              "quiz": false,
-              "layout": "stack",
-              "regions": []
+          "type": "detail",
+          "title": "Changing the inside or outside concentration",
+          "blocks": [
+            {
+              "type": "figure",
+              "visual": {
+                "type": "widget",
+                "name": "image-hotspots",
+                "caption": "Lecture 6, PDF page 9. Fixed central barrier with different concentration ratios and separately fixed inside/outside concentration. Original labels, axes and scale bars retained.",
+                "fallbackAlt": "Lecture 6, PDF page 9. Fixed central barrier with different concentration ratios and separately fixed inside/outside concentration. Original labels, axes and scale bars retained.",
+                "props": {
+                  "src": new URL('../../assets/figures/nbe-e4120/L06/concentrations.webp', import.meta.url).href,
+                  "alt": "Lecture 6, PDF page 9. Fixed central barrier with different concentration ratios and separately fixed inside/outside concentration. Original labels, axes and scale bars retained.",
+                  "aspect": 1.6971894832275611,
+                  "quiz": false,
+                  "layout": "stack",
+                  "regions": []
+                }
+              }
             }
-          }
+          ]
         }
       ],
       "formulas": [],
       "conceptQuiz": [
         {
           "id": "L06-concentrations-check",
-          "prompt": "What must accompany a changing concentration ratio?",
+          "prompt": "Besides the new concentration ratio, what must you specify to predict how current changes?",
           "correct": 0,
           "options": [
             {
-              "text": "Which absolute concentration was held fixed",
+              "text": "Which concentration changed and by how much",
               "feedback": "Current magnitude depends on absolute concentrations as well as their ratio."
             },
             {
@@ -1367,10 +1467,7 @@ const content = {
           ],
           "hints": [
             {
-              "body": "Recall the distinction illustrated in this source figure."
-            },
-            {
-              "body": "Separate the controlled condition from the outcome in the prompt."
+              "body": "The same ratio can be made from several pairs of absolute concentrations."
             }
           ],
           "modelAnswer": [
@@ -1379,6 +1476,7 @@ const content = {
         },
         {
           "id": "L06-concentrations-starter",
+          "practice": "extra",
           "type": "mc",
           "difficulty": "easy",
           "progressionAdded": true,
@@ -1399,6 +1497,11 @@ const content = {
             }
           ],
           "correct": 1,
+          "hints": [
+            {
+              "body": "At reversal the two fluxes balance. Which concentration combination survives that comparison?"
+            }
+          ],
           "modelAnswer": [
             "Reversal balances directional fluxes and depends on their concentration ratio."
           ]
@@ -1407,30 +1510,38 @@ const content = {
     },
     {
       "id": "multiple",
-      "title": "Several barriers and binding wells",
+      "title": "Multiple barriers",
       "keyTerms": [],
       "source": "L06 PDF 10",
       "blocks": [
         {
           "type": "text",
-          "body": ["PDF page 10 follows sodium through an entry diffusion barrier, an attractive binding well, a larger selectivity-filter barrier and two further barriers. Peaks oppose passage; a well is a favorable binding location. Its negative relative energy is not a negative crossing rate.", "The highest barrier motivates a single rate-limiting-step approximation only when it dominates the pathway. Several comparable barriers and interacting binding sites require a fuller account. Read the source energy profile as a sequence of physical obstacles and binding locations, rather than replacing all peaks by one arbitrary average."]
+          "body": [
+            "A binding well marks a favorable location. The next barrier is climbed from that well. When several steps matter, the single dominant-barrier approximation can fail."
+          ]
         },
         {
-          "type": "figure",
-          "visual": {
-            "type": "widget",
-            "name": "image-hotspots",
-            "caption": "Lecture 6, PDF page 10. Sodium permeation energy profile and binding-site arrangement. Original labels, axes and scale bars retained.",
-            "fallbackAlt": "Lecture 6, PDF page 10. Sodium permeation energy profile and binding-site arrangement. Original labels, axes and scale bars retained.",
-            "props": {
-              "src": new URL('../../assets/figures/nbe-e4120/L06/multiple.webp', import.meta.url).href,
-              "alt": "Lecture 6, PDF page 10. Sodium permeation energy profile and binding-site arrangement. Original labels, axes and scale bars retained.",
-              "aspect": 2.073170731707317,
-              "quiz": false,
-              "layout": "stack",
-              "regions": []
+          "type": "detail",
+          "title": "Four-barrier sodium pathway",
+          "blocks": [
+            {
+              "type": "figure",
+              "visual": {
+                "type": "widget",
+                "name": "image-hotspots",
+                "caption": "Lecture 6, PDF page 10. Sodium permeation energy profile and binding-site arrangement. Original labels, axes and scale bars retained.",
+                "fallbackAlt": "Lecture 6, PDF page 10. Sodium permeation energy profile and binding-site arrangement. Original labels, axes and scale bars retained.",
+                "props": {
+                  "src": new URL('../../assets/figures/nbe-e4120/L06/multiple.webp', import.meta.url).href,
+                  "alt": "Lecture 6, PDF page 10. Sodium permeation energy profile and binding-site arrangement. Original labels, axes and scale bars retained.",
+                  "aspect": 2.073170731707317,
+                  "quiz": false,
+                  "layout": "stack",
+                  "regions": []
+                }
+              }
             }
-          }
+          ]
         }
       ],
       "formulas": [],
@@ -1451,10 +1562,7 @@ const content = {
           ],
           "hints": [
             {
-              "body": "Recall the distinction illustrated in this source figure."
-            },
-            {
-              "body": "Separate the controlled condition from the outcome in the prompt."
+              "body": "A well is the opposite of a peak on the energy profile."
             }
           ],
           "modelAnswer": [
@@ -1463,6 +1571,7 @@ const content = {
         },
         {
           "id": "L06-multiple-starter",
+          "practice": "extra",
           "type": "mc",
           "difficulty": "easy",
           "progressionAdded": true,
@@ -1483,6 +1592,11 @@ const content = {
             }
           ],
           "correct": 0,
+          "hints": [
+            {
+              "body": "Look for a local minimum in the energy profile."
+            }
+          ],
           "modelAnswer": [
             "Electrostatic attraction creates a favorable binding location, shown as a well."
           ]
@@ -1491,20 +1605,22 @@ const content = {
     },
     {
       "id": "gates",
-      "title": "Permeation versus movement of gating charge",
+      "title": "Permeation and gating",
       "keyTerms": [],
       "source": "L06 PDF 11",
       "blocks": [
         {
           "type": "text",
-          "body": ["The gate model on PDF page 11 adds a state that changes over time. Voltage-sensitive charges move within channel proteins and control access to aqueous pores. Here the barrier concerns movement of gating particles, whereas the earlier barrier model concerned permeating ions crossing the pore.", "This distinction explains why a static permeation model cannot describe a delayed change in conducting fraction at held voltage. Actual current can involve both mechanisms: the pore determines current when open, while gating determines how many channels contribute at a given time."]
+          "body": [
+            "Voltage moves a gating charge or shifts a channel conformation. State occupancy changes over time and controls access to the pore. Permeating ions carry current after the pore opens."
+          ]
         },
         {
           "type": "figure",
           "visual": {
             "type": "widget",
             "name": "image-hotspots",
-            "caption": "Lecture 6, PDF page 11. Source voltage-gated channel diagram with pore and gating structures. Original labels, axes and scale bars retained.",
+            "caption": "L06 p11. The gating charge controls access to the pore.",
             "fallbackAlt": "Lecture 6, PDF page 11. Source voltage-gated channel diagram with pore and gating structures. Original labels, axes and scale bars retained.",
             "props": {
               "src": new URL('../../assets/figures/nbe-e4120/L06/channel.webp', import.meta.url).href,
@@ -1535,10 +1651,7 @@ const content = {
           ],
           "hints": [
             {
-              "body": "Recall the distinction illustrated in this source figure."
-            },
-            {
-              "body": "Separate the controlled condition from the outcome in the prompt."
+              "body": "Distinguish the charge that changes conformation from the ion that carries pore current."
             }
           ],
           "modelAnswer": [
@@ -1547,6 +1660,7 @@ const content = {
         },
         {
           "id": "L06-gates-starter",
+          "practice": "extra",
           "type": "mc",
           "difficulty": "easy",
           "progressionAdded": true,
@@ -1567,6 +1681,11 @@ const content = {
             }
           ],
           "correct": 2,
+          "hints": [
+            {
+              "body": "A conformational change changes access to the pore."
+            }
+          ],
           "modelAnswer": [
             "Gating charge movement changes channel state and controls pore availability."
           ]
@@ -1580,13 +1699,19 @@ const content = {
     },
     {
       "id": "assumptions",
-      "title": "Closed and open states, linear open pores",
+      "title": "Ohmic open pore",
       "keyTerms": [],
       "source": "L06 PDF 12",
       "blocks": [
         {
-          "type": "text",
-          "body": ["PDF page 12 assumes voltage-dependent opening and closing with first-order transitions. An already open channel is taken to be Ohmic: doubling its driving force doubles its current. This assumption applies to the open pore, not to the whole population at all voltages and times.", "The population current can still be nonlinear because its conducting fraction changes. Separate open-channel conductance, driving force and open fraction when explaining a trace. Voltage controls the transition rates; a finite relaxation of the state after a step is different from an immediate change in driving force."]
+          "type": "math",
+          "title": "Ohmic pore with gating",
+          "items": [
+            {
+              "tex": "I=\\bar gY(V_m-E_{rev})"
+            }
+          ],
+          "note": "Use when the open pore obeys Ohm’s law. $\\bar g$ is the fully open conductance and $Y$ the open probability. Even then, voltage- and time-dependent $Y$ can make the population I–V curve nonlinear."
         },
         {
           "type": "figure",
@@ -1610,6 +1735,7 @@ const content = {
       "conceptQuiz": [
         {
           "id": "L06-assumptions-check",
+          "practice": "extra",
           "prompt": "Does a linear open pore imply a linear gated population?",
           "correct": 1,
           "options": [
@@ -1624,10 +1750,7 @@ const content = {
           ],
           "hints": [
             {
-              "body": "Recall the distinction illustrated in this source figure."
-            },
-            {
-              "body": "Separate the controlled condition from the outcome in the prompt."
+              "body": "Consider whether the fraction of conducting channels can vary with voltage."
             }
           ],
           "modelAnswer": [
@@ -1636,6 +1759,7 @@ const content = {
         },
         {
           "id": "L06-assumptions-starter",
+          "practice": "extra",
           "type": "mc",
           "difficulty": "easy",
           "progressionAdded": true,
@@ -1656,6 +1780,11 @@ const content = {
             }
           ],
           "correct": 1,
+          "hints": [
+            {
+              "body": "Measure the voltage relative to the point where ionic current reverses."
+            }
+          ],
           "modelAnswer": [
             "The open-pore driving force is voltage relative to reversal."
           ]
@@ -1664,13 +1793,19 @@ const content = {
     },
     {
       "id": "balance",
-      "title": "Balance transitions between particle states",
+      "title": "Two-state balance",
       "keyTerms": [],
       "source": "L06 PDF 13",
       "blocks": [
         {
-          "type": "text",
-          "body": ["On PDF page 13, $y$ is the fraction of gating particles in the permissive state and $1-y$ is the available non-permissive fraction. Opening adds $\\alpha(1-y)$ and closing removes $\\beta y$. The derivative below is their difference; rates have inverse-time units, while fractions are dimensionless.", "To determine the direction of change, compare the two transition flows rather than the rate coefficients alone. At steady state they balance even though particles continue switching. A permissive particle need not mean an open whole channel if several particles must all be permissive."]
+          "type": "math",
+          "title": "Two-state balance",
+          "items": [
+            {
+              "tex": "\\frac{dy}{dt}=\\alpha(1-y)-\\beta y"
+            }
+          ],
+          "note": "Opening at rate $\\alpha$ acts on the nonpermissive fraction $1-y$. Closing at rate $\\beta$ acts on the permissive fraction $y$. Both rates have units of inverse time and depend on voltage."
         },
         {
           "type": "figure",
@@ -1768,10 +1903,7 @@ const content = {
           ],
           "hints": [
             {
-              "body": "Recall the distinction illustrated in this source figure."
-            },
-            {
-              "body": "Separate the controlled condition from the outcome in the prompt."
+              "body": "The closing rate acts on the fraction that is already permissive."
             }
           ],
           "modelAnswer": [
@@ -1780,6 +1912,7 @@ const content = {
         },
         {
           "id": "L06-balance-starter",
+          "practice": "extra",
           "type": "mc",
           "difficulty": "easy",
           "progressionAdded": true,
@@ -1800,6 +1933,11 @@ const content = {
             }
           ],
           "correct": 0,
+          "hints": [
+            {
+              "body": "The two fractions in the two-state model add to one."
+            }
+          ],
           "modelAnswer": [
             "The two fractions sum to one; the complement is available for opening transitions."
           ]
@@ -1808,13 +1946,15 @@ const content = {
     },
     {
       "id": "polarity",
-      "title": "Depolarization and gating-particle charge",
+      "title": "Gating charge",
       "keyTerms": [],
       "source": "L06 PDF 14",
       "blocks": [
         {
           "type": "text",
-          "body": ["For the positively charged, depolarization-activated particle on PDF page 14, a more positive membrane voltage lowers the barrier toward the permissive state. Hyperpolarization favors the reverse transition in this example. The electrical effect depends on the modeled gating charge and state assignment, not merely the permeating ion.", "Depolarization means a change toward a more positive voltage, including a change between two negative values. It need not cross zero. Do not generalize this particular activation direction to every channel; the next source curves also include channels activated by hyperpolarization."]
+          "body": [
+            "Depolarization makes the inside more positive. In the illustrated positive-charge model it favors the permissive state. The direction of the measured activation curve determines whether a particular gate is depolarization- or hyperpolarization-activated."
+          ]
         },
         {
           "type": "figure",
@@ -1852,10 +1992,7 @@ const content = {
           ],
           "hints": [
             {
-              "body": "Recall the distinction illustrated in this source figure."
-            },
-            {
-              "body": "Separate the controlled condition from the outcome in the prompt."
+              "body": "Compare the new voltage with the old one."
             }
           ],
           "modelAnswer": [
@@ -1864,6 +2001,7 @@ const content = {
         },
         {
           "id": "L06-polarity-starter",
+          "practice": "extra",
           "type": "mc",
           "difficulty": "easy",
           "progressionAdded": true,
@@ -1884,6 +2022,11 @@ const content = {
             }
           ],
           "correct": 2,
+          "hints": [
+            {
+              "body": "In the illustrated model, more positive inside voltage favors the permissive position."
+            }
+          ],
           "modelAnswer": [
             "The illustrated voltage change lowers the barrier toward the permissive state."
           ]
@@ -1892,13 +2035,22 @@ const content = {
     },
     {
       "id": "steady",
-      "title": "Rate laws and the steady activation curve",
+      "title": "Steady activation",
       "keyTerms": [],
       "source": "L06 PDF 15",
       "blocks": [
         {
-          "type": "text",
-          "body": ["At fixed voltage, balance opening and closing to obtain $y_\\infty=\\alpha/(\\alpha+\\beta)$. PDF page 15 gives exponential voltage-dependent rates; calculate them with a dimensionless electrical-energy exponent before taking their ratio. Equal zero-voltage coefficients give the symmetric logistic special case, not a requirement for the general relation.", "With baseline coefficients fixed, barrier location cancels from the steady fraction but affects the rate sum and response speed. Thus an unchanged activation curve does not imply unchanged kinetics. Combining steady activation with $\\tau=1/(\\alpha+\\beta)$ lets you infer both rates rather than just their ratio."]
+          "type": "math",
+          "title": "Steady activation at fixed voltage",
+          "items": [
+            {
+              "tex": "y_\\infty=\\frac{\\alpha}{\\alpha+\\beta}"
+            },
+            {
+              "tex": "y_\\infty=\\frac{1}{1+(\\beta_0/\\alpha_0)e^{-zFV_m/(RT)}}"
+            }
+          ],
+          "note": "Set opening and closing fluxes equal. With $\\alpha=\\alpha_0e^{\\delta zFV_m/(RT)}$ and $\\beta=\\beta_0e^{-(1-\\delta)zFV_m/(RT)}$, moving the barrier multiplies both rates by the same factor at a fixed voltage. The ratio and steady activation stay fixed if the baseline rates $\\alpha_0,\\beta_0$ stay fixed. The rate sum can change."
         },
         {
           "type": "figure",
@@ -2245,6 +2397,7 @@ const content = {
       "conceptQuiz": [
         {
           "id": "L06-steady-check",
+          "practice": "extra",
           "prompt": "What can changing barrier location alter at fixed baselines?",
           "correct": 0,
           "options": [
@@ -2259,10 +2412,7 @@ const content = {
           ],
           "hints": [
             {
-              "body": "Recall the distinction illustrated in this source figure."
-            },
-            {
-              "body": "Separate the controlled condition from the outcome in the prompt."
+              "body": "Multiplying both rates by the same factor changes their sum and leaves their ratio fixed."
             }
           ],
           "modelAnswer": [
@@ -2271,6 +2421,7 @@ const content = {
         },
         {
           "id": "L06-steady-starter",
+          "practice": "extra",
           "type": "mc",
           "difficulty": "easy",
           "progressionAdded": true,
@@ -2291,6 +2442,11 @@ const content = {
             }
           ],
           "correct": 1,
+          "hints": [
+            {
+              "body": "Set the occupancy derivative to zero in the two-state balance."
+            }
+          ],
           "modelAnswer": [
             "Steady activation means opening replenishes the permissive particles lost by closing."
           ]
@@ -2299,20 +2455,22 @@ const content = {
     },
     {
       "id": "activation",
-      "title": "Read activation direction from curves",
+      "title": "Activation curves",
       "keyTerms": [],
       "source": "L06 PDF 16",
       "blocks": [
         {
           "type": "text",
-          "body": ["PDF page 16 plots steady permissive probability against voltage. A rising curve means depolarization activation; a falling curve means hyperpolarization activation. Read the state definition and voltage axis before assigning a direction. These curves describe the final fraction after sufficient time at each voltage.", "Steady activation alone gives neither the relaxation speed nor ionic current direction. The former needs transition rates or a time constant; the latter also needs voltage relative to reversal. A channel can become more permissive while its current changes sign because the driving force crosses reversal."]
+          "body": [
+            "Read $y_\\infty$ after the gate equilibrates at each clamp voltage. A rise toward more negative voltages indicates hyperpolarization activation. A rise toward more positive voltages indicates depolarization activation."
+          ]
         },
         {
           "type": "figure",
           "visual": {
             "type": "widget",
             "name": "image-hotspots",
-            "caption": "Lecture 6, PDF page 16. Source rate and activation curves: depolarization activation above, hyperpolarization activation below. Original labels, axes and scale bars retained.",
+            "caption": "L06 p16. Compare steady-state activation for opposite voltage sensitivities.",
             "fallbackAlt": "Lecture 6, PDF page 16. Source rate and activation curves: depolarization activation above, hyperpolarization activation below. Original labels, axes and scale bars retained.",
             "props": {
               "src": new URL('../../assets/figures/nbe-e4120/L06/activation.webp', import.meta.url).href,
@@ -2329,6 +2487,7 @@ const content = {
       "conceptQuiz": [
         {
           "id": "L06-activation-check",
+          "practice": "extra",
           "prompt": "What identifies hyperpolarization activation?",
           "correct": 1,
           "options": [
@@ -2343,10 +2502,7 @@ const content = {
           ],
           "hints": [
             {
-              "body": "Recall the distinction illustrated in this source figure."
-            },
-            {
-              "body": "Separate the controlled condition from the outcome in the prompt."
+              "body": "Read the steady fraction as the test voltage moves toward more negative values."
             }
           ],
           "modelAnswer": [
@@ -2355,6 +2511,7 @@ const content = {
         },
         {
           "id": "L06-activation-starter",
+          "practice": "extra",
           "type": "mc",
           "difficulty": "easy",
           "progressionAdded": true,
@@ -2375,6 +2532,11 @@ const content = {
             }
           ],
           "correct": 0,
+          "hints": [
+            {
+              "body": "The curve compares endpoint occupancy after waiting at different voltages."
+            }
+          ],
           "modelAnswer": [
             "The curve gives the final particle-state fraction after sufficient time at that voltage."
           ]
@@ -2383,20 +2545,29 @@ const content = {
     },
     {
       "id": "kinetics",
-      "title": "Approach to steady state after a voltage step",
+      "title": "Gating kinetics",
       "keyTerms": [],
       "source": "L06 PDF 17",
       "blocks": [
         {
-          "type": "text",
-          "body": ["After a voltage step, use the rates at the new held voltage. PDF page 17 gives exponential relaxation from initial fraction $y_0$ toward $y_\\infty$, with $\\tau=1/(\\alpha+\\beta)$. Keep time and inverse-rate units consistent. At one time constant the remaining distance to steady state is reduced by a factor of $e$.", "The fraction is continuous at the step and approaches, rather than overshoots, the new steady value in this model. Ionic current can nevertheless jump because driving force changes immediately. Sketch the initial value, final asymptote and approach direction before evaluating a time point with the explorer below."]
+          "type": "math",
+          "title": "Relaxation after a voltage step",
+          "items": [
+            {
+              "tex": "\\tau=\\frac{1}{\\alpha+\\beta}"
+            },
+            {
+              "tex": "y(t)=y_\\infty+(y_0-y_\\infty)e^{-t/\\tau}"
+            }
+          ],
+          "note": "Read $y_0$ from the holding history. Use the test voltage to get $y_\\infty$, $\\alpha$ and $\\beta$. With fixed test voltage, the occupancy moves about 63% of the way from $y_0$ to $y_\\infty$ in one $\\tau$."
         },
         {
           "type": "figure",
           "visual": {
             "type": "widget",
             "name": "image-hotspots",
-            "caption": "Lecture 6, PDF page 17. Single-particle and whole-channel activation time courses; schematic axes have no numerical time scale. Original labels, axes and scale bars retained.",
+            "caption": "L06 p17. Activation relaxes from its initial to its steady value.",
             "fallbackAlt": "Lecture 6, PDF page 17. Single-particle and whole-channel activation time courses; schematic axes have no numerical time scale. Original labels, axes and scale bars retained.",
             "props": {
               "src": new URL('../../assets/figures/nbe-e4120/L06/kinetics.webp', import.meta.url).href,
@@ -2442,7 +2613,7 @@ const content = {
             "answer": {
               "value": 0.016666666666666666,
               "unit": "s",
-              "tolerance": 5e-05,
+              "tolerance": 0.00005,
               "verification": {
                 "relation": "ratio",
                 "inputs": {
@@ -2544,6 +2715,7 @@ const content = {
       "conceptQuiz": [
         {
           "id": "L06-kinetics-check",
+          "practice": "extra",
           "prompt": "What stays continuous in the ideal finite-rate model?",
           "correct": 0,
           "options": [
@@ -2558,10 +2730,7 @@ const content = {
           ],
           "hints": [
             {
-              "body": "Recall the distinction illustrated in this source figure."
-            },
-            {
-              "body": "Separate the controlled condition from the outcome in the prompt."
+              "body": "The state follows a finite-rate differential equation through the voltage step."
             }
           ],
           "modelAnswer": [
@@ -2570,6 +2739,7 @@ const content = {
         },
         {
           "id": "L06-kinetics-starter",
+          "practice": "extra",
           "type": "mc",
           "difficulty": "easy",
           "progressionAdded": true,
@@ -2590,6 +2760,11 @@ const content = {
             }
           ],
           "correct": 2,
+          "hints": [
+            {
+              "body": "Look at the denominator in the exponential decay factor."
+            }
+          ],
           "modelAnswer": [
             "The time constant sets how quickly the initial fraction relaxes toward its new steady value."
           ]
@@ -2598,13 +2773,19 @@ const content = {
     },
     {
       "id": "particles",
-      "title": "From particles to whole-channel opening",
+      "title": "Whole-channel probability",
       "keyTerms": [],
       "source": "L06 PDF 17",
       "blocks": [
         {
-          "type": "text",
-          "body": ["If $P$ identical independent particles must all be permissive, PDF page 17 multiplies their probabilities: $Y=y^P$. First calculate the single-particle relaxation, then raise that entire fraction to the particle count. Applying the power only to a rate or exponential term changes the model.", "For several required particles, whole-channel opening is less likely than one particle being permissive and can show a delayed rise. To obtain population current, multiply the resulting open fraction by maximum conductance and driving force. Independence and the all-required rule are essential; the power law is not universal."]
+          "type": "math",
+          "title": "Whole-channel open probability",
+          "items": [
+            {
+              "tex": "Y=y^P"
+            }
+          ],
+          "note": "Use the power $P$ only for identical independent particles when all $P$ must be permissive. A single permissive fraction $y$ and whole-channel probability $Y$ represent different events."
         },
         {
           "type": "figure",
@@ -2701,10 +2882,7 @@ const content = {
           ],
           "hints": [
             {
-              "body": "Recall the distinction illustrated in this source figure."
-            },
-            {
-              "body": "Separate the controlled condition from the outcome in the prompt."
+              "body": "The opening event requires every independent particle to be permissive at once."
             }
           ],
           "modelAnswer": [
@@ -2713,6 +2891,7 @@ const content = {
         },
         {
           "id": "L06-particles-starter",
+          "practice": "extra",
           "type": "mc",
           "difficulty": "easy",
           "progressionAdded": true,
@@ -2733,6 +2912,11 @@ const content = {
             }
           ],
           "correct": 1,
+          "hints": [
+            {
+              "body": "The power law multiplies the probabilities of identical independent events."
+            }
+          ],
           "modelAnswer": [
             "The product rule applies when every independent particle must be permissive for opening."
           ]
@@ -2741,13 +2925,15 @@ const content = {
     },
     {
       "id": "summary",
-      "title": "Combine three sources of nonlinearity",
+      "title": "Testing mechanisms",
       "keyTerms": [],
       "source": "L06 PDF 18",
       "blocks": [
         {
           "type": "text",
-          "body": ["PDF page 18 combines three sources of nonlinearity: concentration gradients, the positions of permeation barriers, and voltage-dependent transitions between gating states. Constant-field and static barrier relations describe permeation at specified conditions. The gate model adds explicit evolution of the conducting fraction at fixed voltage.", "A useful explanation names the observation and the mechanism it requires. Curvature alone can have several explanations; delayed activation needs a changing state. These mechanisms can coexist in one channel. This lecture introduces general gating logic, while channel-specific Hodgkin–Huxley equations belong to the following lecture."]
+          "body": [
+            "Use concentration changes to test permeation predictions and holding-voltage or step-duration changes to test gating history. One channel can combine concentration, barrier and gate effects."
+          ]
         },
         {
           "type": "figure",
@@ -2771,6 +2957,7 @@ const content = {
       "conceptQuiz": [
         {
           "id": "L06-summary-check",
+          "practice": "extra",
           "prompt": "Which mechanism adds explicit gating memory?",
           "correct": 0,
           "options": [
@@ -2785,10 +2972,7 @@ const content = {
           ],
           "hints": [
             {
-              "body": "Recall the distinction illustrated in this source figure."
-            },
-            {
-              "body": "Separate the controlled condition from the outcome in the prompt."
+              "body": "A mechanism with memory can distinguish two holds at the same test voltage."
             }
           ],
           "modelAnswer": [
@@ -2797,6 +2981,7 @@ const content = {
         },
         {
           "id": "L06-summary-starter",
+          "practice": "extra",
           "type": "mc",
           "difficulty": "easy",
           "progressionAdded": true,
@@ -2817,6 +3002,11 @@ const content = {
             }
           ],
           "correct": 0,
+          "hints": [
+            {
+              "body": "Consider ion supply, the crossing rate and access to the pore separately."
+            }
+          ],
           "modelAnswer": [
             "Concentration gradients, pore barriers and dynamic gating can all contribute."
           ]
@@ -2825,36 +3015,45 @@ const content = {
     },
     {
       "id": "model-audit",
-      "title": "Group-work model audit",
+      "title": "Model choice",
       "keyTerms": [],
       "source": "L06 PDF 19–21",
       "blocks": [
         {
           "type": "text",
-          "body": ["The group work on PDF pages 19–21 asks which model directly explains each observation, not which single label describes every aspect of a real channel. Fixed-permeability concentration effects support constant-field permeation; barrier height or position supports barrier permeation; switching and delayed conductance require dynamic gates.", "All three families can give nonlinear current–voltage behavior. The table’s “indirectly” means a gate model controls access but still needs a permeation/current relation and reversal to calculate ionic current. Compare explicit time dependence and the moving object, ion versus gating particle, before claiming that curvature uniquely identifies a mechanism."]
+          "body": [
+            "Ask whether the model specifies permeation, channel occupancy, or both. Predict a second measurement under controlled conditions before assigning a curved I–V relation to one mechanism."
+          ]
         },
         {
-          "type": "figure",
-          "visual": {
-            "type": "widget",
-            "name": "image-hotspots",
-            "caption": "Lecture 6, PDF page 21. Source comparison table for constant-field, barrier and gate models. Original labels, axes and scale bars retained.",
-            "fallbackAlt": "Lecture 6, PDF page 21. Source comparison table for constant-field, barrier and gate models. Original labels, axes and scale bars retained.",
-            "props": {
-              "src": new URL('../../assets/figures/nbe-e4120/L06/comparison.webp', import.meta.url).href,
-              "alt": "Lecture 6, PDF page 21. Source comparison table for constant-field, barrier and gate models. Original labels, axes and scale bars retained.",
-              "aspect": 1.99182156133829,
-              "quiz": false,
-              "layout": "stack",
-              "regions": []
+          "type": "detail",
+          "title": "Source group-work comparison",
+          "blocks": [
+            {
+              "type": "figure",
+              "visual": {
+                "type": "widget",
+                "name": "image-hotspots",
+                "caption": "Lecture 6, PDF page 21. Source comparison table for constant-field, barrier and gate models. Original labels, axes and scale bars retained.",
+                "fallbackAlt": "Lecture 6, PDF page 21. Source comparison table for constant-field, barrier and gate models. Original labels, axes and scale bars retained.",
+                "props": {
+                  "src": new URL('../../assets/figures/nbe-e4120/L06/comparison.webp', import.meta.url).href,
+                  "alt": "Lecture 6, PDF page 21. Source comparison table for constant-field, barrier and gate models. Original labels, axes and scale bars retained.",
+                  "aspect": 1.99182156133829,
+                  "quiz": false,
+                  "layout": "stack",
+                  "regions": []
+                }
+              }
             }
-          }
+          ]
         }
       ],
       "formulas": [],
       "conceptQuiz": [
         {
           "id": "L06-model-audit-check",
+          "practice": "extra",
           "prompt": "Can a nonlinear current curve uniquely prove gating?",
           "correct": 1,
           "options": [
@@ -2869,10 +3068,7 @@ const content = {
           ],
           "hints": [
             {
-              "body": "Recall the distinction illustrated in this source figure."
-            },
-            {
-              "body": "Separate the controlled condition from the outcome in the prompt."
+              "body": "Look for static mechanisms that also curve an I–V plot."
             }
           ],
           "modelAnswer": [
@@ -2881,6 +3077,7 @@ const content = {
         },
         {
           "id": "L06-model-audit-starter",
+          "practice": "extra",
           "type": "mc",
           "difficulty": "easy",
           "progressionAdded": true,
@@ -2901,6 +3098,11 @@ const content = {
             }
           ],
           "correct": 2,
+          "hints": [
+            {
+              "body": "Consider what the gating variable describes before specifying current through the open pore."
+            }
+          ],
           "modelAnswer": [
             "Opening probability controls availability; a separate open-pore relation supplies ionic current."
           ]
@@ -2909,20 +3111,35 @@ const content = {
     },
     {
       "id": "clamp",
-      "title": "Separate leak, activation and driving force",
+      "title": "Exercise 6: clamp traces",
       "keyTerms": [],
       "source": "Exercise6 p1; solving instructions",
       "blocks": [
         {
+          "type": "math",
+          "title": "Separate leak and gated current",
+          "items": [
+            {
+              "tex": "I_{total}=I_L+I_{y,max}y"
+            },
+            {
+              "tex": "I_{y,max}=\\frac{I_{total}-I_L}{y}"
+            }
+          ],
+          "note": "Use after excluding the capacitive transient. With negligible initial activation, the early post-step current estimates $I_L$. If the channel is already open, a change in driving force can jump its current even while $y$ is continuous. Divide the leak-subtracted current by nonzero $y$ at the test voltage."
+        },
+        {
           "type": "text",
-          "body": ["Exercise 6 problem 1 controls membrane voltage and measures total current over time. A step to a more negative voltage gives a rapid jump followed by slower inward activation, consistent with the falling steady activation curve. At the new held voltage, subtract leak before dividing by the gating fraction to infer fully activated current.", "The solving instructions identify the immediate component as leak only when initial activation is negligible and the capacitive transient is excluded. Finite-rate gating keeps $y$ continuous, but pre-existing open channels can change current instantly with driving force. Use the relaxation law for later activation and then recombine leak and gated current."]
+          "body": [
+            "Exercise 6 shows an early inward current near $-1\\,\\mathrm{nA}$ and a late current near $-3\\,\\mathrm{nA}$. With activation approaching one, the fully activated component is about $-2\\,\\mathrm{nA}$. The activation curve rises as voltage becomes more negative."
+          ]
         },
         {
           "type": "figure",
           "visual": {
             "type": "widget",
             "name": "image-hotspots",
-            "caption": "Exercise 6, PDF page 1. Supplied Exercise6 voltage-clamp current/voltage traces and steady activation curve. Graph readings are approximate. Original labels, axes and scale bars retained.",
+            "caption": "Exercise 6 p1. Read the imposed voltage, early and late currents, and steady activation.",
             "fallbackAlt": "Exercise 6, PDF page 1. Supplied Exercise6 voltage-clamp current/voltage traces and steady activation curve. Graph readings are approximate. Original labels, axes and scale bars retained.",
             "props": {
               "src": new URL('../../assets/figures/nbe-e4120/L06/clamp.webp', import.meta.url).href,
@@ -2966,13 +3183,13 @@ const content = {
           "drill": {
             "prompt": "At fixed voltage $I_{y,max}=-4\\times10^{-9}\\,\\mathrm A$ and $y=0.3$. Find gated current.",
             "answer": {
-              "value": -1.2e-09,
+              "value": -1.2e-9,
               "unit": "A",
               "tolerance": 3.6e-12,
               "verification": {
                 "relation": "product",
                 "inputs": {
-                  "a": -4e-09,
+                  "a": -4e-9,
                   "b": 0.3
                 },
                 "displayScale": 1
@@ -3030,13 +3247,13 @@ const content = {
           "drill": {
             "prompt": "Total current is $-3.8\\times10^{-9}\\,\\mathrm A$, leak is $-0.8\\times10^{-9}\\,\\mathrm A$ and $y=0.6$. Find fully activated current.",
             "answer": {
-              "value": -5e-09,
+              "value": -5e-9,
               "unit": "A",
               "tolerance": 1.5e-11,
               "verification": {
                 "relation": "ratio",
                 "inputs": {
-                  "a": -3e-09,
+                  "a": -3e-9,
                   "b": 0.6
                 },
                 "displayScale": 1
@@ -3076,10 +3293,7 @@ const content = {
           ],
           "hints": [
             {
-              "body": "Recall the distinction illustrated in this source figure."
-            },
-            {
-              "body": "Separate the controlled condition from the outcome in the prompt."
+              "body": "Consider the brief charging current and whether any channels were open during the hold."
             }
           ],
           "modelAnswer": [
@@ -3088,6 +3302,7 @@ const content = {
         },
         {
           "id": "L06-clamp-starter",
+          "practice": "extra",
           "type": "mc",
           "difficulty": "easy",
           "progressionAdded": true,
@@ -3108,6 +3323,11 @@ const content = {
             }
           ],
           "correct": 1,
+          "hints": [
+            {
+              "body": "The clamp fixes the electrical variable named in its mode."
+            }
+          ],
           "modelAnswer": [
             "Voltage clamp holds the command voltage while measuring the required membrane current."
           ]
@@ -3121,20 +3341,35 @@ const content = {
     },
     {
       "id": "chord",
-      "title": "Chord conductance and reversal-based inference",
+      "title": "Exercise 6: chord conductance",
       "keyTerms": [],
       "source": "Exercise6 p2; solving instructions",
       "blocks": [
         {
+          "type": "math",
+          "title": "Chord and concentration ratio",
+          "items": [
+            {
+              "tex": "G_{chord}=\\frac{I}{V_m-E_{rev}}"
+            },
+            {
+              "tex": "\\frac{C_i}{C_o}=10^{-zE_{rev}/(58\\,\\mathrm{mV})}"
+            }
+          ],
+          "note": "Read $E_{rev}$ from the zero crossing. The chord joins reversal to the measured point and requires nonzero driving force. Its slope differs from the local tangent on a nonlinear curve. Use the second relation for a single selective ion at $20\\,{}^\\circ\\mathrm C$ with signed valence $z$."
+        },
+        {
           "type": "text",
-          "body": ["Exercise 6 problem 2 compares currents at controlled voltages. Locate the zero-current reversal, then calculate chord conductance from $G=I/(V-E_{rev})$. This is a line from reversal to the measured point, not the local differential slope. Compare conductances, not just current amplitudes, to assess rectification.", "For the specified selective monovalent ion at $20\\,^{\\circ}\\mathrm C$, infer the inside/outside ratio using the supplied $58\\,\\mathrm{mV}$ Nernst shortcut below. Treat graph readings as approximate. A positive reversal with inward rectification is GHK-compatible and can also fit a suitable barrier model; neither compatibility nor curvature proves a unique mechanism."]
+          "body": [
+            "Exercise 6 gives reversal near $+30\\,\\mathrm{mV}$, chord conductances near $30\\,\\mathrm{nS}$ inward and $14\\,\\mathrm{nS}$ outward, and $C_i/C_o\\approx0.30$ for its monovalent cation. The inward rectification is consistent with the GHK gradient or an inner dominant barrier. The curve alone leaves the mechanism unresolved."
+          ]
         },
         {
           "type": "figure",
           "visual": {
             "type": "widget",
             "name": "image-hotspots",
-            "caption": "Exercise 6, PDF page 2. Supplied Exercise6 nonlinear current–voltage curve, with original axes. Graph readings are approximate. Original labels, axes and scale bars retained.",
+            "caption": "Exercise 6 p2. Read reversal at the zero crossing and draw chords to the two measurements.",
             "fallbackAlt": "Exercise 6, PDF page 2. Supplied Exercise6 nonlinear current–voltage curve, with original axes. Graph readings are approximate. Original labels, axes and scale bars retained.",
             "props": {
               "src": new URL('../../assets/figures/nbe-e4120/L06/chord.webp', import.meta.url).href,
@@ -3184,13 +3419,13 @@ const content = {
           "drill": {
             "prompt": "Use $I=-1.5\\times10^{-9}\\,\\mathrm A$, $V_m=-0.030\\,\\mathrm V$ and $E_{rev}=0.020\\,\\mathrm V$. Find chord conductance.",
             "answer": {
-              "value": 3e-08,
+              "value": 3e-8,
               "unit": "S",
               "tolerance": 9e-11,
               "verification": {
                 "relation": "ratio",
                 "inputs": {
-                  "a": -1.5e-09,
+                  "a": -1.5e-9,
                   "b": -0.05
                 },
                 "displayScale": 1
@@ -3294,10 +3529,7 @@ const content = {
           ],
           "hints": [
             {
-              "body": "Recall the distinction illustrated in this source figure."
-            },
-            {
-              "body": "Separate the controlled condition from the outcome in the prompt."
+              "body": "The chord starts at the voltage where that ionic current is zero."
             }
           ],
           "modelAnswer": [
@@ -3306,6 +3538,7 @@ const content = {
         },
         {
           "id": "L06-chord-starter",
+          "practice": "extra",
           "type": "mc",
           "difficulty": "easy",
           "progressionAdded": true,
@@ -3326,6 +3559,11 @@ const content = {
             }
           ],
           "correct": 0,
+          "hints": [
+            {
+              "body": "Draw the line from the zero-current intercept to the measured point."
+            }
+          ],
           "modelAnswer": [
             "The chord uses current divided by voltage measured from reversal."
           ]
@@ -3334,6 +3572,7 @@ const content = {
     }
   ],
   "recap": {
+    "takeaways": ["Compare chord conductance and local I–V slope before inferring membrane behavior.", "Separate the driving force or permeation model from the probability of gate opening.", "Use forward and backward rates for both steady occupancy and time to relax."],
     "intro": "Revision reference, not an assumed permitted personal cheat sheet. A calculator and the official supplied equation sheet are confirmed.",
     "terms": [
       {
@@ -3564,13 +3803,13 @@ const content = {
             {
               "label": "Permeability",
               "answer": {
-                "value": 2e-08,
+                "value": 2e-8,
                 "unit": "m/s",
                 "tolerance": 2e-14,
                 "verification": {
                   "relation": "ratio",
                   "inputs": {
-                    "a": 2e-08,
+                    "a": 2e-8,
                     "b": 1
                   },
                   "displayScale": 1
@@ -3582,7 +3821,7 @@ const content = {
               "answer": {
                 "value": 0.025,
                 "unit": "V",
-                "tolerance": 2.5e-08,
+                "tolerance": 2.5e-8,
                 "verification": {
                   "relation": "ratio",
                   "inputs": {
@@ -3614,7 +3853,7 @@ const content = {
               "answer": {
                 "value": 12,
                 "unit": "mol/m3",
-                "tolerance": 1.2e-05,
+                "tolerance": 0.000012,
                 "verification": {
                   "relation": "ratio",
                   "inputs": {
@@ -3635,7 +3874,7 @@ const content = {
           "answer": {
             "value": 0.025247468518422553,
             "unit": "V",
-            "tolerance": 7.574240555526767e-05,
+            "tolerance": 0.00007574240555526767,
             "verification": {
               "relation": "ratio",
               "inputs": {
@@ -3712,7 +3951,7 @@ const content = {
                 "v": 0.025,
                 "inside": 120,
                 "outside": 12,
-                "permeability": 2e-08
+                "permeability": 2e-8
               },
               "displayScale": 1
             }
@@ -3836,13 +4075,13 @@ const content = {
             {
               "label": "Crossing coefficient",
               "answer": {
-                "value": 2e-06,
+                "value": 0.000002,
                 "unit": "m/s",
                 "tolerance": 2e-12,
                 "verification": {
                   "relation": "ratio",
                   "inputs": {
-                    "a": 2e-06,
+                    "a": 0.000002,
                     "b": 1
                   },
                   "displayScale": 1
@@ -3854,7 +4093,7 @@ const content = {
               "answer": {
                 "value": 0.25,
                 "unit": "",
-                "tolerance": 2.5e-07,
+                "tolerance": 2.5e-7,
                 "verification": {
                   "relation": "ratio",
                   "inputs": {
@@ -3870,7 +4109,7 @@ const content = {
               "answer": {
                 "value": 80,
                 "unit": "mol/m3",
-                "tolerance": 7.999999999999999e-05,
+                "tolerance": 0.00007999999999999999,
                 "verification": {
                   "relation": "ratio",
                   "inputs": {
@@ -3911,13 +4150,13 @@ const content = {
         {
           "title": "Evaluate",
           "answer": {
-            "value": 3.9999999999999996e-05,
+            "value": 0.000039999999999999996,
             "unit": "mol/m2/s",
-            "tolerance": 1.2e-07,
+            "tolerance": 1.2e-7,
             "verification": {
               "relation": "product",
               "inputs": {
-                "a": 5e-07,
+                "a": 5e-7,
                 "b": 80
               },
               "displayScale": 1
@@ -3977,13 +4216,13 @@ const content = {
             {
               "label": "Crossing coefficient",
               "answer": {
-                "value": 3e-06,
+                "value": 0.000003,
                 "unit": "m/s",
                 "tolerance": 3e-12,
                 "verification": {
                   "relation": "ratio",
                   "inputs": {
-                    "a": 3e-06,
+                    "a": 0.000003,
                     "b": 1
                   },
                   "displayScale": 1
@@ -3995,7 +4234,7 @@ const content = {
               "answer": {
                 "value": 0.25,
                 "unit": "",
-                "tolerance": 2.5e-07,
+                "tolerance": 2.5e-7,
                 "verification": {
                   "relation": "ratio",
                   "inputs": {
@@ -4011,7 +4250,7 @@ const content = {
               "answer": {
                 "value": 100,
                 "unit": "mol/m3",
-                "tolerance": 9.999999999999999e-05,
+                "tolerance": 0.00009999999999999999,
                 "verification": {
                   "relation": "ratio",
                   "inputs": {
@@ -4052,13 +4291,13 @@ const content = {
         {
           "title": "Evaluate",
           "answer": {
-            "value": 7.500000000000001e-05,
+            "value": 0.00007500000000000001,
             "unit": "mol/m2/s",
-            "tolerance": 2.2500000000000002e-07,
+            "tolerance": 2.2500000000000002e-7,
             "verification": {
               "relation": "product",
               "inputs": {
-                "a": 7.5e-07,
+                "a": 7.5e-7,
                 "b": 100
               },
               "displayScale": 1
@@ -4151,7 +4390,7 @@ const content = {
               "answer": {
                 "value": 0.002,
                 "unit": "m/s",
-                "tolerance": 2e-09,
+                "tolerance": 2e-9,
                 "verification": {
                   "relation": "ratio",
                   "inputs": {
@@ -4167,7 +4406,7 @@ const content = {
               "answer": {
                 "value": 4,
                 "unit": "",
-                "tolerance": 4e-06,
+                "tolerance": 0.000004,
                 "verification": {
                   "relation": "ratio",
                   "inputs": {
@@ -4186,9 +4425,9 @@ const content = {
         {
           "title": "Evaluate",
           "answer": {
-            "value": 3.663127777746836e-05,
+            "value": 0.00003663127777746836,
             "unit": "m/s",
-            "tolerance": 1.0989383333240508e-07,
+            "tolerance": 1.0989383333240508e-7,
             "verification": {
               "relation": "exponentialRate",
               "inputs": {
@@ -4253,7 +4492,7 @@ const content = {
               "answer": {
                 "value": 90,
                 "unit": "mol/m3",
-                "tolerance": 8.999999999999999e-05,
+                "tolerance": 0.00008999999999999999,
                 "verification": {
                   "relation": "ratio",
                   "inputs": {
@@ -4269,7 +4508,7 @@ const content = {
               "answer": {
                 "value": 30,
                 "unit": "mol/m3",
-                "tolerance": 2.9999999999999997e-05,
+                "tolerance": 0.000029999999999999997,
                 "verification": {
                   "relation": "ratio",
                   "inputs": {
@@ -4353,13 +4592,13 @@ const content = {
             {
               "label": "Baseline coefficient",
               "answer": {
-                "value": 1e-06,
+                "value": 0.000001,
                 "unit": "m/s",
                 "tolerance": 1e-12,
                 "verification": {
                   "relation": "ratio",
                   "inputs": {
-                    "a": 1e-06,
+                    "a": 0.000001,
                     "b": 1
                   },
                   "displayScale": 1
@@ -4371,7 +4610,7 @@ const content = {
               "answer": {
                 "value": 0.3,
                 "unit": "",
-                "tolerance": 3e-07,
+                "tolerance": 3e-7,
                 "verification": {
                   "relation": "ratio",
                   "inputs": {
@@ -4387,7 +4626,7 @@ const content = {
               "answer": {
                 "value": 0.02,
                 "unit": "V",
-                "tolerance": 2e-08,
+                "tolerance": 2e-8,
                 "verification": {
                   "relation": "ratio",
                   "inputs": {
@@ -4428,13 +4667,13 @@ const content = {
         {
           "title": "Evaluate",
           "answer": {
-            "value": 5.743530287860968e-07,
+            "value": 5.743530287860968e-7,
             "unit": "m/s",
-            "tolerance": 1.7230590863582903e-09,
+            "tolerance": 1.7230590863582903e-9,
             "verification": {
               "relation": "exponentialRate",
               "inputs": {
-                "base": 1e-06,
+                "base": 0.000001,
                 "exponent": -0.5545110389892947
               },
               "displayScale": 1
@@ -4493,13 +4732,13 @@ const content = {
             {
               "label": "Baseline coefficient",
               "answer": {
-                "value": 1e-06,
+                "value": 0.000001,
                 "unit": "m/s",
                 "tolerance": 1e-12,
                 "verification": {
                   "relation": "ratio",
                   "inputs": {
-                    "a": 1e-06,
+                    "a": 0.000001,
                     "b": 1
                   },
                   "displayScale": 1
@@ -4511,7 +4750,7 @@ const content = {
               "answer": {
                 "value": 0.3,
                 "unit": "",
-                "tolerance": 3e-07,
+                "tolerance": 3e-7,
                 "verification": {
                   "relation": "ratio",
                   "inputs": {
@@ -4527,7 +4766,7 @@ const content = {
               "answer": {
                 "value": 0.02,
                 "unit": "V",
-                "tolerance": 2e-08,
+                "tolerance": 2e-8,
                 "verification": {
                   "relation": "ratio",
                   "inputs": {
@@ -4568,13 +4807,13 @@ const content = {
         {
           "title": "Evaluate",
           "answer": {
-            "value": 1.2682621634301293e-06,
+            "value": 0.0000012682621634301293,
             "unit": "m/s",
-            "tolerance": 3.804786490290388e-09,
+            "tolerance": 3.804786490290388e-9,
             "verification": {
               "relation": "exponentialRate",
               "inputs": {
-                "base": 1e-06,
+                "base": 0.000001,
                 "exponent": 0.23764758813826917
               },
               "displayScale": 1
@@ -4633,13 +4872,13 @@ const content = {
             {
               "label": "Outward flux",
               "answer": {
-                "value": 3e-06,
+                "value": 0.000003,
                 "unit": "mol/m2/s",
                 "tolerance": 3e-12,
                 "verification": {
                   "relation": "ratio",
                   "inputs": {
-                    "a": 3e-06,
+                    "a": 0.000003,
                     "b": 1
                   },
                   "displayScale": 1
@@ -4649,13 +4888,13 @@ const content = {
             {
               "label": "Inward flux",
               "answer": {
-                "value": 5e-06,
+                "value": 0.000005,
                 "unit": "mol/m2/s",
                 "tolerance": 5.0000000000000005e-12,
                 "verification": {
                   "relation": "ratio",
                   "inputs": {
-                    "a": 5e-06,
+                    "a": 0.000005,
                     "b": 1
                   },
                   "displayScale": 1
@@ -4670,14 +4909,14 @@ const content = {
         {
           "title": "Signed net flux",
           "answer": {
-            "value": -2e-06,
+            "value": -0.000002,
             "unit": "mol/m2/s",
-            "tolerance": 6e-09,
+            "tolerance": 6e-9,
             "verification": {
               "relation": "sum",
               "inputs": {
-                "a": 3e-06,
-                "b": -5e-06
+                "a": 0.000003,
+                "b": -0.000005
               },
               "displayScale": 1
             }
@@ -4698,7 +4937,7 @@ const content = {
             "verification": {
               "relation": "fluxCurrent",
               "inputs": {
-                "flux": -2e-06,
+                "flux": -0.000002,
                 "z": 1,
                 "f": 96485
               },
@@ -4920,7 +5159,7 @@ const content = {
               "answer": {
                 "value": 30,
                 "unit": "1/s",
-                "tolerance": 2.9999999999999997e-05,
+                "tolerance": 0.000029999999999999997,
                 "verification": {
                   "relation": "ratio",
                   "inputs": {
@@ -4936,7 +5175,7 @@ const content = {
               "answer": {
                 "value": 10,
                 "unit": "1/s",
-                "tolerance": 9.999999999999999e-06,
+                "tolerance": 0.000009999999999999999,
                 "verification": {
                   "relation": "ratio",
                   "inputs": {
@@ -4952,7 +5191,7 @@ const content = {
               "answer": {
                 "value": 0.4,
                 "unit": "",
-                "tolerance": 4e-07,
+                "tolerance": 4e-7,
                 "verification": {
                   "relation": "ratio",
                   "inputs": {
@@ -5117,7 +5356,7 @@ const content = {
               "answer": {
                 "value": 25,
                 "unit": "1/s",
-                "tolerance": 2.4999999999999998e-05,
+                "tolerance": 0.000024999999999999998,
                 "verification": {
                   "relation": "ratio",
                   "inputs": {
@@ -5133,7 +5372,7 @@ const content = {
               "answer": {
                 "value": 0.4,
                 "unit": "",
-                "tolerance": 4e-07,
+                "tolerance": 4e-7,
                 "verification": {
                   "relation": "ratio",
                   "inputs": {
@@ -5149,7 +5388,7 @@ const content = {
               "answer": {
                 "value": 0.015,
                 "unit": "V",
-                "tolerance": 1.5e-08,
+                "tolerance": 1.5e-8,
                 "verification": {
                   "relation": "ratio",
                   "inputs": {
@@ -5258,7 +5497,7 @@ const content = {
               "answer": {
                 "value": 40,
                 "unit": "1/s",
-                "tolerance": 3.9999999999999996e-05,
+                "tolerance": 0.000039999999999999996,
                 "verification": {
                   "relation": "ratio",
                   "inputs": {
@@ -5274,7 +5513,7 @@ const content = {
               "answer": {
                 "value": 0.4,
                 "unit": "",
-                "tolerance": 4e-07,
+                "tolerance": 4e-7,
                 "verification": {
                   "relation": "ratio",
                   "inputs": {
@@ -5290,7 +5529,7 @@ const content = {
               "answer": {
                 "value": 0.015,
                 "unit": "V",
-                "tolerance": 1.5e-08,
+                "tolerance": 1.5e-8,
                 "verification": {
                   "relation": "ratio",
                   "inputs": {
@@ -5398,7 +5637,7 @@ const content = {
               "answer": {
                 "value": 60,
                 "unit": "1/s",
-                "tolerance": 5.9999999999999995e-05,
+                "tolerance": 0.000059999999999999995,
                 "verification": {
                   "relation": "ratio",
                   "inputs": {
@@ -5414,7 +5653,7 @@ const content = {
               "answer": {
                 "value": 20,
                 "unit": "1/s",
-                "tolerance": 1.9999999999999998e-05,
+                "tolerance": 0.000019999999999999998,
                 "verification": {
                   "relation": "ratio",
                   "inputs": {
@@ -5522,7 +5761,7 @@ const content = {
               "answer": {
                 "value": 30,
                 "unit": "1/s",
-                "tolerance": 2.9999999999999997e-05,
+                "tolerance": 0.000029999999999999997,
                 "verification": {
                   "relation": "ratio",
                   "inputs": {
@@ -5538,7 +5777,7 @@ const content = {
               "answer": {
                 "value": 50,
                 "unit": "1/s",
-                "tolerance": 4.9999999999999996e-05,
+                "tolerance": 0.000049999999999999996,
                 "verification": {
                   "relation": "ratio",
                   "inputs": {
@@ -5554,7 +5793,7 @@ const content = {
               "answer": {
                 "value": 0.02,
                 "unit": "V",
-                "tolerance": 2e-08,
+                "tolerance": 2e-8,
                 "verification": {
                   "relation": "ratio",
                   "inputs": {
@@ -5727,7 +5966,7 @@ const content = {
               "answer": {
                 "value": 45,
                 "unit": "1/s",
-                "tolerance": 4.4999999999999996e-05,
+                "tolerance": 0.000044999999999999996,
                 "verification": {
                   "relation": "ratio",
                   "inputs": {
@@ -5743,7 +5982,7 @@ const content = {
               "answer": {
                 "value": 15,
                 "unit": "1/s",
-                "tolerance": 1.4999999999999999e-05,
+                "tolerance": 0.000014999999999999999,
                 "verification": {
                   "relation": "ratio",
                   "inputs": {
@@ -5786,7 +6025,7 @@ const content = {
           "answer": {
             "value": 0.016666666666666666,
             "unit": "s",
-            "tolerance": 5e-05,
+            "tolerance": 0.00005,
             "verification": {
               "relation": "ratio",
               "inputs": {
@@ -5851,7 +6090,7 @@ const content = {
               "answer": {
                 "value": 0.2,
                 "unit": "",
-                "tolerance": 2e-07,
+                "tolerance": 2e-7,
                 "verification": {
                   "relation": "ratio",
                   "inputs": {
@@ -5867,7 +6106,7 @@ const content = {
               "answer": {
                 "value": 0.8,
                 "unit": "",
-                "tolerance": 8e-07,
+                "tolerance": 8e-7,
                 "verification": {
                   "relation": "ratio",
                   "inputs": {
@@ -5883,7 +6122,7 @@ const content = {
               "answer": {
                 "value": 0.02,
                 "unit": "s",
-                "tolerance": 2e-08,
+                "tolerance": 2e-8,
                 "verification": {
                   "relation": "ratio",
                   "inputs": {
@@ -5899,7 +6138,7 @@ const content = {
               "answer": {
                 "value": 0.03,
                 "unit": "s",
-                "tolerance": 3e-08,
+                "tolerance": 3e-8,
                 "verification": {
                   "relation": "ratio",
                   "inputs": {
@@ -6064,7 +6303,7 @@ const content = {
               "answer": {
                 "value": 0.6,
                 "unit": "",
-                "tolerance": 6e-07,
+                "tolerance": 6e-7,
                 "verification": {
                   "relation": "ratio",
                   "inputs": {
@@ -6080,7 +6319,7 @@ const content = {
               "answer": {
                 "value": 3,
                 "unit": "",
-                "tolerance": 3e-06,
+                "tolerance": 0.000003,
                 "verification": {
                   "relation": "ratio",
                   "inputs": {
@@ -6392,13 +6631,13 @@ const content = {
             {
               "label": "Fully activated current",
               "answer": {
-                "value": -4e-09,
+                "value": -4e-9,
                 "unit": "A",
                 "tolerance": 4e-15,
                 "verification": {
                   "relation": "ratio",
                   "inputs": {
-                    "a": -4e-09,
+                    "a": -4e-9,
                     "b": 1
                   },
                   "displayScale": 1
@@ -6410,7 +6649,7 @@ const content = {
               "answer": {
                 "value": 0.3,
                 "unit": "",
-                "tolerance": 3e-07,
+                "tolerance": 3e-7,
                 "verification": {
                   "relation": "ratio",
                   "inputs": {
@@ -6429,13 +6668,13 @@ const content = {
         {
           "title": "Evaluate",
           "answer": {
-            "value": -1.2e-09,
+            "value": -1.2e-9,
             "unit": "A",
             "tolerance": 3.6e-12,
             "verification": {
               "relation": "product",
               "inputs": {
-                "a": -4e-09,
+                "a": -4e-9,
                 "b": 0.3
               },
               "displayScale": 1
@@ -6493,13 +6732,13 @@ const content = {
             {
               "label": "Total current",
               "answer": {
-                "value": -3.8e-09,
+                "value": -3.8e-9,
                 "unit": "A",
                 "tolerance": 3.8e-15,
                 "verification": {
                   "relation": "ratio",
                   "inputs": {
-                    "a": -3.8e-09,
+                    "a": -3.8e-9,
                     "b": 1
                   },
                   "displayScale": 1
@@ -6527,7 +6766,7 @@ const content = {
               "answer": {
                 "value": 0.6,
                 "unit": "",
-                "tolerance": 6e-07,
+                "tolerance": 6e-7,
                 "verification": {
                   "relation": "ratio",
                   "inputs": {
@@ -6546,13 +6785,13 @@ const content = {
         {
           "title": "Current after subtracting leak",
           "answer": {
-            "value": -3e-09,
+            "value": -3e-9,
             "unit": "A",
             "tolerance": 9e-12,
             "verification": {
               "relation": "sum",
               "inputs": {
-                "a": -3.8e-09,
+                "a": -3.8e-9,
                 "b": 8e-10
               },
               "displayScale": 1
@@ -6568,13 +6807,13 @@ const content = {
         {
           "title": "Evaluate",
           "answer": {
-            "value": -5e-09,
+            "value": -5e-9,
             "unit": "A",
             "tolerance": 1.5e-11,
             "verification": {
               "relation": "ratio",
               "inputs": {
-                "a": -3e-09,
+                "a": -3e-9,
                 "b": 0.6
               },
               "displayScale": 1
@@ -6665,13 +6904,13 @@ const content = {
             {
               "label": "Current",
               "answer": {
-                "value": -1.5e-09,
+                "value": -1.5e-9,
                 "unit": "A",
                 "tolerance": 1.5e-15,
                 "verification": {
                   "relation": "ratio",
                   "inputs": {
-                    "a": -1.5e-09,
+                    "a": -1.5e-9,
                     "b": 1
                   },
                   "displayScale": 1
@@ -6683,7 +6922,7 @@ const content = {
               "answer": {
                 "value": -0.03,
                 "unit": "V",
-                "tolerance": 3e-08,
+                "tolerance": 3e-8,
                 "verification": {
                   "relation": "ratio",
                   "inputs": {
@@ -6699,7 +6938,7 @@ const content = {
               "answer": {
                 "value": 0.02,
                 "unit": "V",
-                "tolerance": 2e-08,
+                "tolerance": 2e-8,
                 "verification": {
                   "relation": "ratio",
                   "inputs": {
@@ -6740,13 +6979,13 @@ const content = {
         {
           "title": "Evaluate",
           "answer": {
-            "value": 3e-08,
+            "value": 3e-8,
             "unit": "S",
             "tolerance": 9e-11,
             "verification": {
               "relation": "ratio",
               "inputs": {
-                "a": -1.5e-09,
+                "a": -1.5e-9,
                 "b": -0.05
               },
               "displayScale": 1
@@ -6807,7 +7046,7 @@ const content = {
               "answer": {
                 "value": 0.04,
                 "unit": "V",
-                "tolerance": 4e-08,
+                "tolerance": 4e-8,
                 "verification": {
                   "relation": "ratio",
                   "inputs": {
@@ -6823,7 +7062,7 @@ const content = {
               "answer": {
                 "value": 0.058,
                 "unit": "V",
-                "tolerance": 5.8e-08,
+                "tolerance": 5.8e-8,
                 "verification": {
                   "relation": "ratio",
                   "inputs": {
@@ -6915,6 +7154,212 @@ const content = {
       ],
       "points": 1,
       "source": "Exercise6 p2; solving instructions"
+    },
+    {
+      "id": "L06-core-straight",
+      "sectionId": "rectification",
+      "source": "L06 PDF 2",
+      "type": "mc",
+      "difficulty": "easy",
+      "prompt": "What does a straight ionic current–voltage line imply about chord conductance?",
+      "options": [
+        {
+          "text": "It stays constant across the line.",
+          "feedback": "Every chord from reversal has the same slope."
+        },
+        {
+          "text": "It grows with outward current.",
+          "feedback": "Outward current grows with driving force even with unchanged conductance."
+        },
+        {
+          "text": "It grows with inward current.",
+          "feedback": "Inward current can grow in magnitude at constant conductance."
+        }
+      ],
+      "correct": 0,
+      "hints": [
+        {
+          "body": "Compare slopes of chords drawn from reversal."
+        },
+        {
+          "body": "Use the same zero-current intercept for each measured point."
+        }
+      ],
+      "modelAnswer": [
+        "Every chord from reversal has the same slope."
+      ]
+    },
+    {
+      "id": "L06-core-inward-supply",
+      "sectionId": "independence",
+      "source": "L06 PDF 5",
+      "type": "mc",
+      "difficulty": "easy",
+      "prompt": "Which concentration supplies the inward flux in the independent single-barrier model?",
+      "options": [
+        {
+          "text": "The inside concentration.",
+          "feedback": "The inside concentration supplies the outward term."
+        },
+        {
+          "text": "The mean concentration.",
+          "feedback": "Each directional term uses its own supply side."
+        },
+        {
+          "text": "The outside concentration.",
+          "feedback": "Ions entering the pore from outside supply the inward term."
+        }
+      ],
+      "correct": 2,
+      "hints": [
+        {
+          "body": "Follow the ion from its starting side."
+        },
+        {
+          "body": "Inward here means movement from the bath into the cell."
+        }
+      ],
+      "modelAnswer": [
+        "Ions entering the pore from outside supply the inward term."
+      ]
+    },
+    {
+      "id": "L06-core-open-prob",
+      "sectionId": "assumptions",
+      "source": "L06 PDF 12",
+      "type": "mc",
+      "difficulty": "easy",
+      "prompt": "In $I=\\bar gY(V_m-E_{rev})$, which factor represents the fraction of open channels?",
+      "options": [
+        {
+          "text": "The probability $Y$.",
+          "feedback": "The open probability is the fraction of open channels in a large population."
+        },
+        {
+          "text": "The conductance $\\bar g$.",
+          "feedback": "This is the population conductance with every channel open."
+        },
+        {
+          "text": "The difference $V_m-E_{rev}$.",
+          "feedback": "This is the ionic driving force for an open pore."
+        }
+      ],
+      "correct": 0,
+      "hints": [
+        {
+          "body": "Separate the pore conductance, channel state and driving force."
+        },
+        {
+          "body": "This factor is dimensionless and bounded between zero and one."
+        }
+      ],
+      "modelAnswer": [
+        "The open probability is the fraction of open channels in a large population."
+      ]
+    },
+    {
+      "id": "L06-core-balance-sign",
+      "practice": "extra",
+      "sectionId": "balance",
+      "source": "L06 PDF 13",
+      "type": "mc",
+      "difficulty": "easy",
+      "prompt": "When transitions into the permissive state outnumber transitions out, what happens to the permissive fraction?",
+      "options": [
+        {
+          "text": "The fraction decreases.",
+          "feedback": "A decrease requires more exits from the permissive state than entries."
+        },
+        {
+          "text": "The fraction increases.",
+          "feedback": "The opening flux exceeds the closing flux, giving a positive derivative."
+        },
+        {
+          "text": "The fraction stays fixed.",
+          "feedback": "Steady occupancy requires equal transition fluxes."
+        }
+      ],
+      "correct": 1,
+      "hints": [
+        {
+          "body": "The derivative is the inflow minus the outflow of probability."
+        },
+        {
+          "body": "Compare $\\alpha(1-y)$ with $\\beta y$ in the balance equation."
+        }
+      ],
+      "modelAnswer": [
+        "The opening flux exceeds the closing flux, giving a positive derivative."
+      ]
+    },
+    {
+      "id": "L06-core-one-tau",
+      "sectionId": "kinetics",
+      "source": "L06 PDF 17",
+      "type": "mc",
+      "difficulty": "easy",
+      "prompt": "After one time constant at a fixed test voltage, what fraction of the initial gap to steady activation remains?",
+      "options": [
+        {
+          "text": "About 50% of the gap.",
+          "feedback": "Half the gap remains after about 0.69 time constants."
+        },
+        {
+          "text": "About 37% of the gap.",
+          "feedback": "The remaining gap is multiplied by the exponential of minus one."
+        },
+        {
+          "text": "About 63% of the gap.",
+          "feedback": "This is the fraction of the gap closed, rather than the fraction remaining."
+        }
+      ],
+      "correct": 1,
+      "hints": [
+        {
+          "body": "Evaluate the decay factor at a time equal to the time constant."
+        },
+        {
+          "body": "At $t=\\tau$ the remaining fraction is $e^{-1}$."
+        }
+      ],
+      "modelAnswer": [
+        "The remaining gap is multiplied by the exponential of minus one."
+      ]
+    },
+    {
+      "id": "L06-core-inverse-nernst",
+      "practice": "extra",
+      "sectionId": "chord",
+      "source": "Exercise 6 p2",
+      "type": "mc",
+      "difficulty": "easy",
+      "prompt": "For a single permeant cation, what concentration relation corresponds to positive reversal?",
+      "options": [
+        {
+          "text": "The concentration is higher inside.",
+          "feedback": "An outside-to-inside ratio below one gives negative reversal for a cation."
+        },
+        {
+          "text": "The concentration is higher outside.",
+          "feedback": "Positive reversal requires an outside-to-inside ratio greater than one."
+        },
+        {
+          "text": "The concentrations match across the membrane.",
+          "feedback": "Equal concentrations give zero selective reversal."
+        }
+      ],
+      "correct": 1,
+      "hints": [
+        {
+          "body": "Use the sign of the logarithm for positive valence."
+        },
+        {
+          "body": "For $z>0$, a positive reversal requires $\\ln(C_o/C_i)>0$."
+        }
+      ],
+      "modelAnswer": [
+        "Positive reversal requires an outside-to-inside ratio greater than one."
+      ]
     },
     {
       "id": "L06-rectification-reason",
@@ -7739,6 +8184,316 @@ const content = {
       }
     },
     {
+      "id": "L06-core-ghk-limit",
+      "sectionId": "constant-field",
+      "source": "L06 PDF 3",
+      "type": "mc",
+      "difficulty": "medium",
+      "prompt": "A cation is more concentrated inside. What happens to its constant-field current at $V_m=0$?",
+      "options": [
+        {
+          "text": "A net inward current flows.",
+          "feedback": "The cation diffuses from its higher inside concentration toward the outside."
+        },
+        {
+          "text": "A net outward current flows.",
+          "feedback": "The zero-voltage limit is proportional to the inside concentration minus the outside concentration."
+        },
+        {
+          "text": "The two currents cancel out.",
+          "feedback": "Cancellation requires the selective reversal voltage, which is negative here."
+        }
+      ],
+      "correct": 1,
+      "hints": [
+        {
+          "body": "At zero voltage, the concentration difference can still drive net flux."
+        },
+        {
+          "body": "The limit contains the difference $C_i-C_o$ and positive valence."
+        }
+      ],
+      "modelAnswer": [
+        "The zero-voltage limit is proportional to the inside concentration minus the outside concentration."
+      ]
+    },
+    {
+      "id": "L06-core-zero-flux-ratio",
+      "sectionId": "zero-barrier",
+      "source": "L06 PDF 6",
+      "type": "mc",
+      "difficulty": "medium",
+      "prompt": "At zero voltage across a symmetric barrier, the outside concentration is twice the inside concentration. How do the directional flux magnitudes compare?",
+      "options": [
+        {
+          "text": "Inward flux is twice outward flux.",
+          "feedback": "The inward term uses the outside concentration, with the same crossing coefficient and partition."
+        },
+        {
+          "text": "Outward flux is twice inward flux.",
+          "feedback": "The outward term uses the smaller inside concentration."
+        },
+        {
+          "text": "Inward and outward fluxes match.",
+          "feedback": "Equal coefficients do not cancel unequal concentrations."
+        }
+      ],
+      "correct": 0,
+      "hints": [
+        {
+          "body": "Cancel the shared partition and rate coefficients."
+        },
+        {
+          "body": "The inward-to-outward ratio reduces to outside concentration divided by inside concentration."
+        }
+      ],
+      "modelAnswer": [
+        "The inward term uses the outside concentration, with the same crossing coefficient and partition."
+      ]
+    },
+    {
+      "id": "L06-core-inner-rate",
+      "practice": "extra",
+      "sectionId": "tilted-barrier",
+      "source": "L06 PDF 7–8",
+      "type": "mc",
+      "difficulty": "medium",
+      "prompt": "A positive ion crosses a barrier at the inner margin. What happens to its two crossing coefficients when the cell is hyperpolarized?",
+      "options": [
+        {
+          "text": "The outward rate rises and the inward rate stays fixed.",
+          "feedback": "The outward coefficient has no voltage factor at the inner margin."
+        },
+        {
+          "text": "The inward rate rises and the outward rate stays fixed.",
+          "feedback": "The inward exponent becomes more positive while the outward exponent remains zero."
+        },
+        {
+          "text": "The outward rate falls and the inward rate rises.",
+          "feedback": "Only inward crossing has voltage dependence at this margin."
+        }
+      ],
+      "correct": 1,
+      "hints": [
+        {
+          "body": "Set $\\delta=0$ in the two rate expressions before changing voltage."
+        },
+        {
+          "body": "With $\\delta=0$, only the inward exponent contains $V_m$ and its sign is opposite to the voltage."
+        }
+      ],
+      "modelAnswer": [
+        "The inward exponent becomes more positive while the outward exponent remains zero."
+      ]
+    },
+    {
+      "id": "L06-core-scale",
+      "practice": "extra",
+      "sectionId": "concentrations",
+      "source": "L06 PDF 9",
+      "type": "mc",
+      "difficulty": "medium",
+      "prompt": "Both concentrations double with the same barrier and test voltage. How does the I–V curve change?",
+      "options": [
+        {
+          "text": "Current stays fixed while reversal doubles.",
+          "feedback": "Individual concentrations set the current scale, and their unchanged ratio fixes reversal."
+        },
+        {
+          "text": "Current and reversal both double.",
+          "feedback": "Scaling concentrations together leaves their ratio and reversal fixed."
+        },
+        {
+          "text": "Current doubles while reversal stays fixed.",
+          "feedback": "Both fluxes double and their ratio stays fixed."
+        }
+      ],
+      "correct": 2,
+      "hints": [
+        {
+          "body": "Compare the concentration ratio with the scale of each directional flux."
+        },
+        {
+          "body": "Each crossing term is linear in its own concentration."
+        }
+      ],
+      "modelAnswer": [
+        "Both fluxes double and their ratio stays fixed."
+      ]
+    },
+    {
+      "id": "L06-core-activation-curve",
+      "sectionId": "activation",
+      "source": "L06 PDF 16",
+      "type": "mc",
+      "difficulty": "medium",
+      "prompt": "Two gates have the same steady activation at a test voltage but reach it at different speeds. What differs at that voltage?",
+      "options": [
+        {
+          "text": "Their time constants differ.",
+          "feedback": "Different approach speeds at fixed voltage reflect a different rate sum."
+        },
+        {
+          "text": "Their steady fractions differ.",
+          "feedback": "The two gates reach the stated common steady fraction."
+        },
+        {
+          "text": "Their opening-to-closing rate ratios differ.",
+          "feedback": "Equal steady fractions imply equal rate ratios when both rates are positive."
+        }
+      ],
+      "correct": 0,
+      "hints": [
+        {
+          "body": "The curve’s endpoint and the time to approach it constrain different quantities."
+        },
+        {
+          "body": "Equal endpoints fix the rate ratio. The approach depends on the sum."
+        }
+      ],
+      "modelAnswer": [
+        "Different approach speeds at fixed voltage reflect a different rate sum."
+      ]
+    },
+    {
+      "id": "L06-core-gate-product",
+      "practice": "extra",
+      "sectionId": "particles",
+      "source": "L06 PDF 17",
+      "type": "mc",
+      "difficulty": "medium",
+      "prompt": "Two independent identical particles must both be permissive. If each has probability $0.5$, what is the open probability?",
+      "options": [
+        {
+          "text": "$0.50$.",
+          "feedback": "This is the occupancy of one particle alone."
+        },
+        {
+          "text": "$0.75$.",
+          "feedback": "This is the probability that at least one particle is permissive."
+        },
+        {
+          "text": "$0.25$.",
+          "feedback": "The whole channel is open with probability $0.5\\times0.5$."
+        }
+      ],
+      "correct": 2,
+      "hints": [
+        {
+          "body": "Multiply probabilities for independent events that both need to occur."
+        },
+        {
+          "body": "Use $Y=y^P$ with $P=2$."
+        }
+      ],
+      "modelAnswer": [
+        "The whole channel is open with probability $0.5\\times0.5$."
+      ]
+    },
+    {
+      "id": "L06-core-history",
+      "sectionId": "model-audit",
+      "source": "L06 PDF 18–21",
+      "type": "mc",
+      "difficulty": "medium",
+      "prompt": "Which observation supports an explicit gating state over a static, fixed-concentration permeation model?",
+      "options": [
+        {
+          "text": "Different prior holding voltages cause different current relaxations.",
+          "feedback": "At the same test voltage, occupancy can start from different values and then relax."
+        },
+        {
+          "text": "Different test voltages give different chord conductances.",
+          "feedback": "Static pore models can also produce voltage-dependent chord conductance."
+        },
+        {
+          "text": "Different ion concentrations give different reversal voltages.",
+          "feedback": "Selective permeation already explains a concentration-dependent reversal."
+        }
+      ],
+      "correct": 0,
+      "hints": [
+        {
+          "body": "Look for an effect of the holding conditions at a common test voltage."
+        },
+        {
+          "body": "Compare trials with the same test voltage and concentrations so that static permeation predicts the same current."
+        }
+      ],
+      "modelAnswer": [
+        "At the same test voltage, occupancy can start from different values and then relax."
+      ]
+    },
+    {
+      "id": "L06-core-clamp-step",
+      "practice": "extra",
+      "sectionId": "clamp",
+      "source": "Exercise 6 p1",
+      "type": "mc",
+      "difficulty": "medium",
+      "prompt": "After excluding capacitance, an initially open channel contributes to the first current sample after a voltage step. Why?",
+      "options": [
+        {
+          "text": "The new voltage instantly changes gate occupancy.",
+          "feedback": "Finite-rate gating keeps occupancy continuous immediately across the step."
+        },
+        {
+          "text": "The new voltage instantly changes ionic driving force.",
+          "feedback": "The gate state is continuous but the current per open pore can change at once."
+        },
+        {
+          "text": "The new voltage instantly moves the ionic reversal.",
+          "feedback": "The selective reversal is set by the concentration gradient, which is fixed here."
+        }
+      ],
+      "correct": 1,
+      "hints": [
+        {
+          "body": "Distinguish open fraction from the current carried by an open pore."
+        },
+        {
+          "body": "In $I=\\bar gY(V_m-E_{rev})$, $V_m$ jumps while $Y$ remains continuous."
+        }
+      ],
+      "modelAnswer": [
+        "The gate state is continuous but the current per open pore can change at once."
+      ]
+    },
+    {
+      "id": "L06-core-chord-calc",
+      "sectionId": "chord",
+      "source": "Exercise 6 p2",
+      "type": "mc",
+      "difficulty": "medium",
+      "prompt": "A current is $-0.9\\,\\mathrm{nA}$ at $-20\\,\\mathrm{mV}$ and reverses at $+10\\,\\mathrm{mV}$. What is its chord conductance there?",
+      "options": [
+        {
+          "text": "$30\\,\\mathrm{nS}$.",
+          "feedback": "Both current and driving force are negative. Their ratio is $0.03\\,\\mathrm{nA/mV}$, or $30\\,\\mathrm{nS}$."
+        },
+        {
+          "text": "$45\\,\\mathrm{nS}$.",
+          "feedback": "This uses voltage relative to zero instead of relative to reversal."
+        },
+        {
+          "text": "$90\\,\\mathrm{nS}$.",
+          "feedback": "This uses the magnitude of voltage plus reversal rather than their signed difference."
+        }
+      ],
+      "correct": 0,
+      "hints": [
+        {
+          "body": "Subtract reversal from the test voltage before dividing."
+        },
+        {
+          "body": "The signed voltage difference is $-30\\,\\mathrm{mV}$. Convert the resulting conductance to nanosiemens."
+        }
+      ],
+      "modelAnswer": [
+        "Both current and driving force are negative. Their ratio is $0.03\\,\\mathrm{nA/mV}$, or $30\\,\\mathrm{nS}$."
+      ]
+    },
+    {
       "id": "L06-barrier-derive",
       "sectionId": "tilted-barrier",
       "difficulty": "hard",
@@ -7821,13 +8576,13 @@ const content = {
             {
               "label": "Baseline coefficient",
               "answer": {
-                "value": 2e-06,
+                "value": 0.000002,
                 "unit": "m/s",
                 "tolerance": 2e-12,
                 "verification": {
                   "relation": "ratio",
                   "inputs": {
-                    "a": 2e-06,
+                    "a": 0.000002,
                     "b": 1
                   },
                   "displayScale": 1
@@ -7839,7 +8594,7 @@ const content = {
               "answer": {
                 "value": 40,
                 "unit": "mol/m3",
-                "tolerance": 3.9999999999999996e-05,
+                "tolerance": 0.000039999999999999996,
                 "verification": {
                   "relation": "ratio",
                   "inputs": {
@@ -7855,7 +8610,7 @@ const content = {
               "answer": {
                 "value": 0.5,
                 "unit": "",
-                "tolerance": 5e-07,
+                "tolerance": 5e-7,
                 "verification": {
                   "relation": "ratio",
                   "inputs": {
@@ -7874,13 +8629,13 @@ const content = {
         {
           "title": "Inward coefficient",
           "answer": {
-            "value": 4.451081856984936e-06,
+            "value": 0.000004451081856984936,
             "unit": "m/s",
-            "tolerance": 1.3353245570954808e-08,
+            "tolerance": 1.3353245570954808e-8,
             "verification": {
               "relation": "exponentialRate",
               "inputs": {
-                "base": 2e-06,
+                "base": 0.000002,
                 "exponent": 0.8
               },
               "displayScale": 1
@@ -7896,13 +8651,13 @@ const content = {
         {
           "title": "Outward coefficient",
           "answer": {
-            "value": 1.6374615061559637e-06,
+            "value": 0.0000016374615061559637,
             "unit": "m/s",
-            "tolerance": 4.912384518467891e-09,
+            "tolerance": 4.912384518467891e-9,
             "verification": {
               "relation": "exponentialRate",
               "inputs": {
-                "base": 2e-06,
+                "base": 0.000002,
                 "exponent": -0.2
               },
               "displayScale": 1
@@ -7918,13 +8673,13 @@ const content = {
         {
           "title": "Inward flux",
           "answer": {
-            "value": 8.902163713969872e-05,
+            "value": 0.00008902163713969872,
             "unit": "mol/m2/s",
-            "tolerance": 2.6706491141909616e-07,
+            "tolerance": 2.6706491141909616e-7,
             "verification": {
               "relation": "product",
               "inputs": {
-                "a": 4.451081856984936e-06,
+                "a": 0.000004451081856984936,
                 "b": 20
               },
               "displayScale": 1
@@ -7940,13 +8695,13 @@ const content = {
         {
           "title": "Outward flux",
           "answer": {
-            "value": 3.274923012311927e-05,
+            "value": 0.00003274923012311927,
             "unit": "mol/m2/s",
-            "tolerance": 9.824769036935782e-08,
+            "tolerance": 9.824769036935782e-8,
             "verification": {
               "relation": "product",
               "inputs": {
-                "a": 1.6374615061559637e-06,
+                "a": 0.0000016374615061559637,
                 "b": 20
               },
               "displayScale": 1
@@ -7968,7 +8723,7 @@ const content = {
             "verification": {
               "relation": "fluxCurrent",
               "inputs": {
-                "flux": -5.627240701657945e-05,
+                "flux": -0.00005627240701657945,
                 "z": 1,
                 "f": 96485
               },
@@ -8127,7 +8882,7 @@ const content = {
               "answer": {
                 "value": 0.65,
                 "unit": "",
-                "tolerance": 6.5e-07,
+                "tolerance": 6.5e-7,
                 "verification": {
                   "relation": "ratio",
                   "inputs": {
@@ -8143,7 +8898,7 @@ const content = {
               "answer": {
                 "value": 0.025,
                 "unit": "s",
-                "tolerance": 2.5e-08,
+                "tolerance": 2.5e-8,
                 "verification": {
                   "relation": "ratio",
                   "inputs": {
@@ -8252,7 +9007,7 @@ const content = {
           "answer": {
             "value": 0.0125,
             "unit": "s",
-            "tolerance": 3.7500000000000003e-05,
+            "tolerance": 0.000037500000000000003,
             "verification": {
               "relation": "ratio",
               "inputs": {
@@ -8321,7 +9076,7 @@ const content = {
               "answer": {
                 "value": 20,
                 "unit": "1/s",
-                "tolerance": 1.9999999999999998e-05,
+                "tolerance": 0.000019999999999999998,
                 "verification": {
                   "relation": "ratio",
                   "inputs": {
@@ -8337,7 +9092,7 @@ const content = {
               "answer": {
                 "value": 30,
                 "unit": "1/s",
-                "tolerance": 2.9999999999999997e-05,
+                "tolerance": 0.000029999999999999997,
                 "verification": {
                   "relation": "ratio",
                   "inputs": {
@@ -8353,7 +9108,7 @@ const content = {
               "answer": {
                 "value": 0.75,
                 "unit": "",
-                "tolerance": 7.5e-07,
+                "tolerance": 7.5e-7,
                 "verification": {
                   "relation": "ratio",
                   "inputs": {
@@ -8369,7 +9124,7 @@ const content = {
               "answer": {
                 "value": 0.02,
                 "unit": "s",
-                "tolerance": 2e-08,
+                "tolerance": 2e-8,
                 "verification": {
                   "relation": "ratio",
                   "inputs": {
@@ -8456,7 +9211,7 @@ const content = {
           "answer": {
             "value": 0.024454419309356854,
             "unit": "s",
-            "tolerance": 7.336325792807057e-05,
+            "tolerance": 0.00007336325792807057,
             "verification": {
               "relation": "ratio",
               "inputs": {
@@ -8478,7 +9233,7 @@ const content = {
           "answer": {
             "value": 0.01639228747722291,
             "unit": "s",
-            "tolerance": 4.917686243166873e-05,
+            "tolerance": 0.00004917686243166873,
             "verification": {
               "relation": "ratio",
               "inputs": {
@@ -8641,7 +9396,7 @@ const content = {
               "answer": {
                 "value": 0.04,
                 "unit": "s",
-                "tolerance": 4e-08,
+                "tolerance": 4e-8,
                 "verification": {
                   "relation": "ratio",
                   "inputs": {
@@ -8657,7 +9412,7 @@ const content = {
               "answer": {
                 "value": 0.02,
                 "unit": "s",
-                "tolerance": 2e-08,
+                "tolerance": 2e-8,
                 "verification": {
                   "relation": "ratio",
                   "inputs": {
@@ -8671,13 +9426,13 @@ const content = {
             {
               "label": "Maximum conductance",
               "answer": {
-                "value": 8e-09,
+                "value": 8e-9,
                 "unit": "S",
                 "tolerance": 8e-15,
                 "verification": {
                   "relation": "ratio",
                   "inputs": {
-                    "a": 8e-09,
+                    "a": 8e-9,
                     "b": 1
                   },
                   "displayScale": 1
@@ -8689,7 +9444,7 @@ const content = {
               "answer": {
                 "value": -0.05,
                 "unit": "V",
-                "tolerance": 5e-08,
+                "tolerance": 5e-8,
                 "verification": {
                   "relation": "ratio",
                   "inputs": {
@@ -8705,7 +9460,7 @@ const content = {
               "answer": {
                 "value": 0.03,
                 "unit": "V",
-                "tolerance": 3e-08,
+                "tolerance": 3e-8,
                 "verification": {
                   "relation": "ratio",
                   "inputs": {
@@ -8770,13 +9525,13 @@ const content = {
         {
           "title": "Open conductance",
           "answer": {
-            "value": 1.895563941720246e-09,
+            "value": 1.895563941720246e-9,
             "unit": "S",
             "tolerance": 5.686691825160738e-12,
             "verification": {
               "relation": "product",
               "inputs": {
-                "a": 8e-09,
+                "a": 8e-9,
                 "b": 0.2369454927150307
               },
               "displayScale": 1
@@ -8820,7 +9575,7 @@ const content = {
             "verification": {
               "relation": "product",
               "inputs": {
-                "a": 1.895563941720246e-09,
+                "a": 1.895563941720246e-9,
                 "b": -0.08
               },
               "displayScale": 1
@@ -8996,7 +9751,7 @@ const content = {
               "answer": {
                 "value": -0.06,
                 "unit": "V",
-                "tolerance": 6e-08,
+                "tolerance": 6e-8,
                 "verification": {
                   "relation": "ratio",
                   "inputs": {
@@ -9012,7 +9767,7 @@ const content = {
               "answer": {
                 "value": 0.02,
                 "unit": "V",
-                "tolerance": 2e-08,
+                "tolerance": 2e-8,
                 "verification": {
                   "relation": "ratio",
                   "inputs": {
@@ -9026,13 +9781,13 @@ const content = {
             {
               "label": "Maximum conductance",
               "answer": {
-                "value": 1e-08,
+                "value": 1e-8,
                 "unit": "S",
                 "tolerance": 1e-14,
                 "verification": {
                   "relation": "ratio",
                   "inputs": {
-                    "a": 1e-08,
+                    "a": 1e-8,
                     "b": 1
                   },
                   "displayScale": 1
@@ -9044,7 +9799,7 @@ const content = {
               "answer": {
                 "value": 0.25,
                 "unit": "",
-                "tolerance": 2.5e-07,
+                "tolerance": 2.5e-7,
                 "verification": {
                   "relation": "ratio",
                   "inputs": {
@@ -9060,7 +9815,7 @@ const content = {
               "answer": {
                 "value": 0.1,
                 "unit": "s",
-                "tolerance": 1e-07,
+                "tolerance": 1e-7,
                 "verification": {
                   "relation": "ratio",
                   "inputs": {
@@ -9076,7 +9831,7 @@ const content = {
               "answer": {
                 "value": 0.05,
                 "unit": "s",
-                "tolerance": 5e-08,
+                "tolerance": 5e-8,
                 "verification": {
                   "relation": "ratio",
                   "inputs": {
@@ -9101,7 +9856,7 @@ const content = {
             "verification": {
               "relation": "product",
               "inputs": {
-                "a": 1e-08,
+                "a": 1e-8,
                 "b": -0.08
               },
               "displayScale": 1
@@ -9159,7 +9914,7 @@ const content = {
           ],
           "commonErrors": [
             {
-              "wrongValue": -1e-09,
+              "wrongValue": -1e-9,
               "tolerance": 1e-12,
               "why": "Subtract the negative gated contribution, rather than adding its inward magnitude.",
               "verification": {
@@ -9199,7 +9954,7 @@ const content = {
         {
           "title": "Later total current",
           "answer": {
-            "value": -1.145865886705355e-09,
+            "value": -1.145865886705355e-9,
             "unit": "A",
             "tolerance": 3.4375976601160647e-12,
             "verification": {
@@ -9340,7 +10095,7 @@ const content = {
               "answer": {
                 "value": -0.015,
                 "unit": "V",
-                "tolerance": 1.5e-08,
+                "tolerance": 1.5e-8,
                 "verification": {
                   "relation": "ratio",
                   "inputs": {
@@ -9356,7 +10111,7 @@ const content = {
               "answer": {
                 "value": 0.075,
                 "unit": "V",
-                "tolerance": 7.5e-08,
+                "tolerance": 7.5e-8,
                 "verification": {
                   "relation": "ratio",
                   "inputs": {
@@ -9372,7 +10127,7 @@ const content = {
               "answer": {
                 "value": 0.025,
                 "unit": "V",
-                "tolerance": 2.5e-08,
+                "tolerance": 2.5e-8,
                 "verification": {
                   "relation": "ratio",
                   "inputs": {
@@ -9386,13 +10141,13 @@ const content = {
             {
               "label": "First current",
               "answer": {
-                "value": -1.6e-09,
+                "value": -1.6e-9,
                 "unit": "A",
                 "tolerance": 1.6e-15,
                 "verification": {
                   "relation": "ratio",
                   "inputs": {
-                    "a": -1.6e-09,
+                    "a": -1.6e-9,
                     "b": 1
                   },
                   "displayScale": 1
@@ -9423,13 +10178,13 @@ const content = {
         {
           "title": "Inward chord",
           "answer": {
-            "value": 4e-08,
+            "value": 4e-8,
             "unit": "S",
             "tolerance": 1.2e-10,
             "verification": {
               "relation": "ratio",
               "inputs": {
-                "a": -1.6e-09,
+                "a": -1.6e-9,
                 "b": -0.04
               },
               "displayScale": 1
@@ -9445,7 +10200,7 @@ const content = {
         {
           "title": "Outward chord",
           "answer": {
-            "value": 1.5e-08,
+            "value": 1.5e-8,
             "unit": "S",
             "tolerance": 4.5e-11,
             "verification": {
@@ -9473,8 +10228,8 @@ const content = {
             "verification": {
               "relation": "ratio",
               "inputs": {
-                "a": 4e-08,
-                "b": 1.5e-08
+                "a": 4e-8,
+                "b": 1.5e-8
               },
               "displayScale": 1
             }
@@ -9543,6 +10298,74 @@ const content = {
       ],
       "points": 1,
       "source": "Exercise6 p2; solving instructions"
+    },
+    {
+      "id": "L06-core-rate-scaling",
+      "sectionId": "steady",
+      "source": "L06 PDF 15,17",
+      "type": "mc",
+      "difficulty": "hard",
+      "prompt": "At fixed test voltage, both rates double. Initially $y=0.2$, and the original gate would reach $y=0.5$ after one old half-time. What is $y$ at that same elapsed time with the doubled rates?",
+      "options": [
+        {
+          "text": "$y=0.50$.",
+          "feedback": "This uses one half-time and misses the shorter time constant after the rate increase."
+        },
+        {
+          "text": "$y=0.80$.",
+          "feedback": "This is the unchanged steady value. A finite time leaves a residual gap."
+        },
+        {
+          "text": "$y=0.65$.",
+          "feedback": "The old half-time takes $y$ from $0.2$ halfway to $0.8$. The rate ratio is unchanged and the time constant halves, so two half-times leave one quarter of the original $0.6$ gap."
+        }
+      ],
+      "correct": 2,
+      "hints": [
+        {
+          "body": "First find the unchanged endpoint from the old half-time. Then count half-times under the faster rates."
+        },
+        {
+          "body": "The old midpoint is $0.5=y_0+(y_\\infty-y_0)/2$. Doubling the rate sum halves the half-time."
+        }
+      ],
+      "modelAnswer": [
+        "The old half-time takes $y$ from $0.2$ halfway to $0.8$. The rate ratio is unchanged and the time constant halves, so two half-times leave one quarter of the original $0.6$ gap."
+      ]
+    },
+    {
+      "id": "L06-core-leak-subtraction",
+      "sectionId": "clamp",
+      "source": "Exercise 6 p1",
+      "type": "mc",
+      "difficulty": "hard",
+      "prompt": "After the capacitive transient, total current is $-1.8\\,\\mathrm{nA}$ at $y=0.2$ and $-3.0\\,\\mathrm{nA}$ at $y=0.8$ at the same test voltage. If leak is steady, what are the fully activated current and leak?",
+      "options": [
+        {
+          "text": "$-2.0\\,\\mathrm{nA}$ and $-1.8\\,\\mathrm{nA}$.",
+          "feedback": "The first sample still contains gated current because its activation is nonzero."
+        },
+        {
+          "text": "$-1.2\\,\\mathrm{nA}$ and $-1.6\\,\\mathrm{nA}$.",
+          "feedback": "The change in activation is smaller than one, so the current difference underestimates the fully activated magnitude."
+        },
+        {
+          "text": "$-2.0\\,\\mathrm{nA}$ and $-1.4\\,\\mathrm{nA}$.",
+          "feedback": "The current difference $-1.2\\,\\mathrm{nA}$ divided by $0.6$ gives $I_{y,max}=-2.0\\,\\mathrm{nA}$. At $y=0.2$, subtract its $-0.4\\,\\mathrm{nA}$ contribution from the total."
+        }
+      ],
+      "correct": 2,
+      "hints": [
+        {
+          "body": "Subtract the two measurements to remove leak. Divide by the activation difference, then substitute into either measurement."
+        },
+        {
+          "body": "Use $\\Delta I=I_{y,max}(0.8-0.2)$, then $I_L=I-I_{y,max}y$."
+        }
+      ],
+      "modelAnswer": [
+        "The current difference $-1.2\\,\\mathrm{nA}$ divided by $0.6$ gives $I_{y,max}=-2.0\\,\\mathrm{nA}$. At $y=0.2$, subtract its $-0.4\\,\\mathrm{nA}$ contribution from the total."
+      ]
     }
   ],
   "mockExams": [
@@ -9553,6 +10376,7 @@ const content = {
       "questions": [
         {
           "id": "L06-a1",
+          "role": "concepts",
           "type": "written",
           "difficulty": "medium",
           "prompt": "a) Define inward rectification. b) Distinguish a permissive particle from an open channel. c) Explain why an open Ohmic pore can belong to a nonlinear population. Answer each in 1–3 sentences.",
@@ -9585,6 +10409,7 @@ const content = {
         },
         {
           "id": "L06-a2",
+          "role": "explanation",
           "type": "written",
           "difficulty": "medium",
           "prompt": "Derive first-order steady activation and the relaxation law from the state balance. Sketch the single-particle and all-required multi-particle curves. Explain which assumptions are needed for the power law.",
@@ -9629,6 +10454,7 @@ const content = {
         },
         {
           "id": "L06-a3",
+          "role": "calculation",
           "sectionId": "steady",
           "difficulty": "hard",
           "type": "multiStepCalc",
@@ -9657,7 +10483,7 @@ const content = {
                   "answer": {
                     "value": 0.65,
                     "unit": "",
-                    "tolerance": 6.5e-07,
+                    "tolerance": 6.5e-7,
                     "verification": {
                       "relation": "ratio",
                       "inputs": {
@@ -9673,7 +10499,7 @@ const content = {
                   "answer": {
                     "value": 0.025,
                     "unit": "s",
-                    "tolerance": 2.5e-08,
+                    "tolerance": 2.5e-8,
                     "verification": {
                       "relation": "ratio",
                       "inputs": {
@@ -9782,7 +10608,7 @@ const content = {
               "answer": {
                 "value": 0.0125,
                 "unit": "s",
-                "tolerance": 3.7500000000000003e-05,
+                "tolerance": 0.000037500000000000003,
                 "verification": {
                   "relation": "ratio",
                   "inputs": {
@@ -9838,6 +10664,7 @@ const content = {
         },
         {
           "id": "L06-a4",
+          "role": "calculation",
           "sectionId": "particles",
           "difficulty": "hard",
           "type": "multiStepCalc",
@@ -9866,7 +10693,7 @@ const content = {
                   "answer": {
                     "value": 0.04,
                     "unit": "s",
-                    "tolerance": 4e-08,
+                    "tolerance": 4e-8,
                     "verification": {
                       "relation": "ratio",
                       "inputs": {
@@ -9882,7 +10709,7 @@ const content = {
                   "answer": {
                     "value": 0.02,
                     "unit": "s",
-                    "tolerance": 2e-08,
+                    "tolerance": 2e-8,
                     "verification": {
                       "relation": "ratio",
                       "inputs": {
@@ -9896,13 +10723,13 @@ const content = {
                 {
                   "label": "Maximum conductance",
                   "answer": {
-                    "value": 8e-09,
+                    "value": 8e-9,
                     "unit": "S",
                     "tolerance": 8e-15,
                     "verification": {
                       "relation": "ratio",
                       "inputs": {
-                        "a": 8e-09,
+                        "a": 8e-9,
                         "b": 1
                       },
                       "displayScale": 1
@@ -9914,7 +10741,7 @@ const content = {
                   "answer": {
                     "value": -0.05,
                     "unit": "V",
-                    "tolerance": 5e-08,
+                    "tolerance": 5e-8,
                     "verification": {
                       "relation": "ratio",
                       "inputs": {
@@ -9930,7 +10757,7 @@ const content = {
                   "answer": {
                     "value": 0.03,
                     "unit": "V",
-                    "tolerance": 3e-08,
+                    "tolerance": 3e-8,
                     "verification": {
                       "relation": "ratio",
                       "inputs": {
@@ -9995,13 +10822,13 @@ const content = {
             {
               "title": "Open conductance",
               "answer": {
-                "value": 1.895563941720246e-09,
+                "value": 1.895563941720246e-9,
                 "unit": "S",
                 "tolerance": 5.686691825160738e-12,
                 "verification": {
                   "relation": "product",
                   "inputs": {
-                    "a": 8e-09,
+                    "a": 8e-9,
                     "b": 0.2369454927150307
                   },
                   "displayScale": 1
@@ -10045,7 +10872,7 @@ const content = {
                 "verification": {
                   "relation": "product",
                   "inputs": {
-                    "a": 1.895563941720246e-09,
+                    "a": 1.895563941720246e-9,
                     "b": -0.08
                   },
                   "displayScale": 1
@@ -10097,9 +10924,10 @@ const content = {
         },
         {
           "id": "L06-a5",
+          "role": "methods",
           "type": "written",
           "difficulty": "medium",
-          "prompt": "Read the supplied activation panel. Identify which curve is activated by each voltage direction. Design a clamp comparison measuring kinetics and explain why a steady activation curve alone does not determine current sign.",
+          "prompt": "Read the supplied activation panel. Identify which curve is activated by each voltage direction. Design a clamp comparison measuring kinetics and explain why a steady activation curve alone does not determine current sign. Which quantity can change immediately at a voltage step even if the gate state is continuous?",
           "markScheme": [
             {
               "text": "The increasing curve is depolarization activated."
@@ -10115,14 +10943,16 @@ const content = {
             },
             {
               "text": "Current sign also needs ionic reversal and driving force."
-            }
+            },
+            { "text": "Ionic current can jump because driving force changes immediately while the finite-rate gate probability relaxes over time." }
           ],
           "modelAnswer": [
             "The increasing curve is depolarization activated.",
             "The decreasing curve is hyperpolarization activated.",
             "Control holding voltage and compare step responses at fixed test voltages.",
             "Measure the approach as well as steady activation.",
-            "Current sign also needs ionic reversal and driving force."
+            "Current sign also needs ionic reversal and driving force.",
+            "Ionic current can jump because driving force changes immediately while the finite-rate gate probability relaxes over time."
           ],
           "hints": [
             {
@@ -10158,6 +10988,7 @@ const content = {
       "questions": [
         {
           "id": "L06-b1",
+          "role": "concepts",
           "type": "written",
           "difficulty": "medium",
           "prompt": "a) Define partition coefficient. b) What violates independent passage? c) Where is a barrier at location zero? Answer briefly.",
@@ -10190,6 +11021,7 @@ const content = {
         },
         {
           "id": "L06-b2",
+          "role": "explanation",
           "type": "written",
           "difficulty": "medium",
           "prompt": "Compare concentration-gradient rectification with barrier-position rectification. Derive why the selective reversal can be independent of barrier location while the current shape is not. Sketch the inner and outer barrier cases.",
@@ -10234,6 +11066,7 @@ const content = {
         },
         {
           "id": "L06-b3",
+          "role": "calculation",
           "sectionId": "position",
           "difficulty": "hard",
           "type": "multiStepCalc",
@@ -10260,13 +11093,13 @@ const content = {
                 {
                   "label": "Baseline coefficient",
                   "answer": {
-                    "value": 2e-06,
+                    "value": 0.000002,
                     "unit": "m/s",
                     "tolerance": 2e-12,
                     "verification": {
                       "relation": "ratio",
                       "inputs": {
-                        "a": 2e-06,
+                        "a": 0.000002,
                         "b": 1
                       },
                       "displayScale": 1
@@ -10278,7 +11111,7 @@ const content = {
                   "answer": {
                     "value": 40,
                     "unit": "mol/m3",
-                    "tolerance": 3.9999999999999996e-05,
+                    "tolerance": 0.000039999999999999996,
                     "verification": {
                       "relation": "ratio",
                       "inputs": {
@@ -10294,7 +11127,7 @@ const content = {
                   "answer": {
                     "value": 0.5,
                     "unit": "",
-                    "tolerance": 5e-07,
+                    "tolerance": 5e-7,
                     "verification": {
                       "relation": "ratio",
                       "inputs": {
@@ -10313,13 +11146,13 @@ const content = {
             {
               "title": "Inward coefficient",
               "answer": {
-                "value": 4.451081856984936e-06,
+                "value": 0.000004451081856984936,
                 "unit": "m/s",
-                "tolerance": 1.3353245570954808e-08,
+                "tolerance": 1.3353245570954808e-8,
                 "verification": {
                   "relation": "exponentialRate",
                   "inputs": {
-                    "base": 2e-06,
+                    "base": 0.000002,
                     "exponent": 0.8
                   },
                   "displayScale": 1
@@ -10335,13 +11168,13 @@ const content = {
             {
               "title": "Outward coefficient",
               "answer": {
-                "value": 1.6374615061559637e-06,
+                "value": 0.0000016374615061559637,
                 "unit": "m/s",
-                "tolerance": 4.912384518467891e-09,
+                "tolerance": 4.912384518467891e-9,
                 "verification": {
                   "relation": "exponentialRate",
                   "inputs": {
-                    "base": 2e-06,
+                    "base": 0.000002,
                     "exponent": -0.2
                   },
                   "displayScale": 1
@@ -10357,13 +11190,13 @@ const content = {
             {
               "title": "Inward flux",
               "answer": {
-                "value": 8.902163713969872e-05,
+                "value": 0.00008902163713969872,
                 "unit": "mol/m2/s",
-                "tolerance": 2.6706491141909616e-07,
+                "tolerance": 2.6706491141909616e-7,
                 "verification": {
                   "relation": "product",
                   "inputs": {
-                    "a": 4.451081856984936e-06,
+                    "a": 0.000004451081856984936,
                     "b": 20
                   },
                   "displayScale": 1
@@ -10379,13 +11212,13 @@ const content = {
             {
               "title": "Outward flux",
               "answer": {
-                "value": 3.274923012311927e-05,
+                "value": 0.00003274923012311927,
                 "unit": "mol/m2/s",
-                "tolerance": 9.824769036935782e-08,
+                "tolerance": 9.824769036935782e-8,
                 "verification": {
                   "relation": "product",
                   "inputs": {
-                    "a": 1.6374615061559637e-06,
+                    "a": 0.0000016374615061559637,
                     "b": 20
                   },
                   "displayScale": 1
@@ -10407,7 +11240,7 @@ const content = {
                 "verification": {
                   "relation": "fluxCurrent",
                   "inputs": {
-                    "flux": -5.627240701657945e-05,
+                    "flux": -0.00005627240701657945,
                     "z": 1,
                     "f": 96485
                   },
@@ -10483,6 +11316,7 @@ const content = {
         },
         {
           "id": "L06-b4",
+          "role": "calculation",
           "sectionId": "chord",
           "difficulty": "hard",
           "type": "multiStepCalc",
@@ -10511,7 +11345,7 @@ const content = {
                   "answer": {
                     "value": -0.015,
                     "unit": "V",
-                    "tolerance": 1.5e-08,
+                    "tolerance": 1.5e-8,
                     "verification": {
                       "relation": "ratio",
                       "inputs": {
@@ -10527,7 +11361,7 @@ const content = {
                   "answer": {
                     "value": 0.075,
                     "unit": "V",
-                    "tolerance": 7.5e-08,
+                    "tolerance": 7.5e-8,
                     "verification": {
                       "relation": "ratio",
                       "inputs": {
@@ -10543,7 +11377,7 @@ const content = {
                   "answer": {
                     "value": 0.025,
                     "unit": "V",
-                    "tolerance": 2.5e-08,
+                    "tolerance": 2.5e-8,
                     "verification": {
                       "relation": "ratio",
                       "inputs": {
@@ -10557,13 +11391,13 @@ const content = {
                 {
                   "label": "First current",
                   "answer": {
-                    "value": -1.6e-09,
+                    "value": -1.6e-9,
                     "unit": "A",
                     "tolerance": 1.6e-15,
                     "verification": {
                       "relation": "ratio",
                       "inputs": {
-                        "a": -1.6e-09,
+                        "a": -1.6e-9,
                         "b": 1
                       },
                       "displayScale": 1
@@ -10594,13 +11428,13 @@ const content = {
             {
               "title": "Inward chord",
               "answer": {
-                "value": 4e-08,
+                "value": 4e-8,
                 "unit": "S",
                 "tolerance": 1.2e-10,
                 "verification": {
                   "relation": "ratio",
                   "inputs": {
-                    "a": -1.6e-09,
+                    "a": -1.6e-9,
                     "b": -0.04
                   },
                   "displayScale": 1
@@ -10616,7 +11450,7 @@ const content = {
             {
               "title": "Outward chord",
               "answer": {
-                "value": 1.5e-08,
+                "value": 1.5e-8,
                 "unit": "S",
                 "tolerance": 4.5e-11,
                 "verification": {
@@ -10644,8 +11478,8 @@ const content = {
                 "verification": {
                   "relation": "ratio",
                   "inputs": {
-                    "a": 4e-08,
-                    "b": 1.5e-08
+                    "a": 4e-8,
+                    "b": 1.5e-8
                   },
                   "displayScale": 1
                 }
@@ -10717,9 +11551,10 @@ const content = {
         },
         {
           "id": "L06-b5",
+          "role": "methods",
           "type": "written",
           "difficulty": "medium",
-          "prompt": "Use the supplied nonlinear current–voltage plot as qualitative evidence. Explain how to estimate reversal and chord conductance, distinguish the local slope, and state why GHK consistency is not unique mechanistic proof.",
+          "prompt": "Use the supplied nonlinear current–voltage plot as qualitative evidence. Explain how to estimate reversal and chord conductance, distinguish the local slope, and state why GHK consistency is not unique mechanistic proof. Why should a rectification comparison use matched distances from reversal?",
           "markScheme": [
             {
               "text": "Reversal is the voltage at zero current."
@@ -10738,7 +11573,8 @@ const content = {
             },
             {
               "text": "Readings are approximate; do not invent precise sample values."
-            }
+            },
+            { "text": "Unequal driving forces can produce unequal currents in an Ohmic pathway. Compare current or chord conductance at matched driving-force magnitudes." }
           ],
           "modelAnswer": [
             "Reversal is the voltage at zero current.",
@@ -10746,7 +11582,8 @@ const content = {
             "The local differential slope is a tangent, not that chord.",
             "The source curve favors inward conductance and has positive reversal.",
             "A positive-ion concentration gradient fits GHK, but an appropriate barrier can fit too.",
-            "Readings are approximate; do not invent precise sample values."
+            "Readings are approximate; do not invent precise sample values.",
+            "Unequal driving forces can produce unequal currents in an Ohmic pathway. Compare current or chord conductance at matched driving-force magnitudes."
           ],
           "hints": [
             {
@@ -10782,6 +11619,7 @@ const content = {
       "questions": [
         {
           "id": "L06-c1",
+          "role": "concepts",
           "type": "written",
           "difficulty": "medium",
           "prompt": "a) Is depolarization necessarily a positive inside potential? b) What is continuous across an ideal finite-rate gating step? c) Distinguish the permeation and gating barriers.",
@@ -10814,6 +11652,7 @@ const content = {
         },
         {
           "id": "L06-c2",
+          "role": "explanation",
           "type": "written",
           "difficulty": "medium",
           "prompt": "A kinetic modification leaves the steady activation curve unchanged but speeds the response. Explain a source-supported barrier change that can do this, derive the rate-ratio cancellation and discuss why this does not identify a unique molecular mechanism.",
@@ -10858,6 +11697,7 @@ const content = {
         },
         {
           "id": "L06-c3",
+          "role": "calculation",
           "sectionId": "clamp",
           "difficulty": "hard",
           "type": "multiStepCalc",
@@ -10886,7 +11726,7 @@ const content = {
                   "answer": {
                     "value": -0.06,
                     "unit": "V",
-                    "tolerance": 6e-08,
+                    "tolerance": 6e-8,
                     "verification": {
                       "relation": "ratio",
                       "inputs": {
@@ -10902,7 +11742,7 @@ const content = {
                   "answer": {
                     "value": 0.02,
                     "unit": "V",
-                    "tolerance": 2e-08,
+                    "tolerance": 2e-8,
                     "verification": {
                       "relation": "ratio",
                       "inputs": {
@@ -10916,13 +11756,13 @@ const content = {
                 {
                   "label": "Maximum conductance",
                   "answer": {
-                    "value": 1e-08,
+                    "value": 1e-8,
                     "unit": "S",
                     "tolerance": 1e-14,
                     "verification": {
                       "relation": "ratio",
                       "inputs": {
-                        "a": 1e-08,
+                        "a": 1e-8,
                         "b": 1
                       },
                       "displayScale": 1
@@ -10934,7 +11774,7 @@ const content = {
                   "answer": {
                     "value": 0.25,
                     "unit": "",
-                    "tolerance": 2.5e-07,
+                    "tolerance": 2.5e-7,
                     "verification": {
                       "relation": "ratio",
                       "inputs": {
@@ -10950,7 +11790,7 @@ const content = {
                   "answer": {
                     "value": 0.1,
                     "unit": "s",
-                    "tolerance": 1e-07,
+                    "tolerance": 1e-7,
                     "verification": {
                       "relation": "ratio",
                       "inputs": {
@@ -10966,7 +11806,7 @@ const content = {
                   "answer": {
                     "value": 0.05,
                     "unit": "s",
-                    "tolerance": 5e-08,
+                    "tolerance": 5e-8,
                     "verification": {
                       "relation": "ratio",
                       "inputs": {
@@ -10991,7 +11831,7 @@ const content = {
                 "verification": {
                   "relation": "product",
                   "inputs": {
-                    "a": 1e-08,
+                    "a": 1e-8,
                     "b": -0.08
                   },
                   "displayScale": 1
@@ -11049,7 +11889,7 @@ const content = {
               ],
               "commonErrors": [
                 {
-                  "wrongValue": -1e-09,
+                  "wrongValue": -1e-9,
                   "tolerance": 1e-12,
                   "why": "Subtract the negative gated contribution, rather than adding its inward magnitude.",
                   "verification": {
@@ -11089,7 +11929,7 @@ const content = {
             {
               "title": "Later total current",
               "answer": {
-                "value": -1.145865886705355e-09,
+                "value": -1.145865886705355e-9,
                 "unit": "A",
                 "tolerance": 3.4375976601160647e-12,
                 "verification": {
@@ -11147,6 +11987,7 @@ const content = {
         },
         {
           "id": "L06-c4",
+          "role": "calculation",
           "sectionId": "steady",
           "difficulty": "hard",
           "type": "multiStepCalc",
@@ -11160,7 +12001,7 @@ const content = {
                   "answer": {
                     "value": 20,
                     "unit": "1/s",
-                    "tolerance": 1.9999999999999998e-05,
+                    "tolerance": 0.000019999999999999998,
                     "verification": {
                       "relation": "ratio",
                       "inputs": {
@@ -11176,7 +12017,7 @@ const content = {
                   "answer": {
                     "value": 30,
                     "unit": "1/s",
-                    "tolerance": 2.9999999999999997e-05,
+                    "tolerance": 0.000029999999999999997,
                     "verification": {
                       "relation": "ratio",
                       "inputs": {
@@ -11192,7 +12033,7 @@ const content = {
                   "answer": {
                     "value": 0.75,
                     "unit": "",
-                    "tolerance": 7.5e-07,
+                    "tolerance": 7.5e-7,
                     "verification": {
                       "relation": "ratio",
                       "inputs": {
@@ -11208,7 +12049,7 @@ const content = {
                   "answer": {
                     "value": 0.02,
                     "unit": "s",
-                    "tolerance": 2e-08,
+                    "tolerance": 2e-8,
                     "verification": {
                       "relation": "ratio",
                       "inputs": {
@@ -11295,7 +12136,7 @@ const content = {
               "answer": {
                 "value": 0.024454419309356854,
                 "unit": "s",
-                "tolerance": 7.336325792807057e-05,
+                "tolerance": 0.00007336325792807057,
                 "verification": {
                   "relation": "ratio",
                   "inputs": {
@@ -11317,7 +12158,7 @@ const content = {
               "answer": {
                 "value": 0.01639228747722291,
                 "unit": "s",
-                "tolerance": 4.917686243166873e-05,
+                "tolerance": 0.00004917686243166873,
                 "verification": {
                   "relation": "ratio",
                   "inputs": {
@@ -11397,9 +12238,10 @@ const content = {
         },
         {
           "id": "L06-c5",
+          "role": "methods",
           "type": "written",
           "difficulty": "medium",
-          "prompt": "Interpret the supplied clamp panel, then troubleshoot the claim that every immediate current jump is leak. Give the special conditions under which the provided solving instructions are valid and a controlled comparison testing the limitation.",
+          "prompt": "Interpret the supplied clamp panel, then troubleshoot the claim that every immediate current jump is leak. Give the special conditions under which the provided solving instructions are valid and a controlled comparison testing the limitation. What observation rules out a purely static, fixed-permeability explanation of the entire response?",
           "markScheme": [
             {
               "text": "Clamp imposes voltage and records current."
@@ -11418,7 +12260,8 @@ const content = {
             },
             {
               "text": "Vary controlled holding activation while keeping the test voltage fixed; compare the early and late components."
-            }
+            },
+            { "text": "A reproducible relaxation after the command settles, after capacitive and recording artifacts are accounted for, requires time-dependent state or another changing condition." }
           ],
           "modelAnswer": [
             "Clamp imposes voltage and records current.",
@@ -11426,7 +12269,8 @@ const content = {
             "Exclude the capacitive transient.",
             "Initially negligible activation permits the simple leak inference.",
             "Nonzero initial activation gives immediate gated current with changed driving force.",
-            "Vary controlled holding activation while keeping the test voltage fixed; compare the early and late components."
+            "Vary controlled holding activation while keeping the test voltage fixed; compare the early and late components.",
+            "A reproducible relaxation after the command settles, after capacitive and recording artifacts are accounted for, requires time-dependent state or another changing condition."
           ],
           "hints": [
             {
@@ -11455,7 +12299,14 @@ const content = {
         }
       ]
     }
-  ]
+  ],
+  "standardPractice": "mc-only",
+  "collapseFormulaExplorers": true,
+  "overview": {
+    "estimate": "Core route: read the main sections and answer 24 core questions. Formula explorers, videos, extra practice and mocks are optional.",
+    "equations": "Start with $G_{chord}=I/(V_m-E_{rev})$, $y_\\infty=\\alpha/(\\alpha+\\beta)$, $\\tau=1/(\\alpha+\\beta)$ and $Y=y^P$ for independent all-required particles.",
+    "pitfalls": "A curved I–V relation can have several causes. A voltage step can change current immediately even when gate occupancy stays continuous."
+  }
 };
 content.formulaReference=equationSheet;
 content.formulaReferenceNote='Official exam PDF p4, full-course reference. These questions use lectures 1–6 only.';

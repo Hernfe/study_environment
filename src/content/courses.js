@@ -13,7 +13,7 @@ export const courses = [
     equationSheet,
     equationSheetNote: 'Transcribed from the official exam information, page 4. This reference covers the full course, including lectures not yet built.',
     finalExam: { date: '2026-11-30', detail: '30 November 2026, 13:00–16:00, F239a. Equations provided; bring a calculator. Open-book status is not established by the supplied instructions.' },
-    summary: 'Question-led preparation for the final written exam: concepts, explanations, calculations and electrophysiological methods. Lecture material is being added in teaching order.',
+    summary: 'Study L01–L10 and practise concepts, explanations, calculations and recording methods in lecture and cumulative mock exams. L11–L12 materials are pending.',
   },
   {
     slug: 'nbe-e4210',

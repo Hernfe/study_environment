@@ -1,15 +1,15 @@
-// Cumulative L01–L09 practice, independent of the 27 preserved lecture mocks.
+// Cumulative L01–L10 practice. Existing exam IDs preserve saved attempts.
 export const fullCourseMocks = [
   {
     "id": "full-L01-L09-01",
     "title": "Full-course mock 1: Equilibrium, spatial spread and clamp evidence",
-    "coverage": "Available lectures L01–L09 only. Focus: L01–L04 and L07. Estimated workload: 180 minutes (practice estimate: 20, 40, 45, 45 and 30 minutes). L10–L12 are not covered.",
+    "coverage": "Available lectures L01–L10. Focus: L01–L04 and L07. L10 topic: miniature and evoked end-plate potentials. Estimated workload: 180 minutes (practice estimate: 20, 40, 45, 45 and 30 minutes). L11–L12 materials are pending.",
     "questions": [
       {
         "type": "written",
         "difficulty": "medium",
-        "prompt": "Answer in 1–3 sentences per part: a) Why can a resting membrane carry nonzero individual ionic currents? b) What does an equilibrium potential specify? c) Why can bulk solutions remain nearly neutral while voltage changes? d) Contrast a graded response with a regenerating action potential. e) Define an isopotential approximation.",
-        "source": "L01 PDF24,30–36; L02 PDF8–19; L03 PDF2–5",
+        "prompt": "Answer in 1–3 sentences per part: a) Why can a resting membrane carry nonzero individual ionic currents? b) What does an equilibrium potential specify? c) Why can bulk solutions remain nearly neutral while voltage changes? d) Contrast a graded response with a regenerating action potential. e) Define an isopotential approximation. f) What is the difference between an mEPP and an evoked EPP?",
+        "source": "L01 PDF24,30–36; L02 PDF8–19; L03 PDF2–5; L10 pp30–32",
         "points": 1,
         "markScheme": [
           {
@@ -26,6 +26,9 @@ export const fullCourseMocks = [
           },
           {
             "text": "An isopotential model neglects spatial voltage differences when electrotonic dimensions and the protocol make them small."
+          },
+          {
+            "text": "An mEPP reflects the response to one spontaneous quantum. An evoked EPP can sum several responses."
           }
         ],
         "modelAnswer": [
@@ -33,7 +36,8 @@ export const fullCourseMocks = [
           "An ion equilibrium potential balances its concentration and electrical driving forces, giving zero net flux for that ion.",
           "Only a tiny separation of charge near the membrane is needed; bulk ionic concentrations remain almost neutral.",
           "Graded responses vary with input and decay passively; an action potential recruits voltage-dependent conductances and regenerates.",
-          "An isopotential model neglects spatial voltage differences when electrotonic dimensions and the protocol make them small."
+          "An isopotential model neglects spatial voltage differences when electrotonic dimensions and the protocol make them small.",
+          "An mEPP reflects the response to one spontaneous quantum. An evoked EPP can sum several responses."
         ],
         "hints": [
           {
@@ -246,8 +250,8 @@ export const fullCourseMocks = [
       {
         "type": "written",
         "difficulty": "medium",
-        "prompt": "Design a two-electrode voltage-clamp comparison to determine whether an early inward current and delayed outward current are distinct ionic components. Give controlled and measured variables, two separation approaches, and a reason a peak current–voltage curve alone cannot prove an Ohmic instantaneous conductance. Do not assume later recording electronics.",
-        "source": "L02 PDF17–19,28; L07 PDF7–10,18–22",
+        "prompt": "Design a two-electrode voltage-clamp comparison to determine whether an early inward current and delayed outward current are distinct ionic components. Give controlled and measured variables, two separation approaches, and a reason a peak current–voltage curve alone cannot prove an Ohmic instantaneous conductance. Do not assume later recording electronics. Describe how dSEVC separates sensing from injection and identify a voltage offset that remains to be accounted for.",
+        "source": "L02 PDF17–19,28; L07 PDF7–10,18–22; Axon Guide pp57–67,94",
         "points": 1,
         "markScheme": [
           {
@@ -264,6 +268,9 @@ export const fullCourseMocks = [
           },
           {
             "text": "A peak curve samples different gating states as voltage changes; an instantaneous test attempts to hold gating fixed and measures driving force more directly."
+          },
+          {
+            "text": "dSEVC alternates injection and sensing with one electrode. Sample after its transient settles and use that voltage for feedback. A liquid junction potential can shift the voltage reference and needs a signed correction."
           }
         ],
         "modelAnswer": [
@@ -271,7 +278,8 @@ export const fullCourseMocks = [
           "Use sodium replacement or a sodium blocker to isolate the early component, with appropriate controls.",
           "Use a potassium blocker or reversal manipulation to distinguish the delayed outward component.",
           "Compare control and intervention traces under matched voltage, timing and baseline subtraction; capacitive transients are not ionic activation.",
-          "A peak curve samples different gating states as voltage changes; an instantaneous test attempts to hold gating fixed and measures driving force more directly."
+          "A peak curve samples different gating states as voltage changes; an instantaneous test attempts to hold gating fixed and measures driving force more directly.",
+          "dSEVC alternates injection and sensing with one electrode. Sample after its transient settles and use that voltage for feedback. A liquid junction potential can shift the voltage reference and needs a signed correction."
         ],
         "hints": [
           {
@@ -289,13 +297,13 @@ export const fullCourseMocks = [
   {
     "id": "full-L01-L09-02",
     "title": "Full-course mock 2: Trees, relaxation and current balance",
-    "coverage": "Available lectures L01–L09 only. Focus: L03–L08. Estimated workload: 180 minutes (practice estimate: 20, 40, 45, 45 and 30 minutes). L10–L12 are not covered.",
+    "coverage": "Available lectures L01–L10. Focus: L03–L08. L10 topic: the synaptic reversal measured at the soma. Estimated workload: 180 minutes (practice estimate: 20, 40, 45, 45 and 30 minutes). L11–L12 materials are pending.",
     "questions": [
       {
         "type": "written",
         "difficulty": "medium",
-        "prompt": "Give short answers: a) State the Rall diameter rule. b) Why is that rule alone insufficient for an exact equivalent cylinder? c) Distinguish length constant and electrotonic length. d) Distinguish a sealed cable end from a cut-open end. e) What do independent HH gate powers represent?",
-        "source": "L03–L05 cable/Rall; L07 gate model",
+        "prompt": "Give short answers: a) State the Rall diameter rule. b) Why is that rule alone insufficient for an exact equivalent cylinder? c) Distinguish length constant and electrotonic length. d) Distinguish a sealed cable end from a cut-open end. e) What do independent HH gate powers represent? f) Why can a dendritic synapse’s apparent somatic reversal differ from its local reversal?",
+        "source": "L03–L05 cable/Rall; L07 gate model; L10 pp28–29",
         "points": 1,
         "markScheme": [
           {
@@ -312,6 +320,9 @@ export const fullCourseMocks = [
           },
           {
             "text": "Products and powers represent probabilities of required independent permissive particles, not literal pore counts or a universal molecular mechanism."
+          },
+          {
+            "text": "Axial resistance and membrane leak limit how closely the dendritic voltage follows the somatic command."
           }
         ],
         "modelAnswer": [
@@ -319,7 +330,8 @@ export const fullCourseMocks = [
           "Passive properties, appropriate terminal boundary conditions and equal terminal electrotonic path lengths must also match.",
           "Length constant is a physical distance scale; electrotonic length is physical length divided by that scale.",
           "A sealed end has zero axial current and zero voltage slope; a cut-open end is held at the reference voltage.",
-          "Products and powers represent probabilities of required independent permissive particles, not literal pore counts or a universal molecular mechanism."
+          "Products and powers represent probabilities of required independent permissive particles, not literal pore counts or a universal molecular mechanism.",
+          "Axial resistance and membrane leak limit how closely the dendritic voltage follows the somatic command."
         ],
         "hints": [
           {
@@ -544,8 +556,8 @@ export const fullCourseMocks = [
       {
         "type": "written",
         "difficulty": "medium",
-        "prompt": "An injected dendritic pulse gives a smaller, broader somatic response than a local response. Propose a passive-recording comparison that separates electrotonic filtering from a change in stimulus delivery. Specify what to match, what to record, boundary/load effects, and what this observation cannot establish about active dendritic spikes.",
-        "source": "L03 transient filtering; L04 summation/recordings; L05 dendritic integration",
+        "prompt": "An injected dendritic pulse gives a smaller, broader somatic response than a local response. Propose a passive-recording comparison that separates electrotonic filtering from a change in stimulus delivery. Specify what to match, what to record, boundary/load effects, and what this observation cannot establish about active dendritic spikes. Then describe how to measure the apparent reversal of an evoked input at the same remote site.",
+        "source": "L03 transient filtering; L04 summation/recordings; L05 dendritic integration; L10 pp25–29",
         "points": 1,
         "markScheme": [
           {
@@ -569,7 +581,8 @@ export const fullCourseMocks = [
           "Record local and somatic voltage increments and compare amplitude and time course at known sites.",
           "Passive cable spread attenuates and temporally filters remote responses, so a smaller broader waveform is expected.",
           "Soma loading, branching and terminal conditions affect transfer and should be controlled or included in the model.",
-          "The waveform alone does not prove an active spike or exclude active channels; test voltage dependence and reproducibility with additional protocols."
+          "The waveform alone does not prove an active spike or exclude active channels; test voltage dependence and reproducibility with additional protocols.",
+        "Under somatic voltage clamp evoke the same synaptic input at several holds. Subtract the baseline at each hold and find where net evoked current crosses zero. This gives an apparent somatic reversal because the distal voltage can differ from the command."
         ],
         "hints": [
           {
@@ -587,13 +600,13 @@ export const fullCourseMocks = [
   {
     "id": "full-L01-L09-03",
     "title": "Full-course mock 3: Membrane charging, channel noise and molecular gates",
-    "coverage": "Available lectures L01–L09 only. Focus: L01, L02, L07–L09. Estimated workload: 180 minutes (practice estimate: 20, 40, 45, 45 and 30 minutes). L10–L12 are not covered.",
+    "coverage": "Available lectures L01–L10. Focus: L01, L02, L07–L09. L10 topic: ionotropic and metabotropic receptors. Estimated workload: 180 minutes (practice estimate: 20, 40, 45, 45 and 30 minutes). L11–L12 materials are pending.",
     "questions": [
       {
         "type": "written",
         "difficulty": "medium",
-        "prompt": "Briefly distinguish: a) capacitance and conductance, b) gating current and ionic current, c) selectivity filter and voltage sensor, d) a single-channel event and an ensemble average, e) a closed channel and an inactivated channel.",
-        "source": "L01 PDF23–24; L07 gating; L08 8:1 PDF15–18; L09 9:1 PDF7–10,16–17",
+        "prompt": "Briefly distinguish: a) capacitance and conductance, b) gating current and ionic current, c) selectivity filter and voltage sensor, d) a single-channel event and an ensemble average, e) a closed channel and an inactivated channel. f) Distinguish ionotropic and metabotropic receptor operation.",
+        "source": "L01 PDF23–24; L07 gating; L08 8:1 PDF15–18; L09 9:1 PDF7–10,16–17; L10 pp22–23",
         "points": 1,
         "markScheme": [
           {
@@ -610,6 +623,9 @@ export const fullCourseMocks = [
           },
           {
             "text": "A closed activatable channel can open with activation; an inactivated channel must regain availability before ordinary reopening."
+          },
+          {
+            "text": "Ionotropic receptors directly gate a channel. Metabotropic receptors signal through intracellular pathways."
           }
         ],
         "modelAnswer": [
@@ -617,7 +633,8 @@ export const fullCourseMocks = [
           "Gating current reflects sensor charge movement; ionic current reflects ions passing through the pore.",
           "The filter discriminates permeating ions; the voltage sensor couples voltage-dependent charge movement to gating.",
           "Individual events are stochastic; averaging matched trials reveals a reproducible mean time course.",
-          "A closed activatable channel can open with activation; an inactivated channel must regain availability before ordinary reopening."
+          "A closed activatable channel can open with activation; an inactivated channel must regain availability before ordinary reopening.",
+          "Ionotropic receptors directly gate a channel. Metabotropic receptors signal through intracellular pathways."
         ],
         "hints": [
           {
@@ -897,13 +914,13 @@ export const fullCourseMocks = [
   {
     "id": "full-L01-L09-04",
     "title": "Full-course mock 4: Resting voltage, geometry and regenerative signaling",
-    "coverage": "Available lectures L01–L09 only. Focus: L01–L04 and L07–L08. Estimated workload: 180 minutes (practice estimate: 20, 40, 45, 45 and 30 minutes). L10–L12 are not covered.",
+    "coverage": "Available lectures L01–L10. Focus: L01–L04 and L07–L08. L10 topic: rod sensory transduction. Estimated workload: 180 minutes (practice estimate: 20, 40, 45, 45 and 30 minutes). L11–L12 materials are pending.",
     "questions": [
       {
         "type": "written",
         "difficulty": "medium",
-        "prompt": "Answer briefly: a) Why is a pump needed to maintain gradients during sustained activity? b) Why is a resting GHK voltage not generally one ion equilibrium potential? c) What does doubling cable diameter do to axial resistance per length? d) What is accommodation? e) Why can myelin increase propagation speed without necessarily shortening the membrane RC product?",
-        "source": "L01 PDF34–35; L02 GHK; L03 geometry; L08 8:1 threshold and 8:2 myelin",
+        "prompt": "Answer briefly: a) Why is a pump needed to maintain gradients during sustained activity? b) Why is a resting GHK voltage not generally one ion equilibrium potential? c) What does doubling cable diameter do to axial resistance per length? d) What is accommodation? e) Why can myelin increase propagation speed without necessarily shortening the membrane RC product? f) Why does a rod hyperpolarize in response to light?",
+        "source": "L01 PDF34–35; L02 GHK; L03 geometry; L08 8:1 threshold and 8:2 myelin; L10 pp7–8",
         "points": 1,
         "markScheme": [
           {
@@ -920,6 +937,9 @@ export const fullCourseMocks = [
           },
           {
             "text": "Myelin reduces effective capacitance and increases resistance; their product depends on both changes, while internodal spread and nodal regeneration govern speed."
+          },
+          {
+            "text": "Light lowers cGMP and closes cation channels while potassium efflux continues."
           }
         ],
         "modelAnswer": [
@@ -927,7 +947,8 @@ export const fullCourseMocks = [
           "GHK combines species permeabilities and concentrations; zero net current does not imply zero current for each species.",
           "At fixed intracellular resistivity, cross-sectional area scales with diameter squared, so axial resistance per length falls fourfold.",
           "A slowly rising stimulus can alter gate availability and outward conductance so a previously effective threshold comparison no longer applies.",
-          "Myelin reduces effective capacitance and increases resistance; their product depends on both changes, while internodal spread and nodal regeneration govern speed."
+          "Myelin reduces effective capacitance and increases resistance; their product depends on both changes, while internodal spread and nodal regeneration govern speed.",
+          "Light lowers cGMP and closes cation channels while potassium efflux continues."
         ],
         "hints": [
           {
@@ -1219,13 +1240,13 @@ export const fullCourseMocks = [
   {
     "id": "full-L01-L09-05",
     "title": "Full-course mock 5: Conductance inference and measurement limits",
-    "coverage": "Available lectures L01–L09 only. Focus: L01–L02 and L06–L09; no provisional clinical claims. Estimated workload: 180 minutes (practice estimate: 20, 40, 45, 45 and 30 minutes). L10–L12 are not covered.",
+    "coverage": "Available lectures L01–L10. Focus: L01–L02 and L06–L09; no provisional clinical claims. L10 topic: binomial and Poisson quantal release. Estimated workload: 180 minutes (practice estimate: 20, 40, 45, 45 and 30 minutes). L11–L12 materials are pending.",
     "questions": [
       {
         "type": "written",
         "difficulty": "medium",
-        "prompt": "In short responses: a) Distinguish chord and slope conductance. b) Why can rectification occur without a changing number of open channels? c) How does sodium inactivation differ from reversal of its driving force? d) Why does a smaller ensemble current not uniquely imply fewer channels? e) Distinguish voltage clamp and current clamp.",
-        "source": "L02 current–voltage; L06 nonlinearities; L07 inactivation; L09 9:1 PDF10",
+        "prompt": "In short responses: a) Distinguish chord and slope conductance. b) Why can rectification occur without a changing number of open channels? c) How does sodium inactivation differ from reversal of its driving force? d) Why does a smaller ensemble current not uniquely imply fewer channels? e) Distinguish voltage clamp and current clamp. f) When does Poisson approximate binomial release, and what does a failure represent?",
+        "source": "L02 current–voltage; L06 nonlinearities; L07 inactivation; L09 9:1 PDF10; L10 pp32–35",
         "points": 1,
         "markScheme": [
           {
@@ -1242,6 +1263,9 @@ export const fullCourseMocks = [
           },
           {
             "text": "Voltage clamp controls voltage and measures balancing current; current clamp controls injected current and measures voltage."
+          },
+          {
+            "text": "Poisson approximates binomial release for many sites with small release probability at a given mean. A failure is zero released quanta."
           }
         ],
         "modelAnswer": [
@@ -1249,7 +1273,8 @@ export const fullCourseMocks = [
           "Asymmetric concentrations or permeation barriers can make the open-path current–voltage relation nonlinear.",
           "Inactivation reduces availability; driving-force reversal changes current sign when voltage crosses the reversal potential.",
           "Mean current combines number, opening probability, unitary conductance and driving force, so each must be controlled for number inference.",
-          "Voltage clamp controls voltage and measures balancing current; current clamp controls injected current and measures voltage."
+          "Voltage clamp controls voltage and measures balancing current; current clamp controls injected current and measures voltage.",
+          "Poisson approximates binomial release for many sites with small release probability at a given mean. A failure is zero released quanta."
         ],
         "hints": [
           {

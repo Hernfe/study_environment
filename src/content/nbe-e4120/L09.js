@@ -30,39 +30,53 @@ const content={
     }
   ],
   "segmentedPractice": true,
+  "standardPractice": "mc-only",
+  "collapseFormulaExplorers": true,
+  "overview": {
+    "estimate": "Core route: read the main sections and answer 23 core questions. Formula explorers, videos, extra practice and mocks are optional.",
+    "equations": "Start with $i=\\gamma(V_m-E)$, $\\langle I\\rangle=NP_{open}i$ and $G=NP_{open}\\gamma$.",
+    "pitfalls": "Use the driving force to determine current direction. A smaller mean current can reflect fewer channels, less opening or a smaller unitary current."
+  },
   "sections": [
     {
       "id": "overview",
-      "title": "Overview: pores, gates and applications",
+      "title": "Channels at a glance",
       "keyTerms": [],
       "source": "L09 9:1 p1",
       "blocks": [
         {
           "type": "text",
-          "body": ["Ion channels link molecular structure to electrical behavior: a pore selects ions, while a gate controls when they pass. Distinguish these roles before explaining how altered channel function changes a cell.", "Use $V_m=V_{in}-V_{out}$ and positive outward current throughout. Part 1 develops transport, selectivity and gating; part 2 applies those ideas to channel dysfunction and recording. The applications remain provisional final-exam scope. (9:1 PDF p1.)"]
+          "body": ["Use $V_m=V_{in}-V_{out}$ and positive outward current. The pore selects ions, the gate controls access, and driving force sets current direction. Channelopathies and drug effects are provisional exam topics."]
         },
         {
-          "type": "figure",
-          "visual": {
-            "type": "widget",
-            "name": "image-hotspots",
-            "caption": "9:1, PDF page 5. KcsA pore, pore helix, extracellular selectivity filter and cytoplasmic gate. Printed labels and axes retained.",
-            "fallbackAlt": "9:1, PDF page 5. KcsA pore, pore helix, extracellular selectivity filter and cytoplasmic gate. Printed labels and axes retained.",
-            "props": {
-              "src": new URL('../../assets/figures/nbe-e4120/L09/ions-05.webp', import.meta.url).href,
-              "alt": "9:1, PDF page 5. KcsA pore, pore helix, extracellular selectivity filter and cytoplasmic gate. Printed labels and axes retained.",
-              "aspect": 0.6581632653061225,
-              "quiz": false,
-              "layout": "stack",
-              "regions": []
+          "type": "detail",
+          "title": "Extra detail and source figure",
+          "blocks": [
+            {
+              "type": "figure",
+              "visual": {
+                "type": "widget",
+                "name": "image-hotspots",
+                "caption": "9:1, PDF page 5. KcsA pore, pore helix, extracellular selectivity filter and cytoplasmic gate. Printed labels and axes retained.",
+                "fallbackAlt": "9:1, PDF page 5. KcsA pore, pore helix, extracellular selectivity filter and cytoplasmic gate. Printed labels and axes retained.",
+                "props": {
+                  "src": new URL('../../assets/figures/nbe-e4120/L09/ions-05.webp', import.meta.url).href,
+                  "alt": "9:1, PDF page 5. KcsA pore, pore helix, extracellular selectivity filter and cytoplasmic gate. Printed labels and axes retained.",
+                  "aspect": 0.6581632653061225,
+                  "quiz": false,
+                  "layout": "stack",
+                  "regions": []
+                }
+              }
             }
-          }
+          ]
         }
       ],
       "formulas": [],
       "conceptQuiz": [
         {
           "id": "L09-overview-check",
+          "practice": "extra",
           "prompt": "Which movement is passive?",
           "correct": 0,
           "options": [
@@ -89,6 +103,7 @@ const content={
         },
         {
           "id": "L09-overview-starter",
+          "practice": "extra",
           "type": "mc",
           "difficulty": "easy",
           "progressionAdded": true,
@@ -136,24 +151,30 @@ const content={
       "blocks": [
         {
           "type": "text",
-          "body": ["Primary pumps directly convert ATP, light or other energy into concentration gradients. The secondary carriers shown here use a gradient created by pumps: downhill movement of one substance drives another uphill.", "Channels instead provide rapid passive movement down an electrochemical gradient. Electrical and concentration forces must be considered together. Opening a pore changes access to that gradient; it neither supplies energy nor guarantees movement down the concentration gradient alone. (9:1 PDF p2.)"]
+          "body": ["Primary pumps use energy such as ATP to build gradients. A secondary carrier couples downhill movement of one solute to uphill movement of another. An open channel allows passive movement down the electrochemical gradient."]
         },
         {
-          "type": "figure",
-          "visual": {
-            "type": "widget",
-            "name": "image-hotspots",
-            "caption": "9:1, PDF page 2. Pump, carrier and channel transport pathways and turnover comparison. Printed labels and axes retained.",
-            "fallbackAlt": "9:1, PDF page 2. Pump, carrier and channel transport pathways and turnover comparison. Printed labels and axes retained.",
-            "props": {
-              "src": new URL('../../assets/figures/nbe-e4120/L09/ions-02.webp', import.meta.url).href,
-              "alt": "9:1, PDF page 2. Pump, carrier and channel transport pathways and turnover comparison. Printed labels and axes retained.",
-              "aspect": 1.7562724014336917,
-              "quiz": false,
-              "layout": "stack",
-              "regions": []
+          "type": "detail",
+          "title": "Extra detail and source figure",
+          "blocks": [
+            {
+              "type": "figure",
+              "visual": {
+                "type": "widget",
+                "name": "image-hotspots",
+                "caption": "9:1, PDF page 2. Pump, carrier and channel transport pathways and turnover comparison. Printed labels and axes retained.",
+                "fallbackAlt": "9:1, PDF page 2. Pump, carrier and channel transport pathways and turnover comparison. Printed labels and axes retained.",
+                "props": {
+                  "src": new URL('../../assets/figures/nbe-e4120/L09/ions-02.webp', import.meta.url).href,
+                  "alt": "9:1, PDF page 2. Pump, carrier and channel transport pathways and turnover comparison. Printed labels and axes retained.",
+                  "aspect": 1.7562724014336917,
+                  "quiz": false,
+                  "layout": "stack",
+                  "regions": []
+                }
+              }
             }
-          }
+          ]
         }
       ],
       "formulas": [],
@@ -186,6 +207,7 @@ const content={
         },
         {
           "id": "L09-transport-starter",
+          "practice": "extra",
           "type": "mc",
           "difficulty": "easy",
           "progressionAdded": true,
@@ -222,36 +244,44 @@ const content={
     },
     {
       "id": "channelome",
-      "title": "Channelome and cellular functions",
+      "title": "Channel distribution",
       "keyTerms": [],
       "source": "L09 9:1 p3",
       "blocks": [
         {
           "type": "text",
-          "body": ["The channelome is the complete set of channel types, their abundance and their distribution in plasma and organelle membranes. Together they shape excitability, signaling and homeostasis.", "Gating changes membrane potential, cell volume, salt and water handling, and secretion. Thus a cell cannot be described by naming its most prominent channel alone. In the source cell diagram, location matters as well as channel identity because different membranes separate different compartments. (9:1 PDF p3.)"]
+          "body": ["The channelome describes which channels are present, how many there are and where they are. Together these properties shape excitability and membrane transport."]
         },
         {
-          "type": "figure",
-          "visual": {
-            "type": "widget",
-            "name": "image-hotspots",
-            "caption": "9:1, PDF page 3. Chondrocyte plasma and organelle channel repertoire. Printed labels and axes retained.",
-            "fallbackAlt": "9:1, PDF page 3. Chondrocyte plasma and organelle channel repertoire. Printed labels and axes retained.",
-            "props": {
-              "src": new URL('../../assets/figures/nbe-e4120/L09/ions-03.webp', import.meta.url).href,
-              "alt": "9:1, PDF page 3. Chondrocyte plasma and organelle channel repertoire. Printed labels and axes retained.",
-              "aspect": 1.4661399548532732,
-              "quiz": false,
-              "layout": "stack",
-              "regions": []
+          "type": "detail",
+          "title": "Extra detail and source figure",
+          "blocks": [
+            {"type": "text", "body": ["The channelome is the complete set of channel types, their abundance and their distribution in plasma and organelle membranes. Together they shape excitability, signaling and homeostasis.", "Gating changes membrane potential, cell volume, salt and water handling, and secretion. Thus a cell cannot be described by naming its most prominent channel alone. In the source cell diagram, location matters as well as channel identity because different membranes separate different compartments. (9:1 PDF p3.)"]},
+            {
+              "type": "figure",
+              "visual": {
+                "type": "widget",
+                "name": "image-hotspots",
+                "caption": "9:1, PDF page 3. Chondrocyte plasma and organelle channel repertoire. Printed labels and axes retained.",
+                "fallbackAlt": "9:1, PDF page 3. Chondrocyte plasma and organelle channel repertoire. Printed labels and axes retained.",
+                "props": {
+                  "src": new URL('../../assets/figures/nbe-e4120/L09/ions-03.webp', import.meta.url).href,
+                  "alt": "9:1, PDF page 3. Chondrocyte plasma and organelle channel repertoire. Printed labels and axes retained.",
+                  "aspect": 1.4661399548532732,
+                  "quiz": false,
+                  "layout": "stack",
+                  "regions": []
+                }
+              }
             }
-          }
+          ]
         }
       ],
       "formulas": [],
       "conceptQuiz": [
         {
           "id": "L09-channelome-check",
+          "practice": "extra",
           "prompt": "Does the channelome include channels that are currently closed?",
           "correct": 0,
           "options": [
@@ -278,6 +308,7 @@ const content={
         },
         {
           "id": "L09-channelome-starter",
+          "practice": "extra",
           "type": "mc",
           "difficulty": "easy",
           "progressionAdded": true,
@@ -320,24 +351,31 @@ const content={
       "blocks": [
         {
           "type": "text",
-          "body": ["Cells regulate channels through expression, gating and trafficking. Expression sets the longer-term repertoire; gating changes whether existing channels conduct; trafficking relocates them between membrane compartments. The source retinal pigment epithelium example moves sodium channels toward phagosomes during photoreceptor outer-segment uptake.", "In the conductance explorer below, channel number, open probability and unitary conductance are separate factors. A smaller population conductance alone cannot identify which factor changed; membrane relocation need not change the pore gene. (9:1 PDF p4.)"]
+          "body": ["Expression sets the channel repertoire, trafficking changes location, and gating changes the open fraction. For identical pores, $G=NP_{open}\\gamma$. A drop in total conductance can reflect any of the three factors."]
         },
         {
-          "type": "figure",
-          "visual": {
-            "type": "widget",
-            "name": "image-hotspots",
-            "caption": "9:1, PDF page 4. Side and top views of a ligand-gated pore with membrane boundaries. Printed labels and axes retained.",
-            "fallbackAlt": "9:1, PDF page 4. Side and top views of a ligand-gated pore with membrane boundaries. Printed labels and axes retained.",
-            "props": {
-              "src": new URL('../../assets/figures/nbe-e4120/L09/ions-04.webp', import.meta.url).href,
-              "alt": "9:1, PDF page 4. Side and top views of a ligand-gated pore with membrane boundaries. Printed labels and axes retained.",
-              "aspect": 0.454320987654321,
-              "quiz": false,
-              "layout": "stack",
-              "regions": []
+          "type": "detail",
+          "title": "Extra detail and source figure",
+          "blocks": [
+            {"type": "text", "body": ["Cells regulate channels through expression, gating and trafficking. Expression sets the longer-term repertoire; gating changes whether existing channels conduct; trafficking relocates them between membrane compartments. The source retinal pigment epithelium example moves sodium channels toward phagosomes during photoreceptor outer-segment uptake.", "In the conductance explorer below, channel number, open probability and unitary conductance are separate factors. A smaller population conductance alone cannot identify which factor changed; membrane relocation need not change the pore gene. (9:1 PDF p4.)"]},
+            {
+              "type": "figure",
+              "visual": {
+                "type": "widget",
+                "name": "image-hotspots",
+                "caption": "9:1, PDF page 4. Side and top views of a ligand-gated pore with membrane boundaries. Printed labels and axes retained.",
+                "fallbackAlt": "9:1, PDF page 4. Side and top views of a ligand-gated pore with membrane boundaries. Printed labels and axes retained.",
+                "props": {
+                  "src": new URL('../../assets/figures/nbe-e4120/L09/ions-04.webp', import.meta.url).href,
+                  "alt": "9:1, PDF page 4. Side and top views of a ligand-gated pore with membrane boundaries. Printed labels and axes retained.",
+                  "aspect": 0.454320987654321,
+                  "quiz": false,
+                  "layout": "stack",
+                  "regions": []
+                }
+              }
             }
-          }
+          ]
         }
       ],
       "formulas": [
@@ -409,6 +447,7 @@ const content={
       "conceptQuiz": [
         {
           "id": "L09-control-check",
+          "practice": "extra",
           "prompt": "Which process relocates an already synthesized channel?",
           "correct": 1,
           "options": [
@@ -435,6 +474,7 @@ const content={
         },
         {
           "id": "L09-control-starter",
+          "practice": "extra",
           "type": "mc",
           "difficulty": "easy",
           "progressionAdded": true,
@@ -471,13 +511,13 @@ const content={
     },
     {
       "id": "kcsa",
-      "title": "KcsA architecture and intracellular pH gate",
+      "title": "KcsA pore and gate",
       "keyTerms": [],
       "source": "L09 9:1 p5",
       "blocks": [
         {
           "type": "text",
-          "body": ["KcsA is a bacterial potassium-selective tetramer, with four identical two-helix subunits around a central pore. Each subunit contributes a P-loop to the extracellular selectivity-filter region.", "The intracellular helix bundle forms the gate and responds to intracellular pH. Follow the inside/outside labels in the source structure: changing access at the bundle gate differs from changing which ions the filter favors. KcsA illustrates pore architecture without requiring a voltage-sensor domain. (9:1 PDF p5.)"]
+          "body": ["Four two-helix subunits form one potassium pore. Their P-loops make the external filter. The internal helix bundle forms a pH-sensitive gate."]
         },
         {
           "type": "figure",
@@ -527,6 +567,7 @@ const content={
         },
         {
           "id": "L09-kcsa-starter",
+          "practice": "extra",
           "type": "mc",
           "difficulty": "easy",
           "progressionAdded": true,
@@ -563,13 +604,13 @@ const content={
     },
     {
       "id": "permeation",
-      "title": "Follow potassium through the pore",
+      "title": "Potassium permeation",
       "keyTerms": [],
       "source": "L09 9:1 p6",
       "blocks": [
         {
           "type": "text",
-          "body": ["For the outward passage illustrated, potassium enters the aqueous cavity, loses hydration water at the narrow filter, interacts with carbonyl oxygens, then rehydrates outside. Negative pore-helix charges help attract potassium toward the cavity.", "Filter interactions must compensate for dehydration. Less-selective pores, such as the acetylcholine receptor example, allow ions to remain more hydrated. The drawing follows outward flow for explanation; the pathway can carry inward flow when the electrochemical driving force reverses. (9:1 PDF p6.)"]
+          "body": ["On the outward route, potassium enters the aqueous cavity, sheds water at the filter, binds transiently to carbonyl oxygens and rehydrates outside. Reversing the driving force reverses the net current."]
         },
         {
           "type": "figure",
@@ -593,6 +634,7 @@ const content={
       "conceptQuiz": [
         {
           "id": "L09-permeation-check",
+          "practice": "extra",
           "prompt": "Which pore groups coordinate potassium after its water shell is shed?",
           "correct": 1,
           "options": [
@@ -619,6 +661,7 @@ const content={
         },
         {
           "id": "L09-permeation-starter",
+          "practice": "extra",
           "type": "mc",
           "difficulty": "easy",
           "progressionAdded": true,
@@ -655,13 +698,13 @@ const content={
     },
     {
       "id": "filter",
-      "title": "Selectivity filter, binding sites and exclusion",
+      "title": "Selectivity filter",
       "keyTerms": [],
       "source": "L09 9:1 p7",
       "blocks": [
         {
           "type": "text",
-          "body": ["The KcsA filter contains four main binding sites formed by oxygens associated with the TVGYG sequence. These replace the hydration shell of potassium at low energetic cost. Single-file ions and mutual repulsion support rapid passage.", "Smaller sodium is not automatically admitted: its stronger hydration and poorer fit make replacement of water less favorable. A filter mutation can therefore alter selectivity without simply widening the pore. Compare ion passage or reversal under matched solutions, rather than attributing an amplitude change alone to selectivity. (9:1 PDF p7.)"]
+          "body": ["The TVGYG filter provides four single-file sites. Oxygen coordination offsets dehydration for potassium. Sodium is smaller but more strongly hydrated and less favorably coordinated. A shift in reversal under matched solutions is more informative about selectivity than a change in amplitude alone."]
         },
         {
           "type": "figure",
@@ -711,6 +754,7 @@ const content={
         },
         {
           "id": "L09-filter-starter",
+          "practice": "extra",
           "type": "mc",
           "difficulty": "easy",
           "progressionAdded": true,
@@ -747,30 +791,36 @@ const content={
     },
     {
       "id": "hydration",
-      "title": "Size, charge, hydration and throughput",
+      "title": "Hydration and ion flux",
       "keyTerms": [],
       "source": "L09 9:1 p8",
       "blocks": [
         {
           "type": "text",
-          "body": ["Ion selectivity depends on size, charge and hydration energy together. Calcium and sodium have similar bare radii, but calcium has twice the charge. In the source comparison, hydration is strongest for calcium, then sodium, then potassium.", "Dehydration costs energy that filter interactions must compensate. Rapid conduction therefore requires selective but brief interactions, rather than permanent binding. For the throughput calculation below, multiply the stated net outward ion rate by charge per ion; include valence when the ions are not monovalent. (9:1 PDF p8.)"]
+          "body": ["In the slide comparison, hydration strength falls from calcium to sodium to potassium. Convert signed net ion rate $\\dot n$ to current with $i=ze\\dot n$, where $z$ is valence and $e$ is elementary charge."]
         },
         {
-          "type": "figure",
-          "visual": {
-            "type": "widget",
-            "name": "image-hotspots",
-            "caption": "9:1, PDF page 8. Bare radii of sodium, calcium, potassium and chloride; hydration shells are not shown. Printed labels and axes retained.",
-            "fallbackAlt": "9:1, PDF page 8. Bare radii of sodium, calcium, potassium and chloride; hydration shells are not shown. Printed labels and axes retained.",
-            "props": {
-              "src": new URL('../../assets/figures/nbe-e4120/L09/ions-08.webp', import.meta.url).href,
-              "alt": "9:1, PDF page 8. Bare radii of sodium, calcium, potassium and chloride; hydration shells are not shown. Printed labels and axes retained.",
-              "aspect": 2.219607843137255,
-              "quiz": false,
-              "layout": "stack",
-              "regions": []
+          "type": "detail",
+          "title": "Extra detail and source figure",
+          "blocks": [
+            {
+              "type": "figure",
+              "visual": {
+                "type": "widget",
+                "name": "image-hotspots",
+                "caption": "9:1, PDF page 8. Bare radii of sodium, calcium, potassium and chloride; hydration shells are not shown. Printed labels and axes retained.",
+                "fallbackAlt": "9:1, PDF page 8. Bare radii of sodium, calcium, potassium and chloride; hydration shells are not shown. Printed labels and axes retained.",
+                "props": {
+                  "src": new URL('../../assets/figures/nbe-e4120/L09/ions-08.webp', import.meta.url).href,
+                  "alt": "9:1, PDF page 8. Bare radii of sodium, calcium, potassium and chloride; hydration shells are not shown. Printed labels and axes retained.",
+                  "aspect": 2.219607843137255,
+                  "quiz": false,
+                  "layout": "stack",
+                  "regions": []
+                }
+              }
             }
-          }
+          ]
         }
       ],
       "formulas": [
@@ -842,6 +892,7 @@ const content={
       "conceptQuiz": [
         {
           "id": "L09-hydration-check",
+          "practice": "extra",
           "prompt": "Which hydration ordering is taught from strongest to weakest?",
           "correct": 1,
           "options": [
@@ -904,13 +955,13 @@ const content={
     },
     {
       "id": "gating",
-      "title": "Gating, inactivation and concentration economy",
+      "title": "Activation and inactivation",
       "keyTerms": [],
       "source": "L09 9:1 p9",
       "blocks": [
         {
           "type": "text",
-          "body": ["Activation opens a resting closed channel; deactivation closes it. An inactivated channel must recover before normal reopening. Opening depends on voltage, time and/or ligand concentration. Apparently abrupt transitions are unresolved at the recording bandwidth, rather than literally instantaneous.", "Brief current can change membrane voltage while bulk concentrations remain approximately unchanged. Multiply signed current by duration for transferred charge, then use the charge-to-voltage explorer. Inward positive charge raises voltage in an isolated capacitor; voltage clamp supplies balancing current instead of permitting that free voltage change. (9:1 PDF p9.)"]
+          "body": ["Activation opens a resting channel. Deactivation closes it. Inactivation makes it unavailable until recovery. For a constant current, $Q_{out}=It$. In a free capacitor receiving that charge, $\\Delta V=-Q_{out}/C$. Under voltage clamp, feedback supplies the balancing current."]
         },
         {
           "type": "figure",
@@ -1077,11 +1128,12 @@ const content={
         },
         {
           "id": "L09-gating-starter",
+          "practice": "extra",
           "type": "mc",
           "difficulty": "easy",
           "progressionAdded": true,
           "source": "L09 9:1 p9",
-          "prompt": "Which transition is called deactivation?",
+          "prompt": "A voltage-gated channel deactivates after repolarization. Which state change accounts for the loss of current?",
           "options": [
             {
               "text": "Closed state to open state",
@@ -1113,13 +1165,13 @@ const content={
     },
     {
       "id": "single",
-      "title": "Stochastic single-channel and ensemble currents",
+      "title": "Single channels and ensemble current",
       "keyTerms": [],
       "source": "L09 9:1 p10",
       "blocks": [
         {
           "type": "text",
-          "body": ["Repeated identical voltage steps control voltage while measuring current. Individual opening times vary, but averaging trials gives reproducible ensemble kinetics. Negative deflections indicate inward current. The source sodium traces are experimental; the potassium ensemble example is simulated.", "Unitary amplitude depends on conductance and driving force; mean current also depends on channel number and open probability. For identical independent channels, the instantaneous open count is binomial with mean $NP_{open}$; Poisson approximates large $N$, small $P_{open}$. A smaller mean alone cannot distinguish fewer channels from less opening. (9:1 PDF p10.)", "For the count calculation, use $P(k)=\\binom{N}{k}p^k(1-p)^{N-k}$, where $p=P_{open}$ and $k$ is the integer open count. This assumes identical independent channels. (Official exam PDF p4; cumulative HH model.)"]
+          "body": ["Identical clamp steps produce variable opening times. Compare the experimental sodium traces with the simulated potassium traces. At fixed voltage and solutions, an ohmic open pore carries $i=\\gamma(V_m-E)$. Estimate $\\gamma$ from the slope of the linear open-state I–V curve.", "For $N$ identical channels with open probability $p$, the mean is $\\langle I\\rangle=Npi$. Independent channels give $K\\sim\\mathrm{Binomial}(N,p)$ for the count $K$ open at a fixed time. For exactly $k$ open channels, use $P(K=k)=\\binom{N}{k}p^k(1-p)^{N-k}$. When $N$ is large and $p$ is small, use Poisson with mean $m=Np$."]
         },
         {
           "type": "figure",
@@ -1480,6 +1532,7 @@ const content={
         },
         {
           "id": "L09-single-starter",
+          "practice": "extra",
           "type": "mc",
           "difficulty": "easy",
           "progressionAdded": true,
@@ -1516,30 +1569,37 @@ const content={
     },
     {
       "id": "classification",
-      "title": "Pore-forming and auxiliary subunits",
+      "title": "Pore and auxiliary subunits",
       "keyTerms": [],
       "source": "L09 9:1 p11",
       "blocks": [
         {
           "type": "text",
-          "body": ["Channel classifications answer different questions: selectivity identifies permeating ions, gating identifies triggers, and structural families describe protein architecture and relationships. Location and drug sensitivity supply further classifications.", "Pore-forming alpha subunits differ from auxiliary subunits that usually regulate gating, expression or stability. The pore is often central between subunits or domains, but some families have pores within individual subunits. Do not infer a universal pore arrangement from the sodium-channel cartoon alone. (9:1 PDF p11.)"]
+          "body": ["Pore-forming subunits provide the permeation path. Auxiliary subunits can change gating, trafficking or stability. Classify a channel separately by permeant ions, gating stimulus and structure."]
         },
         {
-          "type": "figure",
-          "visual": {
-            "type": "widget",
-            "name": "image-hotspots",
-            "caption": "9:1, PDF page 11. Sodium alpha pore protein, auxiliary beta subunits and modulator sites. Printed labels and axes retained.",
-            "fallbackAlt": "9:1, PDF page 11. Sodium alpha pore protein, auxiliary beta subunits and modulator sites. Printed labels and axes retained.",
-            "props": {
-              "src": new URL('../../assets/figures/nbe-e4120/L09/ions-11.webp', import.meta.url).href,
-              "alt": "9:1, PDF page 11. Sodium alpha pore protein, auxiliary beta subunits and modulator sites. Printed labels and axes retained.",
-              "aspect": 0.9508928571428571,
-              "quiz": false,
-              "layout": "stack",
-              "regions": []
+          "type": "detail",
+          "title": "Extra detail and source figure",
+          "blocks": [
+            {"type": "text", "body": ["Channel classifications answer different questions: selectivity identifies permeating ions, gating identifies triggers, and structural families describe protein architecture and relationships. Location and drug sensitivity supply further classifications.", "Pore-forming alpha subunits differ from auxiliary subunits that usually regulate gating, expression or stability. The pore is often central between subunits or domains, but some families have pores within individual subunits. Do not infer a universal pore arrangement from the sodium-channel cartoon alone. (9:1 PDF p11.)"]},
+            {
+              "type": "figure",
+              "visual": {
+                "type": "widget",
+                "name": "image-hotspots",
+                "caption": "9:1, PDF page 11. Sodium alpha pore protein, auxiliary beta subunits and modulator sites. Printed labels and axes retained.",
+                "fallbackAlt": "9:1, PDF page 11. Sodium alpha pore protein, auxiliary beta subunits and modulator sites. Printed labels and axes retained.",
+                "props": {
+                  "src": new URL('../../assets/figures/nbe-e4120/L09/ions-11.webp', import.meta.url).href,
+                  "alt": "9:1, PDF page 11. Sodium alpha pore protein, auxiliary beta subunits and modulator sites. Printed labels and axes retained.",
+                  "aspect": 0.9508928571428571,
+                  "quiz": false,
+                  "layout": "stack",
+                  "regions": []
+                }
+              }
             }
-          }
+          ]
         }
       ],
       "formulas": [],
@@ -1572,6 +1632,7 @@ const content={
         },
         {
           "id": "L09-classification-starter",
+          "practice": "extra",
           "type": "mc",
           "difficulty": "easy",
           "progressionAdded": true,
@@ -1608,37 +1669,45 @@ const content={
     },
     {
       "id": "evolution",
-      "title": "Pore duplication and voltage-sensor additions",
+      "title": "Pore and sensor modules",
       "keyTerms": [],
       "source": "L09 9:1 p12",
       "blocks": [
         {
           "type": "text",
-          "body": ["The source schematic starts with a two-helix pore module. Duplication gives additional pore modules, while addition of S1–S4 gives a six-helix subunit with a voltage-sensor domain. Positive S4 charges support voltage sensitivity.", "Further duplication links four homologous domains in vertebrate sodium and calcium channels. Count domains separately from independently assembled subunits. The diagram is a schematic relationship among channel architectures, rather than evidence that every family followed one universal evolutionary sequence. (9:1 PDF p12.)"]
+          "body": ["A six-helix voltage-gated module pairs a two-helix pore with a four-helix sensor. The source schematic shows how duplication can produce repeated domains."]
         },
         {
-          "type": "figure",
-          "visual": {
-            "type": "widget",
-            "name": "image-hotspots",
-            "caption": "9:1, PDF page 12. Source schematic pore/sensor duplication and cation-channel topology families. Printed labels and axes retained. Scroll horizontally to read the original axes or table on narrow screens.",
-            "fallbackAlt": "9:1, PDF page 12. Source schematic pore/sensor duplication and cation-channel topology families. Printed labels and axes retained. Scroll horizontally to read the original axes or table on narrow screens.",
-            "props": {
-              "src": new URL('../../assets/figures/nbe-e4120/L09/ions-12.webp', import.meta.url).href,
-              "alt": "9:1, PDF page 12. Source schematic pore/sensor duplication and cation-channel topology families. Printed labels and axes retained.",
-              "aspect": 1.3454545454545455,
-              "quiz": false,
-              "layout": "stack",
-              "regions": [],
-              "minWidth": 760
+          "type": "detail",
+          "title": "Extra detail and source figure",
+          "blocks": [
+            {"type": "text", "body": ["The source schematic starts with a two-helix pore module. Duplication gives additional pore modules, while addition of S1–S4 gives a six-helix subunit with a voltage-sensor domain. Positive S4 charges support voltage sensitivity.", "Further duplication links four homologous domains in vertebrate sodium and calcium channels. Count domains separately from independently assembled subunits. The diagram is a schematic relationship among channel architectures, rather than evidence that every family followed one universal evolutionary sequence. (9:1 PDF p12.)"]},
+            {
+              "type": "figure",
+              "visual": {
+                "type": "widget",
+                "name": "image-hotspots",
+                "caption": "9:1, PDF page 12. Source schematic pore/sensor duplication and cation-channel topology families. Printed labels and axes retained. Scroll horizontally to read the original axes or table on narrow screens.",
+                "fallbackAlt": "9:1, PDF page 12. Source schematic pore/sensor duplication and cation-channel topology families. Printed labels and axes retained. Scroll horizontally to read the original axes or table on narrow screens.",
+                "props": {
+                  "src": new URL('../../assets/figures/nbe-e4120/L09/ions-12.webp', import.meta.url).href,
+                  "alt": "9:1, PDF page 12. Source schematic pore/sensor duplication and cation-channel topology families. Printed labels and axes retained.",
+                  "aspect": 1.3454545454545455,
+                  "quiz": false,
+                  "layout": "stack",
+                  "regions": [],
+                  "minWidth": 760
+                }
+              }
             }
-          }
+          ]
         }
       ],
       "formulas": [],
       "conceptQuiz": [
         {
           "id": "L09-evolution-check",
+          "practice": "extra",
           "prompt": "What charge property makes S4 a voltage sensor?",
           "correct": 1,
           "options": [
@@ -1665,6 +1734,7 @@ const content={
         },
         {
           "id": "L09-evolution-starter",
+          "practice": "extra",
           "type": "mc",
           "difficulty": "easy",
           "progressionAdded": true,
@@ -1701,37 +1771,45 @@ const content={
     },
     {
       "id": "evolution-other",
-      "title": "Ligand-binding and other channel lineages",
+      "title": "Other channel architectures",
       "keyTerms": [],
       "source": "L09 9:1 p13",
       "blocks": [
         {
           "type": "text",
-          "body": ["Adding a glutamate-binding domain provides chemical sensitivity to a channel lineage. The source also depicts duplication of a three-membrane-segment module in the water-channel lineage, illustrating another route to a larger protein.", "Chloride, ammonia and connexin architectures broaden the comparison beyond potassium channels. Read each topology and assembly separately: acquiring ligand sensitivity changes the gating input, whereas duplicating a membrane module changes architecture. Neither statement alone specifies which ions or molecules will pass. (9:1 PDF p13.)"]
+          "body": ["A ligand-binding domain adds a chemical gating input. The source diagram compares other examples of domain organization."]
         },
         {
-          "type": "figure",
-          "visual": {
-            "type": "widget",
-            "name": "image-hotspots",
-            "caption": "9:1, PDF page 13. Source ligand, chloride, water, ammonia and connexin lineage/topology schematic. Printed labels and axes retained. Scroll horizontally to read the original axes or table on narrow screens.",
-            "fallbackAlt": "9:1, PDF page 13. Source ligand, chloride, water, ammonia and connexin lineage/topology schematic. Printed labels and axes retained. Scroll horizontally to read the original axes or table on narrow screens.",
-            "props": {
-              "src": new URL('../../assets/figures/nbe-e4120/L09/ions-13.webp', import.meta.url).href,
-              "alt": "9:1, PDF page 13. Source ligand, chloride, water, ammonia and connexin lineage/topology schematic. Printed labels and axes retained.",
-              "aspect": 1.6182336182336183,
-              "quiz": false,
-              "layout": "stack",
-              "regions": [],
-              "minWidth": 760
+          "type": "detail",
+          "title": "Extra detail and source figure",
+          "blocks": [
+            {"type": "text", "body": ["Adding a glutamate-binding domain provides chemical sensitivity to a channel lineage. The source also depicts duplication of a three-membrane-segment module in the water-channel lineage, illustrating another route to a larger protein.", "Chloride, ammonia and connexin architectures broaden the comparison beyond potassium channels. Read each topology and assembly separately: acquiring ligand sensitivity changes the gating input, whereas duplicating a membrane module changes architecture. Neither statement alone specifies which ions or molecules will pass. (9:1 PDF p13.)"]},
+            {
+              "type": "figure",
+              "visual": {
+                "type": "widget",
+                "name": "image-hotspots",
+                "caption": "9:1, PDF page 13. Source ligand, chloride, water, ammonia and connexin lineage/topology schematic. Printed labels and axes retained. Scroll horizontally to read the original axes or table on narrow screens.",
+                "fallbackAlt": "9:1, PDF page 13. Source ligand, chloride, water, ammonia and connexin lineage/topology schematic. Printed labels and axes retained. Scroll horizontally to read the original axes or table on narrow screens.",
+                "props": {
+                  "src": new URL('../../assets/figures/nbe-e4120/L09/ions-13.webp', import.meta.url).href,
+                  "alt": "9:1, PDF page 13. Source ligand, chloride, water, ammonia and connexin lineage/topology schematic. Printed labels and axes retained.",
+                  "aspect": 1.6182336182336183,
+                  "quiz": false,
+                  "layout": "stack",
+                  "regions": [],
+                  "minWidth": 760
+                }
+              }
             }
-          }
+          ]
         }
       ],
       "formulas": [],
       "conceptQuiz": [
         {
           "id": "L09-evolution-other-check",
+          "practice": "extra",
           "prompt": "What function does the source glutamate-binding addition supply?",
           "correct": 0,
           "options": [
@@ -1758,6 +1836,7 @@ const content={
         },
         {
           "id": "L09-evolution-other-starter",
+          "practice": "extra",
           "type": "mc",
           "difficulty": "easy",
           "progressionAdded": true,
@@ -1794,37 +1873,45 @@ const content={
     },
     {
       "id": "families",
-      "title": "Structural family reference",
+      "title": "Channel family reference",
       "keyTerms": [],
       "source": "L09 9:1 p14",
       "blocks": [
         {
           "type": "text",
-          "body": ["The source taxonomy groups channels by membrane topology and pore organization. It includes one-helix M2, two-helix examples, S5–S6/P-loop families, extracellular ligand-gated channels, and separate chloride, water, ammonia and connexin families.", "Counts refer to each pore-forming subunit, or each domain in vertebrate sodium/calcium channels. Count regulatory subunits separately. For a family match, first identify the pore architecture rather than using the gating stimulus alone; similar stimuli need not imply identical protein topology. (9:1 PDF p14.)"]
+          "body": ["Count pore-forming helices per subunit or repeated domain. The family table gives examples."]
         },
         {
-          "type": "figure",
-          "visual": {
-            "type": "widget",
-            "name": "image-hotspots",
-            "caption": "9:1, PDF page 14. Structural-family taxonomy retained as a source reference table. Printed labels and axes retained. Scroll horizontally to read the original axes or table on narrow screens.",
-            "fallbackAlt": "9:1, PDF page 14. Structural-family taxonomy retained as a source reference table. Printed labels and axes retained. Scroll horizontally to read the original axes or table on narrow screens.",
-            "props": {
-              "src": new URL('../../assets/figures/nbe-e4120/L09/ions-14.webp', import.meta.url).href,
-              "alt": "9:1, PDF page 14. Structural-family taxonomy retained as a source reference table. Printed labels and axes retained.",
-              "aspect": 2.0577617328519855,
-              "quiz": false,
-              "layout": "stack",
-              "regions": [],
-              "minWidth": 760
+          "type": "detail",
+          "title": "Extra detail and source figure",
+          "blocks": [
+            {"type": "text", "body": ["The source taxonomy groups channels by membrane topology and pore organization. It includes one-helix M2, two-helix examples, S5–S6/P-loop families, extracellular ligand-gated channels, and separate chloride, water, ammonia and connexin families.", "Counts refer to each pore-forming subunit, or each domain in vertebrate sodium/calcium channels. Count regulatory subunits separately. For a family match, first identify the pore architecture rather than using the gating stimulus alone; similar stimuli need not imply identical protein topology. (9:1 PDF p14.)"]},
+            {
+              "type": "figure",
+              "visual": {
+                "type": "widget",
+                "name": "image-hotspots",
+                "caption": "9:1, PDF page 14. Structural-family taxonomy retained as a source reference table. Printed labels and axes retained. Scroll horizontally to read the original axes or table on narrow screens.",
+                "fallbackAlt": "9:1, PDF page 14. Structural-family taxonomy retained as a source reference table. Printed labels and axes retained. Scroll horizontally to read the original axes or table on narrow screens.",
+                "props": {
+                  "src": new URL('../../assets/figures/nbe-e4120/L09/ions-14.webp', import.meta.url).href,
+                  "alt": "9:1, PDF page 14. Structural-family taxonomy retained as a source reference table. Printed labels and axes retained.",
+                  "aspect": 2.0577617328519855,
+                  "quiz": false,
+                  "layout": "stack",
+                  "regions": [],
+                  "minWidth": 760
+                }
+              }
             }
-          }
+          ]
         }
       ],
       "formulas": [],
       "conceptQuiz": [
         {
           "id": "L09-families-check",
+          "practice": "extra",
           "prompt": "What unit of sodium-channel architecture does the six-helix count describe?",
           "correct": 1,
           "options": [
@@ -1851,6 +1938,7 @@ const content={
         },
         {
           "id": "L09-families-starter",
+          "practice": "extra",
           "type": "mc",
           "difficulty": "easy",
           "progressionAdded": true,
@@ -1887,13 +1975,13 @@ const content={
     },
     {
       "id": "stimuli",
-      "title": "Voltage, ligand, mechanical and multimodal gating",
+      "title": "Gating stimuli",
       "keyTerms": [],
       "source": "L09 9:1 p15",
       "blocks": [
         {
           "type": "text",
-          "body": ["Voltage, ligand binding and mechanical disturbance can alter opening probability. Ligands may act outside or inside the cell. Multimodal channels respond to several cues with different sensitivities.", "Classify a trigger by the physical signal named in the question: voltage change, chemical binding or mechanical force. This does not classify the ions carried. A channel can be both chemically gated and cation-permeable, and one channel need not belong to only one stimulus class. (9:1 PDF p15.)"]
+          "body": ["Voltage, ligand binding and mechanical force can each change opening probability. Ligands can act on either side of the membrane. A multimodal channel responds to several inputs."]
         },
         {
           "type": "figure",
@@ -1943,6 +2031,7 @@ const content={
         },
         {
           "id": "L09-stimuli-starter",
+          "practice": "extra",
           "type": "mc",
           "difficulty": "easy",
           "progressionAdded": true,
@@ -1979,13 +2068,13 @@ const content={
     },
     {
       "id": "cation",
-      "title": "Voltage-gated cation channel organization",
+      "title": "Voltage-gated channel architecture",
       "keyTerms": [],
       "source": "L09 9:1 p16",
       "blocks": [
         {
           "type": "text",
-          "body": ["Potassium channels assemble four alpha subunits; vertebrate sodium and calcium channels link four homologous six-helix domains in one alpha polypeptide. Bacterial sodium/calcium channels can instead assemble four identical subunits. Auxiliary subunits are additional components.", "Coordinated sensor movement activates the pore. The source peptide-occlusion model explains some rapid inactivation, not every channel. The probability explorer below assumes independent all-required factors explicitly; anatomical subunit or domain counts alone do not establish that mathematical independence. (9:1 PDF p16.)"]
+          "body": ["Canonical $\\mathrm{K_V}$ channels assemble four six-helix subunits. Vertebrate $\\mathrm{Na_V}$ and $\\mathrm{Ca_V}$ channels have four homologous domains in one pore-forming polypeptide. A peptide can occlude the pore in some fast-inactivation models. The probability that all $k$ identical independent gates are permissive is $y^k$. Domain count alone does not establish independence."]
         },
         {
           "type": "figure",
@@ -2068,6 +2157,7 @@ const content={
       "conceptQuiz": [
         {
           "id": "L09-cation-check",
+          "practice": "extra",
           "prompt": "Which repeating units belong to a vertebrate sodium alpha polypeptide?",
           "correct": 1,
           "options": [
@@ -2094,6 +2184,7 @@ const content={
         },
         {
           "id": "L09-cation-starter",
+          "practice": "extra",
           "type": "mc",
           "difficulty": "easy",
           "progressionAdded": true,
@@ -2130,13 +2221,13 @@ const content={
     },
     {
       "id": "sensor",
-      "title": "Voltage sensor versus pore domain",
+      "title": "Voltage sensor and pore",
       "keyTerms": [],
       "source": "L09 9:1 p17",
       "blocks": [
         {
           "type": "text",
-          "body": ["S1–S4 form the voltage-sensor domain; S5–S6 and the P-loop form the pore and filter. Depolarization favors outward movement of positive S4 residues, producing gating current and a conformational change that opens the pore.", "Sensor charge movement differs from ion permeation through the aqueous pathway. An S4 change can shift voltage-dependent opening, whereas a filter change can alter selectivity and reversal under matched gradients. A gating-current measurement therefore does not directly measure ionic selectivity. (9:1 PDF p17.)"]
+          "body": ["S1–S4 form the voltage sensor. Depolarization displaces positive S4 charges outward, giving gating current and favoring pore opening. S5–S6 and the P-loop make the pore and filter. A sensor change can shift activation voltage. A filter change can shift reversal under matched gradients."]
         },
         {
           "type": "figure",
@@ -2186,6 +2277,7 @@ const content={
         },
         {
           "id": "L09-sensor-starter",
+          "practice": "extra",
           "type": "mc",
           "difficulty": "easy",
           "progressionAdded": true,
@@ -2222,37 +2314,45 @@ const content={
     },
     {
       "id": "nav",
-      "title": "Sodium subtypes and auxiliary functions",
+      "title": "Sodium channel subtypes",
       "keyTerms": [],
       "source": "L09 9:1 p18",
       "blocks": [
         {
           "type": "text",
-          "body": ["The source lists nine sodium-channel family members. Adult sensory neurons express several subtypes, with NaV1.7, NaV1.8 and NaV1.9 emphasized in pain signaling. Their contributions should be read in the source action-potential panel rather than treated as interchangeable labels.", "Beta subunits regulate gating and expression and participate in adhesion and cytoskeletal interactions. Thus altered sodium current may reflect regulation of the alpha pore as well as the pore itself; an auxiliary subunit need not conduct ions to affect excitability. (9:1 PDF p18.)"]
+          "body": ["The slides highlight $\\mathrm{Na_V1.7}$, $\\mathrm{Na_V1.8}$ and $\\mathrm{Na_V1.9}$ in pain pathways. Auxiliary beta subunits can change expression, gating and adhesion."]
         },
         {
-          "type": "figure",
-          "visual": {
-            "type": "widget",
-            "name": "image-hotspots",
-            "caption": "9:1, PDF page 18. Source sodium subtype contributions around an action-potential waveform. Printed labels and axes retained. Scroll horizontally to read the original axes or table on narrow screens.",
-            "fallbackAlt": "9:1, PDF page 18. Source sodium subtype contributions around an action-potential waveform. Printed labels and axes retained. Scroll horizontally to read the original axes or table on narrow screens.",
-            "props": {
-              "src": new URL('../../assets/figures/nbe-e4120/L09/ions-18.webp', import.meta.url).href,
-              "alt": "9:1, PDF page 18. Source sodium subtype contributions around an action-potential waveform. Printed labels and axes retained.",
-              "aspect": 1.7809439002671417,
-              "quiz": false,
-              "layout": "stack",
-              "regions": [],
-              "minWidth": 760
+          "type": "detail",
+          "title": "Extra detail and source figure",
+          "blocks": [
+            {"type": "text", "body": ["The source lists nine sodium-channel family members. Adult sensory neurons express several subtypes, with NaV1.7, NaV1.8 and NaV1.9 emphasized in pain signaling. Their contributions should be read in the source action-potential panel rather than treated as interchangeable labels.", "Beta subunits regulate gating and expression and participate in adhesion and cytoskeletal interactions. Thus altered sodium current may reflect regulation of the alpha pore as well as the pore itself; an auxiliary subunit need not conduct ions to affect excitability. (9:1 PDF p18.)"]},
+            {
+              "type": "figure",
+              "visual": {
+                "type": "widget",
+                "name": "image-hotspots",
+                "caption": "9:1, PDF page 18. Source sodium subtype contributions around an action-potential waveform. Printed labels and axes retained. Scroll horizontally to read the original axes or table on narrow screens.",
+                "fallbackAlt": "9:1, PDF page 18. Source sodium subtype contributions around an action-potential waveform. Printed labels and axes retained. Scroll horizontally to read the original axes or table on narrow screens.",
+                "props": {
+                  "src": new URL('../../assets/figures/nbe-e4120/L09/ions-18.webp', import.meta.url).href,
+                  "alt": "9:1, PDF page 18. Source sodium subtype contributions around an action-potential waveform. Printed labels and axes retained.",
+                  "aspect": 1.7809439002671417,
+                  "quiz": false,
+                  "layout": "stack",
+                  "regions": [],
+                  "minWidth": 760
+                }
+              }
             }
-          }
+          ]
         }
       ],
       "formulas": [],
       "conceptQuiz": [
         {
           "id": "L09-nav-check",
+          "practice": "extra",
           "prompt": "Which sodium subtype set is highlighted for pain pathways?",
           "correct": 1,
           "options": [
@@ -2315,13 +2415,13 @@ const content={
     },
     {
       "id": "kv",
-      "title": "Delayed rectifier, A-type and M-type currents",
+      "title": "Potassium current kinetics",
       "keyTerms": [],
       "source": "L09 9:1 p19",
       "blocks": [
         {
           "type": "text",
-          "body": ["Delayed rectifiers activate after depolarization and inactivate slowly or little. A-type currents activate rapidly and then inactivate rapidly. M-type currents activate slowly without inactivation.", "Compare the time course during the same depolarizing step: a transient peak followed by decay differs from a sustained or slowly rising response. Peak amplitude alone cannot identify these kinetic types. Potassium channels form homo- or heterotetramers, and auxiliary subunits can further modify gating, expression and trafficking. (9:1 PDF p19.)"]
+          "body": ["Under a sustained depolarizing step, delayed rectifier current rises after a delay, A-type current rises and decays rapidly, and M-type current rises slowly and persists."]
         },
         {
           "type": "figure",
@@ -2346,6 +2446,7 @@ const content={
       "conceptQuiz": [
         {
           "id": "L09-kv-check",
+          "practice": "extra",
           "prompt": "Which potassium-current class gives rapid activation followed by rapid inactivation?",
           "correct": 0,
           "options": [
@@ -2372,6 +2473,7 @@ const content={
         },
         {
           "id": "L09-kv-starter",
+          "practice": "extra",
           "type": "mc",
           "difficulty": "easy",
           "progressionAdded": true,
@@ -2408,36 +2510,44 @@ const content={
     },
     {
       "id": "trp",
-      "title": "TRP architecture and multimodal sensing",
+      "title": "TRP channels",
       "keyTerms": [],
       "source": "L09 9:1 p20",
       "blocks": [
         {
           "type": "text",
-          "body": ["TRP channels commonly assemble four six-helix subunits with P-loop filters. Many conduct sodium and calcium while the ions remain partly hydrated. The source contrasts their S4 charge pattern with canonical voltage sensors, giving generally weaker voltage dependence.", "Temperature, chemicals, osmotic changes and mechanical stimuli can act on these multimodal channels. Their sensory roles include pain, temperature, taste, mechanosensation and vision. Shared architecture does not mean identical stimulus sensitivity, and the source generalizations need not describe every TRP member. (9:1 PDF p20.)"]
+          "body": ["Many TRP channels pass multiple cations and respond to heat, chemicals or mechanical force. A typical TRP channel assembles four six-helix subunits."]
         },
         {
-          "type": "figure",
-          "visual": {
-            "type": "widget",
-            "name": "image-hotspots",
-            "caption": "9:1, PDF page 20. TRP channel structural models with sensor and pore modules. Printed labels and axes retained.",
-            "fallbackAlt": "9:1, PDF page 20. TRP channel structural models with sensor and pore modules. Printed labels and axes retained.",
-            "props": {
-              "src": new URL('../../assets/figures/nbe-e4120/L09/ions-20.webp', import.meta.url).href,
-              "alt": "9:1, PDF page 20. TRP channel structural models with sensor and pore modules. Printed labels and axes retained.",
-              "aspect": 1.9681274900398407,
-              "quiz": false,
-              "layout": "stack",
-              "regions": []
+          "type": "detail",
+          "title": "Extra detail and source figure",
+          "blocks": [
+            {"type": "text", "body": ["TRP channels commonly assemble four six-helix subunits with P-loop filters. Many conduct sodium and calcium while the ions remain partly hydrated. The source contrasts their S4 charge pattern with canonical voltage sensors, giving generally weaker voltage dependence.", "Temperature, chemicals, osmotic changes and mechanical stimuli can act on these multimodal channels. Their sensory roles include pain, temperature, taste, mechanosensation and vision. Shared architecture does not mean identical stimulus sensitivity, and the source generalizations need not describe every TRP member. (9:1 PDF p20.)"]},
+            {
+              "type": "figure",
+              "visual": {
+                "type": "widget",
+                "name": "image-hotspots",
+                "caption": "9:1, PDF page 20. TRP channel structural models with sensor and pore modules. Printed labels and axes retained.",
+                "fallbackAlt": "9:1, PDF page 20. TRP channel structural models with sensor and pore modules. Printed labels and axes retained.",
+                "props": {
+                  "src": new URL('../../assets/figures/nbe-e4120/L09/ions-20.webp', import.meta.url).href,
+                  "alt": "9:1, PDF page 20. TRP channel structural models with sensor and pore modules. Printed labels and axes retained.",
+                  "aspect": 1.9681274900398407,
+                  "quiz": false,
+                  "layout": "stack",
+                  "regions": []
+                }
+              }
             }
-          }
+          ]
         }
       ],
       "formulas": [],
       "conceptQuiz": [
         {
           "id": "L09-trp-check",
+          "practice": "extra",
           "prompt": "Which description summarizes the taught TRP gating and permeation properties?",
           "correct": 1,
           "options": [
@@ -2464,6 +2574,7 @@ const content={
         },
         {
           "id": "L09-trp-starter",
+          "practice": "extra",
           "type": "mc",
           "difficulty": "easy",
           "progressionAdded": true,
@@ -2500,37 +2611,45 @@ const content={
     },
     {
       "id": "thermal",
-      "title": "Thermal TRP examples and chemical activation",
+      "title": "Thermal TRP example",
       "keyTerms": [],
       "source": "L09 9:1 p21",
       "blocks": [
         {
           "type": "text",
-          "body": ["The source associates TRPV1 with heat around $43\\,^{\\circ}\\mathrm C$ and capsaicin, and TRPV2 with higher heat around $52\\,^{\\circ}\\mathrm C$. The diagram places different TRP members across cold, warmth and noxious heat ranges.", "These are approximate examples of stimulus sensitivity. Chemical and thermal activation of the same channel illustrate multimodal gating, rather than separate ion pathways. Other TRP members sense osmotic pressure, volume, stretch or vibration; a temperature label alone does not describe the full response repertoire. (9:1 PDF p21.)"]
+          "body": ["TRPV1 responds to both heat and capsaicin. The source uses TRPV2 as an example of activation at higher temperature."]
         },
         {
-          "type": "figure",
-          "visual": {
-            "type": "widget",
-            "name": "image-hotspots",
-            "caption": "9:1, PDF page 21. Source approximate thermal activation ranges across TRP members. Printed labels and axes retained. Scroll horizontally to read the original axes or table on narrow screens.",
-            "fallbackAlt": "9:1, PDF page 21. Source approximate thermal activation ranges across TRP members. Printed labels and axes retained. Scroll horizontally to read the original axes or table on narrow screens.",
-            "props": {
-              "src": new URL('../../assets/figures/nbe-e4120/L09/ions-21.webp', import.meta.url).href,
-              "alt": "9:1, PDF page 21. Source approximate thermal activation ranges across TRP members. Printed labels and axes retained.",
-              "aspect": 3.188841201716738,
-              "quiz": false,
-              "layout": "stack",
-              "regions": [],
-              "minWidth": 760
+          "type": "detail",
+          "title": "Extra detail and source figure",
+          "blocks": [
+            {"type": "text", "body": ["The source associates TRPV1 with heat around $43\\,^{\\circ}\\mathrm C$ and capsaicin, and TRPV2 with higher heat around $52\\,^{\\circ}\\mathrm C$. The diagram places different TRP members across cold, warmth and noxious heat ranges.", "These are approximate examples of stimulus sensitivity. Chemical and thermal activation of the same channel illustrate multimodal gating, rather than separate ion pathways. Other TRP members sense osmotic pressure, volume, stretch or vibration; a temperature label alone does not describe the full response repertoire. (9:1 PDF p21.)"]},
+            {
+              "type": "figure",
+              "visual": {
+                "type": "widget",
+                "name": "image-hotspots",
+                "caption": "9:1, PDF page 21. Source approximate thermal activation ranges across TRP members. Printed labels and axes retained. Scroll horizontally to read the original axes or table on narrow screens.",
+                "fallbackAlt": "9:1, PDF page 21. Source approximate thermal activation ranges across TRP members. Printed labels and axes retained. Scroll horizontally to read the original axes or table on narrow screens.",
+                "props": {
+                  "src": new URL('../../assets/figures/nbe-e4120/L09/ions-21.webp', import.meta.url).href,
+                  "alt": "9:1, PDF page 21. Source approximate thermal activation ranges across TRP members. Printed labels and axes retained.",
+                  "aspect": 3.188841201716738,
+                  "quiz": false,
+                  "layout": "stack",
+                  "regions": [],
+                  "minWidth": 760
+                }
+              }
             }
-          }
+          ]
         }
       ],
       "formulas": [],
       "conceptQuiz": [
         {
           "id": "L09-thermal-check",
+          "practice": "extra",
           "prompt": "Which combination illustrates TRPV1 multimodal sensitivity?",
           "correct": 0,
           "options": [
@@ -2557,6 +2676,7 @@ const content={
         },
         {
           "id": "L09-thermal-starter",
+          "practice": "extra",
           "type": "mc",
           "difficulty": "easy",
           "progressionAdded": true,
@@ -2593,13 +2713,13 @@ const content={
     },
     {
       "id": "ligand",
-      "title": "Extracellular ligands and nicotinic receptors",
+      "title": "Nicotinic receptor",
       "keyTerms": [],
       "source": "L09 9:1 p22",
       "blocks": [
         {
           "type": "text",
-          "body": ["Ionotropic receptors couple extracellular transmitter binding directly to channel gating. The source examples include acetylcholine, serotonin, glutamate, glycine and GABA. Pentameric ligand-gated receptors have five subunits, each with four membrane helices.", "In the nicotinic example, binding two acetylcholine molecules opens a channel more permeable to sodium and potassium than calcium. The resulting endplate depolarization can trigger muscle activation. Ligand binding controls opening; it should not be confused with the electrochemical forces that determine ion movement through the open pore. (9:1 PDF p22.)"]
+          "body": ["An ionotropic receptor opens directly upon transmitter binding. Two acetylcholine molecules open the taught pentameric nicotinic receptor. Its mixed cation current depolarizes the muscle endplate at rest."]
         },
         {
           "type": "figure",
@@ -2650,6 +2770,7 @@ const content={
         },
         {
           "id": "L09-ligand-starter",
+          "practice": "extra",
           "type": "mc",
           "difficulty": "easy",
           "progressionAdded": true,
@@ -2686,30 +2807,36 @@ const content={
     },
     {
       "id": "channelopathy",
-      "title": "Channelopathy: altered function and ENaC",
+      "title": "Gain and loss of function",
       "keyTerms": [],
       "source": "L09 9:2 p1–2",
       "blocks": [
         {
           "type": "text",
-          "body": ["Channel dysfunction can be inherited or acquired through disease, drugs or toxins. Functional changes can involve gating, conductance, selectivity, abundance or signaling. A genetic variant may cause gain of function, loss of function or no measurable functional change.", "The ENaC example links increased renal sodium absorption to water retention, expanded extracellular volume and hypertension; reduced function can give hypotension. Establish the functional defect before predicting the physiological effect. These applications remain provisional exam scope; a mutation alone does not establish a disease mechanism. (9:2 PDF p1–2.)"]
+          "body": ["Inherited or acquired channel dysfunction can change gating, conductance, selectivity or abundance. A variant may increase function, decrease it or be functionally neutral. In the ENaC example, increased renal sodium absorption causes water retention and raises blood pressure."]
         },
         {
-          "type": "figure",
-          "visual": {
-            "type": "widget",
-            "name": "image-hotspots",
-            "caption": "9:2, PDF page 2. Source disease/channel association diagram; associations alone do not establish a mutation effect. Printed labels and axes retained.",
-            "fallbackAlt": "9:2, PDF page 2. Source disease/channel association diagram; associations alone do not establish a mutation effect. Printed labels and axes retained.",
-            "props": {
-              "src": new URL('../../assets/figures/nbe-e4120/L09/applications-02.webp', import.meta.url).href,
-              "alt": "9:2, PDF page 2. Source disease/channel association diagram; associations alone do not establish a mutation effect. Printed labels and axes retained.",
-              "aspect": 1.61875,
-              "quiz": false,
-              "layout": "stack",
-              "regions": []
+          "type": "detail",
+          "title": "Extra detail and source figure",
+          "blocks": [
+            {
+              "type": "figure",
+              "visual": {
+                "type": "widget",
+                "name": "image-hotspots",
+                "caption": "9:2, PDF page 2. Source disease/channel association diagram; associations alone do not establish a mutation effect. Printed labels and axes retained.",
+                "fallbackAlt": "9:2, PDF page 2. Source disease/channel association diagram; associations alone do not establish a mutation effect. Printed labels and axes retained.",
+                "props": {
+                  "src": new URL('../../assets/figures/nbe-e4120/L09/applications-02.webp', import.meta.url).href,
+                  "alt": "9:2, PDF page 2. Source disease/channel association diagram; associations alone do not establish a mutation effect. Printed labels and axes retained.",
+                  "aspect": 1.61875,
+                  "quiz": false,
+                  "layout": "stack",
+                  "regions": []
+                }
+              }
             }
-          }
+          ]
         }
       ],
       "formulas": [],
@@ -2742,6 +2869,7 @@ const content={
         },
         {
           "id": "L09-channelopathy-starter",
+          "practice": "extra",
           "type": "mc",
           "difficulty": "easy",
           "progressionAdded": true,
@@ -2784,37 +2912,44 @@ const content={
     },
     {
       "id": "toxins",
-      "title": "Toxin mechanisms: block, activate and alter gating",
+      "title": "Toxins and receptor modulation",
       "keyTerms": [],
       "source": "L09 9:2 p3",
       "blocks": [
         {
           "type": "text",
-          "body": ["Toxins can block pores or change gating. In the source table, TTX blocks sodium channels from outside, whereas batrachotoxin slows inactivation and shifts activation. Receptor agonists activate; antagonists oppose receptor activation.", "Compare the intervention with its immediate channel effect before predicting a cellular response. The table also includes ligand-receptor antagonists, such as strychnine at glycine receptors. Blocking a conducting pore and preventing ligand activation can both reduce current, but they act at different steps. (9:2 PDF p3.)"]
+          "body": ["Toxins can block a pore or shift gating. Agonists activate receptors. Antagonists prevent activation."]
         },
         {
-          "type": "figure",
-          "visual": {
-            "type": "widget",
-            "name": "image-hotspots",
-            "caption": "9:2, PDF page 3. Source toxin mechanisms and target channels. Printed labels and axes retained. Scroll horizontally to read the original axes or table on narrow screens.",
-            "fallbackAlt": "9:2, PDF page 3. Source toxin mechanisms and target channels. Printed labels and axes retained. Scroll horizontally to read the original axes or table on narrow screens.",
-            "props": {
-              "src": new URL('../../assets/figures/nbe-e4120/L09/applications-03.webp', import.meta.url).href,
-              "alt": "9:2, PDF page 3. Source toxin mechanisms and target channels. Printed labels and axes retained.",
-              "aspect": 0.699814126394052,
-              "quiz": false,
-              "layout": "stack",
-              "regions": [],
-              "minWidth": 760
+          "type": "detail",
+          "title": "Extra detail and source figure",
+          "blocks": [
+            {
+              "type": "figure",
+              "visual": {
+                "type": "widget",
+                "name": "image-hotspots",
+                "caption": "9:2, PDF page 3. Source toxin mechanisms and target channels. Printed labels and axes retained. Scroll horizontally to read the original axes or table on narrow screens.",
+                "fallbackAlt": "9:2, PDF page 3. Source toxin mechanisms and target channels. Printed labels and axes retained. Scroll horizontally to read the original axes or table on narrow screens.",
+                "props": {
+                  "src": new URL('../../assets/figures/nbe-e4120/L09/applications-03.webp', import.meta.url).href,
+                  "alt": "9:2, PDF page 3. Source toxin mechanisms and target channels. Printed labels and axes retained.",
+                  "aspect": 0.699814126394052,
+                  "quiz": false,
+                  "layout": "stack",
+                  "regions": [],
+                  "minWidth": 760
+                }
+              }
             }
-          }
+          ]
         }
       ],
       "formulas": [],
       "conceptQuiz": [
         {
           "id": "L09-toxins-check",
+          "practice": "extra",
           "prompt": "What does an agonist do when it binds its receptor?",
           "correct": 1,
           "options": [
@@ -2841,6 +2976,7 @@ const content={
         },
         {
           "id": "L09-toxins-starter",
+          "practice": "extra",
           "type": "mc",
           "difficulty": "easy",
           "progressionAdded": true,
@@ -2877,13 +3013,13 @@ const content={
     },
     {
       "id": "ttx",
-      "title": "TTX sensitivity and propagation failure",
+      "title": "TTX and sodium current",
       "keyTerms": [],
       "source": "L09 9:2 p4",
       "blocks": [
         {
           "type": "text",
-          "body": ["TTX pore block reduces sodium current and can prevent action-potential propagation. The source separates relatively low-concentration-sensitive NaV1.1–1.4, 1.6 and 1.7 from relatively resistant NaV1.5, 1.8 and 1.9. Resistant does not mean immune.", "In the clamp panel, compare current before and after TTX at the same voltage protocol; reduced inward current supports sodium-channel block. Sensitivity depends on subtype and concentration. The slide animal/food anecdotes and lethal-dose value are contextual material, not a quantitative rule for channel inhibition. (9:2 PDF p4.)"]
+          "body": ["TTX blocks $\\mathrm{Na_V}$ from outside, reducing the inward current that regenerates a spike. Compare currents at the same voltage before and after application. Relatively resistant sodium channel subtypes require higher concentrations for comparable block."]
         },
         {
           "type": "figure",
@@ -2933,6 +3069,7 @@ const content={
         },
         {
           "id": "L09-ttx-starter",
+          "practice": "extra",
           "type": "mc",
           "difficulty": "easy",
           "progressionAdded": true,
@@ -2969,37 +3106,44 @@ const content={
     },
     {
       "id": "modulation",
-      "title": "Direct modulation versus compensation",
+      "title": "Direct modulation and compensation",
       "keyTerms": [],
       "source": "L09 9:2 p5",
       "blocks": [
         {
           "type": "text",
-          "body": ["Direct modulation aims to oppose a measured functional defect: inhibit excessive activity or enhance reduced activity. Compensation instead acts through another signaling pathway to offset the cellular consequence.", "A channel-targeting drug does not imply that the disease is caused by a mutated channel. In the source example, inflammatory pain can be reduced by blocking normal sodium channels involved in signal transmission. Explain target action separately from disease origin before choosing between direct correction and compensation. (9:2 PDF p5.)"]
+          "body": ["Direct modulation opposes the measured defect by decreasing excess activity or increasing deficient activity. Compensation acts through another pathway. Drugs can also act on normally functioning channels."]
         },
         {
-          "type": "figure",
-          "visual": {
-            "type": "widget",
-            "name": "image-hotspots",
-            "caption": "9:2, PDF page 5. Source illustrative drug/channel target table, not prescribing guidance. Printed labels and axes retained. Scroll horizontally to read the original axes or table on narrow screens.",
-            "fallbackAlt": "9:2, PDF page 5. Source illustrative drug/channel target table, not prescribing guidance. Printed labels and axes retained. Scroll horizontally to read the original axes or table on narrow screens.",
-            "props": {
-              "src": new URL('../../assets/figures/nbe-e4120/L09/applications-05.webp', import.meta.url).href,
-              "alt": "9:2, PDF page 5. Source illustrative drug/channel target table, not prescribing guidance. Printed labels and axes retained.",
-              "aspect": 0.6801275239107333,
-              "quiz": false,
-              "layout": "stack",
-              "regions": [],
-              "minWidth": 760
+          "type": "detail",
+          "title": "Extra detail and source figure",
+          "blocks": [
+            {
+              "type": "figure",
+              "visual": {
+                "type": "widget",
+                "name": "image-hotspots",
+                "caption": "9:2, PDF page 5. Source illustrative drug/channel target table, not prescribing guidance. Printed labels and axes retained. Scroll horizontally to read the original axes or table on narrow screens.",
+                "fallbackAlt": "9:2, PDF page 5. Source illustrative drug/channel target table, not prescribing guidance. Printed labels and axes retained. Scroll horizontally to read the original axes or table on narrow screens.",
+                "props": {
+                  "src": new URL('../../assets/figures/nbe-e4120/L09/applications-05.webp', import.meta.url).href,
+                  "alt": "9:2, PDF page 5. Source illustrative drug/channel target table, not prescribing guidance. Printed labels and axes retained.",
+                  "aspect": 0.6801275239107333,
+                  "quiz": false,
+                  "layout": "stack",
+                  "regions": [],
+                  "minWidth": 760
+                }
+              }
             }
-          }
+          ]
         }
       ],
       "formulas": [],
       "conceptQuiz": [
         {
           "id": "L09-modulation-check",
+          "practice": "extra",
           "prompt": "Must a channel carry a mutation for its blockade to relieve symptoms?",
           "correct": 1,
           "options": [
@@ -3026,6 +3170,7 @@ const content={
         },
         {
           "id": "L09-modulation-starter",
+          "practice": "extra",
           "type": "mc",
           "difficulty": "easy",
           "progressionAdded": true,
@@ -3062,36 +3207,44 @@ const content={
     },
     {
       "id": "pain",
-      "title": "Sodium-channel loss and gain in pain",
+      "title": "Sodium channels and pain",
       "keyTerms": [],
       "source": "L09 9:2 p6",
       "blocks": [
         {
           "type": "text",
-          "body": ["The source contrasts NaV1.7 loss of function with congenital insensitivity to pain and gain of function with severe congenital pain. NaV1.7, 1.8 and 1.9 contribute to pain pathways, but sodium channels also serve other tissues.", "Subtype-selective blockade is therefore a rationale for suppressing unwanted pain signaling while sparing other functions. A subtype list alone cannot establish selectivity or safety. The clinical-development and safety statements on this slide are dated teaching claims, rather than current treatment guidance. (9:2 PDF p6.)"]
+          "body": ["Loss of $\\mathrm{Na_V1.7}$ function can impair pain sensing. Gain of function can increase pain. Subtype selectivity aims to spare channel function in other tissues."]
         },
         {
-          "type": "figure",
-          "visual": {
-            "type": "widget",
-            "name": "image-hotspots",
-            "caption": "9:2, PDF page 6. Source tissue and sensory-fiber sodium subtype distribution. Printed labels and axes retained.",
-            "fallbackAlt": "9:2, PDF page 6. Source tissue and sensory-fiber sodium subtype distribution. Printed labels and axes retained.",
-            "props": {
-              "src": new URL('../../assets/figures/nbe-e4120/L09/applications-06.webp', import.meta.url).href,
-              "alt": "9:2, PDF page 6. Source tissue and sensory-fiber sodium subtype distribution. Printed labels and axes retained.",
-              "aspect": 1.7769347496206374,
-              "quiz": false,
-              "layout": "stack",
-              "regions": []
+          "type": "detail",
+          "title": "Extra detail and source figure",
+          "blocks": [
+            {"type": "text", "body": ["The source contrasts NaV1.7 loss of function with congenital insensitivity to pain and gain of function with severe congenital pain. NaV1.7, 1.8 and 1.9 contribute to pain pathways, but sodium channels also serve other tissues.", "Subtype-selective blockade is therefore a rationale for suppressing unwanted pain signaling while sparing other functions. A subtype list alone cannot establish selectivity or safety. The clinical-development and safety statements on this slide are dated teaching claims, rather than current treatment guidance. (9:2 PDF p6.)"]},
+            {
+              "type": "figure",
+              "visual": {
+                "type": "widget",
+                "name": "image-hotspots",
+                "caption": "9:2, PDF page 6. Source tissue and sensory-fiber sodium subtype distribution. Printed labels and axes retained.",
+                "fallbackAlt": "9:2, PDF page 6. Source tissue and sensory-fiber sodium subtype distribution. Printed labels and axes retained.",
+                "props": {
+                  "src": new URL('../../assets/figures/nbe-e4120/L09/applications-06.webp', import.meta.url).href,
+                  "alt": "9:2, PDF page 6. Source tissue and sensory-fiber sodium subtype distribution. Printed labels and axes retained.",
+                  "aspect": 1.7769347496206374,
+                  "quiz": false,
+                  "layout": "stack",
+                  "regions": []
+                }
+              }
             }
-          }
+          ]
         }
       ],
       "formulas": [],
       "conceptQuiz": [
         {
           "id": "L09-pain-check",
+          "practice": "extra",
           "prompt": "Which phenotype is paired with NaV1.7 loss of function?",
           "correct": 0,
           "options": [
@@ -3118,6 +3271,7 @@ const content={
         },
         {
           "id": "L09-pain-starter",
+          "practice": "extra",
           "type": "mc",
           "difficulty": "easy",
           "progressionAdded": true,
@@ -3154,36 +3308,43 @@ const content={
     },
     {
       "id": "lidocaine",
-      "title": "State-dependent blockade and cardiac context",
+      "title": "State-dependent lidocaine block",
       "keyTerms": [],
       "source": "L09 9:2 p7",
       "blocks": [
         {
           "type": "text",
-          "body": ["In the source account, lidocaine preferentially binds open and inactivated sodium channels. Reduced sodium entry limits depolarization and action-potential propagation. Tissue voltage and activity influence the channel states available for binding.", "To compare rested and repeatedly depolarized cells, control the voltage protocol and exposure, then measure sodium current with matched solutions and channel expression. Differences may reflect state occupancy rather than different pore numbers. The cardiac class comparison supplies a tissue-dependent rationale, not a guarantee of uniform benefit or safety. (9:2 PDF p7.)"]
+          "body": ["Lidocaine preferentially binds open and inactivated $\\mathrm{Na_V}$ channels. Reduced sodium entry impairs spike propagation. Compare rested and repeatedly depolarized trials at matched exposure and voltage commands to assess state dependence."]
         },
         {
-          "type": "figure",
-          "visual": {
-            "type": "widget",
-            "name": "image-hotspots",
-            "caption": "9:2, PDF page 7. Source class-I sodium-blocker ventricular waveforms and class comparison. Printed labels and axes retained.",
-            "fallbackAlt": "9:2, PDF page 7. Source class-I sodium-blocker ventricular waveforms and class comparison. Printed labels and axes retained.",
-            "props": {
-              "src": new URL('../../assets/figures/nbe-e4120/L09/applications-07.webp', import.meta.url).href,
-              "alt": "9:2, PDF page 7. Source class-I sodium-blocker ventricular waveforms and class comparison. Printed labels and axes retained.",
-              "aspect": 0.7284345047923323,
-              "quiz": false,
-              "layout": "stack",
-              "regions": []
+          "type": "detail",
+          "title": "Extra detail and source figure",
+          "blocks": [
+            {
+              "type": "figure",
+              "visual": {
+                "type": "widget",
+                "name": "image-hotspots",
+                "caption": "9:2, PDF page 7. Source class-I sodium-blocker ventricular waveforms and class comparison. Printed labels and axes retained.",
+                "fallbackAlt": "9:2, PDF page 7. Source class-I sodium-blocker ventricular waveforms and class comparison. Printed labels and axes retained.",
+                "props": {
+                  "src": new URL('../../assets/figures/nbe-e4120/L09/applications-07.webp', import.meta.url).href,
+                  "alt": "9:2, PDF page 7. Source class-I sodium-blocker ventricular waveforms and class comparison. Printed labels and axes retained.",
+                  "aspect": 0.7284345047923323,
+                  "quiz": false,
+                  "layout": "stack",
+                  "regions": []
+                }
+              }
             }
-          }
+          ]
         }
       ],
       "formulas": [],
       "conceptQuiz": [
         {
           "id": "L09-lidocaine-check",
+          "practice": "extra",
           "prompt": "Which sodium-channel states favor lidocaine binding in the source account?",
           "correct": 1,
           "options": [
@@ -3210,6 +3371,7 @@ const content={
         },
         {
           "id": "L09-lidocaine-starter",
+          "practice": "extra",
           "type": "mc",
           "difficulty": "easy",
           "progressionAdded": true,
@@ -3246,37 +3408,45 @@ const content={
     },
     {
       "id": "epilepsy",
-      "title": "Hyperexcitability and hypersynchronization",
+      "title": "Excitability and synchrony",
       "keyTerms": [],
       "source": "L09 9:2 p8",
       "blocks": [
         {
           "type": "text",
-          "body": ["Seizure activity combines hyperexcitability, excessive firing within cells, with hypersynchronization across a neuronal population. The source contrasts a normal action potential with abnormal repetitive discharges.", "A single-cell burst supports altered excitability but cannot establish population synchrony; that requires observations across cells. Genetic and environmental causes can interact, and not every epilepsy is a single channel mutation. Relate the illustrated discharge pattern to the cellular claim before extending the explanation to a network-level disorder. (9:2 PDF p8.)"]
+          "body": ["Repetitive discharge demonstrates cellular hyperexcitability. Demonstrating hypersynchronization requires activity measurements across cells."]
         },
         {
-          "type": "figure",
-          "visual": {
-            "type": "widget",
-            "name": "image-hotspots",
-            "caption": "9:2, PDF page 8. Source normal and repetitive-discharge voltage traces, with time axes. Printed labels and axes retained. Scroll horizontally to read the original axes or table on narrow screens.",
-            "fallbackAlt": "9:2, PDF page 8. Source normal and repetitive-discharge voltage traces, with time axes. Printed labels and axes retained. Scroll horizontally to read the original axes or table on narrow screens.",
-            "props": {
-              "src": new URL('../../assets/figures/nbe-e4120/L09/applications-08.webp', import.meta.url).href,
-              "alt": "9:2, PDF page 8. Source normal and repetitive-discharge voltage traces, with time axes. Printed labels and axes retained.",
-              "aspect": 2.006269592476489,
-              "quiz": false,
-              "layout": "stack",
-              "regions": [],
-              "minWidth": 760
+          "type": "detail",
+          "title": "Extra detail and source figure",
+          "blocks": [
+            {"type": "text", "body": ["Seizure activity combines hyperexcitability, excessive firing within cells, with hypersynchronization across a neuronal population. The source contrasts a normal action potential with abnormal repetitive discharges.", "A single-cell burst supports altered excitability but cannot establish population synchrony; that requires observations across cells. Genetic and environmental causes can interact, and not every epilepsy is a single channel mutation. Relate the illustrated discharge pattern to the cellular claim before extending the explanation to a network-level disorder. (9:2 PDF p8.)"]},
+            {
+              "type": "figure",
+              "visual": {
+                "type": "widget",
+                "name": "image-hotspots",
+                "caption": "9:2, PDF page 8. Source normal and repetitive-discharge voltage traces, with time axes. Printed labels and axes retained. Scroll horizontally to read the original axes or table on narrow screens.",
+                "fallbackAlt": "9:2, PDF page 8. Source normal and repetitive-discharge voltage traces, with time axes. Printed labels and axes retained. Scroll horizontally to read the original axes or table on narrow screens.",
+                "props": {
+                  "src": new URL('../../assets/figures/nbe-e4120/L09/applications-08.webp', import.meta.url).href,
+                  "alt": "9:2, PDF page 8. Source normal and repetitive-discharge voltage traces, with time axes. Printed labels and axes retained.",
+                  "aspect": 2.006269592476489,
+                  "quiz": false,
+                  "layout": "stack",
+                  "regions": [],
+                  "minWidth": 760
+                }
+              }
             }
-          }
+          ]
         }
       ],
       "formulas": [],
       "conceptQuiz": [
         {
           "id": "L09-epilepsy-check",
+          "practice": "extra",
           "prompt": "Which description concerns synchrony between cells rather than firing within one cell?",
           "correct": 0,
           "options": [
@@ -3303,6 +3473,7 @@ const content={
         },
         {
           "id": "L09-epilepsy-starter",
+          "practice": "extra",
           "type": "mc",
           "difficulty": "easy",
           "progressionAdded": true,
@@ -3339,13 +3510,13 @@ const content={
     },
     {
       "id": "persistent",
-      "title": "Impaired inactivation and persistent sodium current",
+      "title": "Persistent sodium current",
       "keyTerms": [],
       "source": "L09 9:2 p9",
       "blocks": [
         {
           "type": "text",
-          "body": ["Impaired sodium-channel inactivation can leave persistent inward current during sustained depolarization, promoting excitability. Channel abundance can also change current. In the source normal/abnormal panel, compare late current relative to the transient peak rather than interpreting a larger peak alone as impaired inactivation.", "Under matched voltage clamp, separate leak and compare kinetics and expression. The HH explorer combines activation cubed with availability; use its conductance fraction and signed driving force to calculate current. A cellular current change alone does not demonstrate seizure synchronization or determine its effect in every neuronal population. (9:2 PDF p9.)"]
+          "body": ["Impaired inactivation can leave late inward sodium current during a sustained step. Compare late current relative to the peak under matched clamp conditions and account for leak. In the HH model, use $g_{Na}=\\bar g_{Na}m^3h$ before applying $I_{Na}=g_{Na}(V_m-E_{Na})$."]
         },
         {
           "type": "figure",
@@ -3454,6 +3625,7 @@ const content={
         },
         {
           "id": "L09-persistent-starter",
+          "practice": "extra",
           "type": "mc",
           "difficulty": "easy",
           "progressionAdded": true,
@@ -3490,37 +3662,44 @@ const content={
     },
     {
       "id": "kv-target",
-      "title": "Potassium modulation and excitability",
+      "title": "Potassium channel modulation",
       "keyTerms": [],
       "source": "L09 9:2 p10",
       "blocks": [
         {
           "type": "text",
-          "body": ["Potassium channels regulate repolarization, action-potential waveform and firing frequency. Under the source outward-current conditions, blockade reduces potassium efflux and can slow repolarization; activation can promote hyperpolarization and reduce pathological excitability.", "Predict the current direction from voltage relative to potassium reversal before applying that reasoning. Timing, subtype and cellular context also matter. The illustrated firing changes explain the rationale for modulation, rather than establishing that every potassium blocker increases firing or every activator has the same physiological effect. (9:2 PDF p10.)"]
+          "body": ["When $V_m>E_K$, increasing potassium conductance increases outward current and favors repolarization or hyperpolarization. Blockade reduces that current. Firing effects depend on the channel kinetics and cell."]
         },
         {
-          "type": "figure",
-          "visual": {
-            "type": "widget",
-            "name": "image-hotspots",
-            "caption": "9:2, PDF page 10. Source potassium-channel modulation and firing examples. Printed labels and axes retained. Scroll horizontally to read the original axes or table on narrow screens.",
-            "fallbackAlt": "9:2, PDF page 10. Source potassium-channel modulation and firing examples. Printed labels and axes retained. Scroll horizontally to read the original axes or table on narrow screens.",
-            "props": {
-              "src": new URL('../../assets/figures/nbe-e4120/L09/applications-10.webp', import.meta.url).href,
-              "alt": "9:2, PDF page 10. Source potassium-channel modulation and firing examples. Printed labels and axes retained.",
-              "aspect": 1.869244935543278,
-              "quiz": false,
-              "layout": "stack",
-              "regions": [],
-              "minWidth": 760
+          "type": "detail",
+          "title": "Extra detail and source figure",
+          "blocks": [
+            {
+              "type": "figure",
+              "visual": {
+                "type": "widget",
+                "name": "image-hotspots",
+                "caption": "9:2, PDF page 10. Source potassium-channel modulation and firing examples. Printed labels and axes retained. Scroll horizontally to read the original axes or table on narrow screens.",
+                "fallbackAlt": "9:2, PDF page 10. Source potassium-channel modulation and firing examples. Printed labels and axes retained. Scroll horizontally to read the original axes or table on narrow screens.",
+                "props": {
+                  "src": new URL('../../assets/figures/nbe-e4120/L09/applications-10.webp', import.meta.url).href,
+                  "alt": "9:2, PDF page 10. Source potassium-channel modulation and firing examples. Printed labels and axes retained.",
+                  "aspect": 1.869244935543278,
+                  "quiz": false,
+                  "layout": "stack",
+                  "regions": [],
+                  "minWidth": 760
+                }
+              }
             }
-          }
+          ]
         }
       ],
       "formulas": [],
       "conceptQuiz": [
         {
           "id": "L09-kv-target-check",
+          "practice": "extra",
           "prompt": "With outward potassium driving force, what tendency follows channel activation?",
           "correct": 0,
           "options": [
@@ -3547,6 +3726,7 @@ const content={
         },
         {
           "id": "L09-kv-target-starter",
+          "practice": "extra",
           "type": "mc",
           "difficulty": "easy",
           "progressionAdded": true,
@@ -3583,31 +3763,37 @@ const content={
     },
     {
       "id": "herg",
-      "title": "hERG hazard and atrial-target contrast",
+      "title": "hERG and ventricular repolarization",
       "keyTerms": [],
       "source": "L09 9:2 p11",
       "blocks": [
         {
           "type": "text",
-          "body": ["hERG supports ventricular repolarization and has a blocker-binding pocket that accommodates diverse compounds. Inhibition reduces repolarizing potassium current and can prolong the cellular action potential and ECG QT interval.", "The source contrasts predominantly atrial KV1.5 targeting with ventricular hERG risk. Tissue selectivity is a rationale for atrial action, not proof of freedom from ventricular harm. Keep the molecular target, cellular waveform and tissue-level outcome distinct when explaining why a drug can be useful at one target and hazardous at another. (9:2 PDF p11.)"]
+          "body": ["hERG block reduces outward ventricular potassium current and can prolong the action potential and QT interval. The slides contrast this safety concern with predominantly atrial $\\mathrm{K_V1.5}$ targeting."]
         },
         {
-          "type": "figure",
-          "visual": {
-            "type": "widget",
-            "name": "image-hotspots",
-            "caption": "9:2, PDF page 11. Source atrial versus ventricular action-potential responses to the KV1.5 targeting example. Printed labels and axes retained. Scroll horizontally to read the original axes or table on narrow screens.",
-            "fallbackAlt": "9:2, PDF page 11. Source atrial versus ventricular action-potential responses to the KV1.5 targeting example. Printed labels and axes retained. Scroll horizontally to read the original axes or table on narrow screens.",
-            "props": {
-              "src": new URL('../../assets/figures/nbe-e4120/L09/applications-11.webp', import.meta.url).href,
-              "alt": "9:2, PDF page 11. Source atrial versus ventricular action-potential responses to the KV1.5 targeting example. Printed labels and axes retained.",
-              "aspect": 3.1660649819494586,
-              "quiz": false,
-              "layout": "stack",
-              "regions": [],
-              "minWidth": 760
+          "type": "detail",
+          "title": "Extra detail and source figure",
+          "blocks": [
+            {
+              "type": "figure",
+              "visual": {
+                "type": "widget",
+                "name": "image-hotspots",
+                "caption": "9:2, PDF page 11. Source atrial versus ventricular action-potential responses to the KV1.5 targeting example. Printed labels and axes retained. Scroll horizontally to read the original axes or table on narrow screens.",
+                "fallbackAlt": "9:2, PDF page 11. Source atrial versus ventricular action-potential responses to the KV1.5 targeting example. Printed labels and axes retained. Scroll horizontally to read the original axes or table on narrow screens.",
+                "props": {
+                  "src": new URL('../../assets/figures/nbe-e4120/L09/applications-11.webp', import.meta.url).href,
+                  "alt": "9:2, PDF page 11. Source atrial versus ventricular action-potential responses to the KV1.5 targeting example. Printed labels and axes retained.",
+                  "aspect": 3.1660649819494586,
+                  "quiz": false,
+                  "layout": "stack",
+                  "regions": [],
+                  "minWidth": 760
+                }
+              }
             }
-          }
+          ]
         }
       ],
       "formulas": [],
@@ -3640,6 +3826,7 @@ const content={
         },
         {
           "id": "L09-herg-starter",
+          "practice": "extra",
           "type": "mc",
           "difficulty": "easy",
           "progressionAdded": true,
@@ -3676,13 +3863,13 @@ const content={
     },
     {
       "id": "lqt",
-      "title": "Distinct channel defects converge on long QT",
+      "title": "Mechanisms of long QT",
       "keyTerms": [],
       "source": "L09 9:2 p12",
       "blocks": [
         {
           "type": "text",
-          "body": ["Loss of outward potassium function or gain of persistent inward sodium current can delay ventricular repolarization. The source links LQT1 with KCNQ1/KV7.1 loss, LQT2 with KCNH2/hERG loss and LQT3 with SCN5A/NaV1.5 gain.", "For the instantaneous calculation, add signed ionic currents and use minus their sum divided by capacitance when applied current is zero. An outward net current lowers voltage. This local slope does not specify a full action potential or ECG QT interval; the source simplified QT threshold is not a protocol-independent diagnostic rule. (9:2 PDF p12.)"]
+          "body": ["Loss of repolarizing potassium current (LQT1 or LQT2) or gain of persistent inward sodium current (LQT3) can delay repolarization. Without applied current, the instant voltage slope is $dV_m/dt=-\\sum I_i/C$. This slope alone cannot determine QT duration."]
         },
         {
           "type": "figure",
@@ -3707,6 +3894,7 @@ const content={
       "conceptQuiz": [
         {
           "id": "L09-lqt-check",
+          "practice": "extra",
           "prompt": "Which inward-current change is linked to LQT3?",
           "correct": 0,
           "options": [
@@ -3733,6 +3921,7 @@ const content={
         },
         {
           "id": "L09-lqt-starter",
+          "practice": "extra",
           "type": "mc",
           "difficulty": "easy",
           "progressionAdded": true,
@@ -3769,13 +3958,13 @@ const content={
     },
     {
       "id": "screen",
-      "title": "Read hERG tail currents and inhibition curves",
+      "title": "hERG tail-current assay",
       "keyTerms": [],
       "source": "L09 9:2 p13",
       "blocks": [
         {
           "type": "text",
-          "body": ["The source CHO-cell patch-clamp assay controls voltage and measures current. Recovery from inactivation produces a hERG tail after the voltage change, followed by deactivation. Compare the same tail measure under matched voltage, solutions and exposure.", "Normalize drug current to a time-matched control; declining control tails indicate rundown. Check leak, capacitive transients and holding-current changes before attributing suppression to hERG inhibition. The curves illustrate concentration dependence, but no precise digitized fit is established here. Channel inhibition identifies a hazard without measuring clinical arrhythmia incidence. (9:2 PDF p13.)"]
+          "body": ["In the source voltage-clamp recording, recovery from inactivation produces the tail before slower deactivation. Measure the same tail feature under matched conditions and use $I_{drug}/I_{control}$ with a time-matched control. Check rundown, leak and capacitive transients. Block is a hazard signal, while estimating clinical risk requires other evidence."]
         },
         {
           "type": "figure",
@@ -3859,6 +4048,7 @@ const content={
       "conceptQuiz": [
         {
           "id": "L09-screen-check",
+          "practice": "extra",
           "prompt": "Which variable is measured directly in the hERG clamp assay?",
           "correct": 1,
           "options": [
@@ -3885,6 +4075,7 @@ const content={
         },
         {
           "id": "L09-screen-starter",
+          "practice": "extra",
           "type": "mc",
           "difficulty": "easy",
           "progressionAdded": true,
@@ -3947,6 +4138,7 @@ const content={
         "A gradient previously established by pumping."
       ],
       "type": "mc",
+      "practice": "extra",
       "sectionId": "transport",
       "difficulty": "easy",
       "points": 1,
@@ -4022,6 +4214,7 @@ const content={
         "Channel repertoire, abundance and membrane distribution."
       ],
       "type": "mc",
+      "practice": "extra",
       "sectionId": "channelome",
       "difficulty": "easy",
       "points": 1,
@@ -4053,6 +4246,7 @@ const content={
         "Trafficking of existing channel proteins."
       ],
       "type": "mc",
+      "practice": "extra",
       "sectionId": "control",
       "difficulty": "easy",
       "points": 1,
@@ -4222,6 +4416,7 @@ const content={
         "At the tightly packed cytoplasmic helices."
       ],
       "type": "mc",
+      "practice": "extra",
       "sectionId": "kcsa",
       "difficulty": "easy",
       "points": 1,
@@ -4253,6 +4448,7 @@ const content={
         "Coordinating carbonyl oxygens of the channel."
       ],
       "type": "mc",
+      "practice": "extra",
       "sectionId": "permeation",
       "difficulty": "easy",
       "points": 1,
@@ -4284,6 +4480,7 @@ const content={
         "Its dehydration cost is poorly compensated by the filter."
       ],
       "type": "mc",
+      "practice": "extra",
       "sectionId": "filter",
       "difficulty": "easy",
       "points": 1,
@@ -4315,6 +4512,7 @@ const content={
         "Calcium, then sodium, then potassium."
       ],
       "type": "mc",
+      "practice": "extra",
       "sectionId": "hydration",
       "difficulty": "easy",
       "points": 1,
@@ -4446,6 +4644,7 @@ const content={
         "An inactivated channel following activation."
       ],
       "type": "mc",
+      "practice": "extra",
       "sectionId": "gating",
       "difficulty": "easy",
       "points": 1,
@@ -4709,6 +4908,7 @@ const content={
         "The opening and closing times of individual channels."
       ],
       "type": "mc",
+      "practice": "extra",
       "sectionId": "single",
       "difficulty": "easy",
       "points": 1,
@@ -5068,44 +5268,6 @@ const content={
       "source": "L09 9:1 p10"
     },
     {
-      "id": "L09-a1",
-      "sectionId": "single",
-      "difficulty": "easy",
-      "type": "written",
-      "prompt": "a) Distinguish pump and channel energy. b) Define channelome. c) Distinguish gating from trafficking. d) Define an ensemble mean.",
-      "hints": [
-        {
-          "body": "Identify the taught mechanism and the level of measurement."
-        },
-        {
-          "body": "Organize your response by cause, observation, alternative explanation and control."
-        }
-      ],
-      "markScheme": [
-        {
-          "text": "Pumps supply energy; channels conduct down electrochemical gradients."
-        },
-        {
-          "text": "Channelome includes type, abundance and membrane distribution."
-        },
-        {
-          "text": "Gating changes occupancy; trafficking changes location and functional number."
-        },
-        {
-          "text": "An ensemble mean averages stochastic trials at the same protocol."
-        }
-      ],
-      "modelAnswer": [
-        "Pumps supply energy; channels conduct down electrochemical gradients.",
-        "Channelome includes type, abundance and membrane distribution.",
-        "Gating changes occupancy; trafficking changes location and functional number.",
-        "An ensemble mean averages stochastic trials at the same protocol."
-      ],
-      "points": 1,
-      "source": "L09 9:1 p2–4,10",
-      "mockRole": "preparation"
-    },
-    {
       "id": "L09-classification-recall",
       "prompt": "Which component usually forms the conducting pore?",
       "correct": 1,
@@ -5131,6 +5293,7 @@ const content={
         "The pore-forming alpha subunit or linked domains."
       ],
       "type": "mc",
+      "practice": "extra",
       "sectionId": "classification",
       "difficulty": "easy",
       "points": 1,
@@ -5162,6 +5325,7 @@ const content={
         "Positive residues moving within the membrane field."
       ],
       "type": "mc",
+      "practice": "extra",
       "sectionId": "evolution",
       "difficulty": "easy",
       "points": 1,
@@ -5193,6 +5357,7 @@ const content={
         "Chemical recognition coupled to pore opening."
       ],
       "type": "mc",
+      "practice": "extra",
       "sectionId": "evolution-other",
       "difficulty": "easy",
       "points": 1,
@@ -5224,6 +5389,7 @@ const content={
         "Per homologous domain of the linked alpha subunit."
       ],
       "type": "mc",
+      "practice": "extra",
       "sectionId": "families",
       "difficulty": "easy",
       "points": 1,
@@ -5307,6 +5473,7 @@ const content={
         "Yes, channels can have multimodal gating."
       ],
       "type": "mc",
+      "practice": "extra",
       "sectionId": "stimuli",
       "difficulty": "easy",
       "points": 1,
@@ -5384,6 +5551,7 @@ const content={
         "Four homologous six-helix membrane domains."
       ],
       "type": "mc",
+      "practice": "extra",
       "sectionId": "cation",
       "difficulty": "easy",
       "points": 1,
@@ -5515,48 +5683,11 @@ const content={
         "S4 in the peripheral voltage-sensor domain."
       ],
       "type": "mc",
+      "practice": "extra",
       "sectionId": "sensor",
       "difficulty": "easy",
       "points": 1,
       "source": "L09 9:1 p17"
-    },
-    {
-      "id": "L09-b1",
-      "sectionId": "sensor",
-      "difficulty": "easy",
-      "type": "written",
-      "prompt": "a) Locate the P-loop. b) Locate S4. c) Contrast potassium subunits with sodium domains. d) Distinguish gating and ionic current.",
-      "hints": [
-        {
-          "body": "Identify the taught mechanism and the level of measurement."
-        },
-        {
-          "body": "Organize your response by cause, observation, alternative explanation and control."
-        }
-      ],
-      "markScheme": [
-        {
-          "text": "The P-loop between S5 and S6 forms the filter."
-        },
-        {
-          "text": "S4 positive residues participate in voltage sensing."
-        },
-        {
-          "text": "Potassium is tetrameric; vertebrate sodium alpha links four homologous domains."
-        },
-        {
-          "text": "Gating current reports sensor displacement; ionic current reports pore permeation."
-        }
-      ],
-      "modelAnswer": [
-        "The P-loop between S5 and S6 forms the filter.",
-        "S4 positive residues participate in voltage sensing.",
-        "Potassium is tetrameric; vertebrate sodium alpha links four homologous domains.",
-        "Gating current reports sensor displacement; ionic current reports pore permeation."
-      ],
-      "points": 1,
-      "source": "L09 9:1 p16–17; L08 8:1 p15–18",
-      "mockRole": "preparation"
     },
     {
       "id": "L09-nav-recall",
@@ -5616,6 +5747,7 @@ const content={
         "The transient A-type potassium current."
       ],
       "type": "mc",
+      "practice": "extra",
       "sectionId": "kv",
       "difficulty": "easy",
       "points": 1,
@@ -5704,6 +5836,7 @@ const content={
         "Multimodal, often weakly voltage-dependent cation pores."
       ],
       "type": "mc",
+      "practice": "extra",
       "sectionId": "trp",
       "difficulty": "easy",
       "points": 1,
@@ -5767,6 +5900,7 @@ const content={
         "Neurotransmitter binding to the channel complex."
       ],
       "type": "mc",
+      "practice": "extra",
       "sectionId": "ligand",
       "difficulty": "easy",
       "points": 1,
@@ -5798,6 +5932,7 @@ const content={
         "Disease caused by dysfunctional ion-channel behavior."
       ],
       "type": "mc",
+      "practice": "extra",
       "sectionId": "channelopathy",
       "difficulty": "easy",
       "points": 1,
@@ -5829,6 +5964,7 @@ const content={
         "Activation of the receptor through its binding."
       ],
       "type": "mc",
+      "practice": "extra",
       "sectionId": "toxins",
       "difficulty": "easy",
       "points": 1,
@@ -5860,6 +5996,7 @@ const content={
         "Reduced sodium current supporting regenerative depolarization."
       ],
       "type": "mc",
+      "practice": "extra",
       "sectionId": "ttx",
       "difficulty": "easy",
       "points": 1,
@@ -5891,6 +6028,7 @@ const content={
         "No, normal channels can mediate disease symptoms."
       ],
       "type": "mc",
+      "practice": "extra",
       "sectionId": "modulation",
       "difficulty": "easy",
       "points": 1,
@@ -5922,6 +6060,7 @@ const content={
         "Congenital reduction or absence of pain sensation."
       ],
       "type": "mc",
+      "practice": "extra",
       "sectionId": "pain",
       "difficulty": "easy",
       "points": 1,
@@ -5953,6 +6092,7 @@ const content={
         "Open and inactivated sodium-channel states."
       ],
       "type": "mc",
+      "practice": "extra",
       "sectionId": "lidocaine",
       "difficulty": "easy",
       "points": 1,
@@ -5984,6 +6124,7 @@ const content={
         "Coordinated timing across a neuronal population."
       ],
       "type": "mc",
+      "practice": "extra",
       "sectionId": "epilepsy",
       "difficulty": "easy",
       "points": 1,
@@ -6015,6 +6156,7 @@ const content={
         "Impaired inactivation leaving residual inward current."
       ],
       "type": "mc",
+      "practice": "extra",
       "sectionId": "persistent",
       "difficulty": "easy",
       "points": 1,
@@ -6168,6 +6310,7 @@ const content={
         "Increase repolarizing current and oppose excess firing."
       ],
       "type": "mc",
+      "practice": "extra",
       "sectionId": "kv-target",
       "difficulty": "easy",
       "points": 1,
@@ -6199,6 +6342,7 @@ const content={
         "KV11.1/hERG supporting cardiac repolarization."
       ],
       "type": "mc",
+      "practice": "extra",
       "sectionId": "herg",
       "difficulty": "easy",
       "points": 1,
@@ -6294,6 +6438,7 @@ const content={
         "Channel current during a defined voltage-clamp protocol."
       ],
       "type": "mc",
+      "practice": "extra",
       "sectionId": "screen",
       "difficulty": "easy",
       "points": 1,
@@ -6401,42 +6546,214 @@ const content={
       "source": "L09 9:2 p13"
     },
     {
-      "id": "L09-c1",
-      "sectionId": "screen",
-      "difficulty": "easy",
-      "type": "written",
-      "prompt": "a) Define channelopathy. b) Contrast LQT1 and LQT3 function changes. c) Explain atrial selectivity rationale. d) Define a hERG tail current.",
-      "hints": [
+      "id": "L09-core-transport",
+      "type": "mc",
+      "sectionId": "transport",
+      "source": "L09 9:1 p2",
+      "difficulty": "medium",
+      "points": 1,
+      "prompt": "Sodium moves downhill through a cotransporter as a second solute moves uphill. What supplies the immediate energy?",
+      "correct": 0,
+      "options": [
         {
-          "body": "Identify the taught mechanism and the level of measurement."
+          "text": "The sodium electrochemical gradient",
+          "feedback": "Sodium moving downhill releases free energy that can drive coupled uphill transport."
         },
         {
-          "body": "Organize your response by cause, observation, alternative explanation and control."
+          "text": "ATP hydrolysis by the cotransporter",
+          "feedback": "ATP can maintain the sodium gradient upstream. This cotransporter uses that gradient directly."
+        },
+        {
+          "text": "Passive diffusion of the second solute",
+          "feedback": "The second solute gains free energy as it moves uphill."
         }
       ],
-      "markScheme": [
+      "hints": [
         {
-          "text": "Channelopathy is dysfunction, inherited or acquired; a neutral variant need not cause disease."
+          "body": "Identify which solute moves downhill."
         },
         {
-          "text": "LQT1 is KCNQ1 loss; LQT3 is SCN5A persistent-current gain."
-        },
-        {
-          "text": "Atrial KV1.5 targeting is a rationale, not proof of zero ventricular risk."
-        },
-        {
-          "text": "A tail follows a voltage transition, with rapid recovery from inactivation followed by deactivation."
+          "body": "Distinguish building a gradient from using it."
         }
       ],
       "modelAnswer": [
-        "Channelopathy is dysfunction, inherited or acquired; a neutral variant need not cause disease.",
-        "LQT1 is KCNQ1 loss; LQT3 is SCN5A persistent-current gain.",
-        "Atrial KV1.5 targeting is a rationale, not proof of zero ventricular risk.",
-        "A tail follows a voltage transition, with rapid recovery from inactivation followed by deactivation."
-      ],
+        "This is secondary active transport driven by the sodium electrochemical gradient."
+      ]
+    },
+    {
+      "id": "L09-core-selectivity",
+      "type": "mc",
+      "sectionId": "filter",
+      "source": "L09 9:1 pp6–8",
+      "difficulty": "medium",
       "points": 1,
-      "source": "L09 9:2 p2,11–13",
-      "mockRole": "preparation"
+      "prompt": "Which observation most directly supports a change in ion selectivity after a filter mutation?",
+      "correct": 0,
+      "options": [
+        {
+          "text": "Reversal shifts under the same ionic gradients.",
+          "feedback": "Reversal depends on relative permeation when the ionic gradients are fixed."
+        },
+        {
+          "text": "Peak current falls under the same voltage step.",
+          "feedback": "Peak current also depends on channel number and opening."
+        },
+        {
+          "text": "First openings occur later in the same step.",
+          "feedback": "Opening latency primarily reports activation kinetics."
+        }
+      ],
+      "hints": [
+        {
+          "body": "Find the measurement that depends on current changing sign."
+        },
+        {
+          "body": "Keep concentrations fixed while comparing mutant and control."
+        }
+      ],
+      "modelAnswer": [
+        "With unchanged gradients, a shifted reversal potential indicates a change in relative permeation."
+      ]
+    },
+    {
+      "id": "L09-core-current",
+      "type": "mc",
+      "sectionId": "single",
+      "source": "L09 9:1 p10",
+      "difficulty": "medium",
+      "points": 1,
+      "prompt": "An ohmic channel has $\\gamma=20\\,\\mathrm{pS}$. At a held voltage $50\\,\\mathrm{mV}$ below its reversal, what current flows through one open channel?",
+      "correct": 0,
+      "options": [
+        {
+          "text": "$-1\\,\\mathrm{pA}$",
+          "feedback": "$V_m-E$ is negative and the conductance times its magnitude is one picoampere."
+        },
+        {
+          "text": "$+1\\,\\mathrm{pA}$",
+          "feedback": "This is the magnitude. Voltage below reversal gives a negative current."
+        },
+        {
+          "text": "$-1000\\,\\mathrm{pA}$",
+          "feedback": "Convert millivolts to volts before multiplying by conductance in picosiemens."
+        }
+      ],
+      "hints": [
+        {
+          "body": "Use the open-pore relation between current and driving force."
+        },
+        {
+          "body": "The driving force is negative and its magnitude is $0.050$ volts."
+        }
+      ],
+      "modelAnswer": [
+        "$i=\\gamma(V_m-E)=20\\,\\mathrm{pS}\\times(-0.050\\,\\mathrm V)=-1\\,\\mathrm{pA}$."
+      ]
+    },
+    {
+      "id": "L09-core-sensor",
+      "type": "mc",
+      "sectionId": "sensor",
+      "source": "L09 9:1 pp16–17",
+      "difficulty": "medium",
+      "points": 1,
+      "prompt": "A variant shifts the activation curve to more positive voltages while the open pore has the same reversal and unitary conductance. Which explanation best fits?",
+      "correct": 0,
+      "options": [
+        {
+          "text": "The sensor now requires more depolarization to open the pore.",
+          "feedback": "The activation curve reports the voltage dependence of opening."
+        },
+        {
+          "text": "The filter now changes the relative permeability of two ions.",
+          "feedback": "The unchanged reversal gives no evidence of changed selectivity."
+        },
+        {
+          "text": "The patch now contains fewer identical channels.",
+          "feedback": "Fewer channels reduces total current without moving the normalized activation curve."
+        }
+      ],
+      "hints": [
+        {
+          "body": "Separate opening from current through an already open pore."
+        },
+        {
+          "body": "Compare what changed with what stayed fixed."
+        }
+      ],
+      "modelAnswer": [
+        "The shift indicates altered voltage-dependent gating, consistent with a change in the sensor or its coupling to the pore."
+      ]
+    },
+    {
+      "id": "L09-core-drug",
+      "type": "mc",
+      "sectionId": "lidocaine",
+      "source": "L09 9:2 pp4,7",
+      "difficulty": "medium",
+      "points": 1,
+      "prompt": "Which explanation accounts for greater lidocaine block during repeated depolarizations than after a long rest at the same drug concentration?",
+      "correct": 0,
+      "options": [
+        {
+          "text": "Depolarizations repeatedly populate open and inactivated channels.",
+          "feedback": "Lidocaine preferentially binds those channel states."
+        },
+        {
+          "text": "Depolarizations increase the number of surface channels on each sweep.",
+          "feedback": "This does not explain preferential block under otherwise matched conditions."
+        },
+        {
+          "text": "Depolarizations shift sodium reversal enough to mimic stronger block.",
+          "feedback": "With matched solutions, the state occupancy changes under the stated matched recording conditions."
+        }
+      ],
+      "hints": [
+        {
+          "body": "Think about which states a depolarization populates."
+        },
+        {
+          "body": "Recall which of those states favor lidocaine binding."
+        }
+      ],
+      "modelAnswer": [
+        "Repeated opening and inactivation favor binding and reduce the sodium current available on subsequent pulses."
+      ]
+    },
+    {
+      "id": "L09-core-herg",
+      "type": "mc",
+      "sectionId": "screen",
+      "source": "L09 9:2 pp11–13",
+      "difficulty": "medium",
+      "points": 1,
+      "prompt": "A drug-treated patch shows a smaller hERG tail than at the start of recording. Which comparison best separates drug block from rundown?",
+      "correct": 0,
+      "options": [
+        {
+          "text": "A drug-free tail at the same elapsed time and voltage protocol.",
+          "feedback": "Time matching controls for background loss of current."
+        },
+        {
+          "text": "A drug-free tail at another voltage and the same elapsed time.",
+          "feedback": "Changing the voltage changes activation and driving force."
+        },
+        {
+          "text": "An earlier drug-free tail after the same command step.",
+          "feedback": "Matching the step alone leaves time-dependent rundown as an explanation."
+        }
+      ],
+      "hints": [
+        {
+          "body": "What else could make the current decline over time?"
+        },
+        {
+          "body": "Hold both elapsed time and voltage protocol constant."
+        }
+      ],
+      "modelAnswer": [
+        "Compare the same tail feature with a time-matched control. The ratio reports remaining current under that protocol."
+      ]
     },
     {
       "id": "L09-transport-explain",
@@ -7321,63 +7638,6 @@ const content={
       ],
       "points": 1,
       "source": "L09 9:1 p10"
-    },
-    {
-      "id": "L09-a5",
-      "sectionId": "single",
-      "difficulty": "medium",
-      "type": "written",
-      "prompt": "Interpret the supplied source single-channel and ensemble panel. Identify the controlled and measured variables, current directions, stochastic evidence and why lower mean does not uniquely prove fewer channels.",
-      "hints": [
-        {
-          "body": "Identify the taught mechanism and the level of measurement."
-        },
-        {
-          "body": "Organize your response by cause, observation, alternative explanation and control."
-        }
-      ],
-      "markScheme": [
-        {
-          "text": "Voltage is commanded and current is recorded."
-        },
-        {
-          "text": "Individual dwell times vary while the mean has reproducible kinetics."
-        },
-        {
-          "text": "Sodium source openings are inward and potassium source openings outward in their respective protocols."
-        },
-        {
-          "text": "Compare unitary amplitude, occupancy and independent count controls."
-        },
-        {
-          "text": "The source potassium caption marks simulated data; do not claim it is a new experimental record."
-        }
-      ],
-      "modelAnswer": [
-        "Voltage is commanded and current is recorded.",
-        "Individual dwell times vary while the mean has reproducible kinetics.",
-        "Sodium source openings are inward and potassium source openings outward in their respective protocols.",
-        "Compare unitary amplitude, occupancy and independent count controls.",
-        "The source potassium caption marks simulated data; do not claim it is a new experimental record."
-      ],
-      "points": 1,
-      "source": "L09 9:1 p10",
-      "figure": {
-        "type": "widget",
-        "name": "image-hotspots",
-        "caption": "9:1, PDF page 10. Source repeated sodium recordings and simulated potassium traces with ensemble means; original command steps and scale bars. Printed labels and axes retained. Scroll horizontally to read the original axes or table on narrow screens.",
-        "fallbackAlt": "9:1, PDF page 10. Source repeated sodium recordings and simulated potassium traces with ensemble means; original command steps and scale bars. Printed labels and axes retained. Scroll horizontally to read the original axes or table on narrow screens.",
-        "props": {
-          "src": new URL('../../assets/figures/nbe-e4120/L09/ions-10.webp', import.meta.url).href,
-          "alt": "9:1, PDF page 10. Source repeated sodium recordings and simulated potassium traces with ensemble means; original command steps and scale bars. Printed labels and axes retained.",
-          "aspect": 1.2439405785770132,
-          "quiz": false,
-          "layout": "stack",
-          "regions": [],
-          "minWidth": 760
-        }
-      },
-      "mockRole": "preparation"
     },
     {
       "id": "L09-classification-explain",
@@ -8364,58 +8624,6 @@ const content={
       }
     },
     {
-      "id": "L09-b5",
-      "sectionId": "persistent",
-      "difficulty": "medium",
-      "type": "written",
-      "prompt": "Read the supplied normal versus abnormal persistent-current source panel. Propose voltage-clamp evidence for impaired inactivation, separate expression changes and state why seizure synchronization needs additional evidence.",
-      "hints": [
-        {
-          "body": "Identify the taught mechanism and the level of measurement."
-        },
-        {
-          "body": "Organize your response by cause, observation, alternative explanation and control."
-        }
-      ],
-      "markScheme": [
-        {
-          "text": "Compare residual current after an identical depolarizing step."
-        },
-        {
-          "text": "Normalize peak/current density while controlling expression and driving force."
-        },
-        {
-          "text": "A larger persistent fraction supports altered availability, not merely increased abundance."
-        },
-        {
-          "text": "Population timing and cell identity are needed for a network interpretation."
-        }
-      ],
-      "modelAnswer": [
-        "Compare residual current after an identical depolarizing step.",
-        "Normalize peak/current density while controlling expression and driving force.",
-        "A larger persistent fraction supports altered availability, not merely increased abundance.",
-        "Population timing and cell identity are needed for a network interpretation."
-      ],
-      "points": 1,
-      "source": "L09 9:2 p8–9; L07 PDF7,18,22",
-      "figure": {
-        "type": "widget",
-        "name": "image-hotspots",
-        "caption": "9:2, PDF page 9. Normal inactivation versus increased persistent sodium current in the supplied diagram. Printed labels and axes retained.",
-        "fallbackAlt": "9:2, PDF page 9. Normal inactivation versus increased persistent sodium current in the supplied diagram. Printed labels and axes retained.",
-        "props": {
-          "src": new URL('../../assets/figures/nbe-e4120/L09/applications-09.webp', import.meta.url).href,
-          "alt": "9:2, PDF page 9. Normal inactivation versus increased persistent sodium current in the supplied diagram. Printed labels and axes retained.",
-          "aspect": 1.1636363636363636,
-          "quiz": false,
-          "layout": "stack",
-          "regions": []
-        }
-      },
-      "mockRole": "preparation"
-    },
-    {
       "id": "L09-persistent-explain",
       "sectionId": "persistent",
       "difficulty": "medium",
@@ -8825,57 +9033,73 @@ const content={
       "source": "L09 9:2 p13"
     },
     {
-      "id": "L09-c5",
-      "sectionId": "screen",
-      "difficulty": "medium",
-      "type": "written",
-      "prompt": "Interpret the supplied hERG tail and drug-response source panels. Identify the measurement mode, a normalization strategy, rundown/artifact controls and what cannot be concluded from the curve.",
-      "hints": [
+      "id": "L09-rebalance-step-history",
+      "type": "mc",
+      "difficulty": "hard",
+      "sectionId": "gating",
+      "source": "L09 part 1 PDF pp13, 16; L07 PDF pp20–25",
+      "prompt": "Synthetic practice scenario. An isolated sodium channel shows fewer openings to a test step after a sustained depolarizing prepulse. Both test steps have the same voltage and ion concentrations. What conclusion best fits the inactivation model?",
+      "correct": 0,
+      "options": [
         {
-          "body": "Identify the taught mechanism and the level of measurement."
+          "text": "The prepulse reduces availability while the driving force during the test stays fixed.",
+          "feedback": "Prolonged depolarization can inactivate channels before the test without changing its driving force."
         },
         {
-          "body": "Organize your response by cause, observation, alternative explanation and control."
+          "text": "The prepulse reduces the driving force while channel availability stays fixed.",
+          "feedback": "Identical test voltages and ion gradients give identical driving force."
+        },
+        {
+          "text": "The prepulse reduces the number of ions per opening by narrowing the selectivity filter.",
+          "feedback": "The observations concern opening frequency. The inactivation model changes the available fraction."
         }
       ],
-      "markScheme": [
+      "hints": [
         {
-          "text": "Voltage is controlled and current measured in the source patch-clamp assay."
+          "body": "Identify which physical quantities are identical in both tests."
         },
         {
-          "text": "Use matched time-control and drug tails at the same protocol."
-        },
-        {
-          "text": "Check leak, capacitance, rundown, voltage/solutions and exposure."
-        },
-        {
-          "text": "No precise IC50 is digitized here; inhibition alone does not measure clinical arrhythmia incidence."
+          "body": "Consider whether every channel starts the test able to open."
         }
       ],
       "modelAnswer": [
-        "Voltage is controlled and current measured in the source patch-clamp assay.",
-        "Use matched time-control and drug tails at the same protocol.",
-        "Check leak, capacitance, rundown, voltage/solutions and exposure.",
-        "No precise IC50 is digitized here; inhibition alone does not measure clinical arrhythmia incidence."
-      ],
+        "The test voltage and gradient fix driving force. A sustained depolarization can put channels into an inactivated state, leaving fewer available to open at the test step."
+      ]
+    },
+    {
+      "id": "L09-core-occupancy",
+      "type": "mc",
+      "sectionId": "single",
+      "source": "L09 9:1 p10 and exam p4",
+      "difficulty": "hard",
       "points": 1,
-      "source": "L09 9:2 p13",
-      "figure": {
-        "type": "widget",
-        "name": "image-hotspots",
-        "caption": "9:2, PDF page 13. Source CHO-cell hERG tails and normalized terfenadine/quinidine inhibition curves. Printed labels and axes retained. Scroll horizontally to read the original axes or table on narrow screens.",
-        "fallbackAlt": "9:2, PDF page 13. Source CHO-cell hERG tails and normalized terfenadine/quinidine inhibition curves. Printed labels and axes retained. Scroll horizontally to read the original axes or table on narrow screens.",
-        "props": {
-          "src": new URL('../../assets/figures/nbe-e4120/L09/applications-13.webp', import.meta.url).href,
-          "alt": "9:2, PDF page 13. Source CHO-cell hERG tails and normalized terfenadine/quinidine inhibition curves. Printed labels and axes retained.",
-          "aspect": 4.225,
-          "quiz": false,
-          "layout": "stack",
-          "regions": [],
-          "minWidth": 1000
+      "prompt": "Four independent identical channels share a patch. Each open channel carries the same current before and after treatment. The mean current magnitude falls by half and all four channels can still open. If the original open probability was 0.50, what is the new probability of seeing no openings at a fixed time?",
+      "correct": 0,
+      "options": [
+        {
+          "text": "About 32%",
+          "feedback": "With unchanged channel number and unitary amplitude, the mean halves because open probability halves. All four must be closed."
+        },
+        {
+          "text": "About 6%",
+          "feedback": "This is the original all-closed probability with an open probability of 0.50."
+        },
+        {
+          "text": "About 75%",
+          "feedback": "This is the chance of one channel being closed. Multiply across all four independent channels."
         }
-      },
-      "mockRole": "preparation"
+      ],
+      "hints": [
+        {
+          "body": "Use mean current to infer the new open probability."
+        },
+        {
+          "body": "For no openings, every channel must be closed at the sampled time."
+        }
+      ],
+      "modelAnswer": [
+        "The new open probability is $0.25$. Independence gives $(1-0.25)^4=0.3164$."
+      ]
     },
     {
       "id": "L09-filter-synthesis",
@@ -8927,170 +9151,6 @@ const content={
           "regions": []
         }
       }
-    },
-    {
-      "id": "L09-a4",
-      "sectionId": "gating",
-      "difficulty": "hard",
-      "type": "multiStepCalc",
-      "prompt": "A brief ideal opening passes constant inward $4\\,\\mathrm{pA}$ for $5\\,\\mathrm{ms}$ into a $2\\,\\mathrm{pF}$ patch. Use $e=1.6\\times10^{-19}\\,\\mathrm C$. Find inward charge, monovalent ion count and voltage increment without leak. Then explain why voltage clamp instead supplies balancing current.",
-      "stages": [
-        {
-          "title": "Enter substitution quantities",
-          "fields": [
-            {
-              "label": "Current magnitude",
-              "answer": {
-                "value": 4e-12,
-                "unit": "A",
-                "tolerance": 3.9999999999999995e-18,
-                "verification": {
-                  "relation": "ratio",
-                  "inputs": {
-                    "a": 4e-12,
-                    "b": 1
-                  },
-                  "displayScale": 1
-                }
-              }
-            },
-            {
-              "label": "Duration",
-              "answer": {
-                "value": 0.005,
-                "unit": "s",
-                "tolerance": 5e-09,
-                "verification": {
-                  "relation": "ratio",
-                  "inputs": {
-                    "a": 0.005,
-                    "b": 1
-                  },
-                  "displayScale": 1
-                }
-              }
-            },
-            {
-              "label": "Capacitance",
-              "answer": {
-                "value": 2e-12,
-                "unit": "F",
-                "tolerance": 1.9999999999999998e-18,
-                "verification": {
-                  "relation": "ratio",
-                  "inputs": {
-                    "a": 2e-12,
-                    "b": 1
-                  },
-                  "displayScale": 1
-                }
-              }
-            }
-          ],
-          "modelAnswer": [
-            "Convert each stated quantity to the requested unit before evaluating."
-          ]
-        },
-        {
-          "title": "Charge",
-          "answer": {
-            "value": 2e-14,
-            "unit": "C",
-            "tolerance": 6e-17,
-            "verification": {
-              "relation": "product",
-              "inputs": {
-                "a": 4e-12,
-                "b": 0.005
-              },
-              "displayScale": 1
-            }
-          },
-          "tex": "Q_{in}=|i|t",
-          "modelAnswer": [
-            "This is inward positive charge.",
-            "$Q_{in}=|i|t$",
-            "$2\\times10^{-14}\\,\\mathrm{C}$"
-          ]
-        },
-        {
-          "title": "Ion count",
-          "answer": {
-            "value": 125000,
-            "unit": "",
-            "tolerance": 375.0,
-            "verification": {
-              "relation": "ratio",
-              "inputs": {
-                "a": 2e-14,
-                "b": 1.6e-19
-              },
-              "displayScale": 1
-            }
-          },
-          "tex": "n=Q_{in}/e",
-          "modelAnswer": [
-            "A microscopic charge can change voltage without large bulk concentration changes.",
-            "$n=Q_{in}/e$",
-            "$125000$"
-          ]
-        },
-        {
-          "title": "Unclamped increment",
-          "answer": {
-            "value": 0.01,
-            "unit": "V",
-            "tolerance": 3e-05,
-            "verification": {
-              "relation": "ratio",
-              "inputs": {
-                "a": 2e-14,
-                "b": 2e-12
-              },
-              "displayScale": 1
-            }
-          },
-          "tex": "\\Delta V=Q_{in}/C",
-          "modelAnswer": [
-            "Without leak it depolarizes.",
-            "$\\Delta V=Q_{in}/C$",
-            "$0.01\\,\\mathrm{V}$"
-          ]
-        },
-        {
-          "title": "Under ideal voltage clamp",
-          "choices": [
-            {
-              "label": "The clamp supplies opposite current to hold voltage fixed"
-            },
-            {
-              "label": "The same capacitor voltage increment must occur under clamp"
-            }
-          ],
-          "correct": 0,
-          "modelAnswer": [
-            "Do not mix current-clamp charge accumulation with voltage-clamp control."
-          ]
-        }
-      ],
-      "hints": [
-        {
-          "body": "Combine current-time charge and capacitor charge; distinguish clamp modes."
-        },
-        {
-          "body": "Start with $Q_{in}=(4\\times10^{-12})(5\\times10^{-3})\\,\\mathrm C$; divide separately by charge per ion and capacitance."
-        }
-      ],
-      "modelAnswer": [
-        "Convert each stated quantity to the requested unit before evaluating.",
-        "This is inward positive charge.",
-        "A microscopic charge can change voltage without large bulk concentration changes.",
-        "Without leak it depolarizes.",
-        "Do not mix current-clamp charge accumulation with voltage-clamp control."
-      ],
-      "points": 1,
-      "source": "L09 9:1 p9",
-      "mockRole": "preparation"
     },
     {
       "id": "L09-single-synthesis",
@@ -9145,271 +9205,6 @@ const content={
       }
     },
     {
-      "id": "L09-a3",
-      "sectionId": "single",
-      "difficulty": "hard",
-      "type": "multiStepCalc",
-      "prompt": "A preparation has $N=60$ identical channels, $\\gamma=20\\,\\mathrm{pS}$, $E=0$ and $V=-50\\,\\mathrm{mV}$. Mean current is $-18\\,\\mathrm{pA}$. After trafficking, the functional count halves without changing gating. Find unitary current, initial occupancy, final mean current and explain why amplitude alone cannot identify trafficking.",
-      "stages": [
-        {
-          "title": "Select the relation",
-          "choices": [
-            {
-              "label": "$I=NP_{open}\\gamma(V-E)$"
-            },
-            {
-              "label": "$I=N\\gamma/(V-E)$"
-            }
-          ],
-          "correct": 0,
-          "modelAnswer": [
-            "Unitary amplitude and occupancy enter separately."
-          ]
-        },
-        {
-          "title": "Enter substitution quantities",
-          "fields": [
-            {
-              "label": "Channel count",
-              "answer": {
-                "value": 60,
-                "unit": "",
-                "tolerance": 5.9999999999999995e-05,
-                "verification": {
-                  "relation": "ratio",
-                  "inputs": {
-                    "a": 60,
-                    "b": 1
-                  },
-                  "displayScale": 1
-                }
-              }
-            },
-            {
-              "label": "Conductance",
-              "answer": {
-                "value": 2e-11,
-                "unit": "S",
-                "tolerance": 1.9999999999999998e-17,
-                "verification": {
-                  "relation": "ratio",
-                  "inputs": {
-                    "a": 2e-11,
-                    "b": 1
-                  },
-                  "displayScale": 1
-                }
-              }
-            },
-            {
-              "label": "Voltage",
-              "answer": {
-                "value": -0.05,
-                "unit": "V",
-                "tolerance": 5e-08,
-                "verification": {
-                  "relation": "ratio",
-                  "inputs": {
-                    "a": -0.05,
-                    "b": 1
-                  },
-                  "displayScale": 1
-                }
-              }
-            },
-            {
-              "label": "Mean current",
-              "answer": {
-                "value": -1.8e-11,
-                "unit": "A",
-                "tolerance": 1.8e-17,
-                "verification": {
-                  "relation": "ratio",
-                  "inputs": {
-                    "a": -1.8e-11,
-                    "b": 1
-                  },
-                  "displayScale": 1
-                }
-              }
-            }
-          ],
-          "modelAnswer": [
-            "Convert each stated quantity to the requested unit before evaluating."
-          ]
-        },
-        {
-          "title": "Unitary amplitude",
-          "answer": {
-            "value": -1e-12,
-            "unit": "A",
-            "tolerance": 3e-15,
-            "verification": {
-              "relation": "product",
-              "inputs": {
-                "a": 2e-11,
-                "b": -0.05
-              },
-              "displayScale": 1
-            }
-          },
-          "tex": "i=\\gamma(V-E)",
-          "modelAnswer": [
-            "The unitary amplitude does not depend on how many channels are present.",
-            "$i=\\gamma(V-E)$",
-            "$-1\\times10^{-12}\\,\\mathrm{A}$"
-          ]
-        },
-        {
-          "title": "Occupancy",
-          "answer": {
-            "value": 0.3,
-            "unit": "",
-            "tolerance": 0.0009,
-            "verification": {
-              "relation": "ratio",
-              "inputs": {
-                "a": -1.8e-11,
-                "b": -6e-11
-              },
-              "displayScale": 1
-            }
-          },
-          "tex": "P=I/(Ni)",
-          "modelAnswer": [
-            "Use original channel count.",
-            "$P=I/(Ni)$",
-            "$0.3$"
-          ]
-        },
-        {
-          "title": "New channel count",
-          "answer": {
-            "value": 30,
-            "unit": "",
-            "tolerance": 0.09,
-            "verification": {
-              "relation": "ratio",
-              "inputs": {
-                "a": 60,
-                "b": 2
-              },
-              "displayScale": 1
-            }
-          },
-          "tex": "N_2=N_1/2",
-          "modelAnswer": [
-            "Trafficking changes functional count.",
-            "$N_2=N_1/2$",
-            "$30$"
-          ]
-        },
-        {
-          "title": "New mean",
-          "answer": {
-            "value": -9e-12,
-            "unit": "A",
-            "tolerance": 2.7e-14,
-            "verification": {
-              "relation": "product",
-              "inputs": {
-                "a": 9.0,
-                "b": -1e-12
-              },
-              "displayScale": 1
-            }
-          },
-          "tex": "I_2=N_2Pi",
-          "modelAnswer": [
-            "A halved open probability could mimic the same mean decrease.",
-            "$I_2=N_2Pi$",
-            "$-9\\times10^{-12}\\,\\mathrm{A}$"
-          ]
-        },
-        {
-          "title": "Inference",
-          "choices": [
-            {
-              "label": "Use independent occupancy or expression evidence to separate causes"
-            },
-            {
-              "label": "Reduced mean alone uniquely proves a change in channel count"
-            }
-          ],
-          "correct": 0,
-          "modelAnswer": [
-            "An ensemble amplitude is underdetermined."
-          ]
-        }
-      ],
-      "hints": [
-        {
-          "body": "Use signed open-pore current and the population mean."
-        },
-        {
-          "body": "Start with $i=(20\\times10^{-12})(-0.050)\\,\\mathrm A$; then infer occupancy and change only the count."
-        }
-      ],
-      "modelAnswer": [
-        "Unitary amplitude and occupancy enter separately.",
-        "Convert each stated quantity to the requested unit before evaluating.",
-        "The unitary amplitude does not depend on how many channels are present.",
-        "Use original channel count.",
-        "Trafficking changes functional count.",
-        "A halved open probability could mimic the same mean decrease.",
-        "An ensemble amplitude is underdetermined."
-      ],
-      "points": 1,
-      "source": "L09 9:1 p10",
-      "mockRole": "preparation"
-    },
-    {
-      "id": "L09-a2",
-      "sectionId": "single",
-      "difficulty": "hard",
-      "type": "written",
-      "prompt": "Explain how selective rapid conduction and stochastic opening coexist. Sketch repeated single-channel steps and their ensemble mean on paper; label axes and current sign.",
-      "hints": [
-        {
-          "body": "Identify the taught mechanism and the level of measurement."
-        },
-        {
-          "body": "Organize your response by cause, observation, alternative explanation and control."
-        }
-      ],
-      "markScheme": [
-        {
-          "text": "Pumps supply energy; channels conduct down electrochemical gradients."
-        },
-        {
-          "text": "Channelome includes type, abundance and membrane distribution."
-        },
-        {
-          "text": "Gating changes occupancy; trafficking changes location and functional number."
-        },
-        {
-          "text": "An ensemble mean averages stochastic trials at the same protocol."
-        },
-        {
-          "text": "Carbonyl compensation and hydration cost explain selectivity; fast flow does not imply no discrimination."
-        },
-        {
-          "text": "Sketch step-like random openings with current/time axes and a smoother average; identify source sodium recording versus potassium simulation."
-        }
-      ],
-      "modelAnswer": [
-        "Pumps supply energy; channels conduct down electrochemical gradients.",
-        "Channelome includes type, abundance and membrane distribution.",
-        "Gating changes occupancy; trafficking changes location and functional number.",
-        "An ensemble mean averages stochastic trials at the same protocol.",
-        "Carbonyl compensation and hydration cost explain selectivity; fast flow does not imply no discrimination.",
-        "Sketch step-like random openings with current/time axes and a smoother average; identify source sodium recording versus potassium simulation."
-      ],
-      "points": 1,
-      "source": "L09 9:1 p6–10",
-      "mockRole": "preparation"
-    },
-    {
       "id": "L09-cation-synthesis",
       "sectionId": "cation",
       "difficulty": "hard",
@@ -9459,239 +9254,6 @@ const content={
           "regions": []
         }
       }
-    },
-    {
-      "id": "L09-b3",
-      "sectionId": "cation",
-      "difficulty": "hard",
-      "type": "multiStepCalc",
-      "prompt": "An explicitly ideal model needs four independent permissive factors, each with $y=0.7$. There are $200$ channels, $\\gamma=15\\,\\mathrm{pS}$ and driving force $40\\,\\mathrm{mV}$. Find whole-channel probability, expected open count and outward current. Compare a second condition y=0.8 without changing N or conductance.",
-      "stages": [
-        {
-          "title": "Enter substitution quantities",
-          "fields": [
-            {
-              "label": "Particle probability",
-              "answer": {
-                "value": 0.7,
-                "unit": "",
-                "tolerance": 7e-07,
-                "verification": {
-                  "relation": "ratio",
-                  "inputs": {
-                    "a": 0.7,
-                    "b": 1
-                  },
-                  "displayScale": 1
-                }
-              }
-            },
-            {
-              "label": "Count",
-              "answer": {
-                "value": 200,
-                "unit": "",
-                "tolerance": 0.00019999999999999998,
-                "verification": {
-                  "relation": "ratio",
-                  "inputs": {
-                    "a": 200,
-                    "b": 1
-                  },
-                  "displayScale": 1
-                }
-              }
-            },
-            {
-              "label": "Conductance",
-              "answer": {
-                "value": 1.5e-11,
-                "unit": "S",
-                "tolerance": 1.5e-17,
-                "verification": {
-                  "relation": "ratio",
-                  "inputs": {
-                    "a": 1.5e-11,
-                    "b": 1
-                  },
-                  "displayScale": 1
-                }
-              }
-            },
-            {
-              "label": "Driving force",
-              "answer": {
-                "value": 0.04,
-                "unit": "V",
-                "tolerance": 4e-08,
-                "verification": {
-                  "relation": "ratio",
-                  "inputs": {
-                    "a": 0.04,
-                    "b": 1
-                  },
-                  "displayScale": 1
-                }
-              }
-            }
-          ],
-          "modelAnswer": [
-            "Convert each stated quantity to the requested unit before evaluating."
-          ]
-        },
-        {
-          "title": "Whole-channel probability",
-          "answer": {
-            "value": 0.24009999999999995,
-            "unit": "",
-            "tolerance": 0.0007202999999999999,
-            "verification": {
-              "relation": "gatePower",
-              "inputs": {
-                "y": 0.7,
-                "count": 4
-              },
-              "displayScale": 1
-            }
-          },
-          "tex": "P_1=0.7^4",
-          "modelAnswer": [
-            "The independence rule is explicitly given, not inferred from topology.",
-            "$P_1=0.7^4$",
-            "$0.2401$"
-          ]
-        },
-        {
-          "title": "Expected open count",
-          "answer": {
-            "value": 48.01999999999999,
-            "unit": "",
-            "tolerance": 0.14405999999999997,
-            "verification": {
-              "relation": "product",
-              "inputs": {
-                "a": 200,
-                "b": 0.24009999999999995
-              },
-              "displayScale": 1
-            }
-          },
-          "tex": "\\langle N_{open}\\rangle=NP_1",
-          "modelAnswer": [
-            "An expectation need not be an integer.",
-            "$\\langle N_{open}\\rangle=NP_1$",
-            "$48.02$"
-          ]
-        },
-        {
-          "title": "Unitary outward current",
-          "answer": {
-            "value": 6e-13,
-            "unit": "A",
-            "tolerance": 1.8e-15,
-            "verification": {
-              "relation": "product",
-              "inputs": {
-                "a": 1.5e-11,
-                "b": 0.04
-              },
-              "displayScale": 1
-            }
-          },
-          "tex": "i=\\gamma(V-E)",
-          "modelAnswer": [
-            "Positive driving force gives outward current.",
-            "$i=\\gamma(V-E)$",
-            "$6\\times10^{-13}\\,\\mathrm{A}$"
-          ]
-        },
-        {
-          "title": "First mean current",
-          "answer": {
-            "value": 2.8811999999999993e-11,
-            "unit": "A",
-            "tolerance": 8.643599999999998e-14,
-            "verification": {
-              "relation": "product",
-              "inputs": {
-                "a": 48.01999999999999,
-                "b": 6e-13
-              },
-              "displayScale": 1
-            }
-          },
-          "tex": "I_1=NP_1i",
-          "modelAnswer": [
-            "Keep microscopic and population currents separate.",
-            "$I_1=NP_1i$",
-            "$2.8812\\times10^{-11}\\,\\mathrm{A}$"
-          ]
-        },
-        {
-          "title": "Second probability",
-          "answer": {
-            "value": 0.4096000000000001,
-            "unit": "",
-            "tolerance": 0.0012288000000000002,
-            "verification": {
-              "relation": "gatePower",
-              "inputs": {
-                "y": 0.8,
-                "count": 4
-              },
-              "displayScale": 1
-            }
-          },
-          "tex": "P_2=0.8^4",
-          "modelAnswer": [
-            "All four factors must be permissive.",
-            "$P_2=0.8^4$",
-            "$0.4096$"
-          ]
-        },
-        {
-          "title": "Second mean",
-          "answer": {
-            "value": 4.9152000000000004e-11,
-            "unit": "A",
-            "tolerance": 1.4745600000000002e-13,
-            "verification": {
-              "relation": "product",
-              "inputs": {
-                "a": 81.92000000000002,
-                "b": 6e-13
-              },
-              "displayScale": 1
-            }
-          },
-          "tex": "I_2=NP_2i",
-          "modelAnswer": [
-            "The nonlinear probability change amplifies the single-factor change.",
-            "$I_2=NP_2i$",
-            "$4.9152\\times10^{-11}\\,\\mathrm{A}$"
-          ]
-        }
-      ],
-      "hints": [
-        {
-          "body": "Use the explicitly stated independent all-required rule."
-        },
-        {
-          "body": "Start with $P_1=0.7^4$; then multiply count, probability and unitary signed current."
-        }
-      ],
-      "modelAnswer": [
-        "Convert each stated quantity to the requested unit before evaluating.",
-        "The independence rule is explicitly given, not inferred from topology.",
-        "An expectation need not be an integer.",
-        "Positive driving force gives outward current.",
-        "Keep microscopic and population currents separate.",
-        "All four factors must be permissive.",
-        "The nonlinear probability change amplifies the single-factor change."
-      ],
-      "points": 1,
-      "source": "L09 9:1 p16",
-      "mockRole": "preparation"
     },
     {
       "id": "L09-sensor-synthesis",
@@ -9797,52 +9359,6 @@ const content={
       }
     },
     {
-      "id": "L09-b2",
-      "sectionId": "persistent",
-      "difficulty": "hard",
-      "type": "written",
-      "prompt": "Explain how a sensor mutation differs from a filter mutation and impaired inactivation. Sketch a six-helix subunit and a qualitative current time course for normal versus persistent sodium current.",
-      "hints": [
-        {
-          "body": "Identify the taught mechanism and the level of measurement."
-        },
-        {
-          "body": "Organize your response by cause, observation, alternative explanation and control."
-        }
-      ],
-      "markScheme": [
-        {
-          "text": "The P-loop between S5 and S6 forms the filter."
-        },
-        {
-          "text": "S4 positive residues participate in voltage sensing."
-        },
-        {
-          "text": "Potassium is tetrameric; vertebrate sodium alpha links four homologous domains."
-        },
-        {
-          "text": "Gating current reports sensor displacement; ionic current reports pore permeation."
-        },
-        {
-          "text": "A filter mutation can alter selectivity; a sensor mutation can shift activation; failed inactivation can increase residual current."
-        },
-        {
-          "text": "Label extracellular/intracellular sides and voltage/current time axes; do not infer four independent HH factors from four structural domains."
-        }
-      ],
-      "modelAnswer": [
-        "The P-loop between S5 and S6 forms the filter.",
-        "S4 positive residues participate in voltage sensing.",
-        "Potassium is tetrameric; vertebrate sodium alpha links four homologous domains.",
-        "Gating current reports sensor displacement; ionic current reports pore permeation.",
-        "A filter mutation can alter selectivity; a sensor mutation can shift activation; failed inactivation can increase residual current.",
-        "Label extracellular/intracellular sides and voltage/current time axes; do not infer four independent HH factors from four structural domains."
-      ],
-      "points": 1,
-      "source": "L09 9:1 p7,16–17; 9:2 p2,9",
-      "mockRole": "preparation"
-    },
-    {
       "id": "L09-persistent-synthesis",
       "practice": "extra",
       "sectionId": "persistent",
@@ -9893,223 +9409,6 @@ const content={
           "regions": []
         }
       }
-    },
-    {
-      "id": "L09-b4",
-      "sectionId": "persistent",
-      "difficulty": "hard",
-      "type": "multiStepCalc",
-      "prompt": "At fixed $m=0.6$, maximal sodium conductance is $100\\,\\mathrm{nS}$ and driving force $-70\\,\\mathrm{mV}$. Residual availability rises from $h=0.02$ to $0.08$. Find activation power, both conductances, both currents and current ratio. Explain why this is not a complete seizure simulation.",
-      "stages": [
-        {
-          "title": "Enter substitution quantities",
-          "fields": [
-            {
-              "label": "Activation",
-              "answer": {
-                "value": 0.6,
-                "unit": "",
-                "tolerance": 6e-07,
-                "verification": {
-                  "relation": "ratio",
-                  "inputs": {
-                    "a": 0.6,
-                    "b": 1
-                  },
-                  "displayScale": 1
-                }
-              }
-            },
-            {
-              "label": "Maximum conductance",
-              "answer": {
-                "value": 1e-07,
-                "unit": "S",
-                "tolerance": 9.999999999999999e-14,
-                "verification": {
-                  "relation": "ratio",
-                  "inputs": {
-                    "a": 1e-07,
-                    "b": 1
-                  },
-                  "displayScale": 1
-                }
-              }
-            },
-            {
-              "label": "Driving force",
-              "answer": {
-                "value": -0.07,
-                "unit": "V",
-                "tolerance": 7e-08,
-                "verification": {
-                  "relation": "ratio",
-                  "inputs": {
-                    "a": -0.07,
-                    "b": 1
-                  },
-                  "displayScale": 1
-                }
-              }
-            }
-          ],
-          "modelAnswer": [
-            "Convert each stated quantity to the requested unit before evaluating."
-          ]
-        },
-        {
-          "title": "Activation power",
-          "answer": {
-            "value": 0.216,
-            "unit": "",
-            "tolerance": 0.000648,
-            "verification": {
-              "relation": "gatePower",
-              "inputs": {
-                "y": 0.6,
-                "count": 3
-              },
-              "displayScale": 1
-            }
-          },
-          "tex": "m^3=0.6^3",
-          "modelAnswer": [
-            "Cumulative HH factor, not literal domain identity.",
-            "$m^3=0.6^3$",
-            "$0.216$"
-          ]
-        },
-        {
-          "title": "Control conductance",
-          "answer": {
-            "value": 4.32e-10,
-            "unit": "S",
-            "tolerance": 1.2960000000000001e-12,
-            "verification": {
-              "relation": "product",
-              "inputs": {
-                "a": 1e-07,
-                "b": 0.00432
-              },
-              "displayScale": 1
-            }
-          },
-          "tex": "g_1=\\bar g m^3h_1",
-          "modelAnswer": [
-            "Availability is small but not zero.",
-            "$g_1=\\bar g m^3h_1$",
-            "$4.32\\times10^{-10}\\,\\mathrm{S}$"
-          ]
-        },
-        {
-          "title": "Altered conductance",
-          "answer": {
-            "value": 1.728e-09,
-            "unit": "S",
-            "tolerance": 5.1840000000000005e-12,
-            "verification": {
-              "relation": "product",
-              "inputs": {
-                "a": 1e-07,
-                "b": 0.01728
-              },
-              "displayScale": 1
-            }
-          },
-          "tex": "g_2=\\bar g m^3h_2",
-          "modelAnswer": [
-            "Fourfold availability at unchanged activation.",
-            "$g_2=\\bar g m^3h_2$",
-            "$1.728\\times10^{-9}\\,\\mathrm{S}$"
-          ]
-        },
-        {
-          "title": "Control current",
-          "answer": {
-            "value": -3.0240000000000004e-11,
-            "unit": "A",
-            "tolerance": 9.072000000000002e-14,
-            "verification": {
-              "relation": "product",
-              "inputs": {
-                "a": 4.32e-10,
-                "b": -0.07
-              },
-              "displayScale": 1
-            }
-          },
-          "tex": "I_1=g_1(V-E)",
-          "modelAnswer": [
-            "Both currents are inward.",
-            "$I_1=g_1(V-E)$",
-            "$-3.024\\times10^{-11}\\,\\mathrm{A}$"
-          ]
-        },
-        {
-          "title": "Altered current",
-          "answer": {
-            "value": -1.2096000000000001e-10,
-            "unit": "A",
-            "tolerance": 3.6288000000000007e-13,
-            "verification": {
-              "relation": "product",
-              "inputs": {
-                "a": 1.728e-09,
-                "b": -0.07
-              },
-              "displayScale": 1
-            }
-          },
-          "tex": "I_2=g_2(V-E)",
-          "modelAnswer": [
-            "More persistent inward current can oppose repolarization.",
-            "$I_2=g_2(V-E)$",
-            "$-1.2096\\times10^{-10}\\,\\mathrm{A}$"
-          ]
-        },
-        {
-          "title": "Magnitude ratio",
-          "answer": {
-            "value": 4,
-            "unit": "",
-            "tolerance": 0.012,
-            "verification": {
-              "relation": "ratio",
-              "inputs": {
-                "a": 1.728e-09,
-                "b": 4.32e-10
-              },
-              "displayScale": 1
-            }
-          },
-          "tex": "|I_2|/|I_1|=4",
-          "modelAnswer": [
-            "A fixed-voltage calculation is not a network seizure prediction.",
-            "$|I_2|/|I_1|=4$",
-            "$4$"
-          ]
-        }
-      ],
-      "hints": [
-        {
-          "body": "Use HH conductance and signed driving force at fixed activation."
-        },
-        {
-          "body": "Start with $m^3=0.6^3$; multiply separately by each availability before applying the common driving force."
-        }
-      ],
-      "modelAnswer": [
-        "Convert each stated quantity to the requested unit before evaluating.",
-        "Cumulative HH factor, not literal domain identity.",
-        "Availability is small but not zero.",
-        "Fourfold availability at unchanged activation.",
-        "Both currents are inward.",
-        "More persistent inward current can oppose repolarization.",
-        "A fixed-voltage calculation is not a network seizure prediction."
-      ],
-      "points": 1,
-      "source": "L09 9:2 p9",
-      "mockRole": "preparation"
     },
     {
       "id": "L09-lqt-synthesis",
@@ -10164,195 +9463,6 @@ const content={
       }
     },
     {
-      "id": "L09-c4",
-      "sectionId": "lqt",
-      "difficulty": "hard",
-      "type": "multiStepCalc",
-      "prompt": "At one fixed depolarized instant, potassium current is $+80\\,\\mathrm{pA}$, persistent sodium current is $-30\\,\\mathrm{pA}$, applied current is zero and capacitance is $10\\,\\mathrm{pF}$. Find net ionic current and voltage slope. Then halve outward potassium current and double inward sodium current. Find the new slope and explain the relation to delayed repolarization without calculating a QT interval.",
-      "stages": [
-        {
-          "title": "Enter substitution quantities",
-          "fields": [
-            {
-              "label": "Potassium current",
-              "answer": {
-                "value": 8e-11,
-                "unit": "A",
-                "tolerance": 7.999999999999999e-17,
-                "verification": {
-                  "relation": "ratio",
-                  "inputs": {
-                    "a": 8e-11,
-                    "b": 1
-                  },
-                  "displayScale": 1
-                }
-              }
-            },
-            {
-              "label": "Sodium current",
-              "answer": {
-                "value": -3e-11,
-                "unit": "A",
-                "tolerance": 3e-17,
-                "verification": {
-                  "relation": "ratio",
-                  "inputs": {
-                    "a": -3e-11,
-                    "b": 1
-                  },
-                  "displayScale": 1
-                }
-              }
-            },
-            {
-              "label": "Capacitance",
-              "answer": {
-                "value": 1e-11,
-                "unit": "F",
-                "tolerance": 9.999999999999999e-18,
-                "verification": {
-                  "relation": "ratio",
-                  "inputs": {
-                    "a": 1e-11,
-                    "b": 1
-                  },
-                  "displayScale": 1
-                }
-              }
-            }
-          ],
-          "modelAnswer": [
-            "Convert each stated quantity to the requested unit before evaluating."
-          ]
-        },
-        {
-          "title": "Initial ionic sum",
-          "answer": {
-            "value": 5e-11,
-            "unit": "A",
-            "tolerance": 1.5000000000000002e-13,
-            "verification": {
-              "relation": "sum",
-              "inputs": {
-                "a": 8e-11,
-                "b": -3e-11
-              },
-              "displayScale": 1
-            }
-          },
-          "tex": "I_{ion}=I_K+I_{NaP}",
-          "modelAnswer": [
-            "Signed currents oppose each other.",
-            "$I_{ion}=I_K+I_{NaP}$",
-            "$5\\times10^{-11}\\,\\mathrm{A}$"
-          ]
-        },
-        {
-          "title": "Initial slope",
-          "answer": {
-            "value": -5,
-            "unit": "A/F",
-            "tolerance": 0.015,
-            "verification": {
-              "relation": "hhBalance",
-              "inputs": {
-                "im": 0,
-                "ionic": 5e-11,
-                "capacitance": 1e-11
-              },
-              "displayScale": 1
-            }
-          },
-          "tex": "\\dot V=-I_{ion}/C",
-          "modelAnswer": [
-            "Outward ionic current repolarizes.",
-            "$\\dot V=-I_{ion}/C$",
-            "$-5\\,\\mathrm{A/F}$"
-          ]
-        },
-        {
-          "title": "Changed ionic sum",
-          "answer": {
-            "value": -2e-11,
-            "unit": "A",
-            "tolerance": 6e-14,
-            "verification": {
-              "relation": "sum",
-              "inputs": {
-                "a": 4e-11,
-                "b": -6e-11
-              },
-              "displayScale": 1
-            }
-          },
-          "tex": "I_{ion,2}=40-60\\,\\mathrm{pA}",
-          "modelAnswer": [
-            "The new balance is inward.",
-            "$I_{ion,2}=40-60\\,\\mathrm{pA}$",
-            "$-2\\times10^{-11}\\,\\mathrm{A}$"
-          ]
-        },
-        {
-          "title": "Changed slope",
-          "answer": {
-            "value": 2,
-            "unit": "A/F",
-            "tolerance": 0.006,
-            "verification": {
-              "relation": "hhBalance",
-              "inputs": {
-                "im": 0,
-                "ionic": -2e-11,
-                "capacitance": 1e-11
-              },
-              "displayScale": 1
-            }
-          },
-          "tex": "\\dot V_2=-I_{ion,2}/C",
-          "modelAnswer": [
-            "This instantaneous slope is depolarizing; time-varying currents and tissue context are needed for a QT prediction.",
-            "$\\dot V_2=-I_{ion,2}/C$",
-            "$2\\,\\mathrm{A/F}$"
-          ]
-        },
-        {
-          "title": "Meaning",
-          "choices": [
-            {
-              "label": "The altered instantaneous balance opposes repolarization"
-            },
-            {
-              "label": "A single instantaneous slope uniquely determines the ECG QT interval"
-            }
-          ],
-          "correct": 0,
-          "modelAnswer": [
-            "A cellular derivative is not a complete tissue waveform."
-          ]
-        }
-      ],
-      "hints": [
-        {
-          "body": "Combine signed ionic currents before applying capacitive balance."
-        },
-        {
-          "body": "Start with $I_{ion}=80-30$ in picoamperes; then use $\\dot V=-I_{ion}/C$ separately for each condition."
-        }
-      ],
-      "modelAnswer": [
-        "Convert each stated quantity to the requested unit before evaluating.",
-        "Signed currents oppose each other.",
-        "Outward ionic current repolarizes.",
-        "The new balance is inward.",
-        "This instantaneous slope is depolarizing; time-varying currents and tissue context are needed for a QT prediction.",
-        "A cellular derivative is not a complete tissue waveform."
-      ],
-      "points": 1,
-      "source": "L09 9:2 p12",
-      "mockRole": "preparation"
-    },
-    {
       "id": "L09-screen-synthesis",
       "sectionId": "screen",
       "difficulty": "hard",
@@ -10404,263 +9514,6 @@ const content={
         }
       }
     },
-    {
-      "id": "L09-c3",
-      "sectionId": "screen",
-      "difficulty": "hard",
-      "type": "multiStepCalc",
-      "prompt": "A hERG tail is $900\\,\\mathrm{pA}$ initially. A matched time-control gives $750\\,\\mathrm{pA}$ and drug gives $300\\,\\mathrm{pA}$. Find time-control fraction, drug/control remaining fraction and inhibition fraction. If tail conductance is Ohmic during the comparison and driving force is $50\\,\\mathrm{mV}$, find both matched conductances.",
-      "stages": [
-        {
-          "title": "Enter substitution quantities",
-          "fields": [
-            {
-              "label": "Initial current",
-              "answer": {
-                "value": 9e-10,
-                "unit": "A",
-                "tolerance": 9e-16,
-                "verification": {
-                  "relation": "ratio",
-                  "inputs": {
-                    "a": 9e-10,
-                    "b": 1
-                  },
-                  "displayScale": 1
-                }
-              }
-            },
-            {
-              "label": "Time control",
-              "answer": {
-                "value": 7.5e-10,
-                "unit": "A",
-                "tolerance": 7.5e-16,
-                "verification": {
-                  "relation": "ratio",
-                  "inputs": {
-                    "a": 7.5e-10,
-                    "b": 1
-                  },
-                  "displayScale": 1
-                }
-              }
-            },
-            {
-              "label": "Drug current",
-              "answer": {
-                "value": 3e-10,
-                "unit": "A",
-                "tolerance": 3e-16,
-                "verification": {
-                  "relation": "ratio",
-                  "inputs": {
-                    "a": 3e-10,
-                    "b": 1
-                  },
-                  "displayScale": 1
-                }
-              }
-            },
-            {
-              "label": "Driving force",
-              "answer": {
-                "value": 0.05,
-                "unit": "V",
-                "tolerance": 5e-08,
-                "verification": {
-                  "relation": "ratio",
-                  "inputs": {
-                    "a": 0.05,
-                    "b": 1
-                  },
-                  "displayScale": 1
-                }
-              }
-            }
-          ],
-          "modelAnswer": [
-            "Convert each stated quantity to the requested unit before evaluating."
-          ]
-        },
-        {
-          "title": "Time-control fraction",
-          "answer": {
-            "value": 0.8333333333333334,
-            "unit": "",
-            "tolerance": 0.0025,
-            "verification": {
-              "relation": "ratio",
-              "inputs": {
-                "a": 7.5e-10,
-                "b": 9e-10
-              },
-              "displayScale": 1
-            }
-          },
-          "tex": "f_{time}=750/900",
-          "modelAnswer": [
-            "This estimates rundown in the matched control.",
-            "$f_{time}=750/900$",
-            "$0.83333333$"
-          ]
-        },
-        {
-          "title": "Remaining under drug",
-          "answer": {
-            "value": 0.4,
-            "unit": "",
-            "tolerance": 0.0012000000000000001,
-            "verification": {
-              "relation": "ratio",
-              "inputs": {
-                "a": 3e-10,
-                "b": 7.5e-10
-              },
-              "displayScale": 1
-            }
-          },
-          "tex": "f=300/750",
-          "modelAnswer": [
-            "Use the matched baseline.",
-            "$f=300/750$",
-            "$0.4$"
-          ]
-        },
-        {
-          "title": "Inhibition fraction",
-          "answer": {
-            "value": 0.6,
-            "unit": "",
-            "tolerance": 0.0018,
-            "verification": {
-              "relation": "sum",
-              "inputs": {
-                "a": 1,
-                "b": -0.4
-              },
-              "displayScale": 1
-            }
-          },
-          "tex": "b=1-f",
-          "modelAnswer": [
-            "This is empirical inhibition under this protocol, not a binding affinity.",
-            "$b=1-f$",
-            "$0.6$"
-          ]
-        },
-        {
-          "title": "Control conductance",
-          "answer": {
-            "value": 1.5e-08,
-            "unit": "S",
-            "tolerance": 4.5e-11,
-            "verification": {
-              "relation": "ratio",
-              "inputs": {
-                "a": 7.5e-10,
-                "b": 0.05
-              },
-              "displayScale": 1
-            }
-          },
-          "tex": "G_c=I_c/(V-E)",
-          "modelAnswer": [
-            "Assumes common driving force and equivalent gate-state interpretation.",
-            "$G_c=I_c/(V-E)$",
-            "$1.5\\times10^{-8}\\,\\mathrm{S}$"
-          ]
-        },
-        {
-          "title": "Drug conductance",
-          "answer": {
-            "value": 6e-09,
-            "unit": "S",
-            "tolerance": 1.8e-11,
-            "verification": {
-              "relation": "ratio",
-              "inputs": {
-                "a": 3e-10,
-                "b": 0.05
-              },
-              "displayScale": 1
-            }
-          },
-          "tex": "G_d=I_d/(V-E)",
-          "modelAnswer": [
-            "The conductance decrease alone does not quantify clinical arrhythmia risk.",
-            "$G_d=I_d/(V-E)$",
-            "$6\\times10^{-9}\\,\\mathrm{S}$"
-          ]
-        }
-      ],
-      "hints": [
-        {
-          "body": "Normalize to the time-matched control and use signed Ohm current."
-        },
-        {
-          "body": "Start with the two control currents converted to amperes; form the remaining fraction before taking its complement."
-        }
-      ],
-      "modelAnswer": [
-        "Convert each stated quantity to the requested unit before evaluating.",
-        "This estimates rundown in the matched control.",
-        "Use the matched baseline.",
-        "This is empirical inhibition under this protocol, not a binding affinity.",
-        "Assumes common driving force and equivalent gate-state interpretation.",
-        "The conductance decrease alone does not quantify clinical arrhythmia risk."
-      ],
-      "points": 1,
-      "source": "L09 9:2 p13",
-      "mockRole": "preparation"
-    },
-    {
-      "id": "L09-c2",
-      "sectionId": "screen",
-      "difficulty": "hard",
-      "type": "written",
-      "prompt": "Explain how loss of repolarizing potassium current and gain of persistent sodium current converge on delayed repolarization. Sketch a qualitative cellular AP and ECG QT interval and give the limits of a channel assay.",
-      "hints": [
-        {
-          "body": "Identify the taught mechanism and the level of measurement."
-        },
-        {
-          "body": "Organize your response by cause, observation, alternative explanation and control."
-        }
-      ],
-      "markScheme": [
-        {
-          "text": "Channelopathy is dysfunction, inherited or acquired; a neutral variant need not cause disease."
-        },
-        {
-          "text": "LQT1 is KCNQ1 loss; LQT3 is SCN5A persistent-current gain."
-        },
-        {
-          "text": "Atrial KV1.5 targeting is a rationale, not proof of zero ventricular risk."
-        },
-        {
-          "text": "A tail follows a voltage transition, with rapid recovery from inactivation followed by deactivation."
-        },
-        {
-          "text": "Both reduced outward and increased inward current oppose repolarization; label voltage/time and Q-to-T endpoints."
-        },
-        {
-          "text": "hERG inhibition is a hazard signal; protocol, exposure, other currents and tissue context limit clinical inference."
-        }
-      ],
-      "modelAnswer": [
-        "Channelopathy is dysfunction, inherited or acquired; a neutral variant need not cause disease.",
-        "LQT1 is KCNQ1 loss; LQT3 is SCN5A persistent-current gain.",
-        "Atrial KV1.5 targeting is a rationale, not proof of zero ventricular risk.",
-        "A tail follows a voltage transition, with rapid recovery from inactivation followed by deactivation.",
-        "Both reduced outward and increased inward current oppose repolarization; label voltage/time and Q-to-T endpoints.",
-        "hERG inhibition is a hazard signal; protocol, exposure, other currents and tissue context limit clinical inference."
-      ],
-      "points": 1,
-      "source": "L09 9:2 p11–13",
-      "mockRole": "preparation"
-    }
-,
     {
       "id": "L09-binomial-patch",
       "sectionId": "single",
@@ -10749,6 +9602,7 @@ const content={
       "questions": [
         {
           "id": "L09-a1",
+          "role": "concepts",
           "sectionId": "single",
           "difficulty": "easy",
           "type": "written",
@@ -10787,6 +9641,7 @@ const content={
         },
         {
           "id": "L09-a2",
+          "role": "explanation",
           "sectionId": "single",
           "difficulty": "hard",
           "type": "written",
@@ -10833,6 +9688,7 @@ const content={
         },
         {
           "id": "L09-a3",
+          "role": "calculation",
           "sectionId": "single",
           "difficulty": "hard",
           "type": "multiStepCalc",
@@ -11052,6 +9908,7 @@ const content={
         },
         {
           "id": "L09-a4",
+          "role": "calculation",
           "sectionId": "gating",
           "difficulty": "hard",
           "type": "multiStepCalc",
@@ -11216,10 +10073,11 @@ const content={
         },
         {
           "id": "L09-a5",
+          "role": "methods",
           "sectionId": "single",
           "difficulty": "medium",
           "type": "written",
-          "prompt": "Interpret the supplied source single-channel and ensemble panel. Identify the controlled and measured variables, current directions, stochastic evidence and why lower mean does not uniquely prove fewer channels.",
+          "prompt": "Interpret the supplied source single-channel and ensemble panel. Identify the controlled and measured variables, current directions, stochastic evidence and why lower mean does not uniquely prove fewer channels. What measurement helps distinguish lower open probability from a change in unitary conductance?",
           "hints": [
             {
               "body": "Identify the taught mechanism and the level of measurement."
@@ -11243,14 +10101,16 @@ const content={
             },
             {
               "text": "The source potassium caption marks simulated data; do not claim it is a new experimental record."
-            }
+            },
+            { "text": "Compare the slope of the resolved single-channel current–voltage relation and the fraction of time spent open at matched voltage." }
           ],
           "modelAnswer": [
             "Voltage is commanded and current is recorded.",
             "Individual dwell times vary while the mean has reproducible kinetics.",
             "Sodium source openings are inward and potassium source openings outward in their respective protocols.",
             "Compare unitary amplitude, occupancy and independent count controls.",
-            "The source potassium caption marks simulated data; do not claim it is a new experimental record."
+            "The source potassium caption marks simulated data; do not claim it is a new experimental record.",
+            "Compare the slope of the resolved single-channel current–voltage relation and the fraction of time spent open at matched voltage."
           ],
           "points": 1,
           "source": "L09 9:1 p10",
@@ -11280,6 +10140,7 @@ const content={
       "questions": [
         {
           "id": "L09-b1",
+          "role": "concepts",
           "sectionId": "sensor",
           "difficulty": "easy",
           "type": "written",
@@ -11318,6 +10179,7 @@ const content={
         },
         {
           "id": "L09-b2",
+          "role": "explanation",
           "sectionId": "sensor",
           "difficulty": "hard",
           "type": "written",
@@ -11364,6 +10226,7 @@ const content={
         },
         {
           "id": "L09-b3",
+          "role": "calculation",
           "sectionId": "cation",
           "difficulty": "hard",
           "type": "multiStepCalc",
@@ -11597,6 +10460,7 @@ const content={
         },
         {
           "id": "L09-b4",
+          "role": "calculation",
           "sectionId": "persistent",
           "difficulty": "hard",
           "type": "multiStepCalc",
@@ -11814,10 +10678,11 @@ const content={
         },
         {
           "id": "L09-b5",
+          "role": "methods",
           "sectionId": "sensor",
           "difficulty": "medium",
           "type": "written",
-          "prompt": "Read the supplied normal versus abnormal persistent-current source panel. Propose voltage-clamp evidence for impaired inactivation, separate expression changes and state why seizure synchronization needs additional evidence.",
+          "prompt": "Read the supplied normal versus abnormal persistent-current source panel. Propose voltage-clamp evidence for impaired inactivation, separate expression changes and state why seizure synchronization needs additional evidence. How could the matched-step experiment distinguish impaired inactivation from a simple increase in total current?",
           "hints": [
             {
               "body": "Identify the taught mechanism and the level of measurement."
@@ -11838,13 +10703,15 @@ const content={
             },
             {
               "text": "Population timing and cell identity are needed for a network interpretation."
-            }
+            },
+            { "text": "Compare late current normalized to peak current with the same step and baseline correction. A higher late fraction supports altered kinetics even if absolute currents differ." }
           ],
           "modelAnswer": [
             "Compare residual current after an identical depolarizing step.",
             "Normalize peak/current density while controlling expression and driving force.",
             "A larger persistent fraction supports altered availability, not merely increased abundance.",
-            "Population timing and cell identity are needed for a network interpretation."
+            "Population timing and cell identity are needed for a network interpretation.",
+            "Compare late current normalized to peak current with the same step and baseline correction. A higher late fraction supports altered kinetics even if absolute currents differ."
           ],
           "points": 1,
           "source": "L09 9:2 p8–9; L07 PDF7,18,22",
@@ -11873,6 +10740,7 @@ const content={
       "questions": [
         {
           "id": "L09-c1",
+          "role": "concepts",
           "sectionId": "screen",
           "difficulty": "easy",
           "type": "written",
@@ -11911,6 +10779,7 @@ const content={
         },
         {
           "id": "L09-c2",
+          "role": "explanation",
           "sectionId": "screen",
           "difficulty": "hard",
           "type": "written",
@@ -11957,6 +10826,7 @@ const content={
         },
         {
           "id": "L09-c3",
+          "role": "calculation",
           "sectionId": "screen",
           "difficulty": "hard",
           "type": "multiStepCalc",
@@ -12167,6 +11037,7 @@ const content={
         },
         {
           "id": "L09-c4",
+          "role": "calculation",
           "sectionId": "lqt",
           "difficulty": "hard",
           "type": "multiStepCalc",
@@ -12356,10 +11227,11 @@ const content={
         },
         {
           "id": "L09-c5",
+          "role": "methods",
           "sectionId": "screen",
           "difficulty": "medium",
           "type": "written",
-          "prompt": "Interpret the supplied hERG tail and drug-response source panels. Identify the measurement mode, a normalization strategy, rundown/artifact controls and what cannot be concluded from the curve.",
+          "prompt": "Interpret the supplied hERG tail and drug-response source panels. Identify the measurement mode, a normalization strategy, rundown/artifact controls and what cannot be concluded from the curve. Why use a time-matched vehicle control when measuring tail current during drug exposure?",
           "hints": [
             {
               "body": "Identify the taught mechanism and the level of measurement."
@@ -12380,13 +11252,15 @@ const content={
             },
             {
               "text": "No precise IC50 is digitized here; inhibition alone does not measure clinical arrhythmia incidence."
-            }
+            },
+            { "text": "Tail amplitude can run down during recording. A vehicle control on the same time course helps distinguish rundown from a drug effect." }
           ],
           "modelAnswer": [
             "Voltage is controlled and current measured in the source patch-clamp assay.",
             "Use matched time-control and drug tails at the same protocol.",
             "Check leak, capacitance, rundown, voltage/solutions and exposure.",
-            "No precise IC50 is digitized here; inhibition alone does not measure clinical arrhythmia incidence."
+            "No precise IC50 is digitized here; inhibition alone does not measure clinical arrhythmia incidence.",
+            "Tail amplitude can run down during recording. A vehicle control on the same time course helps distinguish rundown from a drug effect."
           ],
           "points": 1,
           "source": "L09 9:2 p13",
@@ -12412,139 +11286,32 @@ const content={
   ],
   "formulaReferenceNote": "Official exam PDF p4: supplied equation sheet. Calculator permitted; open-book status unconfirmed.",
   "recap": {
+    "takeaways": ["Separate selectivity, open probability and unitary current when interpreting channel data.", "Voltage sensors control gating, while the pore and its filter govern ion permeation.", "Compare time-matched control and drug traces before inferring block. Clinical applications remain provisional exam scope."],
     "intro": "Revision reference. Part-2 application exam scope remains provisional.",
     "terms": [
       {
-        "term": "Pumps, carriers and channels",
-        "definition": "Pumps convert ATP, light or other energy into gradients."
+        "term": "Filter",
+        "definition": "Carbonyl coordination compensates for potassium dehydration."
       },
       {
-        "term": "Channelome and cellular functions",
-        "definition": "The entire membrane channel set includes organelle membranes."
+        "term": "Activation and recovery",
+        "definition": "A recovered channel can open. An inactivated channel must first recover."
       },
       {
-        "term": "Expression, gating and trafficking",
-        "definition": "Ion channels are aqueous membrane pores."
+        "term": "Voltage sensor",
+        "definition": "Movement of positive S4 charges couples depolarization to pore opening."
       },
       {
-        "term": "KcsA architecture and intracellular pH gate",
-        "definition": "Four two-helix subunits surround one pore."
+        "term": "Unitary and ensemble current",
+        "definition": "Current per open channel, channel number and open probability are separate."
       },
       {
-        "term": "Follow potassium through the pore",
-        "definition": "Pore-helix charge attracts potassium into the aqueous cavity."
+        "term": "State-dependent block",
+        "definition": "Open and inactivated sodium channels favor lidocaine binding."
       },
       {
-        "term": "Selectivity filter, binding sites and exclusion",
-        "definition": "The source pore is about $4.5\\,\\mathrm{nm}$ long; its filter about $1.2\\,\\mathrm{nm}$."
-      },
-      {
-        "term": "Size, charge, hydration and throughput",
-        "definition": "Higher charge and smaller size generally strengthen hydration."
-      },
-      {
-        "term": "Gating, inactivation and concentration economy",
-        "definition": "Activation and deactivation connect closed and open states."
-      },
-      {
-        "term": "Stochastic single-channel and ensemble currents",
-        "definition": "The sodium records show transient inward openings; the potassium records show delayed outward openings."
-      },
-      {
-        "term": "Pore-forming and auxiliary subunits",
-        "definition": "Classification criteria answer different questions."
-      },
-      {
-        "term": "Pore duplication and voltage-sensor additions",
-        "definition": "Two-helix pore modules are the schematic starting point."
-      },
-      {
-        "term": "Ligand-binding and other channel lineages",
-        "definition": "The source schematic adds glutamate binding to a channel lineage."
-      },
-      {
-        "term": "Structural family reference",
-        "definition": "One-helix M2 proton channels differ from two-helix examples such as MscL and amiloride-sensitive channels."
-      },
-      {
-        "term": "Voltage, ligand, mechanical and multimodal gating",
-        "definition": "Voltage, ligand and mechanical signals alter opening."
-      },
-      {
-        "term": "Voltage-gated cation channel organization",
-        "definition": "Bacterial sodium/calcium channels can assemble four identical subunits."
-      },
-      {
-        "term": "Voltage sensor versus pore domain",
-        "definition": "Four sensor domains surround the potassium pore."
-      },
-      {
-        "term": "Sodium subtypes and auxiliary functions",
-        "definition": "The source adult sensory list includes NaV1.1, NaV1.6, NaV1.7, NaV1.8 and NaV1.9."
-      },
-      {
-        "term": "Delayed rectifier, A-type and M-type currents",
-        "definition": "Potassium channels form homo- or heterotetramers."
-      },
-      {
-        "term": "TRP architecture and multimodal sensing",
-        "definition": "The source lists temperature, pain, taste, mechanical and visual sensory roles."
-      },
-      {
-        "term": "Thermal TRP examples and chemical activation",
-        "definition": "The source diagram spans cold through noxious heat with different TRP members."
-      },
-      {
-        "term": "Extracellular ligands and nicotinic receptors",
-        "definition": "The source transmitter examples include acetylcholine, serotonin, glutamate, glycine and GABA."
-      },
-      {
-        "term": "Channelopathy: altered function and ENaC",
-        "definition": "Changes can affect gating, conductance, selectivity, abundance or signaling."
-      },
-      {
-        "term": "Toxin mechanisms: block, activate and alter gating",
-        "definition": "TTX blocks sodium channels from outside; batrachotoxin slows inactivation and shifts activation."
-      },
-      {
-        "term": "TTX sensitivity and propagation failure",
-        "definition": "The source contrasts low-concentration-sensitive NaV1.1–1.4,1.6,1.7 with relatively resistant NaV1.5,1.8,1.9."
-      },
-      {
-        "term": "Direct modulation versus compensation",
-        "definition": "Direct treatment should oppose the measured functional defect."
-      },
-      {
-        "term": "Sodium-channel loss and gain in pain",
-        "definition": "NaV1.7,1.8,1.9 are linked to pain pathways."
-      },
-      {
-        "term": "State-dependent blockade and cardiac context",
-        "definition": "State dependence links drug effects to membrane activity."
-      },
-      {
-        "term": "Hyperexcitability and hypersynchronization",
-        "definition": "The source illustrates repetitive abnormal discharges against a normal action potential."
-      },
-      {
-        "term": "Impaired inactivation and persistent sodium current",
-        "definition": "The source lists sodium, potassium, calcium and TRP channel associations."
-      },
-      {
-        "term": "Potassium modulation and excitability",
-        "definition": "Block can slow repolarization and change firing."
-      },
-      {
-        "term": "hERG hazard and atrial-target contrast",
-        "definition": "The source pairs hERG inhibition with reduced repolarizing potassium current."
-      },
-      {
-        "term": "Distinct channel defects converge on long QT",
-        "definition": "LQT1: KV7.1 loss; LQT2: hERG loss; LQT3: sodium gain."
-      },
-      {
-        "term": "Read hERG tail currents and inhibition curves",
-        "definition": "Identify voltage control and measured membrane current."
+        "term": "hERG tail current",
+        "definition": "Measure the same tail feature using a time-matched, drug-free control."
       }
     ],
     "equations": [
@@ -12620,4 +11387,6 @@ const content={
   }
 };
 content.formulaReference=equationSheet;
+// Older builds also offered these questions in the regular practice bank.
+content.retiredPracticeIds = content.mockExams.flatMap((exam) => exam.questions.map((question) => question.id));
 export default content;

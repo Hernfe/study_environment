@@ -1,8 +1,10 @@
-import { renderSectionPractice } from './extraPractice.js';
+import { isExtraPractice, renderSectionPractice } from './extraPractice.js';
 // Renders one lecture content object (see docs/CONTENT_SCHEMA.md) into
 // the shell. Contains no lecture-specific text.
 
 import { el, paragraphs, formatDate, daysUntil } from './dom.js';
+import { renderRelevantVideo } from './relevantVideo.js';
+import { standardPracticeQuestions } from './standardPractice.js';
 import { renderVisual, renderVideo } from './visuals.js';
 import { renderTex, typesetInline, watchMath } from './math.js';
 import { renderConceptQuiz } from './conceptQuiz.js';
@@ -238,11 +240,17 @@ const BLOCKS = {
     el('p', { class: 'block-wrong' }, [el('span', { class: 'block-tag' }, 'Not this: '), b.wrong]),
     el('p', { class: 'block-right' }, [el('span', { class: 'block-tag' }, 'But this: '), b.right]),
   ]),
-  detail: (b) => el('details', { class: 'block block-detail' }, [
-    el('summary', {}, [el('span', { class: 'block-kicker' }, KICKERS.detail), el('span', { class: 'block-title' }, b.title || 'More')]),
-    el('div', { class: 'block-body' }, b.blocks ? renderBlocks(b.blocks) : paragraphs(b.body)),
-  ]),
+  relevantVideo: renderRelevantVideo,
+  optionalInfo: (b) => renderDetail(b, 'Optional info', 'Extra detail'),
+  detail: (b) => renderDetail(b, KICKERS.detail, 'More'),
 };
+
+function renderDetail(b, kicker, defaultTitle) {
+  return el('details', { class: 'block block-detail' }, [
+    el('summary', {}, [el('span', { class: 'block-kicker' }, kicker), el('span', { class: 'block-title' }, b.title || defaultTitle)]),
+    el('div', { class: 'block-body' }, b.blocks ? renderBlocks(b.blocks) : paragraphs(b.body)),
+  ]);
+}
 
 // Two-up rule (docs/DESIGN.md, Layout): two neighbouring blocks share a
 // row only when they are the same type, both short, and of similar
@@ -288,13 +296,27 @@ export function renderBlocks(blocks = []) {
   return out;
 }
 
-function renderSection(section, lectureId, questions = []) {
+function renderSection(section, lectureId, questions, policy, collapseFormulaExplorers) {
+  const mcOnly = policy === 'mc-only';
+  const conceptQuiz = standardPracticeQuestions(section.conceptQuiz, policy, { inline: true });
+  const bestGuess = currentCourse() === 'nbe-e4120';
+  const inline = (items) => renderConceptQuiz(items, {
+    lectureId, sectionTitle: section.title, bestGuess, showAllFeedback: mcOnly,
+  });
+  const practice = () => renderSectionPractice(
+    questions.filter((q) => q.sectionId === section.id),
+    (q) => renderQuestion(q, { lectureId }),
+    mcOnly ? conceptQuiz.filter(isExtraPractice) : [],
+    inline,
+  );
+  const coreInline = mcOnly ? conceptQuiz.filter((q) => !isExtraPractice(q)) : conceptQuiz;
   if (section.mode === 'questions-only') {
     return el('section', { class: 'section questions-only', id: section.id, 'aria-labelledby': `${section.id}-title` }, [
       el('h2', { id: `${section.id}-title` }, section.title),
-      section.figure ? renderQuestion(section.figure, { lectureId, recordResult: false }) : null,
-      renderConceptQuiz(section.conceptQuiz, { lectureId, sectionTitle: section.title, showAllFeedback: true }),
-      section.calculation ? renderQuestion(section.calculation, { lectureId, recordResult: false }) : null,
+      !mcOnly && section.figure ? renderQuestion(section.figure, { lectureId, recordResult: false }) : null,
+      renderConceptQuiz(coreInline, { lectureId, sectionTitle: section.title, showAllFeedback: true }),
+      !mcOnly && section.calculation ? renderQuestion(section.calculation, { lectureId, recordResult: false }) : null,
+      ...(mcOnly ? practice() : []),
     ]);
   }
   const body = el('div', { class: 'concept-body' }, [
@@ -303,24 +325,29 @@ function renderSection(section, lectureId, questions = []) {
   ]);
   typesetInline(body);
   markKeyTerms(body, section.keyTerms);
-  const bestGuess = currentCourse() === 'nbe-e4120';
   const drills = [];
-  const formulas = (section.formulas || []).map((formula) => renderFormula(formula, bestGuess ? { drills } : undefined));
+  const formulas = (section.formulas || []).map((formula) => renderFormula(formula, { drills: bestGuess ? drills : undefined, includeDrill: !mcOnly }));
   return el('section', { class: 'section', id: section.id, 'aria-labelledby': `${section.id}-title` }, [
     el('h2', { id: `${section.id}-title` }, section.title),
     body,
     section.visual ? renderVisual(section.visual) : null,
-    ...formulas,
-    renderConceptQuiz(section.conceptQuiz, { lectureId, sectionTitle: section.title, bestGuess }),
+    ...(formulas.length && collapseFormulaExplorers
+      ? [el('details', { class: 'reveal' }, [
+          el('summary', {}, 'Formula explorers'),
+          el('div', { class: 'reveal-body' }, formulas),
+        ])]
+      : formulas),
+    inline(coreInline),
     ...drills,
-    ...renderSectionPractice(questions.filter((q) => q.sectionId === section.id), (q) => renderQuestion(q, { lectureId })),
+    ...practice(),
   ]);
 }
 
 function renderRecap(recap) {
   if (!recap) return null;
-  return el('section', { class: 'recap', id: 'recap', 'aria-labelledby': 'recap-title' }, [
-    el('h2', { id: 'recap-title' }, 'Recap card'),
+  const hasReference = recap.intro || recap.terms?.length || recap.equations?.length
+    || recap.constants?.length || recap.conventions;
+  const reference = [
     el('p', { class: 'muted' }, recap.intro || 'Key terms and equations, ready to copy onto the cheat sheet.'),
     recap.terms?.length
       ? el('dl', {}, recap.terms.flatMap((t) => [el('dt', {}, t.term), el('dd', {}, t.definition)]))
@@ -339,12 +366,23 @@ function renderRecap(recap) {
       : null,
     ...(recap.constants || []).map((c) => el('div', {}, [el('p', {}, c.name), renderTex(c.tex, { display: true })])),
     recap.conventions ? paragraphs(recap.conventions) : null,
+  ];
+  return el('section', { class: 'recap', id: 'recap', 'aria-labelledby': 'recap-title' }, [
+    el('h2', { id: 'recap-title' }, 'Recap card'),
+    ...(recap.takeaways?.length ? [
+      el('ul', {}, recap.takeaways.map((point) => el('li', {}, point))),
+      hasReference ? el('details', { class: 'reveal' }, [el('summary', {}, 'Detailed recap reference'), ...reference]) : null,
+    ] : reference),
   ]);
 }
 
 // Entry point. root is the element inside the shell that receives the page.
 export function renderLecture(content, root) {
   const lectureId = content.meta.id;
+  const questions = standardPracticeQuestions(content.lectureQuiz, content.standardPractice);
+  const overviewHeadingId = content.sections.some((section) => section.id === 'overview')
+    ? 'concept-map-title'
+    : 'overview-title';
   document.title = `L${content.meta.number} ${content.meta.title} | ${courseInfo()?.code || 'Course'} study`;
 
   const toc = renderToc(content);
@@ -352,16 +390,21 @@ export function renderLecture(content, root) {
     renderSiteNav(`Lecture ${content.meta.number}`),
     renderHeader(content.meta),
     storageAvailable() ? null : el('p', { class: 'notice' }, 'Storage is unavailable in this browser, so quiz results will not be remembered.'),
-    renderObjectives(content.objectives),
+    content.overview ? el('section', { class: 'objectives', 'aria-labelledby': overviewHeadingId }, [
+      el('h2', { id: overviewHeadingId }, content.recap?.takeaways ? 'What you must be able to do' : 'One-minute concept map'),
+      el('p', { class: 'muted' }, content.overview.estimate),
+      el('ul', {}, content.objectives.map((objective) => el('li', {}, objective))),
+      content.recap?.takeaways ? null : paragraphs([content.overview.equations, content.overview.pitfalls]),
+    ]) : renderObjectives(content.objectives),
     renderPrerequisites(content.prerequisites),
     renderFormulaReference(content.formulaReference, content.formulaReferenceNote),
     el('div', { class: 'toc-inline' }, [toc.cloneNode(true)]),
     ...content.sections.flatMap((section) => [
       section.part ? renderPartHeader(section.part) : null,
-      renderSection(section, lectureId, content.segmentedPractice ? content.lectureQuiz : []),
+      renderSection(section, lectureId, content.segmentedPractice ? questions : [], content.standardPractice, content.collapseFormulaExplorers),
     ]),
     renderRecap(content.recap),
-    content.segmentedPractice ? el('section', { id: 'lecture-quiz' }, [el('h2', {}, 'Lecture practice'), el('p', {}, 'Practice is grouped by difficulty within each segment above. Results also enter course review.')]) : renderLectureQuiz(content.lectureQuiz || [], { lectureId }),
+    content.segmentedPractice ? el('section', { id: 'lecture-quiz' }, [el('h2', {}, 'Lecture practice'), el('p', {}, 'Practice is grouped by difficulty within each segment above. Results also enter course review.')]) : renderLectureQuiz(questions, { lectureId }),
     content.mockExams ? renderMockExams(content.mockExams, { lectureId, reference: content.formulaReference?.map((eq) => `$${eq}$`) }) : null,
     renderCredits(),
   ]);
@@ -369,6 +412,14 @@ export function renderLecture(content, root) {
   root.className = 'page has-toc';
   root.replaceChildren(toc, inner);
   typesetInline(root);
+  if (content.collapseFormulaExplorers && location.hash) {
+    const target = document.getElementById(location.hash.slice(1));
+    if (target && inner.contains(target)) {
+      const disclosure = target.closest('details');
+      if (disclosure) disclosure.open = true;
+      target.scrollIntoView();
+    }
+  }
   watchMath(root);
   trackCurrentSection(toc);
 }

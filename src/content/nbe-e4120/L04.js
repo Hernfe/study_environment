@@ -11,11 +11,16 @@ const content = {
     "examDate": "2026-11-30",
     "examLabel": "Final exam"
   },
+  "overview": {
+    "estimate": "Core route: read the main sections and answer 20 core questions. Formula explorers, videos, extra practice and mocks are optional.",
+    "equations": "Start with $\\lambda=\\sqrt{r_m/r_i}$, $\\tau_m=R_mC_m$, $\\theta=2\\lambda/\\tau_m$, and $V(x)=V_0e^{-|x|/\\lambda}$ for steady spread in an infinite cable.",
+    "pitfalls": "Use voltage relative to rest. A sealed tip has zero distal axial current, and a shorted tip has zero distal voltage increment."
+  },
   "objectives": [
-    "Calculate characteristic passive speed and normalized cable coordinates.",
-    "Choose and verify steady profiles with explicit endpoint and current conventions.",
-    "Explain and test temporal/spatial summation with source recording diagrams.",
-    "Evaluate a restricted extracellular return path without confusing resistivity with geometry."
+    "Use length and time constants to predict passive spread.",
+    "Choose the steady profile from the geometry and terminal load.",
+    "Explain how dendrites combine inputs across space and time.",
+    "Use electrotonic length to assess voltage uniformity."
   ],
   "prerequisites": [
     {
@@ -30,10 +35,12 @@ const content = {
     }
   ],
   "segmentedPractice": true,
+  "standardPractice": "mc-only",
+  "collapseFormulaExplorers": true,
   "sections": [
     {
       "id": "overview",
-      "title": "Overview: speed, boundaries and integration",
+      "title": "Passive voltage spread",
       "keyTerms": [
         "passive"
       ],
@@ -41,7 +48,9 @@ const content = {
       "blocks": [
         {
           "type": "text",
-          "body": ["Passive signals spread, attenuate and broaden because the cable stores charge and loses current through membrane leak. This lecture adds a characteristic propagation scale, finite terminal loads and summation of inputs (PDF pages 1–2). Choose the cable geometry and stimulus before selecting an attenuation formula.", "Use $V=V_m-V_{rest}$ throughout: zero response means rest. Positive supplied current depolarizes, while positive ionic membrane current is outward. Passive theory describes graded responses with constant membrane parameters; a regenerated spike needs an active mechanism."]
+          "body": [
+            "Use the signed voltage increment $V=V_m-V_{\\rm rest}$. Passive spread attenuates and broadens because current charges the membrane and leaks across it. The linear model uses constant cable parameters."
+          ]
         },
         {
           "type": "figure",
@@ -91,6 +100,7 @@ const content = {
         },
         {
           "id": "L04-overview-starter",
+          "practice": "extra",
           "type": "mc",
           "difficulty": "easy",
           "progressionAdded": true,
@@ -127,32 +137,32 @@ const content = {
     },
     {
       "id": "speed",
-      "title": "A characteristic passive-wave velocity",
+      "title": "Characteristic passive speed",
       "keyTerms": [
         "characteristic speed"
       ],
       "source": "L04 PDF 2",
       "blocks": [
         {
-          "type": "text",
-          "body": ["The slide tracks when each position reaches half of its own steady response. Its characteristic speed is $\\theta=2\\lambda/\\tau_m$: a longer spatial reach or shorter charging time increases this scale (PDF page 2). The explorers below give the speed and the taught affine contour position.", "This is an approximation to passive spread, not an all-times sharp wavefront or an action-potential velocity. Do not extrapolate the contour’s negative time-zero position as a physical front. Convert length and time to compatible units before evaluating either relation."]
+          "type": "math",
+          "items": [
+            {
+              "tex": "\\theta=2\\lambda/\\tau_m"
+            }
+          ],
+          "note": "The half-rise criterion compares voltage at each site with its own steady value. Larger $\\lambda$ increases spread and smaller $\\tau_m$ speeds charging. This scale describes passive spread."
         },
         {
-          "type": "figure",
-          "visual": {
-            "type": "widget",
-            "name": "image-hotspots",
-            "caption": "Lecture 4, PDF page 2 (printed slide 3). Passive response travels along a neuronal branch, becoming smaller and broader.",
-            "fallbackAlt": "Passive response travels along a neuronal branch, becoming smaller and broader.",
-            "props": {
-              "src": new URL('../../assets/figures/nbe-e4120/L04/wave.webp', import.meta.url).href,
-              "alt": "Passive response travels along a neuronal branch, becoming smaller and broader.",
-              "aspect": 4.530612244897959,
-              "quiz": false,
-              "layout": "stack",
-              "regions": []
+          "type": "detail",
+          "title": "Half-rise contour",
+          "blocks": [
+            {
+              "type": "text",
+              "body": [
+                "The taught approximation is $x(t)=\\theta t-\\lambda/2$. Passive diffusion has no sharp front. Use the contour in its stated regime and avoid extrapolating to time zero."
+              ]
             }
-          }
+          ]
         }
       ],
       "formulas": [
@@ -285,6 +295,7 @@ const content = {
       "conceptQuiz": [
         {
           "id": "L04-speed-check",
+          "practice": "extra",
           "prompt": "Which timescale enters the passive speed relation?",
           "correct": 1,
           "options": [
@@ -311,6 +322,7 @@ const content = {
         },
         {
           "id": "L04-speed-starter",
+          "practice": "extra",
           "type": "mc",
           "difficulty": "easy",
           "progressionAdded": true,
@@ -347,7 +359,7 @@ const content = {
     },
     {
       "id": "scaling",
-      "title": "Geometry changes spread and input resistance",
+      "title": "Diameter, spread and charging",
       "keyTerms": [
         "radius",
         "diameter"
@@ -355,25 +367,36 @@ const content = {
       "source": "L04 PDF 3",
       "blocks": [
         {
-          "type": "text",
-          "body": ["At fixed specific membrane resistance $R_m$, axial resistivity $R_i$ and specific capacitance $C_m$, length constant and characteristic speed scale with the square root of radius or diameter. The local time constant $\\tau_m=R_mC_m$ is unchanged by diameter (PDF page 3; Exercise 4 problem 2).", "For absolute values, first halve diameter to obtain radius and convert all specific parameters consistently. Use the explorers below for the length and time scales. A larger diameter improves spatial reach but lowers input resistance, which scales as radius to the power $-3/2$ for the same arm geometry."]
+          "type": "math",
+          "items": [
+            {
+              "tex": "\\lambda=\\sqrt{\\frac{R_m a}{2R_i}},\\qquad \\tau_m=R_m C_m"
+            }
+          ],
+          "note": "For a uniform cylinder with negligible extracellular resistance, use radius $a=d/2$, specific membrane resistance $R_m$, specific capacitance $C_m$ and axial resistivity $R_i$. At fixed material properties, quadrupling diameter doubles $\\lambda$ and $\\theta$, while $\\tau_m$ is unchanged."
         },
         {
-          "type": "figure",
-          "visual": {
-            "type": "widget",
-            "name": "image-hotspots",
-            "caption": "Lecture 4, PDF page 3 (printed slide 4). Two recording positions along the same cable have different response amplitudes and widths.",
-            "fallbackAlt": "Two recording positions along the same cable have different response amplitudes and widths.",
-            "props": {
-              "src": new URL('../../assets/figures/nbe-e4120/L04/speed.webp', import.meta.url).href,
-              "alt": "Two recording positions along the same cable have different response amplitudes and widths.",
-              "aspect": 1.7556270096463023,
-              "quiz": false,
-              "layout": "stack",
-              "regions": []
+          "type": "detail",
+          "title": "Comparing waveforms at two sites",
+          "blocks": [
+            {
+              "type": "figure",
+              "visual": {
+                "type": "widget",
+                "name": "image-hotspots",
+                "caption": "Lecture 4, PDF page 3 (printed slide 4). Two recording positions along the same cable have different response amplitudes and widths.",
+                "fallbackAlt": "Two recording positions along the same cable have different response amplitudes and widths.",
+                "props": {
+                  "src": new URL('../../assets/figures/nbe-e4120/L04/speed.webp', import.meta.url).href,
+                  "alt": "Two recording positions along the same cable have different response amplitudes and widths.",
+                  "aspect": 1.7556270096463023,
+                  "quiz": false,
+                  "layout": "stack",
+                  "regions": []
+                }
+              }
             }
-          }
+          ]
         }
       ],
       "formulas": [
@@ -597,6 +620,7 @@ const content = {
         },
         {
           "id": "L04-scaling-starter",
+          "practice": "extra",
           "type": "mc",
           "difficulty": "easy",
           "progressionAdded": true,
@@ -633,7 +657,7 @@ const content = {
     },
     {
       "id": "boundaries",
-      "title": "Choose the geometry and stimulus first",
+      "title": "Choose geometry and stimulus",
       "keyTerms": [
         "steady",
         "transient"
@@ -642,7 +666,10 @@ const content = {
       "blocks": [
         {
           "type": "text",
-          "body": ["A steady input maintained long enough gives a time-independent voltage profile. Short steps and physiological time-varying inputs require a transient solution. Infinite point injection drives two cable arms; end injection into a semi-infinite cable drives one. A finite segment additionally needs a terminal condition (PDF page 4).", "Specify current, imposed voltage or conductance change, along with the observation site and membrane parameters. The same current need not produce the same origin voltage in different geometries. Branching is mentioned here; its equivalent-cylinder construction belongs to the next lecture."]
+          "body": [
+            "First locate the drive. Central injection into an infinite cable feeds two arms. End injection into a semi-infinite cable feeds one. A finite cable also needs a distal boundary condition.",
+            "Then choose a time regime. Use steady profiles after a constant drive settles. A pulse or time-varying synaptic input calls for the transient cable equation. A current source sets current, a voltage clamp sets voltage, and a conductance change alters the local current–voltage relation."
+          ]
         },
         {
           "type": "figure",
@@ -728,32 +755,43 @@ const content = {
     },
     {
       "id": "coordinates",
-      "title": "Normalize position, total length and time",
+      "title": "Normalize distance and time",
       "keyTerms": [
         "endpoint"
       ],
       "source": "L04 PDF 5",
       "blocks": [
         {
-          "type": "text",
-          "body": ["Normalize position with $X=x/\\lambda$, total physical length with $L=\\ell/\\lambda$ and time with $T=t/\\tau_m$. All three ratios are dimensionless; at the endpoint $X=L$ (PDF page 5). Convert numerator and denominator to the same units before division.", "These substitutions remove the dimensional scale factors from the cable equation. Compare normalized solutions only with corresponding stimuli and boundary conditions. A larger length constant makes the same physical segment electrotonically shorter. The slide calls $L\\geq2$ long, but ignoring a terminal still depends on recording position and required accuracy."]
+          "type": "math",
+          "items": [
+            {
+              "tex": "X=x/\\lambda,\\qquad L=\\ell/\\lambda,\\qquad T=t/\\tau_m"
+            }
+          ],
+          "note": "$x$ is position, $\\ell$ is total cable length and $t$ is elapsed time. All three ratios are dimensionless. At the distal end $X=L$. The normalized source-free equation is $\\partial_X^2 V=\\partial_T V+V$."
         },
         {
-          "type": "figure",
-          "visual": {
-            "type": "widget",
-            "name": "image-hotspots",
-            "caption": "Lecture 4, PDF page 5 (printed slide 6). The dimensional cable equation is rewritten with electrotonic distance and time.",
-            "fallbackAlt": "The dimensional cable equation is rewritten with electrotonic distance and time.",
-            "props": {
-              "src": new URL('../../assets/figures/nbe-e4120/L04/normalized.webp', import.meta.url).href,
-              "alt": "The dimensional cable equation is rewritten with electrotonic distance and time.",
-              "aspect": 1.3026315789473684,
-              "quiz": false,
-              "layout": "stack",
-              "regions": []
+          "type": "detail",
+          "title": "Slide normalization",
+          "blocks": [
+            {
+              "type": "figure",
+              "visual": {
+                "type": "widget",
+                "name": "image-hotspots",
+                "caption": "Lecture 4, PDF page 5 (printed slide 6). The dimensional cable equation is rewritten with electrotonic distance and time.",
+                "fallbackAlt": "The dimensional cable equation is rewritten with electrotonic distance and time.",
+                "props": {
+                  "src": new URL('../../assets/figures/nbe-e4120/L04/normalized.webp', import.meta.url).href,
+                  "alt": "The dimensional cable equation is rewritten with electrotonic distance and time.",
+                  "aspect": 1.3026315789473684,
+                  "quiz": false,
+                  "layout": "stack",
+                  "regions": []
+                }
+              }
             }
-          }
+          ]
         }
       ],
       "formulas": [
@@ -964,6 +1002,7 @@ const content = {
         },
         {
           "id": "L04-coordinates-starter",
+          "practice": "extra",
           "type": "mc",
           "difficulty": "easy",
           "progressionAdded": true,
@@ -1000,15 +1039,20 @@ const content = {
     },
     {
       "id": "infinite",
-      "title": "Steady response to localized injection",
+      "title": "Infinite cable profile",
       "keyTerms": [
         "symmetric"
       ],
       "source": "L04 PDF 6",
       "blocks": [
         {
-          "type": "text",
-          "body": ["Localized current injection into an infinite uniform cable divides between two identical arms. At steady state the signed increment is symmetric about the source and decays exponentially with absolute distance, tending to zero far away (PDF page 6). Use $|x|$ on either side of the electrode.", "The source amplitude includes the two-arm factor of one half, as shown in the explorer. A negative injected current gives negative increments on both sides; add the resting baseline only when asked for absolute membrane voltage. The repeated error-function transient is reference material, not a new manual-integration task."]
+          "type": "math",
+          "items": [
+            {
+              "tex": "V(x)=V_0 e^{-|x|/\\lambda},\\qquad V_0=I_0r_i\\lambda/2"
+            }
+          ],
+          "note": "For a steady point current $I_0$ at the center of a uniform infinite cable, $r_i$ is axial resistance per length. Equal distances on opposite sides give equal signed increments. One length constant leaves about 37% of the origin increment."
         },
         {
           "type": "figure",
@@ -1131,6 +1175,7 @@ const content = {
         },
         {
           "id": "L04-infinite-starter",
+          "practice": "extra",
           "type": "mc",
           "difficulty": "easy",
           "progressionAdded": true,
@@ -1167,15 +1212,20 @@ const content = {
     },
     {
       "id": "input",
-      "title": "Infinite and semi-infinite input resistance",
+      "title": "One arm versus two",
       "keyTerms": [
         "Input resistance"
       ],
       "source": "L04 PDF 7",
       "blocks": [
         {
-          "type": "text",
-          "body": ["Input resistance is the steady voltage increment at the injection site divided by total injected current. The infinite cable drives two identical arms in parallel; the end-driven semi-infinite cable drives one. Therefore $R_{in,\\infty}=r_i\\lambda/2$ and $R_{in,semi}=r_i\\lambda$ (PDF page 7).", "Here $r_i$ is resistance per length, so multiplying by $\\lambda$ gives ohms. Measure voltage where current enters, not remotely. At fixed material properties and arm geometry, input resistance scales as radius to the power $-3/2$. A larger cable can spread voltage farther while giving a smaller source increment at fixed current."]
+          "type": "math",
+          "items": [
+            {
+              "tex": "R_{\\rm semi}=r_i\\lambda,\\qquad R_{\\rm inf}=r_i\\lambda/2"
+            }
+          ],
+          "note": "Steady input resistance is the origin increment divided by injected current. The two identical arms of the infinite cable act in parallel. At fixed material properties and arm geometry, $r_i\\propto d^{-2}$ gives $R_{\\rm in}\\propto d^{-3/2}$."
         },
         {
           "type": "figure",
@@ -1386,6 +1436,7 @@ const content = {
       "conceptQuiz": [
         {
           "id": "L04-input-check",
+          "practice": "extra",
           "prompt": "Why is semi-infinite input resistance higher?",
           "correct": 0,
           "options": [
@@ -1412,6 +1463,7 @@ const content = {
         },
         {
           "id": "L04-input-starter",
+          "practice": "extra",
           "type": "mc",
           "difficulty": "easy",
           "progressionAdded": true,
@@ -1448,7 +1500,7 @@ const content = {
     },
     {
       "id": "attenuation",
-      "title": "Read attenuation under matched origin voltage",
+      "title": "Compare steady profiles",
       "keyTerms": [
         "endpoint load"
       ],
@@ -1456,7 +1508,9 @@ const content = {
       "blocks": [
         {
           "type": "text",
-          "body": ["An infinite or matched continuation has normalized profile $e^{-X}$. A finite cable also depends on electrotonic length and terminal load. The source graph holds origin voltage fixed: a sealed end retains more of a positive increment than a matched continuation, while an open short circuit retains less (PDF page 8).", "Compare curves at the same interior position. Finite curves stop at their endpoint; continuation of the infinite curve does not extend the finite dendrite. Equal origin voltages isolate attenuation. Equal injected currents also involve input resistance, so that comparison needs additional information."]
+          "body": [
+            "The graph fixes the same positive origin increment $V_0$. The sealed cable retains the most voltage, the shorted cable the least, and the exponential lies between them at interior positions. Equal injected currents can produce different origin voltages."
+          ]
         },
         {
           "type": "figure",
@@ -1480,6 +1534,7 @@ const content = {
       "conceptQuiz": [
         {
           "id": "L04-attenuation-check",
+          "practice": "extra",
           "prompt": "What must be held equal when comparing the plotted normalized profiles?",
           "correct": 1,
           "options": [
@@ -1506,6 +1561,7 @@ const content = {
         },
         {
           "id": "L04-attenuation-starter",
+          "practice": "extra",
           "type": "mc",
           "difficulty": "easy",
           "progressionAdded": true,
@@ -1542,7 +1598,7 @@ const content = {
     },
     {
       "id": "ends",
-      "title": "Open end means short circuit; sealed means no axial flow",
+      "title": "Terminal boundary conditions",
       "keyTerms": [
         "sealed end",
         "open cable end"
@@ -1551,7 +1607,9 @@ const content = {
       "blocks": [
         {
           "type": "text",
-          "body": ["An open cable end is electrically short-circuited to rest: $V(L)=0$, and axial current can escape. A sealed end is an electrical open circuit: no axial current leaves, so the voltage slope is zero. A finite terminal conductance lies between these idealizations (PDF page 9).", "For normalized position, $\\partial_XV=-r_i\\lambda i_{axial}$. The slide omits the length factor; its zero-slope sealed condition still holds. State whether stimulation controls current, voltage or conductance. Holding one of these fixed does not hold the other two fixed."]
+          "body": [
+            "A sealed end is an open circuit. The axial current $i_{\\rm axial}$ sets the slope through $\\partial_X V=-r_i\\lambda i_{\\rm axial}$. At a seal both current and slope vanish. The terminal voltage can differ from rest. The slide’s “open end” means a short to rest, so $V(L)=0$ and terminal current can flow."
+          ]
         },
         {
           "type": "figure",
@@ -1601,6 +1659,7 @@ const content = {
         },
         {
           "id": "L04-ends-starter",
+          "practice": "extra",
           "type": "mc",
           "difficulty": "easy",
           "progressionAdded": true,
@@ -1637,7 +1696,7 @@ const content = {
     },
     {
       "id": "hyperbolic",
-      "title": "Steady solutions and hyperbolic functions",
+      "title": "Steady cable equation",
       "keyTerms": [
         "hyperbolic functions"
       ],
@@ -1645,30 +1704,51 @@ const content = {
       "blocks": [
         {
           "type": "text",
-          "body": ["At steady state the normalized cable equation becomes $\\partial_X^2V-V=0$. Both growing and decaying exponentials satisfy it; two boundary conditions fix their coefficients. Writing the solution with hyperbolic functions of $L-X$ makes the terminal conditions easy to inspect (PDF page 10).", "At the terminal, the cosine-hyperbolic coefficient is the endpoint voltage and the negative sine-hyperbolic coefficient is the endpoint derivative. Differentiate with the chain-rule minus sign. The slide’s parity typo must be corrected: $\\sinh(-X)=-\\sinh(X)$, whereas cosine hyperbolic is even. The exponential definitions justify these identities."]
+          "body": [
+            "On a source-free interval at steady state, $\\partial_T V=0$ and $\\partial_X^2 V=V$. The boundary conditions select the coefficients of the two independent solutions."
+          ]
         },
         {
-          "type": "figure",
-          "visual": {
-            "type": "widget",
-            "name": "image-hotspots",
-            "caption": "Lecture 4, PDF page 10 (printed slide 11). The exponential definitions of hyperbolic cosine and sine.",
-            "fallbackAlt": "The exponential definitions of hyperbolic cosine and sine.",
-            "props": {
-              "src": new URL('../../assets/figures/nbe-e4120/L04/hyperbolic.webp', import.meta.url).href,
-              "alt": "The exponential definitions of hyperbolic cosine and sine.",
-              "aspect": 2.0869565217391304,
-              "quiz": false,
-              "layout": "stack",
-              "regions": []
+          "type": "detail",
+          "title": "Hyperbolic form",
+          "blocks": [
+            {
+              "type": "text",
+              "body": [
+                "Write $V=C_1\\cosh(L-X)+C_2\\sinh(L-X)$. At the end $V(L)=C_1$ and $\\partial_X V(L)=-C_2$. Hyperbolic cosine is even and hyperbolic sine is odd."
+              ]
             }
-          }
+          ]
+        },
+        {
+          "type": "detail",
+          "title": "Hyperbolic definitions on the slide",
+          "blocks": [
+            {
+              "type": "figure",
+              "visual": {
+                "type": "widget",
+                "name": "image-hotspots",
+                "caption": "Lecture 4, PDF page 10 (printed slide 11). The exponential definitions of hyperbolic cosine and sine.",
+                "fallbackAlt": "The exponential definitions of hyperbolic cosine and sine.",
+                "props": {
+                  "src": new URL('../../assets/figures/nbe-e4120/L04/hyperbolic.webp', import.meta.url).href,
+                  "alt": "The exponential definitions of hyperbolic cosine and sine.",
+                  "aspect": 2.0869565217391304,
+                  "quiz": false,
+                  "layout": "stack",
+                  "regions": []
+                }
+              }
+            }
+          ]
         }
       ],
       "formulas": [],
       "conceptQuiz": [
         {
           "id": "L04-hyperbolic-check",
+          "practice": "extra",
           "prompt": "Which function is odd?",
           "correct": 1,
           "options": [
@@ -1695,6 +1775,7 @@ const content = {
         },
         {
           "id": "L04-hyperbolic-starter",
+          "practice": "extra",
           "type": "mc",
           "difficulty": "easy",
           "progressionAdded": true,
@@ -1731,32 +1812,43 @@ const content = {
     },
     {
       "id": "load",
-      "title": "Terminal conductance relative to a cable arm",
+      "title": "Compare the terminal load",
       "keyTerms": [
         "load ratio"
       ],
       "source": "L04 PDF 11",
       "blocks": [
         {
-          "type": "text",
-          "body": ["Let $G_\\infty$ be the input conductance of one semi-infinite continuation, the reciprocal of $r_i\\lambda$. The ratio $B_L=G_e/G_\\infty$ compares the actual terminal conductance with that continuation (PDF page 11). Both conductances must use the same units.", "A matched terminal has ratio one and reproduces exponential attenuation. Zero terminal conductance seals the end; very large conductance draws the endpoint toward rest. Use one cable arm for the reference conductance, rather than the doubled conductance of a two-sided injection site."]
+          "type": "math",
+          "items": [
+            {
+              "tex": "B_L=G_e/G_\\infty,\\qquad G_\\infty=1/(r_i\\lambda)"
+            }
+          ],
+          "note": "$G_e$ is the conductance of the terminal load to rest. $G_\\infty$ is the steady input conductance of one semi-infinite arm. A matched continuation has $B_L=1$. Branches present a combined downstream load."
         },
         {
-          "type": "figure",
-          "visual": {
-            "type": "widget",
-            "name": "image-hotspots",
-            "caption": "Lecture 4, PDF page 11 (printed slide 12). Three finite cable terminal-load diagrams, including sealed, open and arbitrary conductance.",
-            "fallbackAlt": "Three finite cable terminal-load diagrams, including sealed, open and arbitrary conductance.",
-            "props": {
-              "src": new URL('../../assets/figures/nbe-e4120/L04/loads.webp', import.meta.url).href,
-              "alt": "Three finite cable terminal-load diagrams, including sealed, open and arbitrary conductance.",
-              "aspect": 1.242603550295858,
-              "quiz": false,
-              "layout": "stack",
-              "regions": []
+          "type": "detail",
+          "title": "Termination diagrams",
+          "blocks": [
+            {
+              "type": "figure",
+              "visual": {
+                "type": "widget",
+                "name": "image-hotspots",
+                "caption": "Lecture 4, PDF page 11 (printed slide 12). Three finite cable terminal-load diagrams, including sealed, open and arbitrary conductance.",
+                "fallbackAlt": "Three finite cable terminal-load diagrams, including sealed, open and arbitrary conductance.",
+                "props": {
+                  "src": new URL('../../assets/figures/nbe-e4120/L04/loads.webp', import.meta.url).href,
+                  "alt": "Three finite cable terminal-load diagrams, including sealed, open and arbitrary conductance.",
+                  "aspect": 1.242603550295858,
+                  "quiz": false,
+                  "layout": "stack",
+                  "regions": []
+                }
+              }
             }
-          }
+          ]
         }
       ],
       "formulas": [
@@ -1908,6 +2000,7 @@ const content = {
         },
         {
           "id": "L04-load-starter",
+          "practice": "extra",
           "type": "mc",
           "difficulty": "easy",
           "progressionAdded": true,
@@ -1944,32 +2037,20 @@ const content = {
     },
     {
       "id": "finite",
-      "title": "The finite-cable load solution",
+      "title": "General finite profile",
       "keyTerms": [
         "origin increment"
       ],
       "source": "L04 PDF 11",
       "blocks": [
         {
-          "type": "text",
-          "body": ["The steady finite-cable expression below combines normalized recording position $X$, total length $L$ and terminal load ratio $B_L$. Its prefactor $V_0$ is the actual origin increment, not an arbitrary injected-current value (PDF pages 10–11). Normalize the physical lengths before substituting.", "Compute the numerator at $L-X$ and divide by the origin denominator at $L$. This guarantees the correct origin voltage. Holding $V_0$ fixed isolates attenuation; changing terminal load at fixed current also changes the source voltage. Compare the matched case with the exponential, then check the terminal condition."]
-        },
-        {
-          "type": "figure",
-          "visual": {
-            "type": "widget",
-            "name": "image-hotspots",
-            "caption": "Lecture 4, PDF page 9 (printed slide 10). Open, sealed and arbitrary-conductance terminal circuit diagrams.",
-            "fallbackAlt": "Open, sealed and arbitrary-conductance terminal circuit diagrams.",
-            "props": {
-              "src": new URL('../../assets/figures/nbe-e4120/L04/ends.webp', import.meta.url).href,
-              "alt": "Open, sealed and arbitrary-conductance terminal circuit diagrams.",
-              "aspect": 1.2510288065843622,
-              "quiz": false,
-              "layout": "stack",
-              "regions": []
+          "type": "math",
+          "items": [
+            {
+              "tex": "\\frac{V(X)}{V_0}=\\frac{\\cosh(L-X)+B_L\\sinh(L-X)}{\\cosh L+B_L\\sinh L}"
             }
-          }
+          ],
+          "note": "Use this on a uniform passive segment, from $0$ to $L$, after settling, with a known origin increment and a load to rest. For current drive, determine the origin increment using the actual input resistance."
         }
       ],
       "formulas": [
@@ -2077,6 +2158,7 @@ const content = {
         },
         {
           "id": "L04-finite-starter",
+          "practice": "extra",
           "type": "mc",
           "difficulty": "easy",
           "progressionAdded": true,
@@ -2113,32 +2195,39 @@ const content = {
     },
     {
       "id": "cases",
-      "title": "Sealed, matched and open endpoints",
+      "title": "Choose the attenuation formula",
       "keyTerms": [
         "sealed end"
       ],
       "source": "L04 PDF11",
       "blocks": [
         {
-          "type": "text",
-          "body": ["The general finite profile reduces to a cosine-hyperbolic ratio for a sealed end, an exponential for a matched continuation and a sine-hyperbolic ratio for an open short circuit. These correspond to load ratios zero, one and the infinite-load limit (PDF page 11). The explorers below retain each boundary scenario.", "At equal positive origin voltage, the sealed profile stays above the matched profile and the open profile lies below it. Sealed means zero terminal slope, not zero terminal voltage. The open terminal reaches rest. Compare only positions within the finite segment and state what is held fixed."]
-        },
-        {
-          "type": "figure",
-          "visual": {
-            "type": "widget",
-            "name": "image-hotspots",
-            "caption": "Lecture 4, PDF page 8 (printed slide 9). Original steady attenuation graph: sealed curve ends with zero slope, open curve reaches zero, infinite curve continues.",
-            "fallbackAlt": "Original steady attenuation graph: sealed curve ends with zero slope, open curve reaches zero, infinite curve continues.",
-            "props": {
-              "src": new URL('../../assets/figures/nbe-e4120/L04/profiles.webp', import.meta.url).href,
-              "alt": "Original steady attenuation graph: sealed curve ends with zero slope, open curve reaches zero, infinite curve continues.",
-              "aspect": 1.544904137235116,
-              "quiz": false,
-              "layout": "stack",
-              "regions": []
+          "type": "compare",
+          "title": "Steady attenuation",
+          "rowLabel": "Case",
+          "columns": [
+            "Voltage fraction and end condition"
+          ],
+          "rows": [
+            {
+              "label": "Infinite / matched",
+              "cells": [
+                "$e^{-|X|}$ on the infinite line. On one arm use $e^{-X}$. A matched load has $B_L=1$."
+              ]
+            },
+            {
+              "label": "Sealed",
+              "cells": [
+                "$\\cosh(L-X)/\\cosh L$ with $B_L=0$ and zero end current."
+              ]
+            },
+            {
+              "label": "Shorted",
+              "cells": [
+                "$\\sinh(L-X)/\\sinh L$ as $B_L\\to\\infty$, with the end held at rest."
+              ]
             }
-          }
+          ]
         }
       ],
       "formulas": [
@@ -2282,6 +2371,7 @@ const content = {
       "conceptQuiz": [
         {
           "id": "L04-cases-check",
+          "practice": "extra",
           "prompt": "Which endpoint forces voltage increment to zero?",
           "correct": 0,
           "options": [
@@ -2308,6 +2398,7 @@ const content = {
         },
         {
           "id": "L04-cases-starter",
+          "practice": "extra",
           "type": "mc",
           "difficulty": "easy",
           "progressionAdded": true,
@@ -2344,32 +2435,20 @@ const content = {
     },
     {
       "id": "endpoint",
-      "title": "When both endpoint voltages are specified",
+      "title": "Two prescribed voltages",
       "keyTerms": [
         "terminal conductance"
       ],
       "source": "L04 PDF 11",
       "blocks": [
         {
-          "type": "text",
-          "body": ["The two-endpoint expression below uses measured or imposed increments $V_0$ and $V_e$. Its sine-hyperbolic weights recover the respective endpoint voltages and determine the interior profile. Use the normalized total length and recording position, keeping both voltage signs (PDF page 11).", "This is a boundary-voltage representation. If terminal conductance is specified instead, the endpoint voltage must satisfy its axial-current condition and cannot be assigned independently. Oppositely signed imposed endpoints can give an interior zero crossing; a passive sealed cable driven only by a positive origin cannot have a negative terminal increment."]
-        },
-        {
-          "type": "figure",
-          "visual": {
-            "type": "widget",
-            "name": "image-hotspots",
-            "caption": "Lecture 4, PDF page 9 (printed slide 10). Open, sealed and arbitrary-conductance terminal circuit diagrams.",
-            "fallbackAlt": "Open, sealed and arbitrary-conductance terminal circuit diagrams.",
-            "props": {
-              "src": new URL('../../assets/figures/nbe-e4120/L04/ends.webp', import.meta.url).href,
-              "alt": "Open, sealed and arbitrary-conductance terminal circuit diagrams.",
-              "aspect": 1.2510288065843622,
-              "quiz": false,
-              "layout": "stack",
-              "regions": []
+          "type": "math",
+          "items": [
+            {
+              "tex": "V(X)=\\frac{V_0\\sinh(L-X)+V_e\\sinh X}{\\sinh L}"
             }
-          }
+          ],
+          "note": "Use when both endpoint increments are prescribed. A passive load to rest determines $V_e=V(L)$ through its current condition, so the load and end voltage must agree."
         }
       ],
       "formulas": [
@@ -2450,6 +2529,7 @@ const content = {
       "conceptQuiz": [
         {
           "id": "L04-endpoint-check",
+          "practice": "extra",
           "prompt": "Can endpoint voltage and terminal conductance be chosen independently?",
           "correct": 1,
           "options": [
@@ -2476,6 +2556,7 @@ const content = {
         },
         {
           "id": "L04-endpoint-starter",
+          "practice": "extra",
           "type": "mc",
           "difficulty": "easy",
           "progressionAdded": true,
@@ -2512,7 +2593,7 @@ const content = {
     },
     {
       "id": "summary",
-      "title": "Check limiting cases before trusting a profile",
+      "title": "Check the limits",
       "keyTerms": [
         "zero slope"
       ],
@@ -2520,30 +2601,16 @@ const content = {
       "blocks": [
         {
           "type": "text",
-          "body": ["Before trusting a steady profile, test the origin and terminal. At $X=0$ it must reproduce $V_0$. At an open endpoint it must reach zero increment; at a sealed endpoint its derivative must vanish. A matched load reproduces exponential attenuation (PDF page 12).", "A long sealed or open cable approaches the matched result at a fixed interior position far from the terminal. Moving the recording site with the endpoint is a different limit, because the local boundary remains nearby. The source curves compare fixed origin voltage, so they alone cannot predict responses to equal injected current."]
-        },
-        {
-          "type": "figure",
-          "visual": {
-            "type": "widget",
-            "name": "image-hotspots",
-            "caption": "Lecture 4, PDF page 8 (printed slide 9). Original steady attenuation graph: sealed curve ends with zero slope, open curve reaches zero, infinite curve continues.",
-            "fallbackAlt": "Original steady attenuation graph: sealed curve ends with zero slope, open curve reaches zero, infinite curve continues.",
-            "props": {
-              "src": new URL('../../assets/figures/nbe-e4120/L04/profiles.webp', import.meta.url).href,
-              "alt": "Original steady attenuation graph: sealed curve ends with zero slope, open curve reaches zero, infinite curve continues.",
-              "aspect": 1.544904137235116,
-              "quiz": false,
-              "layout": "stack",
-              "regions": []
-            }
-          }
+          "body": [
+            "Every profile returns $V_0$ at $X=0$. Apply the distal check at $X=L$ and stop evaluating the finite profile there. Increasing $L$ weakens the effect of the end at a fixed interior position."
+          ]
         }
       ],
       "formulas": [],
       "conceptQuiz": [
         {
           "id": "L04-summary-check",
+          "practice": "extra",
           "prompt": "What is the right check for a sealed terminal?",
           "correct": 0,
           "options": [
@@ -2570,6 +2637,7 @@ const content = {
         },
         {
           "id": "L04-summary-starter",
+          "practice": "extra",
           "type": "mc",
           "difficulty": "easy",
           "progressionAdded": true,
@@ -2606,7 +2674,7 @@ const content = {
     },
     {
       "id": "neuron",
-      "title": "Real dendrites have changing boundary loads",
+      "title": "Loads in a neuron",
       "keyTerms": [
         "conductance"
       ],
@@ -2614,7 +2682,9 @@ const content = {
       "blocks": [
         {
           "type": "text",
-          "body": ["An isolated dendritic tip is often approximated as sealed, a low-resistance somatic load as open, and a sufficiently long axonal path as nearly infinite. The source neuron maps these idealized boundaries onto different parts of one cell (PDF page 13). They are modelling approximations rather than exact anatomical labels.", "Synaptic activation increases local conductance and can change the voltage profile without changing geometry. Interpret such a change by considering the electrical load as well as distance. A brief input also requires a time-dependent analysis; a steady boundary sketch alone does not specify its delay or width."]
+          "body": [
+            "An insulated dendritic tip can approximate a seal. A low-resistance soma can draw axial current, and a long axon can approximate a continuation. Opening synaptic channels changes local conductance even when geometry stays fixed."
+          ]
         },
         {
           "type": "figure",
@@ -2638,6 +2708,7 @@ const content = {
       "conceptQuiz": [
         {
           "id": "L04-neuron-check",
+          "practice": "extra",
           "prompt": "What can a newly active synapse change locally?",
           "correct": 1,
           "options": [
@@ -2664,6 +2735,7 @@ const content = {
         },
         {
           "id": "L04-neuron-starter",
+          "practice": "extra",
           "type": "mc",
           "difficulty": "easy",
           "progressionAdded": true,
@@ -2700,7 +2772,7 @@ const content = {
     },
     {
       "id": "synapses",
-      "title": "Distributed weak inputs and low-pass filtering",
+      "title": "From spikes to graded input",
       "keyTerms": [
         "graded"
       ],
@@ -2708,30 +2780,39 @@ const content = {
       "blocks": [
         {
           "type": "text",
-          "body": ["Dendritic synapses are distributed over the membrane surface. The source contrasts presynaptic spike trains with graded postsynaptic signals: synaptic transmission filters the input, then dendritic cable properties further attenuate, delay, broaden and combine the responses (PDF page 14). These are successive transformations, not identical signals at every site.", "The weak-single-input example describes a typical situation, not a universal ban on a strong synapse reaching threshold. Distributed inputs can overlap at an integrating site. This section establishes passive processing; detailed synaptic kinetics and active dendritic mechanisms are outside this lecture."]
+          "body": [
+            "Synaptic transmission turns presynaptic spikes into graded postsynaptic responses. The dendrite adds low-pass filtering. Individual inputs are often small, and their combined response can reach spike threshold."
+          ]
         },
         {
-          "type": "figure",
-          "visual": {
-            "type": "widget",
-            "name": "image-hotspots",
-            "caption": "Lecture 4, PDF page 14 (printed slide 15). Original pyramidal-neuron and interneuron images with excitatory and inhibitory synaptic labels; source attribution retained.",
-            "fallbackAlt": "Original pyramidal-neuron and interneuron images with excitatory and inhibitory synaptic labels; source attribution retained.",
-            "props": {
-              "src": new URL('../../assets/figures/nbe-e4120/L04/synapses.webp', import.meta.url).href,
-              "alt": "Original pyramidal-neuron and interneuron images with excitatory and inhibitory synaptic labels; source attribution retained.",
-              "aspect": 1.393939393939394,
-              "quiz": false,
-              "layout": "stack",
-              "regions": []
+          "type": "detail",
+          "title": "Distribution of synapses",
+          "blocks": [
+            {
+              "type": "figure",
+              "visual": {
+                "type": "widget",
+                "name": "image-hotspots",
+                "caption": "Lecture 4, PDF page 14 (printed slide 15). Original pyramidal-neuron and interneuron images with excitatory and inhibitory synaptic labels; source attribution retained.",
+                "fallbackAlt": "Original pyramidal-neuron and interneuron images with excitatory and inhibitory synaptic labels; source attribution retained.",
+                "props": {
+                  "src": new URL('../../assets/figures/nbe-e4120/L04/synapses.webp', import.meta.url).href,
+                  "alt": "Original pyramidal-neuron and interneuron images with excitatory and inhibitory synaptic labels; source attribution retained.",
+                  "aspect": 1.393939393939394,
+                  "quiz": false,
+                  "layout": "stack",
+                  "regions": []
+                }
+              }
             }
-          }
+          ]
         }
       ],
       "formulas": [],
       "conceptQuiz": [
         {
           "id": "L04-synapses-check",
+          "practice": "extra",
           "prompt": "What does the dendrite combine?",
           "correct": 0,
           "options": [
@@ -2758,6 +2839,7 @@ const content = {
         },
         {
           "id": "L04-synapses-starter",
+          "practice": "extra",
           "type": "mc",
           "difficulty": "easy",
           "progressionAdded": true,
@@ -2794,7 +2876,7 @@ const content = {
     },
     {
       "id": "summation",
-      "title": "Where and when inputs arrive both matter",
+      "title": "Temporal and spatial summation",
       "keyTerms": [
         "Temporal integration",
         "Spatial integration"
@@ -2803,7 +2885,9 @@ const content = {
       "blocks": [
         {
           "type": "text",
-          "body": ["Temporal integration combines responses that overlap in time; spatial integration combines inputs at different locations. Cable properties transform each input before it reaches a shared soma or trigger zone. The source illustrates smaller, broader signals farther from the input (PDF page 15).", "To predict a combined response, first bring both waveforms to the same recording site and align their stimulus times. Then compare their simultaneous values. Adding local peaks from different positions or times misses attenuation and overlap. Distance and relative timing can therefore change the combined peak even when local input amplitudes stay fixed."]
+          "body": [
+            "Temporal summation combines responses close together in time. Spatial summation combines responses from different sites. Both depend on waveform overlap at the site where voltage is being read."
+          ]
         },
         {
           "type": "figure",
@@ -2827,6 +2911,7 @@ const content = {
       "conceptQuiz": [
         {
           "id": "L04-summation-check",
+          "practice": "extra",
           "prompt": "What must be compared before adding inputs at the soma?",
           "correct": 1,
           "options": [
@@ -2853,6 +2938,7 @@ const content = {
         },
         {
           "id": "L04-summation-starter",
+          "practice": "extra",
           "type": "mc",
           "difficulty": "easy",
           "progressionAdded": true,
@@ -2889,15 +2975,20 @@ const content = {
     },
     {
       "id": "superposition",
-      "title": "Linear superposition and its limits",
+      "title": "Add signed waveforms",
       "keyTerms": [
         "linear"
       ],
       "source": "L04 PDF 16",
       "blocks": [
         {
-          "type": "text",
-          "body": ["For a linear passive cable with additive current inputs, add signed voltage responses at the same location and instant. The explorer expresses $V_{sum}(x,t)=V_1(x,t)+V_2(x,t)$; an input delivered later shifts its entire response in time (PDF page 16). For steady distant inputs, attenuate each contribution before adding.", "Add rest only once when converting the combined increment to absolute membrane voltage. A synaptic conductance changes its current as voltage changes, so superposition may fail even without a spike. Sublinear or supralinear summation alone does not identify a particular active channel."]
+          "type": "math",
+          "items": [
+            {
+              "tex": "V_{\\rm sum}(x,t)=V_1(x,t)+V_2(x,t)"
+            }
+          ],
+          "note": "Add increments at the same site and time for an unchanged linear passive cable driven by additive currents. Add rest once to recover absolute voltage. Synaptic shunting or active conductances can change the response and invalidate the sum."
         },
         {
           "type": "figure",
@@ -3007,6 +3098,7 @@ const content = {
         },
         {
           "id": "L04-superposition-starter",
+          "practice": "extra",
           "type": "mc",
           "difficulty": "easy",
           "progressionAdded": true,
@@ -3043,7 +3135,7 @@ const content = {
     },
     {
       "id": "temporal",
-      "title": "Read temporal integration at three recording sites",
+      "title": "Read temporal integration",
       "keyTerms": [
         "trigger-zone"
       ],
@@ -3051,7 +3143,9 @@ const content = {
       "blocks": [
         {
           "type": "text",
-          "body": ["The source compares a single presynaptic spike with two closely spaced spikes. Site one records the input cell, site two the target dendrite and site three the trigger zone. Read input timing first, then the target responses: a second input arriving before recovery can build on residual depolarization (PDF page 17).", "In a local lumped approximation that residual decays as $V(t)=V(0)e^{-t/\\tau_m}$. Add the second increment at its arrival time. A distant cable response also spreads in time. Threshold crossing produces a regenerated spike, so restrict passive addition tests to small responses below threshold."]
+          "body": [
+            "In the two-input column, the second response arrives while the first still contributes voltage. Compare the dendrite and trigger-zone traces. A triggered spike uses an active mechanism beyond the passive sum."
+          ]
         },
         {
           "type": "figure",
@@ -3101,6 +3195,7 @@ const content = {
         },
         {
           "id": "L04-temporal-starter",
+          "practice": "extra",
           "type": "mc",
           "difficulty": "easy",
           "progressionAdded": true,
@@ -3137,7 +3232,7 @@ const content = {
     },
     {
       "id": "spatial",
-      "title": "Spatial integration must preserve causal timing",
+      "title": "Read spatial integration",
       "keyTerms": [
         "causal order"
       ],
@@ -3145,7 +3240,9 @@ const content = {
       "blocks": [
         {
           "type": "text",
-          "body": ["The left and middle columns stimulate separate input cells, recorded at sites one and two; the right column combines them. Target recordings are dendrite at site three and trigger zone at site four. The source explicitly flags a trigger-zone response drawn too early in the middle column (PDF page 18).", "Use causal order and waveform overlap, not numerical latency from this uncalibrated schematic. To test linearity, hold timing and recording site fixed, measure small separate responses, then compare their pointwise sum with the combined trial. Avoid spikes; a sublinear result can reflect conductance interactions and does not uniquely identify a channel."]
+          "body": [
+            "Compare each input alone with both together at the same target site. Check causal order against the source’s marked early response. The schematic supports a qualitative comparison of timing and overlap."
+          ]
         },
         {
           "type": "figure",
@@ -3169,6 +3266,7 @@ const content = {
       "conceptQuiz": [
         {
           "id": "L04-spatial-check",
+          "practice": "extra",
           "prompt": "What must precede a target response?",
           "correct": 0,
           "options": [
@@ -3195,6 +3293,7 @@ const content = {
         },
         {
           "id": "L04-spatial-starter",
+          "practice": "extra",
           "type": "mc",
           "difficulty": "easy",
           "progressionAdded": true,
@@ -3231,7 +3330,7 @@ const content = {
     },
     {
       "id": "distance-effect",
-      "title": "Electrotonic distance changes the trigger-zone signal",
+      "title": "Isolate distance effects",
       "keyTerms": [
         "input strength"
       ],
@@ -3239,7 +3338,9 @@ const content = {
       "blocks": [
         {
           "type": "text",
-          "body": ["The source compares two input pathways to one target. Sites one and two record the presynaptic cells; site three records the target trigger zone. The diagram illustrates how effective electrotonic distance changes the target response, including amplitude and temporal spread (PDF page 19). It does not provide a unique measured length constant.", "Control local input strength, membrane properties and boundary load before attributing a difference solely to distance. A stronger distant input can compensate peak attenuation while retaining a different delay and width. Record full time-aligned waveforms, rather than equal peaks alone, to compare subsequent integration."]
+          "body": [
+            "Greater electrotonic distance generally reduces and broadens a passive response. Compare matched local inputs while controlling timing and cable properties. Equal somatic peaks can still hide different waveforms."
+          ]
         },
         {
           "type": "figure",
@@ -3263,6 +3364,7 @@ const content = {
       "conceptQuiz": [
         {
           "id": "L04-distance-effect-check",
+          "practice": "extra",
           "prompt": "What is needed to isolate a distance effect?",
           "correct": 1,
           "options": [
@@ -3289,6 +3391,7 @@ const content = {
         },
         {
           "id": "L04-distance-effect-starter",
+          "practice": "extra",
           "type": "mc",
           "difficulty": "easy",
           "progressionAdded": true,
@@ -3325,15 +3428,26 @@ const content = {
     },
     {
       "id": "return",
-      "title": "Exercise extension: a restricted extracellular return path",
+      "title": "Restricted extracellular return",
       "keyTerms": [
         "extracellular annulus"
       ],
       "source": "Exercise 4 p1–2; answers p1–2; L03 PDF12,14",
       "blocks": [
         {
+          "type": "math",
+          "items": [
+            {
+              "tex": "A_o=\\pi h(2a+h),\\qquad r_o=R_o/A_o,\\qquad \\lambda=\\sqrt{\\frac{r_m}{r_i+r_o}}"
+            }
+          ],
+          "note": "Exercise 4 models a process of radius $a$ surrounded by a shell of thickness $h$. $R_o$ is extracellular resistivity, $r_o$ and $r_i$ are axial resistances per length, and $r_m$ is membrane resistance in the per-length cable convention."
+        },
+        {
           "type": "text",
-          "body": ["A restricted extracellular annulus adds longitudinal return resistance. Compute its area from radius $a$ and shell thickness $h$, then divide material resistivity by that area. The length constant uses both axial resistances: $\\lambda=\\sqrt{r_m/(r_i+r_o)}$ (Exercise 4 pages 1–2; answers pages 1–2).", "The explorers below separate area, resistance per length and spatial reach. Use $r_m=R_m/(2\\pi a)$ and $r_i=R_i/(\\pi a^2)$ with consistent units. Compare closed/open channels with and without return resistance. Channel opening lowers membrane resistance and shortens reach; approximate uniformity needs $L\\ll1$. Equal material resistivities do not imply equal resistance per length."]
+          "body": [
+            "A narrower shell raises $r_o$. Opening channels lowers $r_m$. Both shorten $\\lambda$ and increase $L=\\ell/\\lambda$. Check $L\\ll1$ to justify an approximately isopotential model."
+          ]
         },
         {
           "type": "figure",
@@ -3542,6 +3656,7 @@ const content = {
       "conceptQuiz": [
         {
           "id": "L04-return-check",
+          "practice": "extra",
           "prompt": "Why can a narrow extracellular gap increase gradients?",
           "correct": 0,
           "options": [
@@ -3568,6 +3683,7 @@ const content = {
         },
         {
           "id": "L04-return-starter",
+          "practice": "extra",
           "type": "mc",
           "difficulty": "easy",
           "progressionAdded": true,
@@ -3604,6 +3720,7 @@ const content = {
     }
   ],
   "recap": {
+    "takeaways": ["Choose a lumped model only if voltage differences across the region can be neglected. Check linearity separately.", "At steady state a sealed tip has zero axial current. A shorted tip has zero voltage increment. A finite load links terminal current to voltage.", "Use the time constant for charging and the length constant for spatial reach. Add signed waveforms at the same site and time in the linear regime."],
     "intro": "Practice reference. Calculator and the official equation sheet are confirmed; open-book status and official problem weights are unconfirmed.",
     "terms": [
       {
@@ -7273,6 +7390,340 @@ const content = {
       }
     },
     {
+      "id": "L04-rebalance-terminal-current",
+      "type": "mc",
+      "difficulty": "medium",
+      "sectionId": "load",
+      "source": "L04 PDF pp9, 11–12",
+      "prompt": "Synthetic practice scenario. A passive branch tip has a positive steady voltage increment relative to rest. Its terminal load has finite positive conductance to rest. What follows at the tip?",
+      "correct": 0,
+      "options": [
+        {
+          "text": "Axial current leaves the cable into the load.",
+          "feedback": "Positive voltage across a positive conductance drives current into the load."
+        },
+        {
+          "text": "Axial current enters the cable from the load.",
+          "feedback": "Current through the passive load flows toward the lower potential."
+        },
+        {
+          "text": "Axial current vanishes at the loaded tip.",
+          "feedback": "Zero tip current is the sealed condition. The finite load draws current at nonzero voltage."
+        }
+      ],
+      "hints": [
+        {
+          "body": "Identify the voltage across the terminal conductance."
+        },
+        {
+          "body": "Use Ohm’s law and current balance at the tip."
+        }
+      ],
+      "modelAnswer": [
+        "The tip is above the reference voltage, so the passive load draws current. At the boundary the axial current supplies that load."
+      ]
+    },
+    {
+      "id": "L04-core-passive-speed",
+      "practice": "extra",
+      "type": "mc",
+      "difficulty": "medium",
+      "sectionId": "speed",
+      "prompt": "Two cables have the same $\\lambda$. Cable B has twice the $\\tau_m$ of cable A. How does the characteristic passive speed of B compare?",
+      "correct": 0,
+      "options": [
+        {
+          "text": "Half the speed of A",
+          "feedback": "The time constant is in the denominator."
+        },
+        {
+          "text": "Twice the speed of A",
+          "feedback": "That would follow from doubling the length constant at fixed time constant."
+        },
+        {
+          "text": "The same speed as A",
+          "feedback": "Identical spatial scales can still give different speeds."
+        }
+      ],
+      "hints": [
+        {
+          "body": "Identify the quantity that differs between the two cables."
+        },
+        {
+          "body": "Compare $2\\lambda/\\tau_m$ in both cables."
+        }
+      ],
+      "modelAnswer": [
+        "With the same $\\lambda$, doubling $\\tau_m$ halves $\\theta$."
+      ]
+    },
+    {
+      "id": "L04-core-finite-choice",
+      "type": "mc",
+      "difficulty": "medium",
+      "sectionId": "boundaries",
+      "prompt": "A constant current enters one end of a short segment. After settling, the distal electrode holds that end at rest. What model applies?",
+      "correct": 0,
+      "options": [
+        {
+          "text": "Finite cable with a shorted end",
+          "feedback": "The distal voltage increment is fixed at zero."
+        },
+        {
+          "text": "Finite cable with a sealed end",
+          "feedback": "A seal fixes distal axial current at zero and leaves distal voltage free."
+        },
+        {
+          "text": "Semi-infinite cable driven at its end",
+          "feedback": "A nearby electrode imposes a distal condition and must enter the model."
+        }
+      ],
+      "hints": [
+        {
+          "body": "Start by locating the driven and distal ends."
+        },
+        {
+          "body": "Identify which quantity the distal electrode holds fixed."
+        }
+      ],
+      "modelAnswer": [
+        "The finite segment has a fixed voltage at its distal end. Use the shorted steady profile with the measured or calculated origin voltage."
+      ]
+    },
+    {
+      "id": "L04-core-signed-decay",
+      "type": "mc",
+      "difficulty": "medium",
+      "sectionId": "infinite",
+      "prompt": "A hyperpolarizing point current produces $-10\\,\\mathrm{mV}$ at the origin of an infinite cable. At steady state, what is the increment at $x=-\\lambda$?",
+      "correct": 1,
+      "options": [
+        {
+          "text": "$+3.7\\,\\mathrm{mV}$",
+          "feedback": "Changing the side of the source leaves the sign of the increment unchanged."
+        },
+        {
+          "text": "$-3.7\\,\\mathrm{mV}$",
+          "feedback": "One length constant leaves about 37% of the signed origin increment."
+        },
+        {
+          "text": "$-27.2\\,\\mathrm{mV}$",
+          "feedback": "Using a signed exponent on both arms would incorrectly amplify the left-side signal."
+        }
+      ],
+      "hints": [
+        {
+          "body": "A central point source feeds two identical arms."
+        },
+        {
+          "body": "Distance from the source is $|x|$."
+        }
+      ],
+      "modelAnswer": [
+        "$(-10\\,\\mathrm{mV})e^{-1}\\approx-3.7\\,\\mathrm{mV}$."
+      ]
+    },
+    {
+      "id": "L04-core-same-current",
+      "type": "mc",
+      "difficulty": "medium",
+      "sectionId": "input",
+      "prompt": "The same steady current drives one semi-infinite arm or the midpoint between two identical arms. How does the origin increment magnitude change with two arms?",
+      "correct": 2,
+      "options": [
+        {
+          "text": "It doubles with two arms",
+          "feedback": "Doubling the number of parallel arms doubles their conductance."
+        },
+        {
+          "text": "It stays the same with two arms",
+          "feedback": "Splitting the current changes the effective input resistance."
+        },
+        {
+          "text": "It halves with two arms",
+          "feedback": "Two equal input resistances in parallel halve the resistance seen by the source."
+        }
+      ],
+      "hints": [
+        {
+          "body": "Apply Ohm’s law at the injection site."
+        },
+        {
+          "body": "Picture each arm as an input resistance seen from the injection site."
+        }
+      ],
+      "modelAnswer": [
+        "The source sees half the resistance with two arms. At the same current, the voltage magnitude halves."
+      ]
+    },
+    {
+      "id": "L04-core-load-profile",
+      "type": "mc",
+      "difficulty": "medium",
+      "sectionId": "finite",
+      "prompt": "A finite cable has $G_e=2G_\\infty$. At the same positive origin voltage, how does its distal increment compare with the matched and shorted cases?",
+      "correct": 1,
+      "options": [
+        {
+          "text": "Above matched and above shorted",
+          "feedback": "A load heavier than matched draws more current at a given distal voltage."
+        },
+        {
+          "text": "Below matched and above shorted",
+          "feedback": "The load draws more current than the matched load but still leaves a nonzero distal increment."
+        },
+        {
+          "text": "Below matched and below shorted",
+          "feedback": "The short fixes the increment at zero. This finite load leaves it positive."
+        }
+      ],
+      "hints": [
+        {
+          "body": "Compare the terminal conductance with the one-arm reference."
+        },
+        {
+          "body": "At $X=L$, the numerator of the normalized expression is 1."
+        }
+      ],
+      "modelAnswer": [
+        "The terminal fraction is $1/(\\cosh L+B_L\\sinh L)$. It decreases as the load rises. A finite load of 2 lies between 1 and the short-circuit limit."
+      ]
+    },
+    {
+      "id": "L04-core-sealed-voltage",
+      "type": "mc",
+      "difficulty": "medium",
+      "sectionId": "cases",
+      "prompt": "A steady profile reaches a positive distal voltage and flattens to zero slope there. Which terminal is consistent with both observations?",
+      "correct": 2,
+      "options": [
+        {
+          "text": "A matched continuation",
+          "feedback": "A decaying exponential has a nonzero slope at a finite position where its voltage increment is positive."
+        },
+        {
+          "text": "A short to resting voltage",
+          "feedback": "The short fixes the distal increment at zero."
+        },
+        {
+          "text": "A sealed cable end",
+          "feedback": "At a sealed end, axial current and therefore slope are zero while voltage can stay above rest."
+        }
+      ],
+      "hints": [
+        {
+          "body": "Voltage and its spatial derivative specify different boundary conditions."
+        },
+        {
+          "body": "Axial current is proportional to the negative spatial voltage slope."
+        }
+      ],
+      "modelAnswer": [
+        "The flat slope signals zero distal axial current, the sealed boundary condition."
+      ]
+    },
+    {
+      "id": "L04-core-timing-overlap",
+      "type": "mc",
+      "difficulty": "medium",
+      "sectionId": "temporal",
+      "prompt": "Two identical brief depolarizing inputs arrive at the same site. Which change increases the response just after the second input in a local passive RC model?",
+      "correct": 1,
+      "options": [
+        {
+          "text": "Increase the delay between inputs",
+          "feedback": "A longer delay lets more of the first increment decay."
+        },
+        {
+          "text": "Decrease the delay between inputs",
+          "feedback": "A shorter delay leaves more of the first increment when the second arrives."
+        },
+        {
+          "text": "Shift both inputs later by the same amount",
+          "feedback": "The separation stays the same, so the remaining fraction at the second input is unchanged."
+        }
+      ],
+      "hints": [
+        {
+          "body": "A passive response decays after a brief input."
+        },
+        {
+          "body": "Consider what remains of the first response when the second begins."
+        }
+      ],
+      "modelAnswer": [
+        "A smaller interval leaves a larger positive residual of the first response to add to the second."
+      ]
+    },
+    {
+      "id": "L04-core-signed-sum",
+      "practice": "extra",
+      "type": "mc",
+      "difficulty": "medium",
+      "sectionId": "superposition",
+      "prompt": "At the soma at one instant, two independent current inputs separately produce increments of $+5$ and $-2\\,\\mathrm{mV}$. Rest is $-65\\,\\mathrm{mV}$. In the linear passive model, what is the combined absolute voltage?",
+      "correct": 2,
+      "options": [
+        {
+          "text": "$-68\\,\\mathrm{mV}$",
+          "feedback": "The sum is a positive increment, so it raises the voltage above rest."
+        },
+        {
+          "text": "$-58\\,\\mathrm{mV}$",
+          "feedback": "The second increment is negative and reduces the total."
+        },
+        {
+          "text": "$-62\\,\\mathrm{mV}$",
+          "feedback": "The signed sum is $+3\\,\\mathrm{mV}$. Add it to rest once."
+        }
+      ],
+      "hints": [
+        {
+          "body": "Separate the resting voltage from the responses to the two inputs."
+        },
+        {
+          "body": "Add signed voltage changes first."
+        }
+      ],
+      "modelAnswer": [
+        "$V_m=-65+5-2=-62\\,\\mathrm{mV}$."
+      ]
+    },
+    {
+      "id": "L04-core-spatial-test",
+      "practice": "extra",
+      "type": "mc",
+      "difficulty": "medium",
+      "sectionId": "spatial",
+      "prompt": "You record two responses separately and then stimulate both sites. Which prediction should you use to test linear summation?",
+      "correct": 0,
+      "options": [
+        {
+          "text": "Add simultaneous samples from the two separate traces",
+          "feedback": "This predicts the full waveform at the same recording site, with the stimulus times aligned."
+        },
+        {
+          "text": "Add the two highest points from the separate traces",
+          "feedback": "The peaks may occur at different times. Their sum can overstate the expected peak."
+        },
+        {
+          "text": "Average simultaneous samples from the two separate traces",
+          "feedback": "The linear prediction is the sum of signed increments. Averaging would halve it."
+        }
+      ],
+      "hints": [
+        {
+          "body": "The two peaks can occur at different times."
+        },
+        {
+          "body": "Use a prediction for each instant at the same electrode."
+        }
+      ],
+      "modelAnswer": [
+        "Align separate trials to the timing of the combined trial and sum their voltage increments sample by sample."
+      ]
+    },
+    {
       "id": "L04-speed-limits",
       "sectionId": "speed",
       "difficulty": "hard",
@@ -8784,6 +9235,107 @@ const content = {
       ],
       "points": 1,
       "source": "Exercise 4 p1–2; answers p1–2; L03 PDF12,14"
+    },
+    {
+      "id": "L04-rebalance-changing-load",
+      "type": "mc",
+      "difficulty": "hard",
+      "sectionId": "superposition",
+      "source": "L04 PDF pp13, 15–17",
+      "prompt": "Synthetic practice scenario. Two small current pulses add linearly at the recording site. A third input briefly increases membrane conductance along the path, with its reversal at rest. What is the concern when predicting all three responses from separate recordings?",
+      "correct": 0,
+      "options": [
+        {
+          "text": "The third input can change transfer even when its own voltage response is negligible.",
+          "feedback": "Conductance to rest increases local current loss when another input moves voltage away from rest."
+        },
+        {
+          "text": "The third input can change transfer only when its own voltage response is large.",
+          "feedback": "The response in isolation can be zero at reversal even though conductance has increased."
+        },
+        {
+          "text": "The third input can change transfer only when it opens a voltage-gated current.",
+          "feedback": "A time-varying synaptic conductance changes the passive load without requiring voltage-gated channels."
+        }
+      ],
+      "hints": [
+        {
+          "body": "Consider the third input alone at rest."
+        },
+        {
+          "body": "Now add a pulse and consider the current through the additional conductance."
+        }
+      ],
+      "modelAnswer": [
+        "At rest the new conductance has zero driving force. During either pulse it provides an additional path toward rest. The original pulse waveforms no longer describe transfer during that input."
+      ]
+    },
+    {
+      "id": "L04-core-diameter-chain",
+      "type": "mc",
+      "difficulty": "hard",
+      "sectionId": "scaling",
+      "prompt": "A uniform infinite cable doubles in diameter with all material properties fixed. You repeat the same steady point-current injection and assess the characteristic passive speed separately. Which pair of changes follows?",
+      "correct": 0,
+      "options": [
+        {
+          "text": "Speed rises by $\\sqrt{2}$ and origin increment falls to $2^{-3/2}$ of its magnitude.",
+          "feedback": "The speed follows the length constant and the origin increment follows input resistance."
+        },
+        {
+          "text": "Speed rises by $\\sqrt{2}$ and origin increment rises to $2^{3/2}$ of its magnitude.",
+          "feedback": "Larger diameter lowers input resistance, even as it increases the spatial scale."
+        },
+        {
+          "text": "Speed falls by $\\sqrt{2}$ and origin increment falls to $2^{-3/2}$ of its magnitude.",
+          "feedback": "Time constant stays fixed while length constant increases, so speed rises."
+        }
+      ],
+      "hints": [
+        {
+          "body": "The change in geometry affects both the length constant and input resistance."
+        },
+        {
+          "body": "Combine $\\theta=2\\lambda/\\tau_m$ with $V_0=I_0R_{\\rm in}$."
+        }
+      ],
+      "modelAnswer": [
+        "At fixed material properties $\\lambda\\propto d^{1/2}$ and $\\tau_m$ stays constant. With $r_i\\propto d^{-2}$, the product $r_i\\lambda$ scales as $d^{-3/2}$."
+      ]
+    },
+    {
+      "id": "L04-core-return-chain",
+      "practice": "extra",
+      "type": "mc",
+      "difficulty": "hard",
+      "sectionId": "return",
+      "prompt": "Initially an activated process has $L=0.15$. Its membrane resistance falls to one quarter of its value and its total axial resistance per length doubles. What is the new $L$ at fixed physical length?",
+      "correct": 1,
+      "options": [
+        {
+          "text": "About $0.21$, because the length constant falls by $\\sqrt{2}$.",
+          "feedback": "This accounts for the axial change alone. Membrane resistance falls as well."
+        },
+        {
+          "text": "About $0.42$, because the length constant falls by $\\sqrt{8}$.",
+          "feedback": "Both changes reduce the ratio under the square root. The electrotonic length rises by the reciprocal factor."
+        },
+        {
+          "text": "About $0.85$, because the length constant falls by $\\sqrt{32}$.",
+          "feedback": "The new membrane-to-axial ratio is one eighth of the original."
+        }
+      ],
+      "hints": [
+        {
+          "body": "Electrotonic length changes even when physical length stays fixed."
+        },
+        {
+          "body": "First evaluate the change in $r_m/(r_i+r_o)$, then apply $L=\\ell/\\lambda$."
+        }
+      ],
+      "modelAnswer": [
+        "The new ratio is $1/8$ of its old value. Thus $L=0.15\\sqrt{8}\\approx0.42$, making the approximation of uniform voltage less secure."
+      ]
     }
   ],
   "mockExams": [
@@ -8794,6 +9346,7 @@ const content = {
       "questions": [
         {
           "id": "L04-a1",
+          "role": "concepts",
           "type": "written",
           "difficulty": "medium",
           "prompt": "a) Define electrotonic length. b) Distinguish an open cable end from an electrical open circuit. c) Define input resistance. Answer each in 1–3 sentences.",
@@ -8826,6 +9379,7 @@ const content = {
         },
         {
           "id": "L04-a2",
+          "role": "explanation",
           "type": "written",
           "difficulty": "medium",
           "prompt": "Sketch and explain steady sealed, matched and open profiles at equal origin voltage. Label axes and endpoint conditions. Explain why equal injected current is a different comparison.",
@@ -8866,6 +9420,7 @@ const content = {
         },
         {
           "id": "L04-a3",
+          "role": "calculation",
           "sectionId": "input",
           "difficulty": "hard",
           "type": "multiStepCalc",
@@ -9057,6 +9612,7 @@ const content = {
         },
         {
           "id": "L04-a4",
+          "role": "calculation",
           "sectionId": "cases",
           "difficulty": "hard",
           "type": "multiStepCalc",
@@ -9279,9 +9835,10 @@ const content = {
         },
         {
           "id": "L04-a5",
+          "role": "methods",
           "type": "written",
           "difficulty": "medium",
-          "prompt": "Design a two-electrode steady recording test of a changed terminal load. Use the source profile to specify recordings, controls and one ambiguity if only a remote amplitude is available.",
+          "prompt": "Design a two-electrode steady recording test of a changed terminal load. Use the source profile to specify recordings, controls and one ambiguity if only a remote amplitude is available. What measurement distinguishes a sealed end from a shorted end when the endpoint voltage remains appreciable?",
           "markScheme": [
             {
               "text": "Inject controlled subthreshold current and measure source and remote voltage increments."
@@ -9297,14 +9854,16 @@ const content = {
             },
             {
               "text": "The normalized profile comparison must state the endpoint model."
-            }
+            },
+            { "text": "A sealed end requires zero endpoint axial current, inferred from zero spatial voltage slope. A short fixes the endpoint voltage to the reference." }
           ],
           "modelAnswer": [
             "Inject controlled subthreshold current and measure source and remote voltage increments.",
             "Record stable baseline, path distance and sufficient time for steady response.",
             "Compare source voltage/current and remote/source attenuation separately.",
             "A remote amplitude alone mixes changed origin voltage with changed attenuation.",
-            "The normalized profile comparison must state the endpoint model."
+            "The normalized profile comparison must state the endpoint model.",
+            "A sealed end requires zero endpoint axial current, inferred from zero spatial voltage slope. A short fixes the endpoint voltage to the reference."
           ],
           "hints": [
             {
@@ -9340,6 +9899,7 @@ const content = {
       "questions": [
         {
           "id": "L04-b1",
+          "role": "concepts",
           "type": "written",
           "difficulty": "medium",
           "prompt": "a) Distinguish axial material resistivity from axial resistance per length. b) State what makes a process approximately isopotential. c) Define the terminal load ratio.",
@@ -9372,6 +9932,7 @@ const content = {
         },
         {
           "id": "L04-b2",
+          "role": "explanation",
           "type": "written",
           "difficulty": "medium",
           "prompt": "Explain how channel opening and a restricted extracellular shell jointly change voltage uniformity. Sketch the two longitudinal paths and membrane leak. Explain why a physically tiny process is not automatically isopotential.",
@@ -9412,6 +9973,7 @@ const content = {
         },
         {
           "id": "L04-b3",
+          "role": "calculation",
           "sectionId": "return",
           "difficulty": "hard",
           "type": "multiStepCalc",
@@ -9739,6 +10301,7 @@ const content = {
         },
         {
           "id": "L04-b4",
+          "role": "calculation",
           "sectionId": "endpoint",
           "difficulty": "medium",
           "type": "multiStepCalc",
@@ -9843,9 +10406,10 @@ const content = {
         },
         {
           "id": "L04-b5",
+          "role": "methods",
           "type": "written",
           "difficulty": "medium",
-          "prompt": "A recording team compares two cables at the same injected current and finds different remote voltages. Explain how source geometry and endpoint loading confound an inference about radius. Use the source neuron and propose additional measurements.",
+          "prompt": "A recording team compares two cables at the same injected current and finds different remote voltages. Explain how source geometry and endpoint loading confound an inference about radius. Use the source neuron and propose additional measurements. Why does substituting a conductance pulse for a current pulse confound this comparison?",
           "markScheme": [
             {
               "text": "Radius changes cable parameters and input resistance."
@@ -9861,14 +10425,16 @@ const content = {
             },
             {
               "text": "Do not infer radius uniquely from one remote amplitude."
-            }
+            },
+            { "text": "Conductance-driven current depends on local driving force, so equal conductance changes can inject unequal currents across preparations." }
           ],
           "modelAnswer": [
             "Radius changes cable parameters and input resistance.",
             "One-sided versus two-sided source geometry changes current division.",
             "Endpoint load changes both the profile and source response.",
             "Measure source voltage/current, remote/source ratio and known path distance under controlled baseline.",
-            "Do not infer radius uniquely from one remote amplitude."
+            "Do not infer radius uniquely from one remote amplitude.",
+            "Conductance-driven current depends on local driving force, so equal conductance changes can inject unequal currents across preparations."
           ],
           "hints": [
             {
@@ -9904,6 +10470,7 @@ const content = {
       "questions": [
         {
           "id": "L04-c1",
+          "role": "concepts",
           "type": "written",
           "difficulty": "medium",
           "prompt": "a) Define the passive half-rise characteristic speed. b) Distinguish temporal from spatial summation. c) State the condition for linear waveform addition.",
@@ -9936,6 +10503,7 @@ const content = {
         },
         {
           "id": "L04-c2",
+          "role": "explanation",
           "type": "written",
           "difficulty": "medium",
           "prompt": "Sketch separate and summed somatic responses to two inputs. Explain how distance and relative input timing affect summation and why a threshold spike or conductance interaction defeats unrestricted linear addition.",
@@ -9976,6 +10544,7 @@ const content = {
         },
         {
           "id": "L04-c3",
+          "role": "calculation",
           "sectionId": "scaling",
           "difficulty": "hard",
           "type": "multiStepCalc",
@@ -10158,6 +10727,7 @@ const content = {
         },
         {
           "id": "L04-c4",
+          "role": "calculation",
           "sectionId": "superposition",
           "difficulty": "hard",
           "type": "multiStepCalc",
@@ -10333,9 +10903,10 @@ const content = {
         },
         {
           "id": "L04-c5",
+          "role": "methods",
           "type": "written",
           "difficulty": "medium",
-          "prompt": "Read the spatial-integration source. Map the input and target recording sites, describe separate versus combined responses, correct the timing warning and design a control that distinguishes peak compensation from equal waveforms.",
+          "prompt": "Read the spatial-integration source. Map the input and target recording sites, describe separate versus combined responses, correct the timing warning and design a control that distinguishes peak compensation from equal waveforms. Why should the experiment compare aligned waveforms before adding the two input responses?",
           "markScheme": [
             {
               "text": "Input sites one and two are presynaptic; target sites three and four are dendrite and trigger zone."
@@ -10351,14 +10922,16 @@ const content = {
             },
             {
               "text": "Equal peaks alone do not imply equal delay, width or subsequent integration."
-            }
+            },
+            { "text": "Peaks at different times need not overlap. Test linear summation by adding the individually measured waveforms at the same site and matched stimulus times." }
           ],
           "modelAnswer": [
             "Input sites one and two are presynaptic; target sites three and four are dendrite and trigger zone.",
             "Separate inputs give graded target responses; combined inputs can cross threshold.",
             "The explicitly marked middle-column response must occur later than shown.",
             "Record full time-aligned somatic responses to separate and combined small inputs.",
-            "Equal peaks alone do not imply equal delay, width or subsequent integration."
+            "Equal peaks alone do not imply equal delay, width or subsequent integration.",
+            "Peaks at different times need not overlap. Test linear summation by adding the individually measured waveforms at the same site and matched stimulus times."
           ],
           "hints": [
             {

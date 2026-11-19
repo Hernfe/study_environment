@@ -3,7 +3,8 @@ import sys,math,json
 from pathlib import Path
 sys.path.insert(0,str(Path(__file__).resolve().parent))
 from lint_questions import dump
-c=dump(['nbe-e4120/L09'])['nbe-e4120/L09']['content'];qs={q['id']:q for q in c['lectureQuiz']}
+c=dump(['nbe-e4120/L09'])['nbe-e4120/L09']['content']
+qs={q['id']:q for mock in c['mockExams'] for q in mock['questions']}
 expected={'a3':[-1e-12,.3,30,-9e-12],'a4':[2e-14,125000,.01],'b3':[.2401,48.02,.6e-12,28.812e-12,.4096,49.152e-12],'b4':[.216,.432e-9,1.728e-9,-30.24e-12,-120.96e-12,4],'c3':[5/6,.4,.6,15e-9,6e-9],'c4':[50e-12,-5,-20e-12,2]}
 for key,values in expected.items():
  q=qs['L09-'+key];actual=[s['answer']['value'] for s in q['stages'] if 'answer' in s];assert len(actual)==len(values),(key,actual)

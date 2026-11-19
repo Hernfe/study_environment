@@ -1,3 +1,4 @@
+import { standardPracticeQuestions } from './standardPractice.js';
 import { isExtraPractice } from './extraPractice.js';
 // Course review: questions from every built lecture of the current
 // course, never across courses. Missed ones first, then never seen,
@@ -80,7 +81,7 @@ export async function loadBuiltLectures(registry, now = new Date()) {
     built.map(async (entry) => {
       const content = await loadLectureContent(entry.id);
       if (!content) return null;
-      return { id: entry.id, number: entry.number, title: entry.title, examDate: entry.examDate, questions: content.lectureQuiz || [] };
+      return { id: entry.id, number: entry.number, title: entry.title, examDate: entry.examDate, questions: standardPracticeQuestions(content.lectureQuiz, content.standardPractice) };
     })
   );
   return loaded.filter(Boolean);

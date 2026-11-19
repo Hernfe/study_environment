@@ -12,10 +12,10 @@ const content={
     "examLabel": "Final exam"
   },
   "objectives": [
-    "Use signed HH current balance and distinguish space clamp from propagation.",
-    "Explain threshold, accommodation and refractory history through gating.",
-    "Infer capacitance, gating charge and channel properties with explicit assumptions.",
-    "Explain myelinated propagation using geometry, spatial measurements and continuous internodal voltage."
+    "Use the parallel HH circuit to explain the sign of current and the direction of voltage change.",
+    "Use Noble’s momentary I–V curve to explain threshold, accommodation and refractory periods.",
+    "Separate gating, ionic and capacitive currents, then infer charge, capacitance or channel density.",
+    "Explain nodal regeneration and compare how diameter and myelin affect conduction speed."
   ],
   "prerequisites": [
     {
@@ -30,39 +30,55 @@ const content={
     }
   ],
   "segmentedPractice": true,
+  "standardPractice": "mc-only",
+  "collapseFormulaExplorers": true,
+  "overview": {
+    "estimate": "Core route: read the main sections and answer 25 core questions. Formula explorers, videos, extra practice and mocks are optional.",
+    "equations": "Start with $C_m\\,dV_m/dt=I_{app}-\\sum_i g_i(V_m-E_i)$, $g_{Na}=\\bar g_{Na}m^3h$, $g_K=\\bar g_K n^4$, $C_m=Q_C/\\Delta V$ and $D=Q_g/(ze)$.",
+    "pitfalls": "Current direction depends on driving force. Myelin localizes regeneration to nodes while voltage still changes between them."
+  },
   "sections": [
     {
       "id": "overview",
-      "title": "Overview: current balance to saltatory conduction",
+      "title": "HH current balance",
       "keyTerms": [],
       "source": "L08 8:1 p1",
       "blocks": [
         {
           "type": "text",
-          "body": ["Combine ionic conductances with membrane capacitance, then add axial current. Follow excitability, gating-charge measurements and myelinated propagation. Use $V_m=V_{in}-V_{out}$ and positive outward membrane current.", "The circuit links a changing voltage to the difference between supplied current and ionic current. Adding spatial coupling explains how local excitation recruits adjacent membrane. Keep these two questions separate: what changes voltage at one site, and what carries excitation to the next site? (8:1 PDF p1.)"]
+          "body": [
+            "HH explains how membrane voltage changes at one site. Add axial current to explain how a spike recruits the next site. Use $V_m=V_{in}-V_{out}$ and positive outward membrane current."
+          ]
         },
         {
-          "type": "figure",
-          "visual": {
-            "type": "widget",
-            "name": "image-hotspots",
-            "caption": "8:1, PDF page 2. Source circuit panel with original labels and axes.",
-            "fallbackAlt": "8:1, PDF page 2. Source circuit panel with original labels and axes.",
-            "props": {
-              "src": new URL('../../assets/figures/nbe-e4120/L08/circuit.webp', import.meta.url).href,
-              "alt": "8:1, PDF page 2. Source circuit panel with original labels and axes.",
-              "aspect": 1.0910652920962198,
-              "quiz": false,
-              "layout": "stack",
-              "regions": []
+          "type": "detail",
+          "title": "Source figure and context",
+          "blocks": [
+            {
+              "type": "figure",
+              "visual": {
+                "type": "widget",
+                "name": "image-hotspots",
+                "caption": "8:1, PDF page 2. Source circuit panel with original labels and axes.",
+                "fallbackAlt": "8:1, PDF page 2. Source circuit panel with original labels and axes.",
+                "props": {
+                  "src": new URL('../../assets/figures/nbe-e4120/L08/circuit.webp', import.meta.url).href,
+                  "alt": "8:1, PDF page 2. Source circuit panel with original labels and axes.",
+                  "aspect": 1.0910652920962198,
+                  "quiz": false,
+                  "layout": "stack",
+                  "regions": []
+                }
+              }
             }
-          }
+          ]
         }
       ],
       "formulas": [],
       "conceptQuiz": [
         {
           "id": "L08-overview-check",
+          "practice": "extra",
           "prompt": "Under space clamp, which voltage variation remains possible?",
           "correct": 0,
           "options": [
@@ -89,6 +105,7 @@ const content={
         },
         {
           "id": "L08-overview-starter",
+          "practice": "extra",
           "type": "mc",
           "difficulty": "easy",
           "progressionAdded": true,
@@ -130,13 +147,15 @@ const content={
     },
     {
       "id": "circuit",
-      "title": "Parallel HH circuit and signed current balance",
+      "title": "Parallel HH circuit",
       "keyTerms": [],
       "source": "L08 8:1 p2",
       "blocks": [
         {
           "type": "text",
-          "body": ["Capacitance, potassium, sodium and leak branches are parallel. Each ionic current is conductance times its own signed driving force. Use total currents with total capacitance, or densities consistently.", "All branches share voltage, but their reversal potentials differ. Calculate each signed branch first, sum the ionic currents, then use the current-balance explorer to obtain the voltage slope. A zero sum can hide opposing ionic flows; it does not imply that every channel is closed. (8:1 PDF p2.)"]
+          "body": [
+            "Capacitance and the sodium, potassium and leak branches share $V_m$. For each ion, $I_i=g_i(V_m-E_i)$, where $E_i$ is its reversal potential. Then $C_m\\,dV_m/dt=I_{app}-\\sum_i I_i$, with applied inward current positive. Use totals throughout or densities throughout."
+          ]
         },
         {
           "type": "figure",
@@ -193,13 +212,13 @@ const content={
           "drill": {
             "prompt": "For $g=40\\,\\mathrm{nS}$ and $V-E=-0.060\\,\\mathrm V$, find outward current.",
             "answer": {
-              "value": -2.4e-09,
+              "value": -2.4e-9,
               "unit": "A",
               "tolerance": 7.2e-12,
               "verification": {
                 "relation": "product",
                 "inputs": {
-                  "a": 4e-08,
+                  "a": 4e-8,
                   "b": -0.06
                 },
                 "displayScale": 1
@@ -257,13 +276,13 @@ const content={
           "drill": {
             "prompt": "Sodium plus potassium current is $-1.5\\,\\mathrm{nA}$ and leak is $0.3\\,\\mathrm{nA}$. Find net ionic current.",
             "answer": {
-              "value": -1.2e-09,
+              "value": -1.2e-9,
               "unit": "A",
               "tolerance": 3.6e-12,
               "verification": {
                 "relation": "sum",
                 "inputs": {
-                  "a": -1.5e-09,
+                  "a": -1.5e-9,
                   "b": 3e-10
                 },
                 "displayScale": 1
@@ -315,6 +334,7 @@ const content={
         },
         {
           "id": "L08-circuit-starter",
+          "practice": "extra",
           "type": "mc",
           "difficulty": "easy",
           "progressionAdded": true,
@@ -351,30 +371,38 @@ const content={
     },
     {
       "id": "agreement",
-      "title": "From gate probabilities to the action potential",
+      "title": "Gate probabilities and conductance",
       "keyTerms": [],
       "source": "L08 8:1 p3",
       "blocks": [
         {
           "type": "text",
-          "body": ["Use $g_K=\\bar g_Kn^4$ and $g_{Na}=\\bar g_{Na}m^3h$. The source compares calculated and recorded waveforms and currents. These are source results, not a new simulation or a unique molecular proof.", "The variables $m,n,h$ are particle probabilities; their products are channel conductance fractions, not currents. First apply the powers, multiply by maximal conductance, then use the appropriate driving force. Agreement of predicted and recorded traces tests the combined model, rather than uniquely establishing its molecular interpretation. (8:1 PDF p3.)"]
+          "body": [
+            "Use $g_K=\\bar g_K n^4$ and $g_{Na}=\\bar g_{Na}m^3h$. Here $n$ and $m$ are activation probabilities, $h$ is sodium availability, and bars indicate maximal conductance. Multiply by driving force only after forming the conductance."
+          ]
         },
         {
-          "type": "figure",
-          "visual": {
-            "type": "widget",
-            "name": "image-hotspots",
-            "caption": "8:1, PDF page 3. Source agreement panel with original labels and axes.",
-            "fallbackAlt": "8:1, PDF page 3. Source agreement panel with original labels and axes.",
-            "props": {
-              "src": new URL('../../assets/figures/nbe-e4120/L08/agreement.webp', import.meta.url).href,
-              "alt": "8:1, PDF page 3. Source agreement panel with original labels and axes.",
-              "aspect": 3.3214285714285716,
-              "quiz": false,
-              "layout": "stack",
-              "regions": []
+          "type": "detail",
+          "title": "Source figure and context",
+          "blocks": [
+            {
+              "type": "figure",
+              "visual": {
+                "type": "widget",
+                "name": "image-hotspots",
+                "caption": "8:1, PDF page 3. Source agreement panel with original labels and axes.",
+                "fallbackAlt": "8:1, PDF page 3. Source agreement panel with original labels and axes.",
+                "props": {
+                  "src": new URL('../../assets/figures/nbe-e4120/L08/agreement.webp', import.meta.url).href,
+                  "alt": "8:1, PDF page 3. Source agreement panel with original labels and axes.",
+                  "aspect": 3.3214285714285716,
+                  "quiz": false,
+                  "layout": "stack",
+                  "regions": []
+                }
+              }
             }
-          }
+          ]
         }
       ],
       "formulas": [
@@ -408,13 +436,13 @@ const content={
           "drill": {
             "prompt": "For $\\bar g_K=80\\,\\mathrm{nS}$ and $n=0.5$, find conductance.",
             "answer": {
-              "value": 5e-09,
+              "value": 5e-9,
               "unit": "S",
               "tolerance": 1.5e-11,
               "verification": {
                 "relation": "product",
                 "inputs": {
-                  "a": 8e-08,
+                  "a": 8e-8,
                   "b": 0.0625
                 },
                 "displayScale": 1
@@ -472,13 +500,13 @@ const content={
           "drill": {
             "prompt": "For $\\bar g_{Na}=100\\,\\mathrm{nS}$, $m=0.8$, $h=0.2$, find conductance.",
             "answer": {
-              "value": 1.0240000000000003e-08,
+              "value": 1.0240000000000003e-8,
               "unit": "S",
               "tolerance": 3.072000000000001e-11,
               "verification": {
                 "relation": "product",
                 "inputs": {
-                  "a": 1e-07,
+                  "a": 1e-7,
                   "b": 0.10240000000000003
                 },
                 "displayScale": 1
@@ -504,6 +532,7 @@ const content={
       "conceptQuiz": [
         {
           "id": "L08-agreement-check",
+          "practice": "extra",
           "prompt": "Which product combines sodium activation with sodium availability?",
           "correct": 0,
           "options": [
@@ -530,6 +559,7 @@ const content={
         },
         {
           "id": "L08-agreement-starter",
+          "practice": "extra",
           "type": "mc",
           "difficulty": "easy",
           "progressionAdded": true,
@@ -566,36 +596,50 @@ const content={
     },
     {
       "id": "space",
-      "title": "Space clamp, cable coupling and travelling waves",
+      "title": "Space clamp and axial current",
       "keyTerms": [],
       "source": "L08 8:1 p4",
       "blocks": [
         {
           "type": "text",
-          "body": ["Space clamp removes spatial gradients; voltage clamp fixes voltage. A uniform axon supports an approximately constant-speed travelling wave. The source propagation equation drops driving forces in one line; retain the full ionic currents.", "For a travelling profile, converting spatial curvature to temporal curvature introduces an inverse-square speed factor. The axial-source explorer uses radius and bulk intracellular resistivity, giving current per area. Use capacitance and ionic currents per area in the same equation; a whole-cell capacitance cannot be mixed directly with that density. (8:1 PDF p4.)"]
+          "body": [
+            "Space clamp makes voltage spatially uniform while allowing it to vary in time. Voltage clamp controls its time course. In a uniform cylindrical axon the axial source density is $(a/2\\rho_i)\\,\\partial_x^2V_m$, with radius $a$ and intracellular resistivity $\\rho_i$. Add this term to the local current balance using quantities per area."
+          ]
         },
         {
-          "type": "figure",
-          "visual": {
-            "type": "widget",
-            "name": "image-hotspots",
-            "caption": "8:1, PDF page 4. Source space panel with original labels and axes.",
-            "fallbackAlt": "8:1, PDF page 4. Source space panel with original labels and axes.",
-            "props": {
-              "src": new URL('../../assets/figures/nbe-e4120/L08/space.webp', import.meta.url).href,
-              "alt": "8:1, PDF page 4. Source space panel with original labels and axes.",
-              "aspect": 2.9660056657223794,
-              "quiz": false,
-              "layout": "stack",
-              "regions": []
+          "type": "detail",
+          "title": "Source figure and context",
+          "blocks": [
+            {
+              "type": "figure",
+              "visual": {
+                "type": "widget",
+                "name": "image-hotspots",
+                "caption": "8:1, PDF page 4. Source space panel with original labels and axes.",
+                "fallbackAlt": "8:1, PDF page 4. Source space panel with original labels and axes.",
+                "props": {
+                  "src": new URL('../../assets/figures/nbe-e4120/L08/space.webp', import.meta.url).href,
+                  "alt": "8:1, PDF page 4. Source space panel with original labels and axes.",
+                  "aspect": 2.9660056657223794,
+                  "quiz": false,
+                  "layout": "stack",
+                  "regions": []
+                }
+              }
             }
-          }
+          ]
         },
         {
-          "type": "math",
-          "title": "Complete propagating balance",
-          "tex": "\\frac{a}{2\\rho_i}\\partial_x^2V_m=C_m\\partial_tV_m+\\bar g_K n^4(V_m-E_K)+\\bar g_{Na}m^3h(V_m-E_{Na})+g_L(V_m-E_L)",
-          "note": "Specific capacitance and conductance densities; radius a, bulk resistivity rho. Driving forces retained."
+          "type": "detail",
+          "title": "Formula detail",
+          "blocks": [
+            {
+              "type": "math",
+              "title": "Complete propagating balance",
+              "tex": "\\frac{a}{2\\rho_i}\\partial_x^2V_m=C_m\\partial_tV_m+\\bar g_K n^4(V_m-E_K)+\\bar g_{Na}m^3h(V_m-E_{Na})+g_L(V_m-E_L)",
+              "note": "Specific capacitance and conductance densities; radius a, bulk resistivity rho. Driving forces retained."
+            }
+          ]
         }
       ],
       "formulas": [
@@ -641,9 +685,9 @@ const content={
               "verification": {
                 "relation": "axialSource",
                 "inputs": {
-                  "radius": 5e-06,
+                  "radius": 0.000005,
                   "rho": 1,
-                  "curvature": 400000.0
+                  "curvature": 400000
                 },
                 "displayScale": 1
               }
@@ -715,6 +759,7 @@ const content={
       "conceptQuiz": [
         {
           "id": "L08-space-check",
+          "practice": "extra",
           "prompt": "Does a spatially uniform membrane have to remain at one voltage over time?",
           "correct": 1,
           "options": [
@@ -741,6 +786,7 @@ const content={
         },
         {
           "id": "L08-space-starter",
+          "practice": "extra",
           "type": "mc",
           "difficulty": "easy",
           "progressionAdded": true,
@@ -777,30 +823,38 @@ const content={
     },
     {
       "id": "nonpropagating",
-      "title": "Nonpropagating AP: capacitive balance",
+      "title": "Local spike without propagation",
       "keyTerms": [],
       "source": "L08 8:1 p5",
       "blocks": [
         {
           "type": "text",
-          "body": ["After a brief stimulus ends in a space-clamped cell, the net applied current is zero. Inward net ionic current charges the capacitor during the rising phase. Include leak in the ionic sum unless it is explicitly negligible.", "With no applied current, the voltage slope is minus the ionic sum divided by capacitance. Thus inward ionic current gives a positive slope and outward current gives a negative slope. At a smooth voltage maximum the capacitive current is zero, even though individual ionic currents may remain substantial. (8:1 PDF p5.)"]
+          "body": [
+            "After the stimulus ends in a space-clamped preparation, inward net ionic current raises voltage. At the peak, $dV_m/dt=0$ and the signed ionic currents, including leak, sum to zero."
+          ]
         },
         {
-          "type": "figure",
-          "visual": {
-            "type": "widget",
-            "name": "image-hotspots",
-            "caption": "8:1, PDF page 5. Source nonpropagating panel with original labels and axes.",
-            "fallbackAlt": "8:1, PDF page 5. Source nonpropagating panel with original labels and axes.",
-            "props": {
-              "src": new URL('../../assets/figures/nbe-e4120/L08/nonpropagating.webp', import.meta.url).href,
-              "alt": "8:1, PDF page 5. Source nonpropagating panel with original labels and axes.",
-              "aspect": 0.7514792899408284,
-              "quiz": false,
-              "layout": "stack",
-              "regions": []
+          "type": "detail",
+          "title": "Source figure and context",
+          "blocks": [
+            {
+              "type": "figure",
+              "visual": {
+                "type": "widget",
+                "name": "image-hotspots",
+                "caption": "8:1, PDF page 5. Source nonpropagating panel with original labels and axes.",
+                "fallbackAlt": "8:1, PDF page 5. Source nonpropagating panel with original labels and axes.",
+                "props": {
+                  "src": new URL('../../assets/figures/nbe-e4120/L08/nonpropagating.webp', import.meta.url).href,
+                  "alt": "8:1, PDF page 5. Source nonpropagating panel with original labels and axes.",
+                  "aspect": 0.7514792899408284,
+                  "quiz": false,
+                  "layout": "stack",
+                  "regions": []
+                }
+              }
             }
-          }
+          ]
         }
       ],
       "formulas": [
@@ -847,7 +901,7 @@ const content={
                 "relation": "hhBalance",
                 "inputs": {
                   "im": 0,
-                  "ionic": -2e-09,
+                  "ionic": -2e-9,
                   "capacitance": 1e-10
                 },
                 "displayScale": 1
@@ -899,6 +953,7 @@ const content={
         },
         {
           "id": "L08-nonpropagating-starter",
+          "practice": "extra",
           "type": "mc",
           "difficulty": "easy",
           "progressionAdded": true,
@@ -935,13 +990,22 @@ const content={
     },
     {
       "id": "regeneration",
-      "title": "Continuous propagation and the refractory wake",
+      "title": "Spatial spread and regeneration",
       "keyTerms": [],
       "source": "L08 8:1 p6",
       "blocks": [
         {
+          "type": "relevantVideo",
+          "videoId": "CH0yRkuFSkA",
+          "title": "Action Potential Propagation And The Refractory Period Explained (Relative and Absolute) | Clip",
+          "topic": "How axial current recruits excitable membrane and how refractoriness shapes propagation",
+          "channel": "Science With Tal"
+        },
+        {
           "type": "text",
-          "body": ["An active region provides inward ionic current. Axial current spreads in both directions and excites available adjacent membrane. Recently active membrane has reduced sodium availability, so ordinary propagation advances away from the refractory wake.", "The key sequence is local inward current, passive axial spread, then fresh sodium-channel recruitment ahead of the wave. Current can spread backward too. Directional regeneration depends on the different gating histories ahead and behind, rather than on an axial pathway that conducts in only one direction. (8:1 PDF p6.)"]
+          "body": [
+            "Inward sodium current depolarizes nearby membrane through axial spread in both directions. Available sodium channels regenerate the spike ahead. Reduced sodium availability and elevated potassium conductance make recently active membrane harder to excite."
+          ]
         },
         {
           "type": "figure",
@@ -991,6 +1055,7 @@ const content={
         },
         {
           "id": "L08-regeneration-starter",
+          "practice": "extra",
           "type": "mc",
           "difficulty": "easy",
           "progressionAdded": true,
@@ -1027,13 +1092,15 @@ const content={
     },
     {
       "id": "propagating",
-      "title": "Axial diversion changes the current balance",
+      "title": "Current during propagation",
       "keyTerms": [],
       "source": "L08 8:1 p7",
       "blocks": [
         {
           "type": "text",
-          "body": ["During propagation ionic current supplies local capacitance and axial current. Therefore $I_{ion}=-I_C$ is not generally valid at each point. Read position, time and propagation direction separately on the source traces.", "Follow one recording position through time before comparing positions. A mismatch between local ionic and capacitive current is expected when longitudinal current supplies neighboring membrane. The plotted wave travels right to left; the trace order must be read with that direction, rather than inferred from current sign alone. (8:1 PDF p7.)"]
+          "body": [
+            "At a propagating site, axial current contributes to charging the membrane. Read position and time separately on the source traces. The local ionic and capacitive currents need not cancel."
+          ]
         },
         {
           "type": "figure",
@@ -1083,6 +1150,7 @@ const content={
         },
         {
           "id": "L08-propagating-starter",
+          "practice": "extra",
           "type": "mc",
           "difficulty": "easy",
           "progressionAdded": true,
@@ -1119,13 +1187,15 @@ const content={
     },
     {
       "id": "noble",
-      "title": "Noble approximation and stable resting voltage",
+      "title": "Noble’s fast activation approximation",
       "keyTerms": [],
       "source": "L08 8:1 p8",
       "blocks": [
         {
           "type": "text",
-          "body": ["Fast activation follows its steady value while slower potassium activation and sodium availability are briefly fixed. The momentary total current can have several zeros. Positive slope at rest produces restoring current in this reduced subsystem.", "Read the total momentary curve, not the sodium branch alone. A small depolarization at a positive-slope zero produces outward current and reverses the displacement. This argument assumes fast $m$ follows voltage while $n,h$ are frozen; it describes local fast stability, not an equilibrium with all gates fixed forever. (8:1 PDF p8.)"]
+          "body": [
+            "In Noble’s momentary current–voltage curve, $m=m_\\infty(V_m)$ and the slower $n,h$ are frozen. With no applied current, a zero of total ionic current with positive slope is restoring. A small depolarization produces outward current."
+          ]
         },
         {
           "type": "figure",
@@ -1175,6 +1245,7 @@ const content={
         },
         {
           "id": "L08-noble-starter",
+          "practice": "extra",
           "type": "mc",
           "difficulty": "easy",
           "progressionAdded": true,
@@ -1211,13 +1282,15 @@ const content={
     },
     {
       "id": "moving-iv",
-      "title": "Threshold instability and a transient peak",
+      "title": "Unstable threshold and transient peak",
       "keyTerms": [],
       "source": "L08 8:1 p9",
       "blocks": [
         {
           "type": "text",
-          "body": ["A negative current slope at threshold amplifies voltage perturbations. The positive-slope high-voltage zero is transient: potassium activation rises and sodium availability falls. The momentary curve shifts outward and can lose its high-voltage zeros.", "The perturbation rate is the negative local current slope divided by capacitance. A negative slope therefore gives growth instead of recovery. During sustained depolarization the slow gates change the curve itself, so stability at a momentary high-voltage crossing cannot guarantee a sustained plateau in the full model. (8:1 PDF p9.)"]
+          "body": [
+            "A negative slope at a zero gives an unstable threshold. For a small displacement, the growth rate is $-G/C_m$, with $G=dI_{ion}/dV_m$. As $n$ rises and $h$ falls, the curve shifts outward and may lose its stable high-voltage crossing."
+          ]
         },
         {
           "type": "figure",
@@ -1274,7 +1347,7 @@ const content={
               "verification": {
                 "relation": "ratio",
                 "inputs": {
-                  "a": 4e-09,
+                  "a": 4e-9,
                   "b": 8e-11
                 },
                 "displayScale": 1
@@ -1300,6 +1373,7 @@ const content={
       "conceptQuiz": [
         {
           "id": "L08-moving-iv-check",
+          "practice": "extra",
           "prompt": "At a momentary current zero, which slope sign gives local instability?",
           "correct": 0,
           "options": [
@@ -1326,6 +1400,7 @@ const content={
         },
         {
           "id": "L08-moving-iv-starter",
+          "practice": "extra",
           "type": "mc",
           "difficulty": "easy",
           "progressionAdded": true,
@@ -1362,30 +1437,38 @@ const content={
     },
     {
       "id": "threshold",
-      "title": "Threshold and deterministic versus biological variability",
+      "title": "Threshold in deterministic HH",
       "keyTerms": [],
       "source": "L08 8:1 p10",
       "blocks": [
         {
           "type": "text",
-          "body": ["A sufficiently rapid depolarization recruits regenerative sodium activation. The deterministic HH model gives the same response for identical initial states and stimuli. Biological variability near threshold is absent unless noise or variability is explicitly introduced.", "Compare trials with the same starting voltage, gate history and stimulus waveform. The model separates recovery toward rest from regenerative depolarization. Experimental trial-to-trial success near threshold is probabilistic, whereas a deterministic fit cannot generate that variability from identical inputs without an added source of noise. (8:1 PDF p10.)"]
+          "body": [
+            "A rapid stimulus that crosses the unstable threshold triggers regenerative sodium activation. Threshold depends on the gate state. Identical initial states and stimuli give identical responses in deterministic HH."
+          ]
         },
         {
-          "type": "figure",
-          "visual": {
-            "type": "widget",
-            "name": "image-hotspots",
-            "caption": "8:1, PDF page 10. Source threshold panel with original labels and axes.",
-            "fallbackAlt": "8:1, PDF page 10. Source threshold panel with original labels and axes.",
-            "props": {
-              "src": new URL('../../assets/figures/nbe-e4120/L08/threshold.webp', import.meta.url).href,
-              "alt": "8:1, PDF page 10. Source threshold panel with original labels and axes.",
-              "aspect": 0.9536842105263158,
-              "quiz": false,
-              "layout": "stack",
-              "regions": []
+          "type": "detail",
+          "title": "Source figure and context",
+          "blocks": [
+            {
+              "type": "figure",
+              "visual": {
+                "type": "widget",
+                "name": "image-hotspots",
+                "caption": "8:1, PDF page 10. Source threshold panel with original labels and axes.",
+                "fallbackAlt": "8:1, PDF page 10. Source threshold panel with original labels and axes.",
+                "props": {
+                  "src": new URL('../../assets/figures/nbe-e4120/L08/threshold.webp', import.meta.url).href,
+                  "alt": "8:1, PDF page 10. Source threshold panel with original labels and axes.",
+                  "aspect": 0.9536842105263158,
+                  "quiz": false,
+                  "layout": "stack",
+                  "regions": []
+                }
+              }
             }
-          }
+          ]
         }
       ],
       "formulas": [],
@@ -1418,6 +1501,7 @@ const content={
         },
         {
           "id": "L08-threshold-starter",
+          "practice": "extra",
           "type": "mc",
           "difficulty": "easy",
           "progressionAdded": true,
@@ -1454,36 +1538,45 @@ const content={
     },
     {
       "id": "feedback",
-      "title": "Fast positive and slow negative feedback",
+      "title": "Feedback during a spike",
       "keyTerms": [],
       "source": "L08 8:1 p11",
       "blocks": [
         {
           "type": "text",
-          "body": ["Depolarization increases sodium activation and inward current, which promotes more depolarization. Slower sodium inactivation and potassium activation oppose this cycle and terminate the spike.", "Trace the loop in causal order: activation increases sodium conductance, inward sodium current raises voltage, and higher voltage recruits more activation. Delayed potassium activation and falling sodium availability break that loop. The voltage trace alone does not identify either conductance; interpret it alongside the conductance panel. (8:1 PDF p11.)"]
+          "body": [
+            "Depolarization opens sodium channels, increasing inward current and driving further depolarization. Delayed potassium activation and sodium inactivation end this positive feedback."
+          ]
         },
         {
-          "type": "figure",
-          "visual": {
-            "type": "widget",
-            "name": "image-hotspots",
-            "caption": "8:1, PDF page 11. Source feedback panel with original labels and axes.",
-            "fallbackAlt": "8:1, PDF page 11. Source feedback panel with original labels and axes.",
-            "props": {
-              "src": new URL('../../assets/figures/nbe-e4120/L08/feedback.webp', import.meta.url).href,
-              "alt": "8:1, PDF page 11. Source feedback panel with original labels and axes.",
-              "aspect": 2.5098039215686274,
-              "quiz": false,
-              "layout": "stack",
-              "regions": []
+          "type": "detail",
+          "title": "Source figure and context",
+          "blocks": [
+            {
+              "type": "figure",
+              "visual": {
+                "type": "widget",
+                "name": "image-hotspots",
+                "caption": "8:1, PDF page 11. Source feedback panel with original labels and axes.",
+                "fallbackAlt": "8:1, PDF page 11. Source feedback panel with original labels and axes.",
+                "props": {
+                  "src": new URL('../../assets/figures/nbe-e4120/L08/feedback.webp', import.meta.url).href,
+                  "alt": "8:1, PDF page 11. Source feedback panel with original labels and axes.",
+                  "aspect": 2.5098039215686274,
+                  "quiz": false,
+                  "layout": "stack",
+                  "regions": []
+                }
+              }
             }
-          }
+          ]
         }
       ],
       "formulas": [],
       "conceptQuiz": [
         {
           "id": "L08-feedback-check",
+          "practice": "extra",
           "prompt": "Which link reinforces depolarization during the fast feedback cycle?",
           "correct": 1,
           "options": [
@@ -1510,6 +1603,7 @@ const content={
         },
         {
           "id": "L08-feedback-starter",
+          "practice": "extra",
           "type": "mc",
           "difficulty": "easy",
           "progressionAdded": true,
@@ -1546,13 +1640,15 @@ const content={
     },
     {
       "id": "phases",
-      "title": "Read the AP phases through conductance and driving force",
+      "title": "Spike phases",
       "keyTerms": [],
       "source": "L08 8:1 p12",
       "blocks": [
         {
           "type": "text",
-          "body": ["Upstroke, peak, repolarization and afterhyperpolarization follow changing gates and driving forces. Current sign cannot be inferred from comparing conductances alone. Slow potassium closure and recovering sodium availability return the membrane toward rest.", "Near the peak, approaching sodium reversal reduces inward sodium current even before every sodium channel closes. Later, persistent potassium conductance pulls voltage toward potassium reversal and produces the undershoot. Always combine a conductance trace with its signed driving force before explaining a current or voltage phase. (8:1 PDF p12.)"]
+          "body": [
+            "Near sodium reversal, inward sodium current weakens as driving force falls. Falling $h$ and rising $n$ favor repolarization. Persistent potassium conductance draws voltage toward $E_K$ during the undershoot."
+          ]
         },
         {
           "type": "figure",
@@ -1602,6 +1698,7 @@ const content={
         },
         {
           "id": "L08-phases-starter",
+          "practice": "extra",
           "type": "mc",
           "difficulty": "easy",
           "progressionAdded": true,
@@ -1638,13 +1735,15 @@ const content={
     },
     {
       "id": "accommodation",
-      "title": "Slow ramps and accommodation",
+      "title": "Accommodation",
       "keyTerms": [],
       "source": "L08 8:1 p13",
       "blocks": [
         {
           "type": "text",
-          "body": ["A slowly rising stimulus allows $n$ to increase and $h$ to fall before regenerative excitation. The threshold increases; an otherwise effective fast stimulus can fail when delivered slowly. This is a kinetic-history effect.", "Compare stimulus rise times while following the voltage response and threshold. The slowly changing momentary curve can lose its regenerative region before a spike starts. Unlike refractoriness, accommodation does not require a preceding action potential; both involve slow gating history, but the experimental triggers differ. (8:1 PDF p13.)"]
+          "body": [
+            "A slow ramp gives $n$ time to rise and $h$ time to fall before sodium feedback takes over. A larger or faster stimulus is then needed to elicit a spike."
+          ]
         },
         {
           "type": "figure",
@@ -1668,6 +1767,7 @@ const content={
       "conceptQuiz": [
         {
           "id": "L08-accommodation-check",
+          "practice": "extra",
           "prompt": "What threshold effect can develop while a depolarizing ramp rises slowly?",
           "correct": 0,
           "options": [
@@ -1694,6 +1794,7 @@ const content={
         },
         {
           "id": "L08-accommodation-starter",
+          "practice": "extra",
           "type": "mc",
           "difficulty": "easy",
           "progressionAdded": true,
@@ -1730,13 +1831,15 @@ const content={
     },
     {
       "id": "refractory",
-      "title": "Paired pulses: absolute and relative refractoriness",
+      "title": "Refractory periods",
       "keyTerms": [],
       "source": "L08 8:1 p14",
       "blocks": [
         {
           "type": "text",
-          "body": ["Vary the interval between two stimuli. Early extensive sodium inactivation prevents another spike. Later partial recovery and residual potassium conductance mean a stronger second stimulus may succeed. Record threshold, not just whether identical pulses fail.", "Keep the first pulse reliable and change the second-pulse delay; then vary its strength to distinguish failure from an elevated threshold. Recovery of sodium availability and decay of potassium conductance restore excitability. Failure of one fixed second pulse alone cannot distinguish absolute from relative refractoriness. (8:1 PDF p14.)"]
+          "body": [
+            "In the absolute refractory period, too few sodium channels are available for another propagated spike. In the relative period, some have recovered, but residual potassium conductance and incomplete sodium recovery require a stronger stimulus."
+          ]
         },
         {
           "type": "figure",
@@ -1760,6 +1863,7 @@ const content={
       "conceptQuiz": [
         {
           "id": "L08-refractory-check",
+          "practice": "extra",
           "prompt": "Which outcome identifies the relative rather than absolute refractory period?",
           "correct": 1,
           "options": [
@@ -1786,6 +1890,7 @@ const content={
         },
         {
           "id": "L08-refractory-starter",
+          "practice": "extra",
           "type": "mc",
           "difficulty": "easy",
           "progressionAdded": true,
@@ -1822,13 +1927,15 @@ const content={
     },
     {
       "id": "sensor",
-      "title": "Gating charge differs from ionic permeation",
+      "title": "Sensor displacement",
       "keyTerms": [],
       "source": "L08 8:1 p15",
       "blocks": [
         {
           "type": "text",
-          "body": ["Voltage sensors move charged protein regions in the membrane field. Their collective transient produces a gating current even when permeation is blocked. Opening a pore and ions passing through it are distinct events.", "A voltage step moves sensor charge only while the sensor population redistributes, so the signal is transient. Ionic current instead requires an open permeation pathway and a driving force. Blocking pore current helps reveal sensor movement; it does not mean that every remaining transient is necessarily a gating current. (8:1 PDF p15.)"]
+          "body": [
+            "Voltage steps displace charges on channel sensors. This displacement produces a transient gating current even when ionic permeation is blocked."
+          ]
         },
         {
           "type": "figure",
@@ -1878,6 +1985,7 @@ const content={
         },
         {
           "id": "L08-sensor-starter",
+          "practice": "extra",
           "type": "mc",
           "difficulty": "easy",
           "progressionAdded": true,
@@ -1919,13 +2027,15 @@ const content={
     },
     {
       "id": "boltzmann",
-      "title": "Two-state energies and normalized probability",
+      "title": "Two-state activation",
       "keyTerms": [],
       "source": "L08 8:1 p16–17",
       "blocks": [
         {
           "type": "text",
-          "body": ["The source odds are $r=\\exp((w+zeV)/kT)$. With probabilities summing to one, $y_{out}=r/(1+r)$. The slide’s minus denominator is a typo. This two-state illustration is not the full sodium $m^3h$ model.", "Here $w$ is the zero-voltage energy bias, $ze$ the displaced charge, and $kT$ thermal energy. Positive odds are not probabilities: divide by one plus the odds to keep the result between zero and one. The explorer uses dimensionless bias and thermal voltage to express this same normalization. (8:1 PDF p16–17.)"]
+          "body": [
+            "For two states at equilibrium, activation odds are $r=\\exp[(w+zeV_m)/(k_BT)]$ in the slide’s sign convention. Here $w$ is an energy offset, $z$ the effective charge in units of $e$, and $T$ absolute temperature. Normalize with $P=r/(1+r)$."
+          ]
         },
         {
           "type": "figure",
@@ -1945,9 +2055,15 @@ const content={
           }
         },
         {
-          "type": "misconception",
-          "wrong": "The source prints $y=r/(1-r)$.",
-          "right": "Normalization gives $y=r/(1+r)$; probability remains between zero and one."
+          "type": "detail",
+          "title": "Formula detail",
+          "blocks": [
+            {
+              "type": "misconception",
+              "wrong": "The source prints $y=r/(1-r)$.",
+              "right": "Normalization gives $y=r/(1+r)$; probability remains between zero and one."
+            }
+          ]
         }
       ],
       "formulas": [
@@ -2143,6 +2259,7 @@ const content={
       "conceptQuiz": [
         {
           "id": "L08-boltzmann-check",
+          "practice": "extra",
           "prompt": "Which denominator keeps a positive outside-to-inside odds ratio bounded as a probability?",
           "correct": 0,
           "options": [
@@ -2169,6 +2286,7 @@ const content={
         },
         {
           "id": "L08-boltzmann-starter",
+          "practice": "extra",
           "type": "mc",
           "difficulty": "easy",
           "progressionAdded": true,
@@ -2205,13 +2323,15 @@ const content={
     },
     {
       "id": "charge-slope",
-      "title": "Low-activation slope estimates effective gating charge",
+      "title": "Effective gating charge",
       "keyTerms": [],
       "source": "L08 8:1 p17",
       "blocks": [
         {
           "type": "text",
-          "body": ["At small activation, conductance is approximately exponential in voltage. An e-fold voltage scale $s$ gives effective $z=(kT/e)/s$. Use the source rounded thermal voltage only for its stated room-temperature approximation.", "An e-fold rise means multiplication by the exponential base for each voltage increment $s$. Estimate the slope only in the low-activation region, before saturation bends the curve. The inferred effective charge describes voltage sensitivity under this approximation, rather than directly counting anatomical particles in one channel. (8:1 PDF p17.)"]
+          "body": [
+            "At low activation, $P\\approx r$. With $s=dV_m/d\\ln P$, the effective valence is $z=(k_BT/e)/s$. Use the low-activation region, where a log-probability plot is approximately linear."
+          ]
         },
         {
           "type": "figure",
@@ -2352,6 +2472,7 @@ const content={
       "conceptQuiz": [
         {
           "id": "L08-charge-slope-check",
+          "practice": "extra",
           "prompt": "How should a charge estimated from low-activation voltage sensitivity be interpreted?",
           "correct": 0,
           "options": [
@@ -2378,6 +2499,7 @@ const content={
         },
         {
           "id": "L08-charge-slope-starter",
+          "practice": "extra",
           "type": "mc",
           "difficulty": "easy",
           "progressionAdded": true,
@@ -2414,13 +2536,15 @@ const content={
     },
     {
       "id": "isolation",
-      "title": "Isolate ON and OFF gating current",
+      "title": "Isolate gating current",
       "keyTerms": [],
       "source": "L08 8:1 p18",
       "blocks": [
         {
           "type": "text",
-          "body": ["Suppress ionic current, then subtract linear capacitance with matched control steps having minimal sensor movement. For the taught depolarization-activated sensor, ON charge is outward and OFF charge inward. Poor subtraction can mimic a gating signal.", "Voltage is controlled and total clamp current is measured. The taught protocol suppresses sodium permeation with sodium-free solution and TTX, and potassium current with internal cesium. Opposite control steps cancel linear charging only if sensor movement is negligible in the control; test control-step dependence before integrating the residual. (8:1 PDF p18.)"]
+          "body": [
+            "Under voltage clamp, suppress ionic current with sodium-free solution, TTX and internal cesium as in the source protocol. Remove leak and subtract linear charging with matched control steps that move negligible sensor charge. For depolarization-activated sensors, the ON current is outward and the OFF current inward. Integrate the isolated transient."
+          ]
         },
         {
           "type": "figure",
@@ -2470,6 +2594,7 @@ const content={
         },
         {
           "id": "L08-isolation-starter",
+          "practice": "extra",
           "type": "mc",
           "difficulty": "easy",
           "progressionAdded": true,
@@ -2506,13 +2631,15 @@ const content={
     },
     {
       "id": "capacitance",
-      "title": "Measure capacitance from leak-corrected charge",
+      "title": "Measure membrane capacitance",
       "keyTerms": [],
       "source": "L08 8:1 p19",
       "blocks": [
         {
           "type": "text",
-          "body": ["Subtract the steady leak before integrating the transient. Then $C_m=Q/\\Delta V$. With constant specific capacitance, area follows from total capacitance. Current per capacitance is a size-normalized measure, not literally current per area without the conversion.", "Control the voltage step and measure the current transient above the steady leak baseline. Integrating only an early window misses charge and underestimates capacitance. For the stated exponential model the charge explorer quantifies this loss. Unremoved gating or ionic currents contaminate the area and therefore the inferred cell size. (8:1 PDF p19.)"]
+          "body": [
+            "Apply a known voltage step $\\Delta V$ and subtract the steady leak and other noncapacitive currents. Integrate the capacitive transient to get $Q_C=\\int I_C\\,dt$, then use $C_m=Q_C/\\Delta V$. Estimate area from $A=C_m/c_m$ only if specific capacitance $c_m$ is known."
+          ]
         },
         {
           "type": "figure",
@@ -2575,7 +2702,7 @@ const content={
               "verification": {
                 "relation": "expCharge",
                 "inputs": {
-                  "current": 1e-09,
+                  "current": 1e-9,
                   "tau": 0.001,
                   "time": 0.002
                 },
@@ -2686,7 +2813,7 @@ const content={
           "drill": {
             "prompt": "For $C=60\\,\\mathrm{pF}$ and $c_m=0.01\\,\\mathrm{F/m^2}$, find area.",
             "answer": {
-              "value": 6e-09,
+              "value": 6e-9,
               "unit": "m2",
               "tolerance": 1.8e-11,
               "verification": {
@@ -2802,6 +2929,7 @@ const content={
         },
         {
           "id": "L08-capacitance-starter",
+          "practice": "extra",
           "type": "mc",
           "difficulty": "easy",
           "progressionAdded": true,
@@ -2838,13 +2966,15 @@ const content={
     },
     {
       "id": "density",
-      "title": "Gating charge, channel density and single-channel conductance",
+      "title": "Channel density and conductance",
       "keyTerms": [],
       "source": "L08 8:1 p20",
       "blocks": [
         {
           "type": "text",
-          "body": ["Integrated sensor current gives displaced charge. Divide charge density by displaced charge per channel to estimate channel density. Divide maximal ionic conductance density by channel density to estimate single-channel conductance. State complete activation and charge-assignment assumptions.", "Keep gating charge and conductance on the same membrane-area basis before dividing. A charge assignment per channel converts the measured integral into channel number, not open probability. If the ionic conductance is measured before full activation, its ratio to channel density gives conductance times open probability instead. (8:1 PDF p20.)"]
+          "body": [
+            "Use gating-charge density $Q_g$ and assigned charge per channel $ze$ to estimate channel density $D=Q_g/(ze)$, assuming the step recruits that displacement. With matching area units, $g_A/D=\\gamma P_{open}$. Use maximal conductance density for $\\gamma$ alone."
+          ]
         },
         {
           "type": "figure",
@@ -2895,9 +3025,9 @@ const content={
           "drill": {
             "prompt": "Charge density is $0.0048\\,\\mathrm{C/m^2}$ and each channel moves $8\\times10^{-19}\\,\\mathrm C$. Find channel density.",
             "answer": {
-              "value": 6000000000000000.0,
+              "value": 6000000000000000,
               "unit": "1/m2",
-              "tolerance": 18000000000000.0,
+              "tolerance": 18000000000000,
               "verification": {
                 "relation": "ratio",
                 "inputs": {
@@ -2960,7 +3090,7 @@ const content={
                 "relation": "ratio",
                 "inputs": {
                   "a": 1200,
-                  "b": 300000000000000.0
+                  "b": 300000000000000
                 },
                 "displayScale": 1
               }
@@ -3011,6 +3141,7 @@ const content={
         },
         {
           "id": "L08-density-starter",
+          "practice": "extra",
           "type": "mc",
           "difficulty": "easy",
           "progressionAdded": true,
@@ -3047,36 +3178,45 @@ const content={
     },
     {
       "id": "synthesis",
-      "title": "HH synthesis and limits",
+      "title": "Predicting a spike with HH",
       "keyTerms": [],
       "source": "L08 8:1 p21–22",
       "blocks": [
         {
           "type": "text",
-          "body": ["The HH circuit combines voltage-dependent conductances, gating kinetics and current balance. It explains threshold, refractory history and accommodation. Gating-charge measurements test sensor movement but do not turn fitted particle exponents into literal anatomical gate counts.", "A complete dynamic calculation needs initial voltage and gate values, stimulus, gating kinetics and the current-balance equation. Fixed-gate ionic branches can be linear even though the evolving membrane is nonlinear. Compare the source voltage-clamp measurements with the resulting action-potential prediction without treating the fitted model as a unique channel structure. (8:1 PDF p21–22.)"]
+          "body": [
+            "To predict an HH spike, specify the stimulus and initial voltage and gates, then evolve gate kinetics with the current balance. The fitted gate exponents describe conductance and do not identify literal sensor counts."
+          ]
         },
         {
-          "type": "figure",
-          "visual": {
-            "type": "widget",
-            "name": "image-hotspots",
-            "caption": "8:1, PDF page 2. Source circuit panel with original labels and axes.",
-            "fallbackAlt": "8:1, PDF page 2. Source circuit panel with original labels and axes.",
-            "props": {
-              "src": new URL('../../assets/figures/nbe-e4120/L08/circuit.webp', import.meta.url).href,
-              "alt": "8:1, PDF page 2. Source circuit panel with original labels and axes.",
-              "aspect": 1.0910652920962198,
-              "quiz": false,
-              "layout": "stack",
-              "regions": []
+          "type": "detail",
+          "title": "Source figure and context",
+          "blocks": [
+            {
+              "type": "figure",
+              "visual": {
+                "type": "widget",
+                "name": "image-hotspots",
+                "caption": "8:1, PDF page 2. Source circuit panel with original labels and axes.",
+                "fallbackAlt": "8:1, PDF page 2. Source circuit panel with original labels and axes.",
+                "props": {
+                  "src": new URL('../../assets/figures/nbe-e4120/L08/circuit.webp', import.meta.url).href,
+                  "alt": "8:1, PDF page 2. Source circuit panel with original labels and axes.",
+                  "aspect": 1.0910652920962198,
+                  "quiz": false,
+                  "layout": "stack",
+                  "regions": []
+                }
+              }
             }
-          }
+          ]
         }
       ],
       "formulas": [],
       "conceptQuiz": [
         {
           "id": "L08-synthesis-check",
+          "practice": "extra",
           "prompt": "What combination determines the evolving voltage in a free-running HH membrane?",
           "correct": 1,
           "options": [
@@ -3103,6 +3243,7 @@ const content={
         },
         {
           "id": "L08-synthesis-starter",
+          "practice": "extra",
           "type": "mc",
           "difficulty": "easy",
           "progressionAdded": true,
@@ -3139,30 +3280,38 @@ const content={
     },
     {
       "id": "ais",
-      "title": "Initiation at AIS and directions of propagation",
+      "title": "Axon initial segment",
       "keyTerms": [],
       "source": "L08 8:2 p1–2",
       "blocks": [
         {
           "type": "text",
-          "body": ["High sodium-channel density gives the initial segment a low threshold. Activity propagates toward terminals and can backpropagate toward soma and dendrites. The refractory wake prevents immediate re-excitation; it does not prohibit all backward spread.", "The diagram separates initiation from the routes followed afterward. High local excitability explains why the initial segment reaches threshold first; axial current then recruits available membrane on either side. Backpropagation toward the soma is compatible with a refractory wake behind a wave already advancing toward the terminals. (8:2 PDF p1–2.)"]
+          "body": [
+            "High sodium-channel density favors initiation at the axon initial segment. Axial spread can recruit available membrane toward the terminals and back toward the soma."
+          ]
         },
         {
-          "type": "figure",
-          "visual": {
-            "type": "widget",
-            "name": "image-hotspots",
-            "caption": "8:2, PDF page 2. Source ais panel with original labels and axes.",
-            "fallbackAlt": "8:2, PDF page 2. Source ais panel with original labels and axes.",
-            "props": {
-              "src": new URL('../../assets/figures/nbe-e4120/L08/ais.webp', import.meta.url).href,
-              "alt": "8:2, PDF page 2. Source ais panel with original labels and axes.",
-              "aspect": 0.7215639810426541,
-              "quiz": false,
-              "layout": "stack",
-              "regions": []
+          "type": "detail",
+          "title": "Source figure and context",
+          "blocks": [
+            {
+              "type": "figure",
+              "visual": {
+                "type": "widget",
+                "name": "image-hotspots",
+                "caption": "8:2, PDF page 2. Source ais panel with original labels and axes.",
+                "fallbackAlt": "8:2, PDF page 2. Source ais panel with original labels and axes.",
+                "props": {
+                  "src": new URL('../../assets/figures/nbe-e4120/L08/ais.webp', import.meta.url).href,
+                  "alt": "8:2, PDF page 2. Source ais panel with original labels and axes.",
+                  "aspect": 0.7215639810426541,
+                  "quiz": false,
+                  "layout": "stack",
+                  "regions": []
+                }
+              }
             }
-          }
+          ]
         }
       ],
       "formulas": [],
@@ -3195,6 +3344,7 @@ const content={
         },
         {
           "id": "L08-ais-starter",
+          "practice": "extra",
           "type": "mc",
           "difficulty": "easy",
           "progressionAdded": true,
@@ -3236,30 +3386,38 @@ const content={
     },
     {
       "id": "diameter",
-      "title": "Unmyelinated conduction and diameter trade-off",
+      "title": "Unmyelinated speed",
       "keyTerms": [],
       "source": "L08 8:2 p3",
       "blocks": [
         {
           "type": "text",
-          "body": ["Unmyelinated speed scales approximately as $\\sqrt d$ under comparable membrane properties. Giant diameter can improve speed at a large volume cost. Improved insulation offers another route.", "For comparisons, take the square root of the diameter ratio rather than applying the diameter ratio directly to speed. This scaling holds other membrane properties comparable. The cross sections illustrate the space cost of a giant axon; they do not establish a universal speed coefficient for all unmyelinated fibers. (8:2 PDF p3.)"]
+          "body": [
+            "For comparable unmyelinated axons, $v\\propto\\sqrt d$, with axon diameter $d$. Four times the diameter gives roughly twice the speed."
+          ]
         },
         {
-          "type": "figure",
-          "visual": {
-            "type": "widget",
-            "name": "image-hotspots",
-            "caption": "8:2, PDF page 3. Source diameter panel with original labels and axes.",
-            "fallbackAlt": "8:2, PDF page 3. Source diameter panel with original labels and axes.",
-            "props": {
-              "src": new URL('../../assets/figures/nbe-e4120/L08/diameter.webp', import.meta.url).href,
-              "alt": "8:2, PDF page 3. Source diameter panel with original labels and axes.",
-              "aspect": 0.6362139917695473,
-              "quiz": false,
-              "layout": "stack",
-              "regions": []
+          "type": "detail",
+          "title": "Source figure and context",
+          "blocks": [
+            {
+              "type": "figure",
+              "visual": {
+                "type": "widget",
+                "name": "image-hotspots",
+                "caption": "8:2, PDF page 3. Source diameter panel with original labels and axes.",
+                "fallbackAlt": "8:2, PDF page 3. Source diameter panel with original labels and axes.",
+                "props": {
+                  "src": new URL('../../assets/figures/nbe-e4120/L08/diameter.webp', import.meta.url).href,
+                  "alt": "8:2, PDF page 3. Source diameter panel with original labels and axes.",
+                  "aspect": 0.6362139917695473,
+                  "quiz": false,
+                  "layout": "stack",
+                  "regions": []
+                }
+              }
             }
-          }
+          ]
         }
       ],
       "formulas": [
@@ -3293,8 +3451,8 @@ const content={
               "verification": {
                 "relation": "powerRatio",
                 "inputs": {
-                  "a": 1.8e-05,
-                  "b": 2e-06,
+                  "a": 0.000018,
+                  "b": 0.000002,
                   "power": 0.5
                 },
                 "displayScale": 1
@@ -3320,6 +3478,7 @@ const content={
       "conceptQuiz": [
         {
           "id": "L08-diameter-check",
+          "practice": "extra",
           "prompt": "Which diameter dependence is used for the unmyelinated speed comparison?",
           "correct": 0,
           "options": [
@@ -3346,6 +3505,7 @@ const content={
         },
         {
           "id": "L08-diameter-starter",
+          "practice": "extra",
           "type": "mc",
           "difficulty": "easy",
           "progressionAdded": true,
@@ -3382,13 +3542,15 @@ const content={
     },
     {
       "id": "speed",
-      "title": "Compare myelinated and unmyelinated scaling",
+      "title": "Myelinated speed",
       "keyTerms": [],
       "source": "L08 8:2 p4",
       "blocks": [
         {
           "type": "text",
-          "body": ["Myelinated speed is approximately linear in fiber diameter in the source comparison, near $6\\,\\mathrm{m/s}$ per micrometer. These are empirical scales, not universal exact laws across species, temperatures and axons.", "Use the source coefficient with outer fiber diameter in micrometers, or convert both quantities to the SI convention in the explorer. For ratios, myelinated speed follows diameter while unmyelinated speed follows its square root. Compare like conditions; the scattered source measurements show why these are approximate trends. (8:2 PDF p4.)"]
+          "body": [
+            "For comparable myelinated fibers, use the approximate linear rule $v/(\\mathrm{m/s})\\approx6D/(\\mu\\mathrm m)$, with outer fiber diameter $D$. Apply each diameter law within its own fiber class and treat the coefficient as empirical."
+          ]
         },
         {
           "type": "figure",
@@ -3445,8 +3607,8 @@ const content={
               "verification": {
                 "relation": "product",
                 "inputs": {
-                  "a": 6000000.0,
-                  "b": 8e-06
+                  "a": 6000000,
+                  "b": 0.000008
                 },
                 "displayScale": 1
               }
@@ -3471,6 +3633,7 @@ const content={
       "conceptQuiz": [
         {
           "id": "L08-speed-check",
+          "practice": "extra",
           "prompt": "Which diameter dependence describes the source myelinated trend?",
           "correct": 0,
           "options": [
@@ -3497,6 +3660,7 @@ const content={
         },
         {
           "id": "L08-speed-starter",
+          "practice": "extra",
           "type": "mc",
           "difficulty": "easy",
           "progressionAdded": true,
@@ -3533,36 +3697,45 @@ const content={
     },
     {
       "id": "glia",
-      "title": "Myelin from Schwann cells and oligodendrocytes",
+      "title": "Myelin-forming cells",
       "keyTerms": [],
       "source": "L08 8:2 p5",
       "blocks": [
         {
           "type": "text",
-          "body": ["Glial membrane wraps an axonal segment into compact insulating layers. A Schwann cell makes one peripheral internode. An oligodendrocyte can make several central internodes, often across different axons.", "An internode is the wrapped segment, not the entire axon. Several successive Schwann cells are needed to cover a peripheral axon, whereas processes from one oligodendrocyte can reach several central segments. Read the source diagram by following each glial cell to its wraps rather than counting axons alone. (8:2 PDF p5.)"]
+          "body": [
+            "Schwann cells form single peripheral internodes. An oligodendrocyte can form several central internodes."
+          ]
         },
         {
-          "type": "figure",
-          "visual": {
-            "type": "widget",
-            "name": "image-hotspots",
-            "caption": "8:2, PDF page 5. Source glia panel with original labels and axes.",
-            "fallbackAlt": "8:2, PDF page 5. Source glia panel with original labels and axes.",
-            "props": {
-              "src": new URL('../../assets/figures/nbe-e4120/L08/glia.webp', import.meta.url).href,
-              "alt": "8:2, PDF page 5. Source glia panel with original labels and axes.",
-              "aspect": 1.1210762331838564,
-              "quiz": false,
-              "layout": "stack",
-              "regions": []
+          "type": "detail",
+          "title": "Source figure and context",
+          "blocks": [
+            {
+              "type": "figure",
+              "visual": {
+                "type": "widget",
+                "name": "image-hotspots",
+                "caption": "8:2, PDF page 5. Source glia panel with original labels and axes.",
+                "fallbackAlt": "8:2, PDF page 5. Source glia panel with original labels and axes.",
+                "props": {
+                  "src": new URL('../../assets/figures/nbe-e4120/L08/glia.webp', import.meta.url).href,
+                  "alt": "8:2, PDF page 5. Source glia panel with original labels and axes.",
+                  "aspect": 1.1210762331838564,
+                  "quiz": false,
+                  "layout": "stack",
+                  "regions": []
+                }
+              }
             }
-          }
+          ]
         }
       ],
       "formulas": [],
       "conceptQuiz": [
         {
           "id": "L08-glia-check",
+          "practice": "extra",
           "prompt": "Which glial cell can supply several internodes in the central nervous system?",
           "correct": 1,
           "options": [
@@ -3589,6 +3762,7 @@ const content={
         },
         {
           "id": "L08-glia-starter",
+          "practice": "extra",
           "type": "mc",
           "difficulty": "easy",
           "progressionAdded": true,
@@ -3625,13 +3799,15 @@ const content={
     },
     {
       "id": "insulation",
-      "title": "Electrical insulation: length is not time",
+      "title": "Myelin resistance and capacitance",
       "keyTerms": [],
       "source": "L08 8:2 p6",
       "blocks": [
         {
           "type": "text",
-          "body": ["Myelin increases effective transverse resistance and lowers capacitance. The length constant increases. The time constant is the product $RC$, so its change depends on both factors. Ideal identical series layers leave that product unchanged.", "For the ideal equal-layer model, add series resistances and reciprocals of capacitances before calculating the product. At fixed axial properties, higher membrane resistance lengthens passive spread, reducing attenuation between nodes. This spatial benefit does not require a smaller time constant; use the integrated example to separate those conclusions. (8:2 PDF p6.)"]
+          "body": [
+            "Myelin raises effective transverse resistance and lowers capacitance. With fixed inner radius and axial resistivity, higher $R_m$ raises $\\lambda=\\sqrt{aR_m/(2\\rho_i)}$. Since $\\tau=R_m C_m$ on a consistent specific basis, its change depends on both factors. Ideal identical layers in series leave the product unchanged."
+          ]
         },
         {
           "type": "figure",
@@ -3682,14 +3858,14 @@ const content={
           "drill": {
             "prompt": "Four ideal layers each have resistance $20\\,\\mathrm{M\\Omega}$. Find effective resistance.",
             "answer": {
-              "value": 80000000.0,
+              "value": 80000000,
               "unit": "ohm",
-              "tolerance": 240000.0,
+              "tolerance": 240000,
               "verification": {
                 "relation": "product",
                 "inputs": {
                   "a": 4,
-                  "b": 20000000.0
+                  "b": 20000000
                 },
                 "displayScale": 1
               }
@@ -3811,8 +3987,8 @@ const content={
                 "relation": "geometry",
                 "inputs": {
                   "epsilon": 2e-11,
-                  "area": 1e-08,
-                  "distance": 2e-08
+                  "area": 1e-8,
+                  "distance": 2e-8
                 },
                 "displayScale": 1
               }
@@ -3865,11 +4041,11 @@ const content={
             "answer": {
               "value": 0.0008,
               "unit": "s",
-              "tolerance": 2.4000000000000003e-06,
+              "tolerance": 0.0000024000000000000003,
               "verification": {
                 "relation": "product",
                 "inputs": {
-                  "a": 80000000.0,
+                  "a": 80000000,
                   "b": 1e-11
                 },
                 "displayScale": 1
@@ -3923,12 +4099,12 @@ const content={
             "answer": {
               "value": 0.001,
               "unit": "m",
-              "tolerance": 3e-06,
+              "tolerance": 0.000003,
               "verification": {
                 "relation": "cableLength",
                 "inputs": {
                   "rm": 100,
-                  "ri": 100000000.0
+                  "ri": 100000000
                 },
                 "displayScale": 1
               }
@@ -3979,6 +4155,7 @@ const content={
         },
         {
           "id": "L08-insulation-starter",
+          "practice": "extra",
           "type": "mc",
           "difficulty": "easy",
           "progressionAdded": true,
@@ -4021,7 +4198,9 @@ const content={
       "blocks": [
         {
           "type": "text",
-          "body": ["A node is a short exposed membrane gap between internodes. Paranodes border the gap; juxtaparanodes lie beneath nearby myelin. Preserve those locations when explaining channel distributions.", "Read the spatial diagram from the exposed node through the paranode to the covered juxtaparanode and internode. These locations distinguish accessible regenerative membrane from insulated membrane. The gap is small relative to the internode, but it concentrates excitability; a long covered segment need not contain a matching density of active channels. (8:2 PDF p7.)"]
+          "body": [
+            "The node of Ranvier is the exposed gap between myelinated internodes. Paranodes border it and juxtaparanodes lie beneath nearby myelin."
+          ]
         },
         {
           "type": "figure",
@@ -4071,6 +4250,7 @@ const content={
         },
         {
           "id": "L08-node-starter",
+          "practice": "extra",
           "type": "mc",
           "difficulty": "easy",
           "progressionAdded": true,
@@ -4107,30 +4287,38 @@ const content={
     },
     {
       "id": "dimensions",
-      "title": "Geometry and empirical myelinated-fiber fits",
+      "title": "Fiber geometry",
       "keyTerms": [],
       "source": "L08 8:2 p8",
       "blocks": [
         {
           "type": "text",
-          "body": ["The source uses outer fiber diameter $D$ and inner axon diameter $d$. Its approximate fits are $L(\\mathrm{mm})=0.146D(\\mu\\mathrm m)$ and $d/D=0.74$. The illustrative drawing is not an exact simultaneous instance of both fits.", "Apply each fit with its stated units. Radial sheath thickness is half the difference between outer and inner diameters; internode transit time is length divided by speed. Node length is an approximate fraction of internode length. These empirical proportions summarize the source population, rather than defining every myelinated axon. (8:2 PDF p8.)"]
+          "body": [
+            "For the source’s approximate geometry fits, $L/(\\mathrm{mm})=0.146D/(\\mu\\mathrm m)$ and $d/D=0.74$, where $D$ includes myelin and $d$ excludes it. Sheath thickness is $(D-d)/2$."
+          ]
         },
         {
-          "type": "figure",
-          "visual": {
-            "type": "widget",
-            "name": "image-hotspots",
-            "caption": "8:2, PDF page 8. Source dimensions panel with original labels and axes.",
-            "fallbackAlt": "8:2, PDF page 8. Source dimensions panel with original labels and axes.",
-            "props": {
-              "src": new URL('../../assets/figures/nbe-e4120/L08/dimensions.webp', import.meta.url).href,
-              "alt": "8:2, PDF page 8. Source dimensions panel with original labels and axes.",
-              "aspect": 3.6315789473684212,
-              "quiz": false,
-              "layout": "stack",
-              "regions": []
+          "type": "detail",
+          "title": "Source figure and context",
+          "blocks": [
+            {
+              "type": "figure",
+              "visual": {
+                "type": "widget",
+                "name": "image-hotspots",
+                "caption": "8:2, PDF page 8. Source dimensions panel with original labels and axes.",
+                "fallbackAlt": "8:2, PDF page 8. Source dimensions panel with original labels and axes.",
+                "props": {
+                  "src": new URL('../../assets/figures/nbe-e4120/L08/dimensions.webp', import.meta.url).href,
+                  "alt": "8:2, PDF page 8. Source dimensions panel with original labels and axes.",
+                  "aspect": 3.6315789473684212,
+                  "quiz": false,
+                  "layout": "stack",
+                  "regions": []
+                }
+              }
             }
-          }
+          ]
         }
       ],
       "formulas": [
@@ -4160,12 +4348,12 @@ const content={
             "answer": {
               "value": 0.001168,
               "unit": "m",
-              "tolerance": 3.504e-06,
+              "tolerance": 0.000003504,
               "verification": {
                 "relation": "product",
                 "inputs": {
                   "a": 146,
-                  "b": 8e-06
+                  "b": 0.000008
                 },
                 "displayScale": 1
               }
@@ -4210,14 +4398,14 @@ const content={
           "drill": {
             "prompt": "For outer diameter $D=8\\,\\mu\\mathrm m$, estimate inner diameter.",
             "answer": {
-              "value": 5.92e-06,
+              "value": 0.00000592,
               "unit": "m",
-              "tolerance": 1.776e-08,
+              "tolerance": 1.776e-8,
               "verification": {
                 "relation": "product",
                 "inputs": {
                   "a": 0.74,
-                  "b": 8e-06
+                  "b": 0.000008
                 },
                 "displayScale": 1
               }
@@ -4262,9 +4450,9 @@ const content={
           "drill": {
             "prompt": "For $L=1.2\\,\\mathrm{mm}$, estimate node length with the source ratio.",
             "answer": {
-              "value": 1.2e-06,
+              "value": 0.0000012,
               "unit": "m",
-              "tolerance": 3.6e-09,
+              "tolerance": 3.6e-9,
               "verification": {
                 "relation": "product",
                 "inputs": {
@@ -4294,6 +4482,7 @@ const content={
       "conceptQuiz": [
         {
           "id": "L08-dimensions-check",
+          "practice": "extra",
           "prompt": "Which diameter spans both axon and sheath in the geometry panel?",
           "correct": 0,
           "options": [
@@ -4320,6 +4509,7 @@ const content={
         },
         {
           "id": "L08-dimensions-starter",
+          "practice": "extra",
           "type": "mc",
           "difficulty": "easy",
           "progressionAdded": true,
@@ -4356,13 +4546,15 @@ const content={
     },
     {
       "id": "saltation",
-      "title": "Continuous versus saltatory regeneration",
+      "title": "Saltatory regeneration",
       "keyTerms": [],
       "source": "L08 8:2 p9–10",
       "blocks": [
         {
           "type": "text",
-          "body": ["Both forms use continuous passive spread of current. Unmyelinated membrane regenerates along the axon; myelinated axons regenerate mainly at nodes. The source cartoon simplifies potassium distribution, which the next panel refines.", "At an active node, inward sodium current supplies local charging and axial spread beneath myelin. If downstream membrane reaches threshold, nodal sodium current regenerates the signal. Internodal voltage still changes during that passive connection; localization of regeneration does not mean the electrical pathway is interrupted between nodes. (8:2 PDF p9–10.)"]
+          "body": [
+            "Unmyelinated axons regenerate along the membrane. In myelinated axons, passive axial current spreads under myelin and brings the next node to threshold. Nodal sodium current regenerates the signal."
+          ]
         },
         {
           "type": "figure",
@@ -4412,6 +4604,7 @@ const content={
         },
         {
           "id": "L08-saltation-starter",
+          "practice": "extra",
           "type": "mc",
           "difficulty": "easy",
           "progressionAdded": true,
@@ -4448,13 +4641,15 @@ const content={
     },
     {
       "id": "channels",
-      "title": "Nodal and juxtaparanodal channels",
+      "title": "Channel distribution",
       "keyTerms": [],
       "source": "L08 8:2 p11",
       "blocks": [
         {
           "type": "text",
-          "body": ["Nodes concentrate sodium channels and include Kv3.1b and Kv7 potassium channels. Many Kv1 channels cluster at juxtaparanodes beneath myelin, limiting normal activation. Distribution and insulation improve speed and metabolic efficiency.", "Use the detailed distribution panel to refine the earlier cartoon. Rapid nodal sodium activation supports regeneration, while potassium-channel location and accessibility differ among families. Do not describe the insulated internode as an exposed patch with the same channel distribution or infer that all potassium channels are absent from nodes. (8:2 PDF p11.)"]
+          "body": [
+            "Nodes concentrate sodium channels and also have potassium channels. Many Kv1 channels are concentrated at juxtaparanodes beneath myelin."
+          ]
         },
         {
           "type": "figure",
@@ -4504,6 +4699,7 @@ const content={
         },
         {
           "id": "L08-channels-starter",
+          "practice": "extra",
           "type": "mc",
           "difficulty": "easy",
           "progressionAdded": true,
@@ -4540,13 +4736,15 @@ const content={
     },
     {
       "id": "anesthetic",
-      "title": "Evidence from anesthetic blocks and nodal currents",
+      "title": "Nodal block and safety margin",
       "keyTerms": [],
       "source": "L08 8:2 p12",
       "blocks": [
         {
           "type": "text",
-          "body": ["The source experiments show propagation past a small number of blocked nodes and failure after more consecutive nodes are blocked. Large inward currents localize to nodes. These observations support a safety margin, not a universal blocked-node cutoff.", "The manipulated variable is the number of consecutive anesthetized nodes; the readout is successful conduction beyond the treated region. Relate that result to the spatial current panel, where strong inward current occurs at nodes. Passive spread can bridge some inactive sites, but the experiment does not fix a universal safety distance. (8:2 PDF p12.)"]
+          "body": [
+            "Conduction past blocked nodes shows that passive spread can bridge inactive sites. Blocking more consecutive nodes can cause failure when the next available node stays below threshold."
+          ]
         },
         {
           "type": "figure",
@@ -4570,6 +4768,7 @@ const content={
       "conceptQuiz": [
         {
           "id": "L08-anesthetic-check",
+          "practice": "extra",
           "prompt": "Which mechanism can carry excitation beyond a locally blocked node?",
           "correct": 0,
           "options": [
@@ -4596,6 +4795,7 @@ const content={
         },
         {
           "id": "L08-anesthetic-starter",
+          "practice": "extra",
           "type": "mc",
           "difficulty": "easy",
           "progressionAdded": true,
@@ -4632,36 +4832,45 @@ const content={
     },
     {
       "id": "twitch",
-      "title": "Local stimulation threshold and the twitch proxy",
+      "title": "Excitation threshold along the axon",
       "keyTerms": [],
       "source": "L08 8:2 p13",
       "blocks": [
         {
           "type": "text",
-          "body": ["Move a stimulating electrode along a motor nerve and measure the minimum current producing a barely detectable muscle twitch. Lowest thresholds near nodes support spatially distinct excitability. A twitch is an indirect readout, not a direct intracellular voltage trace.", "Electrode position is varied and threshold stimulus current is measured using the twitch criterion. Minima near nodes support greater nodal excitability. Keep nerve-muscle preparation and electrode geometry comparable: the endpoint also requires successful downstream transmission and muscle activation, so it is not a direct local membrane-voltage measurement. (8:2 PDF p13.)"]
+          "body": [
+            "Moving a stimulating electrode gives the lowest twitch-evoking current near nodes. The twitch indirectly reports excitation and depends on downstream conduction and muscle activation."
+          ]
         },
         {
-          "type": "figure",
-          "visual": {
-            "type": "widget",
-            "name": "image-hotspots",
-            "caption": "8:2, PDF page 13. Source twitch panel with original labels and axes.",
-            "fallbackAlt": "8:2, PDF page 13. Source twitch panel with original labels and axes.",
-            "props": {
-              "src": new URL('../../assets/figures/nbe-e4120/L08/twitch.webp', import.meta.url).href,
-              "alt": "8:2, PDF page 13. Source twitch panel with original labels and axes.",
-              "aspect": 1.0967007963594995,
-              "quiz": false,
-              "layout": "stack",
-              "regions": []
+          "type": "detail",
+          "title": "Source figure and context",
+          "blocks": [
+            {
+              "type": "figure",
+              "visual": {
+                "type": "widget",
+                "name": "image-hotspots",
+                "caption": "8:2, PDF page 13. Source twitch panel with original labels and axes.",
+                "fallbackAlt": "8:2, PDF page 13. Source twitch panel with original labels and axes.",
+                "props": {
+                  "src": new URL('../../assets/figures/nbe-e4120/L08/twitch.webp', import.meta.url).href,
+                  "alt": "8:2, PDF page 13. Source twitch panel with original labels and axes.",
+                  "aspect": 1.0967007963594995,
+                  "quiz": false,
+                  "layout": "stack",
+                  "regions": []
+                }
+              }
             }
-          }
+          ]
         }
       ],
       "formulas": [],
       "conceptQuiz": [
         {
           "id": "L08-twitch-check",
+          "practice": "extra",
           "prompt": "Which measured endpoint was used to identify the stimulation threshold?",
           "correct": 0,
           "options": [
@@ -4688,6 +4897,7 @@ const content={
         },
         {
           "id": "L08-twitch-starter",
+          "practice": "extra",
           "type": "mc",
           "difficulty": "easy",
           "progressionAdded": true,
@@ -4724,36 +4934,45 @@ const content={
     },
     {
       "id": "extracellular",
-      "title": "Extracellular recordings localize nodal sources",
+      "title": "Extracellular evidence",
       "keyTerms": [],
       "source": "L08 8:2 p14",
       "blocks": [
         {
           "type": "text",
-          "body": ["Extracellular AP amplitude is largest near a node and decreases away from it. Its spatial organization supports localized regenerative current sources. The measured extracellular voltage is not the transmembrane voltage itself.", "Move the recording electrode while retaining a comparable propagated response and reference geometry. A spatial amplitude maximum near the node supports a localized source, but amplitude also depends on electrode distance and the surrounding conductive path. Compare positions at controlled distances before attributing a changed amplitude to altered membrane excitability. (8:2 PDF p14.)"]
+          "body": [
+            "Large extracellular signals near nodes support localized current sources. Compare recordings with similar electrode geometry. The signal is an extracellular voltage, measured relative to a reference."
+          ]
         },
         {
-          "type": "figure",
-          "visual": {
-            "type": "widget",
-            "name": "image-hotspots",
-            "caption": "8:2, PDF page 14. Source extracellular panel with original labels and axes.",
-            "fallbackAlt": "8:2, PDF page 14. Source extracellular panel with original labels and axes.",
-            "props": {
-              "src": new URL('../../assets/figures/nbe-e4120/L08/extracellular.webp', import.meta.url).href,
-              "alt": "8:2, PDF page 14. Source extracellular panel with original labels and axes.",
-              "aspect": 1.1474285714285715,
-              "quiz": false,
-              "layout": "stack",
-              "regions": []
+          "type": "detail",
+          "title": "Source figure and context",
+          "blocks": [
+            {
+              "type": "figure",
+              "visual": {
+                "type": "widget",
+                "name": "image-hotspots",
+                "caption": "8:2, PDF page 14. Source extracellular panel with original labels and axes.",
+                "fallbackAlt": "8:2, PDF page 14. Source extracellular panel with original labels and axes.",
+                "props": {
+                  "src": new URL('../../assets/figures/nbe-e4120/L08/extracellular.webp', import.meta.url).href,
+                  "alt": "8:2, PDF page 14. Source extracellular panel with original labels and axes.",
+                  "aspect": 1.1474285714285715,
+                  "quiz": false,
+                  "layout": "stack",
+                  "regions": []
+                }
+              }
             }
-          }
+          ]
         }
       ],
       "formulas": [],
       "conceptQuiz": [
         {
           "id": "L08-extracellular-check",
+          "practice": "extra",
           "prompt": "Which potential difference does the surrounding recording electrode report?",
           "correct": 0,
           "options": [
@@ -4780,6 +4999,7 @@ const content={
         },
         {
           "id": "L08-extracellular-starter",
+          "practice": "extra",
           "type": "mc",
           "difficulty": "easy",
           "progressionAdded": true,
@@ -4816,13 +5036,15 @@ const content={
     },
     {
       "id": "continuity",
-      "title": "Membrane current is more saltatory than voltage",
+      "title": "Internodal voltage and nodal current",
       "keyTerms": [],
       "source": "L08 8:2 p15",
       "blocks": [
         {
           "type": "text",
-          "body": ["Classical panels show a strongly localized inward membrane current but continuous depolarization across nodes and internodes. Waveforms need not be identical at the two sites. Distinguish transmembrane current from axial current.", "Compare the nodal and mid-internodal panels separately for voltage and membrane current. The inward current component is concentrated at nodes, whereas the voltage waveform remains present between them. Axial current carries charge along the fiber; it should not be mistaken for inward transmembrane current at every intermediate location. (8:2 PDF p15.)"]
+          "body": [
+            "Compare voltage and inward transmembrane current at nodes and internodes. Internodes still depolarize while inward regenerative current is concentrated at nodes."
+          ]
         },
         {
           "type": "figure",
@@ -4846,6 +5068,7 @@ const content={
       "conceptQuiz": [
         {
           "id": "L08-continuity-check",
+          "practice": "extra",
           "prompt": "Which measured component is localized more strongly to nodes than membrane voltage?",
           "correct": 1,
           "options": [
@@ -4872,6 +5095,7 @@ const content={
         },
         {
           "id": "L08-continuity-starter",
+          "practice": "extra",
           "type": "mc",
           "difficulty": "easy",
           "progressionAdded": true,
@@ -4908,36 +5132,45 @@ const content={
     },
     {
       "id": "double",
-      "title": "Double cable and the periaxonal pathway",
+      "title": "The periaxonal pathway",
       "keyTerms": [],
       "source": "L08 8:2 p16",
       "blocks": [
         {
           "type": "text",
-          "body": ["A narrow periaxonal conductive pathway adds a second axial route under myelin. The supplied optical study found different nodal and internodal waveforms and faster propagation when this space was reduced. These are study-specific observations.", "The optical measurement follows membrane voltage at nodal and internodal sites; it does not simply measure extracellular amplitude. Distinct waveforms remain compatible with continuous internodal depolarization. Adding the periaxonal route refines the single-cable picture, while the reported space and waveform differences belong to the illustrated study. (8:2 PDF p16.)"]
+          "body": [
+            "The double-cable model adds a conductive periaxonal path under myelin. Optical voltage traces show that nodal and internodal waveforms can differ."
+          ]
         },
         {
-          "type": "figure",
-          "visual": {
-            "type": "widget",
-            "name": "image-hotspots",
-            "caption": "8:2, PDF page 16. Source double panel with original labels and axes.",
-            "fallbackAlt": "8:2, PDF page 16. Source double panel with original labels and axes.",
-            "props": {
-              "src": new URL('../../assets/figures/nbe-e4120/L08/double.webp', import.meta.url).href,
-              "alt": "8:2, PDF page 16. Source double panel with original labels and axes.",
-              "aspect": 3.5723684210526314,
-              "quiz": false,
-              "layout": "stack",
-              "regions": []
+          "type": "detail",
+          "title": "Source figure and context",
+          "blocks": [
+            {
+              "type": "figure",
+              "visual": {
+                "type": "widget",
+                "name": "image-hotspots",
+                "caption": "8:2, PDF page 16. Source double panel with original labels and axes.",
+                "fallbackAlt": "8:2, PDF page 16. Source double panel with original labels and axes.",
+                "props": {
+                  "src": new URL('../../assets/figures/nbe-e4120/L08/double.webp', import.meta.url).href,
+                  "alt": "8:2, PDF page 16. Source double panel with original labels and axes.",
+                  "aspect": 3.5723684210526314,
+                  "quiz": false,
+                  "layout": "stack",
+                  "regions": []
+                }
+              }
             }
-          }
+          ]
         }
       ],
       "formulas": [],
       "conceptQuiz": [
         {
           "id": "L08-double-check",
+          "practice": "extra",
           "prompt": "Which conductive pathway is added to the ordinary axoplasmic route?",
           "correct": 1,
           "options": [
@@ -4964,6 +5197,7 @@ const content={
         },
         {
           "id": "L08-double-starter",
+          "practice": "extra",
           "type": "mc",
           "difficulty": "easy",
           "progressionAdded": true,
@@ -5000,36 +5234,45 @@ const content={
     },
     {
       "id": "jump",
-      "title": "Critique the literal-jumping description",
+      "title": "Sketch saltatory conduction",
       "keyTerms": [],
       "source": "L08 8:2 p17–18",
       "blocks": [
         {
           "type": "text",
-          "body": ["Saltatory describes mainly the localization of regenerative inward current. Continuous passive spread links active nodes, sometimes across several internodes. A model answer must distinguish current and voltage rather than saying the entire AP vanishes and reappears.", "Build an explanation from independent observations: localized inward current, easier nodal excitation and continuous internodal voltage. Blocking experiments add evidence that passive spread can bridge inactive nodes. Together these support reliable nodal regeneration without requiring identical waveforms everywhere or literal disappearance and reappearance of the membrane potential. (8:2 PDF p17–18.)"]
+          "body": [
+            "In a sketch, draw continuous internodal depolarization and mark where inward current regenerates the spike. A nodal current peak and an internodal voltage change can coexist."
+          ]
         },
         {
-          "type": "figure",
-          "visual": {
-            "type": "widget",
-            "name": "image-hotspots",
-            "caption": "8:2, PDF page 17. Source continuity panel with original labels and axes.",
-            "fallbackAlt": "8:2, PDF page 17. Source continuity panel with original labels and axes.",
-            "props": {
-              "src": new URL('../../assets/figures/nbe-e4120/L08/continuity.webp', import.meta.url).href,
-              "alt": "8:2, PDF page 17. Source continuity panel with original labels and axes.",
-              "aspect": 0.6662468513853904,
-              "quiz": false,
-              "layout": "stack",
-              "regions": []
+          "type": "detail",
+          "title": "Source figure and context",
+          "blocks": [
+            {
+              "type": "figure",
+              "visual": {
+                "type": "widget",
+                "name": "image-hotspots",
+                "caption": "8:2, PDF page 17. Source continuity panel with original labels and axes.",
+                "fallbackAlt": "8:2, PDF page 17. Source continuity panel with original labels and axes.",
+                "props": {
+                  "src": new URL('../../assets/figures/nbe-e4120/L08/continuity.webp', import.meta.url).href,
+                  "alt": "8:2, PDF page 17. Source continuity panel with original labels and axes.",
+                  "aspect": 0.6662468513853904,
+                  "quiz": false,
+                  "layout": "stack",
+                  "regions": []
+                }
+              }
             }
-          }
+          ]
         }
       ],
       "formulas": [],
       "conceptQuiz": [
         {
           "id": "L08-jump-check",
+          "practice": "extra",
           "prompt": "Which account keeps both internodal continuity and localized regeneration?",
           "correct": 0,
           "options": [
@@ -5056,6 +5299,7 @@ const content={
         },
         {
           "id": "L08-jump-starter",
+          "practice": "extra",
           "type": "mc",
           "difficulty": "easy",
           "progressionAdded": true,
@@ -5092,13 +5336,15 @@ const content={
     },
     {
       "id": "ex-iv",
-      "title": "Exercise 8: steady sodium I–V from tabulated gates",
+      "title": "Exercise 8 · Sodium I–V",
       "keyTerms": [],
       "source": "L08 Exercise8 p1–2 #1",
       "blocks": [
         {
           "type": "text",
-          "body": ["Use the exact supplied $m_\\infty,h_\\infty$ table. Compare current at the sampled voltages; changing reversal changes driving force without changing the stipulated gates. Removing inactivation sets $h=1$. A continuous maximum requires an additional interpolation choice.", "At each voltage, multiply maximal conductance by the activation-cubed and availability product, then multiply by signed driving force. For inverse problems, divide measured currents by their stipulated gate products before fitting conductance and reversal. Normalize only where that product is nonzero; small products magnify measurement error. (Exercise8 PDF p1–2 #1.)"]
+          "body": [
+            "For each sampled $V_m$, compute $I_{Na,\\infty}=\\bar g_{Na}m_\\infty^3h_\\infty(V_m-E_{Na})$. Vary $E_{Na}$ with gates fixed, or set $h_\\infty=1$ to remove inactivation. The most negative table value is a sampled peak. A continuous peak requires interpolation."
+          ]
         },
         {
           "type": "figure",
@@ -5320,6 +5566,7 @@ const content={
       "conceptQuiz": [
         {
           "id": "L08-ex-iv-check",
+          "practice": "extra",
           "prompt": "Which gate values should be used at each voltage after equilibration?",
           "correct": 1,
           "options": [
@@ -5346,6 +5593,7 @@ const content={
         },
         {
           "id": "L08-ex-iv-starter",
+          "practice": "extra",
           "type": "mc",
           "difficulty": "easy",
           "progressionAdded": true,
@@ -5387,13 +5635,15 @@ const content={
     },
     {
       "id": "ex-k",
-      "title": "Exercise 8: absolute-voltage potassium graph",
+      "title": "Exercise 8 · Potassium current",
       "keyTerms": [],
       "source": "L08 Exercise8 p2 #2",
       "blocks": [
         {
           "type": "text",
-          "body": ["The supplied plot explicitly annotates $n_\\infty\\approx0.88$ at absolute $0\\,\\mathrm{mV}$. Raise the particle probability to the fourth power before applying the signed driving force. Do not feed that absolute voltage into an unshifted rest-relative L07 rate law.", "For a voltage jump, distinguish immediate driving-force change at frozen gates from subsequent relaxation toward the new steady activation. Recover conductance from current divided by driving force, then take the fourth root of its maximal fraction. Separate the capacitive transient before interpreting the ionic tail. (Exercise8 PDF p2 #2.)"]
+          "body": [
+            "Read $n_\\infty$ at the stated absolute clamp voltage. Then compute $\\bar g_K n_\\infty^4(V_m-E_K)$. On a step, driving force changes immediately and $n$ relaxes afterward."
+          ]
         },
         {
           "type": "figure",
@@ -5417,6 +5667,7 @@ const content={
       "conceptQuiz": [
         {
           "id": "L08-ex-k-check",
+          "practice": "extra",
           "prompt": "How is the potassium channel fraction formed from its particle probability?",
           "correct": 0,
           "options": [
@@ -5443,6 +5694,7 @@ const content={
         },
         {
           "id": "L08-ex-k-starter",
+          "practice": "extra",
           "type": "mc",
           "difficulty": "easy",
           "progressionAdded": true,
@@ -5479,13 +5731,15 @@ const content={
     },
     {
       "id": "ex-charge",
-      "title": "Exercise 8: gating area and single-channel inference",
+      "title": "Exercise 8 · Charge and channel density",
       "keyTerms": [],
       "source": "L08 Exercise8 p3 #3",
       "blocks": [
         {
           "type": "text",
-          "body": ["Use the given charge integral and assigned charge per channel. The source gives measured conductance at its test voltage, without confirming maximal activation. Thus $g_A/D$ estimates single-channel conductance only if fully open; otherwise it measures $\\gamma P_{open}$.", "Integrate the isolated sensor transient, convert the charge-density units, and divide by the assigned elementary charges per channel. Use the same area basis for conductance. A separate fully open measurement makes single-channel conductance identifiable; without it, the test pulse gives only its product with open probability. (Exercise8 PDF p3 #3.)"]
+          "body": [
+            "Convert the integral to charge per area before dividing by the charge per channel. Use conductance per the same area. Exercise 8 gives conductance at one voltage, so inferring $\\gamma$ requires a full-activation assumption."
+          ]
         },
         {
           "type": "figure",
@@ -5509,6 +5763,7 @@ const content={
       "conceptQuiz": [
         {
           "id": "L08-ex-charge-check",
+          "practice": "extra",
           "prompt": "Which quantity is obtained from the time integral of sensor-current density?",
           "correct": 1,
           "options": [
@@ -5535,6 +5790,7 @@ const content={
         },
         {
           "id": "L08-ex-charge-starter",
+          "practice": "extra",
           "type": "mc",
           "difficulty": "easy",
           "progressionAdded": true,
@@ -5600,7 +5856,8 @@ const content={
         "The driving force $V_m-E_i$"
       ],
       "points": 1,
-      "source": "L08 8:1 p2"
+      "source": "L08 8:1 p2",
+      "practice": "extra"
     },
     {
       "id": "L08-direct-ohmic",
@@ -5616,13 +5873,13 @@ const content={
             {
               "label": "Conductance",
               "answer": {
-                "value": 4e-08,
+                "value": 4e-8,
                 "unit": "S",
                 "tolerance": 4e-14,
                 "verification": {
                   "relation": "ratio",
                   "inputs": {
-                    "a": 4e-08,
+                    "a": 4e-8,
                     "b": 1
                   },
                   "displayScale": 1
@@ -5634,7 +5891,7 @@ const content={
               "answer": {
                 "value": -0.06,
                 "unit": "V",
-                "tolerance": 6e-08,
+                "tolerance": 6e-8,
                 "verification": {
                   "relation": "ratio",
                   "inputs": {
@@ -5653,13 +5910,13 @@ const content={
         {
           "title": "Evaluate",
           "answer": {
-            "value": -2.4e-09,
+            "value": -2.4e-9,
             "unit": "A",
             "tolerance": 7.2e-12,
             "verification": {
               "relation": "product",
               "inputs": {
-                "a": 4e-08,
+                "a": 4e-8,
                 "b": -0.06
               },
               "displayScale": 1
@@ -5702,13 +5959,13 @@ const content={
             {
               "label": "Sodium plus potassium",
               "answer": {
-                "value": -1.5e-09,
+                "value": -1.5e-9,
                 "unit": "A",
                 "tolerance": 1.5e-15,
                 "verification": {
                   "relation": "ratio",
                   "inputs": {
-                    "a": -1.5e-09,
+                    "a": -1.5e-9,
                     "b": 1
                   },
                   "displayScale": 1
@@ -5739,13 +5996,13 @@ const content={
         {
           "title": "Evaluate",
           "answer": {
-            "value": -1.2e-09,
+            "value": -1.2e-9,
             "unit": "A",
             "tolerance": 3.6e-12,
             "verification": {
               "relation": "sum",
               "inputs": {
-                "a": -1.5e-09,
+                "a": -1.5e-9,
                 "b": 3e-10
               },
               "displayScale": 1
@@ -5803,10 +6060,12 @@ const content={
         "$m^3h$, activation times availability"
       ],
       "points": 1,
-      "source": "L08 8:1 p3"
+      "source": "L08 8:1 p3",
+      "practice": "extra"
     },
     {
       "id": "L08-space-recall",
+      "practice": "extra",
       "type": "mc",
       "difficulty": "easy",
       "sectionId": "space",
@@ -5849,13 +6108,13 @@ const content={
             {
               "label": "Radius",
               "answer": {
-                "value": 5e-06,
+                "value": 0.000005,
                 "unit": "m",
                 "tolerance": 5.0000000000000005e-12,
                 "verification": {
                   "relation": "ratio",
                   "inputs": {
-                    "a": 5e-06,
+                    "a": 0.000005,
                     "b": 1
                   },
                   "displayScale": 1
@@ -5867,7 +6126,7 @@ const content={
               "answer": {
                 "value": 1,
                 "unit": "ohm*m",
-                "tolerance": 1e-06,
+                "tolerance": 0.000001,
                 "verification": {
                   "relation": "ratio",
                   "inputs": {
@@ -5881,13 +6140,13 @@ const content={
             {
               "label": "Curvature",
               "answer": {
-                "value": 400000.0,
+                "value": 400000,
                 "unit": "V/m2",
                 "tolerance": 0.39999999999999997,
                 "verification": {
                   "relation": "ratio",
                   "inputs": {
-                    "a": 400000.0,
+                    "a": 400000,
                     "b": 1
                   },
                   "displayScale": 1
@@ -5908,9 +6167,9 @@ const content={
             "verification": {
               "relation": "axialSource",
               "inputs": {
-                "radius": 5e-06,
+                "radius": 0.000005,
                 "rho": 1,
-                "curvature": 400000.0
+                "curvature": 400000
               },
               "displayScale": 1
             }
@@ -5954,7 +6213,7 @@ const content={
               "answer": {
                 "value": 3,
                 "unit": "",
-                "tolerance": 3e-06,
+                "tolerance": 0.000003,
                 "verification": {
                   "relation": "ratio",
                   "inputs": {
@@ -6070,7 +6329,8 @@ const content={
         "Net inward ionic current balanced by capacitance"
       ],
       "points": 1,
-      "source": "L08 8:1 p5"
+      "source": "L08 8:1 p5",
+      "practice": "extra"
     },
     {
       "id": "L08-direct-balance",
@@ -6101,13 +6361,13 @@ const content={
             {
               "label": "Ionic current",
               "answer": {
-                "value": -2e-09,
+                "value": -2e-9,
                 "unit": "A",
                 "tolerance": 2e-15,
                 "verification": {
                   "relation": "ratio",
                   "inputs": {
-                    "a": -2e-09,
+                    "a": -2e-9,
                     "b": 1
                   },
                   "displayScale": 1
@@ -6145,7 +6405,7 @@ const content={
               "relation": "hhBalance",
               "inputs": {
                 "im": 0,
-                "ionic": -2e-09,
+                "ionic": -2e-9,
                 "capacitance": 1e-10
               },
               "displayScale": 1
@@ -6165,7 +6425,7 @@ const content={
               "verification": {
                 "relation": "ratio",
                 "inputs": {
-                  "a": -2e-09,
+                  "a": -2e-9,
                   "b": 1e-10
                 }
               }
@@ -6217,7 +6477,8 @@ const content={
         "Sodium availability remains reduced after activation"
       ],
       "points": 1,
-      "source": "L08 8:1 p6"
+      "source": "L08 8:1 p6",
+      "practice": "extra"
     },
     {
       "id": "L08-propagating-recall",
@@ -6248,10 +6509,12 @@ const content={
         "Longitudinal current into adjacent axonal regions"
       ],
       "points": 1,
-      "source": "L08 8:1 p7"
+      "source": "L08 8:1 p7",
+      "practice": "extra"
     },
     {
       "id": "L08-noble-recall",
+      "practice": "extra",
       "type": "mc",
       "difficulty": "easy",
       "sectionId": "noble",
@@ -6310,7 +6573,8 @@ const content={
         "Negative slope with zero applied current"
       ],
       "points": 1,
-      "source": "L08 8:1 p9"
+      "source": "L08 8:1 p9",
+      "practice": "extra"
     },
     {
       "id": "L08-direct-stability",
@@ -6325,13 +6589,13 @@ const content={
             {
               "label": "Negative of slope",
               "answer": {
-                "value": 4e-09,
+                "value": 4e-9,
                 "unit": "S",
                 "tolerance": 4e-15,
                 "verification": {
                   "relation": "ratio",
                   "inputs": {
-                    "a": 4e-09,
+                    "a": 4e-9,
                     "b": 1
                   },
                   "displayScale": 1
@@ -6368,7 +6632,7 @@ const content={
             "verification": {
               "relation": "ratio",
               "inputs": {
-                "a": 4e-09,
+                "a": 4e-9,
                 "b": 8e-11
               },
               "displayScale": 1
@@ -6399,6 +6663,7 @@ const content={
     },
     {
       "id": "L08-threshold-recall",
+      "practice": "extra",
       "type": "mc",
       "difficulty": "easy",
       "sectionId": "threshold",
@@ -6457,10 +6722,12 @@ const content={
         "Depolarization recruits inward sodium current"
       ],
       "points": 1,
-      "source": "L08 8:1 p11"
+      "source": "L08 8:1 p11",
+      "practice": "extra"
     },
     {
       "id": "L08-phases-recall",
+      "practice": "extra",
       "type": "mc",
       "difficulty": "easy",
       "sectionId": "phases",
@@ -6519,7 +6786,8 @@ const content={
         "Raise threshold through slow gating changes"
       ],
       "points": 1,
-      "source": "L08 8:1 p13"
+      "source": "L08 8:1 p13",
+      "practice": "extra"
     },
     {
       "id": "L08-refractory-recall",
@@ -6550,10 +6818,12 @@ const content={
         "A stronger second stimulus may still trigger a spike"
       ],
       "points": 1,
-      "source": "L08 8:1 p14"
+      "source": "L08 8:1 p14",
+      "practice": "extra"
     },
     {
       "id": "L08-sensor-recall",
+      "practice": "extra",
       "type": "mc",
       "difficulty": "easy",
       "sectionId": "sensor",
@@ -6612,7 +6882,8 @@ const content={
         "$1+r$, so probability stays bounded"
       ],
       "points": 1,
-      "source": "L08 8:1 p16–17"
+      "source": "L08 8:1 p16–17",
+      "practice": "extra"
     },
     {
       "id": "L08-direct-energy",
@@ -6646,7 +6917,7 @@ const content={
               "answer": {
                 "value": 0.01,
                 "unit": "V",
-                "tolerance": 1e-08,
+                "tolerance": 1e-8,
                 "verification": {
                   "relation": "ratio",
                   "inputs": {
@@ -6716,7 +6987,7 @@ const content={
               "answer": {
                 "value": 1.0986122886681098,
                 "unit": "",
-                "tolerance": 1.0986122886681098e-06,
+                "tolerance": 0.0000010986122886681098,
                 "verification": {
                   "relation": "ratio",
                   "inputs": {
@@ -6801,7 +7072,7 @@ const content={
               "answer": {
                 "value": 2,
                 "unit": "",
-                "tolerance": 2e-06,
+                "tolerance": 0.000002,
                 "verification": {
                   "relation": "ratio",
                   "inputs": {
@@ -6817,7 +7088,7 @@ const content={
               "answer": {
                 "value": 0.01,
                 "unit": "V",
-                "tolerance": 1e-08,
+                "tolerance": 1e-8,
                 "verification": {
                   "relation": "ratio",
                   "inputs": {
@@ -6833,7 +7104,7 @@ const content={
               "answer": {
                 "value": 0.025,
                 "unit": "V",
-                "tolerance": 2.5e-08,
+                "tolerance": 2.5e-8,
                 "verification": {
                   "relation": "ratio",
                   "inputs": {
@@ -6891,6 +7162,7 @@ const content={
     },
     {
       "id": "L08-charge-slope-recall",
+      "practice": "extra",
       "type": "mc",
       "difficulty": "easy",
       "sectionId": "charge-slope",
@@ -6935,7 +7207,7 @@ const content={
               "answer": {
                 "value": 0.025,
                 "unit": "V",
-                "tolerance": 2.5e-08,
+                "tolerance": 2.5e-8,
                 "verification": {
                   "relation": "ratio",
                   "inputs": {
@@ -6951,7 +7223,7 @@ const content={
               "answer": {
                 "value": 0.005,
                 "unit": "V",
-                "tolerance": 5e-09,
+                "tolerance": 5e-9,
                 "verification": {
                   "relation": "ratio",
                   "inputs": {
@@ -7021,7 +7293,7 @@ const content={
               "answer": {
                 "value": 0.01,
                 "unit": "V",
-                "tolerance": 1e-08,
+                "tolerance": 1e-8,
                 "verification": {
                   "relation": "ratio",
                   "inputs": {
@@ -7037,7 +7309,7 @@ const content={
               "answer": {
                 "value": 0.005,
                 "unit": "V",
-                "tolerance": 5e-09,
+                "tolerance": 5e-9,
                 "verification": {
                   "relation": "ratio",
                   "inputs": {
@@ -7093,6 +7365,7 @@ const content={
     },
     {
       "id": "L08-isolation-recall",
+      "practice": "extra",
       "type": "mc",
       "difficulty": "easy",
       "sectionId": "isolation",
@@ -7151,7 +7424,8 @@ const content={
         "Transient current after steady leak subtraction"
       ],
       "points": 1,
-      "source": "L08 8:1 p19"
+      "source": "L08 8:1 p19",
+      "practice": "extra"
     },
     {
       "id": "L08-direct-charge",
@@ -7166,13 +7440,13 @@ const content={
             {
               "label": "Initial current",
               "answer": {
-                "value": 1e-09,
+                "value": 1e-9,
                 "unit": "A",
                 "tolerance": 1e-15,
                 "verification": {
                   "relation": "ratio",
                   "inputs": {
-                    "a": 1e-09,
+                    "a": 1e-9,
                     "b": 1
                   },
                   "displayScale": 1
@@ -7184,7 +7458,7 @@ const content={
               "answer": {
                 "value": 0.001,
                 "unit": "s",
-                "tolerance": 1e-09,
+                "tolerance": 1e-9,
                 "verification": {
                   "relation": "ratio",
                   "inputs": {
@@ -7200,7 +7474,7 @@ const content={
               "answer": {
                 "value": 0.002,
                 "unit": "s",
-                "tolerance": 2e-09,
+                "tolerance": 2e-9,
                 "verification": {
                   "relation": "ratio",
                   "inputs": {
@@ -7225,7 +7499,7 @@ const content={
             "verification": {
               "relation": "expCharge",
               "inputs": {
-                "current": 1e-09,
+                "current": 1e-9,
                 "tau": 0.001,
                 "time": 0.002
               },
@@ -7287,7 +7561,7 @@ const content={
               "answer": {
                 "value": 0.01,
                 "unit": "V",
-                "tolerance": 1e-08,
+                "tolerance": 1e-8,
                 "verification": {
                   "relation": "ratio",
                   "inputs": {
@@ -7373,7 +7647,7 @@ const content={
               "answer": {
                 "value": 0.01,
                 "unit": "F/m2",
-                "tolerance": 1e-08,
+                "tolerance": 1e-8,
                 "verification": {
                   "relation": "ratio",
                   "inputs": {
@@ -7392,7 +7666,7 @@ const content={
         {
           "title": "Evaluate",
           "answer": {
-            "value": 6e-09,
+            "value": 6e-9,
             "unit": "m2",
             "tolerance": 1.8e-11,
             "verification": {
@@ -7515,6 +7789,7 @@ const content={
     },
     {
       "id": "L08-density-recall",
+      "practice": "extra",
       "type": "mc",
       "difficulty": "easy",
       "sectionId": "density",
@@ -7559,7 +7834,7 @@ const content={
               "answer": {
                 "value": 0.0048,
                 "unit": "C/m2",
-                "tolerance": 4.799999999999999e-09,
+                "tolerance": 4.799999999999999e-9,
                 "verification": {
                   "relation": "ratio",
                   "inputs": {
@@ -7594,9 +7869,9 @@ const content={
         {
           "title": "Evaluate",
           "answer": {
-            "value": 6000000000000000.0,
+            "value": 6000000000000000,
             "unit": "1/m2",
-            "tolerance": 18000000000000.0,
+            "tolerance": 18000000000000,
             "verification": {
               "relation": "ratio",
               "inputs": {
@@ -7658,13 +7933,13 @@ const content={
             {
               "label": "Channel density",
               "answer": {
-                "value": 300000000000000.0,
+                "value": 300000000000000,
                 "unit": "1/m2",
-                "tolerance": 300000000.0,
+                "tolerance": 300000000,
                 "verification": {
                   "relation": "ratio",
                   "inputs": {
-                    "a": 300000000000000.0,
+                    "a": 300000000000000,
                     "b": 1
                   },
                   "displayScale": 1
@@ -7686,7 +7961,7 @@ const content={
               "relation": "ratio",
               "inputs": {
                 "a": 1200,
-                "b": 300000000000000.0
+                "b": 300000000000000
               },
               "displayScale": 1
             }
@@ -7743,7 +8018,8 @@ const content={
         "Gating kinetics together with membrane current balance"
       ],
       "points": 1,
-      "source": "L08 8:1 p21–22"
+      "source": "L08 8:1 p21–22",
+      "practice": "extra"
     },
     {
       "id": "L08-ais-recall",
@@ -7774,7 +8050,8 @@ const content={
         "The sodium-channel-rich axon initial segment"
       ],
       "points": 1,
-      "source": "L08 8:2 p1–2"
+      "source": "L08 8:2 p1–2",
+      "practice": "extra"
     },
     {
       "id": "L08-diameter-recall",
@@ -7805,7 +8082,8 @@ const content={
         "As the square root of axon diameter"
       ],
       "points": 1,
-      "source": "L08 8:2 p3"
+      "source": "L08 8:2 p3",
+      "practice": "extra"
     },
     {
       "id": "L08-direct-unmyelin",
@@ -7820,13 +8098,13 @@ const content={
             {
               "label": "New diameter",
               "answer": {
-                "value": 1.8e-05,
+                "value": 0.000018,
                 "unit": "m",
                 "tolerance": 1.8e-11,
                 "verification": {
                   "relation": "ratio",
                   "inputs": {
-                    "a": 1.8e-05,
+                    "a": 0.000018,
                     "b": 1
                   },
                   "displayScale": 1
@@ -7836,13 +8114,13 @@ const content={
             {
               "label": "Old diameter",
               "answer": {
-                "value": 2e-06,
+                "value": 0.000002,
                 "unit": "m",
                 "tolerance": 2e-12,
                 "verification": {
                   "relation": "ratio",
                   "inputs": {
-                    "a": 2e-06,
+                    "a": 0.000002,
                     "b": 1
                   },
                   "displayScale": 1
@@ -7863,8 +8141,8 @@ const content={
             "verification": {
               "relation": "powerRatio",
               "inputs": {
-                "a": 1.8e-05,
-                "b": 2e-06,
+                "a": 0.000018,
+                "b": 0.000002,
                 "power": 0.5
               },
               "displayScale": 1
@@ -7922,7 +8200,8 @@ const content={
         "Approximately proportional to fiber diameter"
       ],
       "points": 1,
-      "source": "L08 8:2 p4"
+      "source": "L08 8:2 p4",
+      "practice": "extra"
     },
     {
       "id": "L08-direct-myelinspeed",
@@ -7938,13 +8217,13 @@ const content={
             {
               "label": "Coefficient",
               "answer": {
-                "value": 6000000.0,
+                "value": 6000000,
                 "unit": "1/s",
-                "tolerance": 6.0,
+                "tolerance": 6,
                 "verification": {
                   "relation": "ratio",
                   "inputs": {
-                    "a": 6000000.0,
+                    "a": 6000000,
                     "b": 1
                   },
                   "displayScale": 1
@@ -7954,13 +8233,13 @@ const content={
             {
               "label": "Diameter",
               "answer": {
-                "value": 8e-06,
+                "value": 0.000008,
                 "unit": "m",
                 "tolerance": 8e-12,
                 "verification": {
                   "relation": "ratio",
                   "inputs": {
-                    "a": 8e-06,
+                    "a": 0.000008,
                     "b": 1
                   },
                   "displayScale": 1
@@ -7981,8 +8260,8 @@ const content={
             "verification": {
               "relation": "product",
               "inputs": {
-                "a": 6000000.0,
-                "b": 8e-06
+                "a": 6000000,
+                "b": 0.000008
               },
               "displayScale": 1
             }
@@ -8039,10 +8318,12 @@ const content={
         "An oligodendrocyte contacting several segments"
       ],
       "points": 1,
-      "source": "L08 8:2 p5"
+      "source": "L08 8:2 p5",
+      "practice": "extra"
     },
     {
       "id": "L08-insulation-recall",
+      "practice": "extra",
       "type": "mc",
       "difficulty": "easy",
       "sectionId": "insulation",
@@ -8088,7 +8369,7 @@ const content={
               "answer": {
                 "value": 4,
                 "unit": "",
-                "tolerance": 4e-06,
+                "tolerance": 0.000004,
                 "verification": {
                   "relation": "ratio",
                   "inputs": {
@@ -8102,13 +8383,13 @@ const content={
             {
               "label": "One-layer resistance",
               "answer": {
-                "value": 20000000.0,
+                "value": 20000000,
                 "unit": "ohm",
-                "tolerance": 20.0,
+                "tolerance": 20,
                 "verification": {
                   "relation": "ratio",
                   "inputs": {
-                    "a": 20000000.0,
+                    "a": 20000000,
                     "b": 1
                   },
                   "displayScale": 1
@@ -8123,14 +8404,14 @@ const content={
         {
           "title": "Evaluate",
           "answer": {
-            "value": 80000000.0,
+            "value": 80000000,
             "unit": "ohm",
-            "tolerance": 240000.0,
+            "tolerance": 240000,
             "verification": {
               "relation": "product",
               "inputs": {
                 "a": 4,
-                "b": 20000000.0
+                "b": 20000000
               },
               "displayScale": 1
             }
@@ -8190,7 +8471,7 @@ const content={
               "answer": {
                 "value": 4,
                 "unit": "",
-                "tolerance": 4e-06,
+                "tolerance": 0.000004,
                 "verification": {
                   "relation": "ratio",
                   "inputs": {
@@ -8273,13 +8554,13 @@ const content={
             {
               "label": "Area",
               "answer": {
-                "value": 1e-08,
+                "value": 1e-8,
                 "unit": "m2",
                 "tolerance": 1e-14,
                 "verification": {
                   "relation": "ratio",
                   "inputs": {
-                    "a": 1e-08,
+                    "a": 1e-8,
                     "b": 1
                   },
                   "displayScale": 1
@@ -8289,13 +8570,13 @@ const content={
             {
               "label": "Thickness",
               "answer": {
-                "value": 2e-08,
+                "value": 2e-8,
                 "unit": "m",
                 "tolerance": 2e-14,
                 "verification": {
                   "relation": "ratio",
                   "inputs": {
-                    "a": 2e-08,
+                    "a": 2e-8,
                     "b": 1
                   },
                   "displayScale": 1
@@ -8317,8 +8598,8 @@ const content={
               "relation": "geometry",
               "inputs": {
                 "epsilon": 2e-11,
-                "area": 1e-08,
-                "distance": 2e-08
+                "area": 1e-8,
+                "distance": 2e-8
               },
               "displayScale": 1
             }
@@ -8360,13 +8641,13 @@ const content={
             {
               "label": "Resistance",
               "answer": {
-                "value": 80000000.0,
+                "value": 80000000,
                 "unit": "ohm",
-                "tolerance": 80.0,
+                "tolerance": 80,
                 "verification": {
                   "relation": "ratio",
                   "inputs": {
-                    "a": 80000000.0,
+                    "a": 80000000,
                     "b": 1
                   },
                   "displayScale": 1
@@ -8399,11 +8680,11 @@ const content={
           "answer": {
             "value": 0.0008,
             "unit": "s",
-            "tolerance": 2.4000000000000003e-06,
+            "tolerance": 0.0000024000000000000003,
             "verification": {
               "relation": "product",
               "inputs": {
-                "a": 80000000.0,
+                "a": 80000000,
                 "b": 1e-11
               },
               "displayScale": 1
@@ -8447,7 +8728,7 @@ const content={
               "answer": {
                 "value": 100,
                 "unit": "ohm*m",
-                "tolerance": 9.999999999999999e-05,
+                "tolerance": 0.00009999999999999999,
                 "verification": {
                   "relation": "ratio",
                   "inputs": {
@@ -8461,13 +8742,13 @@ const content={
             {
               "label": "Axial parameter",
               "answer": {
-                "value": 100000000.0,
+                "value": 100000000,
                 "unit": "ohm/m",
-                "tolerance": 100.0,
+                "tolerance": 100,
                 "verification": {
                   "relation": "ratio",
                   "inputs": {
-                    "a": 100000000.0,
+                    "a": 100000000,
                     "b": 1
                   },
                   "displayScale": 1
@@ -8484,12 +8765,12 @@ const content={
           "answer": {
             "value": 0.001,
             "unit": "m",
-            "tolerance": 3e-06,
+            "tolerance": 0.000003,
             "verification": {
               "relation": "cableLength",
               "inputs": {
                 "rm": 100,
-                "ri": 100000000.0
+                "ri": 100000000
               },
               "displayScale": 1
             }
@@ -8578,7 +8859,8 @@ const content={
         "At the short exposed gap between myelin segments"
       ],
       "points": 1,
-      "source": "L08 8:2 p7"
+      "source": "L08 8:2 p7",
+      "practice": "extra"
     },
     {
       "id": "L08-dimensions-recall",
@@ -8609,7 +8891,8 @@ const content={
         "Outer fiber diameter $D$ in the supplied fit"
       ],
       "points": 1,
-      "source": "L08 8:2 p8"
+      "source": "L08 8:2 p8",
+      "practice": "extra"
     },
     {
       "id": "L08-direct-internode",
@@ -8641,13 +8924,13 @@ const content={
             {
               "label": "Diameter",
               "answer": {
-                "value": 8e-06,
+                "value": 0.000008,
                 "unit": "m",
                 "tolerance": 8e-12,
                 "verification": {
                   "relation": "ratio",
                   "inputs": {
-                    "a": 8e-06,
+                    "a": 0.000008,
                     "b": 1
                   },
                   "displayScale": 1
@@ -8664,12 +8947,12 @@ const content={
           "answer": {
             "value": 0.001168,
             "unit": "m",
-            "tolerance": 3.504e-06,
+            "tolerance": 0.000003504,
             "verification": {
               "relation": "product",
               "inputs": {
                 "a": 146,
-                "b": 8e-06
+                "b": 0.000008
               },
               "displayScale": 1
             }
@@ -8713,7 +8996,7 @@ const content={
               "answer": {
                 "value": 0.74,
                 "unit": "",
-                "tolerance": 7.4e-07,
+                "tolerance": 7.4e-7,
                 "verification": {
                   "relation": "ratio",
                   "inputs": {
@@ -8727,13 +9010,13 @@ const content={
             {
               "label": "Outer diameter",
               "answer": {
-                "value": 8e-06,
+                "value": 0.000008,
                 "unit": "m",
                 "tolerance": 8e-12,
                 "verification": {
                   "relation": "ratio",
                   "inputs": {
-                    "a": 8e-06,
+                    "a": 0.000008,
                     "b": 1
                   },
                   "displayScale": 1
@@ -8748,14 +9031,14 @@ const content={
         {
           "title": "Evaluate",
           "answer": {
-            "value": 5.92e-06,
+            "value": 0.00000592,
             "unit": "m",
-            "tolerance": 1.776e-08,
+            "tolerance": 1.776e-8,
             "verification": {
               "relation": "product",
               "inputs": {
                 "a": 0.74,
-                "b": 8e-06
+                "b": 0.000008
               },
               "displayScale": 1
             }
@@ -8799,7 +9082,7 @@ const content={
               "answer": {
                 "value": 0.001,
                 "unit": "",
-                "tolerance": 1e-09,
+                "tolerance": 1e-9,
                 "verification": {
                   "relation": "ratio",
                   "inputs": {
@@ -8815,7 +9098,7 @@ const content={
               "answer": {
                 "value": 0.0012,
                 "unit": "m",
-                "tolerance": 1.1999999999999998e-09,
+                "tolerance": 1.1999999999999998e-9,
                 "verification": {
                   "relation": "ratio",
                   "inputs": {
@@ -8834,9 +9117,9 @@ const content={
         {
           "title": "Evaluate",
           "answer": {
-            "value": 1.2e-06,
+            "value": 0.0000012,
             "unit": "m",
-            "tolerance": 3.6e-09,
+            "tolerance": 3.6e-9,
             "verification": {
               "relation": "product",
               "inputs": {
@@ -8898,10 +9181,12 @@ const content={
         "Regenerative inward sodium membrane current"
       ],
       "points": 1,
-      "source": "L08 8:2 p9–10"
+      "source": "L08 8:2 p9–10",
+      "practice": "extra"
     },
     {
       "id": "L08-channels-recall",
+      "practice": "extra",
       "type": "mc",
       "difficulty": "easy",
       "sectionId": "channels",
@@ -8960,7 +9245,8 @@ const content={
         "Passive spread can excite a farther available node"
       ],
       "points": 1,
-      "source": "L08 8:2 p12"
+      "source": "L08 8:2 p12",
+      "practice": "extra"
     },
     {
       "id": "L08-twitch-recall",
@@ -8991,10 +9277,12 @@ const content={
         "The minimum stimulus producing a detectable twitch"
       ],
       "points": 1,
-      "source": "L08 8:2 p13"
+      "source": "L08 8:2 p13",
+      "practice": "extra"
     },
     {
       "id": "L08-extracellular-recall",
+      "practice": "extra",
       "type": "mc",
       "difficulty": "easy",
       "sectionId": "extracellular",
@@ -9053,7 +9341,8 @@ const content={
         "Regenerative inward transmembrane current"
       ],
       "points": 1,
-      "source": "L08 8:2 p15"
+      "source": "L08 8:2 p15",
+      "practice": "extra"
     },
     {
       "id": "L08-double-recall",
@@ -9084,7 +9373,8 @@ const content={
         "Conductive periaxonal space under the myelin"
       ],
       "points": 1,
-      "source": "L08 8:2 p16"
+      "source": "L08 8:2 p16",
+      "practice": "extra"
     },
     {
       "id": "L08-jump-recall",
@@ -9115,10 +9405,12 @@ const content={
         "Continuous passive spread with nodal regeneration"
       ],
       "points": 1,
-      "source": "L08 8:2 p17–18"
+      "source": "L08 8:2 p17–18",
+      "practice": "extra"
     },
     {
       "id": "L08-ex-iv-recall",
+      "practice": "extra",
       "type": "mc",
       "difficulty": "easy",
       "sectionId": "ex-iv",
@@ -9177,7 +9469,8 @@ const content={
         "The fourth power of the particle probability"
       ],
       "points": 1,
-      "source": "L08 Exercise8 p2 #2"
+      "source": "L08 Exercise8 p2 #2",
+      "practice": "extra"
     },
     {
       "id": "L08-ex-charge-recall",
@@ -9208,7 +9501,8 @@ const content={
         "Displaced charge per unit membrane area"
       ],
       "points": 1,
-      "source": "L08 Exercise8 p3 #3"
+      "source": "L08 Exercise8 p3 #3",
+      "practice": "extra"
     },
     {
       "id": "L08-circuit-explain",
@@ -9317,13 +9611,13 @@ const content={
             {
               "label": "Maximum",
               "answer": {
-                "value": 8e-08,
+                "value": 8e-8,
                 "unit": "S",
                 "tolerance": 8e-14,
                 "verification": {
                   "relation": "ratio",
                   "inputs": {
-                    "a": 8e-08,
+                    "a": 8e-8,
                     "b": 1
                   },
                   "displayScale": 1
@@ -9335,7 +9629,7 @@ const content={
               "answer": {
                 "value": 0.5,
                 "unit": "",
-                "tolerance": 5e-07,
+                "tolerance": 5e-7,
                 "verification": {
                   "relation": "ratio",
                   "inputs": {
@@ -9376,13 +9670,13 @@ const content={
         {
           "title": "Evaluate",
           "answer": {
-            "value": 5e-09,
+            "value": 5e-9,
             "unit": "S",
             "tolerance": 1.5e-11,
             "verification": {
               "relation": "product",
               "inputs": {
-                "a": 8e-08,
+                "a": 8e-8,
                 "b": 0.0625
               },
               "displayScale": 1
@@ -9424,13 +9718,13 @@ const content={
             {
               "label": "Maximum",
               "answer": {
-                "value": 1e-07,
+                "value": 1e-7,
                 "unit": "S",
                 "tolerance": 9.999999999999999e-14,
                 "verification": {
                   "relation": "ratio",
                   "inputs": {
-                    "a": 1e-07,
+                    "a": 1e-7,
                     "b": 1
                   },
                   "displayScale": 1
@@ -9442,7 +9736,7 @@ const content={
               "answer": {
                 "value": 0.8,
                 "unit": "",
-                "tolerance": 8e-07,
+                "tolerance": 8e-7,
                 "verification": {
                   "relation": "ratio",
                   "inputs": {
@@ -9458,7 +9752,7 @@ const content={
               "answer": {
                 "value": 0.2,
                 "unit": "",
-                "tolerance": 2e-07,
+                "tolerance": 2e-7,
                 "verification": {
                   "relation": "ratio",
                   "inputs": {
@@ -9521,13 +9815,13 @@ const content={
         {
           "title": "Evaluate",
           "answer": {
-            "value": 1.0240000000000003e-08,
+            "value": 1.0240000000000003e-8,
             "unit": "S",
             "tolerance": 3.072000000000001e-11,
             "verification": {
               "relation": "product",
               "inputs": {
-                "a": 1e-07,
+                "a": 1e-7,
                 "b": 0.10240000000000003
               },
               "displayScale": 1
@@ -10364,13 +10658,13 @@ const content={
             {
               "label": "Initial current",
               "answer": {
-                "value": 2e-09,
+                "value": 2e-9,
                 "unit": "A",
                 "tolerance": 2e-15,
                 "verification": {
                   "relation": "ratio",
                   "inputs": {
-                    "a": 2e-09,
+                    "a": 2e-9,
                     "b": 1
                   },
                   "displayScale": 1
@@ -10398,7 +10692,7 @@ const content={
               "answer": {
                 "value": 0.001,
                 "unit": "s",
-                "tolerance": 1e-09,
+                "tolerance": 1e-9,
                 "verification": {
                   "relation": "ratio",
                   "inputs": {
@@ -10414,7 +10708,7 @@ const content={
               "answer": {
                 "value": 0.01,
                 "unit": "V",
-                "tolerance": 1e-08,
+                "tolerance": 1e-8,
                 "verification": {
                   "relation": "ratio",
                   "inputs": {
@@ -10439,7 +10733,7 @@ const content={
             "verification": {
               "relation": "expCharge",
               "inputs": {
-                "current": 2e-09,
+                "current": 2e-9,
                 "tau": 0.0005,
                 "time": 0.001
               },
@@ -10507,7 +10801,7 @@ const content={
             "verification": {
               "relation": "product",
               "inputs": {
-                "a": 2e-09,
+                "a": 2e-9,
                 "b": 0.0005
               },
               "displayScale": 1
@@ -11532,6 +11826,431 @@ const content={
       }
     },
     {
+      "id": "L08-core-circuit",
+      "type": "mc",
+      "difficulty": "medium",
+      "sectionId": "circuit",
+      "prompt": "At the end of a current pulse in a space-clamped cell, $I_{Na}=-4\\,\\mathrm{nA}$, $I_K=2\\,\\mathrm{nA}$ and $I_L=1\\,\\mathrm{nA}$. How does voltage initially change?",
+      "options": [
+        {
+          "text": "It rises.",
+          "feedback": "The sum is $-1\\,\\mathrm{nA}$. With no applied current, a negative ionic sum gives a positive voltage slope."
+        },
+        {
+          "text": "It falls.",
+          "feedback": "A falling voltage would require a positive net outward current."
+        },
+        {
+          "text": "It stays constant.",
+          "feedback": "The outward branches add to less than the inward magnitude."
+        }
+      ],
+      "correct": 0,
+      "hints": [
+        {
+          "body": "The pulse has ended and space clamp removes axial current."
+        },
+        {
+          "body": "Sum the three signed ionic currents before finding the voltage slope."
+        }
+      ],
+      "modelAnswer": [
+        "The sum is $-1\\,\\mathrm{nA}$. With no applied current, a negative ionic sum gives a positive voltage slope."
+      ],
+      "points": 1,
+      "source": "L08 8:1 p2"
+    },
+    {
+      "id": "L08-core-agreement",
+      "practice": "extra",
+      "type": "mc",
+      "difficulty": "medium",
+      "sectionId": "agreement",
+      "prompt": "At fixed voltage, sodium availability falls from $0.8$ to $0.4$ while $m$ stays fixed. How does sodium conductance change?",
+      "options": [
+        {
+          "text": "It falls by a factor of two.",
+          "feedback": "Sodium conductance is proportional to $h$ when $m$ is fixed, so it halves."
+        },
+        {
+          "text": "It falls by a factor of eight.",
+          "feedback": "The cubic power applies to $m$, which is fixed."
+        },
+        {
+          "text": "It stays at the initial value.",
+          "feedback": "Fixed voltage fixes driving force, while conductance still depends on gate state."
+        }
+      ],
+      "correct": 0,
+      "hints": [
+        {
+          "body": "Separate the ionic driving force from channel conductance."
+        },
+        {
+          "body": "Locate the sodium gate that enters the conductance linearly."
+        }
+      ],
+      "modelAnswer": [
+        "Sodium conductance is proportional to $h$ when $m$ is fixed, so it halves."
+      ],
+      "points": 1,
+      "source": "L08 8:1 p3"
+    },
+    {
+      "id": "L08-core-space",
+      "practice": "extra",
+      "type": "mc",
+      "difficulty": "medium",
+      "sectionId": "space",
+      "prompt": "Which condition removes the axial term while permitting a freely evolving spike?",
+      "options": [
+        {
+          "text": "Make voltage spatially uniform.",
+          "feedback": "Space clamp removes spatial curvature while allowing voltage to vary over time."
+        },
+        {
+          "text": "Hold voltage at a fixed command.",
+          "feedback": "A fixed command prevents a freely evolving voltage at the controlled site."
+        },
+        {
+          "text": "Set the externally applied current to zero.",
+          "feedback": "A propagated spike can still have axial current without a stimulus at the site."
+        }
+      ],
+      "correct": 0,
+      "hints": [
+        {
+          "body": "Decide whether the condition constrains position or time."
+        },
+        {
+          "body": "Identify the spatial derivative in the axial term."
+        }
+      ],
+      "modelAnswer": [
+        "Space clamp removes spatial curvature while allowing voltage to vary over time."
+      ],
+      "points": 1,
+      "source": "L08 8:1 p4"
+    },
+    {
+      "id": "L08-core-moving-iv",
+      "type": "mc",
+      "difficulty": "medium",
+      "sectionId": "moving-iv",
+      "prompt": "Just above a zero on the momentary total ionic I–V curve, the current is inward. What happens immediately after a small depolarization in the unforced model?",
+      "options": [
+        {
+          "text": "Voltage rises further above the zero.",
+          "feedback": "The inward current raises voltage further, so this side of the zero is unstable."
+        },
+        {
+          "text": "Voltage returns toward the zero.",
+          "feedback": "A restoring response above the zero requires outward ionic current."
+        },
+        {
+          "text": "Voltage stays at the displaced level.",
+          "feedback": "Current at the displaced voltage is inward and charges the membrane."
+        }
+      ],
+      "correct": 0,
+      "hints": [
+        {
+          "body": "Use the outward-positive current convention."
+        },
+        {
+          "body": "Use the sign of the net current at the displaced voltage."
+        }
+      ],
+      "modelAnswer": [
+        "The inward current raises voltage further, so this side of the zero is unstable."
+      ],
+      "points": 1,
+      "source": "L08 8:1 p9"
+    },
+    {
+      "id": "L08-core-accommodation",
+      "type": "mc",
+      "difficulty": "medium",
+      "sectionId": "accommodation",
+      "prompt": "A fast and a slow current ramp reach the same maximum. Why can the slow ramp fail to trigger a spike?",
+      "options": [
+        {
+          "text": "Sodium availability falls and potassium activation rises along the ramp.",
+          "feedback": "The slow gate changes oppose regenerative inward sodium current and raise the excitation threshold."
+        },
+        {
+          "text": "Sodium availability rises and potassium activation falls along the ramp.",
+          "feedback": "These changes would favor excitation."
+        },
+        {
+          "text": "Both slow gates largely keep their initial values during the ramp.",
+          "feedback": "The slow ramp allows time for both gates to respond."
+        }
+      ],
+      "correct": 0,
+      "hints": [
+        {
+          "body": "The two ramps differ in duration at subthreshold voltages."
+        },
+        {
+          "body": "Consider which gates have time to change during the slower stimulus."
+        }
+      ],
+      "modelAnswer": [
+        "The slow gate changes oppose regenerative inward sodium current and raise the excitation threshold."
+      ],
+      "points": 1,
+      "source": "L08 8:1 p13"
+    },
+    {
+      "id": "L08-core-refractory",
+      "type": "mc",
+      "difficulty": "medium",
+      "sectionId": "refractory",
+      "prompt": "After conditioning, a test pulse produces a second spike only when its amplitude is raised. What does that interval demonstrate?",
+      "options": [
+        {
+          "text": "Relative refractoriness.",
+          "feedback": "The ability to evoke a second spike with a stronger pulse identifies relative refractoriness."
+        },
+        {
+          "text": "Absolute refractoriness.",
+          "feedback": "A stronger pulse would still fail to produce a propagated spike during the absolute period."
+        },
+        {
+          "text": "Full recovery.",
+          "feedback": "With full recovery, the conditioning spike would no longer elevate the stimulus needed."
+        }
+      ],
+      "correct": 0,
+      "hints": [
+        {
+          "body": "Compare the conditioned response with the unconditioned response."
+        },
+        {
+          "body": "Ask whether a second spike is possible at any tested intensity."
+        }
+      ],
+      "modelAnswer": [
+        "The ability to evoke a second spike with a stronger pulse identifies relative refractoriness."
+      ],
+      "points": 1,
+      "source": "L08 8:1 p14"
+    },
+    {
+      "id": "L08-core-isolation",
+      "practice": "extra",
+      "type": "mc",
+      "difficulty": "medium",
+      "sectionId": "isolation",
+      "prompt": "With permeation blocked, which signal is consistent with reversible sensor charge displacement after leak and linear-capacitance subtraction?",
+      "options": [
+        {
+          "text": "A transient on the step and an opposite transient on return.",
+          "feedback": "Sensor displacement produces transient ON and OFF currents of opposite polarity as charge moves out and then back."
+        },
+        {
+          "text": "A sustained current on the plateau and little current on return.",
+          "feedback": "A steady plateau does not indicate transient sensor motion."
+        },
+        {
+          "text": "A transient of the same sign on both edges of the pulse.",
+          "feedback": "The return reverses motion of a reversible sensor population."
+        }
+      ],
+      "correct": 0,
+      "hints": [
+        {
+          "body": "Ionic permeation and linear charging have been removed from the trace."
+        },
+        {
+          "body": "Consider the direction of sensor motion during the return step."
+        }
+      ],
+      "modelAnswer": [
+        "Sensor displacement produces transient ON and OFF currents of opposite polarity as charge moves out and then back."
+      ],
+      "points": 1,
+      "source": "L08 8:1 p18"
+    },
+    {
+      "id": "L08-core-capacitance",
+      "type": "mc",
+      "difficulty": "medium",
+      "sectionId": "capacitance",
+      "prompt": "A leak-corrected step transient carries $6\\,\\mathrm{pC}$ of capacitive charge on a $30\\,\\mathrm{mV}$ step. What capacitance does it imply?",
+      "options": [
+        {
+          "text": "$200\\,\\mathrm{pF}$",
+          "feedback": "$6\\times10^{-12}\\,\\mathrm C/(30\\times10^{-3}\\,\\mathrm V)=200\\,\\mathrm{pF}$."
+        },
+        {
+          "text": "$20\\,\\mathrm{pF}$",
+          "feedback": "Check the conversion between millivolts and volts."
+        },
+        {
+          "text": "$180\\,\\mathrm{pF}$",
+          "feedback": "Capacitance comes from dividing charge by step voltage."
+        }
+      ],
+      "correct": 0,
+      "hints": [
+        {
+          "body": "Use the capacitance definition for a voltage step."
+        },
+        {
+          "body": "Use charge divided by the voltage step and convert to base units."
+        }
+      ],
+      "modelAnswer": [
+        "$6\\times10^{-12}\\,\\mathrm C/(30\\times10^{-3}\\,\\mathrm V)=200\\,\\mathrm{pF}$."
+      ],
+      "points": 1,
+      "source": "L08 8:1 p19"
+    },
+    {
+      "id": "L08-core-density",
+      "practice": "extra",
+      "type": "mc",
+      "difficulty": "medium",
+      "sectionId": "density",
+      "prompt": "If a test pulse opens only part of the channels counted from gating charge, what is the ratio of conductance density to channel density?",
+      "options": [
+        {
+          "text": "Single-channel conductance times open probability.",
+          "feedback": "Dividing $g_A=D\\gamma P_{open}$ by $D$ returns $\\gamma P_{open}$."
+        },
+        {
+          "text": "Single-channel conductance divided by open probability.",
+          "feedback": "Partial opening lowers the measured conductance."
+        },
+        {
+          "text": "Single-channel conductance regardless of open probability.",
+          "feedback": "This equality requires full opening at the test voltage."
+        }
+      ],
+      "correct": 0,
+      "hints": [
+        {
+          "body": "Distinguish the total population from the open population."
+        },
+        {
+          "body": "Write the total conductance in terms of the number of open channels."
+        }
+      ],
+      "modelAnswer": [
+        "Dividing $g_A=D\\gamma P_{open}$ by $D$ returns $\\gamma P_{open}$."
+      ],
+      "points": 1,
+      "source": "L08 8:1 p20"
+    },
+    {
+      "id": "L08-core-speed",
+      "type": "mc",
+      "difficulty": "medium",
+      "sectionId": "speed",
+      "prompt": "Two comparable myelinated fibers have outer diameters of $5\\,\\mu\\mathrm m$ and $10\\,\\mu\\mathrm m$. What speed ratio does the empirical rule give for larger over smaller?",
+      "options": [
+        {
+          "text": "About $2$.",
+          "feedback": "For myelinated fibers under comparable conditions, the speed ratio is approximately $10/5=2$."
+        },
+        {
+          "text": "About $1.4$.",
+          "feedback": "Square-root scaling is the comparison for unmyelinated fibers."
+        },
+        {
+          "text": "About $4$.",
+          "feedback": "The myelinated speed fit is linear in outer diameter."
+        }
+      ],
+      "correct": 0,
+      "hints": [
+        {
+          "body": "Both fibers are in the same myelinated class."
+        },
+        {
+          "body": "Select the scaling law for this fiber class."
+        }
+      ],
+      "modelAnswer": [
+        "For myelinated fibers under comparable conditions, the speed ratio is approximately $10/5=2$."
+      ],
+      "points": 1,
+      "source": "L08 8:2 p4"
+    },
+    {
+      "id": "L08-core-continuity",
+      "type": "mc",
+      "difficulty": "medium",
+      "sectionId": "continuity",
+      "prompt": "A recording shows a clear internodal voltage transient and little local inward transmembrane current. What explains both observations?",
+      "options": [
+        {
+          "text": "Passive axial spread from active nodes.",
+          "feedback": "Axial current links the active nodes and changes internodal voltage without a large local regenerative inward current."
+        },
+        {
+          "text": "Strong internodal sodium regeneration.",
+          "feedback": "Strong local regeneration would require substantial inward membrane current."
+        },
+        {
+          "text": "A node-to-node voltage discontinuity.",
+          "feedback": "The recorded internodal voltage transient shows that the membrane there depolarized."
+        }
+      ],
+      "correct": 0,
+      "hints": [
+        {
+          "body": "The two measurements report different physical quantities."
+        },
+        {
+          "body": "Distinguish along-axon current from current crossing the membrane."
+        }
+      ],
+      "modelAnswer": [
+        "Axial current links the active nodes and changes internodal voltage without a large local regenerative inward current."
+      ],
+      "points": 1,
+      "source": "L08 8:2 p15"
+    },
+    {
+      "id": "L08-core-ex-iv",
+      "practice": "extra",
+      "type": "mc",
+      "difficulty": "medium",
+      "sectionId": "ex-iv",
+      "prompt": "At a conducting sample in a steady sodium I–V table, $V_m$ is below both the original and reduced sodium reversal potentials. Gates are unchanged. What does lowering reversal do at that sample?",
+      "options": [
+        {
+          "text": "It makes inward current smaller in magnitude.",
+          "feedback": "At a conducting sample, the driving force stays negative but its magnitude shrinks."
+        },
+        {
+          "text": "It makes inward current larger in magnitude.",
+          "feedback": "The new reversal is closer to the sampled voltage."
+        },
+        {
+          "text": "It reverses current direction.",
+          "feedback": "The sampled voltage is still below the lowered reversal."
+        }
+      ],
+      "correct": 0,
+      "hints": [
+        {
+          "body": "The channel conductance is held fixed between the two conditions."
+        },
+        {
+          "body": "Reevaluate the signed driving force with the new reversal."
+        }
+      ],
+      "modelAnswer": [
+        "At a conducting sample, the driving force stays negative but its magnitude shrinks."
+      ],
+      "points": 1,
+      "source": "L08 Exercise8 p1–2 #1"
+    },
+    {
       "id": "L08-ionic-balance",
       "sectionId": "circuit",
       "difficulty": "hard",
@@ -11559,13 +12278,13 @@ const content={
             {
               "label": "Sodium conductance",
               "answer": {
-                "value": 2e-08,
+                "value": 2e-8,
                 "unit": "S",
                 "tolerance": 2e-14,
                 "verification": {
                   "relation": "ratio",
                   "inputs": {
-                    "a": 2e-08,
+                    "a": 2e-8,
                     "b": 1
                   },
                   "displayScale": 1
@@ -11575,13 +12294,13 @@ const content={
             {
               "label": "Potassium conductance",
               "answer": {
-                "value": 3e-08,
+                "value": 3e-8,
                 "unit": "S",
                 "tolerance": 3e-14,
                 "verification": {
                   "relation": "ratio",
                   "inputs": {
-                    "a": 3e-08,
+                    "a": 3e-8,
                     "b": 1
                   },
                   "displayScale": 1
@@ -11591,13 +12310,13 @@ const content={
             {
               "label": "Leak conductance",
               "answer": {
-                "value": 5e-09,
+                "value": 5e-9,
                 "unit": "S",
                 "tolerance": 5e-15,
                 "verification": {
                   "relation": "ratio",
                   "inputs": {
-                    "a": 5e-09,
+                    "a": 5e-9,
                     "b": 1
                   },
                   "displayScale": 1
@@ -11650,13 +12369,13 @@ const content={
         {
           "title": "Sodium current",
           "answer": {
-            "value": -1.4e-09,
+            "value": -1.4e-9,
             "unit": "A",
             "tolerance": 4.2e-12,
             "verification": {
               "relation": "product",
               "inputs": {
-                "a": 2e-08,
+                "a": 2e-8,
                 "b": -0.07
               },
               "displayScale": 1
@@ -11694,13 +12413,13 @@ const content={
         {
           "title": "Potassium current",
           "answer": {
-            "value": 1.8e-09,
+            "value": 1.8e-9,
             "unit": "A",
             "tolerance": 5.4000000000000004e-12,
             "verification": {
               "relation": "product",
               "inputs": {
-                "a": 3e-08,
+                "a": 3e-8,
                 "b": 0.06
               },
               "displayScale": 1
@@ -11744,7 +12463,7 @@ const content={
             "verification": {
               "relation": "product",
               "inputs": {
-                "a": 5e-09,
+                "a": 5e-9,
                 "b": 0.04
               },
               "displayScale": 1
@@ -11766,8 +12485,8 @@ const content={
             "verification": {
               "relation": "sum",
               "inputs": {
-                "a": -1.4e-09,
-                "b": 1.8e-09
+                "a": -1.4e-9,
+                "b": 1.8e-9
               },
               "displayScale": 1
             }
@@ -12041,7 +12760,7 @@ const content={
               "answer": {
                 "value": 0.0032,
                 "unit": "C/m2",
-                "tolerance": 3.2e-09,
+                "tolerance": 3.2e-9,
                 "verification": {
                   "relation": "ratio",
                   "inputs": {
@@ -12057,7 +12776,7 @@ const content={
               "answer": {
                 "value": 4,
                 "unit": "",
-                "tolerance": 4e-06,
+                "tolerance": 0.000004,
                 "verification": {
                   "relation": "ratio",
                   "inputs": {
@@ -12130,9 +12849,9 @@ const content={
         {
           "title": "Channel density",
           "answer": {
-            "value": 5000000000000000.0,
+            "value": 5000000000000000,
             "unit": "1/m2",
-            "tolerance": 15000000000000.0,
+            "tolerance": 15000000000000,
             "verification": {
               "relation": "ratio",
               "inputs": {
@@ -12154,14 +12873,14 @@ const content={
           "answer": {
             "value": 5000,
             "unit": "1/um2",
-            "tolerance": 15.0,
+            "tolerance": 15,
             "verification": {
               "relation": "ratio",
               "inputs": {
-                "a": 5000000000000000.0,
+                "a": 5000000000000000,
                 "b": 1
               },
-              "displayScale": 1000000000000.0
+              "displayScale": 1000000000000
             }
           },
           "tex": "D_{\\mu m^2}=D_{m^2}\\times10^{-12}",
@@ -12181,7 +12900,7 @@ const content={
               "relation": "ratio",
               "inputs": {
                 "a": 4000,
-                "b": 5000000000000000.0
+                "b": 5000000000000000
               },
               "displayScale": 1
             }
@@ -12241,13 +12960,13 @@ const content={
             {
               "label": "One-layer resistance",
               "answer": {
-                "value": 50000000.0,
+                "value": 50000000,
                 "unit": "ohm",
-                "tolerance": 50.0,
+                "tolerance": 50,
                 "verification": {
                   "relation": "ratio",
                   "inputs": {
-                    "a": 50000000.0,
+                    "a": 50000000,
                     "b": 1
                   },
                   "displayScale": 1
@@ -12275,7 +12994,7 @@ const content={
               "answer": {
                 "value": 5,
                 "unit": "",
-                "tolerance": 4.9999999999999996e-06,
+                "tolerance": 0.0000049999999999999996,
                 "verification": {
                   "relation": "ratio",
                   "inputs": {
@@ -12294,14 +13013,14 @@ const content={
         {
           "title": "Effective resistance",
           "answer": {
-            "value": 250000000.0,
+            "value": 250000000,
             "unit": "ohm",
-            "tolerance": 750000.0,
+            "tolerance": 750000,
             "verification": {
               "relation": "product",
               "inputs": {
                 "a": 5,
-                "b": 50000000.0
+                "b": 50000000
               },
               "displayScale": 1
             }
@@ -12340,11 +13059,11 @@ const content={
           "answer": {
             "value": 0.002,
             "unit": "s",
-            "tolerance": 6e-06,
+            "tolerance": 0.000006,
             "verification": {
               "relation": "product",
               "inputs": {
-                "a": 250000000.0,
+                "a": 250000000,
                 "b": 8e-12
               },
               "displayScale": 1
@@ -12476,13 +13195,13 @@ const content={
             {
               "label": "Outer diameter",
               "answer": {
-                "value": 1.2e-05,
+                "value": 0.000012,
                 "unit": "m",
                 "tolerance": 1.2e-11,
                 "verification": {
                   "relation": "ratio",
                   "inputs": {
-                    "a": 1.2e-05,
+                    "a": 0.000012,
                     "b": 1
                   },
                   "displayScale": 1
@@ -12497,14 +13216,14 @@ const content={
         {
           "title": "Inner diameter",
           "answer": {
-            "value": 8.88e-06,
+            "value": 0.00000888,
             "unit": "m",
-            "tolerance": 2.664e-08,
+            "tolerance": 2.664e-8,
             "verification": {
               "relation": "product",
               "inputs": {
                 "a": 0.74,
-                "b": 1.2e-05
+                "b": 0.000012
               },
               "displayScale": 1
             }
@@ -12519,14 +13238,14 @@ const content={
         {
           "title": "Outer minus inner diameter",
           "answer": {
-            "value": 3.12e-06,
+            "value": 0.00000312,
             "unit": "m",
-            "tolerance": 9.36e-09,
+            "tolerance": 9.36e-9,
             "verification": {
               "relation": "sum",
               "inputs": {
-                "a": 1.2e-05,
-                "b": -8.88e-06
+                "a": 0.000012,
+                "b": -0.00000888
               },
               "displayScale": 1
             }
@@ -12541,13 +13260,13 @@ const content={
         {
           "title": "Radial thickness",
           "answer": {
-            "value": 1.56e-06,
+            "value": 0.00000156,
             "unit": "m",
-            "tolerance": 4.68e-09,
+            "tolerance": 4.68e-9,
             "verification": {
               "relation": "ratio",
               "inputs": {
-                "a": 3.12e-06,
+                "a": 0.00000312,
                 "b": 2
               },
               "displayScale": 1
@@ -12565,12 +13284,12 @@ const content={
           "answer": {
             "value": 0.001752,
             "unit": "m",
-            "tolerance": 5.256e-06,
+            "tolerance": 0.000005256,
             "verification": {
               "relation": "product",
               "inputs": {
                 "a": 146,
-                "b": 1.2e-05
+                "b": 0.000012
               },
               "displayScale": 1
             }
@@ -12591,8 +13310,8 @@ const content={
             "verification": {
               "relation": "product",
               "inputs": {
-                "a": 6000000.0,
-                "b": 1.2e-05
+                "a": 6000000,
+                "b": 0.000012
               },
               "displayScale": 1
             }
@@ -12607,9 +13326,9 @@ const content={
         {
           "title": "Transit time",
           "answer": {
-            "value": 2.4333333333333333e-05,
+            "value": 0.000024333333333333333,
             "unit": "s",
-            "tolerance": 7.3e-08,
+            "tolerance": 7.3e-8,
             "verification": {
               "relation": "ratio",
               "inputs": {
@@ -12836,7 +13555,7 @@ const content={
               "answer": {
                 "value": 0.03,
                 "unit": "V",
-                "tolerance": 6e-05,
+                "tolerance": 0.00006,
                 "verification": {
                   "relation": "product",
                   "inputs": {
@@ -12878,7 +13597,7 @@ const content={
           "answer": {
             "value": 0.019200000000000005,
             "unit": "",
-            "tolerance": 3.840000000000001e-05,
+            "tolerance": 0.00003840000000000001,
             "verification": {
               "relation": "product",
               "inputs": {
@@ -12918,7 +13637,7 @@ const content={
         {
           "title": "First gate-normalized current",
           "answer": {
-            "value": -4.874999999999999e-09,
+            "value": -4.874999999999999e-9,
             "unit": "A",
             "tolerance": 9.749999999999999e-12,
             "verification": {
@@ -12939,7 +13658,7 @@ const content={
         {
           "title": "Second gate-normalized current",
           "answer": {
-            "value": -2.624999999999999e-09,
+            "value": -2.624999999999999e-9,
             "unit": "A",
             "tolerance": 5.249999999999998e-12,
             "verification": {
@@ -12960,14 +13679,14 @@ const content={
         {
           "title": "Normalized current difference",
           "answer": {
-            "value": 2.25e-09,
+            "value": 2.25e-9,
             "unit": "A",
             "tolerance": 4.5e-12,
             "verification": {
               "relation": "sum",
               "inputs": {
-                "a": -2.624999999999999e-09,
-                "b": 4.874999999999999e-09
+                "a": -2.624999999999999e-9,
+                "b": 4.874999999999999e-9
               },
               "displayScale": 1
             }
@@ -12981,13 +13700,13 @@ const content={
         {
           "title": "Infer maximal conductance",
           "answer": {
-            "value": 7.5e-08,
+            "value": 7.5e-8,
             "unit": "S",
             "tolerance": 1.5e-10,
             "verification": {
               "relation": "ratio",
               "inputs": {
-                "a": 2.25e-09,
+                "a": 2.25e-9,
                 "b": 0.03
               },
               "displayScale": 1
@@ -13008,8 +13727,8 @@ const content={
             "verification": {
               "relation": "ratio",
               "inputs": {
-                "a": -4.874999999999999e-09,
-                "b": 7.5e-08
+                "a": -4.874999999999999e-9,
+                "b": 7.5e-8
               },
               "displayScale": 1
             }
@@ -13025,7 +13744,7 @@ const content={
           "answer": {
             "value": 0.044999999999999984,
             "unit": "V",
-            "tolerance": 8.999999999999997e-05,
+            "tolerance": 0.00008999999999999997,
             "verification": {
               "relation": "sum",
               "inputs": {
@@ -13044,13 +13763,13 @@ const content={
         {
           "title": "Second population conductance",
           "answer": {
-            "value": 3.840000000000001e-09,
+            "value": 3.840000000000001e-9,
             "unit": "S",
             "tolerance": 7.680000000000001e-12,
             "verification": {
               "relation": "product",
               "inputs": {
-                "a": 7.5e-08,
+                "a": 7.5e-8,
                 "b": 0.051200000000000016
               },
               "displayScale": 1
@@ -13071,7 +13790,7 @@ const content={
             "verification": {
               "relation": "product",
               "inputs": {
-                "a": 3.840000000000001e-09,
+                "a": 3.840000000000001e-9,
                 "b": -0.005
               },
               "displayScale": 1
@@ -13106,13 +13825,13 @@ const content={
             {
               "label": "Maximum conductance",
               "answer": {
-                "value": 8e-08,
+                "value": 8e-8,
                 "unit": "S",
                 "tolerance": 8e-14,
                 "verification": {
                   "relation": "ratio",
                   "inputs": {
-                    "a": 8e-08,
+                    "a": 8e-8,
                     "b": 1
                   },
                   "displayScale": 1
@@ -13124,7 +13843,7 @@ const content={
               "answer": {
                 "value": 0.7,
                 "unit": "",
-                "tolerance": 7e-07,
+                "tolerance": 7e-7,
                 "verification": {
                   "relation": "ratio",
                   "inputs": {
@@ -13140,7 +13859,7 @@ const content={
               "answer": {
                 "value": 0.1,
                 "unit": "",
-                "tolerance": 1e-07,
+                "tolerance": 1e-7,
                 "verification": {
                   "relation": "ratio",
                   "inputs": {
@@ -13156,7 +13875,7 @@ const content={
               "answer": {
                 "value": -0.01,
                 "unit": "V",
-                "tolerance": 1e-08,
+                "tolerance": 1e-8,
                 "verification": {
                   "relation": "ratio",
                   "inputs": {
@@ -13219,13 +13938,13 @@ const content={
         {
           "title": "Conductance",
           "answer": {
-            "value": 2.7439999999999996e-09,
+            "value": 2.7439999999999996e-9,
             "unit": "S",
             "tolerance": 8.232e-12,
             "verification": {
               "relation": "product",
               "inputs": {
-                "a": 8e-08,
+                "a": 8e-8,
                 "b": 0.03429999999999999
               },
               "displayScale": 1
@@ -13269,7 +13988,7 @@ const content={
             "verification": {
               "relation": "product",
               "inputs": {
-                "a": 2.7439999999999996e-09,
+                "a": 2.7439999999999996e-9,
                 "b": -0.06
               },
               "displayScale": 1
@@ -13287,7 +14006,7 @@ const content={
           "answer": {
             "value": -0.03,
             "unit": "V",
-            "tolerance": 8.999999999999999e-05,
+            "tolerance": 0.00008999999999999999,
             "verification": {
               "relation": "sum",
               "inputs": {
@@ -13313,7 +14032,7 @@ const content={
             "verification": {
               "relation": "product",
               "inputs": {
-                "a": 2.7439999999999996e-09,
+                "a": 2.7439999999999996e-9,
                 "b": -0.03
               },
               "displayScale": 1
@@ -13329,13 +14048,13 @@ const content={
         {
           "title": "No-inactivation conductance",
           "answer": {
-            "value": 2.7439999999999993e-08,
+            "value": 2.7439999999999993e-8,
             "unit": "S",
             "tolerance": 8.231999999999998e-11,
             "verification": {
               "relation": "product",
               "inputs": {
-                "a": 8e-08,
+                "a": 8e-8,
                 "b": 0.3429999999999999
               },
               "displayScale": 1
@@ -13351,13 +14070,13 @@ const content={
         {
           "title": "No-inactivation current",
           "answer": {
-            "value": -1.6463999999999996e-09,
+            "value": -1.6463999999999996e-9,
             "unit": "A",
             "tolerance": 4.939199999999999e-12,
             "verification": {
               "relation": "product",
               "inputs": {
-                "a": 2.7439999999999993e-08,
+                "a": 2.7439999999999993e-8,
                 "b": -0.06
               },
               "displayScale": 1
@@ -13433,7 +14152,7 @@ const content={
               "answer": {
                 "value": 0.04,
                 "unit": "V",
-                "tolerance": 8e-05,
+                "tolerance": 0.00008,
                 "verification": {
                   "relation": "product",
                   "inputs": {
@@ -13447,13 +14166,13 @@ const content={
             {
               "label": "Maximal conductance",
               "answer": {
-                "value": 1.25e-07,
+                "value": 1.25e-7,
                 "unit": "S",
                 "tolerance": 2.5e-10,
                 "verification": {
                   "relation": "product",
                   "inputs": {
-                    "a": 1.25e-07,
+                    "a": 1.25e-7,
                     "b": 1
                   },
                   "displayScale": 1
@@ -13468,7 +14187,7 @@ const content={
         {
           "title": "Initial conductance",
           "answer": {
-            "value": 5e-09,
+            "value": 5e-9,
             "unit": "S",
             "tolerance": 1.0000000000000001e-11,
             "verification": {
@@ -13491,12 +14210,12 @@ const content={
           "answer": {
             "value": 0.04,
             "unit": "",
-            "tolerance": 8e-05,
+            "tolerance": 0.00008,
             "verification": {
               "relation": "ratio",
               "inputs": {
-                "a": 5e-09,
-                "b": 1.25e-07
+                "a": 5e-9,
+                "b": 1.25e-7
               },
               "displayScale": 1
             }
@@ -13538,7 +14257,7 @@ const content={
             "verification": {
               "relation": "product",
               "inputs": {
-                "a": 5e-09,
+                "a": 5e-9,
                 "b": 0.02
               },
               "displayScale": 1
@@ -13574,13 +14293,13 @@ const content={
         {
           "title": "Later conductance",
           "answer": {
-            "value": 5.120000000000001e-08,
+            "value": 5.120000000000001e-8,
             "unit": "S",
             "tolerance": 1.0240000000000002e-10,
             "verification": {
               "relation": "product",
               "inputs": {
-                "a": 1.25e-07,
+                "a": 1.25e-7,
                 "b": 0.4096000000000001
               },
               "displayScale": 1
@@ -13595,13 +14314,13 @@ const content={
         {
           "title": "Later current",
           "answer": {
-            "value": 1.0240000000000002e-09,
+            "value": 1.0240000000000002e-9,
             "unit": "A",
             "tolerance": 2.0480000000000006e-12,
             "verification": {
               "relation": "product",
               "inputs": {
-                "a": 5.120000000000001e-08,
+                "a": 5.120000000000001e-8,
                 "b": 0.02
               },
               "displayScale": 1
@@ -13643,13 +14362,13 @@ const content={
             {
               "label": "Charge density",
               "answer": {
-                "value": 1.92e-05,
+                "value": 0.0000192,
                 "unit": "C/m2",
-                "tolerance": 3.84e-08,
+                "tolerance": 3.84e-8,
                 "verification": {
                   "relation": "product",
                   "inputs": {
-                    "a": 1.92e-05,
+                    "a": 0.0000192,
                     "b": 1
                   },
                   "displayScale": 1
@@ -13677,7 +14396,7 @@ const content={
               "answer": {
                 "value": 2000,
                 "unit": "S/m2",
-                "tolerance": 4.0,
+                "tolerance": 4,
                 "verification": {
                   "relation": "product",
                   "inputs": {
@@ -13717,13 +14436,13 @@ const content={
         {
           "title": "Channel density",
           "answer": {
-            "value": 40000000000000.0,
+            "value": 40000000000000,
             "unit": "1/m2",
-            "tolerance": 80000000000.0,
+            "tolerance": 80000000000,
             "verification": {
               "relation": "ratio",
               "inputs": {
-                "a": 1.92e-05,
+                "a": 0.0000192,
                 "b": 4.7999999999999995e-19
               },
               "displayScale": 1
@@ -13745,7 +14464,7 @@ const content={
               "relation": "ratio",
               "inputs": {
                 "a": 1200,
-                "b": 40000000000000.0
+                "b": 40000000000000
               },
               "displayScale": 1
             }
@@ -13766,7 +14485,7 @@ const content={
               "relation": "ratio",
               "inputs": {
                 "a": 2000,
-                "b": 40000000000000.0
+                "b": 40000000000000
               },
               "displayScale": 1
             }
@@ -13807,6 +14526,148 @@ const content={
       ],
       "points": 1,
       "source": "L08 8:1 p18–20; Exercise8 p3 #3 method"
+    },
+    {
+      "id": "L08-core-boltzmann",
+      "type": "mc",
+      "difficulty": "hard",
+      "sectionId": "boltzmann",
+      "prompt": "A voltage change raises the activation odds from $1$ to $3$. What happens to activation probability and the fraction still inactive?",
+      "options": [
+        {
+          "text": "Activation goes from $0.50$ to $0.75$ and inactivity halves.",
+          "feedback": "The activation probabilities are $1/2$ and $3/4$. Inactivity goes from $1/2$ to $1/4$."
+        },
+        {
+          "text": "Activation goes from $0.50$ to $0.75$ and inactivity falls to one-third.",
+          "feedback": "The new inactive fraction is $0.25$, half the old fraction."
+        },
+        {
+          "text": "Activation goes from $0.25$ to $0.50$ and inactivity falls by one-third.",
+          "feedback": "Normalize each set of odds as $r/(1+r)$."
+        }
+      ],
+      "correct": 0,
+      "hints": [
+        {
+          "body": "Odds compare active with inactive, while probability compares active with all."
+        },
+        {
+          "body": "Convert each set of odds to probability, then compare their complements."
+        }
+      ],
+      "modelAnswer": [
+        "The activation probabilities are $1/2$ and $3/4$. Inactivity goes from $1/2$ to $1/4$."
+      ],
+      "points": 1,
+      "source": "L08 8:1 p16–17"
+    },
+    {
+      "id": "L08-core-insulation",
+      "practice": "extra",
+      "type": "mc",
+      "difficulty": "hard",
+      "sectionId": "insulation",
+      "prompt": "Effective specific resistance rises fourfold and specific capacitance falls to one-quarter, with inner radius and axial resistivity fixed. How do the passive length and time constants change?",
+      "options": [
+        {
+          "text": "Length doubles and time stays the same.",
+          "feedback": "The length ratio is $\\sqrt4=2$. The time ratio is $4\\times(1/4)=1$."
+        },
+        {
+          "text": "Length doubles and time becomes four times as large.",
+          "feedback": "The capacitance change offsets the resistance change in the product."
+        },
+        {
+          "text": "Length quadruples and time stays the same.",
+          "feedback": "Length depends on the square root of resistance."
+        }
+      ],
+      "correct": 0,
+      "hints": [
+        {
+          "body": "The two constants measure spread in space and relaxation in time."
+        },
+        {
+          "body": "Evaluate the resistance ratio inside the square root and the resistance–capacitance product separately."
+        }
+      ],
+      "modelAnswer": [
+        "The length ratio is $\\sqrt4=2$. The time ratio is $4\\times(1/4)=1$."
+      ],
+      "points": 1,
+      "source": "L08 8:2 p6"
+    },
+    {
+      "id": "L08-core-ex-k",
+      "practice": "extra",
+      "type": "mc",
+      "difficulty": "hard",
+      "sectionId": "ex-k",
+      "prompt": "A voltage step doubles the outward potassium driving force. Potassium activation starts at $n=0.4$ and settles at $0.8$. How large are the immediate and final ionic currents relative to the original?",
+      "options": [
+        {
+          "text": "Immediate $2$ times, final $32$ times.",
+          "feedback": "The immediate factor is $2$. At steady state the conductance factor is $(0.8/0.4)^4=16$, making the final current $32$ times the original."
+        },
+        {
+          "text": "Immediate $2$ times, final $4$ times.",
+          "feedback": "This applies a linear activation ratio instead of the fourth power."
+        },
+        {
+          "text": "Immediate $16$ times, final $32$ times.",
+          "feedback": "The activation gate retains its starting value at the step edge."
+        }
+      ],
+      "correct": 0,
+      "hints": [
+        {
+          "body": "Compare the step edge with the later steady state."
+        },
+        {
+          "body": "Apply the instantaneous driving-force change first, then the conductance change after the gate settles."
+        }
+      ],
+      "modelAnswer": [
+        "The immediate factor is $2$. At steady state the conductance factor is $(0.8/0.4)^4=16$, making the final current $32$ times the original."
+      ],
+      "points": 1,
+      "source": "L08 Exercise8 p2 #2"
+    },
+    {
+      "id": "L08-core-ex-charge",
+      "type": "mc",
+      "difficulty": "hard",
+      "sectionId": "ex-charge",
+      "prompt": "Gating-charge density is $3.2\\,\\mathrm{nC/cm^2}$ and the displaced charge is $2e$ per channel, with $e=1.6\\times10^{-19}\\,\\mathrm C$. At that pulse, $g_A=0.50\\,\\mathrm{S/cm^2}$ and half the channels are open. What is $\\gamma$?",
+      "options": [
+        {
+          "text": "$100\\,\\mathrm{pS}$",
+          "feedback": "The total density is $10^{10}\\,\\mathrm{cm^{-2}}$. Divide $0.50\\,\\mathrm{S/cm^2}$ by $5\\times10^9\\,\\mathrm{cm^{-2}}$ to get $100\\,\\mathrm{pS}$."
+        },
+        {
+          "text": "$50\\,\\mathrm{pS}$",
+          "feedback": "This is conductance times open probability, using all channels in the denominator."
+        },
+        {
+          "text": "$200\\,\\mathrm{pS}$",
+          "feedback": "Use two elementary charges to count each channel and take half of that count as open."
+        }
+      ],
+      "correct": 0,
+      "hints": [
+        {
+          "body": "The integral measures displaced charge per membrane area."
+        },
+        {
+          "body": "Obtain the total density from charge, then use the density of open channels."
+        }
+      ],
+      "modelAnswer": [
+        "The total density is $10^{10}\\,\\mathrm{cm^{-2}}$. Divide $0.50\\,\\mathrm{S/cm^2}$ by $5\\times10^9\\,\\mathrm{cm^{-2}}$ to get $100\\,\\mathrm{pS}$."
+      ],
+      "points": 1,
+      "source": "L08 Exercise8 p3 #3"
     }
   ],
   "mockExams": [
@@ -13817,6 +14678,7 @@ const content={
       "questions": [
         {
           "id": "L08-a1",
+          "role": "concepts",
           "difficulty": "medium",
           "type": "written",
           "prompt": "a) Distinguish space and voltage clamp. b) State outward current convention. c) Explain why zero net ionic current need not mean closed channels. d) Define accommodation.",
@@ -13853,6 +14715,7 @@ const content={
         },
         {
           "id": "L08-a2",
+          "role": "explanation",
           "difficulty": "medium",
           "type": "written",
           "prompt": "Explain initiation, peak, repolarization, afterhyperpolarization and refractory recovery; sketch voltage and both conductances.",
@@ -13915,6 +14778,7 @@ const content={
         },
         {
           "id": "L08-a3",
+          "role": "calculation",
           "difficulty": "hard",
           "type": "multiStepCalc",
           "prompt": "An ideal space-clamped membrane has $g_{Na}=20\\,\\mathrm{nS}$, $g_K=30\\,\\mathrm{nS}$, $g_L=5\\,\\mathrm{nS}$ at $V=-20\\,\\mathrm{mV}$. Reversals are $+50,-80,-60\\,\\mathrm{mV}$ respectively. $I_m=0$ and $C=100\\,\\mathrm{pF}$. Find all branch currents, net ionic current and instantaneous voltage slope.",
@@ -14248,6 +15112,7 @@ const content={
         },
         {
           "id": "L08-a4",
+          "role": "calculation",
           "difficulty": "medium",
           "type": "multiStepCalc",
           "prompt": "A new ideal leak-corrected transient is $I_C(t)=2\\,\\mathrm{nA}\\,e^{-t/(0.5\\,\\mathrm{ms})}$. Integrate to $1\\,\\mathrm{ms}$ after a $10\\,\\mathrm{mV}$ step. Find captured charge, fraction of total, inferred capacitance from that window, and the complete-transient capacitance. State the finite-window bias.",
@@ -14474,9 +15339,10 @@ const content={
         },
         {
           "id": "L08-a5",
+          "role": "methods",
           "difficulty": "medium",
           "type": "written",
-          "prompt": "Using the supplied source capacitor-current panel, specify the recording mode, leak subtraction, integration procedure and finite-window/gating contamination risks.",
+          "prompt": "Using the supplied source capacitor-current panel, specify the recording mode, leak subtraction, integration procedure and finite-window/gating contamination risks. How would you check that electrode capacitance has not inflated the membrane charge integral?",
           "hints": [
             {
               "body": "Identify the physical variable and the recording condition."
@@ -14497,13 +15363,15 @@ const content={
             },
             {
               "text": "Area estimation assumes constant specific capacitance."
-            }
+            },
+            { "text": "Assess the fast electrode transient with a test step and stabilize its compensation before recording. Fit or subtract the electrode contribution before integrating the membrane component." }
           ],
           "modelAnswer": [
             "Integrate the capacitive component over time.",
             "Divide signed charge by the matched signed voltage step.",
             "Unresolved gating charge or series-resistance artifacts can bias the estimate.",
-            "Area estimation assumes constant specific capacitance."
+            "Area estimation assumes constant specific capacitance.",
+            "Assess the fast electrode transient with a test step and stabilize its compensation before recording. Fit or subtract the electrode contribution before integrating the membrane component."
           ],
           "points": 1,
           "source": "L08 8:1 p2–14,19",
@@ -14531,6 +15399,7 @@ const content={
       "questions": [
         {
           "id": "L08-b1",
+          "role": "concepts",
           "difficulty": "medium",
           "type": "written",
           "prompt": "a) Distinguish gating current from permeation. b) State the inner versus outer diameter convention. c) Contrast Schwann and oligodendrocyte internodes. d) Define an ON gating current.",
@@ -14567,6 +15436,7 @@ const content={
         },
         {
           "id": "L08-b2",
+          "role": "explanation",
           "difficulty": "medium",
           "type": "written",
           "prompt": "Explain the path from a voltage step to sensor charge, channel density and single-channel conductance. Derive normalized two-state probability and state inference assumptions.",
@@ -14629,6 +15499,7 @@ const content={
         },
         {
           "id": "L08-b3",
+          "role": "calculation",
           "difficulty": "hard",
           "type": "multiStepCalc",
           "prompt": "An ideal population has displaced gating-charge density $0.0032\\,\\mathrm{C/m^2}$. Each channel moves four elementary charges; use $e=1.6\\times10^{-19}\\,\\mathrm C$. Maximal ionic conductance density is $4000\\,\\mathrm{S/m^2}$. Recover charge per channel, density, density per square micrometer, and single-channel conductance. Explain the complete-activation assumption.",
@@ -14830,6 +15701,7 @@ const content={
         },
         {
           "id": "L08-b4",
+          "role": "calculation",
           "difficulty": "hard",
           "type": "multiStepCalc",
           "prompt": "For an outer fiber diameter $D=12\\,\\mu\\mathrm m$, apply the supplied approximate geometry and speed fits. Estimate inner diameter, radial myelin thickness, internode length, speed and internode transit time. Compare the fractional speed change for a comparable unmyelinated axon whose diameter doubles.",
@@ -15037,9 +15909,10 @@ const content={
         },
         {
           "id": "L08-b5",
+          "role": "methods",
           "difficulty": "medium",
           "type": "written",
-          "prompt": "Interpret the supplied gating-current isolation panel. Explain blockers, signed control steps, ON/OFF current and a control for incomplete capacitance subtraction.",
+          "prompt": "Interpret the supplied gating-current isolation panel. Explain blockers, signed control steps, ON/OFF current and a control for incomplete capacitance subtraction. What would a voltage-dependent residual after linear subtraction add to your interpretation?",
           "hints": [
             {
               "body": "Identify the physical variable and the recording condition."
@@ -15057,12 +15930,14 @@ const content={
             },
             {
               "text": "A nonlinear transient is not automatically a clean sensor signal; verify block, leak and subtraction."
-            }
+            },
+            { "text": "A saturating residual charge over a voltage range is consistent with finite movable sensor charge. Confirm that ionic block, subtraction and settling are adequate." }
           ],
           "modelAnswer": [
             "Source protocol uses sodium-free solution/TTX and internal cesium.",
             "Equal signed control steps cancel linear capacitance only under matched conditions.",
-            "A nonlinear transient is not automatically a clean sensor signal; verify block, leak and subtraction."
+            "A nonlinear transient is not automatically a clean sensor signal; verify block, leak and subtraction.",
+            "A saturating residual charge over a voltage range is consistent with finite movable sensor charge. Confirm that ionic block, subtraction and settling are adequate."
           ],
           "points": 1,
           "source": "L08 8:1 p15–20; 8:2 p5,8",
@@ -15090,6 +15965,7 @@ const content={
       "questions": [
         {
           "id": "L08-c1",
+          "role": "concepts",
           "difficulty": "medium",
           "type": "written",
           "prompt": "a) Where does an AP usually start? b) What regenerates at a node? c) Distinguish transmembrane from axial current. d) Explain why a twitch is an indirect threshold readout.",
@@ -15126,6 +16002,7 @@ const content={
         },
         {
           "id": "L08-c2",
+          "role": "explanation",
           "difficulty": "medium",
           "type": "written",
           "prompt": "Explain saltatory propagation using nodal channel distribution, insulation and three source experiments. Critique literal jumping and describe what the double cable adds.",
@@ -15208,6 +16085,7 @@ const content={
         },
         {
           "id": "L08-c3",
+          "role": "calculation",
           "difficulty": "hard",
           "type": "multiStepCalc",
           "prompt": "A new ideal sodium population has $\\bar g=80\\,\\mathrm{nS}$, $m_\\infty=0.7$, $h_\\infty=0.1$ at $V=-10\\,\\mathrm{mV}$. Find current for $E=50\\,\\mathrm{mV}$, then for $E=20\\,\\mathrm{mV}$ at fixed gates. Finally remove inactivation at the original reversal. Compare the mechanisms, not just magnitudes.",
@@ -15508,6 +16386,7 @@ const content={
         },
         {
           "id": "L08-c4",
+          "role": "calculation",
           "difficulty": "hard",
           "type": "multiStepCalc",
           "prompt": "An ideal one-layer effective membrane has $R=50\\,\\mathrm{M\\Omega}$ and $C=40\\,\\mathrm{pF}$. Replace it by five identical equal-area layers in series while keeping axial properties fixed. Find effective resistance, capacitance, time constant and length-constant ratio. Then find the passive remaining voltage fraction one original length constant away before and after wrapping. Explain why this model does not prove a universal time-constant decrease.",
@@ -15742,9 +16621,10 @@ const content={
         },
         {
           "id": "L08-c5",
+          "role": "methods",
           "difficulty": "medium",
           "type": "written",
-          "prompt": "Interpret the supplied spatial extracellular traces. Relate amplitude to nodal sources, distinguish the measured voltage from transmembrane voltage and propose a geometry control.",
+          "prompt": "Interpret the supplied spatial extracellular traces. Relate amplitude to nodal sources, distinguish the measured voltage from transmembrane voltage and propose a geometry control. How could you estimate conduction speed without treating extracellular amplitude as membrane voltage?",
           "hints": [
             {
               "body": "Identify the physical variable and the recording condition."
@@ -15762,12 +16642,14 @@ const content={
             },
             {
               "text": "Amplitude depends on geometry and reference as well as source activity."
-            }
+            },
+            { "text": "Measure the delay of the corresponding spike feature between known recording positions and divide separation by delay under matched conditions." }
           ],
           "modelAnswer": [
             "Compare position at matched recording conditions.",
             "Large nodal source currents generate the spatial extracellular signal.",
-            "Amplitude depends on geometry and reference as well as source activity."
+            "Amplitude depends on geometry and reference as well as source activity.",
+            "Measure the delay of the corresponding spike feature between known recording positions and divide separation by delay under matched conditions."
           ],
           "points": 1,
           "source": "L08 8:2 p2,9–18",
@@ -15790,163 +16672,32 @@ const content={
     }
   ],
   "recap": {
-    "intro": "Revision reference. Source typos and exercise limits are documented in the scope audit.",
+    "takeaways": ["Local axial current recruits the next active region. Myelin reduces leak and capacitive demand between nodes.", "Use spike timing and recent voltage history to distinguish threshold, accommodation and refractoriness.", "Integrate the isolated gating transient for charge and the capacitive transient for capacitance."],
+    "intro": "Check the mechanism before choosing an equation.",
     "terms": [
       {
-        "term": "Overview: current balance to saltatory conduction",
-        "definition": "Space clamp removes spatial voltage gradients."
+        "term": "HH current balance",
+        "definition": "Sum signed ionic currents, then include capacitance and any applied or axial current."
       },
       {
-        "term": "Parallel HH circuit and signed current balance",
-        "definition": "$I_i=g_i(V_m-E_i)$."
+        "term": "Noble’s momentary I–V",
+        "definition": "At a zero of total current, a positive slope restores voltage and a negative slope amplifies a displacement."
       },
       {
-        "term": "From gate probabilities to the action potential",
-        "definition": "Independent all-required particle probabilities multiply."
+        "term": "Accommodation",
+        "definition": "A slow ramp recruits potassium activation and reduces sodium availability before the spike."
       },
       {
-        "term": "Space clamp, cable coupling and travelling waves",
-        "definition": "Space clamp sets $\\partial V_m/\\partial x=0$."
+        "term": "Refractory periods",
+        "definition": "Sodium inactivation limits immediate re-excitation. Residual potassium conductance raises the stimulus required during relative refractoriness."
       },
       {
-        "term": "Nonpropagating AP: capacitive balance",
-        "definition": "$I_C+I_{ion}=0$ after injection ends."
+        "term": "Gating versus capacitive current",
+        "definition": "Isolate the sensor transient to measure displaced gating charge. Isolate the linear charging transient to measure membrane capacitance."
       },
       {
-        "term": "Continuous propagation and the refractory wake",
-        "definition": "Current spreads passively to nearby membrane."
-      },
-      {
-        "term": "Axial diversion changes the current balance",
-        "definition": "Local capacitance is only one destination of inward current."
-      },
-      {
-        "term": "Noble approximation and stable resting voltage",
-        "definition": "$m\\approx m_\\infty(V)$ while $n,h$ are momentarily fixed."
-      },
-      {
-        "term": "Threshold instability and a transient peak",
-        "definition": "$C\\dot{\\delta V}=-G_{slope}\\delta V$."
-      },
-      {
-        "term": "Threshold and deterministic versus biological variability",
-        "definition": "Threshold separates return toward rest from regenerative depolarization."
-      },
-      {
-        "term": "Fast positive and slow negative feedback",
-        "definition": "Fast activation reinforces depolarization."
-      },
-      {
-        "term": "Read the AP phases through conductance and driving force",
-        "definition": "At rest activation is low, not literally zero in every HH steady state."
-      },
-      {
-        "term": "Slow ramps and accommodation",
-        "definition": "Potassium activation increases outward opposition."
-      },
-      {
-        "term": "Paired pulses: absolute and relative refractoriness",
-        "definition": "Absolute refractoriness reflects extensive sodium inactivation."
-      },
-      {
-        "term": "Gating charge differs from ionic permeation",
-        "definition": "Voltage changes sensor-state energetics."
-      },
-      {
-        "term": "Two-state energies and normalized probability",
-        "definition": "$y_{out}/y_{in}=r$ and $y_{out}+y_{in}=1$."
-      },
-      {
-        "term": "Low-activation slope estimates effective gating charge",
-        "definition": "The exponential requires small activation and a fixed prefactor."
-      },
-      {
-        "term": "Isolate ON and OFF gating current",
-        "definition": "Source protocol uses sodium-free solution/TTX and internal cesium."
-      },
-      {
-        "term": "Measure capacitance from leak-corrected charge",
-        "definition": "Integrate the capacitive component over time."
-      },
-      {
-        "term": "Gating charge, channel density and single-channel conductance",
-        "definition": "Charge density and conductance density must share an area convention."
-      },
-      {
-        "term": "HH synthesis and limits",
-        "definition": "Conductance products determine ionic currents."
-      },
-      {
-        "term": "Initiation at AIS and directions of propagation",
-        "definition": "AIS has high sodium-channel density."
-      },
-      {
-        "term": "Unmyelinated conduction and diameter trade-off",
-        "definition": "Axial resistance falls as diameter increases."
-      },
-      {
-        "term": "Compare myelinated and unmyelinated scaling",
-        "definition": "Myelinated and unmyelinated diameter laws differ."
-      },
-      {
-        "term": "Myelin from Schwann cells and oligodendrocytes",
-        "definition": "Compact layers limit transverse current."
-      },
-      {
-        "term": "Electrical insulation: length is not time",
-        "definition": "Added layers increase effective thickness and reduce capacitance."
-      },
-      {
-        "term": "Nodes and internodes",
-        "definition": "Nodes concentrate regenerative sodium conductance."
-      },
-      {
-        "term": "Geometry and empirical myelinated-fiber fits",
-        "definition": "Larger fibers generally have longer internodes and thicker wrapping."
-      },
-      {
-        "term": "Continuous versus saltatory regeneration",
-        "definition": "Inward nodal current spreads axially through internodes."
-      },
-      {
-        "term": "Nodal and juxtaparanodal channels",
-        "definition": "Nodal sodium channels open rapidly and synchronously."
-      },
-      {
-        "term": "Evidence from anesthetic blocks and nodal currents",
-        "definition": "Reduced excitability at neighboring nodes can be bridged over a limited distance."
-      },
-      {
-        "term": "Local stimulation threshold and the twitch proxy",
-        "definition": "Control electrode placement and stimulus waveform."
-      },
-      {
-        "term": "Extracellular recordings localize nodal sources",
-        "definition": "Compare position at matched recording conditions."
-      },
-      {
-        "term": "Membrane current is more saltatory than voltage",
-        "definition": "Nodal inward current is much larger than internodal inward current."
-      },
-      {
-        "term": "Double cable and the periaxonal pathway",
-        "definition": "A single cable omits the separate periaxonal route."
-      },
-      {
-        "term": "Critique the literal-jumping description",
-        "definition": "Use localized nodal regeneration and continuous internodal voltage."
-      },
-      {
-        "term": "Exercise 8: steady sodium I–V from tabulated gates",
-        "definition": "Compute the cubic activation product and multiply by availability."
-      },
-      {
-        "term": "Exercise 8: absolute-voltage potassium graph",
-        "definition": "The graph uses absolute membrane voltage."
-      },
-      {
-        "term": "Exercise 8: gating area and single-channel inference",
-        "definition": "Convert microampere milliseconds to coulombs."
+        "term": "Saltatory conduction",
+        "definition": "Passive spread changes internodal voltage. Regenerative inward current is concentrated at nodes."
       }
     ],
     "equations": [
