@@ -1,0 +1,26 @@
+.tu-assessment fieldset {
+  min-inline-size: 0;
+}
+
+.tu-choice {
+  display: flex;
+  align-items: baseline;
+  gap: 0.65rem;
+  padding: 0.45rem 0;
+  cursor: pointer;
+}
+
+.tu-choice input {
+  flex: none;
+}
+
+.tu-assessment textarea {
+  display: block;
+  box-sizing: border-box;
+  width: 100%;
+  margin-block-start: 0.6rem;
+  padding: 0.6rem;
+  font: inherit;
+  color: inherit;
+  background: transparent;
+}

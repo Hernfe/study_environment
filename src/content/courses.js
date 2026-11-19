@@ -29,4 +29,9 @@ export const courses = [
     learningMode: 'topic-study',
     summary: 'Methods, interpretation and own-code explanation. Study L01–L07 or choose an interim 15-minute oral practice session.',
   },
+  {
+    slug: 'tu-e4350', code: 'TU-E4350', title: 'Technology Entrepreneurship',
+    term: 'Autumn 2026', status: 'active', unitPlural: 'weeks',
+    summary: 'Concise weekly reading and practical decisions for the final course quiz.',
+  },
 ];

@@ -135,6 +135,14 @@ TYPES = {"mc", "essay", "label", "order", "calc", "trueFalse", "fillBlank", "cli
 #   pending   {lecture: set of min_mix names}: minimums reported as the
 #             advisory mix-todo for a lecture built before they existed
 COURSE_RULES = {
+    "tu-e4350": {
+        "count": (6, 10),
+        "order": "gate",
+        "target": {"easy": 5, "medium": 2, "hard": 1},
+        "essays": None,
+        "min_mix": [],
+        "mc_only": (2, 4),
+    },
     # E4070 has source-grounded topic units and final free-text rubrics, no E4210 mix.
     "nbe-e4070": {"count": None, "order": "gate", "target": None, "essays": None, "min_mix": [], "pending": {}},
     "nbe-e4120": {"count": None, "order": "gate", "target": None, "essays": None, "min_mix": [], "pending": {}},
@@ -369,6 +377,12 @@ def check_mix(content, rules, lecture=""):
         least, most = rules["count"]
         if not least <= n <= most:
             out.append(("mix", "quiz", f"{n} questions; the rule is {least} to {most}"))
+    if rules.get("mc_only"):
+        least, most = rules["mc_only"]
+        for q in quiz:
+            choices = [plain(o.get("text")) for o in q.get("options", [])]
+            if q.get("type") != "mc" or not least <= len(choices) <= most or len(set(choices)) != len(choices):
+                out.append(("mix", q.get("id"), f"expected single-answer MCQ with {least} to {most} distinct choices"))
     tiers = [q.get("difficulty") for q in quiz]
     counts = {t: tiers.count(t) for t in TIERS}
     ranks = [TIERS.index(t) if t in TIERS else -1 for t in tiers]

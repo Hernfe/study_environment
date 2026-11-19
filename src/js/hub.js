@@ -22,7 +22,7 @@ function hubCard(course) {
       el('p', { class: 'details' }, [
         el('span', {}, course.term),
         el('span', {}, STATUS[course.status] || course.status),
-        el('span', {}, registry.length ? `${built} of ${registry.length} lectures built` : 'No lectures yet'),
+        el('span', {}, registry.length ? `${built} of ${registry.length} ${course.unitPlural || 'lectures'} built` : 'No lectures yet'),
       ]),
     ]),
   ]);

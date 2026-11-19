@@ -9,6 +9,18 @@ const root = fileURLToPath(new URL('./src', import.meta.url));
 // Content itself lives in src/content/<slug>/.
 const pages = {
   hub: 'index.html',
+  'tu-e4350': 'courses/tu-e4350/index.html',
+  'tu-e4350-practice': 'courses/tu-e4350/practice/index.html',
+  'tu-e4350-L01': 'courses/tu-e4350/lectures/L01/index.html',
+  'tu-e4350-L02': 'courses/tu-e4350/lectures/L02/index.html',
+  'tu-e4350-L03': 'courses/tu-e4350/lectures/L03/index.html',
+  'tu-e4350-L04': 'courses/tu-e4350/lectures/L04/index.html',
+  'tu-e4350-L05': 'courses/tu-e4350/lectures/L05/index.html',
+  'tu-e4350-L06': 'courses/tu-e4350/lectures/L06/index.html',
+  'tu-e4350-L07': 'courses/tu-e4350/lectures/L07/index.html',
+  'tu-e4350-L08': 'courses/tu-e4350/lectures/L08/index.html',
+  'tu-e4350-L09': 'courses/tu-e4350/lectures/L09/index.html',
+  'tu-e4350-L10': 'courses/tu-e4350/lectures/L10/index.html',
   'nbe-e4070': 'courses/nbe-e4070/index.html',
   'nbe-e4070-L01': 'courses/nbe-e4070/lectures/L01/index.html',
   'nbe-e4070-L02': 'courses/nbe-e4070/lectures/L02/index.html',
