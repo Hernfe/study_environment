@@ -97,7 +97,7 @@ function renderToc(content) {
       s.part ? { part: s.part } : null,
       { id: s.id, title: s.title },
     ].filter(Boolean)),
-    ...(content.recap ? [{ id: 'recap', title: 'Recap card' }] : []),
+    ...(content.recap ? [{ id: 'recap', title: content.recap.title || 'Recap card' }] : []),
     { id: 'lecture-quiz', title: 'Lecture quiz' },
     ...(content.mockExams?.some(exam => exam.format === 'paper') ? [{ id: 'mock-exams', title: 'Practice mini-exams' }] : []),
   ];
@@ -367,8 +367,10 @@ function renderRecap(recap) {
     ...(recap.constants || []).map((c) => el('div', {}, [el('p', {}, c.name), renderTex(c.tex, { display: true })])),
     recap.conventions ? paragraphs(recap.conventions) : null,
   ];
+  const title = recap.title || 'Recap card';
+  if (recap.optional) return el('details', { class: 'recap reveal', id: 'recap' }, [el('summary', {}, title), ...reference]);
   return el('section', { class: 'recap', id: 'recap', 'aria-labelledby': 'recap-title' }, [
-    el('h2', { id: 'recap-title' }, 'Recap card'),
+    el('h2', { id: 'recap-title' }, title),
     ...(recap.takeaways?.length ? [
       el('ul', {}, recap.takeaways.map((point) => el('li', {}, point))),
       hasReference ? el('details', { class: 'reveal' }, [el('summary', {}, 'Detailed recap reference'), ...reference]) : null,
@@ -405,7 +407,11 @@ export function renderLecture(content, root) {
     ]),
     renderRecap(content.recap),
     content.segmentedPractice ? el('section', { id: 'lecture-quiz' }, [el('h2', {}, 'Lecture practice'), el('p', {}, 'Practice is grouped by difficulty within each segment above. Results also enter course review.')]) : renderLectureQuiz(questions, { lectureId }),
-    content.mockExams ? renderMockExams(content.mockExams, { lectureId, reference: content.formulaReference?.map((eq) => `$${eq}$`) }) : null,
+    content.optionalPractice?.length ? el('details', { class: 'extra-practice reveal' }, [
+      el('summary', {}, 'Previous lecture practice (optional)'),
+      ...content.optionalPractice.map(question => renderQuestion(question, { lectureId })),
+    ]) : null,
+    content.mockExams ? renderMockExams(content.mockExams, { lectureId, previous: content.previousMockExams, reference: content.formulaReference?.map((eq) => `$${eq}$`) }) : null,
     renderCredits(),
   ]);
 

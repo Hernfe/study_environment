@@ -508,3 +508,21 @@ This preserves the short-response and one-step application model from
 Mini Exam 7. L10 has a separate graded lecture bank and three ten-point
 practice papers with an answer key for self-marking. These are original
 Chapter 23 practice questions. Mini Exam 8 supplies format, not scope.
+
+## Mini Exam 9 and the L10 practice format
+
+The local key, `source/nbe-e4210/exams/solutions_9.pdf`, shows ten
+problems on Chapter 22. Seven use single-best-answer prompts, one
+contains four true/false statements, and two ask for explanations in
+one or two sentences. The key prints two half-point criteria for
+Problem 3. It does not include the original distractors or the
+notes policy.
+
+L10 uses the same problem proportions for each of its three practice
+papers. The true/false problem contains four statements worth a quarter
+point each in practice.
+Explanations use two practice criteria worth half a point each.
+Routine L10 practice uses single-best-answer MCQs with two to four
+choices. The strict type and tier-order gates reflect that format
+for L10. Earlier lectures retain their established format. L10's
+earlier mixed-format bank remains available as optional practice.

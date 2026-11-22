@@ -1594,3 +1594,25 @@ first block of the section that teaches the topic. Supply the verified
 standalone YouTube video's 11-character ID. The learner can open the
 privacy-enhanced player on demand or use the persistent YouTube link.
 The rest of the section must be usable independently.
+
+### Revision-aware paper mocks and optional lecture practice
+
+A `format: 'paper'` mock can set a positive integer `revision`. The
+revision suffix isolates its saved attempt from earlier layouts with
+the same paper ID. Use `instructions` to supply the paper's practice
+directions. A paper item may provide `kind: 'mc'` or `'trueFalse'`,
+a `choices` array of strings, and a zero-based `correct` index.
+Choice items score automatically on submission. A grouped true/false
+item uses `kind: 'trueFalse'` and four `statements` with `text` and boolean
+`correct` fields. Its matching `markScheme` entries each provide an
+explanation and award 0.25 points for a correct judgment. A written item
+has neither `choices` nor `statements` and its `markScheme` is self-assessed. All marking
+explanations appear after submission. An optional `previousMockExams`
+array allows older saved attempts to open against their original
+questions.
+
+`optionalPractice` holds earlier lecture-quiz items with stable IDs.
+They render in a collapsed panel, retain valid progress records, and
+sit outside the core bank and course review. A recap can supply a
+`title` and set `optional: true` to render collapsed. A visual can
+provide `sourceImage`, a local image URL linked from its caption.

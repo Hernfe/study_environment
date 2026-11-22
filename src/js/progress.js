@@ -167,6 +167,7 @@ export function pruneLectureProgress(lectureId, content) {
   const stored = read('progress:' + lectureId);
   if (!stored || stored.version !== VERSION || !content) return 0;
   const quizIds = new Set((content.lectureQuiz || []).map((q) => q.id));
+  for (const question of content.optionalPractice || []) quizIds.add(question.id);
   for (const id of content.retiredPracticeIds || []) quizIds.add(id);
   const conceptIds = new Set(
     (content.sections || []).flatMap((s) => (s.conceptQuiz || []).map((q) => q.id)),

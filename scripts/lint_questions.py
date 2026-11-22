@@ -180,7 +180,11 @@ COURSE_RULES = {
 DEFAULT_RULES = {"count": None, "order": "advisory", "target": None, "essays": None, "min_mix": [], "pending": {}}
 
 
-def rules_for(course):
+def rules_for(course, lecture=""):
+    if course == "nbe-e4210" and lecture == "L10":
+        return {
+            **COURSE_RULES[course], "mc_only": (2, 4), "min_mix": [],
+        }
     return COURSE_RULES.get(course, DEFAULT_RULES)
 BANK_LENGTH = (0.5, 2.0)
 LENGTH_GAP = 0.20
@@ -328,7 +332,7 @@ def mc_questions(content):
     for section in content.get("sections", []):
         for q in section.get("conceptQuiz") or []:
             yield f"concept {q.get('id')}", q
-    for q in content.get("lectureQuiz", []):
+    for q in content.get("lectureQuiz", []) + content.get("optionalPractice", []):
         if q.get("options") and q.get("type") != "multiSelect":
             yield f"quiz {q.get('id')}", q
 
@@ -1032,8 +1036,31 @@ def lint(lecture_id, content, corpus):
             where = 'mock ' + exam.get('id', '?')
             if len(questions) != 10:
                 findings.append(('error', where, 'paper mock must contain ten questions'))
+            if exam.get('revision'):
+                kinds = [question.get('kind', 'written') for question in questions]
+                if kinds.count('mc') != 7 or kinds.count('trueFalse') != 1 or kinds.count('written') != 2:
+                    findings.append(('mix', where, 'revised paper needs seven single answers, one true/false and two explanations'))
+                if len({question.get('id') for question in questions}) != len(questions):
+                    findings.append(('mix', where, 'question IDs must be unique within each paper'))
             for question in questions:
+                choices = question.get('choices')
+                if choices is not None and (
+                    not 2 <= len(choices) <= 4 or len(set(choices)) != len(choices)
+                    or not isinstance(question.get('correct'), int) or not 0 <= question['correct'] < len(choices)
+                ):
+                    findings.append(('mix', where, 'objective paper question needs distinct choices and a valid answer index'))
                 criteria = question.get('markScheme', [])
+                statements = question.get('statements')
+                if exam.get('revision', 0) >= 3 and question.get('kind') == 'trueFalse' and statements is None:
+                    findings.append(('mix', where, 'this paper requires a grouped true/false problem'))
+                if statements is not None and (
+                    question.get('kind') != 'trueFalse' or choices is not None
+                    or len(statements) != 4 or len(criteria) != len(statements)
+                    or any(not plain(row.get('text')) or type(row.get('correct')) is not bool for row in statements)
+                    or len({row.get('text') for row in statements}) != len(statements)
+                    or any(item.get('points') != 0.25 for item in criteria)
+                ):
+                    findings.append(('mix', where, 'true/false sets need four distinct statements, boolean keys and quarter-point criteria'))
                 if not question.get('id') or not question.get('prompt') or not criteria or any(
                     not plain(item.get('text')) or not is_number(item.get('points')) for item in criteria
                 ) or abs(sum(item['points'] for item in criteria) - 1) > 1e-9:
@@ -1069,8 +1096,8 @@ def lint(lecture_id, content, corpus):
         dist = ", ".join(f"{k + 1}: {o} (exp {e:.1f})" for k, (o, e) in enumerate(zip(observed, expected)))
         findings.append(("positions", "inline choices", f"answer places inside the brackets far from uniform, p = {p:.3f}; {dist}"))
     course, _, bare = lecture_id.partition("/")
-    findings += check_mix(content, rules_for(course), bare)
-    for q in content.get("lectureQuiz", []):
+    findings += check_mix(content, rules_for(course, bare), bare)
+    for q in content.get("lectureQuiz", []) + content.get("optionalPractice", []):
         findings += check_fields(q)
         if q.get("type") == "multiSelect":
             findings += check_multiselect(q)

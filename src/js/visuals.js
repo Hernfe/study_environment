@@ -64,10 +64,13 @@ export function renderVisualBody(visual) {
 
 export function renderVisual(visual) {
   if (!visual) return null;
-  const figure = el('figure', { class: 'figure', role: 'img', 'aria-label': visual.fallbackAlt || visual.caption || '' }, [
+  const figure = el('figure', { class: 'figure', role: visual.sourceImage ? null : 'img', 'aria-label': visual.fallbackAlt || visual.caption || '' }, [
     renderVisualBody(visual),
   ]);
-  if (visual.caption) figure.appendChild(el('figcaption', { class: 'figure-caption' }, visual.caption));
+  if (visual.caption || visual.sourceImage) figure.appendChild(el('figcaption', { class: 'figure-caption' }, [
+    visual.caption,
+    visual.sourceImage ? [' ', el('a', { href: visual.sourceImage, target: '_blank', rel: 'noopener' }, 'View full-size figure')] : null,
+  ]));
   return figure;
 }
 
