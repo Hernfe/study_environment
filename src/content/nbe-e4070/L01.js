@@ -17,13 +17,14 @@ const spreadFigure = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 350 2
 
 export default {
   "learningMode": "topic-study",
+  "compactPractice": true,
   "meta": {
     "id": "L01",
     "number": 1,
     "title": "Statistics and uncertainty"
   },
   "intro": [
-    "Learn statistics in slide order: read each short explanation, try the easy MCQs, then explain the notebook code. Finish with three five-minute oral-style written prompts. You can skip ahead and revise at any time.",
+    "Read the short theory and use the interactive code cards in context. Open the optional code explanations and final written practice when you want to rehearse for the oral.",
     "Practice uses source-grounded explanations and selected notebook lines. It does not run the notebook or reproduce its saved numeric results."
   ],
   "sections": [
@@ -331,6 +332,97 @@ export default {
     },
     {
       "id": "sem-and-interval",
+      "codeVisualCards": [
+        {
+          "id": "L01-code-visual-uncertainty",
+          "title": "What changes when the sample is larger?",
+          "snippet": {
+            "language": "python",
+            "text": "mean = np.mean(x)\nsd = np.std(x, ddof=0)\nsem = sd / np.sqrt(x.size)",
+            "provenance": "New teaching example",
+            "sources": [
+              {
+                "source": "exercise1",
+                "cell": 4
+              },
+              {
+                "source": "exercise1",
+                "cell": 9
+              },
+              {
+                "source": "statistics",
+                "pages": "19–23"
+              }
+            ],
+            "context": "NumPy is imported as np. x is a vector of illustrative pressures. This uses the notebook’s divisor N. Repeating the vector here holds its empirical spread fixed."
+          },
+          "visual": {
+            "kind": "uncertainty",
+            "data": [
+              112,
+              118,
+              126,
+              132
+            ],
+            "controls": [
+              {
+                "id": "n",
+                "label": "Sample size",
+                "initial": 4,
+                "options": [
+                  {
+                    "value": 4,
+                    "label": "4"
+                  },
+                  {
+                    "value": 16,
+                    "label": "16"
+                  }
+                ]
+              }
+            ],
+            "caption": "Illustrative data · Individual readings and two error bars",
+            "alt": "Dots on the left are individual observations. The center dots on the right are the same mean, with one SD and one SEM on either side."
+          },
+          "mcq": {
+            "id": "L01-code-visual-uncertainty-check",
+            "difficulty": "easy",
+            "prompt": "At four times the sample size with the same spread, how do the bars change?",
+            "correct": 1,
+            "options": [
+              {
+                "text": "Both bars shrink by half.",
+                "feedback": "The SD bar stays fixed because the set of values has the same spread."
+              },
+              {
+                "text": "The SD stays fixed and the SEM halves.",
+                "feedback": "Four times the sample size doubles its square root. The spread in the input stays fixed."
+              },
+              {
+                "text": "The SD stays fixed and the SEM quarters.",
+                "feedback": "The SEM divides by the square root of sample size."
+              }
+            ]
+          },
+          "blank": {
+            "id": "L01-code-visual-uncertainty-blank",
+            "prompt": "Complete the denominator so increasing the sample size from 4 to 16 halves the SEM.",
+            "template": "sem = sd / np.{token}(x.size)",
+            "fields": [
+              {
+                "id": "token",
+                "label": "NumPy function",
+                "accepted": [
+                  "sqrt"
+                ],
+                "explanation": "The denominator is the square root of the sample count.",
+                "commonErrors": "Using square would divide by the squared count."
+              }
+            ],
+            "expectedOutput": "For 16 observations, the result is one-quarter of the SD."
+          }
+        }
+      ],
       "title": "3. SEM and confidence intervals",
       "priority": "Red: SEM pp. 20, 23 and CI pp. 24, 26. Orange: t critical values p. 25.",
       "sources": [
@@ -573,6 +665,84 @@ export default {
     },
     {
       "id": "tests-and-p",
+      "codeVisualCards": [
+        {
+          "id": "L01-code-visual-t",
+          "title": "Read the sign and size of a t statistic",
+          "snippet": {
+            "language": "python",
+            "text": "tSYS, pSYS = stats.ttest_ind(X0[:, 2], X1[:, 2])",
+            "provenance": "Verbatim line",
+            "sources": [
+              {
+                "source": "exercise1",
+                "cell": 13
+              },
+              {
+                "source": "exercise1",
+                "cell": 4
+              },
+              {
+                "source": "statistics",
+                "pages": "27–32"
+              }
+            ],
+            "context": "stats is scipy.stats. Rows are subjects and column 2 is systolic pressure. The default is a two-sided pooled-variance test. Here the two illustrative groups each have four values and the same spread."
+          },
+          "visual": {
+            "kind": "two-sample-t",
+            "data": [
+              108,
+              116,
+              124,
+              132
+            ],
+            "controls": [
+              {
+                "id": "shift",
+                "label": "Group B shift (mm Hg)",
+                "initial": 8,
+                "options": [
+                  {
+                    "value": 0,
+                    "label": "0"
+                  },
+                  {
+                    "value": 8,
+                    "label": "8"
+                  },
+                  {
+                    "value": 16,
+                    "label": "16"
+                  }
+                ]
+              }
+            ],
+            "caption": "Illustrative data · Two groups at a fixed within-group spread",
+            "alt": "Each dot is one subject. Keep A fixed and shift every B measurement together."
+          },
+          "mcq": {
+            "id": "L01-code-visual-t-check",
+            "difficulty": "medium",
+            "prompt": "When B moves farther above A, what happens to the two outputs?",
+            "correct": 0,
+            "options": [
+              {
+                "text": "t becomes more negative and p decreases.",
+                "feedback": "The test subtracts B from A, so the signed difference falls and its magnitude rises."
+              },
+              {
+                "text": "t becomes more positive and p decreases.",
+                "feedback": "The order of the groups gives a negative t when B has the larger mean."
+              },
+              {
+                "text": "t becomes more negative and p increases.",
+                "feedback": "With fixed spread and sample size, a larger absolute t has a smaller null tail area."
+              }
+            ]
+          }
+        }
+      ],
       "title": "4. t-tests, p-values and assumptions",
       "priority": "Red: null and p-value pp. 27–28. Orange: designs, tails and assumptions pp. 29–34.",
       "sources": [
@@ -589,7 +759,7 @@ export default {
         {
           "type": "definition",
           "term": "Null hypothesis and p-value",
-          "body": "For an independent comparison of two means, the null states that the population means are equal. A p-value is the probability, under that null model and its assumptions, of a test statistic at least as extreme as observed. Small p is evidence against that null, not the probability it is false."
+          "body": "For an independent comparison of two means, the null states that the population means are equal. A p-value is the probability, under that null model and its assumptions, of a test statistic at least as extreme as observed. The L08 recap (PDF p. 36) gives a misleading interpretation: a p-value of 0.05 is a 5% tail probability under the null model."
         },
         {
           "type": "math",

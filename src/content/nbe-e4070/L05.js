@@ -1,4 +1,5 @@
 import { scaleLinear, line } from 'd3';
+import { preparation, scaling, penalty, evaluation, temporalCV } from './exercise4Cards.js';
 // Original schematic points and supplied line, no measured source observations.
 const x = scaleLinear().domain([0, 3]).range([65, 415]);
 const y = scaleLinear().domain([0, 8]).range([250, 35]);
@@ -23,6 +24,7 @@ ${sy.ticks(2).map(v=>`<text x="55" y="${sy(v)+5}" text-anchor="end">${v}</text>`
 <path d="${line().x(v=>sx(v)).y(v=>sy(1/(1+Math.exp(-v))))(Array.from({length:81},(_,i)=>-4+i/10))}" fill="none" stroke="var(--c-accent)" stroke-width="2"/><circle cx="${sx(0)}" cy="${sy(.5)}" r="4"/><text x="${sx(0)+10}" y="${sy(.5)-12}">Zero score, p = 0.5</text></g></svg>`;
 
 export default {
+  compactPractice: true,
   "meta": {
     "id": "L05",
     "number": 5,
@@ -31,7 +33,7 @@ export default {
   "learningMode": "topic-study",
   "intro": [
     "Read concise theory, then easy MCQs in each unit; labelled sample-code reading follows the relevant checks. Four oral-style free-text prompts finish the lecture.",
-    "Exact source: Lecture 5 regression, 35 PDF pages. No regression exercise notebook is supplied. Code here is original hypothetical sample practice, not your submitted or executed notebook. Exercise4 and the L08 deck remain pending."
+    "Exercise 4 follows a reach-direction decoder from raw firing rates to held-out accuracy. The examples use illustrative data. Rehearse the code in the L08 reach-direction case."
   ],
   "sections": [
     {
@@ -219,7 +221,7 @@ export default {
             "Averaging signed errors instead of squared errors."
           ],
           "code": "import numpy as np\nx = np.array([0., 1., 2.])\ny = np.array([1., 4., 4.])\npred = 2. * x + 1.\nresidual = y - pred\nmse = np.mean(residual ** 2)",
-          "codeContext": "Sample practice only, original NumPy example with three hypothetical samples in arbitrary units. No regression notebook is supplied; this code is not personal submitted code."
+          "codeContext": "Sample practice only, original NumPy example with three hypothetical samples in arbitrary units. This is a teaching example."
         }
       ]
     },
@@ -259,6 +261,53 @@ export default {
           "body": "The taught mean response is a linear combination of the chosen inputs. Each weight has output units divided by its feature units; intercept and residual share target units. A plane can miss a curved relation. A fitted coefficient describes the model with its other included features, not an isolated causal effect."
         }
       ],
+      codeVisualCards: [{
+        id: 'L05-reach-time-mean',
+        title: 'Turn firing rates into trial features',
+        snippet: {
+          language: 'python',
+          text: 'X = np.mean(firingRate, axis=1).T',
+          provenance: 'Verbatim line',
+          sources: [{ source: 'exercise4', cell: 8 }, { source: 'exercise4', cell: 4 }],
+          context: 'Cell 4 imports NumPy as np and loads firingRate with axes neuron × time bin × trial.',
+        },
+        visual: {
+          kind: 'mean-time',
+          caption: 'Simulated firing rates',
+          alt: 'Each input table shows one neuron. Change how many initial time bins are included in the input. For each trial, the output table shows the average across those bins for each neuron.',
+          unit: 'arbitrary rate units',
+          data: [
+            [[2, 6, 10], [4, 2, 8], [6, 4, 12], [12, 8, 2]],
+            [[12, 2, 4], [8, 6, 8], [10, 10, 6], [2, 12, 14]],
+          ],
+          controls: [{
+            id: 'bins', label: 'Time bins in the input', initial: 2,
+            options: [2, 3, 4].map((value) => ({ value, label: String(value) })),
+          }],
+        },
+        mcq: {
+          id: 'L05-reach-time-mean-mcq',
+          difficulty: 'easy',
+          prompt: 'What does one row of the output X represent?',
+          options: [
+            { text: 'One time bin, with a feature per trial.', feedback: 'The mean collapses the time-bin axis.' },
+            { text: 'One trial, with a feature per neuron.', feedback: 'The mean preserves trials and neurons. The transpose makes trials the rows.' },
+            { text: 'One neuron, with a feature per trial.', feedback: 'This is the layout after averaging and before the transpose.' },
+          ],
+          correct: 1,
+        },
+        blank: {
+          id: 'L05-reach-time-mean-blank',
+          prompt: 'Fill in the NumPy axis that averages time bins. The input axes are neuron, time bin, trial, in that order.',
+          template: 'X = np.mean(firingRate, axis={axis}).T',
+          fields: [{
+            id: 'axis', label: 'Time-bin axis', accepted: ['1', '-2'],
+            explanation: 'Axis 1 counts from zero. Axis -2 also selects the second-to-last axis of a three-dimensional array.',
+            commonErrors: 'Axis 0 averages neurons. Axis 2 averages trials.',
+          }],
+          expectedOutput: 'X has one row per trial and one column per neuron. This example produces a 3 × 2 feature matrix.',
+        },
+      }, ...preparation, scaling],
       "conceptQuiz": [
         {
           "id": "L05-multiple",
@@ -681,6 +730,7 @@ export default {
     },
     {
       "id": "generalization",
+      codeVisualCards: [evaluation, temporalCV],
       "title": "5. Training, validation and final testing",
       "sources": [
         {
@@ -779,6 +829,7 @@ export default {
     },
     {
       "id": "regularization",
+      codeVisualCards: [penalty],
       "title": "6. Ridge, LASSO and principal-component regression",
       "sources": [
         {
@@ -1090,7 +1141,7 @@ export default {
       "id": "L05-written-code",
       "kind": "written",
       "title": "Defend the sample code and bound the causal claim",
-      "prompt": "Explain the sample prediction, logistic and penalty snippets above in your own words, including their array axes and what they do not fit. Then connect the lecture’s causal warnings to Exercise1’s confounding task: why can neither regression coefficients nor comparisons of group-test p-values settle whether smoking or weight caused a blood-pressure difference? No regression notebook is supplied; this is sample-code defense, not a claim about your submitted code.",
+      "prompt": "Explain the sample prediction, logistic and penalty snippets above in your own words, including their array axes and what they do not fit. Then connect the lecture’s causal warnings to Exercise1’s confounding task: why can neither regression coefficients nor comparisons of group-test p-values settle whether smoking or weight caused a blood-pressure difference? For this prompt, use the sample regression snippets. The separate reach-decoder examples identify their Exercise 4 cells.",
       "sources": [
         {
           "source": "regression",
@@ -1133,11 +1184,11 @@ export default {
         {
           "id": "L05-written-code-c5",
           "text": "States evidence limits.",
-          "accept": "Exercise1 is artificial data, dataset absent; saved responses are not an official answer or newly verified result, and no personal regression notebook exists."
+          "accept": "Exercise 1 uses artificial data. The sample regression snippets illustrate array and model behavior. Exercise 4 uses a separate reach-task dataset."
         }
       ],
       "modelAnswer": [
-        "The matrix product aligns feature columns with weights and returns one prediction per sample; the intercept is shared and the residual uses the matching observed target. The sigmoid maps supplied scores to probabilities; thresholding makes decisions but does not train the model. Penalty snippets evaluate stated weights without optimizing them. Training and validation are needed to compare methods. Exercise1 asks about possible age/weight confounding in artificial data; neither group p-value comparisons nor fitted weight sizes identify a causal effect. Data are unavailable, so no fresh analysis or personal regression implementation is certified here."
+        "The matrix product aligns feature columns with weights and returns one prediction per sample; the intercept is shared and the residual uses the matching observed target. The sigmoid maps supplied scores to probabilities; thresholding makes decisions but does not train the model. Penalty snippets evaluate stated weights without optimizing them. Training and validation are needed to compare methods. Exercise1 asks about possible age/weight confounding in artificial data; neither group p-value comparisons nor fitted weight sizes identify a causal effect. The dataset is unavailable locally, so the discussion concerns the methods and sample snippets."
       ],
       "pitfalls": [
         "Asserting causation because a coefficient is positive or a p-value is smaller.",

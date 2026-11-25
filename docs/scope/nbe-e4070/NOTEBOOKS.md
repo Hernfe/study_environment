@@ -1,6 +1,6 @@
 # Notebook source and cell map
 
-All indices below are **zero-based** JSON cell indices, including markdown. Only the three unsuffixed JSON notebooks are canonical. Saved outputs are historical, not execution evidence from this audit. No notebook was executed, no pickle loaded, and no data file obtained.
+All indices below are **zero-based** JSON cell indices, including markdown. The four canonical notebooks are listed below. Saved outputs are historical, not execution evidence from this audit. No notebook was executed, no pickle loaded, and no data file obtained.
 
 ## Exercise1_Statistics.ipynb
 
@@ -113,3 +113,29 @@ Path: `source/nbe-e4070/notebooks/Exercise3_High_Dimensional_PCA.ipynb`. nbforma
 - Exercise3: cell6 averages neurons first, then trials for a chosen direction, with trial-based SEM (`ddof=1`) and normal 1.96 multiplier. It does not compute SEM across neurons. Cell14 default C-order reshape interleaves direction fastest: column `t*8+d` maps time t/direction d; it does not concatenate all time points of each direction into contiguous direction blocks. Cell29 reshapes consistently to time×8×3. Cell24 hardcoded axis ticks and cell27 neuron/component counts are not authoritative dimensions without the missing .mat. Cell29 `np.real` discards imaginary parts; do not teach it as universal eigendecomposition repair.
 - Placeholder marker alone is not completion status: many solution cells retain `CODE YOUR SOLUTION HERE` above substantive code. Help templates with blank assignments remain unfinished, despite other executed cells. Nonmonotonic counts and saved plots do not prove a fresh, ordered, reproducible run.
 - Dependencies absent: `HospitalData.pickle`, `electrode_recording.mat`, `HatsopoulosReachTask.mat`, referenced `imgs/` files. Imports include NumPy, Matplotlib, SciPy, pickle, PyWavelets and scikit-learn; Jupyter magics are not ordinary Python. Do not run missing-data cells or ship saved plots/large outputs.
+
+## Exercise4_LogisticRegression.ipynb
+
+Path: `source/nbe-e4070/notebooks/Exercise4_LogisticRegression.ipynb`.
+20 cells. The reach-decoder case cites cells 3, 8, 11, 12, 16 and 18.
+
+| Cells | Source role |
+|---|---|
+| 0–3 | Task, eight reach directions, neural activity array and labels |
+| 4 | Loads the unavailable reach-task dataset |
+| 5–6 | PMd and MI visualisation prompt and submitted plot code |
+| 7–9 | Preparation prompt, submitted code and hint. Cell 8 averages time, transposes, shuffles aligned trials, splits and fits scaling on training data |
+| 10–12 | Decoder prompt, submitted fit/predict/score code using `C=np.inf`, and historical `penalty='none'` hint |
+| 13–14 | Overfitting prompt and historical written interpretation |
+| 15–18 | Optional temporal decoding. Cell 16 fits scaling before cross-validation, which can leak validation information. Cell 18's interpretation of uncertainty-band overlap requires a formal comparison |
+| 19 | Empty |
+
+The dataset and image folder are unavailable, so the simulator labels its
+output as illustrative.
+
+L05 uses cell 8 excerpts to teach the array transformation, aligned shuffle,
+split and scaling. Its model card distinguishes the submitted infinite C
+from the historical hint and the explicit `penalty=None` form tested with
+scikit-learn 1.7.2. Scoring practice uses illustrative class arrays. The
+optional temporal card gives a teaching pipeline that fits scaling within
+each training fold. The notebook is preserved as supplied.

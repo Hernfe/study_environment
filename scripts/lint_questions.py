@@ -332,6 +332,9 @@ def mc_questions(content):
     for section in content.get("sections", []):
         for q in section.get("conceptQuiz") or []:
             yield f"concept {q.get('id')}", q
+        for card in section.get("codeVisualCards") or []:
+            q = card.get("mcq") or {}
+            yield f"code visual {q.get('id')}", q
     for q in content.get("lectureQuiz", []) + content.get("optionalPractice", []):
         if q.get("options") and q.get("type") != "multiSelect":
             yield f"quiz {q.get('id')}", q
@@ -860,22 +863,24 @@ def corpus_of(data, course):
 
 def texts(content):
     """Every student-facing string, for the maths check."""
-    def collect(value, key=""):
+    def collect(value, key="", parent=""):
         if isinstance(value, str):
             # Exact notebook code is rendered as text, never mathematical prose.
-            if content.get("learningMode") in {"topic-study", "oral-practice"} and key == "code":
+            if content.get("learningMode") in {"topic-study", "oral-practice"} and (
+                key == "code" or (parent, key) in {("snippet", "text"), ("blank", "template")}
+            ):
                 return
             if key not in {"id", "src", "poster", "type", "name", "tex", "file", "math", "expression", "sectionId", "lectureId", "difficulty",
                            "site", "affected", "svg", "formulaReference", "interactiveTex", "videoId", "retiredPracticeIds"}:
                 yield value
         elif isinstance(value, list):
             for v in value:
-                yield from collect(v, key)
+                yield from collect(v, key, parent)
         elif isinstance(value, dict):
             for k, v in value.items():
                 if k in {"meta", "visual", "figure", "props", "hotspots"}:
                     continue
-                yield from collect(v, k)
+                yield from collect(v, k, key)
     yield from collect({k: v for k, v in content.items() if k != "meta"})
 
 

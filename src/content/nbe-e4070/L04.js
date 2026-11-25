@@ -20,9 +20,10 @@ export default {
     "title": "Clustering methods"
   },
   "learningMode": "topic-study",
+  "compactPractice": true,
   "intro": [
-    "Learn the exact Lecture 4 sequence: grouping and centroids, K-means, hierarchy, computer workflow, tumor expression and retinal responses. Read each short unit, answer easy MCQs, then explain the code. Four substantial written prompts finish the lecture.",
-    "Exercise2 clustering is available. Exercise4 notebook is PENDING and has no invented solution. The recording is missing; examples here explain methods and shapes, not newly verified notebook results."
+    "Read the short theory and use the interactive code cards in context. Open the optional code explanations and final written practice when you want to rehearse for the oral.",
+    "Exercise2 clustering is available. The recording is missing; examples here explain methods and shapes, not newly verified notebook results."
   ],
   "sections": [
     {
@@ -157,6 +158,137 @@ export default {
     },
     {
       "id": "kmeans",
+      "codeVisualCards": [
+        {
+          "id": "L04-code-visual-lloyd",
+          "title": "Watch one K-means update",
+          "snippet": {
+            "language": "python",
+            "text": "d2 = ((X[:, None] - centers) ** 2).sum(axis=2)\nlabels = d2.argmin(axis=1)\ncenters = np.stack([X[labels == j].mean(axis=0)\n                    for j in range(k)])",
+            "provenance": "New teaching example",
+            "sources": [
+              {
+                "source": "clustering",
+                "pages": "5–10, 17"
+              },
+              {
+                "source": "exercise2",
+                "cell": 23
+              }
+            ],
+            "context": "NumPy is imported as np. X has samples in rows. Initial centers are the first k rows. This shows one Lloyd update on a toy set with nonempty clusters. The display reassigns each sample to its nearest center after updating."
+          },
+          "visual": {
+            "kind": "lloyd-steps",
+            "data": [
+              [
+                0,
+                0
+              ],
+              [
+                10,
+                0
+              ],
+              [
+                5,
+                7
+              ],
+              [
+                1,
+                1
+              ],
+              [
+                2,
+                1
+              ],
+              [
+                9,
+                1
+              ],
+              [
+                8,
+                2
+              ],
+              [
+                5,
+                6
+              ]
+            ],
+            "controls": [
+              {
+                "id": "k",
+                "label": "Number of centers",
+                "initial": 2,
+                "options": [
+                  {
+                    "value": 2,
+                    "label": "2"
+                  },
+                  {
+                    "value": 3,
+                    "label": "3"
+                  }
+                ]
+              },
+              {
+                "id": "step",
+                "label": "Centroid step",
+                "initial": 0,
+                "options": [
+                  {
+                    "value": 0,
+                    "label": "Initial centers"
+                  },
+                  {
+                    "value": 1,
+                    "label": "After one update"
+                  }
+                ]
+              }
+            ],
+            "caption": "Illustrative data · Nearest-center assignments and centroids",
+            "alt": "Filled dots are waveforms. Outlined circles are centers. Dashed lines connect each sample to its current closest center."
+          },
+          "mcq": {
+            "id": "L04-code-visual-lloyd-check",
+            "difficulty": "easy",
+            "prompt": "Why can the centers move even though the waveform points stay put?",
+            "correct": 1,
+            "options": [
+              {
+                "text": "Each center moves to the farthest assigned waveform.",
+                "feedback": "Updating a center uses all assigned points and minimizes their squared distances to it."
+              },
+              {
+                "text": "Each center moves to the mean of its assigned waveforms.",
+                "feedback": "The update averages sample coordinates separately within each cluster."
+              },
+              {
+                "text": "Each center moves to the mean of all waveforms.",
+                "feedback": "The mask X[labels == j] selects the waveforms assigned to cluster j."
+              }
+            ]
+          },
+          "blank": {
+            "id": "L04-code-visual-lloyd-blank",
+            "prompt": "Choose the axis of d2 so argmin returns one center index for each sample. d2 is sample × center.",
+            "template": "labels = d2.argmin(axis={token})",
+            "fields": [
+              {
+                "id": "token",
+                "label": "Center axis",
+                "accepted": [
+                  "1",
+                  "-1"
+                ],
+                "explanation": "Axis 1 scans through the centers for each row.",
+                "commonErrors": "Axis 0 would find a sample index for each center."
+              }
+            ],
+            "expectedOutput": "The output is a label vector of length 8."
+          }
+        }
+      ],
       "title": "2. Alternate assignments and center updates",
       "sources": [
         {
@@ -346,6 +478,80 @@ export default {
     },
     {
       "id": "hierarchy",
+      "codeVisualCards": [
+        {
+          "id": "L04-code-visual-cut",
+          "title": "Change the cut on a fixed hierarchy",
+          "snippet": {
+            "language": "python",
+            "text": "tree = linkage(X, method=\"single\")\nlabels = fcluster(tree, t=height, criterion=\"distance\")",
+            "provenance": "New teaching example",
+            "sources": [
+              {
+                "source": "clustering",
+                "pages": "11–16"
+              }
+            ],
+            "context": "linkage and fcluster are from scipy.cluster.hierarchy. Each row of X is a one-feature sample. Single linkage uses the smallest distance between samples in the two groups."
+          },
+          "visual": {
+            "kind": "single-linkage",
+            "data": [
+              0,
+              1,
+              3,
+              9
+            ],
+            "controls": [
+              {
+                "id": "height",
+                "label": "Cut height (µV)",
+                "initial": 1.5,
+                "options": [
+                  {
+                    "value": 0.5,
+                    "label": "0.5"
+                  },
+                  {
+                    "value": 1.5,
+                    "label": "1.5"
+                  },
+                  {
+                    "value": 3,
+                    "label": "3"
+                  },
+                  {
+                    "value": 6.5,
+                    "label": "6.5"
+                  }
+                ]
+              }
+            ],
+            "caption": "Illustrative data · One hierarchy, several partitions",
+            "alt": "Leaves are individual samples. The dashed horizontal line is the distance threshold."
+          },
+          "mcq": {
+            "id": "L04-code-visual-cut-check",
+            "difficulty": "easy",
+            "prompt": "Raise the cut from 1.5 to $3\\,\\text{µV}$. Which adjacent pair newly shares a group?",
+            "correct": 2,
+            "options": [
+              {
+                "text": "The samples at 3 and 9 on the horizontal axis.",
+                "feedback": "The gap between them is $6\\,\\text{µV}$, above both cut heights."
+              },
+              {
+                "text": "The samples at 0 and 1 on the horizontal axis.",
+                "feedback": "They already merge at $1\\,\\text{µV}$, below the lower cut."
+              },
+              {
+                "text": "The samples at 1 and 3 on the horizontal axis.",
+                "feedback": "Its closest link to that group is $2\\,\\text{µV}$, between the two cut heights."
+              }
+            ]
+          }
+        }
+      ],
       "title": "3. Build, read and cut a hierarchy",
       "sources": [
         {
@@ -564,8 +770,8 @@ export default {
         },
         {
           "type": "detail",
-          "title": "Exercise 4 notebook: PENDING",
-          "body": "Exercise4 has not been supplied. This is its reserved slot, with no invented notebook or solution. Use only the available Exercise2 clustering tasks and exact code excerpts below. The recording and notebook image files are also absent; saved plots and cell-count claims are not independently verified."
+          "title": "Exercise 4 reach decoding",
+          "body": "Exercise 4 covers reach-direction decoding. Try its timed case in the L08 oral simulator. The clustering tasks below use Exercise 2. The recording and notebook image files are also absent; saved plots and cell-count claims are not independently verified."
         }
       ],
       "conceptQuiz": [
@@ -1196,11 +1402,11 @@ export default {
         {
           "id": "L04-written-code-c5",
           "text": "Compares honestly.",
-          "accept": "Check natural gaps and within-group waveform similarity across two/three groups; a split in a continuum can be imposed. No recording or Exercise4 means no execution/cell-count certification."
+          "accept": "Check natural gaps and within-group waveform similarity across two/three groups; a split in a continuum can be imposed. The missing recording prevents checking cell counts."
         }
       ],
       "modelAnswer": [
-        "KMeans sees the transpose so each row is one 51-bin waveform. It returns a length-S label array. The call requests K groups with ten starting configurations and a fixed seed. The same label mask selects spike columns in the waveform matrix and both rows of the 2 by S score matrix, keeping colors aligned across the overlay and scatter. Compare whether a new group separates distinct waveform shapes or merely subdivides a continuous cloud. Neither a clean scatter nor fixed seed proves cell identity. The missing recording prevents checking counts and separation; Exercise4 remains pending."
+        "KMeans sees the transpose so each row is one 51-bin waveform. It returns a length-S label array. The call requests K groups with ten starting configurations and a fixed seed. The same label mask selects spike columns in the waveform matrix and both rows of the 2 by S score matrix, keeping colors aligned across the overlay and scatter. Compare whether a new group separates distinct waveform shapes or merely subdivides a continuous cloud. Neither a clean scatter nor fixed seed proves cell identity. The missing recording prevents checking counts and separation."
       ],
       "pitfalls": [
         "Confusing the initialization-count setting with K.",

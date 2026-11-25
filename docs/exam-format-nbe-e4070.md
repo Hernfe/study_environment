@@ -1,20 +1,27 @@
 # NBE-E4070 assessment and practice
 
-L01_statistics.pdf pp6–8: 20% quizzes, 50% manual/Python exercises,
-30% oral examination. The oral lasts 15 minutes and tests reasoning about a
-data-analysis problem, selecting/applying/explaining a method and understanding
-the student's own code. Week of Nov 30 is provisional; no exact appointment.
-No official oral paper or grading rubric is supplied.
+Quizzes count for 20%, exercises for 50%, and the oral examination for 30%
+(L01 statistics PDF pp. 6–8 and L08 recap p. 23).
 
-L07_advanced_methods.pdf p2 is the strongest written model: a five-minute
-explanation to a newcomer, with (1) a 1–2 sentence definition, (2) example data
-and input/output format including matrix axes, (3) labelled sketch, (4) uses,
-limitations and overinterpretation. Equations are optional. PCA and Fourier
-must each receive a separate prompt in their later modules.
+The candidate draws a dataset description and problem, prepares individually for
+10 minutes, then interviews for 10 minutes. The five questions are worth one
+point each and follow this order.
 
-Site practice: theory, 2–4 EASY MCQs per major topic, code/shape interpretation
-where relevant, then final free-text explanation prompts. Target 10–15 MCQs,
-3–5 code prompts, 3–4 written prompts per full lecture, guidelines not quotas.
-No E4210 format mix or E4120 exam rules. No invented instructor point weights.
-Checkbox scores are self-reported practice criteria, never instructor grades.
-Models/rubrics are optional, available without submitting an answer.
+1. Explain a line of code.
+2. Select and justify an analysis.
+3. Explain the analysis to a newcomer.
+4. Explain what to do if the result is unsatisfactory.
+5. Interpret the output and discuss errors or overinterpretation.
+
+L08 recap p. 24 asks for a short definition, input and output shapes with axes,
+a labelled sketch, and limitations. Equations are optional. Pages 25–26 give a
+worked oral scenario about using PCA to explore posture, accounting for height,
+and interpreting landmark loadings.
+
+The user supplied the room and materials instructions. Arrive at your scheduled
+time in U261 (OP room). Bring paper and pen. Real preparation uses neither notes
+nor screens.
+
+The simulator follows the official sequence. Its case-specific model answers
+and 0, 0.5 or 1 self-marks are formative guidance. The original untimed written
+practice and its saved responses are still available from the case picker.

@@ -19,13 +19,14 @@ const geometry = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 355 590" 
 
 export default {
   "learningMode": "topic-study",
+  "compactPractice": true,
   "meta": {
     "id": "L03",
     "number": 3,
     "title": "Principal Component Analysis I"
   },
   "intro": [
-    "Follow the PCA I slides: data geometry, covariance, principal directions, explained variance and the computer pipeline. Read each short unit before its easy MCQs, then practise real Exercise2 code and finish with four oral-style written prompts.",
+    "Read the short theory and use the interactive code cards in context. Open the optional code explanations and final written practice when you want to rehearse for the oral.",
     "Use features in rows and observations in columns throughout. Private sources and saved notebook outputs are not bundled; the missing recording means no actual analysis result is claimed."
   ],
   "sections": [
@@ -158,6 +159,114 @@ export default {
     },
     {
       "id": "center-covariance",
+      "codeVisualCards": [
+        {
+          "id": "L03-code-visual-center",
+          "title": "Center each feature across waveforms",
+          "snippet": {
+            "language": "python",
+            "text": "centred = waveforms - waveforms.mean(axis=1, keepdims=True)",
+            "provenance": "Shortened line (comment omitted)",
+            "sources": [
+              {
+                "source": "exercise2",
+                "cell": 19
+              },
+              {
+                "source": "pca1",
+                "pages": "19–24"
+              }
+            ],
+            "context": "Rows of waveforms are features (here, two voltage bins); columns are individual waveforms. keepdims=True keeps the means as a 2 × 1 column."
+          },
+          "visual": {
+            "kind": "pca-geometry",
+            "data": [
+              [
+                -3,
+                -2
+              ],
+              [
+                -2,
+                -3
+              ],
+              [
+                -1,
+                0
+              ],
+              [
+                1,
+                0
+              ],
+              [
+                2,
+                3
+              ],
+              [
+                3,
+                2
+              ]
+            ],
+            "controls": [
+              {
+                "id": "offset",
+                "label": "Feature 2 offset (µV)",
+                "initial": 4,
+                "options": [
+                  {
+                    "value": 0,
+                    "label": "0"
+                  },
+                  {
+                    "value": 4,
+                    "label": "4"
+                  }
+                ]
+              }
+            ],
+            "caption": "Illustrative data · The same waveforms before and after centering",
+            "alt": "Each dot is one waveform. The two plots share the same axes and scales."
+          },
+          "mcq": {
+            "id": "L03-code-visual-center-check",
+            "difficulty": "easy",
+            "prompt": "Add $4\\,\\text{µV}$ to feature 2 for every waveform. Where does that offset appear?",
+            "correct": 0,
+            "options": [
+              {
+                "text": "In the input cloud only.",
+                "feedback": "The feature 2 mean rises by exactly the same offset and subtracting it cancels the shift."
+              },
+              {
+                "text": "In the input and centered clouds.",
+                "feedback": "Centering removes the common feature offset from every observation."
+              },
+              {
+                "text": "In the centered cloud only.",
+                "feedback": "The raw feature values shift directly when you add an offset."
+              }
+            ]
+          },
+          "blank": {
+            "id": "L03-code-visual-center-blank",
+            "prompt": "Reduce the waveform axis so the result contains one mean per feature.",
+            "template": "means = waveforms.mean(axis={token}, keepdims=True)",
+            "fields": [
+              {
+                "id": "token",
+                "label": "Waveform axis",
+                "accepted": [
+                  "1",
+                  "-1"
+                ],
+                "explanation": "Axis 1 is the column axis of this two-dimensional array.",
+                "commonErrors": "Axis 0 averages the features within each waveform."
+              }
+            ],
+            "expectedOutput": "The output has shape 2 × 1 and broadcasts across the waveform columns."
+          }
+        }
+      ],
       "title": "2. Center features and measure covariance",
       "priority": "Red covariance definition; orange matrix representation and centering.",
       "sources": [
@@ -589,6 +698,96 @@ export default {
     },
     {
       "id": "variance-reduction",
+      "codeVisualCards": [
+        {
+          "id": "L03-code-visual-project",
+          "title": "Keep one or two score coordinates",
+          "snippet": {
+            "language": "python",
+            "text": "proj = eigvecs[:, :k].T @ centred",
+            "provenance": "Adapted line",
+            "sources": [
+              {
+                "source": "exercise2",
+                "cell": 19
+              },
+              {
+                "source": "pca1",
+                "pages": "23–31"
+              }
+            ],
+            "context": "eigvecs holds the covariance eigenvectors as columns, ordered by decreasing eigenvalue. k replaces the notebook’s fixed 2. PC signs can flip with an equally valid eigenvector convention."
+          },
+          "visual": {
+            "kind": "pca-geometry",
+            "data": [
+              [
+                -3,
+                -2
+              ],
+              [
+                -2,
+                -3
+              ],
+              [
+                -1,
+                0
+              ],
+              [
+                1,
+                0
+              ],
+              [
+                2,
+                3
+              ],
+              [
+                3,
+                2
+              ]
+            ],
+            "controls": [
+              {
+                "id": "components",
+                "label": "Components retained",
+                "initial": 1,
+                "options": [
+                  {
+                    "value": 1,
+                    "label": "1"
+                  },
+                  {
+                    "value": 2,
+                    "label": "2"
+                  }
+                ]
+              }
+            ],
+            "caption": "Illustrative data · Feature-space directions and component scores",
+            "alt": "Solid line is PC1. The dashed line adds PC2. With one component the score plot is a number line."
+          },
+          "mcq": {
+            "id": "L03-code-visual-project-check",
+            "difficulty": "medium",
+            "prompt": "What happens to two waveforms with equal PC1 scores and different PC2 scores when you keep one component?",
+            "correct": 2,
+            "options": [
+              {
+                "text": "They retain their separation along PC2.",
+                "feedback": "That coordinate is absent from a one-component representation."
+              },
+              {
+                "text": "Their PC1 scores change to preserve distance.",
+                "feedback": "Keeping fewer components does not rotate or rescale the retained direction."
+              },
+              {
+                "text": "They occupy the same position on the score axis.",
+                "feedback": "The projection keeps only the coordinate they share."
+              }
+            ]
+          }
+        }
+      ],
       "title": "4. Rank variance and interpret components",
       "priority": "Red variance meaning; orange fly results, applications and interpretation.",
       "sources": [
@@ -799,8 +998,8 @@ export default {
         },
         {
           "type": "detail",
-          "title": "What remains optional or pending?",
-          "body": "The derivation and iterative algorithm on pp. 34–36 are optional, not prerequisite drills. Clustering is L04. Exercise4 notebook and the L08 oral-preparation deck remain pending. The missing electrode_recording.mat prevents checking actual scatter groups, spike counts or notebook conclusions."
+          "title": "Optional material and missing data",
+          "body": "The derivation and iterative algorithm on pp. 34–36 are optional, not prerequisite drills. Clustering is L04. The missing electrode_recording.mat prevents checking actual scatter groups, spike counts or notebook conclusions."
         },
         {
           "type": "detail",

@@ -1,3 +1,5 @@
+import { renderCodeVisualCard } from './codeVisualCard.js';
+import { createOralSimulator } from './oralSimulator.js';
 // Reusable topic study components. Mounted only by an opt-in course entry.
 import { el, paragraphs } from './dom.js';
 import { renderBlocks, renderSiteNav } from './render.js';
@@ -98,19 +100,25 @@ export function renderTopicLecture(content, root, { formatSource }) {
     ...content.sections.map((s) => el('li', {}, el('a', { href: `#${s.id}` }, s.title))),
     el('li', {}, el('a', { href: '#final-written' }, 'Final written practice')),
   ]));
+  function practice(questions, label) {
+    const responses = questions.map((question) => renderResponse(question, { lectureId: content.meta.id, formatSource }));
+    if (!content.compactPractice || !responses.length) return responses;
+    return el('details', { class: 'reveal' }, [el('summary', {}, label), responses]);
+  }
   const sections = content.sections.map((section) => el('section', { class: 'section study-unit', id: section.id }, [
     el('h2', {}, section.title),
     el('p', { class: 'muted' }, section.priority), renderSources(section.sources, formatSource),
     el('div', { class: 'study-theory' }, renderBlocks(section.blocks)),
     renderConceptQuiz(section.conceptQuiz, { lectureId: content.meta.id, sectionTitle: section.title, bestGuess: true }),
-    ...(section.codeUnderstanding || []).map((q) => renderResponse(q, { lectureId: content.meta.id, formatSource })),
+    ...(section.codeVisualCards || []).map((card) => renderCodeVisualCard(card, { lectureId: content.meta.id, formatSource })),
+    practice(section.codeUnderstanding || [], 'Optional notebook code explanations'),
   ]));
   root.replaceChildren(el('div', { class: 'page-inner' }, [
     renderSiteNav(content.meta.id), el('header', { class: 'page-header' }, [el('p', { class: 'kicker' }, `Lecture ${content.meta.number}`), el('h1', {}, content.meta.title), paragraphs(content.intro)]),
     storageNotice(),
     toc, ...sections,
     el('section', { class: 'section', id: 'final-written' }, [el('h2', {}, 'Final written practice'), el('p', {}, 'Explain your reasoning in your own words. Aim for about five minutes per prompt. You can use the optional model and checklist at any time.'),
-      ...content.finalWritten.map((q) => renderResponse(q, { lectureId: content.meta.id, formatSource })),
+      practice(content.finalWritten, 'Open optional written prompts'),
     ]),
     aiNotice(),
     el('footer', { class: 'site-credits' }, 'Original text and code-only learning aids. Private source files and notebook outputs are not included. Source citations identify local study material, not public downloads.'),
@@ -128,26 +136,23 @@ export function renderTopicLecture(content, root, { formatSource }) {
 
 export function renderOralPractice(content, root, { formatSource }) {
   root.classList.add('topic-study');
-  root.replaceChildren(el('div', { class: 'page-inner' }, [
-    renderSiteNav(content.meta.id),
-    el('header', { class: 'page-header' }, [el('h1', {}, content.meta.title),
-      el('p', { class: 'notice' }, 'Interim practice. The L08 lecture deck is pending. These scenarios are practice questions based on the supplied slides and notebooks.'),
-      el('p', {}, 'Choose one 15-minute session. Speak your answers aloud or write notes, then use the optional checklists and model answers.')]),
-    storageNotice(),
-    el('h2', {}, 'Suggested pace'),
-    el('ol', {}, [
-      el('li', {}, '2 minutes to choose and justify a method'),
-      el('li', {}, '5 minutes to explain the method and sketch the input or output'),
-      el('li', {}, '3 minutes to interpret the result and discuss limits'),
-      el('li', {}, '5 minutes to defend the excerpt and explain a corresponding line in your own code'),
-    ]),
-    el('h2', {}, 'Choose a scenario'),
+  const legacyPractice = () => el('details', { class: 'reveal' }, [
+    el('summary', {}, 'Original untimed practice and saved responses'),
     ...content.sessions.map((session) => el('details', { id: session.id, class: 'reveal study-session' }, [
       el('summary', {}, session.title),
       el('p', {}, session.scenario),
       ...session.questions.map((question) => renderResponse(question, { lectureId: content.meta.id, formatSource })),
     ])),
-    aiNotice(),
+  ]);
+  root.replaceChildren(el('div', { class: 'page-inner' }, [
+    renderSiteNav(content.meta.id),
+    el('header', { class: 'page-header' }, [el('h1', {}, content.meta.title),
+      el('p', {}, 'Draw a dataset and problem. Prepare for 10 minutes on paper, then answer five one-point questions in a 10-minute interview. The oral exam counts for 30% of the course grade.'),
+      el('p', { class: 'notice' }, 'Arrive at your scheduled time in U261 (OP room). Bring paper and pen. During real preparation, use neither notes nor screens.'),
+      renderSources([{ source: 'oral', pages: '23–24' }], formatSource),
+    ]),
+    storageNotice(),
+    createOralSimulator(content.cases, formatSource, legacyPractice),
   ]));
   typesetInline(root);
   watchMath(root);

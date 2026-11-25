@@ -1,3 +1,5 @@
+import { buildOralCases } from './oralCases.js';
+
 const pdf = (source, pages) => ({ source, pages });
 const cell = (source, cell) => ({ source, cell });
 
@@ -122,7 +124,8 @@ const trajectories = {
 
 export default {
   learningMode: 'oral-practice',
-  meta: { id: 'L08', number: 8, title: 'Oral exam preparation' },
+  meta: { id: 'L08', number: 8, title: 'Oral exam simulator' },
   sessions: [cohorts, rhythm, trajectories],
+  cases: buildOralCases([cohorts, rhythm, trajectories]),
   lectureQuiz: [],
 };

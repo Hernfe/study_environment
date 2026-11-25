@@ -1,3 +1,5 @@
+import { svd, correlation } from './advancedCards.js';
+
 export default {
   "meta": {
     "id": "L06",
@@ -5,8 +7,9 @@ export default {
     "title": "PCA II, SVD and Fourier"
   },
   "learningMode": "topic-study",
+  "compactPractice": true,
   "intro": [
-    "Theory comes before easy MCQs in each unit. Read real Exercise3 code after the introductory checks; four oral-style free-text tasks finish the lecture. Models and self-review are optional.",
+    "Read the theory, answer the short checks and use the interactive code cards in context. Open the optional code explanations or written prompts to rehearse for the oral.",
     "Exact source: Lecture6 PCA II, 46 PDF pages, plus Exercise3 high-dimensional PCA. The dataset and p40 video are absent; no saved notebook output is certified as a fresh result."
   ],
   "sections": [
@@ -295,6 +298,7 @@ export default {
     },
     {
       "id": "svd",
+      "codeVisualCards": [svd],
       "title": "3. SVD, PCA and low-rank reconstruction",
       "sources": [
         {
@@ -408,6 +412,7 @@ export default {
     },
     {
       "id": "correlation",
+      "codeVisualCards": [correlation],
       "title": "4. Covariance, correlation and feature scaling",
       "sources": [
         {

@@ -25,13 +25,14 @@ const filterFigure=`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 350 220
 
 export default {
   "learningMode": "topic-study",
+  "compactPractice": true,
   "meta": {
     "id": "L02",
     "number": 2,
     "title": "Spectral methods"
   },
   "intro": [
-    "Read the short theory, try the easy MCQs, then explain the related notebook code. Finish with four five-minute oral-style written prompts. All practice is optional and can be revisited.",
+    "Read the short theory and use the interactive code cards in context. Open the optional code explanations and final written practice when you want to rehearse for the oral.",
     "This is Lecture 2 spectral methods, verified from its title page. Source colors distinguish core definitions, understanding and examples. Exercise2 recording data and image folders are unavailable; saved notebook outputs are not verified here."
   ],
   "sections": [
@@ -179,6 +180,93 @@ export default {
     },
     {
       "id": "spectrum",
+      "codeVisualCards": [
+        {
+          "id": "L02-code-visual-fft",
+          "title": "Move a tone and locate its Fourier peak",
+          "snippet": {
+            "language": "python",
+            "text": "f = np.fft.rfftfreq(x.size, d=1 / fs)\nmagnitude = np.abs(np.fft.rfft(x))",
+            "provenance": "New teaching example",
+            "sources": [
+              {
+                "source": "spectral",
+                "pages": "7–12, 37–40"
+              }
+            ],
+            "context": "NumPy is imported as np. x is one second of real-valued samples. The sample rate is $64\\,\\text{Hz}$. The plot uses unnormalized magnitudes of the nonnegative DFT bins."
+          },
+          "visual": {
+            "kind": "fourier-signal",
+            "data": {
+              "fs": 64,
+              "low": 3,
+              "high": 12
+            },
+            "controls": [
+              {
+                "id": "frequency",
+                "label": "Second tone (Hz)",
+                "initial": 12,
+                "options": [
+                  {
+                    "value": 8,
+                    "label": "8"
+                  },
+                  {
+                    "value": 12,
+                    "label": "12"
+                  },
+                  {
+                    "value": 16,
+                    "label": "16"
+                  }
+                ]
+              }
+            ],
+            "caption": "Illustrative data · One waveform and its magnitude spectrum",
+            "alt": "The 3 Hz tone has fixed amplitude. The adjustable tone always has half that amplitude."
+          },
+          "mcq": {
+            "id": "L02-code-visual-fft-check",
+            "difficulty": "easy",
+            "prompt": "When the second tone moves from $12\\,\\text{Hz}$ to $16\\,\\text{Hz}$, what changes in the spectrum?",
+            "correct": 2,
+            "options": [
+              {
+                "text": "The $3\\,\\text{Hz}$ peak moves to $7\\,\\text{Hz}$.",
+                "feedback": "Its frequency stays fixed because its part of the signal is unchanged."
+              },
+              {
+                "text": "The higher-frequency peak gains height.",
+                "feedback": "The second tone keeps the same amplitude and lands on a DFT bin in both settings."
+              },
+              {
+                "text": "The smaller peak moves from 12 to $16\\,\\text{Hz}$.",
+                "feedback": "Its frequency changes while its amplitude stays fixed."
+              }
+            ]
+          },
+          "blank": {
+            "id": "L02-code-visual-fft-blank",
+            "prompt": "Complete the bin-frequency calculation with the sample spacing in seconds.",
+            "template": "f = np.fft.rfftfreq(x.size, d={token})",
+            "fields": [
+              {
+                "id": "token",
+                "label": "Sample spacing",
+                "accepted": [
+                  "1 / fs",
+                  "1/fs"
+                ],
+                "explanation": "A sample arrives every 1/fs seconds.",
+                "commonErrors": "fs itself is a rate in samples per second."
+              }
+            ],
+            "expectedOutput": "The 64-sample record has 33 nonnegative bins with $1\\,\\text{Hz}$ spacing."
+          }
+        }
+      ],
       "title": "2. Power spectra and fast computation",
       "priority": "Red: spectrum and FFT pp. 10–11. Blue: FFT demonstration p. 12.",
       "sources": [
@@ -288,6 +376,71 @@ export default {
     },
     {
       "id": "filters",
+      "codeVisualCards": [
+        {
+          "id": "L02-code-visual-lowpass",
+          "title": "Remove a component before reconstructing",
+          "snippet": {
+            "language": "python",
+            "text": "X = np.fft.rfft(x)\nX[f > cutoff] = 0\nfiltered = np.fft.irfft(X, n=x.size)",
+            "provenance": "New teaching example",
+            "sources": [
+              {
+                "source": "spectral",
+                "pages": "13–19"
+              }
+            ],
+            "context": "Use the same NumPy frequency axis and sampling rate as above, with tones fixed at $3$ and $12\\,\\text{Hz}$. This is a hard frequency mask on a periodic one-second example."
+          },
+          "visual": {
+            "kind": "fourier-signal",
+            "data": {
+              "fs": 64,
+              "low": 3,
+              "high": 12
+            },
+            "controls": [
+              {
+                "id": "cutoff",
+                "label": "Low-pass cutoff (Hz)",
+                "initial": 6,
+                "options": [
+                  {
+                    "value": 6,
+                    "label": "6"
+                  },
+                  {
+                    "value": 14,
+                    "label": "14"
+                  }
+                ]
+              }
+            ],
+            "caption": "Illustrative data · Time trace before and after masking",
+            "alt": "Compare the two signals on identical amplitude and time axes."
+          },
+          "mcq": {
+            "id": "L02-code-visual-lowpass-check",
+            "difficulty": "easy",
+            "prompt": "What accounts for the smoother output at the $6\\,\\text{Hz}$ cutoff?",
+            "correct": 1,
+            "options": [
+              {
+                "text": "Both tones are reduced by the same amount.",
+                "feedback": "The rule keeps the complete $3\\,\\text{Hz}$ coefficient and zeros the $12\\,\\text{Hz}$ coefficient."
+              },
+              {
+                "text": "The $12\\,\\text{Hz}$ tone is removed from the sum.",
+                "feedback": "Only frequencies at or below $6\\,\\text{Hz}$ survive the mask."
+              },
+              {
+                "text": "The $12\\,\\text{Hz}$ tone is moved into a lower bin.",
+                "feedback": "Masking sets coefficients to zero without shifting their frequencies."
+              }
+            ]
+          }
+        }
+      ],
       "title": "3. Filtering and ringing artifacts",
       "priority": "Red: filter definitions p. 13. Orange: reconstruction, ringing and smoother windows pp. 14–19.",
       "sources": [

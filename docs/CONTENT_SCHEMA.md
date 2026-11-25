@@ -1616,3 +1616,52 @@ They render in a collapsed panel, retain valid progress records, and
 sit outside the core bank and course review. A recap can supply a
 `title` and set `optional: true` to render collapsed. A visual can
 provide `sourceImage`, a local image URL linked from its caption.
+
+### Topic-study code visual cards
+
+A topic section can add `codeVisualCards` after its concept quiz. Each card has
+a page-unique `id`, a `title`, and an optional `optional: true` for a collapsed
+card. The card renders these fields in order.
+
+- `snippet` has `language: 'python'`, literal `text`, a short `context`,
+  `provenance` such as “Verbatim line”, and `sources` using the lecture's
+  citation formatter. Specify zero-based notebook cells or one-based PDF pages.
+  Snippets are displayed as text.
+- `visual` has `kind`, `caption`, `alt`, and view-specific data. Use a registered view in
+  `codeVisuals.js`. The view defines which data fields it reads. `schematic` takes `data: { summary, tables }`, where each
+  table contains `label`, `rowAxis`, `columns` and `rows` starting with row
+  headers. `mean-time` takes a rectangular, nonempty neuron × time × trial
+  tensor as `data` and a `unit` label. Its optional `bins` selector limits
+  the input to the first N bins. Each selector specifies `id`, `label`,
+  `initial` and `options: [{ value, label }]`. Use only values supported by
+  the registered view. `trial-permutation` takes `trials` (trial ID, two
+  feature values, direction code) and an `order` selector of zero-based
+  permutations. `trial-scaling` takes `train` and `validation` vectors of
+  one-neuron rates and a boolean `pooled` selector to demonstrate leakage.
+  `classification-scores` takes `truth` and a `predictions` map of aligned
+  `{ train, validation }` label vectors. Its `predictions` selector selects
+  a key in that map. Mark synthetic data clearly in the caption.
+- `mcq` takes a stable question `id`, `difficulty`, `prompt`,
+  `options: [{ text, feedback }]` (2–4) and authored `correct` index.
+  It uses the established concept history and checked-selection keys.
+- Optional `blank` takes a stable `id`, `prompt`, `template` with 1–3
+  single-use `{field-id}` markers, `fields`, and `expectedOutput`.
+  Fields have `id`, accessible `label`, explicit `accepted` string variants,
+  `explanation`, and optional `commonErrors`. Matching trims edges by default
+  and preserves case and internal whitespace. Set `trim: false` for an exact
+  match. Checked answers use `practice:code-blank:<lecture>:<id>` in the current
+  course namespace.
+
+Plot views in `codeVisualPlots.js` return a numeric summary and labelled SVG
+charts. L01 uses `uncertainty` with a pressure vector and sample size `n`, and
+`two-sample-t` with four pressures and a group `shift`. L02 uses
+`fourier-signal` with a 64 Hz one-second record, two on-bin tones (`low`,
+`high`), and either an adjustable second-tone `frequency` or a low-pass
+`cutoff`. L03 uses `pca-geometry` with paired feature values and either
+feature-two `offset` or retained `components`. L04 uses `lloyd-steps` with
+paired values, center count `k` and update count `step`, and `single-linkage`
+with sorted one-feature values and a cut `height`.
+
+Set `compactPractice: true` on a topic-study lecture to collapse its original
+free-text code explanations and final written prompts. The response IDs and
+saved state use the same keys in either layout.

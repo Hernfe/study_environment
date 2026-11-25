@@ -27,7 +27,7 @@ export const courses = [
     slug: 'nbe-e4070', code: 'NBE-E4070', title: 'Basics of Biomedical Data Analysis',
     term: 'Autumn 2026', status: 'active', examLabel: 'Oral exam',
     learningMode: 'topic-study',
-    summary: 'Methods, interpretation and own-code explanation. Study L01–L07 or choose an interim 15-minute oral practice session.',
+    summary: 'Methods, interpretation and own-code explanation. Study L01–L07 or practise the official oral format in the L08 simulator.',
   },
   {
     slug: 'tu-e4350', code: 'TU-E4350', title: 'Technology Entrepreneurship',

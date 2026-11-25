@@ -12,9 +12,10 @@ import { getPracticeState, savePracticeState, recordConceptHint, recordConceptRe
 // Options are shown in a stable shuffled order seeded by `seed`
 // (lecture id plus question id), so the authored position of the
 // correct option never shows through.
-export function createMcBody(question, { onCheck, allowRetry = false, seed, showAllFeedback = false, onReset } = {}) {
+export function createMcBody(question, { onCheck, allowRetry = false, seed, showAllFeedback = false, onReset, focusRetry = false } = {}) {
   let selected = null;
   let locked = false;
+  let restoring = false;
   const buttons = [];
   const order = seededOrder(question.options.length, seed ?? question.id);
 
@@ -72,11 +73,14 @@ export function createMcBody(question, { onCheck, allowRetry = false, seed, show
     feedback.replaceChildren(
       el('strong', {}, correct ? 'Correct.' : 'Not quite.'),
       ' ',
-      correct ? 'Well remembered.' : 'The correct option is marked. Read both feedback lines.'
+      correct ? 'Well remembered.' : focusRetry && showAllFeedback
+        ? 'The correct option is marked. Read the option feedback.'
+        : 'The correct option is marked. Read both feedback lines.'
     );
     checkButton.hidden = true;
     if (allowRetry) retryButton.hidden = false;
     if (onCheck) onCheck({ correct, index: selected });
+    if (allowRetry && focusRetry && !restoring) retryButton.focus();
   }
 
   function reset() {
@@ -100,22 +104,25 @@ export function createMcBody(question, { onCheck, allowRetry = false, seed, show
   const root = el('div', { class: 'mc-body' }, [list, feedback, row]);
   return { root, reset, restore: (index) => {
     if (!Number.isInteger(index) || index < 0 || index >= question.options.length) return;
+    restoring = true;
     select(index);
     check();
+    restoring = false;
   }, isLocked: () => locked };
 }
 
-export function renderConceptQuiz(questions, { lectureId, sectionTitle, showAllFeedback = false, bestGuess = false } = {}) {
+export function renderConceptQuiz(questions, { lectureId, sectionTitle, showAllFeedback = false, bestGuess = false, codeCard = false } = {}) {
   if (!questions || questions.length === 0) return null;
   const container = el('div', { class: 'concept-quiz' }, [
-    el('h3', {}, 'Check yourself'),
+    el(codeCard ? 'h4' : 'h3', {}, 'Check yourself'),
   ]);
-  if (bestGuess) container.appendChild(el('p', { class: 'muted' }, 'Make your best guess, then check to read the explanations. You can skip ahead to any practice question.'));
+  if (bestGuess && !codeCard) container.appendChild(el('p', { class: 'muted' }, 'Make your best guess, then check to read the explanations. You can skip ahead to any practice question.'));
   questions.forEach((question, index) => {
+    const tier = codeCard ? (question.difficulty || 'easy') : 'easy';
     const card = el('article', { class: 'question', 'aria-labelledby': `cq-${question.id}` }, [
       el('div', { class: 'question-head' }, [
-        el('span', { class: 'badge badge-easy' }, 'Easy'),
-        el('span', {}, `Question ${index + 1} of ${questions.length}`),
+        el('span', { class: `badge badge-${tier}` }, tier[0].toUpperCase() + tier.slice(1)),
+        codeCard ? null : el('span', {}, `Question ${index + 1} of ${questions.length}`),
         sectionTitle ? el('span', { class: 'visually-hidden' }, sectionTitle) : null,
       ]),
       el('div', { class: 'question-prompt', id: `cq-${question.id}` }, paragraphs(question.prompt)),
@@ -130,6 +137,7 @@ export function renderConceptQuiz(questions, { lectureId, sectionTitle, showAllF
     };
     const body = createMcBody(question, {
       allowRetry: true,
+      focusRetry: codeCard,
       showAllFeedback: bestGuess || showAllFeedback,
       seed: `${lectureId}:${question.id}`,
       onReset: () => {

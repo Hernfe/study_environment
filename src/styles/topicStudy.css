@@ -13,3 +13,35 @@
 .topic-study .study-rubric, .topic-study .study-history { margin-block: 1rem; }
 .topic-study .study-rubric[open] { padding-bottom: 1rem; }
 .topic-study .study-theory > * { min-width: 0; }
+
+.oral-simulator select { max-width: 100%; color: var(--c-text); background: var(--c-surface); }
+.oral-simulator .btn-row { flex-wrap: wrap; }
+.oral-timer { font-variant-numeric: tabular-nums; font-weight: 600; }
+.oral-question textarea { display: block; width: 100%; box-sizing: border-box; }
+.oral-output { overflow-x: auto; margin-block: 1rem; }
+.oral-output caption { text-align: left; font-weight: 600; }
+.oral-output th, .oral-output td { text-align: left; padding: .4rem; border-bottom: 1px solid var(--c-border); }
+.oral-rubric { margin-block: 1rem; }
+
+.code-visual-card { margin-block: 2rem; min-width: 0; }
+.code-visual-card .code-token { color: var(--c-accent); font-weight: 600; }
+.code-visual-card .code-literal { color: var(--c-text-muted); }
+.code-visual-view { margin: 1rem 0; }
+.code-visual-view figcaption, .code-visual-view caption { text-align: left; font-weight: 600; }
+.code-visual-tables { display: flex; flex-wrap: wrap; gap: 1rem; }
+.code-visual-tables table { border-collapse: collapse; font-size: .875rem; font-variant-numeric: tabular-nums; }
+.code-visual-tables :is(th, td) { padding: .25rem .45rem; border-bottom: 1px solid var(--c-border); text-align: right; }
+.code-blank-template { padding: .75rem; border: 1px solid var(--c-border); overflow-wrap: anywhere; white-space: pre-wrap; }
+.code-visual-card :is(select, input) { font: inherit; color: var(--c-text); background: var(--c-surface); max-width: 100%; }
+.code-visual-card :focus-visible { outline: 3px solid var(--c-accent); outline-offset: 2px; }
+
+.code-visual-controls { display: flex; flex-wrap: wrap; gap: .5rem 1rem; }
+.code-visual-plots { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 17rem), 1fr)); gap: .5rem; }
+.code-visual-plot { display: block; width: 100%; max-width: 24rem; color: var(--c-text); }
+.code-visual-plot > text { fill: currentColor; font: 10px system-ui, sans-serif; text-anchor: middle; }
+.code-visual-plot > .plot-title { font-size: 11px; font-weight: 600; }
+.code-visual-plot .plot-primary { color: var(--c-accent); }
+.code-visual-plot .plot-secondary { color: var(--c-text-muted); stroke-dasharray: 4 2; }
+.code-visual-plot :is(.plot-primary, .plot-secondary) :is(path, line) { fill: none; stroke: currentColor; stroke-width: 1.5; }
+.code-visual-plot .plot-dot { fill: currentColor; }
+.code-visual-plot .plot-center { fill: var(--c-surface); stroke: currentColor; stroke-width: 2; }

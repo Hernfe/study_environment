@@ -1,3 +1,5 @@
+import { ica, tsne, forest, network } from './advancedCards.js';
+
 // Source-grounded lecture text; no private source imports or dataset observations.
 export default {
   "meta": {
@@ -6,13 +8,15 @@ export default {
     "title": "Advanced methods"
   },
   "learningMode": "topic-study",
+  "compactPractice": true,
   "intro": [
-    "Theory and easy MCQs come first in every unit; code reading follows the relevant checks. Four substantial oral-style free-text prompts finish the lecture, including separate PCA and Fourier explanations from page 2.",
-    "Exact source: L07 advanced methods, 30 PDF pages. No advanced-method notebook is supplied. New snippets are labelled sample practice; real Exercise2 excerpts support cumulative code defense. Datasets, Exercise4 and the lecture 8 deck remain unavailable."
+    "Read the theory, answer the short checks and use the interactive code cards in context. Open the optional code explanations or written prompts to rehearse for the oral.",
+    "Exact source: L07 advanced methods, 30 PDF pages. No advanced-method notebook is supplied. New snippets are labelled sample practice; real Exercise2 excerpts support cumulative code defense. The L08 recap and Exercise 4 support the oral practice. The exercise datasets are unavailable locally."
   ],
   "sections": [
     {
       "id": "ica",
+      "codeVisualCards": [ica],
       "title": "1. Beyond PCA: separate independent sources",
       "sources": [
         {
@@ -216,6 +220,7 @@ export default {
     },
     {
       "id": "tsne",
+      "codeVisualCards": [tsne],
       "title": "2. t-SNE: a map for exploration",
       "sources": [
         {
@@ -428,6 +433,7 @@ export default {
     },
     {
       "id": "trees",
+      "codeVisualCards": [forest],
       "title": "3. Decision trees and random forests",
       "sources": [
         {
@@ -578,6 +584,7 @@ export default {
     },
     {
       "id": "networks",
+      "codeVisualCards": [network],
       "title": "4. Deep networks: prediction and learning",
       "sources": [
         {
@@ -915,7 +922,7 @@ export default {
         },
         {
           "type": "text",
-          "body": "Exercise4 notebook remains PENDING; available clustering code is Exercise2. Lecture 8 promises oral preparation but its deck is pending. The final prompts below are source-grounded practice, not official oral exam questions."
+          "body": "Exercise 2 supplies the clustering code. Use the L08 oral simulator for timed practice, including a reach-decoding case from Exercise 4. The final prompts below are untimed practice."
         }
       ],
       "conceptQuiz": [
@@ -1200,7 +1207,7 @@ export default {
         "Calling a repeatable result valid without checking shift and shortcuts."
       ],
       "code": "labels = KMeans(n_clusters=K, n_init=10, random_state=0).fit_predict(waveforms.T)",
-      "codeContext": "Real Exercise2 cell23 line; imports KMeans from sklearn.cluster in the same cell, NumPy/Matplotlib in cell4. K loops over 2 and 3. Missing electrode_recording.mat; no advanced-method or Exercise4 notebook is supplied."
+      "codeContext": "Real Exercise2 cell23 line; imports KMeans from sklearn.cluster in the same cell, NumPy/Matplotlib in cell4. K loops over 2 and 3. The electrode_recording.mat dataset is unavailable locally. The Exercise 4 notebook concerns logistic regression."
     }
   ],
   "lectureQuiz": []
